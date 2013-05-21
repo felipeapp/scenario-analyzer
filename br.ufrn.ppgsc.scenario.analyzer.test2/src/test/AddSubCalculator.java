@@ -4,7 +4,7 @@ import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 
-@Component(name = "cp - AddSubCalculator")
+@Component(name = "cp - AddSubCalculator2")
 public class AddSubCalculator implements IAddSubCalculator {
 	
 	@Scenario(name="sub in add")
