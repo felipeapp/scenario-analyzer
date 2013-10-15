@@ -149,4 +149,8 @@ public class ChangedAssetsMinerNoDB extends Miner {
 		return bcl;
 	}
 
+	public void validateParameter() throws Exception {
+		logger.info("validateParameter...");
+	}
+
 }
