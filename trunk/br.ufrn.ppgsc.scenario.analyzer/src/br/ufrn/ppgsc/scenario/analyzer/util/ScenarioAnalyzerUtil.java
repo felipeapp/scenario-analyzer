@@ -1,7 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.util;
 
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -255,24 +254,24 @@ public abstract class ScenarioAnalyzerUtil {
 		return result + ")";
 	}
 	
-	public static String getStandartMethodSignature(Method method) {
-		StringBuffer result = new StringBuffer();
-		
-		result.append(method.getDeclaringClass().getName());
-		result.append(".");
-		result.append(method.getName());
-		result.append("(");
-		
-		for (Class<?> cls : method.getParameterTypes()) {
-			result.append(cls.getCanonicalName());
-			result.append(",");
-		}
-		
-		if (result.charAt(result.length() - 1) == ',')
-			result.deleteCharAt(result.length() - 1);
-		
-		return result + ")";
-	}
+//	public static String getStandartMethodSignature(Method method) {
+//		StringBuffer result = new StringBuffer();
+//		
+//		result.append(method.getDeclaringClass().getName());
+//		result.append(".");
+//		result.append(method.getName());
+//		result.append("(");
+//		
+//		for (Class<?> cls : method.getParameterTypes()) {
+//			result.append(cls.getCanonicalName());
+//			result.append(",");
+//		}
+//		
+//		if (result.charAt(result.length() - 1) == ',')
+//			result.deleteCharAt(result.length() - 1);
+//		
+//		return result + ")";
+//	}
 	
 	private static String convertTypeSignatureToName(String type) {
 		switch (type) {

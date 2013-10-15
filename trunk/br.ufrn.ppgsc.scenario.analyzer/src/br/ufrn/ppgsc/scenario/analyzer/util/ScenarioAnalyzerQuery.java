@@ -43,7 +43,7 @@ public class ScenarioAnalyzerQuery {
 	 * TODO Testar...
 	 */
 	public ScenarioData[] getScenariosFromMethod(Method method) {
-		MethodData method_data = data.getMethodDataFromIndex(ScenarioAnalyzerUtil.getStandartMethodSignature(method));
+		MethodData method_data = data.getMethodDataFromIndex(MemberUtil.getStandartMethodSignature(method));
 		return getScenariosFromMethod(method_data);
 	}
 	
