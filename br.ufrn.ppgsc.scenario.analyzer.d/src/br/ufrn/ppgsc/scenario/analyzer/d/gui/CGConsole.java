@@ -12,8 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.ExecutionPaths;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
 
 public class CGConsole extends JFrame {
 	
@@ -39,7 +39,7 @@ public class CGConsole extends JFrame {
 				
 				StringBuilder sb = new StringBuilder();
 				
-				for (RuntimeCallGraph cg : ExecutionPaths.getInstance().getAllRuntimeCallGraph()) {
+				for (RuntimeScenario cg : Execution.getInstance().getAllRuntimeCallGraph()) {
 					try {
 						DataUtil.printScenarioTree(cg, sb);
 					} catch (IOException ex) {
