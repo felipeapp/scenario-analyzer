@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.ExecutionPaths;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
 
 public class MainThread {
 	
@@ -45,9 +45,19 @@ public class MainThread {
 			
 		}
 		
+		try {
+			divide(1, 0);
+		} catch (ArithmeticException ex) {
+			
+		}
+		
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public int divide(int a, int b) {
+		return a / b;
+	}
+	
+	public static void main(String[] args) throws Exception {
 
 		new MyThread().start();
 		
@@ -60,7 +70,7 @@ public class MainThread {
 			
 		new MainThread().methodA();
 		
-		for (RuntimeCallGraph cg : ExecutionPaths.getInstance().getAllRuntimeCallGraph()) {
+		for (RuntimeScenario cg : Execution.getInstance().getAllRuntimeCallGraph()) {
 			StringBuilder sb = new StringBuilder();
 			DataUtil.printScenarioTree(cg, sb);
 			System.out.println(sb);

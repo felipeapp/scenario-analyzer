@@ -5,8 +5,8 @@ import java.io.IOException;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.ExecutionPaths;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
 
 public class Main {
 	
@@ -27,7 +27,7 @@ public class Main {
 	}
 	
 	@Robustness(name="robstness_divide")
-	public int divide(int a, int b) {
+	public int divide(int a, int b, int[] c) {
 		return a / b;
 	}
 
@@ -39,7 +39,7 @@ public class Main {
 		System.out.println(m.convertToInt("ss10felipe"));
 		
 		try {
-			System.out.println(m.divide(1, 0));
+			System.out.println(m.divide(1, 0, null));
 		} catch (ArithmeticException e) {
 			System.out.println("main também pega");
 		}
@@ -55,7 +55,7 @@ public class Main {
 		System.out.println(calc.mult(6, 2));
 		System.out.println(calc.div(6, 2));
 		
-		for (RuntimeCallGraph cg : ExecutionPaths.getInstance().getAllRuntimeCallGraph()) {
+		for (RuntimeScenario cg : Execution.getInstance().getAllRuntimeCallGraph()) {
 			StringBuilder sb = new StringBuilder();
 			DataUtil.printScenarioTree(cg, sb);
 			System.out.println(sb);
