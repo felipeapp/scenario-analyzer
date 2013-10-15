@@ -14,9 +14,11 @@ import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.ExecutionPaths;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 /*
  * Ter uma anotção de scenario é caso base para iniciar a construção da estrutura.
@@ -64,8 +66,9 @@ public aspect AspectScenario {
 		 */
 		if (isStartMethod(member)) {
 			Scenario ann_scenario = ((Method)member).getAnnotation(Scenario.class);
-			RuntimeCallGraph cg = new RuntimeCallGraph(ann_scenario.name(), node, getContextParameterMap());
-			ExecutionPaths.getInstance().addRuntimeCallGraph(cg);
+			RuntimeScenario scenario_cg = new RuntimeScenario(ann_scenario.name(), node, getContextParameterMap());
+			Execution.getInstance().addRuntimeScenario(scenario_cg);
+			scenario_cg.setExecution(Execution.getInstance());
 		}
 		else if (nodes_stack.empty()) {
 			/* TODO: decidir o que fazer nesta situação?
@@ -97,11 +100,9 @@ public aspect AspectScenario {
 		 * Caso o método seja um método de entrada de um cenário, as informações
 		 * da execução serão salvas no banco de dados.
 		 */
-//		if (isStartMethod(member)) {
-//			RuntimeCallGraph runtimeCallGraph = ExecutionPaths.getInstance().getLastRuntimeCallGraph();
-//			RuntimeNode root = runtimeCallGraph.getRoot();
-//			DatabaseService.saveResults((Method)member, root.getTime(), (root.getException() == null ? false : true));
-//		}
+		if (isStartMethod(member)) {
+			DatabaseService.saveResults(Execution.getInstance());
+		}
 		
 		return o;
 	}
@@ -137,8 +138,12 @@ public aspect AspectScenario {
 			RuntimeNode node = nodes_stack.peek();
 		
 			// Testa se foi o método que capturou ou lançou a exceção
-			if (node.getMember().equals(m))
+			if (node.getMemberSignature().equals(MemberUtil.getStandartMethodSignature(m)))
 				node.setException(t);
+			
+			// Testa se foi o método que capturou ou lançou a exceção
+//			if (node.getMember().equals(m))
+//				node.setException(t);
 		}
 	}
 	
