@@ -15,9 +15,9 @@ public class IProjectDAO {
 	public IProjectDAO() {
 		try {
 			connection = DriverManager.getConnection(
-					"",
-					"",
-					"");
+					"jdbc:postgresql://bddesenv1.info.ufrn.br/sistemas_comum_20130604",
+					"comum_user",
+					"comum_user");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
