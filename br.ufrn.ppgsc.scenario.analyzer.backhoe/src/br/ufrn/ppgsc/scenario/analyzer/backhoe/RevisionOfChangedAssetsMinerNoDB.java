@@ -91,5 +91,9 @@ public class RevisionOfChangedAssetsMinerNoDB extends Miner {
 //			}
 //		}
 	}
+	
+	public void validateParameter() throws Exception {
+		logger.info("validateParameter...");
+	}
 
 }
