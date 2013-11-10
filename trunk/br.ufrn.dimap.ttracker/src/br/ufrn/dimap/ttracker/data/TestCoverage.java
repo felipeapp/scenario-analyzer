@@ -50,9 +50,24 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	}
 
 	public void addCoveredMethod(String methodSignature, LinkedHashSet<Variable> inputs) {
-		MethodData methodData = TestCoverageMapping.getInstance().findOrCreateMethodData(methodSignature);
+		MethodData methodData = TestCoverageMapping.getInstance().addCoveredMethod(methodSignature);
 		methodData.getTestsCoverage().add(this);
 		coveredMethods.add(new CoveredMethod(methodData, null, inputs));
+	}
+	
+	public void print() {
+		System.out.println("TestCoverage "+this.getIdTest()+": "+this.getTestData().getSignature());
+		System.out.println("MethodDatas:");
+		for (CoveredMethod coveredMethod : this.getCoveredMethods()) {
+			String returnString = ((coveredMethod.getTheReturn() == null || coveredMethod.getTheReturn().getValue() == null) ? "" : "("+coveredMethod.getTheReturn().getValue().toString()+") -> ");
+			String inputString = " <- (";
+			for(Variable input : coveredMethod.getInputs()){
+				inputString += input.getValue().toString()+", ";
+			}
+			inputString = coveredMethod.getInputs().size() == 0 ? "" : inputString.substring(0,inputString.length()-2)+")";
+			System.out.println("\t"+returnString+coveredMethod.getMethodData().getSignature()+inputString);
+		}
+		System.out.println("\n---------------------------------------------------------------\n");
 	}
 
 	public void updateCoveredMethod(String methodSignature, Variable theReturn) { //TODO: Verificar se ocorrem erros quando na existência de um método recursivo que receba os mesmos parâmetros de entrada que o seu antecessor
@@ -100,6 +115,26 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 			stringBuffer.append("\t"+coveredMethod.toString());
 		stringBuffer.append("Date: "+date.toString()+"\n");
 		return stringBuffer.toString();
+	}
+	
+	public static Set<TestCoverage> intersection(Set<TestCoverage> A, Set<TestCoverage> B) {
+		Set<TestCoverage> auxB = new HashSet<TestCoverage>(B);
+		Set<TestCoverage> intersection = new HashSet<TestCoverage>(A.size()+B.size());
+		for (TestCoverage testA : A) {
+			TestCoverage aux = null;
+			for(TestCoverage testB : auxB) {
+				if(testA.getTestData().equals(testB.getTestData())) {
+					aux = testB;
+					intersection.add(aux);
+					break;
+				}
+			}
+			if(aux != null) {
+				auxB.remove(aux);
+				aux = null;
+			}
+		}
+		return intersection;
 	}
 
 	@Override

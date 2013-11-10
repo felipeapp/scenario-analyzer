@@ -4,6 +4,7 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -16,15 +17,21 @@ public class MethodData implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String signature;
+	private MethodState methodState;
 	private SortedSet<TestCoverage> testsCoverage;
 	
 	public MethodData(String signature) {
 		this.signature = signature;
+		this.methodState = new MethodState();
 		testsCoverage = new TreeSet<TestCoverage>();
 	}
 	
 	public String getSignature() {
 		return signature;
+	}
+
+	public MethodState getMethodState() {
+		return methodState;
 	}
 
 	public Set<TestCoverage> getTestsCoverage() {
@@ -38,20 +45,17 @@ public class MethodData implements Serializable {
 		for(TestCoverage otherTestCoverage : other.getTestsCoverage())
 			testsCoverage.add(otherTestCoverage);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((signature == null) ? 0 : signature.hashCode());
+		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -64,5 +68,15 @@ public class MethodData implements Serializable {
 			return false;
 		return true;
 	}
+	
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result
+//				+ ((signature == null) ? 0 : signature.hashCode());
+//		return result;
+//	}
+
 
 }

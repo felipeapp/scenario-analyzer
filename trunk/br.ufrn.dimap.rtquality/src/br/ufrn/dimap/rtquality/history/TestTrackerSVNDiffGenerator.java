@@ -9,7 +9,6 @@ import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,8 +34,7 @@ import org.tmatesoft.svn.core.wc.ISVNOptions;
 import org.tmatesoft.svn.core.wc.SVNDiffOptions;
 import org.tmatesoft.svn.util.SVNLogType;
 
-import br.ufrn.dimap.testtracker.util.FileUtil;
-
+import br.ufrn.dimap.ttracker.util.FileUtil;
 import de.regnis.q.sequence.line.diff.QDiffGeneratorFactory;
 import de.regnis.q.sequence.line.diff.QDiffManager;
 
@@ -798,6 +796,8 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
     }
 
 	private String readFile(File file){
+		if(file == null)
+			return "";
 		StringBuilder content = null;
 		try {
 			FileReader reader = new FileReader(file);
@@ -820,11 +820,19 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
     	os.write(getEOL());
     	String fileDirectory = (new File("")).getAbsolutePath()+"\\temp\\"; //TODO: Encontrar o arquivo dentro do projeto, pois o checkout já foi feito
     	//TODO: Encontar uma forma de buscar todos os diffs no próprio projeto já feito checkout, ou fazer o diff antes do checkout, caso não haja diff o checkout pode baixar apenas os arquivos que sofreram modificação, evitando baixar arquivos com redundância
-    	FileUtil.saveTextToFile(readFile(file1), fileDirectory+(rev1.substring(1, rev1.length()-1)), file2.getName(), "");
-    	os.write(("      <classSourceCode1>"+(rev1.substring(rev1.lastIndexOf(' ')+1,rev1.length()-1).equals("0") ? "null" : fileDirectory+(rev1.substring(1, rev1.length()-1))+"\\"+file2.getName())+"</classSourceCode1>").getBytes(getEncoding()));
+    	if(file1 != null) {
+    		FileUtil.saveTextToFile(readFile(file1), fileDirectory+(rev1.substring(1, rev1.length()-1)), file1.getName(), "");
+    		os.write(("      <classSourceCode1>"+(rev1.substring(rev1.lastIndexOf(' ')+1,rev1.length()-1).equals("0") ? "null" : fileDirectory+(rev1.substring(1, rev1.length()-1))+"\\"+file1.getName())+"</classSourceCode1>").getBytes(getEncoding()));
+    	}
+    	else
+    		os.write(("      <classSourceCode1>null</classSourceCode1>").getBytes(getEncoding()));
     	os.write(getEOL());
-    	FileUtil.saveTextToFile(readFile(file2), fileDirectory+(rev2.substring(1, rev2.length()-1)), "_"+file2.getName(), "");
-    	os.write(("      <classSourceCode2>"+fileDirectory+(rev2.substring(1, rev2.length()-1))+"\\"+"_"+file2.getName()+"</classSourceCode2>").getBytes(getEncoding()));
+    	if(file2 != null) {
+    		FileUtil.saveTextToFile(readFile(file2), fileDirectory+(rev2.substring(1, rev2.length()-1)), "_"+file2.getName(), "");
+    		os.write(("      <classSourceCode2>"+fileDirectory+(rev2.substring(1, rev2.length()-1))+"\\"+"_"+file2.getName()+"</classSourceCode2>").getBytes(getEncoding()));
+    	}
+    	else
+    		os.write(("      <classSourceCode2>null</classSourceCode2>").getBytes(getEncoding()));
     	os.write(getEOL());
     	os.write("      <changedLines>".getBytes(getEncoding()));
     	os.write(getEOL());

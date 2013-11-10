@@ -1,8 +1,11 @@
 package br.ufrn.dimap.ttracker.data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Task {
+public class Task implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private List<Revision> revisions;
 	private String type;

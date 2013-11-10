@@ -49,8 +49,8 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.dimap.rtquality.plugin.Activator;
 import br.ufrn.dimap.rtquality.plugin.SysOutProgressMonitor;
-import br.ufrn.dimap.testtracker.data.Revision;
-import br.ufrn.dimap.testtracker.util.FileUtil;
+import br.ufrn.dimap.ttracker.data.Revision;
+import br.ufrn.dimap.ttracker.util.FileUtil;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -78,9 +78,8 @@ public class History {
     public Set<String> getChangedMethodsSignatures(Revision startRevision) {
     	Collection<UpdatedMethod> updatedMethods = getChangedMethods(startRevision.getOldRevision(),startRevision);
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
-    	for (UpdatedMethod m : updatedMethods) {
+    	for (UpdatedMethod m : updatedMethods)
 			changedMethodsSignatures.add(m.getMethodLimit().getSignature());
-		}
         return changedMethodsSignatures;
     }
     
@@ -133,7 +132,7 @@ public class History {
     	}, iWorkspace.getRoot(), IWorkspace.AVOID_UPDATE, new SysOutProgressMonitor());
     	
     	copyFile(iProject, "/lib/aspectjweaver.jar");
-    	copyFile(iProject, "/lib/testtracker.jar");
+    	copyFile(iProject, "/lib/ttracker.jar");
     	iProject.refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
     	
     	SysOutProgressMonitor.out.println("Eclipse project imported");
@@ -164,7 +163,7 @@ public class History {
     	
 		IClasspathEntry aspectjContainer = JavaCore.newContainerEntry(new Path("org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"));
 //		IClasspathEntry aspectjweaverJar = JavaCore.newLibraryEntry(new Path(iProject.getFullPath().toString()+"/lib/aspectjweaver.jar"), null, null);
-		IClasspathEntry testtrackerJar = JavaCore.newLibraryEntry(new Path(iProject.getFullPath().toString()+"/lib/testtracker.jar"), null, null, iAccessRule, ajdtInpaths, false);
+		IClasspathEntry testtrackerJar = JavaCore.newLibraryEntry(new Path(iProject.getFullPath().toString()+"/lib/ttracker.jar"), null, null, iAccessRule, ajdtInpaths, false);
 //		IClasspathEntry requiredPlugins = JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"),iAccessRule,restrictions,false);
 		
 		List<IClasspathEntry> rawClasspath = Arrays.asList(iJavaProject.getRawClasspath());
