@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -15,22 +19,29 @@ import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.ILocalVariable;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.Signature;
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.internal.core.JavaElementInfo;
 import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.junit.Test;
 
+import br.ufrn.dimap.rtquality.history.ChangedAssetsMinerUtil;
+import br.ufrn.dimap.rtquality.history.MethodLimit;
+import br.ufrn.dimap.rtquality.history.MethodLimitBuilder;
 import br.ufrn.dimap.rtquality.history.SVNConfig;
-import br.ufrn.dimap.testtracker.data.Revision;
-import br.ufrn.dimap.testtracker.data.TestCoverageMapping;
-import br.ufrn.dimap.testtracker.util.FileUtil;
+import br.ufrn.dimap.rtquality.history.UpdatedLine;
+import br.ufrn.dimap.rtquality.history.UpdatedMethod;
+import br.ufrn.dimap.ttracker.data.Revision;
+import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
+import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public class ProjectUtil {
 
@@ -165,5 +176,53 @@ public class ProjectUtil {
 		}
 		return null;
 	}
+	
+	public static TestCoverageMapping setAllUncoveredMethods(IProject iProject, String testCoverageMappingName) {
+		try{
+			String testClass = ProjectUtil.getAClass(iProject);
+			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
+			String loadFileDirectory = TestUtil.getSaveFileDirectory(iProjectClassLoader, testClass);
+			TestCoverageMapping testCoverageMapping = (TestCoverageMapping) FileUtil.loadFileToObject(loadFileDirectory, testCoverageMappingName, ".tcm");
+			//Adiciona métodos uncovered
+			IJavaProject iJavaProject = JavaCore.create(iProject);
+			IPackageFragment[] iPackageFragments = iJavaProject.getPackageFragments();
+			for (IPackageFragment iPackageFragment : iPackageFragments) {
+				if (iPackageFragment.getKind() == IPackageFragmentRoot.K_SOURCE) {
+					for (ICompilationUnit iCompilationUnit : iPackageFragment.getCompilationUnits()) {
+						IType[] iTypes = iCompilationUnit.getAllTypes();
+						for (IType iType : iTypes) {
+							IMethod[] iMethods = iType.getMethods();
+							for (IMethod iMethod : iMethods) {
+								char parametersTypes[][] = new char[iMethod.getParameters().length][];
+								for(int i=0;i<iMethod.getParameters().length;i++)
+									parametersTypes[i] = Signature.toCharArray(iMethod.getParameters()[i].getTypeSignature().toCharArray());//ElementType()lementName()TypeRoot().getElementName()ypeSignature()arameterTypes()[i].toCharArray();//toCharArray();
+								String signature = new String(Signature.toCharArray(iMethod.getSignature().toCharArray(),(iType.getFullyQualifiedName()+"."+iMethod.getElementName()).toCharArray(),parametersTypes,false,true));
+								int inicio = signature.lastIndexOf('(');
+								int fim = signature.lastIndexOf(')');
+								String parametros = signature.substring(inicio+1,fim);
+								signature = signature.substring(0,inicio+1);
+								String splittedParameters[] = parametros.split(" ");
+								for(int i=0;i<splittedParameters.length;i+=2) {
+									signature += splittedParameters[i] + ",";
+								}
+								signature = signature.substring(0,signature.length()-1) + ")";
+								testCoverageMapping.findOrCreateMethodData(signature);
+							}
+						}
+					}
+				}
+			}
+			//Modifica o state dos modifieds
+			
+			testCoverageMapping.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch(ClassCastException cce) {
+			cce.printStackTrace();
+		} catch (JavaModelException e) {
+			e.printStackTrace();
+		}
+		return null;
+	} 
 
 }

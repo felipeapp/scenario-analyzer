@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedHashSet;
 
 public class TestData implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	private String signature;
 	private String classFullName;
@@ -50,15 +51,12 @@ public class TestData implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
-		result = prime * result + (manual ? 1231 : 1237);
 		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -68,8 +66,6 @@ public class TestData implements Serializable {
 			if (other.inputs != null)
 				return false;
 		} else if (!inputs.equals(other.inputs))
-			return false;
-		if (manual != other.manual)
 			return false;
 		if (signature == null) {
 			if (other.signature != null)

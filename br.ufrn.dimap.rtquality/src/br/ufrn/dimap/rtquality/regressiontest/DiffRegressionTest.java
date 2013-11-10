@@ -5,9 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import br.ufrn.dimap.testtracker.data.Revision;
-import br.ufrn.dimap.testtracker.data.TestCoverage;
-import br.ufrn.dimap.testtracker.data.TestCoverageMapping;
+import br.ufrn.dimap.ttracker.data.MethodData;
+import br.ufrn.dimap.ttracker.data.MethodState;
+import br.ufrn.dimap.ttracker.data.Revision;
+import br.ufrn.dimap.ttracker.data.TestCoverage;
+import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 
 public class DiffRegressionTest extends RegressionTestTechnique {
 	protected TestCoverageMapping testCoverageMapping;
@@ -19,15 +21,13 @@ public class DiffRegressionTest extends RegressionTestTechnique {
 	@Override
 	public Set<TestCoverage> executeRegression() {
 		if(modifiedMethods != null)
-			return oldTestCoverageMapping.getTestsCoverageByChangedMethodsSignatures(modifiedMethods);
+			return oldTestCoverageMapping.getModifiedChangedTestsCoverage();
 		return new HashSet<TestCoverage>(0);
 	}
-	
+
 	@Override
-	public Set<String> getCoveredModifiedMethods() {
-		if(modifiedMethods != null)
-			return oldTestCoverageMapping.getCoveredModifiedMethods(modifiedMethods);
-		return new HashSet<String>(0);
+	public Map<MethodState,Map<String,MethodData>> getMethodStatePool() {
+		return oldTestCoverageMapping.getMethodStatePool();
 	}
 	
 	@Override
@@ -59,6 +59,11 @@ public class DiffRegressionTest extends RegressionTestTechnique {
 	
 	public void setOldTestCoverageMapping(TestCoverageMapping oldTestCoverageMapping) {
 		this.oldTestCoverageMapping = oldTestCoverageMapping;
+	}
+	
+	@Override
+	public Set<String> setModifiedMethods(Set<String> modifiedMethods) {
+		return super.setModifiedMethods(oldTestCoverageMapping.setModifiedMethods(modifiedMethods));
 	}
 
 }

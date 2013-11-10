@@ -3,14 +3,9 @@
  */
 package br.ufrn.dimap.ttracker.data;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -20,141 +15,276 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 
 /**
  * @author João Guedes
- *
+ * 
  */
 public class TestCoverageMapping implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private static TestCoverageMapping instance = new TestCoverageMapping();
-	
+
 	private String name;
 	private Revision currentRevision;
 	private Revision oldRevision;
 	private Map<String, MethodData> methodPool;
-	private Map<Long,TestCoverage> testCoverageBuilding;
+	private Map<MethodState, Map<String, MethodData>> methodStatePool;
+	private Map<Long, TestCoverage> testCoverageBuilding;
 	private SortedSet<TestCoverage> testCoverages;
 	private Integer nextId;
 	private String fileDirectory;
 	private Integer testCount;
-	
+
 	private TestCoverageMapping() {
 		this.name = "TestCoverageMapping";
 		this.currentRevision = new Revision();
 		this.oldRevision = new Revision();
 		this.methodPool = new HashMap<String, MethodData>();
-		this.testCoverageBuilding = new HashMap<Long,TestCoverage>();
+		this.methodStatePool = new HashMap<MethodState, Map<String, MethodData>>(4);
+		this.methodStatePool.put(new MethodState(true, true), new HashMap<String, MethodData>());
+		this.methodStatePool.put(new MethodState(true, false), new HashMap<String, MethodData>());
+		this.methodStatePool.put(new MethodState(false, true), new HashMap<String, MethodData>());
+		this.methodStatePool.put(new MethodState(false, false), new HashMap<String, MethodData>());
+		this.testCoverageBuilding = new HashMap<Long, TestCoverage>();
 		this.testCoverages = new TreeSet<TestCoverage>();
 		this.nextId = 1;
 		this.fileDirectory = "C:/";
 		this.testCount = 0;
 	}
 
+	public MethodData addCoveredMethod(String methodSignature) {
+		MethodData methodData = findOrCreateMethodData(methodSignature);
+		if (!methodData.getMethodState().isCovered()) {
+			methodStatePool.get(methodData.getMethodState()).remove(methodData.getSignature());
+			methodData.getMethodState().setCovered(true);
+			methodStatePool.get(methodData.getMethodState()).put(methodData.getSignature(), methodData);
+		}
+		return methodData;
+	}
+
 	/**
-	 * Based on the method signature verifies if it is on the Mapping, if true return a set with all the tests that covered this method, else return an empty set.
+	 * Atualiza o TestCoverageMapping definindo quais métodos sofreram
+	 * modificações, excluindo os métodos que ainda não foram implementados (nas
+	 * versões iniciais) ou excluindo os métodos que não existem mais (nas
+	 * versões finais)
+	 * 
+	 * @param modifiedMethods
+	 * @return Set<String> dos métodos que ainda são válidos
+	 */
+	public Set<String> setModifiedMethods(Set<String> modifiedMethods) {
+		Set<String> validModifiedMethods = new HashSet<String>(modifiedMethods.size());
+		for (String methodSignature : modifiedMethods) {
+			MethodData methodData = findMethodData(methodSignature);
+			if (methodData != null && !methodData.getMethodState().isModified()) {
+				methodStatePool.get(methodData.getMethodState()).remove(methodData.getSignature());
+				methodData.getMethodState().setModified(true);
+				methodStatePool.get(methodData.getMethodState()).put(methodData.getSignature(), methodData);
+				validModifiedMethods.add(methodSignature);
+			}
+		}
+		return validModifiedMethods;
+	}
+
+	/**
+	 * Remove, da relação de métodos modificados, os métodos que foram excluídos
+	 * na versão antiga ou os métodos que foram incluídos na versão nova
+	 * 
+	 * @param modifiedMethods
+	 * @return
+	 */
+	public Set<String> getValidModifiedMethods(Set<String> modifiedMethods) {
+		Set<String> validModifiedMethods = new HashSet<String>(modifiedMethods.size());
+		for (String methodSignature : modifiedMethods) {
+			MethodData methodData = findMethodData(methodSignature);
+			if (methodData != null)
+				validModifiedMethods.add(methodSignature);
+		}
+		return validModifiedMethods;
+	}
+
+	/**
+	 * Remove na versão antiga todos os métodos que foram excluídos e remove na
+	 * versão nova todos os métodos que foram adicionados
+	 * 
+	 * @param oldTestCoverageMapping
+	 * @param newTestCoverageMapping
+	 */
+	public static void intersection(TestCoverageMapping oldTestCoverageMapping,
+			TestCoverageMapping newTestCoverageMapping) {
+		Set<MethodData> oldInvalidMethods = new HashSet<MethodData>(oldTestCoverageMapping.getMethodPool().values());
+		Set<MethodData> newInvalidMethods = new HashSet<MethodData>(newTestCoverageMapping.getMethodPool().values());
+		oldInvalidMethods.removeAll(newTestCoverageMapping.getMethodPool().values());
+		newInvalidMethods.removeAll(oldTestCoverageMapping.getMethodPool().values());
+		for (MethodData methodData : oldInvalidMethods) {
+			if (oldTestCoverageMapping.getMethodPool().remove(methodData.getSignature()) != null)
+				oldTestCoverageMapping.getMethodStatePool().get(methodData.getMethodState())
+						.remove(methodData.getSignature());
+		}
+		for (MethodData methodData : newInvalidMethods) {
+			if (newTestCoverageMapping.getMethodPool().remove(methodData.getSignature()) != null)
+				newTestCoverageMapping.getMethodStatePool().get(methodData.getMethodState())
+						.remove(methodData.getSignature());
+		}
+	}
+
+	/**
+	 * Based on the method signature verifies if it is on the Mapping, if true
+	 * return a set with all the tests that covered this method, else return an
+	 * empty set.
+	 * 
 	 * @param methodSignature
 	 * @return
 	 */
-	public Set<TestCoverage> getTestsCoverageByCalledMethod(String methodSignature){
-		if(methodPool.containsKey(methodSignature)){
+	public Set<TestCoverage> getTestsCoverageByCalledMethod(String methodSignature) {
+		if (methodPool.containsKey(methodSignature)) {
 			return methodPool.get(methodSignature).getTestsCoverage();
 		}
 		return new HashSet<TestCoverage>(1);
 	}
-	
+
 	/**
-	 * Based on the set of changed methods signatures verifies if each one is on the Mapping, if true include their tests coverage on the resultant test coverage set
-	 * @param changedMethodsSignatures
+	 * Based on the set of changed methods signatures verifies if each one is on
+	 * the Mapping, if true include their tests coverage on the resultant test
+	 * coverage set
+	 * 
 	 * @return
 	 */
-	public Set<TestCoverage> getTestsCoverageByChangedMethodsSignatures(Set<String> changedMethodsSignatures){
+	public Set<TestCoverage> getModifiedChangedTestsCoverage() {
 		Set<TestCoverage> testsCoverage = new HashSet<TestCoverage>(0);
-		for (String changedMethodSignature : changedMethodsSignatures) {
-			if(methodPool.containsKey(changedMethodSignature))
-				testsCoverage.addAll(methodPool.get(changedMethodSignature).getTestsCoverage());
+		Set<MethodData> modifiedChangedMethods = new HashSet<MethodData>(methodStatePool.get(
+				new MethodState(true, true)).values());
+		for (MethodData modifiedChangedMethod : modifiedChangedMethods) {
+			testsCoverage.addAll(modifiedChangedMethod.getTestsCoverage());
 		}
 		return testsCoverage;
 	}
-	
-	public Set<String> getCoveredModifiedMethods(Set<String> modifiedMethods) {
-		Set<String> coveredModifiedMethods = new HashSet<String>(0);
-		for(String modifiedMethod : modifiedMethods) {
-			if(methodPool.containsKey(modifiedMethod))
-				coveredModifiedMethods.add(modifiedMethod);
-		}
-		return coveredModifiedMethods;
+
+	public Map<String, MethodData> getModifiedCoveredMethods(Set<String> modifiedMethods) {
+		return methodStatePool.get(new MethodState(true, true));
+		// Map<String,MethodData> modifiedCoveredMethods = new
+		// HashMap<String,MethodData>(0);
+		// for(String modifiedMethod : modifiedMethods) {
+		// if(methodPool.containsKey(modifiedMethod))
+		// modifiedCoveredMethods.put(modifiedMethod,
+		// methodPool.get(modifiedMethod));
+		// }
+		// return modifiedCoveredMethods;
 	}
-	
+
+	public Map<String, MethodData> getModifiedNotCoveredMethods(Set<String> modifiedMethods) {
+		return methodStatePool.get(new MethodState(true, false));
+	}
+
+	public Map<String, MethodData> getNotModifiedCoveredMethods(Set<String> modifiedMethods) {
+		return methodStatePool.get(new MethodState(false, true));
+	}
+
+	public Map<String, MethodData> getNotModifiedNotCoveredMethods(Set<String> modifiedMethods) {
+		return methodStatePool.get(new MethodState(false, false));
+	}
+
 	public Set<String> getTestsFullyQuilifiedNames() {
 		Set<String> fullyQuilifiedNames = new HashSet<String>(testCoverages.size());
-		for(TestCoverage testCoverage : testCoverages)
+		for (TestCoverage testCoverage : testCoverages)
 			fullyQuilifiedNames.add(testCoverage.getTestData().getClassFullName());
 		return fullyQuilifiedNames;
 	}
-	
+
 	/**
-	 * Based on the method signature search on the Mapping for this one, if not found creates one and return it.
+	 * Based on the method signature search on the Mapping for this one, if not
+	 * found creates one and return it.
+	 * 
 	 * @param methodSignature
 	 * @return
 	 */
-	public MethodData findOrCreateMethodData(String methodSignature){
-		if(methodSignature != null){
-			if(methodPool.containsKey(methodSignature)){
+	public MethodData findOrCreateMethodData(String methodSignature) {
+		if (methodSignature != null) {
+			if (methodPool.containsKey(methodSignature)) {
 				return methodPool.get(methodSignature);
-			}else{
+			} else {
 				MethodData methodData = new MethodData(methodSignature);
-				methodPool.put(methodSignature, methodData);
+				methodPool.put(methodData.getSignature(), methodData);
+				methodStatePool.get(methodData.getMethodState()).put(methodData.getSignature(), methodData);
 				return methodData;
 			}
 		}
 		return null;
 	}
 
+	public void printMethodPool() {
+		System.out
+				.println("\n================================= Printing MethodPool =================================\n");
+		for (MethodData methodData : methodPool.values()) {
+			System.out.println("\n" + methodData.getSignature());
+		}
+	}
+
+	public void printAllTestsCoverage() {
+		System.out.println("\n================================= Printing All =================================\n");
+		for (TestCoverage testCoverage : testCoverages) {
+			testCoverage.print();
+		}
+	}
+
+	public MethodData findMethodData(String methodSignature) {
+		if (methodSignature != null && methodPool.containsKey(methodSignature))
+			return methodPool.get(methodSignature);
+		return null;
+	}
+
 	public TestCoverage getOpenedTestCoverage(Long threadId) {
-		if(threadId != null && testCoverageBuilding.containsKey(threadId)){
+		if (threadId != null && testCoverageBuilding.containsKey(threadId)) {
 			return testCoverageBuilding.get(threadId);
 		}
 		return null;
 	}
-	
+
 	private TestCoverage removeOpenedTestCoverage(Long threadId) {
-		if(threadId != null && testCoverageBuilding.containsKey(threadId)){
+		if (threadId != null && testCoverageBuilding.containsKey(threadId)) {
 			return testCoverageBuilding.remove(threadId);
 		}
 		return null;
 	}
-	
-	public void finishTestCoverage(Long threadId){
+
+	public void finishTestCoverage(Long threadId) {
 		testCoverages.add(removeOpenedTestCoverage(threadId));
 		testCount++;
 	}
-	
-	public void save(){
-		FileUtil.saveObjectToFile(getInstance(), fileDirectory, name, ".tcm");
+
+	public void save() {
+		FileUtil.saveObjectToFile(this, fileDirectory, name, ".tcm");
 	}
-	
-	public void combineWith(TestCoverageMapping other) throws Exception { //TODO: Traduzir as mensagens das exceções para o inglês
-		//TODO: Criar uma nova Exception específica para estas situações
-		//TODO: lembrar-se do setFileDirectory para a pasta lib na raiz do projeto 
-		if(!currentRevision.equals(other.getCurrentRevision()))
+
+	public void combineWith(TestCoverageMapping other) throws Exception { // TODO:
+																			// Traduzir
+																			// as
+																			// mensagens
+																			// das
+																			// exceções
+																			// para
+																			// o
+																			// inglês
+		// TODO: Criar uma nova Exception específica para estas situações
+		// TODO: lembrar-se do setFileDirectory para a pasta lib na raiz do
+		// projeto
+		if (!currentRevision.equals(other.getCurrentRevision()))
 			throw new Exception("A currentRevision deveria ser igual em todos os testCoverageMappings");
-		if(!oldRevision.equals(other.getOldRevision()))
+		if (!oldRevision.equals(other.getOldRevision()))
 			throw new Exception("A oldRevision deveria ser igual em todos os testCoverageMappings");
 		for (String signature : other.getMethodPool().keySet()) {
-			if(methodPool.containsKey(signature))
+			if (methodPool.containsKey(signature))
 				methodPool.get(signature).combineWith(other.getMethodPool().get(signature));
 			else
-				methodPool.put(signature,other.getMethodPool().get(signature));
+				methodPool.put(signature, other.getMethodPool().get(signature));
 		}
-		if(!this.testCoverageBuilding.isEmpty())
+		if (!this.testCoverageBuilding.isEmpty())
 			throw new Exception("A lista testCoverageBuilding deveria estar vazia!");
 		Integer testCoverageSize = testCoverages.size();
-		for(TestCoverage otherTestCoverage : other.getTestCoverages()) {
-			if(!testCoverages.contains(otherTestCoverage)) {
-				otherTestCoverage.setIdTest(otherTestCoverage.getIdTest()+testCoverageSize);
+		for (TestCoverage otherTestCoverage : other.getTestCoverages()) {
+			if (!testCoverages.contains(otherTestCoverage)) {
+				otherTestCoverage.setIdTest(otherTestCoverage.getIdTest() + testCoverageSize);
 				testCoverages.add(otherTestCoverage);
 			}
 		}
-		nextId += other.seeNextId()-1;
+		nextId += other.seeNextId() - 1;
 	}
 
 	public String getName() {
@@ -165,10 +295,10 @@ public class TestCoverageMapping implements Serializable {
 		this.name = name;
 	}
 
-	public Map<Long,TestCoverage> getTestsCoverageBuilding() {
+	public Map<Long, TestCoverage> getTestsCoverageBuilding() {
 		return testCoverageBuilding;
 	}
-	
+
 	public Set<TestCoverage> getTestCoverages() {
 		return testCoverages;
 	}
@@ -181,7 +311,7 @@ public class TestCoverageMapping implements Serializable {
 		return nextId;
 	}
 
-	public static TestCoverageMapping getInstance(){
+	public static TestCoverageMapping getInstance() {
 		return instance;
 	}
 
@@ -189,12 +319,16 @@ public class TestCoverageMapping implements Serializable {
 		return methodPool;
 	}
 
+	public Map<MethodState, Map<String, MethodData>> getMethodStatePool() {
+		return methodStatePool;
+	}
+
 	public Revision getCurrentRevision() {
 		return currentRevision;
 	}
 
 	public void setCurrentRevision(Revision currentRevision) {
-		if(currentRevision.getId() > this.currentRevision.getId()){
+		if (currentRevision.getId() > this.currentRevision.getId()) {
 			this.oldRevision = this.currentRevision;
 			this.currentRevision = currentRevision;
 		}

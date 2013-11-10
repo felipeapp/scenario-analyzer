@@ -104,6 +104,7 @@ public aspect TestTracker {
 		exclusion();
 		
 	before() : beforeExecutions() {
+		TestCoverageMapping t = TestCoverageMapping.getInstance(); //TODO: Remover esta linha
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
@@ -113,8 +114,8 @@ public aspect TestTracker {
 				testCoverage = new TestCoverage();
 				if(isTestMethod(member) || isActionMethod(member)) {
 					TestData testData = testCoverage.getTestData();
-					testData.setSignature(signature.toString());
-					testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //TODO: Verificar se é realmente esta String que procuro (deve ser o nome da classe com o pacote)
+					testData.setSignature(signature.toString()); //retorno pacote classe método parâmetros
+					testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
 					testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 					testCoverage.setTestData(testData); //TODO: é realmente necessário setar o testData ou o objeto já está lá?
 				}
@@ -139,6 +140,7 @@ public aspect TestTracker {
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+		TestCoverageMapping t = TestCoverageMapping.getInstance(); //TODO: Remover esta linha
 		if(testCoverage != null)
 			testCoverage.updateCoveredMethod(signature.toString(), getReturn(member, theReturn));
 	}
@@ -156,13 +158,14 @@ public aspect TestTracker {
 				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
 				Integer testCount = TestCoverageMapping.getInstance().getTestCount();
 				Integer testClassesSize = FileUtil.getTestClassesSizeByResource(member.getDeclaringClass());
+				TestCoverageMapping t = TestCoverageMapping.getInstance(); //TODO: Remover esta linha
+				testCoverage.print();
 				if(testClassesSize.equals(NOTFOUND) || testClassesSize.equals(testCount)){
 					String fileDirectory = FileUtil.getBuildFolderByResource(member.getDeclaringClass());
 					TestCoverageMapping.getInstance().setFileDirectory(fileDirectory);
 					String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
-					TestCoverageMapping.getInstance().setName(testCoverageMappingName);  
+					TestCoverageMapping.getInstance().setName(testCoverageMappingName);
 					TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.  
-					printTestCoverage(testCoverage);
 				}
 			}
 		}
@@ -277,21 +280,6 @@ public aspect TestTracker {
 		return type;
 	}
 
-	private void printTestCoverage(TestCoverage testCoverage) {
-		System.out.println("TestCoverage "+testCoverage.getIdTest()+": "+testCoverage.getTestData().getSignature());
-		System.out.println("MethodDatas:");
-		for (CoveredMethod coveredMethod : testCoverage.getCoveredMethods()) {
-			String returnString = ((coveredMethod.getTheReturn() == null || coveredMethod.getTheReturn().getValue() == null) ? "" : "("+coveredMethod.getTheReturn().getValue().toString()+") -> ");
-			String inputString = " <- (";
-			for(Variable input : coveredMethod.getInputs()){
-				inputString += input.getValue().toString()+", ";
-			}
-			inputString = coveredMethod.getInputs().size() == 0 ? "" : inputString.substring(0,inputString.length()-2)+")";
-			System.out.println("\t"+returnString+coveredMethod.getMethodData().getSignature()+inputString);
-		}
-		System.out.println("\n---------------------------------------------------------------\n");
-	}
-	
 	private Member getMember(Signature sig) {
 		if (sig instanceof MethodSignature)
 			return ((MethodSignature) sig).getMethod();

@@ -7,8 +7,12 @@ public class Revision implements Serializable {
 	
 	private Integer id;
 	private Task task;
-	private Float security;
+	private Float inclusion;
 	private Float precision;
+	private Float MC;
+	private Float MnC;
+	private Float nMC;
+	private Float nMnC;
 	private Revision oldRevision;
 	
 	public Revision() {
@@ -35,12 +39,12 @@ public class Revision implements Serializable {
 		this.task = task;
 	}
 
-	public Float getSecurity() {
-		return security;
+	public Float getInclusion() {
+		return inclusion;
 	}
 
-	public void setSecurity(Float security) {
-		this.security = security;
+	public void setInclusion(Float inclusion) {
+		this.inclusion = inclusion;
 	}
 
 	public Float getPrecision() {
@@ -49,6 +53,38 @@ public class Revision implements Serializable {
 
 	public void setPrecision(Float precision) {
 		this.precision = precision;
+	}
+
+	public Float getMC() {
+		return MC;
+	}
+
+	public void setMC(Float mC) {
+		MC = mC;
+	}
+
+	public Float getMnC() {
+		return MnC;
+	}
+
+	public void setMnC(Float mnC) {
+		MnC = mnC;
+	}
+
+	public Float getnMC() {
+		return nMC;
+	}
+
+	public void setnMC(Float nMC) {
+		this.nMC = nMC;
+	}
+
+	public Float getnMnC() {
+		return nMnC;
+	}
+
+	public void setnMnC(Float nMnC) {
+		this.nMnC = nMnC;
 	}
 
 	public Revision getOldRevision() {
