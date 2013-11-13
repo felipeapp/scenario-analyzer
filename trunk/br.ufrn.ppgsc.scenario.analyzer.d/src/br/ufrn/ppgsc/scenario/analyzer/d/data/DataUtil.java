@@ -38,8 +38,10 @@ public abstract class DataUtil {
 	}
 	
 	private static void printTreeNode(RuntimeNode root, String tabs, Appendable buffer) throws IOException {
-		buffer.append(tabs + root.getMemberSignature() + " (" + root.getTime() + "ms, "
-				+ (root.getExceptionMessage() == null ? false : true) + ")");
+		buffer.append(tabs + root.getMemberSignature() + " - " + root.getId() +
+				" (" + root.getTime() + "ms, " +
+				(root.getExceptionMessage() == null ? false : true) + ") Parent: " + 
+				(root.getParent() == null ? "-" : root.getParent().getId()));
 		
 //		AnnotatedElement element = (AnnotatedElement) root.getMember();
 //		

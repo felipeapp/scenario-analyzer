@@ -1,7 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.d.data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +18,7 @@ import javax.persistence.OneToMany;
 public class Execution implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,19 +30,9 @@ public class Execution implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "execution")
 	private List<RuntimeScenario> scenarios;
 
-	private static final Execution instance = new Execution();
-
-	private Execution() {
+	public Execution() {
 		scenarios = new Vector<RuntimeScenario>();
 		date = new Date();
-	}
-
-	public List<RuntimeScenario> getScenarios() {
-		return scenarios;
-	}
-
-	public void setScenarios(List<RuntimeScenario> scenarios) {
-		this.scenarios = scenarios;
 	}
 
 	public long getId() {
@@ -58,31 +47,24 @@ public class Execution implements Serializable {
 		return date;
 	}
 
-	public static Execution getInstance() {
-		return instance;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
-	public void addRuntimeScenario(RuntimeScenario s) {
-		scenarios.add(s);
-	}
-
-	public RuntimeScenario getLastRuntimeScenario() {
-		return scenarios.get(scenarios.size() - 1);
-	}
-
-	public List<RuntimeScenario> getAllRuntimeCallGraph() {
+	public List<RuntimeScenario> getScenarios() {
 		return Collections.unmodifiableList(scenarios);
 	}
 
-	public List<RuntimeScenario> getRuntimeScenarioByScenarioName(
-			String scenario_name) {
-		List<RuntimeScenario> list = new ArrayList<RuntimeScenario>();
+	public void setScenarios(List<RuntimeScenario> scenarios) {
+		this.scenarios = scenarios;
+	}
 
-		for (RuntimeScenario s : scenarios)
-			if (s.getScenarioName().equals(scenario_name))
-				list.add(s);
-
-		return Collections.unmodifiableList(list);
+	public void addRuntimeScenario(RuntimeScenario rs) {
+		scenarios.add(rs);
+	}
+	
+	public void clearScenarios() {
+		scenarios.clear();
 	}
 
 }

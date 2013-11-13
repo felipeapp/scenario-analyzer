@@ -3,19 +3,18 @@ package br.ufrn.ppgsc.scenario.analyzer.d.data;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<T> {
 
 	@Override
 	public T create(T newInstance) {
-		EntityManager em = getEntityManager();
-		em.getTransaction().begin();
-		em.persist(newInstance);
-		em.getTransaction().commit();
+		Session s = getSession();
+		s.beginTransaction();
+		s.persist(newInstance);
+		s.getTransaction().commit();
 		return newInstance;
 	}
 
@@ -25,8 +24,13 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<
 	}
 
 	@Override
-	public T read(Long id) {
+	public T read(long id) {
 		return null;
+	}
+	
+	@Override
+	public T read(Class<T> clazz, long id) {
+		return (T) getSession().get(clazz, id);
 	}
 
 	@Override
@@ -40,19 +44,19 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<
 	}
 
 	@Override
-	public List<T> readAll(Class<?> clazz) {
+	public List<T> readAll(Class<T> clazz) {
 		List<T> objects = null;
-		
+
 		try {
-			EntityManager em = getEntityManager();
-			Query query = em.createQuery("from " + clazz.getName());
-			em.getTransaction().begin();
-			objects = query.getResultList();
-			em.getTransaction().commit();
+			Session s = getSession();
+			Query query = s.createQuery("from " + clazz.getName());
+			s.beginTransaction();
+			objects = query.list();
+			s.getTransaction().commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
-		
+
 		return objects;
 	}
 

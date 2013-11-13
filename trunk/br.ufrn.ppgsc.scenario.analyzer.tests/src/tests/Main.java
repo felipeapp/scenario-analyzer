@@ -3,10 +3,9 @@ package tests;
 import java.io.IOException;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class Main {
 	
@@ -55,7 +54,7 @@ public class Main {
 		System.out.println(calc.mult(6, 2));
 		System.out.println(calc.div(6, 2));
 		
-		for (RuntimeScenario cg : Execution.getInstance().getAllRuntimeCallGraph()) {
+		for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
 			StringBuilder sb = new StringBuilder();
 			DataUtil.printScenarioTree(cg, sb);
 			System.out.println(sb);
