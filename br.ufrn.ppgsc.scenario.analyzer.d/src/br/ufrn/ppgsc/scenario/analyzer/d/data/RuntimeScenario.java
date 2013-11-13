@@ -1,6 +1,8 @@
 package br.ufrn.ppgsc.scenario.analyzer.d.data;
 
+import java.io.Serializable;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -13,24 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-import javax.swing.SwingUtilities;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.gui.CGConsole;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 @Entity
-public class RuntimeScenario {
+public class RuntimeScenario implements Serializable {
 
-	/*
-	 * TODO: Ver como retirar este código daqui depois posso criar um arquivo
-	 * jsp para visualizar as informações do grafo
-	 */
-	static {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new CGConsole().setVisible(true);
-			}
-		});
-	}
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column
@@ -40,14 +31,15 @@ public class RuntimeScenario {
 	@Column(name = "name")
 	private String scenarioName;
 
+	@Column
+	private Date date;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "execution_id")
 	private Execution execution;
 
 	@Column(name = "thread_id")
 	private long threadId;
-	@Transient
-	private Thread thread;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private RuntimeNode root;
@@ -60,11 +52,38 @@ public class RuntimeScenario {
 	}
 	
 	public RuntimeScenario(String scenarioName, RuntimeNode root, Map<String, String> context) {
-		this.thread = Thread.currentThread();
-		this.threadId = thread.getId();
+		this.threadId = Thread.currentThread().getId();
 		this.root = root;
 		this.scenarioName = scenarioName;
-		this.context = context == null ? null : Collections.unmodifiableMap(context);
+		this.date = new Date();
+		this.execution = RuntimeUtil.getCurrentExecution();
+		
+		if (context != null)
+			this.context = Collections.unmodifiableMap(context);
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getScenarioName() {
+		return scenarioName;
+	}
+
+	public void setScenarioName(String scenarioName) {
+		this.scenarioName = scenarioName;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Execution getExecution() {
@@ -75,24 +94,28 @@ public class RuntimeScenario {
 		this.execution = execution;
 	}
 
-	public String getScenarioName() {
-		return scenarioName;
+	public long getThreadId() {
+		return threadId;
 	}
 
-	public Map<String, String> getContext() {
-		return context;
+	public void setThreadId(long threadId) {
+		this.threadId = threadId;
 	}
 
 	public RuntimeNode getRoot() {
 		return root;
 	}
 
-	public long getThreadId() {
-		return threadId;
+	public void setRoot(RuntimeNode root) {
+		this.root = root;
 	}
 
-	public long getId() {
-		return id;
+	public Map<String, String> getContext() {
+		return context;
+	}
+
+	public void setContext(Map<String, String> context) {
+		this.context = context;
 	}
 
 }

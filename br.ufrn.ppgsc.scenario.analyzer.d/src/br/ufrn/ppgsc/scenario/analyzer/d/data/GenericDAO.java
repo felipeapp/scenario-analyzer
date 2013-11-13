@@ -3,9 +3,9 @@ package br.ufrn.ppgsc.scenario.analyzer.d.data;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 public abstract class GenericDAO<T extends Serializable> {
 
@@ -13,24 +13,26 @@ public abstract class GenericDAO<T extends Serializable> {
 
 	public abstract T read(T entity);
 
-	public abstract T read(Long id);
+	public abstract T read(long id);
+	
+	public abstract T read(Class<T> clazz, long id);
 
-	public abstract List<T> readAll(Class<?> clazz);
+	public abstract List<T> readAll(Class<T> clazz);
 
 	public abstract void update(T transientObject);
 
 	public abstract void delete(T persistentObject);
+	
+	private static SessionFactory sf;
+	private static Session s;
 
-	private static EntityManagerFactory emf;
-	private static EntityManager em;
-
-	static synchronized EntityManager getEntityManager() {
-		if (emf == null && em == null) {
-			emf = Persistence.createEntityManagerFactory("NONJTAPersistenceUnit");
-			em = emf.createEntityManager();
+	public static synchronized Session getSession() {
+		if (sf == null && s == null) {
+			sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
+			s = sf.openSession();
 		}
 		
-		return em;
+		return s;
 	}
 
 }

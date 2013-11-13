@@ -1,11 +1,9 @@
 package threads;
 
-import java.io.IOException;
-
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class MainThread {
 	
@@ -70,7 +68,7 @@ public class MainThread {
 			
 		new MainThread().methodA();
 		
-		for (RuntimeScenario cg : Execution.getInstance().getAllRuntimeCallGraph()) {
+		for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
 			StringBuilder sb = new StringBuilder();
 			DataUtil.printScenarioTree(cg, sb);
 			System.out.println(sb);

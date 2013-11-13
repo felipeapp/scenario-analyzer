@@ -1,0 +1,29 @@
+package tests;
+
+import java.io.IOException;
+
+import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.GenericDAO;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.GenericDAOHibernateImpl;
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+
+public class TestDBByID {
+
+	public static void main(String[] args) throws IOException {
+
+		GenericDAO<Execution> dao = new GenericDAOHibernateImpl<Execution>();
+
+		Execution e = dao.read(Execution.class, 2L);
+
+		System.out.println(e.getId() + " - " + e.getDate());
+
+		for (RuntimeScenario rs : e.getScenarios()) {
+			StringBuilder sb = new StringBuilder();
+			DataUtil.printScenarioTree(rs, sb);
+			System.out.println(sb);
+		}
+
+	}
+
+}

@@ -12,11 +12,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class CGConsole extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	public CGConsole() {
 		final JTextArea textArea = new JTextArea();
 		JButton button = new JButton("Atualizar Relatório");
@@ -39,7 +41,7 @@ public class CGConsole extends JFrame {
 				
 				StringBuilder sb = new StringBuilder();
 				
-				for (RuntimeScenario cg : Execution.getInstance().getAllRuntimeCallGraph()) {
+				for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
 					try {
 						DataUtil.printScenarioTree(cg, sb);
 					} catch (IOException ex) {

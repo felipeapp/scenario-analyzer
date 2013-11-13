@@ -37,7 +37,8 @@ public class RuntimeProperty {
 
 	}
 
-	public RuntimeProperty(String annotation, String name, String type, String value, RuntimeNode node) {
+	public RuntimeProperty(String annotation, String name, String type,
+			String value, RuntimeNode node) {
 		this.annotation = annotation;
 		this.name = name;
 		this.type = type;

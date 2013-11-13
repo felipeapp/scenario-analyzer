@@ -4,6 +4,7 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
@@ -18,6 +19,7 @@ import br.ufrn.ppgsc.scenario.analyzer.d.data.DatabaseService;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 /*
@@ -39,21 +41,23 @@ import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
  * 
  * TODO: limitação para quando o cenário já iniciou e o mesmo se divide em threads.
  * Testar isso http://dev.eclipse.org/mhonarc/lists/aspectj-users/msg12554.html
- * 
  */
 public aspect AspectScenario {
 	
 	// Cada thread pode ter uma pilha de execução diferente
 	private final Map<Long, Stack<RuntimeNode>> thread_map = new Hashtable<Long, Stack<RuntimeNode>>();
 	
-	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*) || adviceexecution();
+	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 	
 	private pointcut scenarioExecution() :
-		cflow(execution(* *(..)) && @annotation(br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario)) &&
+		within(br.ufrn.sigaa.biblioteca..*) &&
+		cflow(@annotation(br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario)) &&
 		(execution(* *(..)) || execution(*.new(..)));
 	
 	Object around() : scenarioExecution() && !executionIgnored() {
 		long begin, end;
+		
+		Execution execution = RuntimeUtil.getCurrentExecution();
 		
 		Stack<RuntimeNode> nodes_stack = getOrCreateRuntimeNodeStack();
 		
@@ -62,13 +66,12 @@ public aspect AspectScenario {
 		RuntimeNode node = new RuntimeNode(member);
 		
 		/*
-		 * Se achou a anotação de cenário, começa a criar as estruturas para ele
+		 * Se achou a anotação de cenário, começa a criar as estruturas para o elemento
 		 */
 		if (isStartMethod(member)) {
 			Scenario ann_scenario = ((Method)member).getAnnotation(Scenario.class);
 			RuntimeScenario scenario_cg = new RuntimeScenario(ann_scenario.name(), node, getContextParameterMap());
-			Execution.getInstance().addRuntimeScenario(scenario_cg);
-			scenario_cg.setExecution(Execution.getInstance());
+			execution.addRuntimeScenario(scenario_cg);
 		}
 		else if (nodes_stack.empty()) {
 			/* TODO: decidir o que fazer nesta situação?
@@ -101,7 +104,8 @@ public aspect AspectScenario {
 		 * da execução serão salvas no banco de dados.
 		 */
 		if (isStartMethod(member)) {
-			DatabaseService.saveResults(Execution.getInstance());
+			DatabaseService.saveResults(execution);
+			execution.clearScenarios();
 		}
 		
 		return o;
@@ -139,7 +143,7 @@ public aspect AspectScenario {
 		
 			// Testa se foi o método que capturou ou lançou a exceção
 			if (node.getMemberSignature().equals(MemberUtil.getStandartMethodSignature(m)))
-				node.setException(t);
+				node.setExceptionMessage(t.getMessage());
 			
 			// Testa se foi o método que capturou ou lançou a exceção
 //			if (node.getMember().equals(m))
@@ -174,8 +178,19 @@ public aspect AspectScenario {
 		Map<String, String> result = null;
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
-		if (fc != null)
+		if (fc != null) {
 			result = new HashMap<String, String>(fc.getExternalContext().getRequestParameterMap());
+			
+			Map<String, String[]> valuesMap = fc.getExternalContext().getRequestParameterValuesMap();
+			
+			for (String key : valuesMap.keySet()) {
+				System.out.println("############################# - " + key);
+				
+				for (String value : valuesMap.get(key))
+					System.out.println("\t" + value);
+			}
+			
+		}
 		
 //		Enumeration<?> e = req.getParameterNames();
 //		while (e.hasMoreElements()) {
