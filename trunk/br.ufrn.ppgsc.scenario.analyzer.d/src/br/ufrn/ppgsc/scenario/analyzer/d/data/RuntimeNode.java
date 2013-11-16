@@ -24,12 +24,6 @@ import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 @Entity
 public class RuntimeNode {
 
-	/* TODO: seria runtimeproperty não?
-	 * a modelagem está incompleta
-	 * todo runtimenode deve ter uma lista de runtimeqaattributes
-	 * esta classe não está sendo usado 
-	 */
-	
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,48 +37,54 @@ public class RuntimeNode {
 	@Column(name = "exception")
 	private String exceptionMessage;
 
-	@Column
-	private long time;
+	@Column(name = "time")
+	private long executionTime;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "root")
+	private RuntimeScenario scenario;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
 	private List<RuntimeProperty> properties;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "parent", referencedColumnName = "id")
+	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	private RuntimeNode parent;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "parent", referencedColumnName = "id")
+	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	private List<RuntimeNode> children;
 
 	public RuntimeNode() {
-		
+
 	}
-	
+
 	public RuntimeNode(Member member) {
 		this.memberSignature = MemberUtil.getStandartMethodSignature(member);
 		this.children = new Vector<RuntimeNode>();
 		this.properties = new Vector<RuntimeProperty>();
-		
-		/* TODO:
-		 * - Depois ver como retirar essa fixação das anotações
-		 * - Mover para dentro de MemberUtil
+
+		/*
+		 * TODO: - Depois ver como retirar essa fixação das anotações - Mover
+		 * para dentro de MemberUtil
 		 */
-		Annotation annotation = ((AnnotatedElement) member).getAnnotation(Performance.class);
-		
+		Annotation annotation = ((AnnotatedElement) member)
+				.getAnnotation(Performance.class);
+
 		if (annotation != null) {
 			Performance pann = (Performance) annotation;
-			
+
 			RuntimeProperty pname = new RuntimeProperty(
-					Performance.class.getName(), "name", "String", pann.name(), this);
-			
+					Performance.class.getName(), "name", "String", pann.name(),
+					this);
+
 			RuntimeProperty ptime = new RuntimeProperty(
-					Performance.class.getName(), "limit_time", "long", String.valueOf(pann.limit_time()), this);
-			
+					Performance.class.getName(), "limit_time", "long",
+					String.valueOf(pann.limit_time()), this);
+
 			properties.add(pname);
 			properties.add(ptime);
 		}
-		
+
 	}
 
 	public long getId() {
@@ -111,12 +111,20 @@ public class RuntimeNode {
 		this.exceptionMessage = exceptionMessage;
 	}
 
-	public long getTime() {
-		return time;
+	public long getExecutionTime() {
+		return executionTime;
 	}
 
-	public void setTime(long time) {
-		this.time = time;
+	public void setExecutionTime(long executionTime) {
+		this.executionTime = executionTime;
+	}
+
+	public RuntimeScenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(RuntimeScenario scenario) {
+		this.scenario = scenario;
 	}
 
 	public List<RuntimeProperty> getProperties() {
@@ -142,7 +150,7 @@ public class RuntimeNode {
 	public void setChildren(List<RuntimeNode> children) {
 		this.children = children;
 	}
-	
+
 	public void addChild(RuntimeNode node) {
 		children.add(node);
 		node.setParent(this);

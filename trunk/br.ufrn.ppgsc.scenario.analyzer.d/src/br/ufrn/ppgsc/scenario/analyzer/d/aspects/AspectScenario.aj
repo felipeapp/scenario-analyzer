@@ -4,7 +4,6 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
@@ -50,7 +49,7 @@ public aspect AspectScenario {
 	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 	
 	private pointcut scenarioExecution() :
-		within(br.ufrn.sigaa.biblioteca..*) &&
+//		within(br.ufrn.sigaa.biblioteca..*) &&
 		cflow(@annotation(br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario)) &&
 		(execution(* *(..)) || execution(*.new(..)));
 	
@@ -97,7 +96,7 @@ public aspect AspectScenario {
 		Object o = proceed();
 		end = System.currentTimeMillis();
 		
-		nodes_stack.pop().setTime(end - begin);
+		nodes_stack.pop().setExecutionTime(end - begin);
 
 		/*
 		 * Caso o método seja um método de entrada de um cenário, as informações
@@ -113,7 +112,7 @@ public aspect AspectScenario {
 	
 	after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
 		setRobustness(t, getMember(thisJoinPoint.getSignature()));
-		getOrCreateRuntimeNodeStack().pop().setTime(-1);
+		getOrCreateRuntimeNodeStack().pop().setExecutionTime(-1);
 	}
 	
 	before(Throwable t) : handler(Throwable+) && args(t) && !executionIgnored() {
@@ -178,25 +177,16 @@ public aspect AspectScenario {
 		Map<String, String> result = null;
 		FacesContext fc = FacesContext.getCurrentInstance();
 		
+//		System.out.println("######################");
 		if (fc != null) {
 			result = new HashMap<String, String>(fc.getExternalContext().getRequestParameterMap());
 			
-			Map<String, String[]> valuesMap = fc.getExternalContext().getRequestParameterValuesMap();
-			
-			for (String key : valuesMap.keySet()) {
-				System.out.println("############################# - " + key);
-				
-				for (String value : valuesMap.get(key))
-					System.out.println("\t" + value);
-			}
-			
+//			for (String key : result.keySet())
+//				System.out.println(key + " = " + result.get(key));
+//			
+//			System.out.println("----------------------");
 		}
-		
-//		Enumeration<?> e = req.getParameterNames();
-//		while (e.hasMoreElements()) {
-//			String name = (String) e.nextElement();
-//			System.out.println(name + ", " + req.getParameter(name));
-//		}
+//		System.out.println("######################");
 		
 		return result;
 	}
