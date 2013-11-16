@@ -3,8 +3,8 @@ package tests;
 import java.io.IOException;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class Main {
