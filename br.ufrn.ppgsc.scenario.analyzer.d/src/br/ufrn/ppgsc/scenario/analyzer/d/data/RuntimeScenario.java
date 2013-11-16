@@ -14,7 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.CollectionOfElements;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
@@ -28,12 +29,12 @@ public class RuntimeScenario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "name")
-	private String scenarioName;
+	@Column
+	private String name;
 
 	@Column
 	private Date date;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "execution_id")
 	private Execution execution;
@@ -44,20 +45,20 @@ public class RuntimeScenario implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private RuntimeNode root;
 
-	@Transient
+	@CollectionOfElements
 	private Map<String, String> context;
 
 	public RuntimeScenario() {
-		
+
 	}
-	
-	public RuntimeScenario(String scenarioName, RuntimeNode root, Map<String, String> context) {
+
+	public RuntimeScenario(String name, RuntimeNode root, Map<String, String> context) {
 		this.threadId = Thread.currentThread().getId();
 		this.root = root;
-		this.scenarioName = scenarioName;
+		this.name = name;
 		this.date = new Date();
 		this.execution = RuntimeUtil.getCurrentExecution();
-		
+
 		if (context != null)
 			this.context = Collections.unmodifiableMap(context);
 	}
@@ -70,12 +71,12 @@ public class RuntimeScenario implements Serializable {
 		this.id = id;
 	}
 
-	public String getScenarioName() {
-		return scenarioName;
+	public String getName() {
+		return name;
 	}
 
-	public void setScenarioName(String scenarioName) {
-		this.scenarioName = scenarioName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getDate() {
