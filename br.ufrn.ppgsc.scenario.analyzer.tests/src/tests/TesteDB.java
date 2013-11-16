@@ -3,11 +3,11 @@ package tests;
 import java.io.IOException;
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.GenericDAO;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.GenericDAOHibernateImpl;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
 
 public class TesteDB {
 

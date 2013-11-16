@@ -1,8 +1,8 @@
 package threads;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.DataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class MainThread {

@@ -10,7 +10,7 @@ public class SimpleMain {
 
 	@Test
 	@Scenario(name = "main scenario")
-	@Performance(name = "main scenario performance", limit_time = 1000)
+	@Performance(name = "main scenario performance", limitTime = 1000)
 	@Security(name = "main scenario security")
 	public void testeQualquer() {
 		System.out.println("CORPO DO MÉTODO PRINCIPAL");

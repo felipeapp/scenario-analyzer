@@ -11,7 +11,7 @@ public class MultDivCalculator implements IMultDivCalculator {
 		return a * b;
 	}
 
-	@Reliability(name="reli", failure_rate=0.5)
+	@Reliability(name="reli", failureRate=0.5)
 	public float div(float a, float b) {
 		return a / b;
 	}
