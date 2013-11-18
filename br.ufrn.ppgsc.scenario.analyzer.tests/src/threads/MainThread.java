@@ -2,7 +2,7 @@ package threads;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class MainThread {
@@ -70,7 +70,7 @@ public class MainThread {
 		
 		for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
 			StringBuilder sb = new StringBuilder();
-			DataUtil.printScenarioTree(cg, sb);
+			PrintUtil.printScenarioTree(cg, sb);
 			System.out.println(sb);
 		}
 		

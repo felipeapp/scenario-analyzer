@@ -2,16 +2,18 @@ package br.ufrn.ppgsc.scenario.analyzer.d.util;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Set;
 
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
 
-public abstract class DataUtil {
+public abstract class PrintUtil {
 	
 	public static void printScenarioTree(RuntimeScenario tree, Appendable buffer) throws IOException {
 		buffer.append("Scenario: " + tree.getName() + " (Id: " + tree.getThreadId() + ", Request: ");
 		
-		if (tree.getContext() != null) {
+		if (tree.getContext() != null && !tree.getContext().isEmpty()) {
 			Iterator<String> itr = tree.getContext().values().iterator();
 			while (itr.hasNext()) {
 				buffer.append(itr.next());
@@ -21,7 +23,7 @@ public abstract class DataUtil {
 			}
 		}
 		else {
-			buffer.append("null");
+			buffer.append("-");
 		}
 		
 		buffer.append(")\n");
@@ -47,29 +49,16 @@ public abstract class DataUtil {
 				(root.getParent() == null ? "-" : root.getParent().getId()) + " | Scenario: " +
 				(root.getScenario() == null ? "-" : root.getScenario().getName()));
 		
-//		AnnotatedElement element = (AnnotatedElement) root.getMember();
-//		
-//		Annotation annotation = element.getAnnotation(Performance.class);
-//		if (annotation != null)
-//			buffer.append(" [Performance: " + ((Performance) annotation).name() + "]");
-//		
-//		annotation = element.getAnnotation(Security.class);
-//		if (annotation != null)
-//			buffer.append(" [Security: " + ((Security) annotation).name() + "]");
-//		
-//		annotation = element.getAnnotation(Reliability.class);
-//		if (annotation != null)
-//			buffer.append(" [Reliability: " + ((Reliability) annotation).name() + "]");
-//		
-//		annotation = element.getAnnotation(Robustness.class);
-//		if (annotation != null)
-//			buffer.append(" [Robustness: " + ((Robustness) annotation).name() + "]");
+		Set<RuntimeGenericAnnotation> annotations = root.getAnnotations();
+		
+		if (annotations != null && !annotations.isEmpty())
+			for (RuntimeGenericAnnotation ann : annotations)
+				buffer.append(" | " + ann.getClass().getSimpleName() + ": " + ann.getName());
 		
 		buffer.append(System.lineSeparator());
 		
-		for (RuntimeNode node : root.getChildren()) {
+		for (RuntimeNode node : root.getChildren())
 			printTreeNode(node, tabs + "   ", buffer);
-		}
 	}
 
 }

@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class CGConsole extends JFrame {
@@ -43,7 +43,7 @@ public class CGConsole extends JFrame {
 				
 				for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
 					try {
-						DataUtil.printScenarioTree(cg, sb);
+						PrintUtil.printScenarioTree(cg, sb);
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}

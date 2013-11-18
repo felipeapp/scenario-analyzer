@@ -19,7 +19,7 @@ import org.hibernate.annotations.CollectionOfElements;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
-@Entity
+@Entity(name = "scenario")
 public class RuntimeScenario implements Serializable {
 
 	private static final long serialVersionUID = 1L;

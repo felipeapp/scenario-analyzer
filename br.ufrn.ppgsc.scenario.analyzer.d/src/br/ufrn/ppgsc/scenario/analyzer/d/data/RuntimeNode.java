@@ -1,11 +1,10 @@
 package br.ufrn.ppgsc.scenario.analyzer.d.data;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,14 +13,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
-@Entity
+@Entity(name = "node")
 public class RuntimeNode {
 
 	@Id
@@ -39,12 +40,15 @@ public class RuntimeNode {
 
 	@Column(name = "time")
 	private long executionTime;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "root")
 	private RuntimeScenario scenario;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "node")
-	private List<RuntimeProperty> properties;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "node_annotation",
+		joinColumns = @JoinColumn(name = "node_id"),
+		inverseJoinColumns = @JoinColumn(name = "annotation_id"))
+	private Set<RuntimeGenericAnnotation> annotations;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
@@ -59,32 +63,9 @@ public class RuntimeNode {
 	}
 
 	public RuntimeNode(Member member) {
-		this.memberSignature = MemberUtil.getStandartMethodSignature(member);
-		this.children = new Vector<RuntimeNode>();
-		this.properties = new Vector<RuntimeProperty>();
-
-		/*
-		 * TODO: - Depois ver como retirar essa fixação das anotações - Mover
-		 * para dentro de MemberUtil
-		 */
-		Annotation annotation = ((AnnotatedElement) member)
-				.getAnnotation(Performance.class);
-
-		if (annotation != null) {
-			Performance pann = (Performance) annotation;
-
-			RuntimeProperty pname = new RuntimeProperty(
-					Performance.class.getName(), "name", "String", pann.name(),
-					this);
-
-			RuntimeProperty ptime = new RuntimeProperty(
-					Performance.class.getName(), "limit_time", "long",
-					String.valueOf(pann.limit_time()), this);
-
-			properties.add(pname);
-			properties.add(ptime);
-		}
-
+		memberSignature = MemberUtil.getStandartMethodSignature(member);
+		children = new ArrayList<RuntimeNode>();
+		annotations = RuntimeUtil.parseMemberAnnotations(member);
 	}
 
 	public long getId() {
@@ -127,12 +108,12 @@ public class RuntimeNode {
 		this.scenario = scenario;
 	}
 
-	public List<RuntimeProperty> getProperties() {
-		return Collections.unmodifiableList(properties);
+	public Set<RuntimeGenericAnnotation> getAnnotations() {
+		return annotations;
 	}
 
-	public void setProperties(List<RuntimeProperty> properties) {
-		this.properties = properties;
+	public void setAnnotations(Set<RuntimeGenericAnnotation> annotations) {
+		this.annotations = Collections.unmodifiableSet(annotations);
 	}
 
 	public RuntimeNode getParent() {
