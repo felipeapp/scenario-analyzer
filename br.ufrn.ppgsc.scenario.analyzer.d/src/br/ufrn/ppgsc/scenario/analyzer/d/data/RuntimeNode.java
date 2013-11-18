@@ -16,8 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
@@ -50,12 +52,13 @@ public class RuntimeNode {
 		inverseJoinColumns = @JoinColumn(name = "annotation_id"))
 	private Set<RuntimeGenericAnnotation> annotations;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	private RuntimeNode parent;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
+	@OrderBy("id asc")
 	private List<RuntimeNode> children;
 
 	public RuntimeNode() {
@@ -125,7 +128,7 @@ public class RuntimeNode {
 	}
 
 	public List<RuntimeNode> getChildren() {
-		return children;
+		return Collections.unmodifiableList(children);
 	}
 
 	public void setChildren(List<RuntimeNode> children) {
@@ -134,7 +137,6 @@ public class RuntimeNode {
 
 	public void addChild(RuntimeNode node) {
 		children.add(node);
-		node.setParent(this);
 	}
 
 }
