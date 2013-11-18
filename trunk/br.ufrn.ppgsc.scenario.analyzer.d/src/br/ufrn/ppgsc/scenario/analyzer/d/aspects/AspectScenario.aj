@@ -43,7 +43,7 @@ import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
  */
 public aspect AspectScenario {
 	
-	// Cada thread pode ter uma pilha de execução diferente
+	// Cada thread tem uma pilha de execução diferente
 	private final Map<Long, Stack<RuntimeNode>> thread_map = new Hashtable<Long, Stack<RuntimeNode>>();
 	
 	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);

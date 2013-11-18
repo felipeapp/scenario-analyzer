@@ -7,7 +7,7 @@ import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.GenericDAO;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.GenericDAOHibernateImpl;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
 
 public class TesteDB {
 
@@ -24,7 +24,7 @@ public class TesteDB {
 			
 			for (RuntimeScenario rs : e.getScenarios()) {
 				StringBuilder sb = new StringBuilder();
-				DataUtil.printScenarioTree(rs, sb);
+				PrintUtil.printScenarioTree(rs, sb);
 				System.out.println(sb);
 			}
 		}

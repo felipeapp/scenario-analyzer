@@ -29,6 +29,12 @@ public class Execution implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "execution")
 	private List<RuntimeScenario> scenarios;
+	
+	@Column(name = "system_name")
+	private String systemName;
+	
+	@Column(name = "system_version")
+	private String systemVersion;
 
 	public Execution() {
 		scenarios = new Vector<RuntimeScenario>();
@@ -65,6 +71,22 @@ public class Execution implements Serializable {
 	
 	public void clearScenarios() {
 		scenarios.clear();
+	}
+
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+
+	public String getSystemVersion() {
+		return systemVersion;
+	}
+
+	public void setSystemVersion(String systemVersion) {
+		this.systemVersion = systemVersion;
 	}
 
 }

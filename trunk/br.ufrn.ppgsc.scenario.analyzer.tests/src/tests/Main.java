@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.DataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
 
 public class Main {
@@ -56,7 +56,7 @@ public class Main {
 		
 		for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
 			StringBuilder sb = new StringBuilder();
-			DataUtil.printScenarioTree(cg, sb);
+			PrintUtil.printScenarioTree(cg, sb);
 			System.out.println(sb);
 		}
 		
