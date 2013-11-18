@@ -1,11 +1,14 @@
 package br.ufrn.ppgsc.scenario.analyzer.d.util;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
@@ -26,6 +29,22 @@ public abstract class RuntimeUtil {
 	private static final Map<String, RuntimeGenericAnnotation> annotations =
 			new HashMap<String, RuntimeGenericAnnotation>();
 
+	static {
+		Properties props = new Properties();
+		
+		try {
+			props.load(new FileInputStream("analyzer_info.properties"));
+		} catch (IOException e) {
+			System.err.println("Can't find analyzer_info.properties file!");
+		}
+		
+		String name = props.getProperty("system_name");
+		String version = props.getProperty("system_version");
+		
+		execution.setSystemName(name == null ? "Unknown" : name);
+		execution.setSystemVersion(version == null ? "Unknown" : version);
+	}
+	
 	public static Execution getCurrentExecution() {
 		return execution;
 	}
