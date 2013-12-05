@@ -8,7 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 public class IProjectDAO {
+	
+	private final Logger logger = Logger.getLogger(IProjectDAO.class);
 	
 	private Connection connection;
 	
@@ -19,15 +23,18 @@ public class IProjectDAO {
 					"comum_user",
 					"comum_user");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 	}
 	
 	public List<Long> getTaskNumberByRevision(long revision) {
 		List<Long> task_numbers = new ArrayList<Long>();
 		
+		// Retorna a lista vazia não conectou.
+		if (connection == null)
+			return task_numbers;
+		
 		try {
-			
 			// TODO: testar
 			/* SELECT id_tarefa FROM log_tarefa WHERE revision = '123' OR EXISTS
 			 * (SELECT regexp_matches(log, '(^([ ]|[\n])*(Revisão|revisão|Revisao|revisao)[:| ]+123)'));
@@ -55,7 +62,7 @@ public class IProjectDAO {
 			while (rs.next())
 				task_numbers.add(Long.valueOf(rs.getString(1)));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 		
 		return task_numbers;

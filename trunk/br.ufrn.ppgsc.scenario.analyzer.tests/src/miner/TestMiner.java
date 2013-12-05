@@ -10,20 +10,20 @@ public class TestMiner {
 	
 	public static void main(String[] args) throws Exception {
 		
-//		Collection<UpdatedMethod> result = AnalyzerMiner.getUpdatedMethodsFromRepository(
-//				"http://scenario-analyzer.googlecode.com/svn", "", "",
-//				"/trunk/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java",
-//				"C:/Eclipse/EclipseDoutorado/workspace/br.ufrn.ppgsc.scenario.analyzer.tests_oldrevision/src/tests/Main.java",
-//				"C:/Eclipse/EclipseDoutorado/workspace/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java");
-		
 		Collection<UpdatedMethod> result = AnalyzerMiner.getUpdatedMethodsFromRepository(
-				"http://desenvolvimento.info.ufrn.br/projetos", "felipe_app", "s870312n",
-				"/trunk/Arquitetura/src/br/ufrn/arq/email/Mail.java",
-				"C:/Eclipse/EclipseDoutorado/workspace/Arquitetura_2.5.22/src/br/ufrn/arq/email/Mail.java",
-				"C:/Eclipse/EclipseDoutorado/workspace/Arquitetura_2.6.26/src/br/ufrn/arq/email/Mail.java");
+				"http://scenario-analyzer.googlecode.com/svn", "", "",
+				"/trunk/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java",
+				"/home/felipe/Eclipse/EclipseDoutorado/workspace/br.ufrn.ppgsc.scenario.analyzer.tests_oldrevision/src/tests/Main.java",
+				"/home/felipe/Eclipse/EclipseDoutorado/workspace/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java");
 		
 //		Collection<UpdatedMethod> result = AnalyzerMiner.getUpdatedMethodsFromRepository(
-//				"http://desenvolvimento.info.ufrn.br/projetos", "felipe_app", "s870312n",
+//				"http://desenvolvimento.info.ufrn.br/projetos", "user", "password",
+//				"/trunk/Arquitetura/src/br/ufrn/arq/email/Mail.java",
+//				"C:/Eclipse/EclipseDoutorado/workspace/Arquitetura_2.5.22/src/br/ufrn/arq/email/Mail.java",
+//				"C:/Eclipse/EclipseDoutorado/workspace/Arquitetura_2.6.26/src/br/ufrn/arq/email/Mail.java");
+		
+//		Collection<UpdatedMethod> result = AnalyzerMiner.getUpdatedMethodsFromRepository(
+//				"http://desenvolvimento.info.ufrn.br/projetos", "user", "password",
 //				"/trunk/Arquitetura/src/br/ufrn/arq/email/Mail.java", 123141, 136067);
 		
 		for (UpdatedMethod m : result) {

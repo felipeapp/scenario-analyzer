@@ -28,8 +28,8 @@ public aspect AspectMBean {
 	Object around() : mBeanExecution() && !executionIgnored() {
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
 		
-		if (AspectsUtil.isIgnorableMBeanFlow(member))
-			return proceed();
+//		if (AspectsUtil.isIgnorableMBeanFlow(member))
+//			return proceed();
 		
 		long begin, end;
 		
