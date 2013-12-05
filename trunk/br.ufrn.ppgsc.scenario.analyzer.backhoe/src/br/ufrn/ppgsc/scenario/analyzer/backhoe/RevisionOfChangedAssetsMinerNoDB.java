@@ -67,7 +67,7 @@ public class RevisionOfChangedAssetsMinerNoDB extends Miner {
 		// Pega as linhas modificadas
 		List<UpdatedLine> lines = handler.getChangedLines();
 		
-		// Pega o limite dos limites (linha inicial e final)
+		// Pega o limite dos métodos (linha inicial e final)
 		List<MethodLimit> limits = new MethodLimitBuilder(handler.getSourceCode()).getMethodLimits();
 		
 		// Pega os métodos mudados verificando as linhas mudadas e os limites dos métodos
