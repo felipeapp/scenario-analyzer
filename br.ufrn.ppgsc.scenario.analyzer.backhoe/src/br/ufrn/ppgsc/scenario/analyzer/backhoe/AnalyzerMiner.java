@@ -10,11 +10,12 @@ import br.ufrn.backhoe.repminer.connector.Connector;
 import br.ufrn.backhoe.repminer.connector.SubversionConnector;
 import br.ufrn.backhoe.repminer.enums.ConnectorType;
 import br.ufrn.backhoe.repminer.factory.connector.SubversionConnectorFactory;
+import br.ufrn.backhoe.repminer.miner.Miner;
 
-public class AnalyzerMiner {
+public abstract class AnalyzerMiner {
 
 	public static Collection<UpdatedMethod> getUpdatedMethodsFromRepository(String host,
-			String user, String password, String file_path, String old_worcopy, String new_workcopy) {
+			String user, String password, String file_path, String old_workcopy, String new_workcopy) {
 
 		long old_revision = 0, new_revision = 0;
 		
@@ -25,7 +26,7 @@ public class AnalyzerMiner {
 		connectors.put(ConnectorType.SVN, svnConnector);
 		
 		try {
-			old_revision = ChangedAssetsMinerUtil.getCommittedRevisionNumber(old_worcopy);
+			old_revision = ChangedAssetsMinerUtil.getCommittedRevisionNumber(old_workcopy);
 			new_revision = ChangedAssetsMinerUtil.getCommittedRevisionNumber(new_workcopy);
 		} catch (SVNException e) {
 			e.printStackTrace();
@@ -38,12 +39,15 @@ public class AnalyzerMiner {
 		parameters.put("start_revision", old_revision);
 		parameters.put("end_revision", new_revision);
 
-		RevisionOfChangedAssetsMinerNoDB miner = new RevisionOfChangedAssetsMinerNoDB();
+		Miner miner = new RevisionOfChangedAssetsMinerNoDB();
 		miner.setConnectors(connectors);
 		miner.setParameters(parameters);
 
-		miner.performSetup();
-		miner.performMining();
+		try {
+			miner.executeMining();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return (Collection<UpdatedMethod>) parameters.get("result");
 		
@@ -63,12 +67,15 @@ public class AnalyzerMiner {
 		parameters.put("start_revision", old_revision);
 		parameters.put("end_revision", new_revision);
 
-		RevisionOfChangedAssetsMinerNoDB miner = new RevisionOfChangedAssetsMinerNoDB();
+		Miner miner = new RevisionOfChangedAssetsMinerNoDB();
 		miner.setConnectors(connectors);
 		miner.setParameters(parameters);
 
-		miner.performSetup();
-		miner.performMining();
+		try {
+			miner.executeMining();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return (Collection<UpdatedMethod>) parameters.get("result");
 		

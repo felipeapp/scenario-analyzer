@@ -32,7 +32,7 @@ import br.ufrn.backhoe.repminer.model.BackhoeMethodCL;
 import br.ufrn.backhoe.repminer.model.ChangeType;
 import br.ufrn.backhoe.repminer.utils.ClassVisitor;
 
-public class ChangedAssetsMinerUtil {
+public abstract class ChangedAssetsMinerUtil {
 	
 	private static final Logger logger = Logger.getLogger(ChangedAssetsMinerUtil.class);
 	
