@@ -34,10 +34,14 @@ public aspect AspectScenario {
 	
 	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 	
+	/*
+	 * Todas as execuções de métodos e construtores
+	 * que estão dentro do fluxo de execução de métodos anotados
+	 */
 	private pointcut scenarioExecution() :
 //		within(br.ufrn.sigaa.biblioteca..*) &&
-		cflow(@annotation(br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario)) &&
-		(execution(* *(..)) || execution(*.new(..)));
+		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario * *(..)))
+		&& (execution(* *(..)) || execution(*.new(..)));
 	
 	Object around() : scenarioExecution() && !executionIgnored() {
 		long begin, end;

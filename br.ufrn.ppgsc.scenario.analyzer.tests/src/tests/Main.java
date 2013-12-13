@@ -3,6 +3,7 @@ package tests;
 import java.io.IOException;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
+import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
 import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
@@ -30,7 +31,7 @@ public class Main {
 		return a / b;
 	}
 
-//	@Scenario(name="main")
+	@Scenario(name="main")
 	public static void main(String args[]) throws IOException {
 		Main m = new Main();
 		

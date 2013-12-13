@@ -14,7 +14,7 @@ public class TestDBByID {
 
 		GenericDAO<Execution> dao = new GenericDAOHibernateImpl<Execution>();
 
-		Execution e = dao.read(Execution.class, 19L);
+		Execution e = dao.read(Execution.class, 6L);
 
 		System.out.println(e.getId() + " - " + e.getDate());
 
