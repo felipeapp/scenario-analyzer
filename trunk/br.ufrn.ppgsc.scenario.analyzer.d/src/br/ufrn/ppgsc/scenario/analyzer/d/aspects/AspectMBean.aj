@@ -20,6 +20,10 @@ public aspect AspectMBean {
 //		!execution(* set*(..)) &&
 //		!execution(* is*(..));
 	
+	/*
+	 * Todas as execuções de métodos e construtores
+	 * que estão dentro do fluxo gerados pelas classes anotadas
+	 */
 	private pointcut mBeanExecution() :
 		cflow(within(@org.springframework.context.annotation.Scope * ||
 				@org.springframework.stereotype.Component *)) &&
