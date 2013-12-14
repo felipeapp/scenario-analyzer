@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
-import br.ufrn.ppgsc.scenario.analyzer.databaseminer.DatabaseService;
-import br.ufrn.ppgsc.scenario.analyzer.databaseminer.GenericDAO;
-import br.ufrn.ppgsc.scenario.analyzer.databaseminer.util.AnalyzerSetUtil;
+import br.ufrn.ppgsc.scenario.analyzer.dataminer.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.dataminer.GenericDAO;
+import br.ufrn.ppgsc.scenario.analyzer.dataminer.util.AnalyzerSetUtil;
 
 public class Main {
 
