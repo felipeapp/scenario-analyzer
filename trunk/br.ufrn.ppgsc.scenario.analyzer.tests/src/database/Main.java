@@ -26,7 +26,7 @@ public class Main {
 		Set<String> optimized_methods = AnalyzerSetUtil.optimized(avgsv1, avgsv2, 0.05);
 		Set<String> unchanged_methods = AnalyzerSetUtil.unchanged(avgsv1, avgsv2, 0.05);
 		
-		System.out.println("\nNovos métodos executados na evolução: " + changed_methods.size());
+		System.out.println("Novos métodos executados na evolução: " + changed_methods.size());
 		System.out.println("Métodos que foram mantidos na evolução: " + kept_methods.size());
 		
 		System.out.println("Métodos que foram degradados na evolução: " + degradated_methods.size());

@@ -49,7 +49,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends
 			Session s = getSession();
 
 			SQLQuery query = s.createSQLQuery("select node.member signature, avg(node.time) average"
-					+ " from node group by node.member order by signature;");
+					+ " from node where node.time <> -1 group by node.member order by signature");
 
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
