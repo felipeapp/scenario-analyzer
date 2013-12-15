@@ -12,6 +12,8 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+
 public class GenericDAOHibernateImpl<T extends Serializable> extends
 		GenericDAO<T> {
 
@@ -41,6 +43,22 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends
 		return objects;
 	}
 
+//	@Override
+	//TODO: Terminar
+	public RuntimeScenario getScenariosFailed() {
+		Session s = getSession();
+
+		SQLQuery query = s.createSQLQuery("select node.member signature, avg(node.time) average"
+				+ " from node where node.time <> -1 group by node.member order by signature");
+		
+		query.addEntity(RuntimeScenario.class);
+
+		query.addScalar("signature", Hibernate.STRING);
+		query.addScalar("average", Hibernate.DOUBLE);
+		
+		return null;
+	}
+	
 	@Override
 	public Map<String, Double> getExecutionTimeAverage() {
 		Map<String, Double> result = new HashMap<String, Double>();
