@@ -140,10 +140,6 @@ public final class AnalyzerMinerRunnable {
 	}
 	
 	public void run() throws FileNotFoundException {
-		System.out.println(database_v1.getNumberOfMethodExecution("br.ufrn.arq.negocio.ArqFacadeBean.executeComTxTemplate(org.springframework.transaction.support.TransactionTemplate,br.ufrn.arq.dominio.Movimento,java.util.List)"));
-		System.out.println(database_v1.getNumberOfMethodExecution("br.ufrn.sigaa.biblioteca.circulacao.dominio.PoliticaEmprestimo.equalByDadosPolitica(br.ufrn.sigaa.biblioteca.circulacao.dominio.PoliticaEmprestimo)"));
-		
-		
 		Map<String, Double> avg_time_v1 = database_v1.getExecutionTimeAverage();
 		Map<String, Double> avg_time_v2 = database_v2.getExecutionTimeAverage();
 
