@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,20 +44,20 @@ public class RuntimeNode {
 	@Column(name = "time")
 	private long executionTime;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "root")
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "root", fetch = FetchType.LAZY)
 	private RuntimeScenario scenario;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "node_annotation",
 		joinColumns = @JoinColumn(name = "node_id"),
 		inverseJoinColumns = @JoinColumn(name = "annotation_id"))
 	private Set<RuntimeGenericAnnotation> annotations;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	private RuntimeNode parent;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	@OrderBy("id asc")
 	private List<RuntimeNode> children;

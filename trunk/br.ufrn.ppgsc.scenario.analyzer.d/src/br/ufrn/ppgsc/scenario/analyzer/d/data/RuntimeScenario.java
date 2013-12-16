@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,14 +36,14 @@ public class RuntimeScenario implements Serializable {
 	@Column
 	private Date date;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@Column(name = "thread_id")
+	private long threadId;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "execution_id")
 	private Execution execution;
 
-	@Column(name = "thread_id")
-	private long threadId;
-
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private RuntimeNode root;
 
 	@CollectionOfElements

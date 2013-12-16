@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,14 +28,14 @@ public class Execution implements Serializable {
 	@Column
 	private Date date;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "execution")
-	private List<RuntimeScenario> scenarios;
-	
 	@Column(name = "system_name")
 	private String systemName;
 	
 	@Column(name = "system_version")
 	private String systemVersion;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "execution", fetch = FetchType.LAZY)
+	private List<RuntimeScenario> scenarios;
 
 	public Execution() {
 		scenarios = new Vector<RuntimeScenario>();
