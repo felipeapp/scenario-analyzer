@@ -30,6 +30,10 @@ public class Main {
 	public int divide(int a, int b, int[] c) {
 		return a / b;
 	}
+	
+	public int nulltest(String str) {
+		return str.length();
+	}
 
 	@Scenario(name="main")
 	public static void main(String args[]) throws IOException {
@@ -41,6 +45,12 @@ public class Main {
 		try {
 			System.out.println(m.divide(1, 0, null));
 		} catch (ArithmeticException e) {
+			System.out.println("main também pega");
+		}
+		
+		try {
+			System.out.println(m.nulltest(null));
+		} catch (NullPointerException e) {
 			System.out.println("main também pega");
 		}
 		
