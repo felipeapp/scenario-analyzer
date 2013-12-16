@@ -101,7 +101,7 @@ public final class AnalyzerMinerRunnable {
 				pw.print(n.getId() + ",");
 				pw.print(sig + ",");
 				pw.print(n.getExecutionTime() + ",");
-				pw.println(n.getExceptionMessage() + ",");
+				pw.print(n.getExceptionMessage() + ",");
 				pw.println((double) map_failed_methods.get(sig) / db.getNumberOfMethodExecution(sig));
 				
 				pw.println(n.getAnnotations().size());
@@ -130,8 +130,14 @@ public final class AnalyzerMinerRunnable {
 			
 			map.put(s, failed_nodes);
 			
-			for (RuntimeNode n : failed_nodes)
-				node_signatures.put(n.getMemberSignature(), node_signatures.get(n.getMemberSignature()) + 1);
+			for (RuntimeNode n : failed_nodes) {
+				Integer count = node_signatures.get(n.getMemberSignature());
+				
+				if (count == null)
+					count = 0;
+				
+				node_signatures.put(n.getMemberSignature(), count + 1);
+			}
 			
 			System.out.println(", " + (int)((System.currentTimeMillis() - start) / 1000.0 / 60.0) + " minutes");
 		}
