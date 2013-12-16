@@ -1,18 +1,19 @@
 package br.ufrn.ppgsc.scenario.analyzer.dataminer.util;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public abstract class AnalyzerSetUtil {
 
-	public static <T> Set<T> except(Set<T> setA, Set<T> setB) {
+	public static <T> Set<T> except(Collection<T> setA, Collection<T> setB) {
 		Set<T> except = new HashSet<T>(setA);
 		except.removeAll(setB);
 		return except;
 	}
 
-	public static <T> Set<T> intersect(Set<T> setA, Set<T> setB) {
+	public static <T> Set<T> intersect(Collection<T> setA, Collection<T> setB) {
 		Set<T> intersect = new HashSet<T>(setA);
 		intersect.retainAll(setB);
 		return intersect;

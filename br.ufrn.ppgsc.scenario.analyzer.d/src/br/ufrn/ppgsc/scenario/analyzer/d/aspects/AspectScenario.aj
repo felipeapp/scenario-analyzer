@@ -29,6 +29,9 @@ import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
  * 
  * TODO: limitação para quando o cenário já iniciou e o mesmo se divide em threads.
  * Testar isso http://dev.eclipse.org/mhonarc/lists/aspectj-users/msg12554.html
+ * 
+ * TODO: fazer o aspect capturar não apenas a mensagem da exceção, mas também o tipo
+ * dela, pois nem toda exceção informa uma mensagem
  */
 public aspect AspectScenario {
 	

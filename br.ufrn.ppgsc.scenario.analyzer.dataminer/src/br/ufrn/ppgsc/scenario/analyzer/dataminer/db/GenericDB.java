@@ -1,6 +1,5 @@
-package br.ufrn.ppgsc.scenario.analyzer.dataminer;
+package br.ufrn.ppgsc.scenario.analyzer.dataminer.db;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -8,26 +7,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-public abstract class GenericDAO<T extends Serializable> {
+import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
 
-	public abstract T read(Class<T> clazz, long id);
+public abstract class GenericDB {
 
-	public abstract List<T> readAll(Class<T> clazz);
+	public abstract <T> T read(Class<T> clazz, long id);
+	
+	public abstract List<RuntimeScenario> getScenariosFailed();
+
+	public abstract int getNumberOfMethodExecution(String signature);
 	
 	public abstract Map<String, Double> getExecutionTimeAverage();
 
 	private SessionFactory sessionFactory;
 	private Session session;
-	private String hibernateCfg;
 
-	public GenericDAO(String hibernateCfg) {
-		this.hibernateCfg = hibernateCfg;
+	public GenericDB(String hibernateCfg) {
 		sessionFactory = new AnnotationConfiguration().configure(hibernateCfg).buildSessionFactory();
 		session = sessionFactory.openSession();
-	}
-
-	public String getHibernateCfg() {
-		return hibernateCfg;
 	}
 
 	public Session getSession() {
