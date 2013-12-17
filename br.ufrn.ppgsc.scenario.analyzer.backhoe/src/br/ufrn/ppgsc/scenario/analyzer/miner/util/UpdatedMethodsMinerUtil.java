@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import org.apache.log4j.Logger;
@@ -31,21 +30,26 @@ public abstract class UpdatedMethodsMinerUtil {
 	
 	public static long getTaskNumberFromLogMessage(String logMessage) {
 		Scanner in = new Scanner(logMessage);
-		long task_number = 0;
 		
-		while (!in.hasNextLong()) {
-			try {
-				in.next();
-			} catch (NoSuchElementException e) {
-				logger.warn("getTaskNumberFromLogMessage: NoSuchElementException");
-				break;
-			}
-		}
-		
-		if (in.hasNextLong())
-			task_number = in.nextLong();
-		
+		String task_word = in.next();
+		String task_value = in.next().replaceAll("[^0-9]", "");
+
 		in.close();
+		
+		long task_number;
+		
+		if (task_word.equalsIgnoreCase("commit")) {
+			logger.info("Task word commit was found! Setting task number to -1!");
+			task_number = -2;
+		}
+		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) {
+			logger.info("Task word was found! [" + task_word + "] Setting task number to " + task_value + "!");
+			task_number = Long.parseLong(task_value);
+		}
+		else {
+			logger.warn("Task word unknown [" + task_word + "]!\n" + logMessage);
+			task_number = -1;
+		}
 		
 		return task_number;
 	}

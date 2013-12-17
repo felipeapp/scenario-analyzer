@@ -40,7 +40,7 @@ public class TestMiner {
 				System.out.print("\tTasks: ");
 				
 				for (IProjectTask task : l.getTasks())
-					System.out.print(task.getNumero() + " ");
+					System.out.print(task.getNumber() + " ");
 				
 				System.out.println("\n\t-------------------------------------");
 			}

@@ -1,6 +1,5 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
-
 /*
  * Converte as assinaturas do método para caminhos de classe
  * java para que as mesmas possam ser minerados.
@@ -9,6 +8,6 @@ package br.ufrn.ppgsc.scenario.analyzer.miner;
  */
 public interface IPathTransformer {
 
-	public String[] convert(String method_signature);
+	String[] convert(String method_signature, String repository_prefix, String workcopy_prefix_v1, String workcopy_prefix_v2);
 
 }
