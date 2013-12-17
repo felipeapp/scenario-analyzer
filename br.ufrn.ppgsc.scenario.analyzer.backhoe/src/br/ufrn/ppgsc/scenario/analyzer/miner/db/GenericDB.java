@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 
 public abstract class GenericDB {
 

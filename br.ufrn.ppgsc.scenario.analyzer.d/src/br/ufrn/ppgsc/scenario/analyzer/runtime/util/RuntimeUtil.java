@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.util;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,12 +15,12 @@ import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Reliability;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.Execution;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimePerformance;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeReliability;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeRobustness;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeSecurity;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimePerformance;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeReliability;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeRobustness;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeSecurity;
 
 public abstract class RuntimeUtil {
 

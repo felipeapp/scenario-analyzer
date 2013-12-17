@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 
 import java.lang.reflect.Member;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 @Entity(name = "node")

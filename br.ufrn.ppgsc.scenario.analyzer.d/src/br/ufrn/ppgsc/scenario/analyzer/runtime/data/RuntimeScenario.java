@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CollectionOfElements;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 
 @Entity(name = "scenario")
 public class RuntimeScenario implements Serializable {

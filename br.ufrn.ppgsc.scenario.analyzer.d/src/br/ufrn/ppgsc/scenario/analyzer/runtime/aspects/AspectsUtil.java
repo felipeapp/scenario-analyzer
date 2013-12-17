@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.aspects;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -15,7 +15,7 @@ import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 public abstract class AspectsUtil {
