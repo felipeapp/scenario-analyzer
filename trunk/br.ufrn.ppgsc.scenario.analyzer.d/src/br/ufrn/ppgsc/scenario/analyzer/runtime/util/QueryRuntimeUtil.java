@@ -1,10 +1,10 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.util;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 
 public abstract class QueryRuntimeUtil {
 

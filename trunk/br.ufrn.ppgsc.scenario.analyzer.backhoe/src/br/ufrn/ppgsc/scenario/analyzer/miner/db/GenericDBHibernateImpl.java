@@ -10,7 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 
 public class GenericDBHibernateImpl extends GenericDB {
 

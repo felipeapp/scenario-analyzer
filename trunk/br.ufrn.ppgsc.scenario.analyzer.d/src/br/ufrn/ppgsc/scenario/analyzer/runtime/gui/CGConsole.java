@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.gui;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.gui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.PrintUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 
 public class CGConsole extends JFrame {
 	

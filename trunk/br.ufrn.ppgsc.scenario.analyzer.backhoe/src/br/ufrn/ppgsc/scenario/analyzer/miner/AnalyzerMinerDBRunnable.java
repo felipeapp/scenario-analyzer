@@ -13,13 +13,13 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.QueryRuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseService;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.QueryRuntimeUtil;
 
 public final class AnalyzerMinerDBRunnable {
 

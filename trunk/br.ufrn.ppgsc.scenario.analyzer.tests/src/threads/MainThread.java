@@ -3,9 +3,9 @@ package threads;
 import org.springframework.stereotype.Component;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.PrintUtil;
-import br.ufrn.ppgsc.scenario.analyzer.d.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.PrintUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 
 @Component
 public class MainThread {

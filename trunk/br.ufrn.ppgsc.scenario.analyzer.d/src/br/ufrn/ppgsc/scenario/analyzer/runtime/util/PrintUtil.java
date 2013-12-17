@@ -1,12 +1,12 @@
-package br.ufrn.ppgsc.scenario.analyzer.d.util;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 
 public abstract class PrintUtil {
 	
