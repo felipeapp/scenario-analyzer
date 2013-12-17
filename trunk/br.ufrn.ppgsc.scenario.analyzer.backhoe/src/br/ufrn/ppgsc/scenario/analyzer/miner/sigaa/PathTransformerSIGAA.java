@@ -64,6 +64,8 @@ public class PathTransformerSIGAA implements IPathTransformer {
 			full_path += "EntidadesComuns/dominio/";
 		else if (method_signature.startsWith("br.ufrn.sigaa.pessoa.dominio"))
 			full_path += "SIGAA/geral/";
+		else if (method_signature.startsWith("br.ufrn.sigaa.ensino"))
+			full_path += "SIGAA/ensino/";
 		else if (method_signature.startsWith("br.ufrn.sigaa.biblioteca"))
 			full_path += "SIGAA/biblioteca/";
 		else if (method_signature.startsWith("br.ufrn.sigaa.arq.dao"))
@@ -75,13 +77,13 @@ public class PathTransformerSIGAA implements IPathTransformer {
 		
 		if (isConstructor(method_signature)) {
 			method_signature = method_signature.substring(
-					method_signature.indexOf("br", 2), method_signature.indexOf("("));
+					method_signature.indexOf("br.", 3), method_signature.indexOf("("));
 		}
 		
 		full_path += method_signature
 				.replaceAll("[.][^.]+[(].*[)]", "")
 				.replaceAll("[.]", "/")
-				.replaceAll("[$][0-9]+", "");
+				.replaceAll("[$].*", "");
 		
 		full_path += ".java";
 		

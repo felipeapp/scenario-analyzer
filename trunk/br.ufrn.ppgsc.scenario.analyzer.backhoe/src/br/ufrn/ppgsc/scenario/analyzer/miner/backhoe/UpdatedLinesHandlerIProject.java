@@ -23,7 +23,9 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 
 	private final Logger logger = Logger.getLogger(UpdatedLinesHandlerIProject.class);
 	
-	private Map<Long, List<IProjectTask>> revisionList;
+	private static final Map<Long, List<IProjectTask>> cache_revision_tasks =
+			new HashMap<Long, List<IProjectTask>>();
+	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
 	private IProjectDAO ipdao;
@@ -32,7 +34,6 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	private SVNRepository repository;
 	
 	public UpdatedLinesHandlerIProject(SVNRepository repository, String path) {
-		revisionList = new HashMap<Long, List<IProjectTask>>();
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		ipdao = new IProjectDAO();
@@ -63,7 +64,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 		sourceCode.append(line + "\n");
 		
 		if (revision != -1) {
-			List<IProjectTask> tasks = revisionList.get(revision);
+			List<IProjectTask> tasks = cache_revision_tasks.get(revision);
 			
 			if (tasks == null) {
 				logger.info("Inside handler, getting tasks to revision " + revision);
@@ -84,7 +85,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 				tasks = new ArrayList<IProjectTask>();
 				tasks.add(task);
 				
-				revisionList.put(revision, tasks);
+				cache_revision_tasks.put(revision, tasks);
 			}
 			
 			changedLines.add(new UpdatedLine(date, revision, tasks, author, line, lineNumber));
