@@ -5,7 +5,7 @@ import java.io.IOException;
 import br.ufrn.ppgsc.scenario.analyzer.miner.AnalyzerMinerRunnable;
 import br.ufrn.ppgsc.scenario.analyzer.miner.AnalyzerMinerRunnable.MinerType;
 
-public class Main {
+public class SIGAAMain {
 
 	public static void main(String[] args) throws IOException {
 		AnalyzerMinerRunnable.startAnalyzerMiner(new PathTransformerSIGAA(),
