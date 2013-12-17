@@ -16,14 +16,21 @@ public class IProjectDAO {
 	
 	private static final Logger logger = Logger.getLogger(IProjectDAO.class);
 	
-	private Connection connection;
+	private static Connection connection;
 	
 	public IProjectDAO() {
 		try {
-			connection = DriverManager.getConnection(
-					"jdbc:postgresql://bddesenv1.info.ufrn.br/sistemas_comum_20131009",
-					"comum_user",
-					"comum_user");
+//			if (connection == null) {
+//				connection = DriverManager.getConnection(
+//						"jdbc:postgresql://bddesenv1.info.ufrn.br:5432/sistemas_comum_20131009",
+//						"comum_user", "comum_user");
+//			}
+			
+			if (connection == null) {
+				connection = DriverManager.getConnection(
+						"jdbc:postgresql://localhost:5433/sistemas_comum_3_12_18",
+						"postgres", "1234");
+			}
 		} catch (SQLException e) {
 			logger.warn(e.getMessage());
 		}
@@ -108,10 +115,12 @@ public class IProjectDAO {
 	
 	public static void main(String[] args) {
 		IProjectDAO dao = new IProjectDAO();
-		for (IProjectTask t : dao.getTasksByRevision(70315))
-			System.out.println(t.getNumber());
 		
 		System.out.println(dao.getTaskByNumber(124277).getId());
+		System.out.println(dao.getTaskByNumber(124787).getId());
+		
+		for (IProjectTask t : dao.getTasksByRevision(70315))
+			System.out.println(t.getNumber());
 	}
 	
 }
