@@ -46,6 +46,11 @@ public abstract class UpdatedMethodsMinerUtil {
 			logger.info("Task word was found! [" + task_word + "] Setting task number to " + task_value + "!");
 			task_number = Long.parseLong(task_value);
 		}
+		else if (task_word.matches("#[0-9]+")) {
+			task_value = task_word.replaceAll("#", "");
+			logger.info("Task word is task value! [" + task_word + "] Setting task number to " + task_value + "!");
+			task_number = Long.parseLong(task_value);
+		}
 		else {
 			logger.warn("Task word unknown [" + task_word + "]!\n" + logMessage);
 			task_number = -1;

@@ -44,14 +44,21 @@ public class IProjectDAO {
 			
 			stmt.setLong(1, task_number);
 			ResultSet rs = stmt.executeQuery();
-			rs.next();
 			
-			task.setId(rs.getLong("id"));
-			task.setNumber(rs.getLong("numero"));
-			task.setIdType(rs.getLong("id_tipo"));
-			task.setTypeName(rs.getString("tipo_denominacao"));
+			if (rs.next()) {
+				task.setId(rs.getLong("id"));
+				task.setNumber(rs.getLong("numero"));
+				task.setIdType(rs.getLong("id_tipo"));
+				task.setTypeName(rs.getString("tipo_denominacao"));
+			}
+			else {
+				logger.error("Task number " + task_number + " wasn't found.");
+			}
+			
+			rs.close();
+			stmt.close();
 		} catch (SQLException e) {
-			logger.warn(e.getMessage());
+			logger.error("Task number " + task_number + "\n" + e.getMessage());
 		}
 		
 		return task;
@@ -89,8 +96,11 @@ public class IProjectDAO {
 				
 				tasks.add(t);
 			}
+			
+			rs.close();
+			stmt.close();
 		} catch (SQLException e) {
-			logger.warn(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		
 		return tasks;
@@ -101,7 +111,7 @@ public class IProjectDAO {
 		for (IProjectTask t : dao.getTasksByRevision(70315))
 			System.out.println(t.getNumber());
 		
-		System.out.println(dao.getTaskByNumber(70315).getId());
+		System.out.println(dao.getTaskByNumber(124277).getId());
 	}
 	
 }
