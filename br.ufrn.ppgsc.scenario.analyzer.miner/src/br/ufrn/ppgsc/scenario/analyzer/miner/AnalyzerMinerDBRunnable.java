@@ -45,7 +45,7 @@ public final class AnalyzerMinerDBRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"log/" + system_id + "_" + partial_name + "_" + strdate + ".log", true));
+				"miner.log/" + system_id + "_" + partial_name + "_" + strdate + ".log", true));
 		
 		pw.println(message);
 		
@@ -66,7 +66,7 @@ public final class AnalyzerMinerDBRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"log/" + system_id + "_" + partial_name + "_" + strdate + ".log", true));
+				"miner.log/" + system_id + "_" + partial_name + "_" + strdate + ".log", true));
 		
 		pw.println(message);
 		pw.println(map_scenario_node.size());

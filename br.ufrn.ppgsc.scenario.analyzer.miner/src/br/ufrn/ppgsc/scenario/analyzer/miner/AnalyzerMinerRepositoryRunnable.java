@@ -60,7 +60,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			boolean active = Boolean.parseBoolean(properties.getProperty(name));
 			
 			if (active) {
-				String filename = "log/" + system_id + "_" + name + "_" + strdate + ".log";
+				String filename = "miner.log/" + system_id + "_" + name + "_" + strdate + ".log";
 				partial_names.add(name);
 				readers.add(new Scanner(new FileInputStream(filename)));
 			}
@@ -84,7 +84,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"log/" + system_id + "_" + partial_name + "_" + strdate + ".log", false));
+				"miner.log/" + system_id + "_" + partial_name + "_" + strdate + ".log", false));
 		
 		pw.println(message);
 		pw.println(map_path_upmethod.size());
@@ -211,12 +211,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 	private Map<String, Integer> counterTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
 		Map<String, Integer> counter_task_types = new HashMap<String, Integer>();
+		Set<Long> counted_revisions = new HashSet<Long>();
 		
 		for (String path : map_path_methods.keySet()) {
 			
 			for (UpdatedMethod method : map_path_methods.get(path)) {
-				
-				Set<Long> counted_revisions = new HashSet<Long>();
 				
 				for (UpdatedLine line : method.getUpdatedLines()) {
 					
