@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.backhoe;
+package br.ufrn.ppgsc.scenario.analyzer.miner.backhoe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,8 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.MethodLimit;
 
 public class MethodLimitBuilder {
 	
