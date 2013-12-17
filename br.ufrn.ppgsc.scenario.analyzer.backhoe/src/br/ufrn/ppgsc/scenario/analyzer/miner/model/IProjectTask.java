@@ -8,7 +8,8 @@ public class IProjectTask {
 	private String typeName;
 
 	public IProjectTask() {
-
+		id = number = idType = -1;
+		typeName = "No task (-1)";
 	}
 
 	public IProjectTask(long id, long number, long idType, String typeName) {
