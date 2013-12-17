@@ -32,6 +32,8 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
  * 
  * TODO: fazer o aspect capturar não apenas a mensagem da exceção, mas também o tipo
  * dela, pois nem toda exceção informa uma mensagem
+ * 
+ * TODO: verificar porque o aspect está salvando a assinatura do construtor duplicada
  */
 public aspect AspectScenario {
 	
