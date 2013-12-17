@@ -8,10 +8,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.IProjectTask;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
@@ -157,7 +159,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				new_workcopy_paths.add(paths[2]);
 			}
 			
-			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + "["
+			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + " ["
 					+ repository_paths.size() + ", " + message + "]");
 			
 			Map<String, Collection<UpdatedMethod>> map_path_upmethod;
@@ -214,16 +216,24 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			for (UpdatedMethod method : map_path_methods.get(path)) {
 				
+				Set<Long> counted_revisions = new HashSet<Long>();
+				
 				for (UpdatedLine line : method.getUpdatedLines()) {
 					
-					for (IProjectTask task : line.getTasks()) {
+					if (!counted_revisions.contains(line.getRevision())) {
+					
+						counted_revisions.add(line.getRevision());
 						
-						Integer counter = counter_task_types.get(task.getTypeName());
-						
-						if (counter == null)
-							counter_task_types.put(task.getTypeName(), 1);
-						else
-							counter_task_types.put(task.getTypeName(), counter + 1);
+						for (IProjectTask task : line.getTasks()) {
+							
+							Integer counter = counter_task_types.get(task.getTypeName());
+							
+							if (counter == null)
+								counter_task_types.put(task.getTypeName(), 1);
+							else
+								counter_task_types.put(task.getTypeName(), counter + 1);
+							
+						}
 						
 					}
 					
