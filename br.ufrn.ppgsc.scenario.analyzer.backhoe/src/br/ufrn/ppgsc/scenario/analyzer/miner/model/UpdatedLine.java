@@ -1,5 +1,6 @@
-package br.ufrn.ppgsc.scenario.analyzer.backhoe;
+package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -7,12 +8,12 @@ public class UpdatedLine {
 
 	private Date date;
 	private long revision;
-	private List<Long> tasks;
+	private List<IProjectTask> tasks;
 	private String author;
 	private String line;
 	private int lineNumber;
 
-	public UpdatedLine(Date date, long revision, List<Long> tasks, String author, String line, int lineNumber) {
+	public UpdatedLine(Date date, long revision, List<IProjectTask> tasks, String author, String line, int lineNumber) {
 		this.date = date;
 		this.revision = revision;
 		this.tasks = tasks;
@@ -36,12 +37,12 @@ public class UpdatedLine {
 	public void setRevision(long revision) {
 		this.revision = revision;
 	}
-	
-	public List<Long> getTasks() {
-		return tasks;
+
+	public List<IProjectTask> getTasks() {
+		return Collections.unmodifiableList(tasks);
 	}
 
-	public void setTasks(List<Long> tasks) {
+	public void setTasks(List<IProjectTask> tasks) {
 		this.tasks = tasks;
 	}
 

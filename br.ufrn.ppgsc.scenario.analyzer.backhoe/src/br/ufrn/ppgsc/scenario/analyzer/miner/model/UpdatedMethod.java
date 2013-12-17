@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.backhoe;
+package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

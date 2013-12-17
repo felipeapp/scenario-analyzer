@@ -2,12 +2,14 @@ package dataminer;
 
 import java.io.IOException;
 
-import br.ufrn.ppgsc.scenario.analyzer.dataminer.AnalyzerMinerRunnable;
+import br.ufrn.ppgsc.scenario.analyzer.miner.AnalyzerMinerRunnable;
+import br.ufrn.ppgsc.scenario.analyzer.miner.AnalyzerMinerRunnable.MinerType;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		new AnalyzerMinerRunnable("analyzer_miner.properties").run();
+		AnalyzerMinerRunnable.startAnalyzerMiner(new PathTransformerSIGAA(),
+				MinerType.MinerRepository);
 	}
 
 }
