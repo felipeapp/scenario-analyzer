@@ -57,19 +57,25 @@ public class UpdatedMethodsMinerNoDB extends Miner {
 			 */
 			int i = 0;
 			for (String path : targetPaths) {
-				logger.info("Revisions: " + startRevisions.get(i) + " - " + endRevisions.get(i));
+				logger.info("Running doAnnotate [" + startRevisions.get(i) + ", " + endRevisions.get(i) + "]");
+				logger.info("Path (" + (i + 1) + "/" + targetPaths.size() + "):" + path);
 				
-				UpdatedLinesHandlerIProject handler = new UpdatedLinesHandlerIProject(repository);
+				UpdatedLinesHandlerIProject handler = handlers.get(path);
 				
-				client.getLogClient().doAnnotate(
-						SVNURL.parseURIEncoded(svnConnector.getUrl() + path),
-						null,
-						SVNRevision.create(startRevisions.get(i)),
-						SVNRevision.create(endRevisions.get(i)),
-						handler);
+				if (handler == null) {
+					handler = new UpdatedLinesHandlerIProject(repository, path);
+					
+					client.getLogClient().doAnnotate(
+							SVNURL.parseURIEncoded(svnConnector.getUrl() + path),
+							null,
+							SVNRevision.create(startRevisions.get(i)),
+							SVNRevision.create(endRevisions.get(i)),
+							handler);
+					
+					handlers.put(path, handler);
+				}
 				
 				++i;
-				handlers.put(path, handler);
 			}
 		} catch (SVNException ex) {
 			ex.printStackTrace();

@@ -28,13 +28,16 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	private StringBuilder sourceCode;
 	private IProjectDAO ipdao;
 	
+	private String path;
 	private SVNRepository repository;
 	
-	public UpdatedLinesHandlerIProject(SVNRepository repository) {
+	public UpdatedLinesHandlerIProject(SVNRepository repository, String path) {
 		revisionList = new HashMap<Long, List<IProjectTask>>();
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		ipdao = new IProjectDAO();
+		
+		this.path = path;
 		this.repository = repository;
 	}
 	
@@ -63,11 +66,20 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 			List<IProjectTask> tasks = revisionList.get(revision);
 			
 			if (tasks == null) {
-				logger.info("getting tasks to revision " + revision);
-				 
+				logger.info("Inside handler, getting tasks to revision " + revision);
+
+				IProjectTask task = null;
 				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
 				long task_number = UpdatedMethodsMinerUtil.getTaskNumberFromLogMessage(logMessage);
-				IProjectTask task = ipdao.getTaskByNumber(task_number);
+				
+				if (task_number < 0) {
+					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + task_number);
+					task = new IProjectTask();
+					task.setNumber(-1);
+				}
+				else {
+					task = ipdao.getTaskByNumber(task_number);
+				}
 				
 				tasks = new ArrayList<IProjectTask>();
 				tasks.add(task);

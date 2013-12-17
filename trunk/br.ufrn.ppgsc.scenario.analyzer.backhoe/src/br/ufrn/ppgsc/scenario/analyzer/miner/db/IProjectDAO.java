@@ -47,9 +47,9 @@ public class IProjectDAO {
 			rs.next();
 			
 			task.setId(rs.getLong("id"));
-			task.setNumero(rs.getLong("numero"));
-			task.setIdTipo(rs.getLong("id_tipo"));
-			task.setTipoDenominacao(rs.getString("tipo_denominacao"));
+			task.setNumber(rs.getLong("numero"));
+			task.setIdType(rs.getLong("id_tipo"));
+			task.setTypeName(rs.getString("tipo_denominacao"));
 		} catch (SQLException e) {
 			logger.warn(e.getMessage());
 		}
@@ -99,7 +99,9 @@ public class IProjectDAO {
 	public static void main(String[] args) {
 		IProjectDAO dao = new IProjectDAO();
 		for (IProjectTask t : dao.getTasksByRevision(70315))
-			System.out.println(t.getNumero());
+			System.out.println(t.getNumber());
+		
+		System.out.println(dao.getTaskByNumber(70315).getId());
 	}
 	
 }

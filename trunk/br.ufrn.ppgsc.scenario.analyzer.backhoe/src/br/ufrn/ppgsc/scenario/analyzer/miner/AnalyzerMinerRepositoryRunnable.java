@@ -25,11 +25,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private IPathTransformer transformer;
 	
 	private String url;
-	private String prefix;
+	private String rep_prefix;
 	private String user;
 	private String password;
 	private String system_id;
 	private String strdate;
+	private String wc_prefix_v1;
+	private String wc_prefix_v2;
 
 	private static final String files[] =
 		{"changed_methods", "excluded_methods", "failed_methods_both",
@@ -44,10 +46,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 		partial_names = new ArrayList<String>();
 		
 		url = properties.getProperty("repository_url");
-		prefix = properties.getProperty("repository_prefix");
+		rep_prefix = properties.getProperty("repository_prefix");
 		user = properties.getProperty("repository_user");
 		password = properties.getProperty("repository_password");
 		system_id = properties.getProperty("system_id");
+		
+		wc_prefix_v1 = properties.getProperty("workcopy_prefix_v1");
+		wc_prefix_v2 = properties.getProperty("workcopy_prefix_v2");
 		
 		for (String name : files) {
 			boolean active = Boolean.parseBoolean(properties.getProperty(name));
@@ -89,10 +94,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 			pw.println(upmethod_list.size());
 			
 			for (UpdatedMethod method : upmethod_list) {
-				System.out.println(method.getMethodLimit().getSignature());
-				
 				List<UpdatedLine> upl_list = method.getUpdatedLines();
 				
+				pw.println(method.getMethodLimit().getSignature());
 				pw.println(upl_list.size());
 				
 				for (UpdatedLine up_line : upl_list) {
@@ -107,9 +111,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 					
 					for (IProjectTask t : tasks) {
 						pw.println("Id:" + t.getId());
-						pw.println("IdTipo:" + t.getIdTipo());
-						pw.println("Número:" + t.getNumero());
-						pw.println("TipoDenomicação:" + t.getTipoDenominacao());
+						pw.println("IdTipo:" + t.getIdType());
+						pw.println("Número:" + t.getNumber());
+						pw.println("TipoDenomicação:" + t.getTypeName());
 					}
 				}
 			}
@@ -131,11 +135,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			message = loadFile(in, signatures);
 			
-			System.out.println(message);
-			System.out.println(signatures.size());
-			
 			for (String s : signatures) {
-				String paths[] = transformer.convert(s);
+				String paths[] = transformer.convert(s, rep_prefix, wc_prefix_v1, wc_prefix_v2);
 				
 				if (!new File(paths[1]).exists())
 					throw new FileNotFoundException(paths[1]);
@@ -143,10 +144,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 				if (!new File(paths[2]).exists())
 					throw new FileNotFoundException(paths[2]);
 				
-				repository_paths.add(prefix + paths[0]);
+				repository_paths.add(paths[0]);
 				old_workcopy_paths.add(paths[1]);
 				new_workcopy_paths.add(paths[2]);
 			}
+			
+			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + "["
+					+ repository_paths.size() + ", " + message + "]");
 			
 			Map<String, Collection<UpdatedMethod>> map_path_upmethod = UpdatedMethodsMinerUtil.getUpdatedMethodsFromRepository(
 					url, user, password,
@@ -177,7 +181,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			}
 			
 			// Persistir em arquivo os dados coletados
-			persistFile(message, partial_names.get(i++), filtrated_path_upmethod);
+			persistFile(message, "svn_" + partial_names.get(i++), filtrated_path_upmethod);
 		}
 	}
 
