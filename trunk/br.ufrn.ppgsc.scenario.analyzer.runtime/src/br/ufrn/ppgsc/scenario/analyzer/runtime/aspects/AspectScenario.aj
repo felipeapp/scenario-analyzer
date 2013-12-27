@@ -4,10 +4,8 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.TreeSet;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.DatabaseService;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
@@ -32,15 +30,13 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
  * TODO: limitação para quando o cenário já iniciou e o mesmo se divide em threads.
  * Testar isso http://dev.eclipse.org/mhonarc/lists/aspectj-users/msg12554.html
  * 
- * TODO: fazer o aspect capturar não apenas a mensagem da exceção, mas também o tipo
- * dela, pois nem toda exceção informa uma mensagem
- * 
- * TODO: verificar porque o aspect está salvando a assinatura do construtor duplicada
- * Já fiz, mas falta testar mais exemplos agora
  */
 public aspect AspectScenario {
 	
 	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
+	
+	private pointcut executionFlow() :
+		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario * *(..)));
 	
 	/*
 	 * Todas as execuções de métodos e construtores
@@ -48,8 +44,7 @@ public aspect AspectScenario {
 	 */
 	private pointcut scenarioExecution() :
 //		within(br.ufrn.sigaa.biblioteca..*) &&
-		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario * *(..)))
-		&& (execution(* *(..)) || execution(*.new(..)));
+		executionFlow() && (execution(* *(..)) || execution(*.new(..)));
 	
 	Object around() : scenarioExecution() && !executionIgnored() {
 		long begin, end;
@@ -104,37 +99,22 @@ public aspect AspectScenario {
 		Object o = proceed();
 		end = System.currentTimeMillis();
 		
-		nodes_stack.pop().setExecutionTime(end - begin);
-		
-		/*
-		 * Caso o método seja um método de entrada de um cenário,
-		 * significa que o cenário terminou de executar.
-		 * Salvamos as informações coletadas na banco de dados
-		 * A limpeza dos cenários é opcional apenas para liberar memória
+		/* 
+		 * Retira os elementos das pilhas e salva as informações no banco de dados
+		 * Observe que este método também é chamado quando ocorrem falhas
 		 */
-		if (AspectsUtil.isScenarioEntryPoint(member))
-			scenarios_statck.pop();
-		
-		// Se a pilha de cenários estiver vazia, salva as informações no banco de dados
-		if (scenarios_statck.isEmpty()) {
-			DatabaseService.saveResults(execution);
-			execution.clearScenarios();
-		}
+		AspectsUtil.popStacksAndPersistData(end - begin, member);
 		
 		return o;
 	}
 	
 	after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
-		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisJoinPoint.getSignature()));
-
-		try {
-			AspectsUtil.getOrCreateRuntimeNodeStack().pop().setExecutionTime(-1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
+		AspectsUtil.setRobustness(t, member);
+		AspectsUtil.popStacksAndPersistData(-1, member);
 	}
 	
-	before(Throwable t) : handler(Throwable+) && args(t) && !executionIgnored() {
+	before(Throwable t) : handler(Throwable+) && args(t) && executionFlow() && !executionIgnored() {
 		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 	}
 	
