@@ -15,8 +15,11 @@ import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 public abstract class AspectsUtil {
@@ -92,6 +95,31 @@ public abstract class AspectsUtil {
 		return result;
 	}
 	
+	protected static void popStacksAndPersistData(long time, Member member) {
+		Execution execution = RuntimeUtil.getCurrentExecution();
+		
+		Stack<RuntimeScenario> scenarios_statck = AspectsUtil.getOrCreateRuntimeScenarioStack();
+		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
+		
+		// Desempilha o último método e configura o tempo de execução dele
+		nodes_stack.pop().setExecutionTime(time);
+				
+		/*
+		 * Caso o método seja um método de entrada de um cenário,
+		 * significa que o cenário terminou de executar.
+		 * Salvamos as informações coletadas na banco de dados
+		 * A limpeza dos cenários é opcional apenas para liberar memória
+		 */
+		if (AspectsUtil.isScenarioEntryPoint(member))
+			scenarios_statck.pop();
+		
+		// Se a pilha de cenários estiver vazia, salva as informações no banco de dados
+		if (scenarios_statck.isEmpty()) {
+			DatabaseService.saveResults(execution);
+			execution.clearScenarios();
+		}
+	}
+	
 	protected static void setRobustness(Throwable t, Member m) {
 		Stack<RuntimeNode> nodes_stack = getOrCreateRuntimeNodeStack();
 		
@@ -101,7 +129,7 @@ public abstract class AspectsUtil {
 		
 			// Testa se foi o método que capturou ou lançou a exceção
 			if (node.getMemberSignature().equals(MemberUtil.getStandartMethodSignature(m)))
-				node.setExceptionMessage(t.getMessage());
+				node.setExceptionMessage(t.toString());
 		}
 	}
 	

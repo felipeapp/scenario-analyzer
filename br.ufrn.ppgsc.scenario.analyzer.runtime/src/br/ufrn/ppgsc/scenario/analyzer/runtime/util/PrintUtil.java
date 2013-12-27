@@ -11,7 +11,7 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 public abstract class PrintUtil {
 	
 	public static void printScenarioTree(RuntimeScenario tree, Appendable buffer) throws IOException {
-		buffer.append("Scenario: " + tree.getName() + " (Id: " + tree.getThreadId() + ", Request: ");
+		buffer.append("Scenario: " + tree.getName() + " (ExecutionId: " + tree.getThreadId() + ", Request: ");
 		
 		if (tree.getContext() != null && !tree.getContext().isEmpty()) {
 			Iterator<String> itr = tree.getContext().values().iterator();
@@ -45,7 +45,7 @@ public abstract class PrintUtil {
 	private static void printTreeNode(RuntimeNode root, String tabs, Appendable buffer) throws IOException {
 		buffer.append(tabs + root.getMemberSignature() + " - " + root.getId() +
 				" (" + root.getExecutionTime() + "ms, " +
-				(root.getExceptionMessage() == null ? false : true) + ") Parent: " + 
+				(root.getExecutionTime() == -1 ? true : false) + ") Parent: " + 
 				(root.getParent() == null ? "-" : root.getParent().getId()));
 		
 		buffer.append(" | Scenarios: ");
@@ -57,6 +57,8 @@ public abstract class PrintUtil {
 			if (i + 1 < root.getScenarios().size())
 				buffer.append(", ");
 		}
+		
+		buffer.append(" | " + (root.getExceptionMessage() == null ? "-" : root.getExceptionMessage()));
 		
 		Set<RuntimeGenericAnnotation> annotations = root.getAnnotations();
 		
