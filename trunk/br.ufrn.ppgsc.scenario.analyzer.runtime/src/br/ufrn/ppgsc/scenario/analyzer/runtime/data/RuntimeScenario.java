@@ -24,7 +24,7 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 public class RuntimeScenario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

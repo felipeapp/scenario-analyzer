@@ -10,31 +10,13 @@ public class Main2 {
 
 	public static void main(String[] args) {
 		Main2 o = new Main2();
-		
+
 		o.B();
 		o.A();
-		
-//		Execution e = RuntimeUtil.getCurrentExecution();
-//
-//		System.out.println(e.getId() + " - " + e.getDate());
-//
-//		for (RuntimeScenario rs : e.getScenarios()) {
-//			StringBuilder sb = new StringBuilder();
-//			
-//			try {
-//				PrintUtil.printScenarioTree(rs, sb);
-//			} catch (IOException ex) {
-//				ex.printStackTrace();
-//			}
-//			
-//			System.out.println(sb);
-//		}
-//		
-//		DatabaseService.saveResults(e);
 	}
-	
+
 	private Main2() {
-		
+
 	}
 
 	@Scenario(name = "Scenario A")
@@ -47,6 +29,7 @@ public class Main2 {
 
 	@Performance(name = "qa_b_performance", limitTime = 4)
 	@Reliability(name = "qa_b_reliability", failureRate = 0.1)
+	@Scenario(name = "Scenario B")
 	private int B() {
 		C();
 		return 0;

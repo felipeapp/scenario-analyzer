@@ -9,8 +9,8 @@
 
 		<property name="connection.driver_class">org.postgresql.Driver</property>
 		<property name="connection.url">jdbc:postgresql://localhost:5432/scenarioanalyzer</property>
-		<property name="connection.username">analisador</property>
-		<property name="connection.password">12analisador34</property>
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">1234</property>
 
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
@@ -19,14 +19,14 @@
 
 		<property name="hbm2ddl.auto">update</property>
 
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.Execution" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeScenario" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeNode" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeGenericAnnotation" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimePerformance" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeSecurity" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeReliability" />
-		<mapping class="br.ufrn.ppgsc.scenario.analyzer.d.data.RuntimeRobustness" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimePerformance" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeSecurity" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeReliability" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeRobustness" />
 
 	</session-factory>
 

@@ -2,7 +2,9 @@ package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Stack;
+import java.util.TreeSet;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.DatabaseService;
@@ -34,6 +36,7 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
  * dela, pois nem toda exceção informa uma mensagem
  * 
  * TODO: verificar porque o aspect está salvando a assinatura do construtor duplicada
+ * Já fiz, mas falta testar mais exemplos agora
  */
 public aspect AspectScenario {
 	
@@ -53,6 +56,7 @@ public aspect AspectScenario {
 		
 		Execution execution = RuntimeUtil.getCurrentExecution();
 		
+		Stack<RuntimeScenario> scenarios_statck = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
 		
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
@@ -70,6 +74,7 @@ public aspect AspectScenario {
 					ann_scenario.name(), node, AspectsUtil.getContextParameterMap());
 			
 			execution.addRuntimeScenario(scenario);
+			scenarios_statck.push(scenario);
 		}
 		else if (nodes_stack.empty()) {
 			/* Se a pilha estiver vazia e a anotação não existe neste ponto é porque
@@ -92,6 +97,7 @@ public aspect AspectScenario {
 			node.setParent(parent);
 		}
 		
+		node.setScenarios(new ArrayList<RuntimeScenario>(scenarios_statck));
 		nodes_stack.push(node);
 		
 		begin = System.currentTimeMillis();
@@ -106,7 +112,11 @@ public aspect AspectScenario {
 		 * Salvamos as informações coletadas na banco de dados
 		 * A limpeza dos cenários é opcional apenas para liberar memória
 		 */
-		if (AspectsUtil.isScenarioEntryPoint(member)) {
+		if (AspectsUtil.isScenarioEntryPoint(member))
+			scenarios_statck.pop();
+		
+		// Se a pilha de cenários estiver vazia, salva as informações no banco de dados
+		if (scenarios_statck.isEmpty()) {
 			DatabaseService.saveResults(execution);
 			execution.clearScenarios();
 		}
@@ -116,7 +126,12 @@ public aspect AspectScenario {
 	
 	after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
 		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisJoinPoint.getSignature()));
-		AspectsUtil.getOrCreateRuntimeNodeStack().pop().setExecutionTime(-1);
+
+		try {
+			AspectsUtil.getOrCreateRuntimeNodeStack().pop().setExecutionTime(-1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	before(Throwable t) : handler(Throwable+) && args(t) && !executionIgnored() {

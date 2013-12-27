@@ -4,9 +4,6 @@ import java.io.IOException;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.PrintUtil;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 
 public class Main {
 	
@@ -35,8 +32,12 @@ public class Main {
 		return str.length();
 	}
 
-	@Scenario(name="main")
 	public static void main(String args[]) throws IOException {
+		Main.run();
+	}
+	
+	@Scenario(name="main")
+	public static void run() throws IOException {
 		Main m = new Main();
 		
 		System.out.println("mais uma linha");
@@ -65,11 +66,11 @@ public class Main {
 		System.out.println(calc.mult(6, 2));
 		System.out.println(calc.div(6, 2));
 		
-		for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
-			StringBuilder sb = new StringBuilder();
-			PrintUtil.printScenarioTree(cg, sb);
-			System.out.println(sb);
-		}
+//		for (RuntimeScenario cg : RuntimeUtil.getCurrentExecution().getScenarios()) {
+//			StringBuilder sb = new StringBuilder();
+//			PrintUtil.printScenarioTree(cg, sb);
+//			System.out.println(sb);
+//		}
 		
 	} // Fim do main
 

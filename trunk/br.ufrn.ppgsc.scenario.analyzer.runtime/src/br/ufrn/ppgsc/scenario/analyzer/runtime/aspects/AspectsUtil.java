@@ -16,12 +16,19 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 public abstract class AspectsUtil {
 	
-	// Cada thread tem uma pilha de execução diferente
-	private final static Map<Long, Stack<RuntimeNode>> thread_map =
+	/*
+	 * Cada thread tem uma pilha de execução diferente,
+	 * tanto para cenários quanto para nós
+	 */
+	private final static Map<Long, Stack<RuntimeScenario>> thread_scenarios_map =
+			new Hashtable<Long, Stack<RuntimeScenario>>();
+	
+	private final static Map<Long, Stack<RuntimeNode>> thread_nodes_map =
 			new Hashtable<Long, Stack<RuntimeNode>>();
 	
 	protected static boolean isScenarioEntryPoint(Member member) {
@@ -53,14 +60,26 @@ public abstract class AspectsUtil {
 	
 	protected static Stack<RuntimeNode> getOrCreateRuntimeNodeStack() {
 		long thread_id = Thread.currentThread().getId();
-		Stack<RuntimeNode> nodes_stack = thread_map.get(thread_id);
+		Stack<RuntimeNode> nodes_stack = thread_nodes_map.get(thread_id);
 		
 		if (nodes_stack == null) {
 			nodes_stack = new Stack<RuntimeNode>();
-			thread_map.put(thread_id, nodes_stack);
+			thread_nodes_map.put(thread_id, nodes_stack);
 		}
 		
 		return nodes_stack;
+	}
+	
+	protected static Stack<RuntimeScenario> getOrCreateRuntimeScenarioStack() {
+		long thread_id = Thread.currentThread().getId();
+		Stack<RuntimeScenario> scenarios_stack = thread_scenarios_map.get(thread_id);
+		
+		if (scenarios_stack == null) {
+			scenarios_stack = new Stack<RuntimeScenario>();
+			thread_scenarios_map.put(thread_id, scenarios_stack);
+		}
+		
+		return scenarios_stack;
 	}
 	
 	protected static Map<String, String> getContextParameterMap() {
