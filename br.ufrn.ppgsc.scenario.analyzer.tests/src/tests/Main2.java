@@ -45,6 +45,12 @@ public class Main2 {
 	@Robustness(name = "qa_d_robustness")
 	@Security(name = "qa_d_security")
 	public void D() {
+		try {
+			System.out.println(1 / 0);
+		} catch (ArithmeticException e) {
+			System.out.println("Exceção em D!");
+		}
+		
 		System.out.println("Aqui em D!");
 	}
 
