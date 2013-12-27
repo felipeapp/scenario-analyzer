@@ -46,8 +46,17 @@ public abstract class PrintUtil {
 		buffer.append(tabs + root.getMemberSignature() + " - " + root.getId() +
 				" (" + root.getExecutionTime() + "ms, " +
 				(root.getExceptionMessage() == null ? false : true) + ") Parent: " + 
-				(root.getParent() == null ? "-" : root.getParent().getId()) + " | Scenario: " +
-				(root.getScenario() == null ? "-" : root.getScenario().getName()));
+				(root.getParent() == null ? "-" : root.getParent().getId()));
+		
+		buffer.append(" | Scenarios: ");
+		for (int i = 0; i < root.getScenarios().size(); i++) {
+			RuntimeScenario rs = root.getScenarios().get(i);
+			
+			buffer.append(rs.getName() + " [" + rs.getId() + "]");
+			
+			if (i + 1 < root.getScenarios().size())
+				buffer.append(", ");
+		}
 		
 		Set<RuntimeGenericAnnotation> annotations = root.getAnnotations();
 		

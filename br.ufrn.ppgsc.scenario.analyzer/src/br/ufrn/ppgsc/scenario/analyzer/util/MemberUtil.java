@@ -8,31 +8,34 @@ import java.lang.reflect.Method;
  * sem gerar problemas com as dependências do classpath
  */
 public abstract class MemberUtil {
-	
+
 	public static String getStandartMethodSignature(Member member) {
-		StringBuffer result = new StringBuffer();
-		
-		result.append(member.getDeclaringClass().getName());
-		result.append(".");
-		result.append(member.getName());
-		result.append("(");
-		
+		StringBuilder result = new StringBuilder();
 		Class<?>[] ptypes = null;
-		
-		if (member instanceof Method)
+
+		if (member instanceof Method) {
+			result.append(member.getDeclaringClass().getName());
+			result.append(".");
+			result.append(member.getName());
+
 			ptypes = ((Method) member).getParameterTypes();
-		else if (member instanceof Constructor)
+		} else if (member instanceof Constructor) {
+			result.append(member.getName());
 			ptypes = ((Constructor<?>) member).getParameterTypes();
-		
-		for (Class<?> cls : ptypes) {
-			result.append(cls.getCanonicalName());
-			result.append(",");
 		}
-		
-		if (result.charAt(result.length() - 1) == ',')
-			result.deleteCharAt(result.length() - 1);
-		
-		return result + ")";
+
+		result.append("(");
+
+		for (int i = 0; i < ptypes.length; i++) {
+			result.append(ptypes[i].getCanonicalName());
+
+			if (i + 1 < ptypes.length)
+				result.append(",");
+		}
+
+		result.append(")");
+
+		return result.toString();
 	}
-	
+
 }

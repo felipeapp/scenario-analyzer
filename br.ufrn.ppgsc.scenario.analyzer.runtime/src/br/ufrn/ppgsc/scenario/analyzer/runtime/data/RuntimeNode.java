@@ -19,7 +19,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
@@ -44,9 +43,6 @@ public class RuntimeNode {
 	@Column(name = "time")
 	private long executionTime;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "root", fetch = FetchType.LAZY)
-	private RuntimeScenario scenario;
-
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "node_annotation",
 		joinColumns = @JoinColumn(name = "node_id"),
@@ -61,14 +57,22 @@ public class RuntimeNode {
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	@OrderBy("id asc")
 	private List<RuntimeNode> children;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "node_scenario",
+		joinColumns = @JoinColumn(name = "node_id"),
+		inverseJoinColumns = @JoinColumn(name = "scenario_id"))
+	@OrderBy("root asc")
+	private List<RuntimeScenario> scenarios;
 
 	public RuntimeNode() {
 
 	}
 
 	public RuntimeNode(Member member) {
-		memberSignature = MemberUtil.getStandartMethodSignature(member);
 		children = new ArrayList<RuntimeNode>();
+		scenarios = new ArrayList<RuntimeScenario>();
+		memberSignature = MemberUtil.getStandartMethodSignature(member);
 		annotations = RuntimeUtil.parseMemberAnnotations(member);
 	}
 
@@ -104,12 +108,16 @@ public class RuntimeNode {
 		this.executionTime = executionTime;
 	}
 
-	public RuntimeScenario getScenario() {
-		return scenario;
+	public List<RuntimeScenario> getScenarios() {
+		return Collections.unmodifiableList(scenarios);
 	}
 
-	public void setScenario(RuntimeScenario scenario) {
-		this.scenario = scenario;
+	public void setScenarios(List<RuntimeScenario> scenarios) {
+		this.scenarios = scenarios;
+	}
+	
+	public void addScenario(RuntimeScenario scenario) {
+		scenarios.add(scenario);
 	}
 
 	public Set<RuntimeGenericAnnotation> getAnnotations() {
