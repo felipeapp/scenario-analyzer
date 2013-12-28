@@ -1,16 +1,16 @@
-//package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
-//
-//import java.lang.reflect.Member;
-//import java.util.Stack;
-//
-//import br.ufrn.ppgsc.scenario.analyzer.runtime.data.DatabaseService;
-//import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
-//import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
-//import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
-//import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
-//
-//public aspect AspectMBean {
-//	
+package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
+
+import java.lang.reflect.Member;
+import java.util.Stack;
+
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+
+public aspect AspectMBean {
+	
 //	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 //	
 ////	private pointcut mBeanExecution() :
@@ -93,5 +93,5 @@
 //	before(Throwable t) : handler(Throwable+) && args(t) && !executionIgnored() {
 //		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 //	}
-//	
-//}
+	
+}
