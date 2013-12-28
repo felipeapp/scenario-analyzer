@@ -11,7 +11,7 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 public abstract class PrintUtil {
 	
 	public static void printScenarioTree(RuntimeScenario tree, Appendable buffer) throws IOException {
-		buffer.append("Scenario: " + tree.getName() + " (ExecutionId: " + tree.getThreadId() + ", Request: ");
+		buffer.append("Scenario: " + tree.getName() + " (ThreadId: " + tree.getThreadId() + ", Request: ");
 		
 		if (tree.getContext() != null && !tree.getContext().isEmpty()) {
 			Iterator<String> itr = tree.getContext().values().iterator();

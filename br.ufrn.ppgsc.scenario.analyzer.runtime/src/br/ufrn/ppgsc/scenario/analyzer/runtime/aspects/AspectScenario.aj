@@ -51,7 +51,7 @@ public aspect AspectScenario {
 		
 		Execution execution = RuntimeUtil.getCurrentExecution();
 		
-		Stack<RuntimeScenario> scenarios_statck = AspectsUtil.getOrCreateRuntimeScenarioStack();
+		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
 		
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
@@ -69,7 +69,7 @@ public aspect AspectScenario {
 					ann_scenario.name(), node, AspectsUtil.getContextParameterMap());
 			
 			execution.addRuntimeScenario(scenario);
-			scenarios_statck.push(scenario);
+			scenarios_stack.push(scenario);
 		}
 		else if (nodes_stack.empty()) {
 			/* Se a pilha estiver vazia e a anotação não existe neste ponto é porque
@@ -92,7 +92,7 @@ public aspect AspectScenario {
 			node.setParent(parent);
 		}
 		
-		node.setScenarios(new ArrayList<RuntimeScenario>(scenarios_statck));
+		node.setScenarios(new ArrayList<RuntimeScenario>(scenarios_stack));
 		nodes_stack.push(node);
 		
 		begin = System.currentTimeMillis();
