@@ -108,12 +108,14 @@ public aspect AspectScenario {
 		return o;
 	}
 	
+	// Intercepta lançamentos de exceções
 	after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
 		AspectsUtil.setRobustness(t, member);
 		AspectsUtil.popStacksAndPersistData(-1, member);
 	}
 	
+	// Intercepta capturas de exceções
 	before(Throwable t) : handler(Throwable+) && args(t) && executionFlow() && !executionIgnored() {
 		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 	}
