@@ -1,6 +1,7 @@
 package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -57,8 +58,7 @@ public class Execution implements Serializable {
 	}
 
 	public List<RuntimeScenario> getScenarios() {
-		return scenarios;
-//		return Collections.unmodifiableList(scenarios);
+		return Collections.unmodifiableList(scenarios);
 	}
 
 	public void setScenarios(List<RuntimeScenario> scenarios) {
@@ -67,10 +67,6 @@ public class Execution implements Serializable {
 
 	public void addRuntimeScenario(RuntimeScenario rs) {
 		scenarios.add(rs);
-	}
-	
-	public void clearScenarios() {
-		scenarios.clear();
 	}
 
 	public String getSystemName() {
