@@ -98,7 +98,7 @@ public abstract class AspectsUtil {
 	protected static void popStacksAndPersistData(long time, Member member) {
 		Execution execution = RuntimeUtil.getCurrentExecution();
 		
-		Stack<RuntimeScenario> scenarios_statck = AspectsUtil.getOrCreateRuntimeScenarioStack();
+		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
 		
 		// Desempilha o último método e configura o tempo de execução dele
@@ -111,13 +111,11 @@ public abstract class AspectsUtil {
 		 * A limpeza dos cenários é opcional apenas para liberar memória
 		 */
 		if (AspectsUtil.isScenarioEntryPoint(member))
-			scenarios_statck.pop();
+			scenarios_stack.pop();
 		
 		// Se a pilha de cenários estiver vazia, salva as informações no banco de dados
-		if (scenarios_statck.isEmpty()) {
+		if (scenarios_stack.isEmpty())
 			DatabaseService.saveResults(execution);
-			execution.clearScenarios();
-		}
 	}
 	
 	protected static void setRobustness(Throwable t, Member m) {

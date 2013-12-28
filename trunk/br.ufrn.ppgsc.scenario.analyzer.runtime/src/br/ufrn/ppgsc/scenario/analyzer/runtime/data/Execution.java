@@ -1,12 +1,10 @@
 package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,9 +15,9 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Execution implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +32,7 @@ public class Execution implements Serializable {
 	@Column(name = "system_version")
 	private String systemVersion;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "execution", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "execution", fetch = FetchType.LAZY)
 	private List<RuntimeScenario> scenarios;
 
 	public Execution() {
@@ -59,7 +57,8 @@ public class Execution implements Serializable {
 	}
 
 	public List<RuntimeScenario> getScenarios() {
-		return Collections.unmodifiableList(scenarios);
+		return scenarios;
+//		return Collections.unmodifiableList(scenarios);
 	}
 
 	public void setScenarios(List<RuntimeScenario> scenarios) {
