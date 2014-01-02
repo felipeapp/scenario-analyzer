@@ -81,34 +81,39 @@ public class MainThread {
 
 		new Thread(new Runnable() {
 			public void run() {
-				new MainThread(10000).methodA();
-				System.out.println("id: " + Thread.currentThread().getId());
+				for (int i = 10; i > 0; i--) {
+					new MainThread(0).methodA();
+					System.out.println("id: " + Thread.currentThread().getId());
+				}
 			}
 		}).start();
 		
 		new Thread(new Runnable() {
 			public void run() {
-				new MainThread(0).methodA();
+				for (int i = 1; i <= 10; i++) {
+					new MainThread(0).methodA();
+					System.out.println("id: " + Thread.currentThread().getId());
+				}
 			}
 		}).start();
 		
-		new Thread(new Runnable() {
-			public void run() {
-				new MainThread(0).methodA();
-			}
-		}).start();
-		
-		new Thread(new Runnable() {
-			public void run() {
-				new MainThread(0).methodA();
-			}
-		}).start();
-		
-		new Thread(new Runnable() {
-			public void run() {
-				new MainThread(0).methodA();
-			}
-		}).start();
+//		new Thread(new Runnable() {
+//			public void run() {
+//				new MainThread(0).methodA();
+//			}
+//		}).start();
+//		
+//		new Thread(new Runnable() {
+//			public void run() {
+//				new MainThread(0).methodA();
+//			}
+//		}).start();
+//		
+//		new Thread(new Runnable() {
+//			public void run() {
+//				new MainThread(0).methodA();
+//			}
+//		}).start();
 
 	}
 
