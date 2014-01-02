@@ -1,10 +1,9 @@
 package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,7 +36,7 @@ public class Execution implements Serializable {
 	private List<RuntimeScenario> scenarios;
 
 	public Execution() {
-		scenarios = new Vector<RuntimeScenario>();
+		scenarios = new LinkedList<RuntimeScenario>();
 		date = new Date();
 	}
 
@@ -57,15 +56,20 @@ public class Execution implements Serializable {
 		this.date = date;
 	}
 
-	public List<RuntimeScenario> getScenarios() {
-		return Collections.unmodifiableList(scenarios);
+	/*
+	 * ATENÇÃO: todo acesso nesta lista pode gerar condição de corrida
+	 * O hibernate não está permitindo usar listas sincronizadas.
+	 * Ele simplesmente está trocando minha lista por um PersistentBag
+	 */
+	public synchronized List<RuntimeScenario> getScenarios() {
+		return scenarios;
 	}
 
-	public void setScenarios(List<RuntimeScenario> scenarios) {
-		this.scenarios = scenarios;
-	}
-
-	public void addRuntimeScenario(RuntimeScenario rs) {
+	/*
+	 * Isso é necessário, pois o hibernate não está permitindo usar listas sincronizadas.
+	 * Ele simplesmente está trocando minha lista por um PersistentBag
+	 */
+	public synchronized void addRuntimeScenario(RuntimeScenario rs) {
 		scenarios.add(rs);
 	}
 

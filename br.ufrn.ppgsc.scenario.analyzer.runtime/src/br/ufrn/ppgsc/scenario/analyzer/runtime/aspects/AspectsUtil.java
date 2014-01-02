@@ -1,12 +1,11 @@
 package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
 
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Stack;
-import java.lang.Long;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 
 import javax.faces.context.FacesContext;
 
@@ -101,17 +100,21 @@ public abstract class AspectsUtil {
 		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
 		
-		// Desempilha o último método e configura o tempo de execução dele
-		nodes_stack.pop().setExecutionTime(time);
-				
-		/*
-		 * Caso o método seja um método de entrada de um cenário,
-		 * significa que o cenário terminou de executar.
-		 * Salvamos as informações coletadas na banco de dados
-		 * A limpeza dos cenários é opcional apenas para liberar memória
-		 */
-		if (AspectsUtil.isScenarioEntryPoint(member))
-			scenarios_stack.pop();
+		try {
+			// Desempilha o último método e configura o tempo de execução dele
+			nodes_stack.pop().setExecutionTime(time);
+					
+			/*
+			 * Caso o método seja um método de entrada de um cenário,
+			 * significa que o cenário terminou de executar.
+			 * Salvamos as informações coletadas na banco de dados
+			 * A limpeza dos cenários é opcional apenas para liberar memória
+			 */
+			if (AspectsUtil.isScenarioEntryPoint(member))
+				scenarios_stack.pop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		// Se a pilha de cenários estiver vazia, salva as informações no banco de dados
 		if (scenarios_stack.isEmpty())
