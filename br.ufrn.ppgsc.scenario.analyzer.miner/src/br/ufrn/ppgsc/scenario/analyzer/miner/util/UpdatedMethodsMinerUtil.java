@@ -39,7 +39,7 @@ public abstract class UpdatedMethodsMinerUtil {
 		long task_number;
 		
 		if (task_word.equalsIgnoreCase("commit")) {
-			logger.info("Task word commit was found! Setting task number to -1!");
+			logger.info("Task word commit was found! Setting task number to -2!");
 			task_number = -2;
 		}
 		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) {
