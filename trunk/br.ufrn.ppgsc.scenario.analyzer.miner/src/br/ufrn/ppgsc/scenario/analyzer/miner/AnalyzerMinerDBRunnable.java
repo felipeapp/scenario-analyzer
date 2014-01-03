@@ -19,7 +19,6 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.QueryRuntimeUtil;
 
 public final class AnalyzerMinerDBRunnable {
 
@@ -38,7 +37,7 @@ public final class AnalyzerMinerDBRunnable {
 		database_v1 = new DatabaseService(properties.getProperty("database_v1")).getGenericDB();
 		database_v2 = new DatabaseService(properties.getProperty("database_v2")).getGenericDB();
 		
-		strdate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+		strdate = new SimpleDateFormat("yyyy-MM-dd_HH'h'mm'min'").format(new Date());
 	}
 	
 	private void persistFile(String message, String partial_name, Collection<String> collection, double rate) throws FileNotFoundException {
@@ -109,7 +108,8 @@ public final class AnalyzerMinerDBRunnable {
 	}
 	
 	private Map<RuntimeScenario, List<RuntimeNode>> buildMapOfFailedScenarios(
-			Collection<RuntimeScenario> failed_scenarios, Map<String, Integer> node_signatures) {
+			Collection<RuntimeScenario> failed_scenarios, Map<String, Integer> node_signatures,
+			GenericDB db) {
 		int i = 0;
 		Map<RuntimeScenario, List<RuntimeNode>> map = new HashMap<RuntimeScenario, List<RuntimeNode>>();
 		
@@ -118,7 +118,7 @@ public final class AnalyzerMinerDBRunnable {
 			
 			System.out.print("Building map for scenario " + s.getId() + ", " + s.getName() + ", " + ++i + "/" + failed_scenarios.size());
 			
-			List<RuntimeNode> failed_nodes = QueryRuntimeUtil.getFailedNodes(s);
+			List<RuntimeNode> failed_nodes = db.getFailedNodes(s);
 			
 			map.put(s, failed_nodes);
 			
@@ -131,7 +131,7 @@ public final class AnalyzerMinerDBRunnable {
 				node_signatures.put(n.getMemberSignature(), count + 1);
 			}
 			
-			System.out.println(", " + (int)((System.currentTimeMillis() - start) / 1000.0 / 60.0) + " minutes");
+			System.out.println(", " + (int)((System.currentTimeMillis() - start) / 1000.0) + " seconds");
 		}
 		
 		return map;
@@ -163,10 +163,10 @@ public final class AnalyzerMinerDBRunnable {
 		Map<String, Integer> failed_methods_v1 = new HashMap<String, Integer>();
 		Map<String, Integer> failed_methods_v2 = new HashMap<String, Integer>();
 		
-		Map<RuntimeScenario, List<RuntimeNode>> map_failed_scenario_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1);
+		Map<RuntimeScenario, List<RuntimeNode>> map_failed_scenario_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
 		persistFile("# Cenários que falharam na primeira versão", "failed_scenarios_v1", map_failed_scenario_node_v1, failed_methods_v1, database_v1);
 		
-		Map<RuntimeScenario, List<RuntimeNode>> map_failed_scenario_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2);
+		Map<RuntimeScenario, List<RuntimeNode>> map_failed_scenario_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
 		persistFile("# Cenários que falharam na evolução", "failed_scenarios_v2", map_failed_scenario_node_v2, failed_methods_v2, database_v2);
 		
 		Set<String> failed_methods_only_v1 = AnalyzerCollectionUtil.except(failed_methods_v1.keySet(), failed_methods_v2.keySet());

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 
 public abstract class GenericDB {
@@ -18,6 +19,8 @@ public abstract class GenericDB {
 	public abstract int getNumberOfMethodExecution(String signature);
 	
 	public abstract Map<String, Double> getExecutionTimeAverage();
+	
+	public abstract List<RuntimeNode> getFailedNodes(RuntimeScenario scenario);
 
 	private SessionFactory sessionFactory;
 	private Session session;

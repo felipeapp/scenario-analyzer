@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
 
 public class GenericDBHibernateImpl extends GenericDB {
@@ -72,6 +73,26 @@ public class GenericDBHibernateImpl extends GenericDB {
 			Map<?, ?> elem = (Map<?, ?>) o;
 			result.put(elem.get("signature").toString(), (Double) elem.get("average"));
 		}
+
+		return result;
+	}
+	
+	@Override
+	public List<RuntimeNode> getFailedNodes(RuntimeScenario scenario) {
+		List<RuntimeNode> result = new ArrayList<RuntimeNode>();
+		
+		Session s = getSession();
+
+		SQLQuery query = s.createSQLQuery("select n.* from node_scenario inner join node n"
+				+ " on node_scenario.node_id = n.id and node_scenario.scenario_id = :sid and"
+				+ " n.time = -1 and (select count(id) from node where parent_id = n.id and time = -1) = 0"
+				+ " order by n.id");
+		
+		query.setLong("sid", scenario.getId());
+		query.addEntity(RuntimeNode.class);
+		
+		for (Object o : query.list())
+			result.add((RuntimeNode) o);
 
 		return result;
 	}
