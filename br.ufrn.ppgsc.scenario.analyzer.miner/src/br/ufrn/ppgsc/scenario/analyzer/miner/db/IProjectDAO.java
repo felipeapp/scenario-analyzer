@@ -26,10 +26,16 @@ public class IProjectDAO {
 //						"comum_user", "comum_user");
 //			}
 			
+//			if (connection == null) {
+//				connection = DriverManager.getConnection(
+//						"jdbc:postgresql://localhost:5433/sistemas_comum_3_12_18",
+//						"postgres", "1234");
+//			}
+			
 			if (connection == null) {
 				connection = DriverManager.getConnection(
-						"jdbc:postgresql://localhost:5433/sistemas_comum_3_12_18",
-						"postgres", "1234");
+						"jdbc:postgresql://bdgeral.info.ufrn.br:5432/sistemas_comum_20131122",
+						"comum_user", "comum_user");
 			}
 		} catch (SQLException e) {
 			logger.warn(e.getMessage());

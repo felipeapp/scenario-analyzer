@@ -75,17 +75,22 @@ public class PathTransformerSIGAA implements IPathTransformer {
 		else if (method_signature.startsWith("br.ufrn.sigaa.dominio"))
 			full_path += "SIGAA/geral/";
 		
-		if (isConstructor(method_signature)) {
-			method_signature = method_signature.substring(
-					method_signature.indexOf("br.", 3), method_signature.indexOf("("));
-		}
+		String name = method_signature.replaceAll("[(].*[)]", "");
 		
-		full_path += method_signature
-				.replaceAll("[.][^.]+[(].*[)]", "")
-				.replaceAll("[.]", "/")
-				.replaceAll("[$].*", "");
+		/* 
+		 * Se é um método (nome inicia com minúsculo)
+		 * Isso precisa ser melhorado com um booleano nas próximas versões
+		 */
+		if (Character.isLowerCase(name.charAt(name.lastIndexOf('.') + 1)))
+			name = name.replaceAll("[.][^.]+$", "");
 		
-		full_path += ".java";
+		name = name.replaceAll("[.]", "/").replaceAll("[$].*", "");
+		
+		// Se for enum ainda ficará com uma barra no final que precisa ser removida
+		if (name.endsWith("/"))
+			name = name.substring(0, name.lastIndexOf('/'));
+				
+		full_path += name + ".java";
 		
 		String result[] = new String[3];
 		
@@ -97,10 +102,6 @@ public class PathTransformerSIGAA implements IPathTransformer {
 		result[2] = workcopy_prefix_v2 + full_path;
 		
 		return result;
-	}
-
-	private boolean isConstructor(String sig) {
-		return sig.indexOf("br.", 3) != -1 && sig.indexOf("br.", 3) <= sig.indexOf("(");
 	}
 	
 }

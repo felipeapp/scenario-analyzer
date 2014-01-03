@@ -24,6 +24,7 @@ import javax.persistence.OrderBy;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
+// TODO: adicionar um booleano para dizer se o membro é um construtor ou método
 @Entity(name = "node")
 public class RuntimeNode {
 
