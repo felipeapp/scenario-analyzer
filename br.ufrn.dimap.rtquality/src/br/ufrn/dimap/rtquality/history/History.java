@@ -49,7 +49,9 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.dimap.rtquality.plugin.Activator;
 import br.ufrn.dimap.rtquality.plugin.SysOutProgressMonitor;
+import br.ufrn.dimap.ttracker.data.CoveredMethod;
 import br.ufrn.dimap.ttracker.data.Revision;
+import br.ufrn.dimap.ttracker.data.Task;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 import com.thoughtworks.xstream.XStream;
@@ -66,7 +68,7 @@ public class History {
 		this.sVNConfig = sVNConfig;
 		this.iWorkspace = iWorkspace;
 		setupLibrary();
-		createRepository(sVNConfig.getSvnUrl() + sVNConfig.getProjectPath());
+		createRepository(sVNConfig.getSvnUrl());
 	}
 
 	private void createRepository(String svnUrl) throws SVNException {
@@ -75,29 +77,61 @@ public class History {
 		repository.setAuthenticationManager(authManager);
 	}
 	
-    public Set<String> getChangedMethodsSignatures(Revision startRevision) {
-    	Collection<UpdatedMethod> updatedMethods = getChangedMethods(startRevision.getOldRevision(),startRevision);
+    public Set<String> getChangedMethodsSignatures(String projectPath, Integer oldRevision, Integer currentRevision) {
+    	Collection<UpdatedMethod> updatedMethods = getChangedMethods(projectPath,oldRevision,currentRevision);
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
     	for (UpdatedMethod m : updatedMethods)
-			changedMethodsSignatures.add(m.getMethodLimit().getSignature());
-        return changedMethodsSignatures;
+    		changedMethodsSignatures.add(m.getMethodLimit().getSignature());
+    	return changedMethodsSignatures;
+    }
+	
+    public Set<String> getChangedMethodsSignaturesFromProjects(List<Project> projects, Integer oldRevision, Integer currentRevision) {
+    	Set<String> changedMethodsSignatures = new HashSet<String>(); 
+    	for(Project project : projects) {
+    		for(String changedMethodSignature : getChangedMethodsSignatures(project.getProjectPath(), oldRevision, currentRevision))
+    			changedMethodsSignatures.add(project.getProjectName()+"."+changedMethodSignature);
+    	}
+    	return changedMethodsSignatures;
     }
     
-    public void checkoutProject(Revision revision) throws SVNException, CoreException, IOException {
+    public void checkoutProjects(Integer revision) throws SVNException, CoreException, IOException {
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
-		String tempDir = iWorkspace.getRoot().getLocation().toString()+sVNConfig.getProjectPath()+"_"+revision.getId();
-		File file = new File(tempDir);
-		if(!file.exists()){
-			file.mkdir();
-			sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+sVNConfig.getProjectPath()),
-					file, SVNRevision.create(revision.getId()-1), SVNRevision.create(revision.getId()), SVNDepth.INFINITY, true);
+		for(Project project : sVNConfig.getProjects()) {
+			String tempDir = iWorkspace.getRoot().getLocation().toString()+project.getProjectName();
+			File file = new File(tempDir);
+			if(!file.exists()){
+				file.mkdir();
+				sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getProjectPath()),
+						file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
+			}
+			project.setIProject(iWorkspace.getRoot().getProject(project.getProjectName()));
 		}
-		IProject iProject = iWorkspace.getRoot().getProject(sVNConfig.getProjectPath()+"_"+revision.getId());
-		importProject(iProject);
-		configureProject(iProject);
-		buildingProject(iProject);
+		for(Project project : sVNConfig.getProjects()) {
+			importProject(project);
+//			if(project.isAspectJNature()) //TODO: Remover comentário quando for rodar a execução completa 
+//				configureAspectJ(project.getIProject());
+			buildingProject(project.getIProject());
+		}
+    }
+    
+    public void updateProjects(Integer revision) throws SVNException, CoreException, IOException {
+    	SVNClientManager client = SVNClientManager.newInstance();
+		client.setAuthenticationManager(repository.getAuthenticationManager());
+		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
+		List<File> names = new ArrayList<File>(sVNConfig.getProjects().size());
+		for(Project project : sVNConfig.getProjects()) {
+			String tempDir = iWorkspace.getRoot().getLocation().toString()+project.getProjectName();
+			names.add(new File(tempDir));
+		}
+		sVNUpdateClient.doUpdate(names.toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
+		for(Project project : sVNConfig.getProjects()) {
+			importProject(project);
+//			if(project.isAspectJNature()) //TODO: Remover comentário quando for rodar a execução completa
+//				configureAspectJ(project.getIProject());
+			buildingProject(project.getIProject());
+		}
     }
 
 	private void buildingProject(IProject iProject) throws CoreException {
@@ -111,7 +145,8 @@ public class History {
 		SysOutProgressMonitor.out.println("Eclipse project builded");
 	}
     
-    private void importProject(final IProject iProject) throws CoreException, IOException {
+    private void importProject(Project project) throws CoreException, IOException {
+    	final IProject iProject = project.getIProject();
     	SysOutProgressMonitor.out.println("Importing eclipse project: " + iProject.getName());
     	InputStream inputStream = new FileInputStream(iWorkspace.getRoot().getLocation().toString()+"/"+iProject.getName()+"/.project");
     	final IProjectDescription iProjectDescription = iWorkspace.loadProjectDescription(inputStream);
@@ -131,14 +166,15 @@ public class History {
     		}
     	}, iWorkspace.getRoot(), IWorkspace.AVOID_UPDATE, new SysOutProgressMonitor());
     	
-    	copyFile(iProject, "/lib/aspectjweaver.jar");
-    	copyFile(iProject, "/lib/ttracker.jar");
     	iProject.refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
     	
     	SysOutProgressMonitor.out.println("Eclipse project imported");
     }
     
-    private void configureProject(IProject iProject) throws CoreException, IOException {
+    private void configureAspectJ(IProject iProject) throws CoreException, IOException {
+    	copyFile(iProject, "/lib/aspectjweaver.jar");
+    	copyFile(iProject, "/lib/ttracker.jar");
+    	iProject.refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
     	SysOutProgressMonitor.out.println("Adding AspectJ nature");
     	IProjectDescription iProjectDescription = iProject.getDescription();
 		String ajNature = "org.eclipse.ajdt.ui.ajnature";
@@ -266,17 +302,17 @@ public class History {
     	}
 	}
 
-    public File checkoutFile(String fileName, long revision) throws SVNException{
+    public File checkoutFile(String projectPath, String fileName, long revision) throws SVNException{
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
 		File file = new File(fileName);
-		sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+sVNConfig.getProjectPath()+fileName),
+		sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath+fileName),
 				file, SVNRevision.create(0), SVNRevision.create(revision), SVNDepth.INFINITY, true);
     	return file;
     }
 
-	private Collection<UpdatedMethod> getChangedMethods(Revision startRevision, Revision endRevision) {
+	private Collection<UpdatedMethod> getChangedMethods(String projectPath, Integer startRevision, Integer endRevision) {
 		Collection<UpdatedMethod> updatedMethods = new ArrayList<UpdatedMethod>();
 		SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
@@ -287,10 +323,10 @@ public class History {
 			File xmlFile = new File("ProjectUpdates.xml");
 			FileOutputStream fOS = new FileOutputStream(xmlFile);
 			startProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
-			diffClient.doDiff(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+sVNConfig.getProjectPath()),
-					SVNRevision.create(startRevision.getId()),
-					SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+sVNConfig.getProjectPath()),
-			        SVNRevision.create(endRevision.getId()),
+			diffClient.doDiff(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
+					SVNRevision.create(startRevision),
+					SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
+			        SVNRevision.create(endRevision),
 			        SVNDepth.INFINITY,
 			        true,
 			        fOS);

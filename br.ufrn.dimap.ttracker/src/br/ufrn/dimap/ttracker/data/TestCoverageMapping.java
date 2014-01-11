@@ -35,8 +35,6 @@ public class TestCoverageMapping implements Serializable {
 
 	private TestCoverageMapping() {
 		this.name = "TestCoverageMapping";
-		this.currentRevision = new Revision();
-		this.oldRevision = new Revision();
 		this.methodPool = new HashMap<String, MethodData>();
 		this.methodStatePool = new HashMap<MethodState, Map<String, MethodData>>(4);
 		this.methodStatePool.put(new MethodState(true, true), new HashMap<String, MethodData>());
@@ -217,11 +215,13 @@ public class TestCoverageMapping implements Serializable {
 		}
 	}
 
-	public void printAllTestsCoverage() {
-		System.out.println("\n================================= Printing All =================================\n");
+	public String printAllTestsCoverage() {
+		String all = "\n================================= Printing All =================================\n\n";
 		for (TestCoverage testCoverage : testCoverages) {
-			testCoverage.print();
+			all += testCoverage.getPrint()+"\n";
 		}
+		System.out.println(all);
+		return all;
 	}
 
 	public MethodData findMethodData(String methodSignature) {
@@ -250,41 +250,7 @@ public class TestCoverageMapping implements Serializable {
 	}
 
 	public void save() {
-		FileUtil.saveObjectToFile(this, fileDirectory, name, ".tcm");
-	}
-
-	public void combineWith(TestCoverageMapping other) throws Exception { // TODO:
-																			// Traduzir
-																			// as
-																			// mensagens
-																			// das
-																			// exceções
-																			// para
-																			// o
-																			// inglês
-		// TODO: Criar uma nova Exception específica para estas situações
-		// TODO: lembrar-se do setFileDirectory para a pasta lib na raiz do
-		// projeto
-		if (!currentRevision.equals(other.getCurrentRevision()))
-			throw new Exception("A currentRevision deveria ser igual em todos os testCoverageMappings");
-		if (!oldRevision.equals(other.getOldRevision()))
-			throw new Exception("A oldRevision deveria ser igual em todos os testCoverageMappings");
-		for (String signature : other.getMethodPool().keySet()) {
-			if (methodPool.containsKey(signature))
-				methodPool.get(signature).combineWith(other.getMethodPool().get(signature));
-			else
-				methodPool.put(signature, other.getMethodPool().get(signature));
-		}
-		if (!this.testCoverageBuilding.isEmpty())
-			throw new Exception("A lista testCoverageBuilding deveria estar vazia!");
-		Integer testCoverageSize = testCoverages.size();
-		for (TestCoverage otherTestCoverage : other.getTestCoverages()) {
-			if (!testCoverages.contains(otherTestCoverage)) {
-				otherTestCoverage.setIdTest(otherTestCoverage.getIdTest() + testCoverageSize);
-				testCoverages.add(otherTestCoverage);
-			}
-		}
-		nextId += other.seeNextId() - 1;
+		FileUtil.saveObjectToFile(this, fileDirectory, name, "tcm");
 	}
 
 	public String getName() {
@@ -313,6 +279,10 @@ public class TestCoverageMapping implements Serializable {
 
 	public static TestCoverageMapping getInstance() {
 		return instance;
+	}
+
+	public static void setInstance(TestCoverageMapping otherInstance) {
+		instance = otherInstance;
 	}
 
 	public Map<String, MethodData> getMethodPool() {
