@@ -31,7 +31,6 @@ public class TestCoverageMapping implements Serializable {
 	private SortedSet<TestCoverage> testCoverages;
 	private Integer nextId;
 	private String fileDirectory;
-	private Integer testCount;
 
 	private TestCoverageMapping() {
 		this.name = "TestCoverageMapping";
@@ -45,7 +44,6 @@ public class TestCoverageMapping implements Serializable {
 		this.testCoverages = new TreeSet<TestCoverage>();
 		this.nextId = 1;
 		this.fileDirectory = "C:/";
-		this.testCount = 0;
 	}
 
 	public MethodData addCoveredMethod(String methodSignature) {
@@ -216,7 +214,9 @@ public class TestCoverageMapping implements Serializable {
 	}
 
 	public String printAllTestsCoverage() {
-		String all = "\n================================= Printing All =================================\n\n";
+		Integer numberOfCoveredMethods = methodStatePool.get(new MethodState(false, true)).keySet().size()+methodStatePool.get(new MethodState(true, true)).keySet().size();
+		String all = "Revision: "+(currentRevision != null ? String.valueOf(currentRevision.getId()) : "?")+"\n"+"Number of Methods: "+methodPool.size()+"\n"+"Methods Covered by Tests: "+Integer.valueOf((numberOfCoveredMethods*100)/methodPool.size()).toString()+"%\n";
+		all += "\n================================= Printing All =================================\n\n";
 		for (TestCoverage testCoverage : testCoverages) {
 			all += testCoverage.getPrint()+"\n";
 		}
@@ -246,7 +246,6 @@ public class TestCoverageMapping implements Serializable {
 
 	public void finishTestCoverage(Long threadId) {
 		testCoverages.add(removeOpenedTestCoverage(threadId));
-		testCount++;
 	}
 
 	public void save() {
@@ -259,10 +258,6 @@ public class TestCoverageMapping implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Map<Long, TestCoverage> getTestsCoverageBuilding() {
-		return testCoverageBuilding;
 	}
 
 	public Set<TestCoverage> getTestCoverages() {
@@ -293,6 +288,14 @@ public class TestCoverageMapping implements Serializable {
 		return methodStatePool;
 	}
 
+	public Map<Long, TestCoverage> getTestCoverageBuilding() {
+		return testCoverageBuilding;
+	}
+
+	public void setTestCoverageBuilding(Map<Long, TestCoverage> testCoverageBuilding) {
+		this.testCoverageBuilding = testCoverageBuilding;
+	}
+
 	public Revision getCurrentRevision() {
 		return currentRevision;
 	}
@@ -314,10 +317,6 @@ public class TestCoverageMapping implements Serializable {
 
 	public void setFileDirectory(String fileDirectory) {
 		this.fileDirectory = fileDirectory;
-	}
-
-	public Integer getTestCount() {
-		return testCount;
 	}
 
 }
