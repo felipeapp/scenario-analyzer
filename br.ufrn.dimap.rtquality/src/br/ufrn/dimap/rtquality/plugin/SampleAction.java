@@ -79,6 +79,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	 * @see IWorkbenchWindowActionDelegate#run
 	 */
 	public void run(IAction action) {
+		System.out.println("run(IAction action)");
 		MessageDialog.openInformation(window.getShell(), "TestTracker", "Iniciando Estudo Empírico...");
 		try {
 			estudoEmpirico();
@@ -207,8 +208,20 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 						FileUtil.saveObjectToFile(perfectExclusion, iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectExclusion_"+task.getId(), "slc");
 					}
 				}
-				
 				//TODO: cada revisão pode conter novos testes ou excluídos testes da revisão anterior, ao calcular as métricas tem de levar em consideração apenas o que já existia
+			}
+			
+			Map<String,Set<Task>> taskTypes = new HashMap<String,Set<Task>>(4);
+			taskTypes.put(Task.APRIMORAMENTO, new HashSet<Task>());
+			taskTypes.put(Task.ERRO, new HashSet<Task>());
+			taskTypes.put(Task.ERRONEGOCIOVALIDACAO, new HashSet<Task>());
+			taskTypes.put(Task.VERIFICACAO, new HashSet<Task>());
+			for(Task task : tasks) {
+				Set<TestCoverage> techniqueSelection = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "RTSSelection_"+task.getId(), "slc");
+				Set<TestCoverage> techniqueExclusion = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "RTSExclusion_"+task.getId(), "slc");
+				Set<TestCoverage> perfectSelection = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectSelection_"+task.getId(), "slc");
+				Set<TestCoverage> prefectExclusion = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectExclusion_"+task.getId(), "slc");
+				taskTypes.get(task.getType()).add(task);
 			}
 			/*
 			 ** Cada revision do forCheckout deve possuir uma lista com as tarefas na qual ela é oldRevision e uma lista com as tarefas nas quais ela é currentRevision
