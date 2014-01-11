@@ -7,6 +7,7 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashSet;
+import java.util.Map;
 
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -130,10 +131,9 @@ public aspect TestTracker {
 					testData.setSignature(projectName+"."+signature.toString()); //retorno pacote classe método parâmetros
 					testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
 					testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
-					testCoverage.setTestData(testData); //TODO: é realmente necessário setar o testData ou o objeto já está lá?
 				}
 				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
-				TestCoverageMapping.getInstance().getTestsCoverageBuilding().put(threadId, testCoverage);
+				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
 			}
 		}
 		else{
@@ -142,7 +142,6 @@ public aspect TestTracker {
 				testData.setSignature(projectName+"."+signature.toString());
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
-				testCoverage.setTestData(testData); //TODO: é realmente necessário setar o testData ou o objeto já está lá?
 			}
 			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 		}
@@ -171,7 +170,7 @@ public aspect TestTracker {
 			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
 			testData.getSignature().equals(projectName+"."+signature.toString())){
 				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-				if(FileUtil.isLastTestByResource(member.getDeclaringClass())) {
+				if(FileUtil.getIsLastTestByResource(member.getDeclaringClass())) {
 					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 					TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
 					String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
@@ -292,14 +291,13 @@ public aspect TestTracker {
 			String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 			String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
 			Object obj = FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
-			if(obj != null && obj instanceof TestCoverageMapping)
+			if(obj != null && obj instanceof TestCoverageMapping) {
+				Map<Long, TestCoverage> testCoverageBuilding = TestCoverageMapping.getInstance().getTestCoverageBuilding();
 				TestCoverageMapping.setInstance((TestCoverageMapping) obj);
-		}
-		catch(ClassCastException cce) {
+				TestCoverageMapping.getInstance().setTestCoverageBuilding(testCoverageBuilding);
+			}
+		} catch(ClassCastException cce) {
 			cce.printStackTrace();
-		}
-		catch(IOException ioe) {
-			ioe.printStackTrace();
 		}
 	}
 	

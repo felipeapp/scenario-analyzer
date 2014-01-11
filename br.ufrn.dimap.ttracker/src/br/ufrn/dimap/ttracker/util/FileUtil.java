@@ -31,7 +31,7 @@ public class FileUtil {
 		}
 	}
 	
-	public static Object loadObjectFromFile(String fileDirectory, String fileName, String extension) throws IOException {
+	public static Object loadObjectFromFile(String fileDirectory, String fileName, String extension) {
 		try {
 			File file = new File(fileDirectory+"/"+fileName+"."+extension);
 			if(!file.exists())
@@ -41,10 +41,9 @@ public class FileUtil {
 			Object object = objectInputStream.readObject();
 			objectInputStream.close();
 			return object;
-		} catch (ClassNotFoundException cnfe) {
-			cnfe.printStackTrace();
+		} catch(Exception e) {
+			return null;
 		}
-		return null;
 	}
 	
 	public static void saveTextToFile(String text, String fileDirectory, String fileName, String extension){
@@ -111,13 +110,13 @@ public class FileUtil {
 		}
 	}
 	
-	public static Boolean isLastTestByResource(Class<?> aClass) {
+	public static Boolean getIsLastTestByResource(Class<?> aClass) {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/lastTest.txt"));
 			return br.readLine().equals("1") ? true : false;
-		} catch (IOException e) {
-			return false;
+		} catch (IOException ioe) {
+			return true;
 		} finally {
 			try {
 				if (br != null)
@@ -168,7 +167,7 @@ public class FileUtil {
 			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/projectName.txt"));
 			return br.readLine();
 		} catch (IOException e) {
-			return "/UnknowProjectName";
+			return "UnknowProjectName";
 		} finally {
 			try {
 				if (br != null)
