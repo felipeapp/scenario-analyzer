@@ -62,7 +62,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 		Session s = getSession();
 
 		SQLQuery query = s.createSQLQuery("select node.member signature, avg(node.time) average"
-				+ " from node where node.time <> -1 group by node.member order by signature");
+				+ " from node where node.time <> -1 group by signature order by signature");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 

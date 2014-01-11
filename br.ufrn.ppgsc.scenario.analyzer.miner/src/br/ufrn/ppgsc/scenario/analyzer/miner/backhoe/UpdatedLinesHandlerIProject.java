@@ -61,7 +61,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	public void handleLine(Date date, long revision, String author, String line, Date mergedDate,
 			long mergedRevision, String mergedAuthor, String mergedPath, int lineNumber) throws SVNException {
 		
-		sourceCode.append(line + "\n");
+		sourceCode.append(line + System.lineSeparator());
 		
 		if (revision != -1) {
 			List<IProjectTask> tasks = cache_revision_tasks.get(revision);

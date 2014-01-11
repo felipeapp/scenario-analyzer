@@ -137,6 +137,9 @@ public final class AnalyzerMinerDBRunnable {
 		return map;
 	}
 	
+	/*
+	 * TODO: Adicionar mineração para mostrar a média e desvio dos cenários
+	 */
 	public String run() throws FileNotFoundException {
 		Map<String, Double> avg_time_v1 = database_v1.getExecutionTimeAverage();
 		Map<String, Double> avg_time_v2 = database_v2.getExecutionTimeAverage();
