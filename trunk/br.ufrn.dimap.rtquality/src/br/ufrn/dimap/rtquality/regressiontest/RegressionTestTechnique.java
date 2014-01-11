@@ -12,6 +12,7 @@ import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.TestCoverage;
 
 public abstract class RegressionTestTechnique { //TODO: em algumas situações será necessário seaprar novos testes dos testes velhos, dependendo da implementação os testes novos não podem ser incluídos nas medições
+	protected String name; 
 	protected Revision revision;
 	protected IProject iProject;
 	protected Set<String> modifiedMethods;
@@ -20,7 +21,19 @@ public abstract class RegressionTestTechnique { //TODO: em algumas situações s
 	public abstract Set<TestCoverage> executeRegression();
 	public abstract void setConfiguration(Object args[]) throws Exception;
 	public abstract Map<MethodState,Map<String,MethodData>> getMethodStatePool();
+	
+	public RegressionTestTechnique(String name) {
+		this.name = name;
+	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public Revision getRevision() {
 		return revision;
 	}

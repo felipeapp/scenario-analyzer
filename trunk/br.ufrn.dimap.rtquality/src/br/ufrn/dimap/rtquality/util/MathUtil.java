@@ -6,7 +6,7 @@ import java.util.Set;
 public class MathUtil<T> {
 
 	public static <T> Set<T> intersection(Set<T> A, Set<T> B) {
-		Set<T> intersection = new HashSet<T>(A.size()+B.size());
+		Set<T> intersection = new HashSet<T>();
 		for(T  s : B) {
 			if(A.contains(s) && !intersection.contains(s))
 				intersection.add(s);
@@ -15,7 +15,7 @@ public class MathUtil<T> {
 	}
 	
 	public static <T> Set<T> union(Set<T> A, Set<T> B) {
-		Set<T> union = new HashSet<T>(A.size()+B.size());
+		Set<T> union = new HashSet<T>();
 		union.addAll(A);
 		union.addAll(B);
 		return union;

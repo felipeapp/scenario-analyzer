@@ -1,14 +1,16 @@
 package br.ufrn.dimap.rtquality.history;
 
+import java.util.List;
+
 public class SVNConfig {
 	private String svnUrl;
-	private String projectPath;
+	private List<Project> projects;
 	private String userName;
 	private String password;
 	
-	public SVNConfig(String svnUrl, String projectPath, String userName, String password) {
+	public SVNConfig(String svnUrl, List<Project> projects, String userName, String password) throws Exception {
 		this.svnUrl = svnUrl;
-		this.projectPath = projectPath;
+		this.projects = projects;
 		this.userName = userName;
 		this.password = password;
 	}
@@ -21,12 +23,12 @@ public class SVNConfig {
 		this.svnUrl = svnUrl;
 	}
 
-	public String getProjectPath() {
-		return projectPath;
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setProjectPath(String projectPath) {
-		this.projectPath = projectPath;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
 
 	public String getUserName() {

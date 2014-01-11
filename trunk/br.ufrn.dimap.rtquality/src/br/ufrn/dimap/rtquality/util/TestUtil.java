@@ -19,14 +19,21 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public class TestUtil {
 
-	public static void executeTests(ClassLoader classLoader, Set<String> testClasses, String resultName) {
+	public static void executeTests(ClassLoader classLoader, Set<String> testClasses, String resultFolder, String resultName, String projectName) {
 		Iterator<String> iterator = testClasses.iterator();
 		if(iterator.hasNext()) {
 			String saveFileDirectory = getSaveFileDirectory(classLoader, iterator.next());
-			FileUtil.saveTextToFile(String.valueOf(testClasses.size()),saveFileDirectory, "testClassesSize", ".txt");
-			FileUtil.saveTextToFile(resultName, saveFileDirectory, "testCoverageMappingName", ".txt");
-			for(String testClassName : testClasses){
+			//TODO: Reunir todas essas informações em texto e criar um objeto, persistí-lo para recuperar no TestTracker de uma só vez
+			FileUtil.saveTextToFile(resultName, saveFileDirectory, "testCoverageMappingName", "txt");
+			FileUtil.saveTextToFile(resultFolder, saveFileDirectory, "resultFolder", "txt");
+			FileUtil.saveTextToFile(projectName, saveFileDirectory, "projectName", "txt");
+			FileUtil.saveTextToFile("0",saveFileDirectory, "lastTest", "txt");
+			String testClassesArray[] = testClasses.toArray(new String[0]);
+			for(int i=0;i<testClasses.size();i++) {
 				try {
+					if(i == testClasses.size()-1)
+						FileUtil.saveTextToFile("1",saveFileDirectory, "lastTest", "txt");
+					String testClassName = testClassesArray[i]; 
 					Class<?> testClass = classLoader.loadClass(testClassName);
 					Runner r = new BlockJUnit4ClassRunner(testClass);
 					JUnitCore c = new JUnitCore();

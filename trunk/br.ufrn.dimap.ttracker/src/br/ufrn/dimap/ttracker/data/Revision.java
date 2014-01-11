@@ -1,26 +1,29 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.util.Set;
 
-public class Revision implements Serializable {
+public class Revision implements Serializable, Comparable<Revision> {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Task task;
+	private Integer oldId;
+	private Set<Task> oldTasks;
+	private Set<Task> currentTasks;
+	private Set<String> modifiedMethods;
+	private Set<String> UndoModifiedMethods;
 	private Float inclusion;
 	private Float precision;
 	private Float MC;
 	private Float MnC;
 	private Float nMC;
 	private Float nMnC;
-	private Revision oldRevision;
 	
-	public Revision() {
-	}
-	
-	public Revision(Integer id, Task task) {
-		this.task = task;
+	public Revision(Integer id,Set<Task> oldTasks, Set<Task> currentTasks) {
 		this.id = id;
+		this.oldId = id>1 ? id-1 : 1;
+		this.oldTasks = oldTasks;
+		this.currentTasks = currentTasks;
 	}
 
 	public Integer getId() {
@@ -29,14 +32,6 @@ public class Revision implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Task getTask() {
-		return task;
-	}
-
-	public void setTask(Task task) {
-		this.task = task;
 	}
 
 	public Float getInclusion() {
@@ -87,12 +82,44 @@ public class Revision implements Serializable {
 		this.nMnC = nMnC;
 	}
 
-	public Revision getOldRevision() {
-		return oldRevision;
+	public Integer getOldId() {
+		return oldId;
 	}
 
-	public void setOldRevision(Revision oldRevision) {
-		this.oldRevision = oldRevision;
+	public void setOldId(Integer oldId) {
+		this.oldId = oldId;
+	}
+
+	public Set<Task> getOldTasks() {
+		return oldTasks;
+	}
+
+	public void setOldTasks(Set<Task> oldTasks) {
+		this.oldTasks = oldTasks;
+	}
+
+	public Set<Task> getCurrentTasks() {
+		return currentTasks;
+	}
+
+	public void setCurrentTasks(Set<Task> currentTasks) {
+		this.currentTasks = currentTasks;
+	}
+
+	public Set<String> getModifiedMethods() {
+		return modifiedMethods;
+	}
+
+	public void setModifiedMethods(Set<String> modifiedMethods) {
+		this.modifiedMethods = modifiedMethods;
+	}
+
+	public Set<String> getUndoModifiedMethods() {
+		return UndoModifiedMethods;
+	}
+
+	public void setUndoModifiedMethods(Set<String> undoModifiedMethods) {
+		UndoModifiedMethods = undoModifiedMethods;
 	}
 
 	@Override
@@ -119,5 +146,9 @@ public class Revision implements Serializable {
 			return false;
 		return true;
 	}
+
+    public int compareTo(Revision other) {
+        return getId().compareTo(other.getId());
+    }
 
 }

@@ -63,7 +63,7 @@ public class TestTrackerDiffUniGenerator extends QDiffSequenceGenerator implemen
 				print(getEOL(), output);
 				print("          <author></author>", output);
 				print(getEOL(), output);
-				print("          <line>"+line+"</line>", output);
+				print("          <line>"+line.getBytes(encoding)+"</line>", output);
 				print(getEOL(), output);
 				print("          <lineNumber>-"+(j+1)+"</lineNumber>", output);
 				print(getEOL(), output);
@@ -80,7 +80,7 @@ public class TestTrackerDiffUniGenerator extends QDiffSequenceGenerator implemen
 				print(getEOL(), output);
 				print("          <author>"+""+"</author>", output);
 				print(getEOL(), output);
-				print("          <line>"+line+"</line>", output);
+				print("          <line>"+line.getBytes(encoding)+"</line>", output);
 				print(getEOL(), output);
 				print("          <lineNumber>+"+(-diffSize+j+1)+"</lineNumber>", output);
 				print(getEOL(), output);

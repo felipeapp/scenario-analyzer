@@ -20,7 +20,7 @@ public class FileUtil {
 		if(!dir.exists())
 			dir.mkdir();
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(fileDirectory+"/"+fileName+extension);
+			FileOutputStream fileOutputStream = new FileOutputStream(fileDirectory+"/"+fileName+"."+extension);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(obj);
 			objectOutputStream.close();
@@ -31,11 +31,11 @@ public class FileUtil {
 		}
 	}
 	
-	public static Object loadFileToObject(String fileDirectory, String fileName, String extension) throws IOException {
+	public static Object loadObjectFromFile(String fileDirectory, String fileName, String extension) throws IOException {
 		try {
-			File file = new File(fileDirectory+"/"+fileName+extension);
+			File file = new File(fileDirectory+"/"+fileName+"."+extension);
 			if(!file.exists())
-				throw new FileNotFoundException();
+				return null;
 			FileInputStream fileInputStream = new FileInputStream(file);
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 			Object object = objectInputStream.readObject();
@@ -53,7 +53,7 @@ public class FileUtil {
 		if (!dir.exists())
 			dir.mkdirs();
 		try {
-			FileWriter fw = new FileWriter(fileDirectory+"/"+fileName+extension);
+			FileWriter fw = new FileWriter(fileDirectory+"/"+fileName+"."+extension);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(text);
 			bw.close();
@@ -111,6 +111,23 @@ public class FileUtil {
 		}
 	}
 	
+	public static Boolean isLastTestByResource(Class<?> aClass) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/lastTest.txt"));
+			return br.readLine().equals("1") ? true : false;
+		} catch (IOException e) {
+			return false;
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
 	public static String getTestCoverageMappingNameByResource(Class<?> aClass) {
 		BufferedReader br = null;
 		try {
@@ -118,6 +135,40 @@ public class FileUtil {
 			return br.readLine();
 		} catch (IOException e) {
 			return "AllTests";
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	public static String getResultFolderByResource(Class<?> aClass) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/resultFolder.txt"));
+			return br.readLine();
+		} catch (IOException e) {
+			return "D:/result";
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	public static String getProjectNameByResource(Class<?> aClass) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/projectName.txt"));
+			return br.readLine();
+		} catch (IOException e) {
+			return "/UnknowProjectName";
 		} finally {
 			try {
 				if (br != null)

@@ -16,6 +16,7 @@ public class DiffRegressionTest extends RegressionTestTechnique {
 	protected TestCoverageMapping oldTestCoverageMapping;
 	
 	public DiffRegressionTest() {
+		super("Pythia");
 	}
 	
 	@Override

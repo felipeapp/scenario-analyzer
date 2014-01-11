@@ -55,19 +55,20 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		coveredMethods.add(new CoveredMethod(methodData, null, inputs));
 	}
 	
-	public void print() {
-		System.out.println("TestCoverage "+this.getIdTest()+": "+this.getTestData().getSignature());
-		System.out.println("MethodDatas:");
+	public String getPrint() {
+		String all = "TestCoverage "+this.getIdTest()+": "+this.getTestData().getSignature()+"\n";
+		all += "MethodDatas:\n";
 		for (CoveredMethod coveredMethod : this.getCoveredMethods()) {
 			String returnString = ((coveredMethod.getTheReturn() == null || coveredMethod.getTheReturn().getValue() == null) ? "" : "("+coveredMethod.getTheReturn().getValue().toString()+") -> ");
 			String inputString = " <- (";
 			for(Variable input : coveredMethod.getInputs()){
-				inputString += input.getValue().toString()+", ";
+				inputString += (input.getValue() == null ? "null" : input.getValue().toString()+", ");
 			}
 			inputString = coveredMethod.getInputs().size() == 0 ? "" : inputString.substring(0,inputString.length()-2)+")";
-			System.out.println("\t"+returnString+coveredMethod.getMethodData().getSignature()+inputString);
+			all += "\t"+returnString+coveredMethod.getMethodData().getSignature()+inputString+"\n";
 		}
-		System.out.println("\n---------------------------------------------------------------\n");
+		all += "\n---------------------------------------------------------------\n\n";
+		return all;
 	}
 
 	public void updateCoveredMethod(String methodSignature, Variable theReturn) { //TODO: Verificar se ocorrem erros quando na existência de um método recursivo que receba os mesmos parâmetros de entrada que o seu antecessor

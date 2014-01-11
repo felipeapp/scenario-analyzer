@@ -15,19 +15,19 @@ public class ProjectUpdates {
 		classUpdates = new ArrayList<ClassUpdates>();
 	}
 	
-	public Collection<UpdatedMethod> getUpdatedMethods(Revision rev1, Revision rev2) {
+	public Collection<UpdatedMethod> getUpdatedMethods(Integer rev1, Integer rev2) {
 		Collection<UpdatedMethod> updatedMethods = new ArrayList<UpdatedMethod>();
 		for (ClassUpdates classUpdate : classUpdates) {
 			List<UpdatedLine> removedLines = new ArrayList<UpdatedLine>(); 
 			List<UpdatedLine> addedLines = new ArrayList<UpdatedLine>();
 			for (UpdatedLine updatedLine : classUpdate.getChangedLines()) {
 				if(updatedLine.getLineNumber()<0){
-					updatedLine.setRevision(rev1.getId());
+					updatedLine.setRevision(rev1);
 					updatedLine.setLineNumber(updatedLine.getLineNumber()*-1);
 					removedLines.add(updatedLine);
 				}
 				else{
-					updatedLine.setRevision(rev2.getId());
+					updatedLine.setRevision(rev2);
 					addedLines.add(updatedLine);
 				}
 			}

@@ -1,26 +1,20 @@
 package br.ufrn.dimap.ttracker.aspects;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.Set;
+
+import junit.framework.TestCase;
+import org.junit.Test;
 
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.junit.Test;
 
-import br.ufrn.dimap.ttracker.data.CoveredMethod;
 import br.ufrn.dimap.ttracker.data.TestCoverage;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 import br.ufrn.dimap.ttracker.data.TestData;
@@ -30,7 +24,24 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 public aspect TestTracker {
 	private static final Integer NOTFOUND = -1;
 	
-	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);
+	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
+	private pointcut teste() :
+		cflow(
+			(
+				execution(* TestCase+.*()) ||
+				@annotation(Test)
+			) &&
+			(
+				execution(* *(..)) ||
+				execution(*.new(..))
+			)
+		) &&
+		(
+			execution(* *(..)) ||
+			execution(*.new(..))
+		) &&
+		exclusion();
+	
 	private pointcut beforeExecutions() :
 		cflow(
 			(
@@ -41,7 +52,7 @@ public aspect TestTracker {
 					@javax.context.SessionScoped* * ||
 					@javax.annotation.ManagedBean* *
 				) ||
-				@annotation(Test)
+				execution(* TestCase+.*())
 			)&&	
 			(
 				execution(* *(..)) ||
@@ -63,7 +74,7 @@ public aspect TestTracker {
 				@javax.context.ConversationScoped* * ||
 				@javax.annotation.ManagedBean* *
 			) ||
-			@annotation(Test)
+			execution(* TestCase+.*())
 		) &&
 		execution(public * *(..)) &&
 		!(
@@ -84,7 +95,7 @@ public aspect TestTracker {
 					@javax.context.SessionScoped* * ||
 					@javax.annotation.ManagedBean* *
 				) ||
-				@annotation(Test)
+				execution(* TestCase+.*())
 			)&&	
 			(
 				execution(* *(..)) ||
@@ -103,73 +114,110 @@ public aspect TestTracker {
 		) &&
 		exclusion();
 		
-	before() : beforeExecutions() {
-		TestCoverageMapping t = TestCoverageMapping.getInstance(); //TODO: Remover esta linha
+	before() : teste() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
+		loadTestCoverageMappingInstanceFromFile(member);
+		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+		TestCoverageMapping tcm = TestCoverageMapping.getInstance();
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
 			if(isTestClassMember(member) || isManagedBeanMember(member)){
 				testCoverage = new TestCoverage();
 				if(isTestMethod(member) || isActionMethod(member)) {
 					TestData testData = testCoverage.getTestData();
-					testData.setSignature(signature.toString()); //retorno pacote classe método parâmetros
+					testData.setSignature(projectName+"."+signature.toString()); //retorno pacote classe método parâmetros
 					testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
 					testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 					testCoverage.setTestData(testData); //TODO: é realmente necessário setar o testData ou o objeto já está lá?
 				}
-				testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 				TestCoverageMapping.getInstance().getTestsCoverageBuilding().put(threadId, testCoverage);
 			}
 		}
 		else{
 			TestData testData = testCoverage.getTestData();
 			if(testData.getSignature().isEmpty() && (isTestMethod(member) || isActionMethod(member))) {
-				testData.setSignature(signature.toString());
+				testData.setSignature(projectName+"."+signature.toString());
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 				testCoverage.setTestData(testData); //TODO: é realmente necessário setar o testData ou o objeto já está lá?
 			}
-			testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 		}
 	}
 	
-	after() returning(Object theReturn) : beforeExecutions() {
+	after() returning(Object theReturn) : teste() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
+		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-		TestCoverageMapping t = TestCoverageMapping.getInstance(); //TODO: Remover esta linha
-		if(testCoverage != null)
-			testCoverage.updateCoveredMethod(signature.toString(), getReturn(member, theReturn));
+			if(testCoverage != null)
+			testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
 	}
 	
-	after() : afterExecutions() {
+	after() : teste() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
+		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+		TestCoverageMapping tcm2 = TestCoverageMapping.getInstance();
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage != null){
 			TestData testData = testCoverage.getTestData();
 			if(((!testData.isManual() && isTestClassMember(member)) ||
 			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
-			testData.getSignature().equals(signature.toString())){
+			testData.getSignature().equals(projectName+"."+signature.toString())){
 				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-				Integer testCount = TestCoverageMapping.getInstance().getTestCount();
-				Integer testClassesSize = FileUtil.getTestClassesSizeByResource(member.getDeclaringClass());
-				TestCoverageMapping t = TestCoverageMapping.getInstance(); //TODO: Remover esta linha
-				testCoverage.print();
-				if(testClassesSize.equals(NOTFOUND) || testClassesSize.equals(testCount)){
-					String fileDirectory = FileUtil.getBuildFolderByResource(member.getDeclaringClass());
-					TestCoverageMapping.getInstance().setFileDirectory(fileDirectory);
+				if(FileUtil.isLastTestByResource(member.getDeclaringClass())) {
+					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+					TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
 					String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
 					TestCoverageMapping.getInstance().setName(testCoverageMappingName);
-					TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.  
+					TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
+					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
 				}
 			}
 		}
 	}
+	
+//	// Intercepta lan�amentos de exce��es
+//	after() throwing(Throwable t) : teste()  {
+//		Long threadId = Thread.currentThread().getId();
+//		Signature signature = thisJoinPoint.getSignature();
+//		Member member = getMember(signature);
+//		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+//		TestCoverageMapping tcm2 = TestCoverageMapping.getInstance();
+//		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+//		if(testCoverage != null){
+//			TestData testData = testCoverage.getTestData();
+//			if(((!testData.isManual() && isTestClassMember(member)) ||
+//			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
+//			testData.getSignature().equals(projectName+"."+signature.toString())){
+//				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
+//				Integer testCount = TestCoverageMapping.getInstance().getTestCount();
+//				Integer testClassesSize = FileUtil.getTestClassesSizeByResource(member.getDeclaringClass());
+//				testCoverage.print();
+//				if(testClassesSize.equals(NOTFOUND) || testClassesSize.equals(testCount)){
+//					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+//					TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
+//					String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
+//					TestCoverageMapping.getInstance().setName(testCoverageMappingName);
+//					TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
+//					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+//					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
+//				}
+//			}
+//		}
+//	}
+	
+//	// Intercepta capturas de exce��es
+//	before(Throwable t) : handler(Throwable+) && args(t) && teste() {
+//		System.out.println("before catch exception");
+//	}
 	
 //	before() : beforeExecutions() {
 //		Long threadId = Thread.currentThread().getId();
@@ -238,6 +286,22 @@ public aspect TestTracker {
 //			}
 //		}
 //	}
+	
+	private void loadTestCoverageMappingInstanceFromFile(Member member) {
+		try{
+			String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+			String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
+			Object obj = FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
+			if(obj != null && obj instanceof TestCoverageMapping)
+				TestCoverageMapping.setInstance((TestCoverageMapping) obj);
+		}
+		catch(ClassCastException cce) {
+			cce.printStackTrace();
+		}
+		catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 	
 	private LinkedHashSet<Variable> getInputs(Member member, Object[] args){
 		Class<?>[] types = getParameterTypes(member);
@@ -321,19 +385,14 @@ public aspect TestTracker {
 	}
 	
 	private boolean isTestClassMember(Member member) {
-		for(Method method : member.getDeclaringClass().getDeclaredMethods()) {
-			for(Annotation annotation : method.getAnnotations()) {
-				String packageClass = annotation.annotationType().getName();
-				if(packageClass.equals("org.junit.Test"))
-					return true;
-			}
-		}
+		if(member instanceof Method)
+			return ((Method) member).getAnnotation(Test.class) != null || ((Method) member).getDeclaringClass().getSuperclass().equals(TestCase.class);
 		return false;
 	}
 	
 	private boolean isTestMethod(Member member) {
 		if(member instanceof Method)
-			return ((Method) member).getAnnotation(Test.class) != null;
+			return (((Method) member).getAnnotation(Test.class) != null) || (((Method) member).getName().startsWith("test") && ((Method) member).getDeclaringClass().getSuperclass().equals(TestCase.class));
 		return false;
 	}
 

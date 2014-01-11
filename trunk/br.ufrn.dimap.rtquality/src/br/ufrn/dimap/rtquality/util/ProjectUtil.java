@@ -36,6 +36,7 @@ import org.junit.Test;
 import br.ufrn.dimap.rtquality.history.ChangedAssetsMinerUtil;
 import br.ufrn.dimap.rtquality.history.MethodLimit;
 import br.ufrn.dimap.rtquality.history.MethodLimitBuilder;
+import br.ufrn.dimap.rtquality.history.Project;
 import br.ufrn.dimap.rtquality.history.SVNConfig;
 import br.ufrn.dimap.rtquality.history.UpdatedLine;
 import br.ufrn.dimap.rtquality.history.UpdatedMethod;
@@ -63,14 +64,28 @@ public class ProjectUtil {
 		return null;
 	}
 	
-	public static IProject getIProject(SVNConfig sVNConfig, Revision revision) {
-		return ResourcesPlugin.getWorkspace().getRoot().getProject(sVNConfig.getProjectPath().substring(1)+"_"+revision.getId());
+	public static List<IProject> getIProjects(SVNConfig sVNConfig, Integer revision) {
+		List<IProject> iProjects = new ArrayList<IProject>(sVNConfig.getProjects().size());
+		for(Project project : sVNConfig.getProjects()) {
+			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getProjectPath().substring(1));
+			iProjects.add(iProject);
+		}
+		return iProjects;
 	}
 	
-	public static Set<String> getAllTestClasses(IProject iProject) throws JavaModelException {
+	public static List<IProject> getIProject(SVNConfig sVNConfig) {
+		List<IProject> iProjects = new ArrayList<IProject>(sVNConfig.getProjects().size());
+		for(Project project : sVNConfig.getProjects()) {
+			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getProjectPath().substring(1));
+			iProjects.add(iProject);
+		}
+		return iProjects;
+	}
+	
+	public static Set<String> getAllTestClasses(IProject iProject, Set<String> subPaths) throws JavaModelException {
 		Set<String> testClasses = new HashSet<String>(0);
 		for(IPackageFragment iPackageFragment : JavaCore.create(iProject).getPackageFragments()) {
-			if(iPackageFragment.getKind() == IPackageFragmentRoot.K_SOURCE) {
+			if(iPackageFragment.getKind() == IPackageFragmentRoot.K_SOURCE && (subPaths != null ? subPaths.contains(iPackageFragment.getParent().getPath().toString()) : true)) {
 				for(ICompilationUnit iCompilationUnit : iPackageFragment.getCompilationUnits()) {
 					for(IType iType : iCompilationUnit.getTypes()) {
 						if(isTestClass(iType))
@@ -166,7 +181,7 @@ public class ProjectUtil {
 			String testClass = ProjectUtil.getAClass(iProject);
 			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
 			String loadFileDirectory = TestUtil.getSaveFileDirectory(iProjectClassLoader, testClass);
-			return (TestCoverageMapping) FileUtil.loadFileToObject(loadFileDirectory, testCoverageMappingName, ".tcm");
+			return (TestCoverageMapping) FileUtil.loadObjectFromFile(loadFileDirectory, testCoverageMappingName, "tcm");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch(ClassCastException cce) {
@@ -177,12 +192,13 @@ public class ProjectUtil {
 		return null;
 	}
 	
-	public static TestCoverageMapping setAllUncoveredMethods(IProject iProject, String testCoverageMappingName) {
+	public static TestCoverageMapping setAllUncoveredMethods(Project project, String testCoverageMappingName) throws ClassNotFoundException {
 		try{
+			IProject iProject = project.getIProject();
 			String testClass = ProjectUtil.getAClass(iProject);
 			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-			String loadFileDirectory = TestUtil.getSaveFileDirectory(iProjectClassLoader, testClass);
-			TestCoverageMapping testCoverageMapping = (TestCoverageMapping) FileUtil.loadFileToObject(loadFileDirectory, testCoverageMappingName, ".tcm");
+			String resultFolder = FileUtil.getResultFolderByResource(iProjectClassLoader.loadClass(testClass).getDeclaringClass());
+			TestCoverageMapping testCoverageMapping = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
 			//Adiciona métodos uncovered
 			IJavaProject iJavaProject = JavaCore.create(iProject);
 			IPackageFragment[] iPackageFragments = iJavaProject.getPackageFragments();
@@ -205,7 +221,7 @@ public class ProjectUtil {
 								for(int i=0;i<splittedParameters.length;i+=2) {
 									signature += splittedParameters[i] + ",";
 								}
-								signature = signature.substring(0,signature.length()-1) + ")";
+								signature = project.getProjectName()+"."+signature.substring(0,signature.length()-1) + ")";
 								testCoverageMapping.findOrCreateMethodData(signature);
 							}
 						}
