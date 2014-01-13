@@ -80,7 +80,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 	
 	private void persistFile(String message, String partial_name,
 			Map<String, Collection<UpdatedMethod>> map_path_upmethod,
-			Map<String, Integer> counter_task_types) throws FileNotFoundException {
+			Map<String, Integer> counter_task_types,
+			Map<String, Integer> filtrated_counter_task_types) throws FileNotFoundException {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
@@ -128,6 +129,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		for (String type : counter_task_types.keySet())
 			pw.println(type + ":" + counter_task_types.get(type));
+		
+		pw.println(filtrated_counter_task_types.size());
+		
+		for (String type : filtrated_counter_task_types.keySet())
+			pw.println(type + ":" + filtrated_counter_task_types.get(type));
 		
 		pw.close();
 	}
@@ -198,50 +204,54 @@ public final class AnalyzerMinerRepositoryRunnable {
 			}
 			
 			/*
-			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
-			 * por exemplo, quantas vezes o tipo de tarefa aparece para métodos com desempenho
-			 * degradado.
+			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolução, considerando
+			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
+			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
 			 */
 			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
 			
+			/*
+			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
+			 * por exemplo, quantas vezes o tipo de tarefa aparece para métodos com desempenho
+			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
+			 */
+			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);
+			
 			// Persistir em arquivo os dados coletados
-			persistFile(message, "svn_" + partial_names.get(i++), filtrated_path_upmethod, counter_task_types);
+			persistFile(message, "svn_" + partial_names.get(i++), filtrated_path_upmethod, counter_task_types, filtrated_counter_task_types);
 		}
 	}
-
+	
 	private Map<String, Integer> counterTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
 		Map<String, Integer> counter_task_types = new HashMap<String, Integer>();
-		Set<Long> counted_revisions = new HashSet<Long>();
-		
+		Set<Long> counted_tasks = new HashSet<Long>();
+
 		for (String path : map_path_methods.keySet()) {
-			
+
 			for (UpdatedMethod method : map_path_methods.get(path)) {
-				
+
 				for (UpdatedLine line : method.getUpdatedLines()) {
-					
-					if (!counted_revisions.contains(line.getRevision())) {
-					
-						counted_revisions.add(line.getRevision());
-						
-						for (IProjectTask task : line.getTasks()) {
-							
+
+					for (IProjectTask task : line.getTasks()) {
+
+						if (task.getId() != -1 && !counted_tasks.contains(task.getId())) {
 							Integer counter = counter_task_types.get(task.getTypeName());
-							
+
 							if (counter == null)
 								counter_task_types.put(task.getTypeName(), 1);
 							else
 								counter_task_types.put(task.getTypeName(), counter + 1);
 							
+							counted_tasks.add(task.getId());
 						}
-						
+
 					}
-					
+
 				}
-				
+
 			}
-			
 		}
-		
+
 		return counter_task_types;
 	}
 	
