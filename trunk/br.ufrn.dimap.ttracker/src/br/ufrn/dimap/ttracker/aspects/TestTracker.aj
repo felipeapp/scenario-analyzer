@@ -145,6 +145,7 @@ public aspect TestTracker {
 			}
 			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 		}
+		saveTestCoverageMapping(member);
 	}
 	
 	after() returning(Object theReturn) : teste() {
@@ -153,8 +154,9 @@ public aspect TestTracker {
 		Member member = getMember(signature);
 		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-			if(testCoverage != null)
+		if(testCoverage != null)
 			testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
+		saveTestCoverageMapping(member);
 	}
 	
 	after() : teste() {
@@ -170,15 +172,18 @@ public aspect TestTracker {
 			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
 			testData.getSignature().equals(projectName+"."+signature.toString())){
 				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-				String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
-				TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
-				String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
-				TestCoverageMapping.getInstance().setName(testCoverageMappingName);
-				TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
-				String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-				FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
+				saveTestCoverageMapping(member);
 			}
 		}
+	}
+	private void saveTestCoverageMapping(Member member) {
+		String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+		TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
+		String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
+		TestCoverageMapping.getInstance().setName(testCoverageMappingName);
+		TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
+		String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+		FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
 	}
 	
 //	// Intercepta lan�amentos de exce��es
