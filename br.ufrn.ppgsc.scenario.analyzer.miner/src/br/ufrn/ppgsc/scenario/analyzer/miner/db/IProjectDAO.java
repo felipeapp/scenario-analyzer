@@ -28,7 +28,7 @@ public class IProjectDAO {
 			
 			if (connection == null) {
 				connection = DriverManager.getConnection(
-						"jdbc:postgresql://localhost:5433/sistemas_comum_3_12_18",
+						"jdbc:postgresql://localhost:5432/sistemas_comum",
 						"postgres", "1234");
 			}
 		} catch (SQLException e) {
