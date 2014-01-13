@@ -170,15 +170,13 @@ public aspect TestTracker {
 			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
 			testData.getSignature().equals(projectName+"."+signature.toString())){
 				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-				if(FileUtil.getIsLastTestByResource(member.getDeclaringClass())) {
-					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
-					TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
-					String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
-					TestCoverageMapping.getInstance().setName(testCoverageMappingName);
-					TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
-					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
-				}
+				String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+				TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
+				String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
+				TestCoverageMapping.getInstance().setName(testCoverageMappingName);
+				TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
+				String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+				FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
 			}
 		}
 	}
@@ -291,11 +289,8 @@ public aspect TestTracker {
 			String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 			String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
 			Object obj = FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
-			if(obj != null && obj instanceof TestCoverageMapping) {
-				Map<Long, TestCoverage> testCoverageBuilding = TestCoverageMapping.getInstance().getTestCoverageBuilding();
+			if(obj != null && obj instanceof TestCoverageMapping)
 				TestCoverageMapping.setInstance((TestCoverageMapping) obj);
-				TestCoverageMapping.getInstance().setTestCoverageBuilding(testCoverageBuilding);
-			}
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
 		}
