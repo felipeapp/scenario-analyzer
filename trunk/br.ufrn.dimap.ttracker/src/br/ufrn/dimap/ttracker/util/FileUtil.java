@@ -82,6 +82,7 @@ public class FileUtil {
 			return br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
+			return "C:/";
 		} finally {
 			try {
 				if (br != null)
@@ -90,7 +91,24 @@ public class FileUtil {
 				ex.printStackTrace();
 			}
 		}
-		return "C:/";
+	}
+	
+	public static Boolean getWasProjectBuildedByResource(Class<?> aClass, String projectName) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/Was"+projectName+"Builded.txt"));
+			return (br.readLine().equals("1") ? true : false);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 	public static Integer getTestClassesSizeByResource(Class<?> aClass) {
@@ -100,23 +118,6 @@ public class FileUtil {
 			return Integer.valueOf(br.readLine());
 		} catch (IOException e) {
 			return -1;
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
-	
-	public static Boolean getIsLastTestByResource(Class<?> aClass) {
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/lastTest.txt"));
-			return br.readLine().equals("1") ? true : false;
-		} catch (IOException ioe) {
-			return true;
 		} finally {
 			try {
 				if (br != null)
