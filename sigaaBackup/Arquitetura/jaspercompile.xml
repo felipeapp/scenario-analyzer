@@ -1,0 +1,59 @@
+<project name="antcompile" default="compile" basedir=".">
+	<!-- Eu optei compilar apenas os relatórios que modifiquei, por isso coloquei eles em uma pasta diferente -->
+	<!-- Se voce quiser fazer como eu e são muitos arquivos, modifique este shell de acordo com suas necessidades
+		#!/bin/bash
+		
+		# Local onde se encontra os JRXML
+		PATH_JRXML="/home/henrique/workspace/SIGAA/portais/br/ufrn/sigaa/portal/cpdi/relatorios/"
+		
+		# Local para onde vai copiar os arquivos modificados
+		DESTINO="/home/henrique/fontes/"
+		
+		#
+		# /home/henrique/svn_relatorio contem somente o nome dos arquivos, eu fui na view do sincronize: 
+		# botao direito em cima dos arquivos modificados -> copiar (ele so traz o nome dos aquivos, nao traz o path)
+		# por isso concateno com PATH_JRXML 
+		#
+		cat /home/henrique/svn_relatorio | 
+		while read LINHA; 
+		do 
+			cp $PATH_JRXML$LINHA  $DESTINO;
+		done
+		
+		
+	 -->
+
+	<description>ANT para compilar JRXML</description>
+	
+	<!-- Seu workspace -->
+	<property name="workspace" value="/home/henrique/workspace" />
+	
+	<!-- Local onde se encontra os jrxml que serão compilados -->
+	<property name="jrxml" value="/home/henrique/fontes" />
+	
+	<!-- Local onde vai ser criado os relatórios compilados -->
+	<property name="jasper" value="/home/henrique/jasper" />
+
+	<path id="classpath">
+		<fileset dir="${workspace}/Arq_UFRN/app/libs.jar/">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask"> 
+		<classpath refid="classpath"/>
+	</taskdef>
+	
+	<target name="compile" description="Gera o jasper"> 
+		<jrc 
+				srcdir="${jrxml}"
+				destdir="${jasper}"
+				tempdir="${jasper}"
+				keepjava="false"
+				xmlvalidation="true">
+			<classpath refid="classpath"/>
+			<include name="**/*.jrxml"/>
+		</jrc>
+	</target> 
+
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="br.ufrn.comum.dominio.PessoaGeral" schema="comum"
+        table="PESSOA" dynamic-update="false" dynamic-insert="false"
+        mutable="false">
+
+        <id name="id" column="ID_PESSOA" type="int"/>
+
+		<property name="cpf_cnpj" type="java.lang.Long" update="true"
+            insert="true" access="property" column="cpf_cnpj" not-null="true"/>
+
+        <property name="nome" type="java.lang.String" update="true"
+            insert="true" access="property" column="NOME" not-null="true"/>
+            
+        <property name="nomeAscii" type="java.lang.String" update="true"
+            insert="true" access="property" column="NOME_ASCII" not-null="true"/>
+        
+        <property name="tipo" type="char" update="true"
+            insert="true" access="property" column="TIPO" not-null="true"/>
+        
+        <property name="valido" type="boolean" update="true"
+            insert="true" access="property" column="VALIDO" not-null="true"/>
+            
+        <property name="sexo" type="char" update="true"
+            insert="true" access="property" column="SEXO" not-null="true"/>
+
+		<property name="dataNascimento" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_NASCIMENTO" not-null="true"/>
+
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.rh.dominio.Servidor"
+        table="SERVIDOR" dynamic-update="false" dynamic-insert="false" schema="RH">
+
+		<cache usage="nonstrict-read-write"/>
+
+        <id name="id" column="ID_SERVIDOR" type="int" unsaved-value="0">
+           	<generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+     			<param name="sequence_name">servidor_seq</param>
+  			</generator>
+        </id>
+
+        <property name="siape" type="int" update="true"
+            insert="true" access="property" column="SIAPE" not-null="false"/>
+
+    	 <property name="lotacao" type="java.lang.String" update="true"
+            insert="true" access="property" column="LOTACAO" not-null="false"/>
+
+        <many-to-one fetch="join" name="pessoa" class="br.ufrn.comum.dominio.PessoaGeral" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_PESSOA"/>
+
+		 <many-to-one fetch="join" name="cargo" class="br.ufrn.rh.dominio.Cargo" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_CARGO"/>
+
+		<many-to-one fetch="join" name="atividade" class="br.ufrn.rh.dominio.AtividadeServidor" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_ATIVIDADE"/>
+
+		<many-to-one fetch="join" name="escolaridade" class="br.ufrn.rh.dominio.Escolaridade" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_ESCOLARIDADE"/>
+
+        <many-to-one fetch="join" name="categoria" class="br.ufrn.rh.dominio.Categoria" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_CATEGORIA"/>
+
+		<many-to-one fetch="join" name="ativo" class="br.ufrn.rh.dominio.Ativo" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_ATIVO"/>
+
+        <many-to-one fetch="join" name="situacao" class="br.ufrn.rh.dominio.Situacao" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_SITUACAO"/>
+            
+       	
+       	<many-to-one fetch="join" name="classeFuncional" class="br.ufrn.rh.dominio.ClasseFuncional" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_CLASSE_FUNCIONAL"/>
+            
+
+	  	<set name="designacoes" lazy="true" order-by="inicio desc" cascade="none" inverse="true">
+    		<key column="ID_SERVIDOR"/>
+    		<one-to-many class="br.ufrn.rh.dominio.Designacao"/>
+    	</set>
+
+    	 <property name="auxilioTransporte" type="double" update="true"
+            insert="true" access="property" column="AUXILIO_TRANSPORTE" not-null="false"/>
+
+		<property name="regimeTrabalho" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="REGIME_TRABALHO" not-null="false"/>
+
+        <property name="dedicacaoExclusiva" type="boolean" update="true"
+            insert="true" access="property" column="DEDICACAO_EXCLUSIVA" not-null="false"/>
+
+		<property name="tipoVinculo" type="java.lang.String" update="true"
+            insert="true" access="property" column="TIPO_VINCULO" not-null="false"/>
+            
+        <property name="dataDesligamento" type="java.util.Date" access="property" column="data_desligamento" not-null="false"/>
+
+	</class>
+
+</hibernate-mapping>

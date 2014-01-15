@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.arq.dominio.RegistroEntrada" schema="COMUM"
+        table="REGISTRO_ENTRADA" dynamic-update="false" dynamic-insert="false">
+
+        <id name="id" column="ID_ENTRADA" type="int"/>
+
+        <property name="IP" type="java.lang.String" update="true"
+            insert="true" access="property" column="IP" not-null="false"/>
+
+		<property name="ipInternoNat" type="java.lang.String" update="true"
+            insert="true" access="property" column="IP_INTERNO_NAT" not-null="false"/>
+
+        <property name="data" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA" not-null="false"/>
+
+		<property name="sistema" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="id_sistema"/>
+
+        <property name="server" type="java.lang.String" update="true"
+            insert="true" access="property" column="host"/>
+
+		<property name="userAgent" type="java.lang.String" update="true"
+            insert="true" access="property" column="user_agent"/>
+
+        <property name="resolucao" type="java.lang.String" update="true"
+            insert="true" access="property" column="resolucao"/>
+
+        <property name="passaporte" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="passaporte"/>
+
+		<many-to-one fetch="join" name="usuario" class="br.ufrn.comum.dominio.UsuarioGeral" cascade="none"
+            outer-join="true" update="false" insert="true" access="property"
+            column="ID_USUARIO"/>
+
+		 <property name="dataSaida" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_SAIDA" not-null="false"/>
+
+    </class>
+
+</hibernate-mapping>

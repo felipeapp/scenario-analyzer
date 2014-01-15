@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.ufrn.comum.dominio.Sistema" table="SISTEMA"
+		dynamic-update="false" dynamic-insert="false" mutable="false" schema="comum">
+
+		<id name="id" column="ID" type="int" />
+
+		<property name="nome" type="java.lang.String" update="true"
+			insert="true" access="property" column="DESCRICAO" not-null="true" />
+			
+		<property name="ativo" type="boolean" update="true"
+			insert="true" access="property" column="ativo" not-null="true" />
+			
+		<property name="manutencao" type="boolean" update="true"
+			insert="true" access="property" column="manutencao" not-null="true" />
+			
+		<property name="caixaPostalAtiva" type="boolean" update="true"
+			insert="true" access="property" column="caixa_postal_ativa" not-null="true" />
+			
+		<property name="memorandosEletronicosAtivos" type="boolean" update="true"
+			insert="true" access="property" column="memorandos_eletronicos_ativos" not-null="true" />
+			
+		<property name="nomeDataSourceJndi" type="java.lang.String" update="true"
+			insert="true" access="property" column="nome_datasource_jndi" not-null="true" />
+			
+		<property name="caminhoArquivoConfiguracaoHibernate" type="java.lang.String" update="true"
+			insert="true" access="property" column="caminho_config_hibernate" not-null="true" />
+			
+		<property name="controlarUsuariosOnline" type="boolean" update="true"
+			insert="true" access="property" column="controlar_usuarios_online" not-null="true" />
+
+		<property name="portalPublicoAtivo" type="boolean" update="true"
+			insert="true" access="property" column="portal_publico_ativo" not-null="true" />
+			
+	</class>
+
+</hibernate-mapping>

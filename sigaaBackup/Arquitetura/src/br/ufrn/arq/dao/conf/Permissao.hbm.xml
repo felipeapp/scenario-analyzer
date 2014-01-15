@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.comum.dominio.Permissao"
+        table="PERMISSAO" dynamic-update="true" dynamic-insert="false"
+        mutable="true" schema="comum">
+
+        <id name="id" column="ID" type="int">
+     	   <generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+     			<param name="sequence_name">comum.permissao_seq</param>
+  			</generator>
+        </id>
+
+		<many-to-one fetch="join" name="papel" class="br.ufrn.comum.dominio.Papel" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_PAPEL"/>
+            
+		<many-to-one fetch="join" name="unidadePapel" class="br.ufrn.comum.dominio.UnidadeGeral" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_UNIDADE_PAPEL"/>
+
+		<many-to-one fetch="join" name="usuario" class="br.ufrn.comum.dominio.UsuarioGeral" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_USUARIO"/>
+
+		<many-to-one fetch="join" name="usuarioCadastro" class="br.ufrn.comum.dominio.UsuarioGeral" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_ATRIBUIDOR"/>
+
+        <property name="dataExpiracao" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_EXPIRACAO"/>
+
+        <property name="dataCadastro" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_ATRIBUICAO"/>
+
+		<property name="designacao" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="ID_DESIGNACAO"/>
+
+        <property name="sistema" type="int" update="true"
+            insert="true" access="property" column="ID_SISTEMA"/>
+
+		<property name="numeroChamado" type="java.lang.Integer" update="true"
+			insert="true" access="property" column="numero_chamado"/>
+			
+		<property name="motivo" type="java.lang.String" update="true"
+			insert="true" access="property" column="motivo"/>
+			
+		<property name="autorizada" type="java.lang.Boolean" update="true"
+			insert="true" access="property" column="autorizada"/>
+
+    </class>
+
+</hibernate-mapping>

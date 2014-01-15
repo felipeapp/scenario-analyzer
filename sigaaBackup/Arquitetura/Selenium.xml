@@ -1,0 +1,92 @@
+<!--========================================================
+Arquivo de Automatização dos testes
+Autor: Mayron Cachina
+=========================================================-->
+
+<project name="TestsSuite">
+	<target name="testsSeleniumSIGAdmin">
+		<property resource="selenium.properties">
+			<classpath>
+				<pathelement path="." />
+			</classpath>
+		</property>
+
+		<property name="sistema" value="SIGAdmin" />
+		<property name="dirSistema" value="SIGAdmin" />
+		<property name="earName" value="admin.ear" />
+		<property name="testSuite" value="${workspace}/${dirSistema}/app/${earName}/lib.jar/" />
+		<property name="build.testdir" value="${temp}/${sistema}Teste" />
+
+		<mkdir dir="${build.testdir}" />
+
+		<antcall target="testsSeleniumSistema" inheritall="true" />
+	</target>
+
+	<target name="testsSeleniumSIGRH">
+		<property resource="selenium.properties">
+			<classpath>
+				<pathelement path="." />
+			</classpath>
+		</property>
+
+		<property name="sistema" value="SIGRH" />
+		<property name="dirSistema" value="SIGRH" />
+		<property name="earName" value="sigrh.ear" />
+		<property name="testSuite" value="${workspace}/${dirSistema}/app/${earName}/lib.jar/" />
+		<property name="build.testdir" value="${temp}/${sistema}Teste" />
+
+		<mkdir dir="${build.testdir}" />
+
+		<antcall target="testsSeleniumSistema" inheritall="true" />
+	</target>
+
+
+	<target name="startServerSelenium">
+		<java jar="${workspace}/Arq_UFRN/app/libs.jar/selenium-server.jar" fork="true" spawn="true">
+			<arg line="-timeout 30" />
+			<arg line="-port 4567" />
+		</java>
+	</target>
+
+	<target name="stopServerSelenium">
+		<get taskname="selenium-shutdown" src="http://localhost:4567/selenium-server/driver/?cmd=shutDown" dest="${temp}/result.txt" ignoreerrors="true" />
+		<echo taskname="selenium-shutdown" message="Selenium Finalizado." />
+	</target>
+
+	<target name="testsSeleniumSistema" description="runs JUnit tests">
+		<antcall target="startServerSelenium" inheritall="true" />
+
+		<echo message="running JUnit tests" />
+
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath>
+				<pathelement location="${workspace}/Arq_UFRN/app/libs.jar/selenium-java-client-driver.jar" />
+				<pathelement location="${workspace}/Arq_UFRN/app/arq.jar/" />
+				<pathelement location="${workspace}/${dirSistema}/app/${earName}/lib.jar/" />
+			</classpath>
+
+
+
+			<formatter type="xml" />
+			<batchtest todir="${build.testdir}" filtertrace="on" haltonerror="false" haltonfailure="false">
+				<fileset dir="${testSuite}">
+					<include name="**/*TestSuite*.class" />
+					<exclude name="**/*TestSuiteUtils*.class" />
+				</fileset>
+			</batchtest>
+
+		</junit>
+
+		<echo message="running JUnit Reports" />
+		<junitreport todir="${build.testdir}">
+			<fileset dir="${build.testdir}">
+				<include name="*.xml" />
+			</fileset>
+			<report format="frames" todir="${build.testdir}" />
+		</junitreport>
+		<echo message="To see your Junit results, please open ${build.testdir}/index.html}" />
+
+		<antcall target="stopServerSelenium" inheritall="true" />
+	</target>
+
+</project>

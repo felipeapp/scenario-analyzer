@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.comum.dominio.Papel"
+        table="PAPEL" dynamic-update="false" dynamic-insert="false" schema="comum">
+
+        <id name="id" column="ID" type="int"/>
+
+		<property name="nome" type="java.lang.String" update="true"
+            insert="true" access="property" column="NOME" not-null="true"/>
+
+        <property name="descricao" type="java.lang.String" update="true"
+            insert="true" access="property" column="DESCRICAO" not-null="true"/>
+            
+        <property name="exigeUnidade" type="boolean" update="true"
+            insert="true" access="property" column="EXIGE_UNIDADE" not-null="true"/>
+        
+        <property name="sqlFiltroUnidades" type="java.lang.String" update="true"
+            insert="true" access="property" column="SQL_FILTRO_UNIDADES"/>
+            
+        <property name="restrito" type="boolean" update="true"
+            insert="true" access="property" column="RESTRITO" not-null="true"/>
+            
+        <property name="tipoAutorizacao" type="int" update="true"
+            insert="true" access="property" column="TIPO_AUTORIZACAO" not-null="true"/>
+            
+        <property name="tempoAlteracaoSenha" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="TEMPO_ALTERACAO_SENHA" not-null="false"/>
+
+		<many-to-one fetch="join" name="sistema" class="br.ufrn.comum.dominio.Sistema" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_SISTEMA"/>
+
+		<many-to-one fetch="join" name="subSistema" class="br.ufrn.comum.dominio.SubSistema" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_SUBSISTEMA"/>
+            
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="br.ufrn.comum.dominio.UnidadeGeral" table="UNIDADE"
+		schema="comum" dynamic-update="false" dynamic-insert="false" mutable="false">
+
+
+		<id name="id" column="ID_UNIDADE" type="int" />
+
+		<property name="nome" type="java.lang.String" update="true"
+			insert="true" access="property" column="NOME" />
+
+		<property name="nomeCapa" type="java.lang.String" update="true"
+			insert="true" access="property" column="NOME_CAPA" />
+
+		<property name="sigla" type="java.lang.String" update="true"
+			insert="true" access="property" column="SIGLA" />
+
+		<property name="nomeAscii" type="java.lang.String" update="true"
+			insert="true" access="property" column="NOME_ASCII" />
+
+		<property name="cep" type="java.lang.String" update="true"
+			insert="true" access="property" column="CEP" />
+
+		<property name="endereco" type="java.lang.String" update="true"
+			insert="true" access="property" column="ENDERECO" />
+
+		<property name="telefone" type="java.lang.String" update="true"
+			insert="true" access="property" column="TELEFONES" />
+
+		<property name="email" type="java.lang.String" update="true"
+			insert="true" access="property" column="EMAIL" />
+
+		<many-to-one fetch="join" name="unidadeResponsavel"
+			class="br.ufrn.comum.dominio.UnidadeGeral" cascade="none" update="true"
+			insert="true" access="property" column="UNIDADE_RESPONSAVEL" />
+
+		<property name="unidadeOrcamentaria" type="boolean" update="true"
+			insert="true" access="property" column="UNIDADE_ORCAMENTARIA" />
+
+		<property name="codigo" type="java.lang.Long" update="true"
+			insert="true" access="property" column="CODIGO_UNIDADE" />
+
+		<property name="codigoSiapecad" type="java.lang.Long" update="true"
+			insert="true" access="property" column="CODIGO_SIAPECAD" />
+
+		<property name="categoria" type="int" update="true" insert="true"
+			access="property" column="CATEGORIA" />
+
+		<property name="tipo" type="int" update="true" insert="true"
+			access="property" column="TIPO" />
+		<property name="hierarquia" type="java.lang.String" update="true"
+			insert="true" access="property" column="HIERARQUIA" />
+
+		<property name="unidadeSipac" type="boolean" update="true"
+			insert="true" access="property" column="SIPAC" />
+
+		<property name="ativo" type="boolean" update="true" insert="true"
+			access="property" column="ATIVO" />
+
+		<many-to-one fetch="join" name="gestora"
+			class="br.ufrn.comum.dominio.UnidadeGeral" cascade="none" outer-join="true"
+			update="true" insert="true" access="property" column="ID_GESTORA" />
+
+		<!--  Dados da unidade organizacional -->
+
+		<property name="organizacional" type="boolean" update="true"
+			insert="true" access="property" column="ORGANIZACIONAL" />
+
+
+		<property name="dataExtincao" type="java.util.Date" update="true"
+			insert="true" access="property" column="DATA_EXTINCAO" />
+
+		<property name="hierarquiaOrganizacional" type="java.lang.String"
+			update="true" insert="true" access="property" column="HIERARQUIA_ORGANIZACIONAL" />
+
+		<many-to-one fetch="join" lazy="no-proxy" name="responsavelOrganizacional"
+			class="br.ufrn.comum.dominio.UnidadeGeral" cascade="none" outer-join="true"
+			update="true" insert="true" access="property" column="ID_UNID_RESP_ORG" />
+
+		<property name="protocolizadora" type="boolean" update="true"
+            insert="true" access="property" column="PROTOCOLIZADORA"/>
+		
+		<property name="radical" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="RADICAL"/>
+
+		<many-to-one fetch="join" lazy="no-proxy" name="tipoTurno"
+			class="br.ufrn.comum.dominio.TipoTurno" cascade="none" outer-join="true"
+			update="true" insert="true" access="property" column="ID_TIPO_TURNO" />
+
+	</class>
+
+</hibernate-mapping>

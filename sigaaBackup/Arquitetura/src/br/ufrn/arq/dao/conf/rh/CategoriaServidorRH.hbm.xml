@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="br.ufrn.rh.dominio.Categoria"
+        table="CATEGORIA" schema="rh" dynamic-update="false" dynamic-insert="false">
+
+        <id name="id" column="ID_CATEGORIA" type="int" unsaved-value="0">
+           	<generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+     			<param name="sequence_name">general_seq</param>
+  			</generator>
+        </id>
+
+        <property name="descricao" type="java.lang.String" update="true"
+            insert="true" access="property" column="DESCRICAO" not-null="false"/>
+
+    </class>
+
+</hibernate-mapping>

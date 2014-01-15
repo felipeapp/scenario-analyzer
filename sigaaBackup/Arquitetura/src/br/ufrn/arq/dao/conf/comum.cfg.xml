@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+		<property name="transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</property>
+		<property name="transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</property>
+		<property name="jta.UserTransaction">UserTransaction</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.show_sql">false</property>
+
+		<mapping class="br.ufrn.boletim.dominio.TemplateAto" />
+
+		<mapping class="br.ufrn.comum.dominio.ConfiguracaoOperacaoSiged"/>
+
+		<mapping class="br.ufrn.comum.dominio.CasoUso"/>
+		<mapping class="br.ufrn.comum.dominio.RelacionamentoCasoUso"/>
+		<mapping class="br.ufrn.comum.dominio.TipoRelacionamentoCasoUso"/>
+
+		<mapping class="br.ufrn.arq.templates.TemplateDocumento" />
+		<mapping class="br.ufrn.arq.templates.TipoDocumentoTemplate" />
+		<mapping class="br.ufrn.arq.email.EmailEnviado" />
+		<mapping class="br.ufrn.arq.email.ErroEnvioEmail" />
+
+		<mapping class="br.ufrn.comum.dominio.PerfilPessoa" />
+		<mapping class="br.ufrn.comum.dominio.NoticiaPortal" />
+		
+		<mapping resource="br/ufrn/arq/dao/conf/Papel.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/Parametro.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/Permissao.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/PessoaGeral.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/Sistema.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/SubSistema.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/UnidadeGeral.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/UsuarioGeral.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/UsuarioUnidade.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/RegistroEntrada.hbm.xml" />
+		<mapping resource="br/ufrn/arq/dao/conf/RegistroAcessoPublico.hbm.xml" />
+
+		<mapping class="br.ufrn.comum.dominio.MaterialTreinamento" />
+		<mapping class="br.ufrn.comum.dominio.TipoMaterialTreinamento" />
+		<mapping class="br.ufrn.comum.dominio.UsuarioPortal" />
+		<mapping class="br.ufrn.comum.dominio.TipoUsuario" />
+		<mapping class="br.ufrn.comum.dominio.Feriado" />
+		<mapping class="br.ufrn.comum.dominio.UnidadeFederativa" />
+		<mapping class="br.ufrn.comum.dominio.Municipio" />
+		<mapping class="br.ufrn.comum.dominio.Pais" />
+		<mapping class="br.ufrn.comum.dominio.AlteracaoUsuario" />
+
+		<mapping class="br.ufrn.arq.caixa_postal.Mensagem" />
+		<mapping class="br.ufrn.arq.seguranca.dominio.PassaporteLogon" />
+		<mapping class="br.ufrn.arq.seguranca.dominio.RecuperacaoSenha" />
+		<mapping class="br.ufrn.arq.seguranca.autenticacao.BloqueioDocumentoAutenticado" />
+
+		<mapping class="br.ufrn.arq.seguranca.autenticacao.EmissaoDocumentoAutenticado" />
+		<mapping class="br.ufrn.arq.seguranca.autenticacao.RegistroEmissaoDocumentoAutenticado" />
+
+		<mapping class="br.ufrn.rh.dominio.CompetenciasSetor" />
+		<mapping class="br.ufrn.rh.dominio.ProcessoTrabalho" />
+		<mapping class="br.ufrn.rh.dominio.ModuloSistema" />
+		<mapping class="br.ufrn.rh.dominio.AtividadeAmbiente" />
+		<mapping class="br.ufrn.rh.dominio.ModuloAtividade" />
+		<mapping class="br.ufrn.rh.dominio.DescricaoAtividadeModulo" />
+		<mapping class="br.ufrn.rh.dominio.FrequenciaAtribuicaoUnidade" />
+		<mapping class="br.ufrn.rh.dominio.NivelComplexidadeAtribuicaoUnidade" />
+
+		<mapping class="br.ufrn.comum.dominio.AlteracaoUnidade" />
+		<mapping class="br.ufrn.comum.dominio.AmbienteOrganizacionalUnidade" />
+		<mapping class="br.ufrn.comum.dominio.ClassificacaoUnidade" />
+		<mapping class="br.ufrn.comum.dominio.AreaAtuacaoUnidade" />
+		<mapping class="br.ufrn.comum.dominio.NivelOrganizacional" />
+		<mapping class="br.ufrn.comum.dominio.Unidade" />
+		<mapping class="br.ufrn.comum.dominio.TipoTurno" />
+
+		<mapping class="br.ufrn.comum.dominio.Responsavel" />
+		<mapping class="br.ufrn.rh.dominio.Servidor" />
+		<mapping class="br.ufrn.rh.dominio.Cargo" />
+
+		<mapping class="br.ufrn.comum.dominio.TipoUnidadeOrganizacional" />
+		<mapping class="br.ufrn.comum.dominio.TelaAvisoLogon" />
+
+		<mapping class="br.ufrn.comum.dominio.correios.Localidade" />
+		<mapping class="br.ufrn.comum.dominio.correios.Bairro" />
+		<mapping class="br.ufrn.comum.dominio.correios.Logradouro" />
+
+		<mapping class="br.ufrn.comum.dominio.notificacoes.GrupoDestinatarios" />
+		<mapping class="br.ufrn.comum.dominio.notificacoes.ParametroGrupo" />
+		<mapping class="br.ufrn.comum.dominio.notificacoes.UsuarioGrupoDestinatarios" />
+		<mapping class="br.ufrn.comum.dominio.notificacoes.Notificacao" />
+		
+		<mapping class="br.ufrn.comum.wireless.AutorizacaoUsersExt" />
+		<mapping class="br.ufrn.comum.wireless.AutenticacaoUsersExt" />
+
+		<mapping class="br.ufrn.arq.erros.gerencia.Erro" />
+		<mapping class="br.ufrn.arq.erros.gerencia.ErroOcorrencia" />
+		
+		<mapping class="br.ufrn.comum.gru.dominio.AlteracaoGRU" />
+		<mapping class="br.ufrn.comum.gru.dominio.CodigoRecolhimentoGRU" />
+		<mapping class="br.ufrn.comum.gru.dominio.ConfiguracaoGRU" />
+		<mapping class="br.ufrn.comum.gru.dominio.GrupoEmissaoGRU" />
+		<mapping class="br.ufrn.comum.gru.dominio.GuiaRecolhimentoUniao" />
+		<mapping class="br.ufrn.comum.gru.dominio.TipoArrecadacao" />
+
+		<mapping class="br.ufrn.arq.dominio.RegistroSERPROConexao"/>
+		<mapping class="br.ufrn.arq.dominio.RegistroSERPROSincronizacao"/>
+		<mapping class="br.ufrn.arq.dominio.RegistroSERPROTelaConexao"/>
+		<mapping class="br.ufrn.arq.dominio.TipoRegistroSERPROSincronizacao"/>
+
+	</session-factory>
+</hibernate-configuration>

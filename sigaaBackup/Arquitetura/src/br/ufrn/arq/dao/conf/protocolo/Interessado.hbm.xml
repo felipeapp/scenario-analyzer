@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="br.ufrn.comum.dominio.Interessado"
+        table="INTERESSADO" schema="protocolo" dynamic-update="false" dynamic-insert="false">
+
+        <id name="id" column="IDINTERESSADO" type="int">
+			<generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+		    	<param name="sequence_name">seq_idprocesso</param>
+			</generator>
+        </id>
+
+   		<property name="numProtocolo" type="int" update="true"
+            insert="true" access="property" column="NUM_PROTOCOLO"/>
+        
+        <property name="ano" type="int" update="true"
+            insert="true" access="property" column="ANO"/>
+                
+		<property name="observacao" type="java.lang.String" update="true"
+            insert="true" access="property" column="OBSERVACAO"/>
+
+        <property name="assunto" type="java.lang.String" update="true"
+            insert="true" access="property" column="ASSUNTO"/>
+        
+        <property name="dataCadastro" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_CADASTRO"/>
+            
+    </class>
+
+</hibernate-mapping>
