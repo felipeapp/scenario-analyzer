@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="trf16153_Relatorio_Equipe_Acao_Extensao"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ano" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2009)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="situacaoAcao" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(103)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoAcao" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipoServidor" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="funcaoMembro" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(1)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.io.InputStream"/>
+	<parameter name="titulo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="textoAcao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="textoSituacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="tServidor" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="subSistema" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="subSistemaLink" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select
+  gest.nome as centro,
+  und.nome as departamento,
+  art.descricao as tema,
+  prj.titulo as nome_projeto,
+  pes.nome as membro,
+  fmb.descricao as funcao
+from
+  extensao.atividade as atv
+inner join
+  extensao.area_tematica as art
+  on atv.id_area_tematica_principal = art.id_area_tematica
+inner join
+  projetos.projeto as prj
+  on atv.id_atividade = prj.id_projeto
+inner join
+  projetos.membro_projeto as mpj
+  on atv.id_atividade = mpj.id_atividade
+inner join
+  projetos.funcao_membro as fmb
+  on mpj.id_funcao_membro = fmb.id_funcao_membro
+inner join
+  rh.servidor as sev
+  on mpj.id_servidor = sev.id_servidor
+inner join
+  comum.pessoa as pes
+  on pes.id_pessoa = sev.id_pessoa
+inner join
+  comum.unidade as und
+  on prj.id_unidade = und.id_unidade
+inner join
+  comum.unidade as gest
+  on und.id_gestora = gest.id_unidade
+where
+  atv.id_tipo_atividade_extensao = $P{tipoAcao} 
+and 
+  prj.id_tipo_situacao_projeto = $P{situacaoAcao} 
+and 
+  sev.id_categoria = $P{tipoServidor} 
+and 
+  (case $P{funcaoMembro} when 0 then 
+    true 
+  else
+    mpj.id_funcao_membro = $P{funcaoMembro}
+  end)
+and 
+  (extract(year from prj.data_inicio) <= $P{ano} and extract(year from prj.data_fim) >= $P{ano})
+order by
+  gest.nome, und.nome, art.descricao asc]]></queryString>
+
+	<field name="centro" class="java.lang.String"/>
+	<field name="departamento" class="java.lang.String"/>
+	<field name="tema" class="java.lang.String"/>
+	<field name="nome_projeto" class="java.lang.String"/>
+	<field name="membro" class="java.lang.String"/>
+	<field name="funcao" class="java.lang.String"/>
+
+	<variable name="contador" class="java.lang.Integer" resetType="Group" resetGroup="departamento" calculation="Sum">
+		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
+
+		<group  name="centro" >
+			<groupExpression><![CDATA[$F{centro}]]></groupExpression>
+			<groupHeader>
+			<band height="35"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="1"
+						y="12"
+						width="534"
+						height="17"
+						backcolor="#BCBCBC"
+						key="textField-10"/>
+					<box leftPadding="2"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{centro}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="departamento" >
+			<groupExpression><![CDATA[$F{departamento}]]></groupExpression>
+			<groupHeader>
+			<band height="46"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="6"
+						y="2"
+						width="529"
+						height="18"
+						backcolor="#E0D3D3"
+						key="textField-4"/>
+					<box leftPadding="2"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Oblique" isItalic="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{departamento}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="12"
+						y="25"
+						width="99"
+						height="17"
+						backcolor="#CDCDD7"
+						key="staticText-1"/>
+					<box leftPadding="1"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Área Temática]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="110"
+						y="25"
+						width="203"
+						height="17"
+						backcolor="#CDCDD7"
+						key="staticText-2"/>
+					<box leftPadding="1"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Título]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="438"
+						y="25"
+						width="97"
+						height="17"
+						backcolor="#CDCDD7"
+						key="staticText-13"/>
+					<box leftPadding="1"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Função]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="312"
+						y="25"
+						width="127"
+						height="17"
+						backcolor="#CDCDD7"
+						key="staticText-14"/>
+					<box leftPadding="1"></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Membro]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="29"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="6"
+						width="534"
+						height="1"
+						key="line-1"
+						positionType="FixRelativeToBottom"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="313"
+						y="11"
+						width="200"
+						height="18"
+						key="staticText-15"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total de Membros do Departamento:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="513"
+						y="11"
+						width="22"
+						height="18"
+						key="textField-12"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$V{contador}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="17"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-30"
+						y="0"
+						width="444"
+						height="17"
+						key="subreport-3"
+						isPrintRepeatedValues="false"/>
+					<subreportParameter  name="titulo">
+						<subreportParameterExpression><![CDATA[$P{titulo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subsistema">
+						<subreportParameterExpression><![CDATA[$P{subSistema}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subSistemaLink">
+						<subreportParameterExpression><![CDATA[$P{subSistemaLink}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/tituloUFRN.jasper")]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="77"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[new Boolean($V{PAGE_NUMBER}.intValue() == 1)]]></printWhenExpression>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="105"
+						y="53"
+						width="309"
+						height="16"
+						key="textField-6"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$P{ano}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="105"
+						y="5"
+						width="309"
+						height="16"
+						key="textField-7"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoAcao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="105"
+						y="21"
+						width="309"
+						height="16"
+						key="textField-8"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoSituacao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="53"
+						width="104"
+						height="16"
+						key="staticText-9"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Ano de Referência:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="21"
+						width="104"
+						height="16"
+						key="staticText-10"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Situação da Ação:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="5"
+						width="104"
+						height="16"
+						key="staticText-11"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tipo da Ação:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="1"
+						y="37"
+						width="104"
+						height="16"
+						key="staticText-12"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Tipo do Servidor:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="105"
+						y="37"
+						width="309"
+						height="16"
+						key="textField-9"
+						stretchType="RelativeToTallestObject"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{tServidor}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="29"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="13"
+						y="3"
+						width="98"
+						height="18"
+						key="textField-1"/>
+					<box rightPadding="2" topPadding="1" bottomPadding="3"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{tema}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="109"
+						y="3"
+						width="204"
+						height="18"
+						key="textField-2"/>
+					<box leftPadding="2" rightPadding="2" topPadding="1" bottomPadding="3"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nome_projeto}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="313"
+						y="3"
+						width="127"
+						height="18"
+						key="textField-3"/>
+					<box leftPadding="2" rightPadding="2" topPadding="1" bottomPadding="3"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{membro}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="3"
+						width="98"
+						height="18"
+						key="textField-11"/>
+					<box leftPadding="2" rightPadding="1"></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{funcao}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="22"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="1"
+						y="0"
+						width="278"
+						height="22"
+						key="subreport-1"/>
+					<subreportParameter  name="ano">
+						<subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="situacaoAcao">
+						<subreportParameterExpression><![CDATA[$P{situacaoAcao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="tipoAcao">
+						<subreportParameterExpression><![CDATA[$P{tipoAcao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="tipoServidor">
+						<subreportParameterExpression><![CDATA[$P{tipoServidor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="funcaoMembro">
+						<subreportParameterExpression><![CDATA[$P{funcaoMembro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/trf16153_SubRelatorio_Equipe_Acao_Extensao_Por_Centro.jasper")]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="279"
+						y="0"
+						width="256"
+						height="22"
+						key="subreport-2"/>
+					<subreportParameter  name="ano">
+						<subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="situacaoAcao">
+						<subreportParameterExpression><![CDATA[$P{situacaoAcao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="tipoAcao">
+						<subreportParameterExpression><![CDATA[$P{tipoAcao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="tipoServidor">
+						<subreportParameterExpression><![CDATA[$P{tipoServidor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="funcaoMembro">
+						<subreportParameterExpression><![CDATA[$P{funcaoMembro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/trf16153_SubRelatorio_Equipe_Acao_Extensao_Por_Temas.jasper")]]></subreportExpression>
+				</subreport>
+			</band>
+		</summary>
+</jasperReport>

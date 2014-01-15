@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="CertificadoParticipanteAtualizacaoPedagogica"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="786"
+		 columnSpacing="0"
+		 leftMargin="28"
+		 rightMargin="28"
+		 topMargin="28"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ano" isForPrompting="false" class="java.lang.Integer"/>
+	<parameter name="data_certificado" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="docente" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="atividade" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="cargaHoraria" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="periodo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="cidadeEstado" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="proreitorRecursosHumanos" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="proreitorGraduacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="codigoSeguranca" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="numeroDocumento" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="siteVerificacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="siape" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="urlImagemCertificado" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="descricao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ementa" isForPrompting="false" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="567"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="0"
+						y="4"
+						width="786"
+						height="536"
+						forecolor="#010101"
+						key="rectangle-2"/>
+					<graphicElement stretchType="NoStretch" pen="4Point"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="9"
+						y="12"
+						width="769"
+						height="520"
+						forecolor="#010101"
+						key="rectangle-1"/>
+					<graphicElement stretchType="NoStretch" pen="4Point"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="28"
+						y="252"
+						width="719"
+						height="25"
+						forecolor="#010101"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Bitstream Charter" pdfFontName="Times-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Certificamos que o(a) professor(a) " + $P{docente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="151"
+						y="104"
+						width="484"
+						height="60"
+						forecolor="#010101"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Bitstream Charter" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MINISTÉRIO DA EDUCAÇÃO
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE
+PRÓ-REITORIA DE GESTÃO DE PESSOAS
+PRÓ-REITORIA DE GRADUAÇÃO
+PROGRAMA DE ATUALIZAÇÃO PEDAGÓGICA]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="28"
+						y="283"
+						width="719"
+						height="89"
+						forecolor="#010101"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified" verticalAlignment="Top" lineSpacing="Single">
+						<font fontName="Times New Roman" pdfFontName="Times-Bold" size="14" isBold="true" isUnderline="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[" participou do(a) " + $P{atividade} + ", "
++ $P{periodo} + ", " + ($P{cargaHoraria}!=null && $P{cargaHoraria}!=""?" com " + $P{cargaHoraria} + " horas-aulas.":".")]]></textFieldExpression>
+				</textField>
+				<image  hAlign="Center" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="360"
+						y="18"
+						width="66"
+						height="83"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/relatorios/fontes/ufrn.jpg")]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="28"
+						y="427"
+						width="351"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{proreitorGraduacao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="403"
+						y="427"
+						width="344"
+						height="13"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{proreitorRecursosHumanos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="28"
+						y="440"
+						width="351"
+						height="12"
+						forecolor="#010101"
+						key="staticText-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[PRÓ-REITOR(A) DE GRADUAÇÃO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="403"
+						y="440"
+						width="344"
+						height="12"
+						forecolor="#010101"
+						key="staticText-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font/>
+					</textElement>
+				<text><![CDATA[PRÓ-REITOR(A) DE GESTÃO DE PESSOAS.]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="28"
+						y="475"
+						width="719"
+						height="48"
+						key="textField-9"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle" isStyledText="true">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Endereço para verificação: </style>"+ $P{siteVerificacao} + "\n<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Nº do Documento: </style>" + $P{numeroDocumento} + "\n<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Código de verificação: </style>" + $P{codigoSeguranca}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="240"
+						y="385"
+						width="306"
+						height="12"
+						key="textField-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{cidadeEstado} + ", " + new SimpleDateFormat("dd 'de' MMMMMMM 'de' yyyy", new Locale("pt","BR")).format(new Date())]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="28"
+						y="178"
+						width="719"
+						height="57"
+						forecolor="#010101"
+						key="staticText-10"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Bitstream Charter" pdfFontName="Times-Bold" size="48" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CERTIFICADO]]></text>
+				</staticText>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

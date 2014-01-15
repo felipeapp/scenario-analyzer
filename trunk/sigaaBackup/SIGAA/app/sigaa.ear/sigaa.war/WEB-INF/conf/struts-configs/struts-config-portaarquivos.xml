@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!--
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de Atividades Academicas
+# Arquivo de configuracao do Struts - PORTA ARQUIVOS
+ -->
+<struts-config>
+
+    <form-beans>
+		<form-bean name="formArquivo" type="br.ufrn.sigaa.ava.struts.PortaArquivosForm"/>
+    </form-beans>
+
+	<action-mappings>
+
+		<action path="/entrarChat" type="br.ufrn.sigaa.ava.struts.EntrarChatAction"/>
+		
+		<action path="/associarArquivo" type="br.ufrn.sigaa.ava.struts.AssociarArquivoTurmaAction" parameter="dispatch">
+			<forward name="selecionaTurma" path="/ava/PortaArquivos/selecionaTurma.jsf" redirect="true"/>
+		</action>
+		
+		<action path="/associarVideo" type="br.ufrn.sigaa.ava.struts.AssociarVideoTurmaAction" parameter="dispatch">
+			<forward name="selecionaVideo" path="/ava/PortaArquivos/selecionaTurmaVideo.jsf" redirect="true"/>
+		</action>
+
+		<action path="/renomearArquivo" type="br.ufrn.sigaa.ava.struts.RenomearArquivoAction"
+			name="formArquivo" scope="request" validate="false">
+			<forward name="form" path="form.jsp"/>
+		</action>
+		
+		<action path="/removerArquivo" type="br.ufrn.sigaa.ava.struts.RemoverArquivoAction"
+			name="formArquivo" scope="request" validate="false">
+		</action>
+		
+		<action path="/cadastrarPasta" type="br.ufrn.sigaa.ava.struts.CadastroPastaAction"
+			name="formArquivo" scope="request" validate="false">
+			<forward name="form" path="/portais/turma/PortaArquivos/cadastrarPasta.jsp"/>
+			<forward name="renomear" path="/portais/turma/PortaArquivos/renomearPasta.jsp"/>
+		</action>
+		
+		<action path="/removerPasta" type="br.ufrn.sigaa.ava.struts.RemocaoPastaAction"
+			name="formArquivo" scope="request" validate="false">
+		</action>
+		
+		<action path="/baixarTarefas" type="br.ufrn.sigaa.ava.struts.BaixarVariasTarefasAction"
+			scope="request" validate="false">
+		</action>
+		
+		<action path="/listarArquivos" type="br.ufrn.sigaa.ava.struts.ListaArquivosAction"
+			scope="request" validate="false">
+		</action>
+		
+		<action path="/moverArquivo" type="br.ufrn.sigaa.ava.struts.MoverArquivoAction" name="formArquivo"
+			scope="request" validate="false">
+		</action>
+		
+		<action path="/moverPasta" type="br.ufrn.sigaa.ava.struts.MoverPastaAction" 
+			scope="request" validate="false">
+		</action>
+
+    </action-mappings>
+
+</struts-config>

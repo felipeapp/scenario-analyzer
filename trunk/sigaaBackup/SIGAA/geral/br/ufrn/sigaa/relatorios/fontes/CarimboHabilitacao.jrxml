@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="CarimboHabilitacao"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="habilitacao" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["habilitação"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_registro" isForPrompting="false" class="java.util.Date">
+		<defaultValueExpression ><![CDATA[new Date()]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomeDiretorUnidadeDiplomas" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["Diretor DRED"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="descricaoFuncaoDiretorUnidadeDiplomas" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["a"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="segunda_via" isForPrompting="false" class="java.lang.Boolean">
+		<defaultValueExpression ><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomeUnidadeGestoraGraduacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="siglaInstituicao" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select current_date;]]></queryString>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="57"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="264"
+						height="57"
+						key="textField-3"/>
+					<box leftPadding="5" rightPadding="5" topPadding="5" bottomPadding="5">					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Helvetica" size="9" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"
++$P{siglaInstituicao}
++" - "
++$P{nomeUnidadeGestoraGraduacao}
++"</style>\n\n"
++"O portador do presente diploma obteve habilitação especifica em <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+
+$P{habilitacao}+"</style>."
++"\n\n"
++"Natal, "+(new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"))).format(
+($P{segunda_via} ? new Date() : $P{data_registro}))
++"\n\n"
++"_____________________________________\n"
++"<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$P{nomeDiretorUnidadeDiplomas}+"</style>\n"
++$P{descricaoFuncaoDiretorUnidadeDiplomas}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

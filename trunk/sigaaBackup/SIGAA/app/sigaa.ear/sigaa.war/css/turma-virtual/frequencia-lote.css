@@ -1,0 +1,155 @@
+#planilha .linhaImpar{
+	background:#DDDDDD;
+}
+
+#planilha thead tr th{
+	text-align:center;
+	font-weight:bold;
+	border:1px solid #CCCCCC;
+	background:#DDDDDD;
+	height:15px;
+}
+
+#planilha tbody tr td{
+	height:15px;
+}
+
+#planilha tbody tr td.pequeno div{
+	font-size:7pt;
+	overflow:hidden;
+	height:15px !important;
+}
+
+#planilha tbody tr td.celula input{
+	width:100%;
+	height:100%;
+	text-align:center;
+	cursor:pointer;
+	background:none;
+	font-weight:bold;
+	border:none;
+}
+
+#planilha tbody tr td.celula{
+	cursor:pointer;
+}
+
+#planilha tbody tr td input:hover{
+	background:#CCDDFF;
+}
+
+#planilha tbody tr:hover {
+	background:#FFDDCC;
+}
+
+#planilha tbody tr td.celula{
+	width:19px;
+	min-width:19px;
+	border-right:1px solid #666666;
+	border-bottom:1px solid #666666;
+}
+
+#planilha{
+	width:90%;
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+	background:#F5F5F5 none repeat scroll 0 0;
+	margin:0 auto 5px;
+	padding:2px 0;
+	border-left:1px solid #666666;
+}
+
+#planilha caption{
+	font-weight:bold;
+	text-align:center;
+	font-size:12pt;
+	margin-bottom:10px;
+}
+
+#container{
+	width:100% !important;
+}
+
+body{
+	background:none;
+}
+
+.lancada {
+	background:#6cdf46 !important;
+}
+
+.feriado {
+	color:#FF0000 !important;
+}
+
+.cancelada {
+	color:#FF8C00 !important;
+}
+
+#legenda .trancado{
+	border:1px solid #666666;
+	font-weight:bold;
+}
+
+#legenda .feriado{
+	color:#FFFFFF;
+	background:#DDDDDD;
+	font-weight:bold;
+	width:15px;
+	border:1px solid #666666;
+	text-align:center;
+}
+
+#legenda .cancelada{
+	color:#FFFF99;
+	background:#FFFF99;
+	font-weight:bold;
+	width:15px;
+	border:1px solid #666666;
+	text-align:center;
+}
+
+#legenda .consolidado{
+	background:#6cdf46;
+	font-weight:bold;
+	width:15px;
+	border:1px solid #666666;
+	text-align:center;
+}
+
+.reprovadoFalta{
+	color:#FF0000;
+	font-weight: bold;
+}
+
+.celula{
+	text-align:center;
+	font-weight:bold;
+}
+
+#mascara {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	z-index:9000;  
+	background-color:#FFFFFF;
+	opacity:0.6;
+}
+    
+#dialog {  
+	position:absolute;  
+	width:200px;  
+	height:150px;  
+	z-index:9999;  
+	padding:20px;
+	top:50%;
+	margin-top:-75px; 
+	left:50%;
+	margin-left:-100px; 
+	background:#FFFFFF;
+	border:2px solid #AACCFF;
+	text-align:center;
+}

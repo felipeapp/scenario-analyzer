@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="resumo_d_ProfessoresEmQualificacao"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="2"
+		 bottomMargin="2"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="unidade" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(50)]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT QUALIFICACAO,CESSAO,SAUDE,QUALIFICACAO+CESSAO+SAUDE AS TOTAL FROM (
+SELECT 
+(SELECT COUNT(*)
+  FROM FUNCIONAL.AUSENCIA A
+ INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=A.ID_SERVIDOR
+ WHERE A.ID_OCORRENCIA IN (31622,31632,31702,31712,31722,31733,180381,180391,180401,301634,301704,
+                           301714,302594,302604,302614,302624,302634,302644,302654)
+   AND S.ID_UNIDADE=$P{unidade}
+   AND S.ID_CATEGORIA = 1
+   AND (
+        (EXTRACT(YEAR FROM CAST('NOW' AS DATE))>=EXTRACT(YEAR FROM A.INICIO)) 
+       AND 
+        (EXTRACT(YEAR FROM CAST('NOW' AS DATE))<=EXTRACT(YEAR FROM A.FIM))
+       )
+) AS QUALIFICACAO,
+(SELECT COUNT(*)
+  FROM FUNCIONAL.AUSENCIA A
+ INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=A.ID_SERVIDOR
+ WHERE A.ID_OCORRENCIA IN (10142,31642,31652,301034,301044)
+   AND S.ID_UNIDADE=$P{unidade}
+   AND S.ID_CATEGORIA = 1
+   AND (
+        (EXTRACT(YEAR FROM CAST('NOW' AS DATE))>=EXTRACT(YEAR FROM A.INICIO)) 
+       AND 
+        (EXTRACT(YEAR FROM CAST('NOW' AS DATE))<=EXTRACT(YEAR FROM A.FIM))
+       )
+) AS CESSAO,
+(SELECT COUNT(*)
+  FROM FUNCIONAL.AUSENCIA A
+ INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=A.ID_SERVIDOR
+ WHERE A.ID_OCORRENCIA IN (30382,30442,30452,30672,31002,31132,31142,31332,31592,31612
+						  ,39992,40132,40152,40162,40182,40192,40252,180261,180271,180281
+						  ,180441,180621,180641,180811,180831,180841,180921,180931,182511
+						  ,182531,301144,301244,301594,302584,400104)
+   AND S.ID_UNIDADE=$P{unidade}
+   AND S.ID_CATEGORIA = 1
+   AND (
+        (EXTRACT(YEAR FROM CAST('NOW' AS DATE))>=EXTRACT(YEAR FROM A.INICIO)) 
+       AND 
+        (EXTRACT(YEAR FROM CAST('NOW' AS DATE))<=EXTRACT(YEAR FROM A.FIM))
+       )
+) AS SAUDE
+FROM RH.SERVIDOR LIMIT 1
+) A]]></queryString>
+
+	<field name="qualificacao" class="java.lang.Long"/>
+	<field name="cessao" class="java.lang.Long"/>
+	<field name="saude" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+
+	<variable name="qtdRegistros" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[new Boolean(true)]]></variableExpression>
+	</variable>
+
+		<group  name="nomeDepartamento" >
+			<groupExpression><![CDATA[]]></groupExpression>
+			<groupHeader>
+			<band height="11"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="66"
+						height="11"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[QUALIFICAÇÃO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="76"
+						y="0"
+						width="59"
+						height="11"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CESSÃO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="144"
+						y="0"
+						width="59"
+						height="11"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SAÚDE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="216"
+						y="0"
+						width="59"
+						height="11"
+						key="staticText-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="535"
+						height="10"
+						forecolor="#F7F7F7"
+						backcolor="#F7F7F7"
+						key="rectangle-2">
+							<printWhenExpression><![CDATA[new java.lang.Boolean(($V{REPORT_COUNT}.intValue() % 2)==1)]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="76"
+						height="11"
+						key="textField-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{qualificacao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="76"
+						y="0"
+						width="59"
+						height="11"
+						key="textField-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{cessao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="144"
+						y="0"
+						width="59"
+						height="11"
+						key="textField-5"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{saude}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="216"
+						y="0"
+						width="59"
+						height="11"
+						key="textField-6"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

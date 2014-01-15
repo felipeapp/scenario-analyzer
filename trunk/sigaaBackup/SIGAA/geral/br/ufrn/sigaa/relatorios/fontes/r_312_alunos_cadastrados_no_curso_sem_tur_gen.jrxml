@@ -1,0 +1,2410 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="r_312_alunos_cadastrados_no_curso_sem_tur_gen"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="2"
+		 bottomMargin="1"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="unidade" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(440)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ano" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2006)]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT B.DESCRICAO AS ME_MODALIDADE,B.ID_UNIDADE,B.SIGLA,B.ID_CURSO,B.NOME,B.MUNICIPIO,B.POLO,
+       SEM1_DIU_MASC,SEM1_DIU_FEM,(SEM1_DIU_MASC+SEM1_DIU_FEM) AS SEM1_DIU_TOT,
+       SEM1_NOT_MASC,SEM1_NOT_FEM,(SEM1_NOT_MASC+SEM1_NOT_FEM) AS SEM1_NOT_TOT,
+
+       (SEM1_DIU_MASC+SEM1_NOT_MASC) AS SEM1_MASC_TOT,
+       (SEM1_DIU_FEM+SEM1_NOT_FEM) AS SEM1_FEM_TOT,
+       (SEM1_DIU_MASC+SEM1_NOT_MASC+SEM1_DIU_FEM+SEM1_NOT_FEM) AS SEM1_TOT,
+
+       SEM2_DIU_MASC,SEM2_DIU_FEM,(SEM2_DIU_MASC+SEM2_DIU_FEM) AS SEM2_DIU_TOT,
+       SEM2_NOT_MASC,SEM2_NOT_FEM,(SEM2_NOT_MASC+SEM2_NOT_FEM) AS SEM2_NOT_TOT,
+
+       (SEM2_DIU_MASC+SEM2_NOT_MASC) AS SEM2_MASC_TOT,
+       (SEM2_DIU_FEM+SEM2_NOT_FEM) AS SEM2_FEM_TOT,
+       (SEM2_DIU_MASC+SEM2_NOT_MASC+SEM2_DIU_FEM+SEM2_NOT_FEM) AS SEM2_TOT,
+       
+       (SEM1_DIU_MASC+SEM1_NOT_MASC+SEM1_DIU_FEM+SEM1_NOT_FEM)+
+       (SEM2_DIU_MASC+SEM2_NOT_MASC+SEM2_DIU_FEM+SEM2_NOT_FEM) AS TOTAL,
+
+	TOTAL_GERAL_ANO
+       
+
+FROM (
+	SELECT ME.DESCRICAO,U.ID_UNIDADE,U.SIGLA,C.ID_CURSO,C.NOME,MU.NOME AS MUNICIPIO,MU2.NOME AS POLO,count(DISTINCT D.ID_DISCENTE) AS QTD,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2  
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE	
+          		 INNER JOIN GRADUACAO.CURRICULO CU			ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+				 INNER JOIN COMUM.PESSOA P 					ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G' 
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G' 
+                 AND DG.ID_POLO=PL.ID_POLO
+        ) END AS SEM1_DIU_MASC,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+				 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G' 
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO				 
+	
+		) END AS SEM1_DIU_FEM,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+ 				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+         		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO
+	
+		) END AS SEM1_NOT_MASC,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+ 				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+         		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (1,3)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO
+	    
+		) END AS SEM1_NOT_FEM,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G'
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO
+		
+		) END AS SEM2_DIU_MASC,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G'
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO<>4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO
+		
+		) END AS SEM2_DIU_FEM,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='M'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO
+		
+	) END AS SEM2_NOT_MASC,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+		
+        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+				 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+				 AND M2.ANO = $P{ano}
+           		 AND M2.PERIODO IN (2,4)
+   		         AND P.SEXO='F'
+				 AND D2.STATUS<>10
+		         AND MC2.ID_TURNO=4
+		         AND D2.NIVEL = 'G'
+				 AND DG.ID_POLO=PL.ID_POLO
+		
+	) END AS SEM2_NOT_FEM,
+		CASE WHEN C.ID_MODALIDADE_EDUCACAO=1 THEN (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+			 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+			 AND M2.ANO = $P{ano}
+           		 AND P.SEXO IN ('M','F')
+			 AND D2.STATUS<>10
+		         AND D2.NIVEL = 'G'
+	        ) ELSE (
+			SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          		FROM PUBLIC.DISCENTE D2 
+			 INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE			 
+          		 INNER JOIN GRADUACAO.CURRICULO CU		ON CU.ID_CURRICULO=D2.ID_CURRICULO
+          		 INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2	ON MC2.ID_MATRIZ_CURRICULAR=CU.ID_MATRIZ
+         		 INNER JOIN COMUM.PESSOA P 			ON P.ID_PESSOA=D2.ID_PESSOA
+		         INNER JOIN ENSINO.MATRICULA_COMPONENTE M2 	ON M2.ID_DISCENTE=D2.ID_DISCENTE
+         		WHERE D2.ID_CURSO = C.ID_CURSO 
+			 AND M2.ANO = $P{ano}
+           	         AND P.SEXO IN ('M','F')
+			 AND D2.STATUS<>10
+		         AND D2.NIVEL = 'G'
+			 AND DG.ID_POLO=PL.ID_POLO
+		) END AS TOTAL_GERAL_ANO
+	FROM PUBLIC.DISCENTE D
+	INNER JOIN GRADUACAO.DISCENTE_GRADUACAO GRAD	ON GRAD.ID_DISCENTE_GRADUACAO=D.ID_DISCENTE
+	LEFT JOIN EAD.POLO PL						ON PL.ID_POLO=GRAD.ID_POLO
+	LEFT JOIN COMUM.MUNICIPIO MU2				ON MU2.ID_MUNICIPIO=PL.ID_CIDADE
+	INNER JOIN PUBLIC.CURSO C 			   		ON C.ID_CURSO=D.ID_CURSO
+	LEFT JOIN COMUM.MUNICIPIO MU				ON MU.ID_MUNICIPIO=C.ID_MUNICIPIO
+	INNER JOIN COMUM.MODALIDADE_EDUCACAO ME  	ON ME.ID_MODALIDADE_EDUCACAO=C.ID_MODALIDADE_EDUCACAO
+	INNER JOIN COMUM.UNIDADE  U 				ON U.ID_UNIDADE=C.ID_UNIDADE
+	WHERE ((U.ID_UNIDADE=$P{unidade}) OR ($P{unidade}=-1))
+	AND C.NIVEL='G'
+	AND D.STATUS <> 10
+	GROUP BY ME.DESCRICAO,U.ID_UNIDADE,U.SIGLA,C.ID_CURSO,C.ID_MODALIDADE_EDUCACAO,C.NOME,MU.NOME,PL.ID_POLO,MU2.NOME
+	ORDER BY ME.DESCRICAO,U.SIGLA,C.NOME,MU.NOME,MU2.NOME
+) B]]></queryString>
+
+	<field name="me_modalidade" class="java.lang.String"/>
+	<field name="id_unidade" class="java.lang.Integer"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="id_curso" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="polo" class="java.lang.String"/>
+	<field name="sem1_diu_masc" class="java.lang.Long"/>
+	<field name="sem1_diu_fem" class="java.lang.Long"/>
+	<field name="sem1_diu_tot" class="java.lang.Long"/>
+	<field name="sem1_not_masc" class="java.lang.Long"/>
+	<field name="sem1_not_fem" class="java.lang.Long"/>
+	<field name="sem1_not_tot" class="java.lang.Long"/>
+	<field name="sem1_masc_tot" class="java.lang.Long"/>
+	<field name="sem1_fem_tot" class="java.lang.Long"/>
+	<field name="sem1_tot" class="java.lang.Long"/>
+	<field name="sem2_diu_masc" class="java.lang.Long"/>
+	<field name="sem2_diu_fem" class="java.lang.Long"/>
+	<field name="sem2_diu_tot" class="java.lang.Long"/>
+	<field name="sem2_not_masc" class="java.lang.Long"/>
+	<field name="sem2_not_fem" class="java.lang.Long"/>
+	<field name="sem2_not_tot" class="java.lang.Long"/>
+	<field name="sem2_masc_tot" class="java.lang.Long"/>
+	<field name="sem2_fem_tot" class="java.lang.Long"/>
+	<field name="sem2_tot" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+	<field name="total_geral_ano" class="java.lang.Long"/>
+
+	<variable name="qtdRegistros" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[new Boolean(true)]]></variableExpression>
+	</variable>
+	<variable name="v_sem1_diu_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_diu_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_diu_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_not_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_not_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_not_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_masc_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_masc_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_fem_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_fem_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem1_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_diu_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_diu_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_diu_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_diu_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_diu_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_diu_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_diu_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_not_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_not_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_not_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_not_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_not_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_not_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_not_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_masc_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_masc_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_masc_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_masc_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_fem_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_fem_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_fem_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_fem_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem1_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem1_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem1_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_diu_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_diu_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_diu_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_diu_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_diu_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_diu_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_diu_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_diu_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_diu_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_diu_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_not_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_not_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_not_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_not_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_not_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_not_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_not_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_not_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_not_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_not_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_masc_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_masc_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_masc_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_masc_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_masc_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_masc_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_fem_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_fem_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_fem_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_fem_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_fem_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_fem_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_sem2_tot" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_sem2_tot" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_sem2_tot" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{sem2_tot}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_total" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_total" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_total_geral_ano" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_geral_ano}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_total_geral_ano" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_geral_ano}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_total_geral_ano" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_geral_ano}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+
+		<group  name="totalUFRN" >
+			<groupExpression><![CDATA[new Boolean(true)]]></groupExpression>
+			<groupHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="13"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="2"
+						y="1"
+						width="739"
+						height="12"
+						key="rectangle-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="120"
+						y="2"
+						width="148"
+						height="10"
+						key="textField-90"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TOTAL DA INSTITUIÇÃO"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="278"
+						y="2"
+						width="25"
+						height="11"
+						key="textField-116"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_diu_masc}==null?new Long(0):$V{vtt_sem1_diu_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-117"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_diu_fem}==null?new Long(0):$V{vtt_sem1_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-118"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_diu_tot}==null?new Long(0):$V{vtt_sem1_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-119"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_not_masc}==null?new Long(0):$V{vtt_sem1_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="372"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-120"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_not_fem}==null?new Long(0):$V{vtt_sem1_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="395"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-121"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_not_tot}==null?new Long(0):$V{vtt_sem1_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="418"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-122"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_masc_tot}==null?new Long(0):$V{vtt_sem1_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="441"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-123"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_fem_tot}==null?new Long(0):$V{vtt_sem1_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="464"
+						y="2"
+						width="30"
+						height="11"
+						key="textField-124"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem1_tot}==null?new Long(0):$V{vtt_sem1_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="495"
+						y="2"
+						width="25"
+						height="11"
+						key="textField-152"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_diu_masc}==null?new Long(0):$V{vtt_sem2_diu_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="520"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-153"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_diu_fem}==null?new Long(0):$V{vtt_sem2_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="543"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-154"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_diu_tot}==null?new Long(0):$V{vtt_sem2_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="566"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-155"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_not_masc}==null?new Long(0):$V{vtt_sem2_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="589"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-156"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_not_fem}==null?new Long(0):$V{vtt_sem2_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="612"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-157"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_not_tot}==null?new Long(0):$V{vtt_sem2_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="635"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-158"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_masc_tot}==null?new Long(0):$V{vtt_sem2_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="658"
+						y="2"
+						width="23"
+						height="11"
+						key="textField-159"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_fem_tot}==null?new Long(0):$V{vtt_sem2_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="681"
+						y="2"
+						width="30"
+						height="11"
+						key="textField-160"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_sem2_tot}==null?new Long(0):$V{vtt_sem2_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="711"
+						y="2"
+						width="30"
+						height="11"
+						key="textField-165"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_total_geral_ano}==null?new Long(0):$V{vtt_total_geral_ano}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="modalidadeEducacao" >
+			<groupExpression><![CDATA[$F{me_modalidade}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="159"
+						height="12"
+						key="textField-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRADUAÇÃO ("+$F{me_modalidade}+")"]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="14"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="2"
+						y="0"
+						width="739"
+						height="12"
+						key="rectangle-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="121"
+						y="0"
+						width="147"
+						height="12"
+						key="textField-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRADUAÇÃO ("+$F{me_modalidade}+")"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="278"
+						y="1"
+						width="25"
+						height="11"
+						key="textField-107"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_diu_masc}==null?new Long(0):$V{vt_sem1_diu_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-108"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_diu_fem}==null?new Long(0):$V{vt_sem1_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-109"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_diu_tot}==null?new Long(0):$V{vt_sem1_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-110"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_not_masc}==null?new Long(0):$V{vt_sem1_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="372"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-111"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_not_fem}==null?new Long(0):$V{vt_sem1_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="395"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-112"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_not_tot}==null?new Long(0):$V{vt_sem1_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="418"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-113"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_masc_tot}==null?new Long(0):$V{vt_sem1_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="441"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-114"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_fem_tot}==null?new Long(0):$V{vt_sem1_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="464"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-115"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem1_tot}==null?new Long(0):$V{vt_sem1_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="495"
+						y="1"
+						width="25"
+						height="11"
+						key="textField-143"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_diu_masc}==null?new Long(0):$V{vt_sem2_diu_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="520"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-144"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_diu_fem}==null?new Long(0):$V{vt_sem2_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="543"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-145"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_diu_tot}==null?new Long(0):$V{vt_sem2_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="566"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-146"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_not_masc}==null?new Long(0):$V{vt_sem2_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="589"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-147"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_not_fem}==null?new Long(0):$V{vt_sem2_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="612"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-148"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_not_tot}==null?new Long(0):$V{vt_sem2_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="635"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-149"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_masc_tot}==null?new Long(0):$V{vt_sem2_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="658"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-150"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_fem_tot}==null?new Long(0):$V{vt_sem2_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="681"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-151"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_sem2_tot}==null?new Long(0):$V{vt_sem2_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="711"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-164"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_total_geral_ano}==null?new Long(0):$V{vt_total_geral_ano}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="nomeDepartamento" >
+			<groupExpression><![CDATA[$F{id_unidade}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="159"
+						height="12"
+						key="textField-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="15"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="278"
+						y="1"
+						width="25"
+						height="11"
+						key="textField-71"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_diu_masc}==null?new Long(0):$V{v_sem1_diu_masc}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="278"
+						y="1"
+						width="216"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-72"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_diu_fem}==null?new Long(0):$V{v_sem1_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-73"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_diu_tot}==null?new Long(0):$V{v_sem1_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-74"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_not_masc}==null?new Long(0):$V{v_sem1_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="372"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-75"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_not_fem}==null?new Long(0):$V{v_sem1_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="395"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-76"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_not_tot}==null?new Long(0):$V{v_sem1_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="418"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-77"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_masc_tot}==null?new Long(0):$V{v_sem1_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="441"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-78"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_fem_tot}==null?new Long(0):$V{v_sem1_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="464"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-79"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem1_tot}==null?new Long(0):$V{v_sem1_tot}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="240"
+						y="1"
+						width="29"
+						height="11"
+						key="staticText-56"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="495"
+						y="1"
+						width="25"
+						height="11"
+						key="textField-134"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_diu_masc}==null?new Long(0):$V{v_sem2_diu_masc}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="495"
+						y="1"
+						width="246"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="520"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-135"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_diu_fem}==null?new Long(0):$V{v_sem2_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="543"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-136"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_diu_tot}==null?new Long(0):$V{v_sem2_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="566"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-137"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_not_masc}==null?new Long(0):$V{v_sem2_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="589"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-138"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_not_fem}==null?new Long(0):$V{v_sem2_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="612"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-139"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_not_tot}==null?new Long(0):$V{v_sem2_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="635"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-140"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_masc_tot}==null?new Long(0):$V{v_sem2_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="658"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-141"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_fem_tot}==null?new Long(0):$V{v_sem2_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="681"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-142"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_sem2_tot}==null?new Long(0):$V{v_sem2_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="711"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-163"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" rightPadding="1" bottomBorder="1Point" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_total_geral_ano}==null?new Long(0):$V{v_total_geral_ano}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[new Boolean(false)]]></printWhenExpression>
+			</band>
+		</background>
+		<title>
+			<band height="58"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="-1"
+						y="0"
+						width="781"
+						height="42"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3"
+						y="1"
+						width="76"
+						height="39"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/portal/cpdi/relatorios/ufrn.gif")]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="715"
+						y="3"
+						width="62"
+						height="37"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/portal/cpdi/relatorios/sinfo.gif")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="1"
+						width="781"
+						height="13"
+						key="staticText-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="15"
+						width="780"
+						height="13"
+						key="staticText-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Sistema Integrado de Gestao de Atividades Acadêmicas]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="56"
+						width="780"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="28"
+						width="780"
+						height="13"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-39"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["EMITIDO EM "+new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="42"
+						width="780"
+						height="14"
+						key="textField-40"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.1.2 - Alunos cadastrados nos cursos de graduação, por semestre, turno e gênero no ano de "+$P{ano}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="37"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="-1"
+						y="0"
+						width="159"
+						height="37"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[UNIDADE / CURSO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="280"
+						y="0"
+						width="214"
+						height="13"
+						key="staticText-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[1º Semestre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="280"
+						y="13"
+						width="69"
+						height="12"
+						key="staticText-44"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Diurno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="280"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-57"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="303"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-58"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="326"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-60"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="13"
+						width="69"
+						height="12"
+						key="staticText-61"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Noturno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="349"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-62"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="372"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-63"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="395"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-64"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="418"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-65"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="441"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-68"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="418"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="464"
+						y="13"
+						width="30"
+						height="24"
+						key="staticText-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="495"
+						y="0"
+						width="216"
+						height="13"
+						key="staticText-71"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[2º Semestre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="495"
+						y="13"
+						width="69"
+						height="12"
+						key="staticText-72"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Diurno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="495"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-73"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="518"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-74"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="541"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-75"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="564"
+						y="13"
+						width="69"
+						height="12"
+						key="staticText-76"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Noturno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="564"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-77"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="587"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-78"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="610"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-79"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="633"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-80"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="656"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-81"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="633"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-82"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="681"
+						y="13"
+						width="30"
+						height="24"
+						key="staticText-83"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="159"
+						y="0"
+						width="121"
+						height="37"
+						key="staticText-84"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[CIDADE / PÓLO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="711"
+						y="0"
+						width="30"
+						height="37"
+						key="staticText-85"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL
+GERAL]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="741"
+						height="10"
+						forecolor="#F7F7F7"
+						backcolor="#F7F7F7"
+						key="rectangle-5">
+							<printWhenExpression><![CDATA[new java.lang.Boolean(($V{REPORT_COUNT}.intValue() % 2)==1)]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="159"
+						height="11"
+						key="textField-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="1" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="278"
+						y="0"
+						width="25"
+						height="11"
+						key="textField-42"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_diu_masc}==null?new Long(0):$F{sem1_diu_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="303"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-43"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_diu_fem}==null?new Long(0):$F{sem1_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="326"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-100"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_diu_tot}==null?new Long(0):$F{sem1_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="349"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-101"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_not_masc}==null?new Long(0):$F{sem1_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="372"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-102"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_not_fem}==null?new Long(0):$F{sem1_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="395"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-103"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_not_tot}==null?new Long(0):$F{sem1_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="441"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-104"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_fem_tot}==null?new Long(0):$F{sem1_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="418"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-105"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_masc_tot}==null?new Long(0):$F{sem1_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="464"
+						y="0"
+						width="30"
+						height="11"
+						key="textField-106"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem1_tot}==null?new Long(0):$F{sem1_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="495"
+						y="0"
+						width="25"
+						height="11"
+						key="textField-125"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_diu_masc}==null?new Long(0):$F{sem2_diu_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="520"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-126"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_diu_fem}==null?new Long(0):$F{sem2_diu_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="543"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-127"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_diu_tot}==null?new Long(0):$F{sem2_diu_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="566"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-128"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_not_masc}==null?new Long(0):$F{sem2_not_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="589"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-129"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_not_fem}==null?new Long(0):$F{sem2_not_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="612"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-130"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_not_tot}==null?new Long(0):$F{sem2_not_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="658"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-131"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_fem_tot}==null?new Long(0):$F{sem2_fem_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="635"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-132"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_masc_tot}==null?new Long(0):$F{sem2_masc_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="681"
+						y="0"
+						width="30"
+						height="11"
+						key="textField-133"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{sem2_tot}==null?new Long(0):$F{sem2_tot}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="0"
+						width="118"
+						height="11"
+						key="textField-161"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="1" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{polo}==null?$F{municipio}==null?"":$F{municipio}:$F{polo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="711"
+						y="0"
+						width="30"
+						height="11"
+						key="textField-162"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" rightPadding="2" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{total_geral_ano}==null?new Long(0):$F{total_geral_ano}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="650"
+						y="0"
+						width="100"
+						height="16"
+						key="textField-37"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pág. " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="751"
+						y="0"
+						width="30"
+						height="16"
+						key="textField-38"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

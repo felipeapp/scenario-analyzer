@@ -1,0 +1,304 @@
+var Mensagem = function() {
+
+	var painel;
+
+	return {
+	
+		show: function(tipo, dest) {
+			if (!painel) {
+				painel = new Ext.Window({
+					applyTo: 'mensagem',
+					width: 700,
+					height: 240,
+					indicatorText: '<div class="loading-indicator">Enviando...</div>',
+					closeAction: 'hide',
+					buttons: [
+					{ text: 'Enviar', handler: function() { 
+							var mgr = painel.getUpdater();
+							mgr.on('beforeupdate', function() { 
+								Ext.get('assunto-mensagem').dom.value=escape(Ext.get('assunto-facade').dom.value);
+								Ext.get('corpoMensagem').dom.value=escape(Ext.get('corpo-facade').dom.value);
+								Ext.get('statusEnvio').dom.style.visibility='visible';
+							});
+							mgr.on('failure', function() { alert("Erro no envio do chamado! Por favor, tente novamente...."); });
+							mgr.on('update', function() { painel.hide(); painel = null; });
+							mgr.formUpdate('formMensagem');
+						} 
+					}, { text: 'Cancelar', handler: function() { painel.hide(); } }
+					]
+				});
+			}
+			
+			if(tipo==undefined){ tipo = 1; }
+			
+			var updater = painel.getUpdater();
+			updater.on('failure', function() { alert("Falha na abertura do formulrio. Contate o administrador do sistema!"); });
+			updater.on('update', function() { if (dest){ document.getElementById('destinatarios').value = dest; } });
+			updater.update({ url: "/sigaa/mensagem/enviaMensagem.do?acao=5&mensagem.tipo=" + tipo });
+
+			if (tipo == 3) {
+				painel.setTitle("Enviar Chamado");
+			} else {
+				painel.setTitle("Enviar Mensagem");
+			}
+			
+			painel.show();
+		}
+		
+	}
+
+}();
+
+var PainelModulos = function(){
+	var painel,link;
+	var tries=0;
+	
+	return{
+		init:function(){
+			link=Ext.get('show-modulos-ava');
+			if(link!=undefined){
+				link.on('click',this.show,this,true);
+			} else if(tries<10){
+				setTimeout('PainelModulos.init()',50);
+				tries++;
+			}
+		},
+		
+		show:function(){
+			if(!painel){
+				painel = new Ext.Window({
+					title:'Módulos do SIGAA',
+					modal:false,
+					width:752,
+					height:380,
+					resizable:false,
+					closeAction: 'hide'
+				});
+			}
+			painel.show();
+			var mgr = painel.getUpdater();
+			mgr.update('/sigaa/verMenuPrincipal.do?dialog=true');
+		}
+	};
+}();
+
+var PainelAjuda = function(){
+	var painel,link;
+	
+	return{	
+		init:function(){
+			link=Ext.get('show-ajuda-ava');
+			if(link!=undefined)
+				link.on('click',this.show,this,true);
+		},
+		
+		show:function(){
+			if(!painel){
+				painel=new Ext.Window({
+					autoCreate:true,
+					title:'Ajuda do SIGAA',
+					modal:false,
+					animateTarget:'show-ajuda',
+					width:640,
+					height:400,
+					shadow:true,
+					resizable:false
+				});
+			}
+			painel.show();
+			var mgr=painel.getUpdater();
+			mgr.update('/sigaa'+document.getElementById('linkAjuda').value);
+		}
+	};
+}();
+
+Ext.onReady(function(){
+
+		PainelModulos.init();
+		PainelAjuda.init();
+
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        var inicializando = true;
+        
+        p = new Ext.Panel({
+            region:'west',
+            id:'west-panel',
+            title:'Menu Turma Virtual',
+            split:true,
+            width: 200,
+            resizable: false,
+            activeOnTop: true,
+            collapsible: false,
+            margins:'0 0 0 5',
+            layout:'accordion',
+            stateEvents: [ 'expand', 'collapse'],
+	   		restoreState: function() {
+		        //Accordion
+		        if (this.items) { 
+		          for (var x=0; x<this.items.length; x++) {
+		            var item = this.items.items[x];
+		            if (item.stateId && Ext.state.Manager.getProvider().get(item.stateId + '_state') == 'collapsed') {
+			          item.collapse();
+			        } else if (item.stateId && Ext.state.Manager.getProvider().get(item.stateId + '_state') == 'expanded') {
+			          item.expand();
+			        }
+		          }
+		        }
+		        
+      		},	
+            layoutConfig:{
+                animate:false
+            },
+            items: [{
+                contentEl: 'turma',
+                title:'Turma',
+                border:false,
+                iconCls:'turma',
+                stateId: '1',
+                autoScroll: true
+            },{
+	             contentEl: 'alunos',
+	             title:'Alunos',
+	             border:false,
+	             iconCls:'alunos',
+                stateId: '2',
+                autoScroll: true
+	         },
+	         {
+	             contentEl: 'impressos',
+	             title:'Impressos',
+	             border:false,
+	             iconCls:'impressos',
+                stateId: '3',
+                autoScroll: true
+	         }, 
+	         {
+	             contentEl: 'material',
+	             title:'Material',
+	             border:false,
+	             iconCls:'material',
+                stateId: '4',
+                autoScroll: true
+	         },{
+	             contentEl: 'atividades',
+	             title:'Atividades',
+	             border:false,
+	             iconCls:'atividades',
+                stateId: '5',
+                autoScroll: true
+	         },{
+	         	contentEl: 'config',
+	            title:'Configura&ccedil;&otilde;es',
+	            border:false,
+	            iconCls:'config',
+                stateId: '6',
+                autoScroll: true
+	        },{
+                contentEl: 'ajuda',
+	            title:'Ajuda',
+	            border:false,
+	            iconCls:'ajuda'
+	         }]
+      });      
+        
+      var viewport = new Ext.Viewport({
+          layout:'border',
+          items: [
+          	new Ext.BoxComponent({
+                  region:'north',
+                  el: 'cabecalho',
+                  height:100
+              }),{
+                  region:'south',
+                  contentEl: 'rodape',
+                  split:true,
+                  height: 25,
+                  minSize: 25,
+                  maxSize: 25,
+                  resizable: false,
+                  collapsible: false,
+                  margins:'0 0 0 0'
+              }, {
+                  region:'east',
+                  contentEl: 'east',
+                  title: ' ',
+                  collapsible: true,
+                  split:true,
+                  autoScroll: true,
+                  width: 225,
+                  minSize: 175,
+                  maxSize: 400,
+                  layout:'fit',
+                  margins:'0 5 0 0'
+               },p,
+              { 
+                  region:'center',
+                  deferredRender:false,
+                  contentEl: 'conteudo',
+                  autoScroll: true
+              }
+           ]
+      });
+      inicializando = false;
+      
+      for (var i = 0; i< p.items.length; i++) {
+      		var item = p.items.items[i];
+      		item.on('expand', function() {
+      			if (!inicializando) {
+      				Ext.state.Manager.getProvider().set(this.stateId +'_state', 'expanded');
+	            }
+	        });
+	        item.on('collapse', function() {
+	        	if (!inicializando) {
+	            	Ext.state.Manager.getProvider().set (this.stateId + '_state', 'collapsed');
+	            } 
+	        });
+      }
+            
+      p.restoreState();
+
+	new Ext.Panel({ title: 'Notícias', cls: 'item-menu-direita', collapsible:true, renderTo: 'noticias-turma-panel', contentEl: 'noticias-turma-content', width: 200 });
+	new Ext.Panel({ title: 'Enquetes', cls: 'item-menu-direita', collapsible:true, renderTo: 'enquete-turma-panel', contentEl: 'enquete-turma-content', width: 200 });
+	new Ext.Panel({ title: 'Últmas Atividades', cls: 'item-menu-direita', collapsible:true, renderTo: 'atividades-turma-panel', contentEl: 'atividades-turma-content', width: 200 });
+	new Ext.Panel({ title: 'Avaliações', cls: 'item-menu-direita', collapsible:true, renderTo: 'avaliacoes-turma-panel', contentEl: 'avaliacoes-turma-content', width: 200 });
+
+});
+
+Event.KEY_RETURN = 13;
+Event.KEY_BACKSPACE = 8;
+Event.KEY_TAB = 9;
+Event.KEY_LEFT = 37;
+Event.KEY_RIGHT = 39;
+Event.KEY_DELETE = 46;
+function mask(field,_mask,val){
+	var i,mki;var aux="";
+	if(val.length>=field.maxLength){return val.substr(0,field.maxLength);}
+	else {
+		for(i=mki=0;i<val.length;i++,mki++){
+			if(_mask.charAt(mki)==''||_mask.charAt(mki)=='#'||_mask.charAt(i)==val.charAt(i)){aux+=val.charAt(i);}
+			else{aux+=_mask.charAt(mki)+val.charAt(i);mki++;}
+		}
+	}
+	return aux;
+}
+function formataData(field,event){
+	if (field.maxLength != 10) field.maxLength = 10;
+	var _mask='##/##/####';
+	var key='';var aux='';
+	var len=0;var i=0;var strCheck='0123456789';
+	var rcode=event.keyCode?event.keyCode:event.which?event.which:event.charCode;
+	if((rcode==Event.KEY_RETURN)||(rcode==Event.KEY_BACKSPACE)||(rcode==Event.KEY_TAB)||(rcode==Event.KEY_LEFT)||(rcode==Event.KEY_RIGHT)||(rcode==Event.KEY_DELETE)){return true;}
+	key=String.fromCharCode(rcode);if(strCheck.indexOf(key)==-1){return false;}
+	aux=field.value+key;
+	aux=mask(field,_mask,aux);
+	field.value=aux;
+	return false;
+}
+
+function datePicker(id) {
+	dateField = new Ext.form.DateField({
+    	allowBlank:false,
+        format:'d/m/Y',
+        applyTo: id
+	});
+}

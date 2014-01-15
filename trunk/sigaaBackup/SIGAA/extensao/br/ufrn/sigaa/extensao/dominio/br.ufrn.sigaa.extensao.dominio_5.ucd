@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="br.ufrn.sigaa.extensao.dominio_5" size="884,770" id="br.ufrn.sigaa.extensao.dominio" metadata="uml2-1.0" initialized="true" scrolledY="54" tag="1000" key="32303037303533312D313030302053494741412F4C7563656E61">
+  <children xsi:type="editmodel:ClassEditModel" name="TipoGrupoPrestServico" location="90,570" size="189,93" id="br.ufrn.sigaa.extensao.dominio/TipoGrupoPrestServico" runTimeClassModel="TipoGrupoPrestServico(),setAjuda(Ljava.lang.String;),descricao,setId(I),toString(),getAjuda(),id,TipoGrupoPrestServico(I),validate(),getDescricao(),getId(),setDescricao(Ljava.lang.String;),TipoGrupoPrestServico(ILjava.lang.String;),ajuda">
+    <children xsi:type="editmodel:CompartmentEditModel" size="101,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="ajuda" id="br.ufrn.sigaa.extensao.dominio/TipoGrupoPrestServico#ajuda"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.extensao.dominio/TipoGrupoPrestServico#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.extensao.dominio/TipoGrupoPrestServico#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.extensao.dominio/TipoGrupoPrestServico" source="//@children.0" target="//@children.4/@sourceConnections.0" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="173,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoSituacaoDiscenteExtensao" location="50,180" size="238,201" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao" runTimeClassModel="TipoSituacaoDiscenteExtensao(I),iNSCRITO_PROCESSO_SELETIVO,setId(I),descricao,TipoSituacaoDiscenteExtensao(),id,cANCELADO,TipoSituacaoDiscenteExtensao(ILjava.lang.String;),getDescricao(),aTIVO,getId(),setDescricao(Ljava.lang.String;),sELECIONADO,eXCLUIDO,nAO_SELECIONADO,fINALIZADO">
+    <children xsi:type="editmodel:CompartmentEditModel" size="199,162">
+      <children xsi:type="editmodel:AttributeEditModel" name="aTIVO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#aTIVO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cANCELADO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#cANCELADO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eXCLUIDO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#eXCLUIDO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fINALIZADO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#fINALIZADO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="iNSCRITO_PROCESSO_SELETIVO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#iNSCRITO_PROCESSO_SELETIVO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nAO_SELECIONADO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#nAO_SELECIONADO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sELECIONADO" id="br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao#sELECIONADO"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.extensao.dominio/TipoSituacaoDiscenteExtensao" source="//@children.1" target="//@children.7/@sourceConnections.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="119,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoVinculoDiscente" location="287,510" size="204,165" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente" runTimeClassModel="sEM_VINCULO,TipoVinculoDiscente(ILjava.lang.String;),setId(I),descricao,id,eM_ATIVIDADE_CURRICULAR,TipoVinculoDiscente(),validate(),getDescricao(),TipoVinculoDiscente(I),getId(),bOLSISTA_EXTENO,vOLUNTARIO,setDescricao(Ljava.lang.String;),bOLSISTA_FAEX">
+    <children xsi:type="editmodel:CompartmentEditModel" size="181,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="bOLSISTA_EXTENO" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#bOLSISTA_EXTENO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="bOLSISTA_FAEX" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#bOLSISTA_FAEX"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eM_ATIVIDADE_CURRICULAR" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#eM_ATIVIDADE_CURRICULAR"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sEM_VINCULO" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#sEM_VINCULO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vOLUNTARIO" id="br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente#vOLUNTARIO"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.extensao.dominio/TipoVinculoDiscente" source="//@children.2" target="//@children.4/@sourceConnections.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="124,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoProduto" location="270,405" size="124,93" id="br.ufrn.sigaa.extensao.dominio/TipoProduto" runTimeClassModel="isAtivo(),descricao,setId(I),toString(),id,TipoProduto(I),validate(),getDescricao(),TipoProduto(ILjava.lang.String;),getId(),ativo,setDescricao(Ljava.lang.String;),setAtivo(Z),TipoProduto()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="101,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.extensao.dominio/TipoProduto#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.extensao.dominio/TipoProduto#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.extensao.dominio/TipoProduto#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.extensao.dominio/TipoProduto" source="//@children.3" target="//@children.4/@sourceConnections.0" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="62,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoCursoEventoExtensao" location="50,408" size="207,147" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao" runTimeClassModel="setSelecionado(Z),TipoCursoEventoExtensao(ILjava.lang.String;),isAtivo(),getChMinima(),escopo,TipoCursoEventoExtensao(),setChMinima(Ljava.lang.Integer;),getEscopo(),chMinima,setId(I),descricao,id,setEscopo(Ljava.lang.Character;),validate(),getDescricao(),getId(),TipoCursoEventoExtensao(I),ativo,setDescricao(Ljava.lang.String;),isSelecionado(),hashCode(),equals(Ljava.lang.Object;),setAtivo(Z),selecionado">
+    <children xsi:type="editmodel:CompartmentEditModel" size="121,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chMinima" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao#chMinima"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="escopo" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao#escopo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="selecionado" id="br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao#selecionado"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.0/@sourceConnections.0 //@children.3/@sourceConnections.0 //@children.2/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.extensao.dominio/TipoCursoEventoExtensao" source="//@children.4" target="//@children.5" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="103,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.4/@sourceConnections.0" name="Validatable" location="287,300" size="165,57" id="br.ufrn.arq.negocio.validacao/Validatable" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.arq.negocio.validacao/Validatable" source="//@children.5" target="//@children.7/@sourceConnections.0" targetEnd="//@children.5/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="14,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.7/@sourceConnections.0" name="PersistDB" location="270,75" size="114,57" id="br.ufrn.arq.dominio/PersistDB" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoParticipacaoAcaoExtensao" location="330,180" size="246,93" id="br.ufrn.sigaa.extensao.dominio/TipoParticipacaoAcaoExtensao" runTimeClassModel="id,tipoAcaoExtensao,getTipoAcaoExtensao(),getDescricao(),getId(),setDescricao(Ljava.lang.String;),equals(Ljava.lang.Object;),setId(I),descricao,setTipoAcaoExtensao(Lbr.ufrn.sigaa.extensao.dominio.TipoAtividadeExtensao;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="223,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.extensao.dominio/TipoParticipacaoAcaoExtensao#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.extensao.dominio/TipoParticipacaoAcaoExtensao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoAcaoExtensao" id="br.ufrn.sigaa.extensao.dominio/TipoParticipacaoAcaoExtensao#tipoAcaoExtensao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.1/@sourceConnections.0 //@children.5/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.extensao.dominio/TipoParticipacaoAcaoExtensao" source="//@children.7" target="//@children.6" targetEnd="//@children.7/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="123,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

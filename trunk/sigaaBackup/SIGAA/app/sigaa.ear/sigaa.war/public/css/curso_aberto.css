@@ -1,0 +1,152 @@
+/************************************
+*             COLUNA ESQUERDA
+*************************************/
+a:link{ color:#003395;font-size:inherit;text-decoration:none;}
+a:hover{color:#3F85FF;text-decoration: none;}
+a:visited{color:#003395;text-decoration: none;}
+a.sigaaPublic{	color:#fff;text-decoration:none;}
+a.sigaaPublic:hover{	color:#D59030;text-decoration:none;}
+
+div#container{background: white url('../images/departamento/esq_bg.jpg') repeat-y left top;}
+div#colEsq{float:left;width:230px;}
+
+div#menu-pri{margin:10px auto;line-height: 1.0em;}
+div#menu-pri dl{padding:0px 3px;}
+div#menu-pri dl dt,dd a{font-variant:small-caps;line-height: 1.0em;text-transform: capitalize;}
+div#menu-pri dl dt{font-family: Verdana,sans-serif;font-weight:bold;list-style: none;border:#EBEBEB 2px solid;background:#fff;}
+div#menu-pri dl dt a.centro{font-size: 0.9em;background:#FFFFFF url(../images/departamento/icon_seta.jpg) no-repeat scroll left center;color:#1E499C;padding:5px 15px 5px 18px;text-align:left;display:block;background-position: 2px center;background-repeat: no-repeat; }
+div#menu-pri dl dd ul li{padding:3px 5px 3px 10px;border-bottom:1px dashed #CCCCCC; border-width: 0.5px;  }/*background-color:#fdfff1;*/
+div#menu-pri dl dd ul li a.departamento{font-size:0.9em;color: #666; }
+
+div#home-link{padding: 5px 0px 5px 0px;}	
+div#home-link a{display: block;width: 70%;margin: 0px auto 0px;text-align: center;font-weight:bold;font-variant: small-caps;background: url(../images/house.png) no-repeat 3px;padding: 3px 0 3px 8px;}
+div#home-link a:visited{color:#003390;font-weight:bold;text-decoration:none;}
+
+#cabecalho {color: #F9F9F9;	width: 100%;height: 115px;background:url('../images/curso_aberto/bg_cabecalho.png') repeat-y right top;padding:0px;}
+#cabecalho #identificacao{height: auto;width: 928px;padding: 5px 11px;border-bottom: #D99C44 2px solid;}
+#cabecalho #identificacao a{color: #fff;}
+#logoCursoAberto{background:url('../images/curso_aberto/logo_cabecalho.png') no-repeat left top;height: 89px;width: 371px;display:block;float:left;}
+#tituloCursoAberto{background:url('../images/curso_aberto/titulo_cabecalho.png') no-repeat left center;height: 89px;width: 415px;display:block;float:left;}
+/************************************
+*             COLUNA DIREITA
+*************************************/
+div#colDir{float:left;width:720px; }
+div#colDirCorpo{float:left;width:685px;padding:15px 15px;text-align:justify;}
+div#colDirCorpo img{}
+
+div#colDirCorpo dl{	margin: 0 0 0 20px;}
+div#colDirCorpo dt {border-bottom: 1px solid #EEE;margin-right: 20px;padding: 0 0 2px 8px;font-weight: bold;color: #666;}
+div#colDirCorpo dd{	background: #F6F6F6;font-style: italic;line-height: 1.4em;margin: 0 20px 8px 0;	padding: 3px 6px;}
+
+#colDirCorpo ul{float:left;display:block;width:210px;padding: 5px 5px 0px 0px;}
+
+table.visualizacao, table.subFormulario{width:100%;}
+
+table.listagem td{padding: 2px;border-bottom: 1px solid #EEE;}
+.texto{text-align:justify; text-indent: 1.5em;padding:0px 5px;}
+.linhaImpar{background-color: #EEE;}
+/************************************
+*             CENTRO
+*************************************/
+div#centro{float:left;background: white;width:950px;}
+div#centro div#menu-pri {margin:5px auto 25px;}
+div#centro div#menu-pri dl{padding:0px;}
+div#centro div#menu-pri dl dt{border:#EBEBEB 4px solid;}
+
+div#centro h4 {
+	border-bottom: 1px solid #DDD;
+	color: #444;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	margin: 0 0 15px 0;
+	padding: 2px 0 1px 24px;
+	background: url(../images/docente/icones/producao.png) no-repeat 2px;
+}
+
+div#centro table.visualizacao {	border: 1px solid #f2f5ff; margin-bottom: 20px; }
+div#centro table.visualizacao tbody {
+	background: #fff;
+}
+div#centro table.visualizacao tbody tr th.docentes {
+	height:26px;
+	*height:20px;
+	text-align: left;
+	border-left: 1px solid #f2f5ff;
+}
+div#centro table.visualizacao tbody tr td.docentes {
+	border-left: 1px solid #f2f5ff;
+}
+
+td.docentes div.bloco {
+	float: left;
+	width: 48%;
+	*width: 47%;
+	height: auto;
+	margin: 1%;
+	*margin: 7px;
+	vertical-align: top;
+}
+div.bloco div.foto {
+	float: left;
+	margin: 0 8px 0 0;
+}
+div.bloco div.foto img {
+	border: 3px solid #eff2ff;
+}
+div.bloco span {
+	float: left;
+	width: 60%;
+	margin: 5px 0 2px;
+}
+div.bloco span.nome {
+	height: 42px;
+	text-transform: uppercase;
+}
+div.bloco span a {
+	color: #003395;
+}
+div.bloco span a:hover {
+	text-decoration: underline;
+}
+
+div#centro h2 {
+	margin:0 0 10px;
+}
+.topico-aula {
+	margin: 10px 0 20px 10px;
+	width: auto;
+}
+.topico-aula-interna {
+	margin: 10px 0 20px 30px;
+	width:auto;
+}
+.topico-aula h3, .topico-aula-interna h3 {
+	border-bottom:1px solid #C4D2EB;
+	color:#444444;
+	font-size:9pt;
+	letter-spacing:1px;
+	margin: 0 0 10px 0;
+	padding:0 0 3px;
+}
+.topico-aula ul.materiais, .topico-aula-interna ul.materiais {
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin: 5px 0 10px 15px;
+	padding: 0;
+}
+.topico-aula ul.materiais li, .topico-aula-interna ul.materiais li {
+	padding:2px 0;
+}
+.topico-aula ul.materiais li a, .topico-aula-interna ul.materiais li a {
+	color:#003395;
+	font-size:inherit;
+	font-weight:bold;
+	text-decoration:none;
+}
+/************************************
+*             Consulta
+*************************************/
+.filtroBusca{
+	width: 430px !important;
+}

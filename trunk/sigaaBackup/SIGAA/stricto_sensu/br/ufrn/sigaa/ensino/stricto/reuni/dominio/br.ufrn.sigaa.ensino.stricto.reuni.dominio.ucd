@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="1267,599" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio" metadata="uml2-1.0" initialized="true" tag="1000" key="32303037303533312D313030302053494741412F4C7563656E61">
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.3/@sourceConnections.0" name="Validatable" location="510,15" size="165,57" id="br.ufrn.arq.negocio.validacao/Validatable" runTimeClassModel="validate()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="FormaAtuacaoReuni" location="615,375" size="172,111" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/FormaAtuacaoReuni" runTimeClassModel="isAtivo(),FormaAtuacaoReuni(),setSelecionada(Z),selecionada,descricao,setId(I),isSelecionada(),id,validate(),getDescricao(),getId(),ativo,setDescricao(Ljava.lang.String;),equals(Ljava.lang.Object;),hashCode(),setAtivo(Z)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="121,72">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/FormaAtuacaoReuni#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/FormaAtuacaoReuni#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/FormaAtuacaoReuni#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="selecionada" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/FormaAtuacaoReuni#selecionada"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.stricto.reuni.dominio/FormaAtuacaoReuni" source="//@children.1" target="//@children.3/@sourceConnections.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="8,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="SolicitacaoBolsasReuni" location="630,157" size="258,201" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni" runTimeClassModel="getDescricaoStatus(),SolicitacaoBolsasReuni(),sUBMETIDA,getDataCadastro(),adicionarPlanoTrabalho(Lbr.ufrn.sigaa.ensino.stricto.reuni.dominio.PlanoTrabalhoReuni;),id,programa,getPlanos(),cADASTRADA,setStatus(I),dataCadastro,registroCadastro,setEdital(Lbr.ufrn.sigaa.ensino.stricto.reuni.dominio.EditalBolsasReuni;),setPrograma(Lbr.ufrn.sigaa.dominio.Unidade;),setRegistroCadastro(Lbr.ufrn.arq.dominio.RegistroEntrada;),getEdital(),getRegistroCadastro(),status,isSubmetida(),setId(I),getPrograma(),validate(),setPlanos(Ljava.util.Collection;),planos,getId(),getStatus(),edital,setDataCadastro(Ljava.util.Date;),SolicitacaoBolsasReuni(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="235,162">
+      <children xsi:type="editmodel:AttributeEditModel" name="cADASTRADA" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#cADASTRADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="edital" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#edital"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="planos" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#planos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="programa" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#programa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroCadastro" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#registroCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sUBMETIDA" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#sUBMETIDA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni#status"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.stricto.reuni.dominio/SolicitacaoBolsasReuni" source="//@children.2" target="//@children.3/@sourceConnections.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="129,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="EditalBolsasReuni" location="225,157" size="354,219" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni" runTimeClassModel="setDataInicioSelecao(Ljava.util.Date;),getDataCadastro(),dataInicioSubmissao,descricao,getIdArquivoEdital(),toString(),dataInicioSelecao,id,componentesPrioritarios,setDescricao(Ljava.lang.String;),setDataFimSelecao(Ljava.util.Date;),getDataInicioSelecao(),setDataFimSubmissao(Ljava.util.Date;),getDataFimSelecao(),dataCadastro,getDataFimSubmissao(),registroCadastro,setComponentesPrioritarios(Ljava.util.Collection;),adicionarComponenteCurricular(Lbr.ufrn.sigaa.ensino.dominio.ComponenteCurricular;),setRegistroCadastro(Lbr.ufrn.arq.dominio.RegistroEntrada;),setIdArquivoEdital(Ljava.lang.Integer;),getComponentesPrioritarios(),getRegistroCadastro(),setDataInicioSubmissao(Ljava.util.Date;),setId(I),validate(),getDescricao(),dataFimSubmissao,getId(),dataFimSelecao,idArquivoEdital,removerComponenteCurricular(Lbr.ufrn.sigaa.ensino.dominio.ComponenteCurricular;),getDataInicioSubmissao(),setDataCadastro(Ljava.util.Date;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="331,180">
+      <children xsi:type="editmodel:AttributeEditModel" name="componentesPrioritarios" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#componentesPrioritarios"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataFimSelecao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#dataFimSelecao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataFimSubmissao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#dataFimSubmissao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicioSelecao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#dataInicioSelecao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicioSubmissao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#dataInicioSubmissao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idArquivoEdital" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#idArquivoEdital"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroCadastro" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni#registroCadastro"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.1/@sourceConnections.0 //@children.4/@sourceConnections.0 //@children.2/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.stricto.reuni.dominio/EditalBolsasReuni" source="//@children.3" target="//@children.0" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="177,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PlanoTrabalhoReuni" location="285,390" size="323,399" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni" runTimeClassModel="cursos,docentes,setObjetivos(Ljava.lang.String;),getDataCadastro(),outrasFormasAtuacao,removerDocente(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),setComponenteCurricular(Lbr.ufrn.sigaa.ensino.dominio.ComponenteCurricular;),setLinhaAcao(Ljava.lang.Integer;),nivel,registroCadastro,setRegistroCadastro(Lbr.ufrn.arq.dominio.RegistroEntrada;),getDescricaoNivel(),setFormasAtuacao(Ljava.util.Collection;),status,adicionarCurso(Lbr.ufrn.sigaa.dominio.Curso;),setJustificativaComponenteCurricular(Ljava.lang.String;),setOutrasFormasAtuacao(Ljava.lang.String;),setId(I),linhaAcao,getId(),removerCurso(Lbr.ufrn.sigaa.dominio.Curso;),getLinhaAcao(),setNivel(Ljava.lang.Character;),objetivos,lINHA_ACAO_2,getDocentes(),cADASTRADO,areaConhecimento,setDocentes(Ljava.util.Collection;),setCursos(Ljava.util.Collection;),getObjetivos(),justificativaComponenteCurricular,lINHA_ACAO_1,id,getNumeroAlunosGraduacaoBeneficiados(),sUBMETIDO,getNivel(),setNumeroAlunosGraduacaoBeneficiados(Ljava.lang.Integer;),adicionarDocente(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),formasAtuacao,equals(Ljava.lang.Object;),setStatus(I),getAreaConhecimento(),dataCadastro,getEdital(),getRegistroCadastro(),setSolicitacao(Lbr.ufrn.sigaa.ensino.stricto.reuni.dominio.SolicitacaoBolsasReuni;),getJustificativaComponenteCurricular(),getCursos(),PlanoTrabalhoReuni(),getSolicitacao(),validate(),componenteCurricular,solicitacao,setAreaConhecimento(Lbr.ufrn.sigaa.ensino.graduacao.dominio.AreaConhecimentoCienciasTecnologia;),getNivelDescricao(),getStatus(),getFormasAtuacao(),numeroAlunosGraduacaoBeneficiados,setDataCadastro(Ljava.util.Date;),getOutrasFormasAtuacao(),getComponenteCurricular()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="300,360">
+      <children xsi:type="editmodel:AttributeEditModel" name="areaConhecimento" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#areaConhecimento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cADASTRADO" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#cADASTRADO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="componenteCurricular" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#componenteCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cursos" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#cursos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="docentes" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#docentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="formasAtuacao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#formasAtuacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="justificativaComponenteCurricular" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#justificativaComponenteCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="lINHA_ACAO_1" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#lINHA_ACAO_1"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="lINHA_ACAO_2" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#lINHA_ACAO_2"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="linhaAcao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#linhaAcao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nivel" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#nivel"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroAlunosGraduacaoBeneficiados" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#numeroAlunosGraduacaoBeneficiados"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="objetivos" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#objetivos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="outrasFormasAtuacao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#outrasFormasAtuacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroCadastro" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#registroCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sUBMETIDO" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#sUBMETIDO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="solicitacao" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#solicitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni#status"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.stricto.reuni.dominio/PlanoTrabalhoReuni" source="//@children.4" target="//@children.3/@sourceConnections.0" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="306,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

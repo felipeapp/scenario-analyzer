@@ -1,0 +1,212 @@
+/*
+*  CSS Document
+*  Autor: Andressa Kroeff Pires (SINFO)
+*  E-mail: andressa@info.ufrn.br
+*  Data: 25/02/2010
+*/
+
+/* png ie6 */
+* html img,
+* html .png{
+	position:relative;
+	/*
+	behavior: expression((this.runtimeStyle.behavior="none")&&(this.pngSet?this.pngSet=true:(this.nodeName == "IMG" && this.src.toLowerCase().indexOf('.png')>-1?(this.runtimeStyle.backgroundImage = "none",
+	this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.src + "', sizingMethod='image')",
+	this.src = "transparent.gif"):(this.origBg = this.origBg? this.origBg :this.currentStyle.backgroundImage.toString().replace('url("','').replace('")',''),
+	this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.origBg + "', sizingMethod='crop')",
+	this.runtimeStyle.backgroundImage = "none")),this.pngSet=true)
+	);
+	*/
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+ul,ol {
+	list-style:none
+}
+
+li {
+	vertical-align:top;
+	line-height:1.2em
+}
+
+li a, li span {
+	line-height:1.2em
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+/* body */
+body {
+	display: block;
+	min-width: 1024px;
+	width: 100%;
+	min-height: 600px;
+	_height: 600px;
+	color:#222222;
+	font-family:"Tahoma",Verdana,Arial,Helvetica,sans-serif;
+	font-size:11px;
+	background: #e7e7e2 url(../img/bg.jpg) repeat left top;
+}
+
+body a {
+	outline: 0;
+}
+
+/* bg */
+#bg {
+	display: block;
+	min-width: 1024px;
+	width: 100%;
+	min-height: 30px;
+	_height: 30px;
+	background: transparent url(../img/bg_topo_ufrn.jpg) repeat-x left top;
+}
+
+#bg #bg_rodape {
+	display:block;
+	min-width: 1024px;
+	width:100%;
+	min-height: 30px;
+	_height: 30px;
+	background: transparent url(../img/bg_rodape.jpg) repeat-x left bottom;
+}
+
+/* estrutura */
+#bg_rodape #estrutura {
+	display: block;
+	width: 1024px;
+	min-height: 600px;
+	_height: 600px;
+	margin: 0 auto;
+}
+
+/* --- bloqueios de tela  --- */
+#estrutura #bloqueio_tela_topo {
+	float: left;
+	width: 1024px;
+	height: 182px;
+	background: transparent url(../img/transparent.gif) repeat scroll left top;
+	position: absolute;
+	z-index: 2000;
+}
+
+#estrutura #bloqueio_tela_menu {
+	display:block;
+	width: 868px;
+	height: 27px;
+	background: transparent url(../img/transparent.gif) repeat scroll left top;
+	position: absolute;
+	margin: 182px 0 0 145px;
+	z-index: 2000;
+}
+
+#estrutura #bloqueio_tela_conteudo {
+	display:block;
+	width: 1024px;
+	height: 326px;
+	_height: 324px;
+	background: transparent url(../img/transparent.gif) repeat scroll left top;
+	position: absolute;
+	margin: 209px 0 0 0;
+	z-index: 2000;
+	
+	font-size: 30px;
+	font-weight: bold;
+	color: #990000;
+	text-align: center;
+	padding: 257px 0 0 0;
+	_padding: 259px 0 0 0;
+}
+/* -------------------------- */
+
+/* topo ufrn */
+#estrutura #topo {
+	display: block;
+	width: 100%;
+	height: 30px;
+	margin: 0 auto;
+}
+
+	#topo #sigaa a {
+		float: left;
+		width: auto;
+		margin: 8px 0 0 12px;
+		color: #FFFFFF;
+	}
+
+	#topo #instituicao a {
+		float: right;
+		width: auto;
+		position:relative;
+		margin: 0 3px 0 0;
+		z-index: 1000;
+	}
+
+	#topo #idiomas {
+		float: right;
+		width: auto;
+		margin: 7px 10px 0 0;
+	}
+
+/* site */
+#estrutura #site {
+	display: block;
+	width: 1022px;
+	min-height: 600px;
+	_height: 600px;
+	margin: 0 auto;
+	_margin: -68px auto;
+	background: transparent url(../img/bg_site.jpg) repeat left top;
+	border-left: 1px solid #cacac7;
+	border-right: 1px solid #cacac7;
+}
+
+	#site #margem {
+		display: block;
+		width: 1000px;
+		margin: 0px auto;
+		padding: 10px 0;
+	}
+
+		/* corpo do site */
+		#margem #corpo {
+			display: block;
+			width: 100%;
+			min-height: 600px;
+			_height: 600px;
+			background: #FFFFFF;
+			padding:0 0 10px;
+		}
+
+/* rodape */
+#estrutura #rodape {
+	display: block;
+	width: 100%;
+	height: 22px;
+	margin: 0px auto;
+	padding: 8px 0 0 0;
+	_padding: 76px 0 0 0;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+	#rodape a {
+		color: #FFFFFF;
+	}

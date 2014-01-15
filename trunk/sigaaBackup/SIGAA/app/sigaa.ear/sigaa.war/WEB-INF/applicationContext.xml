@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+       		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+       		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<import resource="classpath:br/ufrn/integracao/seguranca/ws-config.xml" />
+	<import resource="remote-services.xml" />
+
+	<context:component-scan base-package="br.ufrn.arq.tasks"/>
+	<context:component-scan base-package="br.ufrn.comum.jsf"/>
+	<context:component-scan base-package="br.ufrn.admin.jsf"/>
+	<context:component-scan base-package="br.ufrn.arq.web"/>
+	<context:component-scan base-package="br.ufrn.ambientes.web"/>	
+
+	<context:component-scan base-package="br.ufrn.sigaa.arq.dao.ava"/>
+	<context:component-scan base-package="br.ufrn.sigaa.arq.acesso"/>
+	<context:component-scan base-package="br.ufrn.sigaa.arq.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ava.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ava.administracao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ava.questionarios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ava.forum.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ava.chamada.bio.remoto"/>
+	<context:component-scan base-package="br.ufrn.sigaa.avaliacao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.apedagogica.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.diploma.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ead.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.extensao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.extensao.relatorio.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.eleicao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.questionario.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.graduacao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.graduacao.processamento.controle"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.graduacao.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.infantil.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.latosensu.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.monitoria.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.pesquisa.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.portal.agenda.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.portal.reitoria.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.portal.cpdi.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.portal.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.atividades.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.producao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.docenciaassistida.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.reuni.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.tecnico.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.vestibular.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.vestibular.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.mobile.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.mobile.touch.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.mobile.biblioteca.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.assistencia.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.sae.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.assistencia.remoto"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.administracao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.processos_tecnicos.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.processos_tecnicos.remoto"/>
+	<context:component-scan base-package="br.ufrn.sigaa.pesquisa.remoto"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.processos_tecnicos.pesquisa.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.aquisicao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.circulacao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.circulacao.remoto"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.controle_estatistico.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.informacao_referencia.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.relatorios"/>
+	<context:component-scan base-package="br.ufrn.sigaa.espacofisico.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.cv.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.sites.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.processamento.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.complexohospitalar.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.complexohospitalar.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.projetos.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.pid.jsf"/>
+    <context:component-scan base-package="br.ufrn.sigaa.pid.relatorios.jsf"/>
+    <context:component-scan base-package="br.ufrn.sigaa.projetos.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.migracao.biblioteca"/>
+	<context:component-scan base-package="br.ufrn.sigaa.agenda.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.relatorios.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.estagio.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.nee.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.relatoriosgestao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.twitter.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.ouvidoria.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.medio.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.internacionalizacao.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.metropoledigital.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.gru.jsf"/>	
+	
+	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="conversation" value-ref="conversationScope"/>
+            </map>
+        </property>
+    </bean>
+
+	<bean id="verTelaAvisoLogonMBean" class="br.ufrn.comum.jsf.VerTelaAvisoLogonMBean" scope="session"/>
+	<bean id="identificacaoCartaoRuLocal" class="br.ufrn.sigaa.assistencia.remoto.IdentificacaoCartaoRu"/>
+	
+</beans>

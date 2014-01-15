@@ -1,0 +1,2863 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="r_363_alunos_matriculados_faixa_etaria_genero"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="2"
+		 bottomMargin="1"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="unidade" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(440)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ano" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2006)]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT B.* FROM (
+SELECT ID_UNIDADE,SIGLA,
+       CASE
+            WHEN STRPOS(NOME,'PROBASICA')>0 THEN ' PROBASICA'
+            ELSE ME_MODALIDADE
+        END AS ME_MODALIDADE,
+NOME,
+SUM(ING_18_MASC) AS ING_18_MASC,SUM(ING_18_FEM) AS ING_18_FEM,SUM(ING_19_24_MASC) AS ING_19_24_MASC,SUM(ING_19_24_FEM) AS ING_19_24_FEM,SUM(ING_25_29_MASC) AS ING_25_29_MASC,SUM(ING_25_29_FEM) AS ING_25_29_FEM,
+SUM(ING_30_34_MASC) AS ING_30_34_MASC,SUM(ING_30_34_FEM) AS ING_30_34_FEM,SUM(ING_35_39_MASC) AS ING_35_39_MASC,SUM(ING_35_39_FEM) AS ING_35_39_FEM,SUM(ING_40_44_MASC) AS ING_40_44_MASC,SUM(ING_40_44_FEM) AS ING_40_44_FEM,
+SUM(ING_45_49_MASC) AS ING_45_49_MASC,SUM(ING_45_49_FEM) AS ING_45_49_FEM,SUM(ING_50_54_MASC) AS ING_50_54_MASC,SUM(ING_50_54_FEM) AS ING_50_54_FEM,SUM(ING_55_59_MASC) AS ING_55_59_MASC,SUM(ING_55_59_FEM) AS ING_55_59_FEM,
+SUM(ING_60_64_MASC) AS ING_60_64_MASC,SUM(ING_60_64_FEM) AS ING_60_64_FEM,SUM(ING_65_MASC) AS ING_65_MASC,SUM(ING_65_FEM) AS ING_65_FEM,
+SUM(ING_18_MASC+ING_19_24_MASC+ING_25_29_MASC+ING_30_34_MASC+ING_35_39_MASC+ING_40_44_MASC+ING_45_49_MASC+ING_50_54_MASC+ING_55_59_MASC+ING_60_64_MASC+ING_65_MASC) AS ING_MASC,
+SUM(ING_18_FEM+ING_19_24_FEM+ING_25_29_FEM+ING_30_34_FEM+ING_35_39_FEM+ING_40_44_FEM+ING_45_49_FEM+ING_50_54_FEM+ING_55_59_FEM+ING_60_64_FEM+ING_65_FEM) AS ING_FEM,
+SUM(ING_18_MASC+ING_19_24_MASC+ING_25_29_MASC+ING_30_34_MASC+ING_35_39_MASC+ING_40_44_MASC+ING_45_49_MASC+ING_50_54_MASC+ING_55_59_MASC+ING_60_64_MASC+ING_65_MASC+
+ING_18_FEM+ING_19_24_FEM+ING_25_29_FEM+ING_30_34_FEM+ING_35_39_FEM+ING_40_44_FEM+ING_45_49_FEM+ING_50_54_FEM+ING_55_59_FEM+ING_60_64_FEM+ING_65_FEM) AS ING
+ FROM (
+SELECT U.ID_UNIDADE,U.SIGLA,C.ID_CURSO,ME.DESCRICAO AS ME_MODALIDADE,C.NOME,
+       COUNT(DISTINCT D.ID_DISCENTE) AS QTD_ALUNOS,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+		  INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND (EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-18 OR DATA_NASCIMENTO IS NULL)
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_18_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+		  INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND (EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-18 OR DATA_NASCIMENTO IS NULL)
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_18_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+		          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-24
+      		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-19
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_19_24_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-24
+      		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-19
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_19_24_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-29
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-25
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_25_29_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-29
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-25
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_25_29_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-34
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-30
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_30_34_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-34
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-30
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_30_34_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+    	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-39
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-35
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_35_39_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+    	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-39
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-35
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_35_39_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-44
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-40
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_40_44_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-44
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-40
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_40_44_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-49
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-45
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_45_49_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-49
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-45
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_45_49_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-54
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-50
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_50_54_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-54
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-50
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_50_54_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-59
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-55
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_55_59_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-59
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-55
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_55_59_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-64
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-60
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_60_64_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+	            AND EXTRACT(YEAR FROM DATA_NASCIMENTO)>=$P{ano}-64
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-60
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_60_64_FEM,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-65
+	            AND P.SEXO='M'
+                ) A
+       ) AS ING_65_MASC,
+       (SELECT COUNT(*) 
+          FROM (SELECT DISTINCT MC.ID_DISCENTE 
+                  FROM ENSINO.MATRICULA_COMPONENTE MC
+                  INNER JOIN PUBLIC.DISCENTE D2 ON D2.ID_DISCENTE=MC.ID_DISCENTE  
+	          INNER JOIN COMUM.PESSOA P ON P.ID_PESSOA=D2.ID_PESSOA
+                  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+                  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC2 ON MC2.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+	          WHERE MC.ANO = $P{ano}
+                    AND D2.NIVEL='G'
+                    AND D2.ID_CURSO=C.ID_CURSO
+	            AND MC.ID_SITUACAO_MATRICULA IN (2,4,6,7,8)
+       		    AND EXTRACT(YEAR FROM DATA_NASCIMENTO)<=$P{ano}-65
+	            AND P.SEXO='F'
+                ) A
+       ) AS ING_65_FEM
+  FROM PUBLIC.DISCENTE D
+  INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D.ID_DISCENTE
+  INNER JOIN PUBLIC.CURSO C 				ON C.ID_CURSO=D.ID_CURSO
+  INNER JOIN COMUM.UNIDADE  U 				ON U.ID_UNIDADE=C.ID_UNIDADE
+  INNER JOIN COMUM.MODALIDADE_EDUCACAO ME  ON ME.ID_MODALIDADE_EDUCACAO=C.ID_MODALIDADE_EDUCACAO
+  INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+  LEFT  JOIN ENSINO.TURNO T					ON T.ID_TURNO=MC.ID_TURNO
+ WHERE ((U.ID_UNIDADE=$P{unidade}) OR ($P{unidade}=-1))
+    AND C.NIVEL='G'
+ GROUP BY 1,2,3,4,5
+ ORDER BY ME.DESCRICAO,U.SIGLA,C.NOME
+) A
+GROUP BY 1,2,3,4
+) B
+ORDER BY ASCII(ME_MODALIDADE),ME_MODALIDADE,SIGLA,NOME]]></queryString>
+
+	<field name="id_unidade" class="java.lang.Integer"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="me_modalidade" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="ing_18_masc" class="java.math.BigDecimal"/>
+	<field name="ing_18_fem" class="java.math.BigDecimal"/>
+	<field name="ing_19_24_masc" class="java.math.BigDecimal"/>
+	<field name="ing_19_24_fem" class="java.math.BigDecimal"/>
+	<field name="ing_25_29_masc" class="java.math.BigDecimal"/>
+	<field name="ing_25_29_fem" class="java.math.BigDecimal"/>
+	<field name="ing_30_34_masc" class="java.math.BigDecimal"/>
+	<field name="ing_30_34_fem" class="java.math.BigDecimal"/>
+	<field name="ing_35_39_masc" class="java.math.BigDecimal"/>
+	<field name="ing_35_39_fem" class="java.math.BigDecimal"/>
+	<field name="ing_40_44_masc" class="java.math.BigDecimal"/>
+	<field name="ing_40_44_fem" class="java.math.BigDecimal"/>
+	<field name="ing_45_49_masc" class="java.math.BigDecimal"/>
+	<field name="ing_45_49_fem" class="java.math.BigDecimal"/>
+	<field name="ing_50_54_masc" class="java.math.BigDecimal"/>
+	<field name="ing_50_54_fem" class="java.math.BigDecimal"/>
+	<field name="ing_55_59_masc" class="java.math.BigDecimal"/>
+	<field name="ing_55_59_fem" class="java.math.BigDecimal"/>
+	<field name="ing_60_64_masc" class="java.math.BigDecimal"/>
+	<field name="ing_60_64_fem" class="java.math.BigDecimal"/>
+	<field name="ing_65_masc" class="java.math.BigDecimal"/>
+	<field name="ing_65_fem" class="java.math.BigDecimal"/>
+	<field name="ing_masc" class="java.math.BigDecimal"/>
+	<field name="ing_fem" class="java.math.BigDecimal"/>
+	<field name="ing" class="java.math.BigDecimal"/>
+
+	<variable name="qtdRegistros" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[new Boolean(true)]]></variableExpression>
+	</variable>
+	<variable name="v_ing_18_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_18_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_18_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_18_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_18_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_18_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_18_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_18_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_18_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_18_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_18_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_18_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_19_24_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_19_24_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_19_24_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_19_24_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_19_24_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_19_24_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_19_24_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_19_24_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_19_24_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_19_24_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_19_24_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_19_24_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_25_29_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_25_29_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_25_29_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_25_29_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_25_29_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_25_29_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_25_29_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_25_29_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_25_29_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_25_29_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_25_29_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_25_29_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_30_34_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_30_34_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_30_34_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_30_34_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_30_34_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_30_34_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_30_34_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_30_34_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_30_34_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_30_34_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_30_34_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_30_34_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_35_39_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_35_39_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_35_39_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_35_39_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_35_39_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_35_39_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_35_39_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_35_39_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_35_39_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_35_39_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_35_39_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_35_39_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_40_44_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_40_44_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_40_44_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_40_44_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_40_44_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_40_44_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_40_44_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_40_44_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_40_44_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_40_44_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_40_44_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_40_44_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_45_49_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_45_49_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_45_49_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_45_49_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_45_49_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_45_49_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_45_49_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_45_49_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_45_49_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_45_49_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_45_49_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_45_49_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_50_54_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_50_54_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_50_54_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_50_54_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_50_54_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_50_54_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_50_54_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_50_54_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_50_54_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_50_54_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_50_54_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_50_54_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_55_59_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_55_59_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_55_59_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_55_59_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_55_59_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_55_59_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_55_59_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_55_59_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_55_59_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_55_59_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_55_59_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_55_59_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_60_64_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_60_64_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_60_64_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_60_64_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_60_64_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_60_64_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_60_64_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_60_64_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_60_64_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_60_64_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_60_64_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_60_64_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_65_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_65_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_65_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_65_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_65_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_65_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_65_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_65_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_65_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_65_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_65_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_65_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_masc" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing_fem" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ing" class="java.math.BigDecimal" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_ing" class="java.math.BigDecimal" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_ing" class="java.math.BigDecimal" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{ing}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0)]]></initialValueExpression>
+	</variable>
+
+		<group  name="totalUFRN" >
+			<groupExpression><![CDATA[new Boolean(true)]]></groupExpression>
+			<groupHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="13"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="0"
+						y="0"
+						width="736"
+						height="12"
+						key="rectangle-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="15"
+						y="1"
+						width="134"
+						height="10"
+						key="textField-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TOTAL DA INSTITUIÇÃO"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="0"
+						width="25"
+						height="11"
+						key="textField-218"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_18_masc}==null?new BigDecimal(0):$V{vtt_ing_18_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-219"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_18_fem}==null?new BigDecimal(0):$V{vtt_ing_18_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-220"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_19_24_masc}==null?new BigDecimal(0):$V{vtt_ing_19_24_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-221"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_19_24_fem}==null?new BigDecimal(0):$V{vtt_ing_19_24_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-222"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_25_29_masc}==null?new BigDecimal(0):$V{vtt_ing_25_29_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-223"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_25_29_fem}==null?new BigDecimal(0):$V{vtt_ing_25_29_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-224"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_30_34_masc}==null?new BigDecimal(0):$V{vtt_ing_30_34_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-225"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_30_34_fem}==null?new BigDecimal(0):$V{vtt_ing_30_34_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-226"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_35_39_masc}==null?new BigDecimal(0):$V{vtt_ing_35_39_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-227"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_35_39_fem}==null?new BigDecimal(0):$V{vtt_ing_35_39_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-228"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_40_44_masc}==null?new BigDecimal(0):$V{vtt_ing_40_44_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-229"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_40_44_fem}==null?new BigDecimal(0):$V{vtt_ing_40_44_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-230"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_45_49_masc}==null?new BigDecimal(0):$V{vtt_ing_45_49_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-231"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_45_49_fem}==null?new BigDecimal(0):$V{vtt_ing_45_49_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="0"
+						width="22"
+						height="11"
+						key="textField-232"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_50_54_masc}==null?new BigDecimal(0):$V{vtt_ing_50_54_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="0"
+						width="24"
+						height="11"
+						key="textField-233"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_50_54_fem}==null?new BigDecimal(0):$V{vtt_ing_50_54_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-234"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_55_59_masc}==null?new BigDecimal(0):$V{vtt_ing_55_59_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-235"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_55_59_fem}==null?new BigDecimal(0):$V{vtt_ing_55_59_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-236"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_60_64_masc}==null?new BigDecimal(0):$V{vtt_ing_60_64_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-237"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_60_64_fem}==null?new BigDecimal(0):$V{vtt_ing_60_64_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="621"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-238"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_65_masc}==null?new BigDecimal(0):$V{vtt_ing_65_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="644"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-239"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_65_fem}==null?new BigDecimal(0):$V{vtt_ing_65_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="667"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-240"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_masc}==null?new BigDecimal(0):$V{vtt_ing_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="690"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-241"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing_fem}==null?new BigDecimal(0):$V{vtt_ing_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="713"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-242"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vtt_ing}==null?new BigDecimal(0):$V{vtt_ing}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="modalidadeEducacao" >
+			<groupExpression><![CDATA[$F{me_modalidade}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="159"
+						height="12"
+						key="textField-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRADUAÇÃO ("+$F{me_modalidade}+")"]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="13"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="0"
+						y="0"
+						width="736"
+						height="12"
+						key="rectangle-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="2"
+						width="149"
+						height="11"
+						key="textField-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRADUAÇÃO ("+$F{me_modalidade}+")"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="1"
+						width="25"
+						height="11"
+						key="textField-193"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_18_masc}==null?new BigDecimal(0):$V{vt_ing_18_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-194"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_18_fem}==null?new BigDecimal(0):$V{vt_ing_18_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-195"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_19_24_masc}==null?new BigDecimal(0):$V{vt_ing_19_24_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-196"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_19_24_fem}==null?new BigDecimal(0):$V{vt_ing_19_24_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-197"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_25_29_masc}==null?new BigDecimal(0):$V{vt_ing_25_29_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-198"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_25_29_fem}==null?new BigDecimal(0):$V{vt_ing_25_29_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-199"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_30_34_masc}==null?new BigDecimal(0):$V{vt_ing_30_34_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-200"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_30_34_fem}==null?new BigDecimal(0):$V{vt_ing_30_34_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-201"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_35_39_masc}==null?new BigDecimal(0):$V{vt_ing_35_39_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-202"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_35_39_fem}==null?new BigDecimal(0):$V{vt_ing_35_39_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-203"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_40_44_masc}==null?new BigDecimal(0):$V{vt_ing_40_44_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-204"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_40_44_fem}==null?new BigDecimal(0):$V{vt_ing_40_44_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-205"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_45_49_masc}==null?new BigDecimal(0):$V{vt_ing_45_49_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-206"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_45_49_fem}==null?new BigDecimal(0):$V{vt_ing_45_49_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="1"
+						width="22"
+						height="11"
+						key="textField-207"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_50_54_masc}==null?new BigDecimal(0):$V{vt_ing_50_54_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="1"
+						width="24"
+						height="11"
+						key="textField-208"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_50_54_fem}==null?new BigDecimal(0):$V{vt_ing_50_54_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-209"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_55_59_masc}==null?new BigDecimal(0):$V{vt_ing_55_59_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-210"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_55_59_fem}==null?new BigDecimal(0):$V{vt_ing_55_59_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-211"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_60_64_masc}==null?new BigDecimal(0):$V{vt_ing_60_64_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-212"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_60_64_fem}==null?new BigDecimal(0):$V{vt_ing_60_64_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="621"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-213"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_65_masc}==null?new BigDecimal(0):$V{vt_ing_65_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="644"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-214"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_65_fem}==null?new BigDecimal(0):$V{vt_ing_65_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="667"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-215"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_masc}==null?new BigDecimal(0):$V{vt_ing_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="690"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-216"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing_fem}==null?new BigDecimal(0):$V{vt_ing_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="713"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-217"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{vt_ing}==null?new BigDecimal(0):$V{vt_ing}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="nomeDepartamento" >
+			<groupExpression><![CDATA[$F{id_unidade}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="159"
+						height="12"
+						key="textField-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="12"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="0"
+						y="1"
+						width="736"
+						height="11"
+						key="rectangle-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<staticText>
+					<reportElement
+						x="121"
+						y="2"
+						width="29"
+						height="10"
+						key="staticText-56"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="1"
+						width="25"
+						height="11"
+						key="textField-168"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_18_masc}==null?new BigDecimal(0):$V{v_ing_18_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-169"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_18_fem}==null?new BigDecimal(0):$V{v_ing_18_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-170"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_19_24_masc}==null?new BigDecimal(0):$V{v_ing_19_24_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-171"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_19_24_fem}==null?new BigDecimal(0):$V{v_ing_19_24_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-172"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_25_29_masc}==null?new BigDecimal(0):$V{v_ing_25_29_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-173"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_25_29_fem}==null?new BigDecimal(0):$V{v_ing_25_29_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-174"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_30_34_masc}==null?new BigDecimal(0):$V{v_ing_30_34_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-175"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_30_34_fem}==null?new BigDecimal(0):$V{v_ing_30_34_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-176"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_35_39_masc}==null?new BigDecimal(0):$V{v_ing_35_39_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-177"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_35_39_fem}==null?new BigDecimal(0):$V{v_ing_35_39_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-178"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_40_44_masc}==null?new BigDecimal(0):$V{v_ing_40_44_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-179"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_40_44_fem}==null?new BigDecimal(0):$V{v_ing_40_44_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-180"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_45_49_masc}==null?new BigDecimal(0):$V{v_ing_45_49_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-181"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_45_49_fem}==null?new BigDecimal(0):$V{v_ing_45_49_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="1"
+						width="22"
+						height="11"
+						key="textField-182"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_50_54_masc}==null?new BigDecimal(0):$V{v_ing_50_54_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="1"
+						width="24"
+						height="11"
+						key="textField-183"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_50_54_fem}==null?new BigDecimal(0):$V{v_ing_50_54_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-184"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_55_59_masc}==null?new BigDecimal(0):$V{v_ing_55_59_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-185"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_55_59_fem}==null?new BigDecimal(0):$V{v_ing_55_59_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-186"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_60_64_masc}==null?new BigDecimal(0):$V{v_ing_60_64_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-187"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_60_64_fem}==null?new BigDecimal(0):$V{v_ing_60_64_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="621"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-188"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_65_masc}==null?new BigDecimal(0):$V{v_ing_65_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="644"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-189"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_65_fem}==null?new BigDecimal(0):$V{v_ing_65_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="667"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-190"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_masc}==null?new BigDecimal(0):$V{v_ing_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="690"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-191"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing_fem}==null?new BigDecimal(0):$V{v_ing_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="713"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-192"
+						isPrintWhenDetailOverflows="true"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="6" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{v_ing}==null?new BigDecimal(0):$V{v_ing}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[new Boolean(false)]]></printWhenExpression>
+			</band>
+		</background>
+		<title>
+			<band height="58"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="-1"
+						y="0"
+						width="781"
+						height="42"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3"
+						y="1"
+						width="76"
+						height="39"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/portal/cpdi/relatorios/ufrn.gif")]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="715"
+						y="3"
+						width="62"
+						height="37"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/portal/cpdi/relatorios/sinfo.gif")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="1"
+						width="781"
+						height="13"
+						key="staticText-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="15"
+						width="780"
+						height="13"
+						key="staticText-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Sistema Integrado de Gestao de Atividades Acadêmicas]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="56"
+						width="780"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="28"
+						width="780"
+						height="13"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-39"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["EMITIDO EM "+new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="42"
+						width="780"
+						height="14"
+						key="textField-40"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.6.3-Alunos matriculados nos cursos de graduação, por faixa etária e gênero, no ano de "+$P{ano}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="37"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="162"
+						height="37"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[UNIDADE / CURSO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="162"
+						y="0"
+						width="552"
+						height="13"
+						key="staticText-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Faixa Etária (em anos)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="162"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-44"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Até 18]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="162"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-57"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="185"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-58"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="668"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-80"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="691"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-81"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="668"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-82"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="208"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-83"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 19 a 24]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="231"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-84"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="208"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-85"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="254"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-86"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 25 a 29]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="277"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-87"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="254"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-88"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="300"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 30 a 34]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="323"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="300"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-91"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="346"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-92"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 35 a 39]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="369"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-93"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="346"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-94"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="392"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-95"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 40 a 44]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="392"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-96"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="415"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-97"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="438"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-98"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 45 a 49]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="438"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-99"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="461"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-100"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="484"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-101"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 50 a 54]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="484"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-102"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="507"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-103"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="530"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-104"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 55 a 59]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="530"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-105"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="553"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-106"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="576"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-107"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 60 a 64]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="576"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-108"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="599"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-109"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="622"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-110"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[De 65 ou +]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="622"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-111"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="645"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-112"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="714"
+						y="0"
+						width="23"
+						height="37"
+						key="staticText-113"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="1"
+						width="782"
+						height="10"
+						forecolor="#F7F7F7"
+						backcolor="#F7F7F7"
+						key="rectangle-5">
+							<printWhenExpression><![CDATA[new java.lang.Boolean(($V{REPORT_COUNT}.intValue() % 2)==1)]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="159"
+						height="11"
+						key="textField-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="1" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="0"
+						width="25"
+						height="11"
+						key="textField-42"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_18_masc}==null?new BigDecimal(0):$F{ing_18_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_18_fem}==null?new BigDecimal(0):$F{ing_18_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-100"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_19_24_masc}==null?new BigDecimal(0):$F{ing_19_24_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-101"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_19_24_fem}==null?new BigDecimal(0):$F{ing_19_24_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-102"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_25_29_masc}==null?new BigDecimal(0):$F{ing_25_29_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-103"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_25_29_fem}==null?new BigDecimal(0):$F{ing_25_29_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-104"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_30_34_fem}==null?new BigDecimal(0):$F{ing_30_34_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-105"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_30_34_masc}==null?new BigDecimal(0):$F{ing_30_34_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-106"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_35_39_masc}==null?new BigDecimal(0):$F{ing_35_39_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-125"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_35_39_fem}==null?new BigDecimal(0):$F{ing_35_39_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-126"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_40_44_masc}==null?new BigDecimal(0):$F{ing_40_44_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-127"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_40_44_fem}==null?new BigDecimal(0):$F{ing_40_44_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-128"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_45_49_masc}==null?new BigDecimal(0):$F{ing_45_49_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-129"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_45_49_fem}==null?new BigDecimal(0):$F{ing_45_49_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="0"
+						width="22"
+						height="11"
+						key="textField-130"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_50_54_masc}==null?new BigDecimal(0):$F{ing_50_54_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-131"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_55_59_masc}==null?new BigDecimal(0):$F{ing_55_59_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="0"
+						width="24"
+						height="11"
+						key="textField-132"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_50_54_fem}==null?new BigDecimal(0):$F{ing_50_54_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-133"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_55_59_fem}==null?new BigDecimal(0):$F{ing_55_59_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-161"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_60_64_masc}==null?new BigDecimal(0):$F{ing_60_64_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-162"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_60_64_fem}==null?new BigDecimal(0):$F{ing_60_64_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="621"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-163"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_65_masc}==null?new BigDecimal(0):$F{ing_65_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="644"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-164"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_65_fem}==null?new BigDecimal(0):$F{ing_65_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="667"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-165"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_masc}==null?new BigDecimal(0):$F{ing_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="690"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-166"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing_fem}==null?new BigDecimal(0):$F{ing_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="713"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-167"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ing}==null?new BigDecimal(0):$F{ing}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="650"
+						y="0"
+						width="100"
+						height="16"
+						key="textField-37"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pág. " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="751"
+						y="0"
+						width="30"
+						height="16"
+						key="textField-38"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

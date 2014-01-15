@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="declaracao_2011"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="539"
+		 columnSpacing="0"
+		 leftMargin="28"
+		 rightMargin="28"
+		 topMargin="18"
+		 bottomMargin="18"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="discentesConvocados" isForPrompting="false" class="java.util.ArrayList"/>
+	<parameter name="processoSeletivo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="subSistema" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="subSistemaLink" isForPrompting="false" class="java.lang.String"/>
+
+	<field name="nome" class="java.lang.String"/>
+	<field name="matricula" class="java.math.BigInteger"/>
+	<field name="curso" class="java.lang.String"/>
+	<field name="semestreAprocacao" class="java.lang.Integer"/>
+	<field name="dataNascimento" class="java.util.Date"/>
+	<field name="cpf" class="java.math.BigInteger"/>
+	<field name="nomeMae" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="municipioCurso" class="java.lang.String"/>
+	<field name="semestreMaximoConclusao" class="java.lang.Integer"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="habilitacao" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="20"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-26"
+						y="0"
+						width="444"
+						height="16"
+						key="subreport-1"/>
+					<subreportParameter  name="titulo">
+						<subreportParameterExpression><![CDATA[""]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subsistema">
+						<subreportParameterExpression><![CDATA[$P{subSistema}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subSistemaLink">
+						<subreportParameterExpression><![CDATA[$P{subSistemaLink}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/tituloUFRN.jasper")]]></subreportExpression>
+				</subreport>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="386"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="42"
+						y="9"
+						width="455"
+						height="17"
+						key="staticText-5"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[D E C L A R A Ç Ã O]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="42"
+						y="361"
+						width="455"
+						height="17"
+						key="staticText-7"
+						positionType="FixRelativeToBottom"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<text><![CDATA[Assinatura]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="117"
+						y="357"
+						width="304"
+						height="1"
+						key="line-1"
+						positionType="FixRelativeToBottom"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="17"
+						y="37"
+						width="505"
+						height="73"
+						key="textField-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Justified" isStyledText="true" lineSpacing="Single">
+						<font fontName="SansSerif" size="12" isPdfEmbedded ="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["DADOS PESSOAIS:\n\n"+
+"Nome: "+$F{nome}.toUpperCase()+"\n"+
+"Data de nascimento: "+
+($F{dataNascimento} != null ? br.ufrn.arq.util.Formatador.getInstance().formatarData($F{dataNascimento}) : "NÃO INFORMADO")+"      CPF: "+
+($F{cpf} != null ? br.ufrn.arq.util.Formatador.getInstance().formatarCPF($F{cpf}.longValue()) : "NÃO INFORMADO")+
+"\n"+
+"Nome da mãe: "+
+$F{nomeMae}+
+"\n"+
+"E-mail: "+
+$F{email}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="42"
+						y="314"
+						width="455"
+						height="17"
+						key="textField-3"
+						positionType="FixRelativeToBottom"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["_____________________, ____ de " +
+(new SimpleDateFormat("MMMM")).format(new java.util.Date()) +
+" de " +
+(new SimpleDateFormat("yyyy")).format(new java.util.Date())+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="17"
+						y="122"
+						width="505"
+						height="27"
+						key="textField-4"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Justified" isStyledText="true" lineSpacing="Single">
+						<font fontName="SansSerif" size="11" isPdfEmbedded ="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Eu, identificado pelos dados pessoais acima e aprovado no "+
+$P{processoSeletivo}+
+" para o Curso de "+
+$F{curso}+
+($F{habilitacao} != null ? " - " + $F{habilitacao} : "") +
+", "+$F{descricao}+
+", Turno "+
+$F{sigla}+
+", em "+
+$F{municipioCurso}+
+", declaro que: \n\n"+
+"1) Conferi e corrigi, se necessário, os dados pessoais acima.\n"+
+"2) Com relação a um vínculo anterior com instituição pública de ensino superior, enquadro-me na seguinte situação:\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="17"
+						y="149"
+						width="505"
+						height="52"
+						key="textField-5"
+						positionType="Float"/>
+					<box leftPadding="20">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Justified" isStyledText="true" lineSpacing="Single">
+						<font fontName="SansSerif" size="11" isPdfEmbedded ="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["\t(  )	<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Tenho vínculo</style> com o curso de ________________________________________________ , matrícula nº ____________________ ,"+
+" na instituição ___________________________________ ,"+
+" mas <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">faço opção definitiva</style> pelo curso para o qual fui aprovado(a) no "+
+$P{processoSeletivo}+
+" da UFRN, em razão da proibição de ocupar, simultaneamente, 2 (duas) vagas de graduação em instituições públicas de ensino superior (Lei nº 12.089, de 11/11/2009).\n"+
+"\t(  )	Não estou vinculado(a) a nenhum curso de graduação em instituição pública de ensino superior. Estou ciente que o cadastro atual e o vínculo anterior poderão ser cancelados, nos termos da legislação, caso seja comprovada a falsidade do que afirmo.\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="17"
+						y="201"
+						width="505"
+						height="88"
+						key="textField-6"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Justified" isStyledText="true" lineSpacing="Single">
+						<font fontName="SansSerif" size="11" isPdfEmbedded ="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3) Estou ciente que devo ler o <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">Regulamento dos Cursos Regulares de Graduação da UFRN</style> (Resolução 227/2009 - CONSEPE, de 03/12/2009), que contém os direitos e deveres dos alunos, e que esse documento está disponível na página eletrônica da UFRN.\n"+
+"4) Estou ciente que o prazo máximo para integralização curricular do curso de "+$F{curso}+", "+$F{descricao}+", Turno "+$F{sigla}+", em "+$F{municipioCurso}+" é de <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+
+$F{semestreMaximoConclusao}+"</style> períodos letivos regulares, e que a não conclusão no referido prazo acarreta <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">cancelamento</style> de programa, de acordo com os art. 24 e 311 da Resolução 227/2009 - CONSEPE, de 03/12/2009.\n"+
+"5) Estou ciente que, caso em um período letivo eu não realize matrícula em disciplinas ou reprove ou tranque todas elas, e não solicite trancamento de programa neste período, meu curso será <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">cancelado por abandono</style> (art. 313 da Resolução 227/2009 - CONSEPE, de 03/12/2009).\n"+
+"6) Estou ciente que a UFRN utilizará como <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">mecanismos de comunicação oficial</style> o sistema acadêmico SIGAA e o meu endereço de e-mail, que devo manter atualizado.\n"]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

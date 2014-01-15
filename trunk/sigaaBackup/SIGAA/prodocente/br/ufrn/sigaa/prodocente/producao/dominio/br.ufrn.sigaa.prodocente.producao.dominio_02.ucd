@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="br.ufrn.sigaa.prodocente.producao.dominio_02" size="3095,2813" id="br.ufrn.sigaa.prodocente.producao.dominio" metadata="uml2-1.0" initialized="true" scrolledX="1504" tag="1000" key="32303037303533312D313030302053494741412F41646D696E6973747261646F72">
+  <children xsi:type="editmodel:ClassEditModel" name="ApresentacaoEmEvento" location="2115,930" size="192,147" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento" runTimeClassModel="getTipo(),setTipo(Ljava.lang.String;),setTipoEvento(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoEvento;),setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),data,evento,setLocal(Ljava.lang.String;),ApresentacaoEmEvento(),setData(Ljava.util.Date;),getLocal(),tipoEvento,validate(),getData(),tipo,getEvento(),getTipoEvento(),local,getTipoRegiao(),tipoRegiao,setEvento(Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="128,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="data" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento#data"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="evento" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento#evento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="local" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento#local"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipo" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento#tipo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoEvento" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento#tipoEvento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento#tipoRegiao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ApresentacaoEmEvento" source="//@children.0" target="//@children.3/@sourceConnections.0" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="96,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoArtistico" location="216,300" size="239,129" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico" runTimeClassModel="getTipoProducao(),TipoArtistico(),setTipoProducao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoProducao;),setIdObject(Ljava.lang.Integer;),aPRESENTACAO_EVENTO,setId(I),descricao,aRTISTICO,id,tipoProducao,validate(),getDescricao(),getId(),getIdObject(),setDescricao(Ljava.lang.String;),TipoArtistico(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="216,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="aPRESENTACAO_EVENTO" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico#aPRESENTACAO_EVENTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="aRTISTICO" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico#aRTISTICO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoProducao" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico#tipoProducao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.prodocente.producao.dominio/TipoArtistico" source="//@children.1" target="//@children.12/@sourceConnections.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="217,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PublicacaoEvento" location="1020,1417" size="156,219" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento" runTimeClassModel="setDestaque(Ljava.lang.Boolean;),nomeEvento,setTipoEvento(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoEvento;),setPaginaInicial(Ljava.lang.Integer;),getPaginaInicial(),apresentado,PublicacaoEvento(),organizadores,tipoEvento,setAutores(Ljava.lang.String;),getDescricaoCompleta(),natureza,getTipoEvento(),setNatureza(Ljava.lang.Character;),getPaginaFinal(),getNatureza(),tipoRegiao,getApresentado(),getOrganizadores(),paginaInicial,getNaturezaDesc(),getNomeEvento(),getDestaque(),setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),paginaFinal,autores,setPaginaFinal(Ljava.lang.Integer;),setApresentado(Ljava.lang.Boolean;),validate(),getAutores(),setNomeEvento(Ljava.lang.String;),getTipoRegiao(),setOrganizadores(Ljava.lang.String;),destaque">
+    <children xsi:type="editmodel:CompartmentEditModel" size="128,180">
+      <children xsi:type="editmodel:AttributeEditModel" name="apresentado" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#apresentado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="destaque" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#destaque"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="natureza" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#natureza"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nomeEvento" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#nomeEvento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="organizadores" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#organizadores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaFinal" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#paginaFinal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaInicial" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#paginaInicial"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoEvento" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#tipoEvento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento#tipoRegiao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.5/@sourceConnections.0 //@children.22/@sourceConnections.0 //@children.14/@sourceConnections.0 //@children.20/@sourceConnections.0 //@children.8/@sourceConnections.0" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/PublicacaoEvento" source="//@children.2" target="//@children.4" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="78,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="98,165" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.9/@sourceConnections.0" name="ProducaoTecnologica" location="1815,930" size="293,237" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica" runTimeClassModel="numeroEstudantes,setNumeroTecnicos(I),getTipoProducaoTecnologica(),ProducaoTecnologica(),numeroDocentes,setLocalPublicacao(Ljava.lang.String;),setAutores(Ljava.lang.String;),setNumeroOutros(I),setNumeroDocentes(I),getNumeroEstudantes(),getNumeroTecnicos(),tipoProducaoTecnologica,tipoRegiao,getPremiada(),informacao,numeroOutros,premiada,setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),getNumeroOutros(),getNumeroDocentes(),autores,numeroTecnicos,getInformacao(),numeroDocentesOutros,validate(),getAutores(),setNumeroDocentesOutros(I),setPremiada(Ljava.lang.Boolean;),getNumeroDocentesOutros(),getLocalPublicacao(),setNumeroEstudantes(I),getTipoRegiao(),setInformacao(Ljava.lang.String;),setTipoProducaoTecnologica(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoProducaoTecnologica;),localPublicacao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="270,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="informacao" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#informacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="localPublicacao" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#localPublicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroDocentes" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#numeroDocentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroDocentesOutros" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#numeroDocentesOutros"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroEstudantes" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#numeroEstudantes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroOutros" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#numeroOutros"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroTecnicos" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#numeroTecnicos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="premiada" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#premiada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoProducaoTecnologica" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#tipoProducaoTecnologica"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica#tipoRegiao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.13/@sourceConnections.0 //@children.10/@sourceConnections.0 //@children.24/@sourceConnections.0 //@children.4/@sourceConnections.0 //@children.0/@sourceConnections.0 //@children.19/@sourceConnections.0 //@children.6/@sourceConnections.0 //@children.11/@sourceConnections.0 //@children.18/@sourceConnections.0 //@children.23/@sourceConnections.0" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica" source="//@children.3" target="//@children.12" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="146,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="134,453" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@sourceConnections.0" name="Publicacao" location="883,930" size="196,165" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao" runTimeClassModel="numeroEstudantes,setDataPublicacao(Ljava.util.Date;),numeroOutros,setNumeroDocentes(Ljava.lang.Integer;),dataPublicacao,setNumeroEstudantes(Ljava.lang.Integer;),getNumeroOutros(),getNumeroDocentes(),numeroTecnicos,numeroDocentes,setLocalPublicacao(Ljava.lang.String;),numeroDocentesOutros,getDataPublicacao(),setNumeroDocentesOutros(Ljava.lang.Integer;),validate(),getNumeroEstudantes(),getNumeroDocentesOutros(),setNumeroTecnicos(Ljava.lang.Integer;),getLocalPublicacao(),setNumeroOutros(Ljava.lang.Integer;),getNumeroTecnicos(),localPublicacao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="173,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataPublicacao" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#dataPublicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="localPublicacao" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#localPublicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroDocentes" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#numeroDocentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroDocentesOutros" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#numeroDocentesOutros"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroEstudantes" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#numeroEstudantes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroOutros" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#numeroOutros"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroTecnicos" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao#numeroTecnicos"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Publicacao" source="//@children.4" target="//@children.3/@sourceConnections.0" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="98,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TextoDidatico" location="819,1417" size="171,165" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico" runTimeClassModel="setTextoDiscussao(Ljava.lang.Boolean;),getPremiada(),paginaInicial,setDestaque(Ljava.lang.Boolean;),getDestaque(),premiada,getPaginaInicial(),setPaginaInicial(Ljava.lang.Integer;),getTextoDiscussao(),paginaFinal,autores,setPaginaFinal(Ljava.lang.Integer;),setAutores(Ljava.lang.String;),setTipoInstancia(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoInstancia;),getTipoInstancia(),validate(),textoDiscussao,getAutores(),TextoDidatico(),tipoInstancia,setPremiada(Ljava.lang.Boolean;),getPaginaFinal(),destaque">
+    <children xsi:type="editmodel:CompartmentEditModel" size="148,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="destaque" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#destaque"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaFinal" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#paginaFinal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaInicial" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#paginaInicial"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="premiada" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#premiada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="textoDiscussao" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#textoDiscussao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoInstancia" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico#tipoInstancia"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/TextoDidatico" source="//@children.5" target="//@children.2/@sourceConnections.0" targetEnd="//@children.5/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="85,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.25/@sourceConnections.0" name="ProducaoArtisticaLiterariaVisual" location="283,930" size="247,273" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual" runTimeClassModel="numeroEstudantes,ProducaoArtisticaLiterariaVisual(),periodoFim,setNumeroEstudantes(Ljava.lang.Integer;),setLocal(Ljava.lang.String;),setPeriodoFim(Ljava.util.Date;),numeroDocentes,getLocal(),tipoArtistico,setAutores(Ljava.lang.String;),setNumeroDocentesOutros(Ljava.lang.Integer;),getNumeroEstudantes(),getNumeroTecnicos(),setPeriodoInicio(Ljava.util.Date;),tipoRegiao,getSubTipoArtistico(),getPremiada(),numeroOutros,premiada,setNumeroDocentes(Ljava.lang.Integer;),setTipoArtistico(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoArtistico;),subTipoArtistico,setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),getTipoArtistico(),getNumeroDocentes(),getNumeroOutros(),numeroTecnicos,autores,periodoInicio,getPeriodoInicio(),numeroDocentesOutros,validate(),getAutores(),setSubTipoArtistico(Lbr.ufrn.sigaa.prodocente.producao.dominio.SubTipoArtistico;),setPremiada(Ljava.lang.Boolean;),getNumeroDocentesOutros(),setNumeroTecnicos(Ljava.lang.Integer;),local,getTipoRegiao(),setNumeroOutros(Ljava.lang.Integer;),getPeriodoFim()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="182,234">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="local" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#local"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroDocentes" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#numeroDocentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroDocentesOutros" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#numeroDocentesOutros"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroEstudantes" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#numeroEstudantes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroOutros" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#numeroOutros"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroTecnicos" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#numeroTecnicos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoFim" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#periodoFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="premiada" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#premiada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="subTipoArtistico" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#subTipoArtistico"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoArtistico" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#tipoArtistico"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual#tipoRegiao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual" source="//@children.6" target="//@children.3/@sourceConnections.0" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="123,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.13/@sourceConnections.1 //@children.9/@sourceConnections.1" name="ViewAtividadeBuilder" location="2415,585" size="230,57" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder" runTimeClassModel="getQtdBase(),getTituloView(),getItens(),getItemView()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TextoDiscussao" location="247,1417" size="140,111" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDiscussao" runTimeClassModel="paginaInicial,setDestaque(Ljava.lang.Boolean;),getDestaque(),setPaginaInicial(Ljava.lang.Integer;),getPaginaInicial(),paginaFinal,autores,setPaginaFinal(Ljava.lang.Integer;),setAutores(Ljava.lang.String;),validate(),getAutores(),TextoDiscussao(),getPaginaFinal(),destaque">
+    <children xsi:type="editmodel:CompartmentEditModel" size="116,72">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDiscussao#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="destaque" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDiscussao#destaque"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaFinal" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDiscussao#paginaFinal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaInicial" id="br.ufrn.sigaa.prodocente.producao.dominio/TextoDiscussao#paginaInicial"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/TextoDiscussao" source="//@children.8" target="//@children.2/@sourceConnections.0" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="70,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Patente" location="2400,1363" size="230,237" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente" runTimeClassModel="setNumeroPatente(Ljava.lang.String;),getPatrocinadora(),setRegistroLocal(Ljava.lang.String;),getQtdBase(),numeroPatente,setPatrocinadora(Ljava.util.List;),getRegistroNumero(),getRegistroPagina(),setRegistroPagina(Ljava.lang.Integer;),getRegistroVolume(),setRegistroTitulo(Ljava.lang.String;),Patente(),cONCEDIDO,setStatus(Ljava.lang.Integer;),getItemView(),patrocinadora,status,getRegistroLocal(),setRegistroNumero(Ljava.lang.Long;),getItens(),registroLocal,getNumeroPatente(),registroNumero,setRegistroData(Ljava.util.Date;),getRegistroData(),validate(),registroPagina,setRegistroVolume(Ljava.lang.Integer;),getStatus(),getTituloView(),registroTitulo,registroVolume,registroData,eM_REGISTRO,getRegistroTitulo()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="207,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="cONCEDIDO" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#cONCEDIDO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eM_REGISTRO" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#eM_REGISTRO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroPatente" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#numeroPatente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="patrocinadora" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#patrocinadora"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroData" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#registroData"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroLocal" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#registroLocal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroNumero" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#registroNumero"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroPagina" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#registroPagina"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroTitulo" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#registroTitulo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroVolume" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#registroVolume"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.prodocente.producao.dominio/Patente#status"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoTecnologica&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Patente" source="//@children.9" target="//@children.3" targetEnd="//@children.9/@sourceConnections.0/@children.1" sourceEnd="//@children.9/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,28" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="293,233"/>
+      <bendpoints secondRelativeDimension="2,94" firstRelativeDimension="-290,-134"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Patente" source="//@children.9" target="//@children.7" targetEnd="//@children.9/@sourceConnections.1/@children.1" sourceEnd="//@children.9/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan" anchorType="ChopBox">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="117,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="114,57"/>
+      <bendpoints location="2583,1228" secondRelativeDimension="-29,1014" firstRelativeDimension="30,-29"/>
+      <bendpoints location="3120,1228" secondRelativeDimension="494,1014" firstRelativeDimension="567,-118"/>
+      <bendpoints location="3120,905" secondRelativeDimension="487,691" firstRelativeDimension="567,-386"/>
+      <bendpoints location="2758,905" secondRelativeDimension="141,691" firstRelativeDimension="238,-344"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="ParticipacaoColegiadoComissao" location="2565,1140" size="273,201" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao" runTimeClassModel="getInstituicao(),setTipoComissaoColegiado(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoComissaoColegiado;),ParticipacaoColegiadoComissao(),periodoFim,getQtdBase(),instituicao,setComissao(Ljava.lang.String;),setPeriodoFim(Ljava.util.Date;),tipoMembroColegiado,setDepartamento(Lbr.ufrn.sigaa.dominio.Unidade;),numeroReunioes,departamento,getTipoMembroColegiado(),getTitulo(),getTipoComissaoColegiado(),getNumeroReunioes(),setPeriodoInicio(Ljava.util.Date;),getItemView(),setNato(Ljava.lang.Boolean;),setTipoMembroColegiado(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoMembroColegiado;),getNato(),tipoComissaoColegiado,getItens(),setNumeroReunioes(Ljava.lang.Integer;),comissao,periodoInicio,nato,getComissao(),getPeriodoInicio(),getDepartamento(),setInstituicao(Lbr.ufrn.sigaa.dominio.InstituicoesEnsino;),validate(),getTituloView(),getPeriodoFim()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="250,162">
+      <children xsi:type="editmodel:AttributeEditModel" name="comissao" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#comissao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="departamento" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#departamento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="instituicao" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#instituicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nato" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#nato"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroReunioes" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#numeroReunioes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoFim" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#periodoFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoComissaoColegiado" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#tipoComissaoColegiado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoMembroColegiado" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao#tipoMembroColegiado"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao" source="//@children.10" target="//@children.3/@sourceConnections.0" targetEnd="//@children.10/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="242,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoColegiadoComissao" source="//@children.10" target="//@children.13/@sourceConnections.1" targetEnd="//@children.10/@sourceConnections.1/@children.1" sourceEnd="//@children.10/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="228,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="ParticipacaoSociedade" location="548,930" size="305,129" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade" runTimeClassModel="tipoParticipacaoSociedade,setAmbito(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),periodoFim,getNomeSociedade(),getAmbito(),nomeSociedade,setTipoParticipacaoSociedade(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoParticipacaoSociedade;),getTipoParticipacaoSociedade(),setPeriodoFim(Ljava.util.Date;),ambito,periodoInicio,getPeriodoInicio(),validate(),setNomeSociedade(Ljava.lang.String;),getTitulo(),ParticipacaoSociedade(),getPeriodoFim(),setPeriodoInicio(Ljava.util.Date;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="282,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="ambito" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade#ambito"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nomeSociedade" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade#nomeSociedade"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoFim" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade#periodoFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoParticipacaoSociedade" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade#tipoParticipacaoSociedade"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoSociedade" source="//@children.11" target="//@children.3/@sourceConnections.0" targetEnd="//@children.11/@sourceConnections.0/@children.1" sourceEnd="//@children.11/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="152,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.3/@sourceConnections.0" name="Producao" location="842,157" size="268,453" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao" runTimeClassModel="getUsuarioValidador(),leituraXml,setUsuarioConsolidador(Lbr.ufrn.sigaa.dominio.Usuario;),Producao(ILjava.lang.String;Ljava.lang.String;ILjava.lang.String;ILjava.lang.Boolean;Ljava.util.Date;),getDataValidacao(),setTipoProducao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoProducao;),getSequenciaProducao(),Producao(ILjava.lang.String;ILjava.lang.String;ILjava.lang.String;Ljava.lang.Integer;Ljava.lang.String;Ljava.lang.Integer;Ljava.lang.String;),getDataCadastro(),setSequenciaProducao(Ljava.lang.Integer;),getAtivo(),Producao(),getConsolidado(),dataProducao,getSituacaoDesc(),getClassValidacao(),getTitulo(),anoReferencia,setConsolidado(Ljava.lang.Boolean;),dataConsolidacao,getValidado(),Producao(Ljava.lang.Integer;),getSubArea(),setId(I),setTitulo(Ljava.lang.String;),Producao(ILjava.lang.String;ILjava.lang.String;ILjava.lang.String;Ljava.lang.Integer;Ljava.lang.String;Ljava.lang.Integer;),setUsuarioValidador(Lbr.ufrn.sigaa.dominio.Usuario;),setRegistro(Lbr.ufrn.arq.dominio.RegistroEntrada;),registro,getId(),ativo,setSubArea(Lbr.ufrn.sigaa.dominio.AreaConhecimentoCnpq;),setInformacao(Ljava.lang.String;),getArea(),getTipoProducao(),getServidor(),setAnoReferencia(Ljava.lang.Integer;),setServidor(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),getValidacoesproducao(),getAnoReferencia(),dataValidacao,id,tipoProducao,area,setValidacoesproducao(Ljava.util.Set;),getDescricaoCompleta(),validado,usuarioValidador,getLeituraXml(),setDataProducao(Ljava.util.Date;),setDataValidacao(Ljava.util.Date;),dataCadastro,setArea(Lbr.ufrn.sigaa.dominio.AreaConhecimentoCnpq;),sequenciaProducao,informacao,getSemestre(),idArquivo,consolidado,setAtivo(Ljava.lang.Boolean;),getClassConsolidacao(),getUsuarioConsolidador(),getInformacao(),titulo,servidor,getDataConsolidacao(),validate(),usuarioConsolidador,subArea,setValidado(Ljava.lang.Boolean;),getTipoParticipacao(),setLeituraXml(Lbr.ufrn.sigaa.prodocente.lattes.LeituraXML;),getRegistro(),tipoParticipacao,validacoesproducao,setDataConsolidacao(Ljava.util.Date;),getDataProducao(),setTipoParticipacao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoParticipacao;),setDataCadastro(Ljava.util.Date;),setIdArquivo(Ljava.lang.Integer;),getIdArquivo()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="245,414">
+      <children xsi:type="editmodel:AttributeEditModel" name="anoReferencia" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#anoReferencia"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="area" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#area"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="consolidado" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#consolidado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataConsolidacao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#dataConsolidacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataProducao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#dataProducao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataValidacao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#dataValidacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idArquivo" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#idArquivo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="informacao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#informacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="leituraXml" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#leituraXml"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registro" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#registro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sequenciaProducao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#sequenciaProducao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="servidor" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#servidor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="subArea" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#subArea"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoParticipacao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#tipoParticipacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoProducao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#tipoProducao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="titulo" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#titulo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="usuarioConsolidador" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#usuarioConsolidador"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="usuarioValidador" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#usuarioValidador"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="validacoesproducao" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#validacoesproducao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="validado" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao#validado"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.21/@sourceConnections.0 //@children.15/@sourceConnections.0 //@children.1/@sourceConnections.0 //@children.17/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Producao" source="//@children.12" target="//@children.16" targetEnd="//@children.12/@sourceConnections.0/@children.1" sourceEnd="//@children.12/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="134,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PremioRecebido" location="2329,930" size="182,129" id="br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido" runTimeClassModel="getInstituicao(),setDestaque(Ljava.lang.Boolean;),getDestaque(),getQtdBase(),data,setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),instituicao,getPremio(),premio,getItens(),setData(Ljava.util.Date;),validate(),setInstituicao(Lbr.ufrn.sigaa.dominio.InstituicoesEnsino;),getData(),PremioRecebido(),getTituloView(),getTitulo(),setPremio(Ljava.lang.String;),getTipoRegiao(),destaque,getItemView(),tipoRegiao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="159,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="data" id="br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido#data"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="destaque" id="br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido#destaque"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="instituicao" id="br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido#instituicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="premio" id="br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido#premio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido#tipoRegiao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido" source="//@children.13" target="//@children.3/@sourceConnections.0" targetEnd="//@children.13/@sourceConnections.0/@children.1" sourceEnd="//@children.13/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="91,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.10/@sourceConnections.1 //@children.24/@sourceConnections.1 //@children.23/@sourceConnections.1" autoLocated="true" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.prodocente.producao.dominio/PremioRecebido" source="//@children.13" target="//@children.7" targetEnd="//@children.13/@sourceConnections.1/@children.1" sourceEnd="//@children.13/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="91,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Artigo" location="435,1417" size="173,237" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo" runTimeClassModel="setDestaque(Ljava.lang.Boolean;),setTipoPeriodico(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoPeriodico;),issn,setNumero(Ljava.lang.Integer;),getPaginaInicial(),getNumero(),setEditora(Ljava.lang.String;),setAutores(Ljava.lang.String;),tituloPeriodico,getDescricaoCompleta(),Artigo(),getPaginaFinal(),tipoPeriodico,tipoRegiao,paginaInicial,getIssn(),getDestaque(),Artigo(ILjava.lang.String;Ljava.lang.String;Ljava.lang.Integer;Ljava.lang.Boolean;Ljava.lang.Integer;Ljava.lang.Integer;),setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),setVolume(Ljava.lang.Integer;),getVolume(),paginaFinal,autores,getTituloPeriodico(),numero,validate(),getAutores(),getTipoPeriodico(),setPaginaInicial(Ljava.lang.String;),getEditora(),volume,editora,setTituloPeriodico(Ljava.lang.String;),getTipoRegiao(),setPaginaFinal(Ljava.lang.String;),destaque,Artigo(Ljava.lang.Integer;),setIssn(Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="150,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="destaque" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#destaque"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="editora" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#editora"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="issn" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#issn"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numero" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#numero"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaFinal" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#paginaFinal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaInicial" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#paginaInicial"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoPeriodico" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#tipoPeriodico"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#tipoRegiao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tituloPeriodico" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#tituloPeriodico"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="volume" id="br.ufrn.sigaa.prodocente.producao.dominio/Artigo#volume"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Artigo" source="//@children.14" target="//@children.2/@sourceConnections.0" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="86,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoApresentacao" location="204,157" size="220,129" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao" runTimeClassModel="id,validate(),getDescricao(),pROGRAMACAO,eXPOSICAO,getId(),setDescricao(Ljava.lang.String;),TipoApresentacao(),setId(I),mONTAGEM,descricao,TipoApresentacao(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="197,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eXPOSICAO" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao#eXPOSICAO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mONTAGEM" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao#mONTAGEM"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pROGRAMACAO" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao#pROGRAMACAO"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.prodocente.producao.dominio/TipoApresentacao" source="//@children.15" target="//@children.12/@sourceConnections.0" targetEnd="//@children.15/@sourceConnections.0/@children.1" sourceEnd="//@children.15/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="110,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.12/@sourceConnections.0" name="Validatable" location="620,50" size="165,57" id="br.ufrn.arq.negocio.validacao/Validatable" runTimeClassModel="validate()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="TipoBanca" location="345,435" size="124,111" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoBanca" runTimeClassModel="TipoBanca(),setIdObject(Ljava.lang.Integer;),descricao,setId(I),id,validate(),cONCURSO,getDescricao(),getId(),getIdObject(),setDescricao(Ljava.lang.String;),equals(Ljava.lang.Object;),cURSO,TipoBanca(Ljava.lang.Integer;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="101,72">
+      <children xsi:type="editmodel:AttributeEditModel" name="cONCURSO" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoBanca#cONCURSO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cURSO" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoBanca#cURSO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoBanca#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.prodocente.producao.dominio/TipoBanca#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.prodocente.producao.dominio/TipoBanca" source="//@children.17" target="//@children.12/@sourceConnections.0" targetEnd="//@children.17/@sourceConnections.0/@children.1" sourceEnd="//@children.17/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="VisitaCientifica" location="765,1110" size="191,237" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica" runTimeClassModel="setAmbito(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),periodoFim,setLocal(Ljava.lang.String;),setPeriodoFim(Ljava.util.Date;),ies,getIes(),getLocal(),setEntidade(Ljava.lang.String;),setDepartamento(Lbr.ufrn.sigaa.dominio.Unidade;),setValor(Ljava.lang.Double;),getDepartamentoOutro(),departamento,financiamentoExterno,setPeriodoInicio(Ljava.util.Date;),getEntidade(),setDepartamentoOutro(Ljava.lang.String;),getAmbito(),getInstituicaoOutro(),getFinanciamentoExterno(),entidade,ambito,periodoInicio,getPeriodoInicio(),getDepartamento(),setFinanciamentoExterno(Ljava.lang.Boolean;),validate(),departamentoOutro,valor,setInstituicaoOutro(Ljava.lang.String;),setIes(Lbr.ufrn.sigaa.dominio.InstituicoesEnsino;),local,instituicaoOutro,getPeriodoFim(),getValor()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="168,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="ambito" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#ambito"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="departamento" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#departamento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="departamentoOutro" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#departamentoOutro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="entidade" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#entidade"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="financiamentoExterno" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#financiamentoExterno"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ies" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#ies"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="instituicaoOutro" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#instituicaoOutro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="local" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#local"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoFim" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#periodoFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="valor" id="br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica#valor"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/VisitaCientifica" source="//@children.18" target="//@children.3/@sourceConnections.0" targetEnd="//@children.18/@sourceConnections.0/@children.1" sourceEnd="//@children.18/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="95,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="BolsaObtida" location="495,1217" size="249,165" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida" runTimeClassModel="getInstituicao(),getTipoBolsaProdocente(),periodoFim,tipoBolsaProdocente,instituicao,getDataCadastro(),setPeriodoFim(Ljava.util.Date;),toString(),getInstituicaoFomento(),setTipoBolsaProdocente(Lbr.ufrn.sigaa.prodocente.atividades.dominio.TipoBolsaProdocente;),getTitulo(),setInstituicao(Ljava.lang.String;),dataCadastro,getTipoBolsa(),setPeriodoInicio(Ljava.util.Date;),informacao,setInstituicaoFomento(Lbr.ufrn.sigaa.prodocente.atividades.dominio.InstituicaoFomento;),periodoInicio,getInformacao(),getPeriodoInicio(),validate(),instituicaoFomento,BolsaObtida(),setDataCadastro(Ljava.util.Date;),getPeriodoFim(),setInformacao(Ljava.lang.String;),setTipoBolsa(Lbr.ufrn.sigaa.prodocente.atividades.dominio.TipoBolsaProdocente;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="226,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="informacao" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#informacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="instituicao" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#instituicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="instituicaoFomento" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#instituicaoFomento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoFim" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#periodoFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoBolsaProdocente" id="br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida#tipoBolsaProdocente"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/BolsaObtida" source="//@children.19" target="//@children.3/@sourceConnections.0" targetEnd="//@children.19/@sourceConnections.0/@children.1" sourceEnd="//@children.19/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="43,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Livro" location="250,1545" size="172,147" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro" runTimeClassModel="setDestaque(Ljava.lang.Boolean;),getOrganizadores(),getDestaque(),Livro(),setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),setQuantidadePaginas(Ljava.lang.Integer;),quantidadePaginas,autores,setEditora(Ljava.lang.String;),getQuantidadePaginas(),setAutores(Ljava.lang.String;),organizadores,Livro(Ljava.lang.Integer;),validate(),getAutores(),getEditora(),editora,getTipoRegiao(),setOrganizadores(Ljava.lang.String;),destaque,tipoRegiao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="149,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="destaque" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro#destaque"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="editora" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro#editora"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="organizadores" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro#organizadores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="quantidadePaginas" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro#quantidadePaginas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/Livro#tipoRegiao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Livro" source="//@children.20" target="//@children.2/@sourceConnections.0" targetEnd="//@children.20/@sourceConnections.0/@children.1" sourceEnd="//@children.20/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="151,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="SubTipoArtistico" location="482,157" size="341,723" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico" runTimeClassModel="cOREOGRAFO_EXPOSICAO_APRESENTACAO_EVENTOS,setTipoProducao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoProducao;),setIdObject(Ljava.lang.Integer;),descricao,cINEMA_AUDIO_VISUAL,dESENHO_AUDIO_VISUAL,tEATRAL_EXPOSICAO_APRESENTACAO_EVENTOS,setDescricao(Ljava.lang.String;),sUB_TIPO_ARTISTICO_GENERICO,vIDEO_AUDIO_VISUAL,cOREOGRAFIA_MONTAGENS,cENICAS_MONTAGEM,fILME_MEDIA_DURACAO_AUDIO_VISUAL,oUTRO_TIPO_ESPECIFICO_MONTAGENS,lITERARIO_PUBLICACAO_EVENTO,SubTipoArtistico(I),setId(I),fILME_LONGA_DURACAO_AUDIO_VISUAL,getId(),lITERARIO_EXPOSICAO_APRESENTACAO_EVENTOS,fILME_CURTA_DURACAO_AUDIO_VISUAL,getTipoProducao(),tELEVISAO_AUDIO_VISUAL,fIGURINOS_ADERECOS_MONTAGENS,oUTROS_PUBLICACAO_EVENTO,SubTipoArtistico(),aRRANJO_MUSICAL_AUDIO_VISUAL,cENARIOS_MONTAGENS,oUTROS_EXPOSICAO_APRESENTACAO_EVENTOS,mUSICAL_EXPOSICAO_APRESENTACAO_EVENTOS,cD_ROM_AUDIO_VISUAL,cOMPOSICAO_MUSICAL_AUDIO_VISUAL,id,tipoProducao,getIdObject(),tEATRAL_PUBLICACAO_EVENTO,pINTURA_AUDIO_VISUAL,pARTITURA_MUSICAL_AUDIO_VISUAL,oUTRA_CLASSIFICACAO_AUDIO_VISUAL,mUSICAL_PUBLICACAO_EVENTO,fOTOGRAFIAS_AUDIO_VISUAL,iNSTALACAO_AUDIO_VISUAL,eSCULTURA_AUDIO_VISUAL,gRAVURAS_AUDIO_VISUAL,validate(),getDescricao(),sONOPLASTIA_AUDIO_VISUAL,gRAVACAO_SOM_AUDIO_VISUAL,cOREOGRAFO_PUBLICACAO_EVENTO">
+    <children xsi:type="editmodel:CompartmentEditModel" size="318,684">
+      <children xsi:type="editmodel:AttributeEditModel" name="aRRANJO_MUSICAL_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#aRRANJO_MUSICAL_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cD_ROM_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cD_ROM_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cENARIOS_MONTAGENS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cENARIOS_MONTAGENS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cENICAS_MONTAGEM" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cENICAS_MONTAGEM"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cINEMA_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cINEMA_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cOMPOSICAO_MUSICAL_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cOMPOSICAO_MUSICAL_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cOREOGRAFIA_MONTAGENS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cOREOGRAFIA_MONTAGENS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cOREOGRAFO_EXPOSICAO_APRESENTACAO_EVENTOS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cOREOGRAFO_EXPOSICAO_APRESENTACAO_EVENTOS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cOREOGRAFO_PUBLICACAO_EVENTO" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#cOREOGRAFO_PUBLICACAO_EVENTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dESENHO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#dESENHO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eSCULTURA_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#eSCULTURA_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fIGURINOS_ADERECOS_MONTAGENS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#fIGURINOS_ADERECOS_MONTAGENS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fILME_CURTA_DURACAO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#fILME_CURTA_DURACAO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fILME_LONGA_DURACAO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#fILME_LONGA_DURACAO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fILME_MEDIA_DURACAO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#fILME_MEDIA_DURACAO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fOTOGRAFIAS_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#fOTOGRAFIAS_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="gRAVACAO_SOM_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#gRAVACAO_SOM_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="gRAVURAS_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#gRAVURAS_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="iNSTALACAO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#iNSTALACAO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="lITERARIO_EXPOSICAO_APRESENTACAO_EVENTOS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#lITERARIO_EXPOSICAO_APRESENTACAO_EVENTOS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="lITERARIO_PUBLICACAO_EVENTO" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#lITERARIO_PUBLICACAO_EVENTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mUSICAL_EXPOSICAO_APRESENTACAO_EVENTOS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#mUSICAL_EXPOSICAO_APRESENTACAO_EVENTOS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mUSICAL_PUBLICACAO_EVENTO" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#mUSICAL_PUBLICACAO_EVENTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="oUTRA_CLASSIFICACAO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#oUTRA_CLASSIFICACAO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="oUTROS_EXPOSICAO_APRESENTACAO_EVENTOS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#oUTROS_EXPOSICAO_APRESENTACAO_EVENTOS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="oUTROS_PUBLICACAO_EVENTO" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#oUTROS_PUBLICACAO_EVENTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="oUTRO_TIPO_ESPECIFICO_MONTAGENS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#oUTRO_TIPO_ESPECIFICO_MONTAGENS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pARTITURA_MUSICAL_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#pARTITURA_MUSICAL_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pINTURA_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#pINTURA_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sONOPLASTIA_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#sONOPLASTIA_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sUB_TIPO_ARTISTICO_GENERICO" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#sUB_TIPO_ARTISTICO_GENERICO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tEATRAL_EXPOSICAO_APRESENTACAO_EVENTOS" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#tEATRAL_EXPOSICAO_APRESENTACAO_EVENTOS"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tEATRAL_PUBLICACAO_EVENTO" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#tEATRAL_PUBLICACAO_EVENTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tELEVISAO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#tELEVISAO_AUDIO_VISUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoProducao" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#tipoProducao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vIDEO_AUDIO_VISUAL" id="br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico#vIDEO_AUDIO_VISUAL"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.prodocente.producao.dominio/SubTipoArtistico" source="//@children.21" target="//@children.12/@sourceConnections.0" targetEnd="//@children.21/@sourceConnections.0/@children.1" sourceEnd="//@children.21/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="170,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Capitulo" location="638,1417" size="151,183" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo" runTimeClassModel="setPaginaInicial(Ljava.lang.Integer;),getPaginaInicial(),setAutores(Ljava.lang.String;),getCapitulosLivro(),getEditor(),capitulosLivro,getPaginaFinal(),getTituloLivro(),tipoRegiao,getPremiada(),setTituloLivro(Ljava.lang.String;),paginaInicial,setCapitulosLivro(Ljava.lang.String;),premiada,setTipoRegiao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),tituloLivro,Capitulo(Ljava.lang.Integer;),setEditor(Ljava.lang.String;),Capitulo(),paginaFinal,autores,setPaginaFinal(Ljava.lang.Integer;),editor,validate(),getAutores(),setPremiada(Ljava.lang.Boolean;),getTipoRegiao()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="128,144">
+      <children xsi:type="editmodel:AttributeEditModel" name="autores" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#autores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="capitulosLivro" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#capitulosLivro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="editor" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#editor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaFinal" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#paginaFinal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paginaInicial" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#paginaInicial"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="premiada" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#premiada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRegiao" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#tipoRegiao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tituloLivro" id="br.ufrn.sigaa.prodocente.producao.dominio/Capitulo#tituloLivro"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Publicacao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Capitulo" source="//@children.22" target="//@children.2/@sourceConnections.0" targetEnd="//@children.22/@sourceConnections.0/@children.1" sourceEnd="//@children.22/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="75,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="ParticipacaoComissaoOrgEventos" location="2145,1107" size="366,147" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos" runTimeClassModel="getTipoParticipacaoOrganizacao(),setAmbito(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao;),periodoFim,getQtdBase(),setLocal(Ljava.lang.String;),ParticipacaoComissaoOrgEventos(),setPeriodoFim(Ljava.util.Date;),tipoParticipacaoOrganizacao,getLocal(),getTitulo(),setPeriodoInicio(Ljava.util.Date;),getItemView(),getVeiculo(),getAmbito(),setTipoParticipacaoOrganizacao(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoParticipacaoOrganizacaoEventos;),getItens(),veiculo,ambito,periodoInicio,getPeriodoInicio(),setVeiculo(Ljava.lang.String;),validate(),getTituloView(),local,getPeriodoFim()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="343,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="ambito" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos#ambito"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="local" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos#local"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoFim" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos#periodoFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoParticipacaoOrganizacao" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos#tipoParticipacaoOrganizacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="veiculo" id="br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos#veiculo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos" source="//@children.23" target="//@children.3/@sourceConnections.0" targetEnd="//@children.23/@sourceConnections.0/@children.1" sourceEnd="//@children.23/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="168,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.prodocente.producao.dominio/ParticipacaoComissaoOrgEventos" source="//@children.23" target="//@children.13/@sourceConnections.1" targetEnd="//@children.23/@sourceConnections.1/@children.1" sourceEnd="//@children.23/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="168,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Banca" location="2541,930" size="231,201" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca" runTimeClassModel="getInstituicao(),naturezaExame,setNaturezaExame(Lbr.ufrn.sigaa.prodocente.producao.dominio.NaturezaExame;),setTipoBanca(Lbr.ufrn.sigaa.prodocente.producao.dominio.TipoBanca;),categoriaFuncional,pais,setMunicipio(Lbr.ufrn.sigaa.pessoa.dominio.Municipio;),getQtdBase(),data,instituicao,getPais(),setCategoriaFuncional(Lbr.ufrn.sigaa.prodocente.producao.dominio.CategoriaFuncional;),getMunicipio(),isBancaConcurso(),setDepartamento(Lbr.ufrn.sigaa.dominio.Unidade;),tipoBanca,setAutor(Ljava.lang.String;),departamento,getItemView(),getNaturezaExame(),autor,getSemestre(),getAutor(),setCategoriaNome(Ljava.lang.String;),getItens(),iniciarNulos(),setData(Ljava.util.Date;),setPais(Lbr.ufrn.sigaa.pessoa.dominio.Pais;),Banca(),getDepartamento(),getTipoBanca(),setInstituicao(Lbr.ufrn.sigaa.dominio.InstituicoesEnsino;),validate(),municipio,getData(),getTituloView(),getCategoriaFuncional()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="208,162">
+      <children xsi:type="editmodel:AttributeEditModel" name="autor" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#autor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="categoriaFuncional" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#categoriaFuncional"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="data" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#data"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="departamento" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#departamento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="instituicao" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#instituicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="municipio" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#municipio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="naturezaExame" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#naturezaExame"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pais" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#pais"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoBanca" id="br.ufrn.sigaa.prodocente.producao.dominio/Banca#tipoBanca"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/Producao&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Banca" source="//@children.24" target="//@children.3/@sourceConnections.0" targetEnd="//@children.24/@sourceConnections.0/@children.1" sourceEnd="//@children.24/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.prodocente.producao.dominio/Banca" source="//@children.24" target="//@children.13/@sourceConnections.1" targetEnd="//@children.24/@sourceConnections.1/@children.1" sourceEnd="//@children.24/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AudioVisual" location="283,1253" size="167,129" id="br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual" runTimeClassModel="getPremiada(),getDataDivulgacao(),premiada,getDivulgado(),getVeiculo(),dataDivulgacao,divulgado,setDuracaoDivulgacao(Ljava.lang.Short;),duracaoDivulgacao,veiculo,setDivulgado(Ljava.lang.Boolean;),setVeiculo(Ljava.lang.String;),getDuracaoDivulgacao(),validate(),AudioVisual(),setDataDivulgacao(Ljava.util.Date;),setPremiada(Ljava.lang.Boolean;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="144,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataDivulgacao" id="br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual#dataDivulgacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="divulgado" id="br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual#divulgado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="duracaoDivulgacao" id="br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual#duracaoDivulgacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="premiada" id="br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual#premiada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="veiculo" id="br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual#veiculo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.prodocente.producao.dominio/ProducaoArtisticaLiterariaVisual&lt;-br.ufrn.sigaa.prodocente.producao.dominio/AudioVisual" source="//@children.25" target="//@children.6" targetEnd="//@children.25/@sourceConnections.0/@children.1" sourceEnd="//@children.25/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="83,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="83,273"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

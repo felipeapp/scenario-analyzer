@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!--
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de Atividades Academicas
+# Arquivo de configuracao do Struts - SUBSISTEMA DE ENSINO INFANTIL
+ -->
+<struts-config>
+
+    <form-beans>
+		<form-bean name="discenteInfantilForm" 			type="br.ufrn.sigaa.ensino.infantil.form.DiscenteInfantilForm" />
+		<form-bean name="observacaoDiscenteForm"		type="br.ufrn.sigaa.ensino.infantil.form.ObservacaoDiscenteForm" />
+		<form-bean name="transferenciaForm"				type="br.ufrn.sigaa.ensino.infantil.form.TransferenciaTurmasForm" />
+    </form-beans>
+
+    <action-mappings>
+
+		<action path="/ensino/infantil/transferirTurmas" type="br.ufrn.sigaa.ensino.infantil.struts.TransferenciaTurmasAction"
+				parameter="dispatch" name="transferenciaForm" >
+			<forward name="confirmacao"		path="/WEB-INF/jsp/ensino/infantil/transferencia_turmas/confirmacao.jsp" />
+			<forward name="resumo"			path="/WEB-INF/jsp/ensino/infantil/transferencia_turmas/resumo.jsp" />
+		</action>
+
+		<action path="/ensino/infantil/cadastroObservacaoDiscente" type="br.ufrn.sigaa.ensino.infantil.struts.ObservacaoDiscenteAction"
+				name="observacaoDiscenteForm" parameter="dispatch" >
+			<forward name="observacoes"		path="/WEB-INF/jsp/ensino/infantil/discente/observacoes.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/infantil/discente/lista.jsp" />
+		</action>
+
+		<action path="/ensino/infantil/cadastroDiscenteInfantil" type="br.ufrn.sigaa.ensino.infantil.struts.DiscenteInfantilAction"
+				name="discenteInfantilForm" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/infantil/discente/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/infantil/discente/lista.jsp" />
+			<forward name="detalhes"			path="/WEB-INF/jsp/ensino/infantil/discente/detalhes.jsp" />
+		</action>
+
+    </action-mappings>
+
+</struts-config>

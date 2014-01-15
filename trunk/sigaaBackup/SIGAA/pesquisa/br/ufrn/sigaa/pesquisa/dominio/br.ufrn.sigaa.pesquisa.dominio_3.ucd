@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="br.ufrn.sigaa.pesquisa.dominio_3" size="1769,1832" id="br.ufrn.sigaa.pesquisa.dominio" metadata="uml2-1.0" initialized="true" scrolledX="180" scrolledY="106" tag="1000" key="32303037303533312D313030302053494741412F4C7563656E61">
+  <children xsi:type="editmodel:ClassEditModel" name="FinanciamentoProjetoPesq" location="786,420" size="311,147" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq" runTimeClassModel="FinanciamentoProjetoPesq(),setProjetoPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.ProjetoPesquisa;),entidadeFinanciadora,setId(I),getDataInicio(),id,dataFim,setDataInicio(Ljava.util.Date;),setDataFim(Ljava.util.Date;),getEntidadeFinanciadora(),projetoPesquisa,getId(),setEntidadeFinanciadora(Lbr.ufrn.sigaa.projetos.dominio.EntidadeFinanciadora;),dataInicio,getDataFim(),equals(Ljava.lang.Object;),getTipoNaturezaFinanciamento(),hashCode(),tipoNaturezaFinanciamento,getProjetoPesquisa(),setTipoNaturezaFinanciamento(Lbr.ufrn.sigaa.pesquisa.dominio.TipoNaturezaFinanciamento;),FinanciamentoProjetoPesq(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="288,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataFim" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq#dataFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicio" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq#dataInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="entidadeFinanciadora" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq#entidadeFinanciadora"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="projetoPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq#projetoPesquisa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoNaturezaFinanciamento" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq#tipoNaturezaFinanciamento"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pesquisa.dominio/FinanciamentoProjetoPesq" source="//@children.0" target="//@children.4/@sourceConnections.0" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="247,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Invencao" location="380,498" size="262,615" id="br.ufrn.sigaa.pesquisa.dominio/Invencao" runTimeClassModel="setVantagensDesvantagens(Ljava.lang.String;),setCriadoPor(Lbr.ufrn.arq.dominio.RegistroEntrada;),getTiposStatus(),setEstadoTecnica(Ljava.lang.String;),utilizacaoMaterial,getCriadoPor(),setEmpresas(Ljava.lang.String;),setCategoriaPatente(Ljava.lang.Integer;),palavrasChavePortugues,setProximasEtapas(Ljava.lang.String;),getArquivos(),nECESSITA_CORRECOES,getEstagioOutro(),getRegistroDocumentacao(),aCEITA,setCriadoEm(Ljava.util.Date;),setArquivos(Ljava.util.Set;),getTitulo(),setObtevePatente(Z),criadoEm,getPalavrasChaveIngles(),getProximasEtapas(),setDescricaoResumida(Ljava.lang.String;),getStatusString(),setEstagioOutro(Ljava.lang.String;),isAtivo(),mercadosCapacidadeTecnologica,status,getInventores(),setId(I),registroDocumentacao,empresas,setTitulo(Ljava.lang.String;),addFinanciamento(Lbr.ufrn.sigaa.pesquisa.dominio.FinanciamentoInvencao;),arquivos,categoriaPatente,getId(),ativo,getUtilizacaoMaterial(),eM_ANALISE_TECNICA,setUtilizacaoMaterial(Ljava.lang.String;),setAtivo(Z),obtevePatente,utilizacaoSoftware,getEstagio(),getVantagensDesvantagens(),getVinculos(),getCategoriaPatente(),setPalavrasChavePortugues(Ljava.lang.String;),getDescricaoCategoriaPatente(),inventores,setInventores(Ljava.util.Set;),getCriadoEm(),getEmpresas(),sUBMETIDA,getFinanciamentos(),getDescricaoResumida(),id,estagio,setTipo(Lbr.ufrn.sigaa.pesquisa.dominio.TipoInvencao;),nEGADA,vantagensDesvantagens,palavrasChaveIngles,Invencao(),equals(Ljava.lang.Object;),descricaoResumida,setStatus(I),getPalavrasChavePortugues(),estagioOutro,setVinculos(Ljava.util.Set;),getUtilizacaoSoftware(),getTipo(),gRAVADA,getEstadoTecnica(),setFinanciamentos(Ljava.util.Set;),proximasEtapas,estadoTecnica,getMercadosCapacidadeTecnologica(),vinculos,isObtevePatente(),addInventor(Lbr.ufrn.sigaa.pesquisa.dominio.Inventor;),setEstagio(Lbr.ufrn.sigaa.pesquisa.dominio.EstagioDesenvolvimentoInvencao;),criadoPor,titulo,validate(),setMercadosCapacidadeTecnologica(Ljava.lang.String;),financiamentos,tipo,getStatus(),setRegistroDocumentacao(Ljava.lang.String;),hashCode(),addArquivo(Lbr.ufrn.sigaa.pesquisa.dominio.ArquivoInvencao;),setPalavrasChaveIngles(Ljava.lang.String;),setUtilizacaoSoftware(Ljava.lang.String;),addVinculo(Lbr.ufrn.sigaa.pesquisa.dominio.VinculoInvencao;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="239,576">
+      <children xsi:type="editmodel:AttributeEditModel" name="aCEITA" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#aCEITA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="arquivos" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#arquivos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="categoriaPatente" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#categoriaPatente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="criadoEm" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#criadoEm"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="criadoPor" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#criadoPor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricaoResumida" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#descricaoResumida"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eM_ANALISE_TECNICA" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#eM_ANALISE_TECNICA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="empresas" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#empresas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="estadoTecnica" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#estadoTecnica"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="estagio" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#estagio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="estagioOutro" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#estagioOutro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="financiamentos" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#financiamentos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="gRAVADA" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#gRAVADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="inventores" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#inventores"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mercadosCapacidadeTecnologica" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#mercadosCapacidadeTecnologica"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nECESSITA_CORRECOES" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#nECESSITA_CORRECOES"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nEGADA" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#nEGADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="obtevePatente" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#obtevePatente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="palavrasChaveIngles" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#palavrasChaveIngles"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="palavrasChavePortugues" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#palavrasChavePortugues"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="proximasEtapas" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#proximasEtapas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroDocumentacao" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#registroDocumentacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sUBMETIDA" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#sUBMETIDA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#status"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipo" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#tipo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="titulo" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#titulo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="utilizacaoMaterial" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#utilizacaoMaterial"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="utilizacaoSoftware" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#utilizacaoSoftware"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vantagensDesvantagens" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#vantagensDesvantagens"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vinculos" id="br.ufrn.sigaa.pesquisa.dominio/Invencao#vinculos"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.pesquisa.dominio/Invencao" source="//@children.1" target="//@children.11/@sourceConnections.1" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="131,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="MembroGrupoPesquisa" location="450,169" size="309,291" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa" runTimeClassModel="setSelecionado(Z),getServidor(),setServidor(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),MembroGrupoPesquisa(I),isServidorUFRN(),setTipoMembroGrupoPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.TipoMembroGrupoPesquisa;),getDiscente(),getDataInicio(),id,mEMBRO,isDiscenteUFRN(),isDocenteUFRN(),setDataInicio(Ljava.util.Date;),setDataFim(Ljava.util.Date;),categoriaMembro,getGrupoPesquisa(),equals(Ljava.lang.Object;),setGrupoPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.GrupoPesquisa;),getClassificacao(),setPessoa(Lbr.ufrn.sigaa.pessoa.dominio.Pessoa;),getTipoMembroGrupoPesquisa(),MembroGrupoPesquisa(ILbr.ufrn.sigaa.pesquisa.dominio.GrupoPesquisa;Lbr.ufrn.sigaa.projetos.dominio.CategoriaMembro;Lbr.ufrn.sigaa.pesquisa.dominio.TipoMembroGrupoPesquisa;Lbr.ufrn.sigaa.pessoa.dominio.Discente;Lbr.ufrn.sigaa.pessoa.dominio.Servidor;Ljava.lang.Integer;Ljava.util.Date;Ljava.util.Date;),docenteExterno,setDiscente(Lbr.ufrn.sigaa.pessoa.dominio.Discente;),setClassificacao(Ljava.lang.Integer;),isDocenteExternoUFRN(),getCategoriaMembro(),classificacao,pessoa,setCategoriaMembro(Lbr.ufrn.sigaa.projetos.dominio.CategoriaMembro;),setId(I),discente,MembroGrupoPesquisa(),dataFim,servidor,getDocenteExterno(),cOORDENADOR,getId(),dataInicio,isSelecionado(),setDocenteExterno(Lbr.ufrn.sigaa.pessoa.dominio.DocenteExterno;),getDataFim(),hashCode(),tipoMembroGrupoPesquisa,grupoPesquisa,getClassificacaoString(),getPessoa(),selecionado">
+    <children xsi:type="editmodel:CompartmentEditModel" size="286,252">
+      <children xsi:type="editmodel:AttributeEditModel" name="cOORDENADOR" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#cOORDENADOR"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="categoriaMembro" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#categoriaMembro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="classificacao" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#classificacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataFim" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#dataFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicio" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#dataInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="docenteExterno" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#docenteExterno"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="grupoPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#grupoPesquisa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mEMBRO" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#mEMBRO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pessoa" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#pessoa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="selecionado" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#selecionado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="servidor" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#servidor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoMembroGrupoPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa#tipoMembroGrupoPesquisa"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pesquisa.dominio/MembroGrupoPesquisa" source="//@children.2" target="//@children.4/@sourceConnections.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="154,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Inventor" location="645,870" size="215,291" id="br.ufrn.sigaa.pesquisa.dominio/Inventor" runTimeClassModel="Inventor(I),getPercentualCotitularidade(),getCotitular(),setInvencao(Lbr.ufrn.sigaa.pesquisa.dominio.Invencao;),getDiscente(),categoriaMembro,getParticipacao(),bolsa,isUfrn(),getBolsista(),setDiscente(Lbr.ufrn.sigaa.pessoa.dominio.Discente;),setCategoriaMembro(Lbr.ufrn.sigaa.projetos.dominio.CategoriaMembro;),percentualCotitularidade,setId(I),getDocenteExterno(),setDocente(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),getId(),setDocenteExterno(Lbr.ufrn.sigaa.pessoa.dominio.DocenteExterno;),setCotitular(Ljava.lang.Boolean;),cotitular,setParticipacao(Ljava.lang.Double;),getBolsa(),setBolsista(Ljava.lang.Boolean;),setSelecionado(Z),getServidor(),setServidor(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),getInvencao(),getOrigem(),setPercentualCotitularidade(Ljava.lang.Double;),id,Inventor(),invencao,equals(Ljava.lang.Object;),setPessoa(Lbr.ufrn.sigaa.pessoa.dominio.Pessoa;),docenteExterno,participacao,getCategoriaMembro(),pessoa,discente,setBolsa(Ljava.lang.String;),servidor,validate(),bolsista,isSelecionado(),getDocente(),hashCode(),docente,selecionado,getPessoa()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="192,252">
+      <children xsi:type="editmodel:AttributeEditModel" name="bolsa" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#bolsa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="bolsista" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#bolsista"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="categoriaMembro" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#categoriaMembro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cotitular" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#cotitular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="docente" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#docente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="docenteExterno" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#docenteExterno"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="invencao" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#invencao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="participacao" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#participacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="percentualCotitularidade" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#percentualCotitularidade"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pessoa" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#pessoa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="selecionado" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#selecionado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="servidor" id="br.ufrn.sigaa.pesquisa.dominio/Inventor#servidor"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.pesquisa.dominio/Inventor" source="//@children.3" target="//@children.11/@sourceConnections.1" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="12,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.11/@sourceConnections.1" name="Validatable" location="270,169" size="165,57" id="br.ufrn.arq.negocio.validacao/Validatable" runTimeClassModel="validate()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.0/@sourceConnections.0 //@children.6/@sourceConnections.0 //@children.2/@sourceConnections.0 //@children.7/@sourceConnections.1 //@children.9/@sourceConnections.0 //@children.10/@sourceConnections.1" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.arq.negocio.validacao/Validatable" source="//@children.4" target="//@children.5" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.4/@sourceConnections.0" name="PersistDB" location="454,45" size="114,57" id="br.ufrn.arq.dominio/PersistDB" runTimeClassModel="getId(),setId(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="LinhaPesquisa" location="786,259" size="236,147" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa" runTimeClassModel="LinhaPesquisa(),getNome(),setNome(Ljava.lang.String;),LinhaPesquisa(ILbr.ufrn.sigaa.pesquisa.dominio.GrupoPesquisa;Ljava.lang.String;Ljava.util.Date;Ljava.util.Set;),setId(I),isInativa(),getDataInicio(),id,setDataInicio(Ljava.util.Date;),projetosPesquisa,LinhaPesquisa(ILjava.lang.String;),getId(),inativa,getGrupoPesquisa(),dataInicio,setProjetosPesquisa(Ljava.util.Set;),hashCode(),equals(Ljava.lang.Object;),setGrupoPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.GrupoPesquisa;),getProjetosPesquisa(),setInativa(Z),nome,grupoPesquisa,LinhaPesquisa(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="213,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicio" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa#dataInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="grupoPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa#grupoPesquisa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="inativa" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa#inativa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nome" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa#nome"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="projetosPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa#projetosPesquisa"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pesquisa.dominio/LinhaPesquisa" source="//@children.6" target="//@children.4/@sourceConnections.0" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="10,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="MembroProjetoDiscente" location="80,255" size="237,237" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente" runTimeClassModel="getPlanoTrabalho(),tipoBolsa,dataFinalizacao,registroEntrada,getQtdBase(),getDiscente(),getDataInicio(),id,setDataFim(Ljava.util.Date;),setDataInicio(Ljava.util.Date;),getRegistroEntrada(),getTipoBolsaString(),setDataFinalizacao(Ljava.util.Date;),equals(Ljava.lang.Object;),getDataIndicacao(),getBolsistaAnterior(),setBolsistaAnterior(Lbr.ufrn.sigaa.pesquisa.dominio.MembroProjetoDiscente;),motivoSubstituicao,getTipoBolsa(),getItemView(),setMotivoSubstituicao(Ljava.lang.String;),setTipoBolsa(Lbr.ufrn.sigaa.pesquisa.dominio.TipoBolsaPesquisa;),setDataIndicacao(Ljava.util.Date;),setDiscente(Lbr.ufrn.sigaa.pessoa.dominio.Discente;),MembroProjetoDiscente(ILbr.ufrn.sigaa.pesquisa.dominio.PlanoTrabalho;Lbr.ufrn.sigaa.pessoa.dominio.Discente;Ljava.util.Date;Ljava.util.Date;),isAtivo(),planoTrabalho,getItens(),dataIndicacao,setId(I),discente,MembroProjetoDiscente(I),dataFim,bolsistaAnterior,getMotivoSubstituicao(),getId(),MembroProjetoDiscente(),setDiscenteNome(Ljava.lang.String;),dataInicio,getDataFim(),getDataFinalizacao(),hashCode(),getTituloView(),setRegistroEntrada(Lbr.ufrn.arq.dominio.RegistroEntrada;),setPlanoTrabalho(Lbr.ufrn.sigaa.pesquisa.dominio.PlanoTrabalho;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="214,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="bolsistaAnterior" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#bolsistaAnterior"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataFim" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#dataFim"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataFinalizacao" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#dataFinalizacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataIndicacao" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#dataIndicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicio" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#dataInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="motivoSubstituicao" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#motivoSubstituicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="planoTrabalho" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#planoTrabalho"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoBolsa" id="br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente#tipoBolsa"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.11/@sourceConnections.0" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente" source="//@children.7" target="//@children.8" targetEnd="//@children.7/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="53,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pesquisa.dominio/MembroProjetoDiscente" source="//@children.7" target="//@children.4/@sourceConnections.0" targetEnd="//@children.7/@sourceConnections.1/@children.1" sourceEnd="//@children.7/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="187,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.7/@sourceConnections.0" name="ViewAtividadeBuilder" location="30,150" size="230,57" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder" runTimeClassModel="getQtdBase(),getTituloView(),getItens(),getItemView()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="ModalidadeBolsaExterna" location="810,169" size="201,75" id="br.ufrn.sigaa.pesquisa.dominio/ModalidadeBolsaExterna" runTimeClassModel="id,getDescricao(),getId(),setDescricao(Ljava.lang.String;),ModalidadeBolsaExterna(ILjava.lang.String;),hashCode(),equals(Ljava.lang.Object;),ModalidadeBolsaExterna(I),ModalidadeBolsaExterna(),setId(I),descricao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="101,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.pesquisa.dominio/ModalidadeBolsaExterna#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/ModalidadeBolsaExterna#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pesquisa.dominio/ModalidadeBolsaExterna" source="//@children.9" target="//@children.4/@sourceConnections.0" targetEnd="//@children.9/@sourceConnections.0/@children.1" sourceEnd="//@children.9/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="13,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="ItemAvaliacao" location="679,570" size="174,201" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao" runTimeClassModel="aVALIACAO_RESUMO,ItemAvaliacao(I),getOrdem(),descricao,getDataDesativacao(),id,aVALIACAO_PROJETO,ordem,setDescricao(Ljava.lang.String;),setTipo(I),getPeso(),equals(Ljava.lang.Object;),dataDesativacao,setPeso(I),getTipo(),ItemAvaliacao(ILjava.lang.String;Ljava.util.Date;Ljava.util.Date;),setId(I),setDataDesativacao(Ljava.util.Date;),peso,setOrdem(I),validate(),getDescricao(),ItemAvaliacao(),getId(),getDataCriacao(),tipo,hashCode(),setDataCriacao(Ljava.util.Date;),dataCriacao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="151,162">
+      <children xsi:type="editmodel:AttributeEditModel" name="aVALIACAO_PROJETO" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#aVALIACAO_PROJETO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="aVALIACAO_RESUMO" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#aVALIACAO_RESUMO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCriacao" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#dataCriacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataDesativacao" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#dataDesativacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ordem" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#ordem"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="peso" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#peso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipo" id="br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao#tipo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao" source="//@children.10" target="//@children.11/@sourceConnections.1" targetEnd="//@children.10/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="87,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pesquisa.dominio/ItemAvaliacao" source="//@children.10" target="//@children.4/@sourceConnections.0" targetEnd="//@children.10/@sourceConnections.1/@children.1" sourceEnd="//@children.10/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="96,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="-492,0"/>
+      <bendpoints location="1533,473" secondRelativeDimension="496,366" firstRelativeDimension="-7,-24"/>
+      <bendpoints location="1533,132" secondRelativeDimension="478,49" firstRelativeDimension="-27,-364"/>
+      <bendpoints location="1055,132" secondRelativeDimension="27,25" firstRelativeDimension="-424,-385"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GrupoPesquisa" location="49,498" size="300,345" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa" runTimeClassModel="getTiposStatus(),getEmail(),setNome(Ljava.lang.String;),linhasPesquisa,codigo,eM_CONSOLIDACAO,setHomePage(Ljava.lang.String;),repercursoesTrabGrupo,GrupoPesquisa(),getCodigo(),getRepercursoesTrabGrupo(),getCoordenador(),removeEquipeGrupoPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.MembroGrupoPesquisa;),getAreaConhecimentoCnpq(),getStatusString(),equipesGrupoPesquisa,setLinhasPesquisa(Ljava.util.Set;),isAtivo(),status,areaConhecimentoCnpq,setEmail(Ljava.lang.String;),setId(I),setDataUltimaAtualizacao(Ljava.util.Date;),setCoordenador(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),email,removeLinhaPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.LinhaPesquisa;),getId(),addEquipeGrupoPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.MembroGrupoPesquisa;),ativo,setTiposStatus(Ljava.util.Map;),getTituloView(),setAtivo(Z),nome,dataCriacao,setDataCriacao(Ljava.util.Date;),getLinhasPesquisa(),setEquipesGrupoPesquisa(Ljava.util.Set;),addLinhaPesquisa(Lbr.ufrn.sigaa.pesquisa.dominio.LinhaPesquisa;),GrupoPesquisa(I),setAreaConhecimentoCnpq(Lbr.ufrn.sigaa.dominio.AreaConhecimentoCnpq;),dataUltimaAtualizacao,getQtdBase(),toString(),id,setCodigo(Ljava.lang.String;),jUNIOR,equals(Ljava.lang.Object;),setStatus(I),homePage,getItemView(),getEquipesGrupoPesquisa(),GrupoPesquisa(ILjava.lang.String;Ljava.lang.String;IILjava.lang.String;Ljava.lang.Integer;Ljava.lang.String;),coordenador,getNome(),getNomeCompleto(),getItens(),cONSOLIDADO,getHomePage(),validate(),getDataCriacao(),getStatus(),hashCode(),getNomeCompacto(),getDataUltimaAtualizacao(),setRepercursoesTrabGrupo(Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="277,306">
+      <children xsi:type="editmodel:AttributeEditModel" name="areaConhecimentoCnpq" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#areaConhecimentoCnpq"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cONSOLIDADO" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#cONSOLIDADO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="codigo" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#codigo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="coordenador" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#coordenador"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCriacao" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#dataCriacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataUltimaAtualizacao" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#dataUltimaAtualizacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eM_CONSOLIDACAO" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#eM_CONSOLIDACAO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="email" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#email"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="equipesGrupoPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#equipesGrupoPesquisa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="homePage" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#homePage"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="jUNIOR" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#jUNIOR"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="linhasPesquisa" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#linhasPesquisa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nome" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#nome"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="repercursoesTrabGrupo" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#repercursoesTrabGrupo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa#status"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.sigaa.prodocente.relatorios.dominio/ViewAtividadeBuilder&lt;-br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa" source="//@children.11" target="//@children.7/@sourceConnections.0" targetEnd="//@children.11/@sourceConnections.0/@children.1" sourceEnd="//@children.11/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="11,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,-16" attachSource="true"/>
+      <bendpoints secondRelativeDimension="-103,605" firstRelativeDimension="-137,-176"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.12/@sourceConnections.0 //@children.1/@sourceConnections.0 //@children.3/@sourceConnections.0 //@children.10/@sourceConnections.0 //@children.13/@sourceConnections.0" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.pesquisa.dominio/GrupoPesquisa" source="//@children.11" target="//@children.4" targetEnd="//@children.11/@sourceConnections.1/@children.1" sourceEnd="//@children.11/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="285,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="HistoricoPlanoTrabalho" location="666,765" size="199,129" id="br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho" runTimeClassModel="getPlanoTrabalho(),getDescricaoStatus(),registroEntrada,status,data,HistoricoPlanoTrabalho(),planoTrabalho,setId(I),setData(Ljava.util.Date;),id,getRegistroEntrada(),validate(),getId(),getData(),getStatus(),setStatus(I),setRegistroEntrada(Lbr.ufrn.arq.dominio.RegistroEntrada;),setPlanoTrabalho(Lbr.ufrn.sigaa.pesquisa.dominio.PlanoTrabalho;)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="176,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="data" id="br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho#data"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="planoTrabalho" id="br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho#planoTrabalho"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho#status"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.pesquisa.dominio/HistoricoPlanoTrabalho" source="//@children.12" target="//@children.11/@sourceConnections.1" targetEnd="//@children.12/@sourceConnections.0/@children.1" sourceEnd="//@children.12/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="6,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="FinanciamentoInvencao" location="90,855" size="276,183" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao" runTimeClassModel="descricaoContrato,entidadeFinanciadora,getInvencao(),setDescricaoContrato(Ljava.lang.String;),setTituloProjeto(Ljava.lang.String;),getDescricaoContrato(),setInvencao(Lbr.ufrn.sigaa.pesquisa.dominio.Invencao;),tituloProjeto,id,getCodigoProjeto(),invencao,isComprometimentoPropriedadeIntelectual(),codigoProjeto,getTituloProjeto(),equals(Ljava.lang.Object;),FinanciamentoInvencao(),setComprometimentoPropriedadeIntelectual(Z),setId(I),getEntidadeFinanciadora(),setCodigoProjeto(Ljava.lang.String;),validate(),comprometimentoPropriedadeIntelectual,valor,getId(),setValor(D),setEntidadeFinanciadora(Lbr.ufrn.sigaa.projetos.dominio.EntidadeFinanciadora;),hashCode(),getValor()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="253,144">
+      <children xsi:type="editmodel:AttributeEditModel" name="codigoProjeto" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#codigoProjeto"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="comprometimentoPropriedadeIntelectual" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#comprometimentoPropriedadeIntelectual"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricaoContrato" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#descricaoContrato"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="entidadeFinanciadora" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#entidadeFinanciadora"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="invencao" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#invencao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tituloProjeto" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#tituloProjeto"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="valor" id="br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao#valor"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.pesquisa.dominio/FinanciamentoInvencao" source="//@children.13" target="//@children.11/@sourceConnections.1" targetEnd="//@children.13/@sourceConnections.0/@children.1" sourceEnd="//@children.13/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="269,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="-16,0" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>

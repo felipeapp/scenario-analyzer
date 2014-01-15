@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="TermoResponsabilidadeBeneficioInclusao"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="483"
+		 columnSpacing="0"
+		 leftMargin="56"
+		 rightMargin="56"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="SUBREPORT_DIR" isForPrompting="false" class="java.lang.String">
+		<defaultValueExpression ><![CDATA["./"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="concurso" isForPrompting="false" class="java.lang.Integer">
+		<parameterDescription><![CDATA[id_processp_seletivo]]></parameterDescription>
+		<defaultValueExpression ><![CDATA[new Integer(8441800)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subSistema" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="subSistemaLink" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select vestibular.processo_seletivo.nome  as concurso,
+vestibular.local_aplicacao_prova.nome as local,
+pessoa.nome as nome,
+pessoa.cpf_cnpj as cpf,
+discente.matricula as matricula,
+case when reserva then 'Reserva' else 'Titular' end as titular
+from vestibular.processo_seletivo inner join vestibular.fiscal using (id_processo_seletivo)
+inner join vestibular.local_aplicacao_prova using (id_local_aplicacao_prova)
+inner join comum.pessoa using (id_pessoa)
+inner join discente using (id_discente)
+where fiscal.id_servidor is null
+and  fiscal.id_processo_seletivo = $P{concurso}
+and presente_reuniao = true
+union
+select vestibular.processo_seletivo.nome as concurso,
+vestibular.local_aplicacao_prova.nome as local,
+pessoa.nome as nome,
+pessoa.cpf_cnpj as cpf,
+rh.servidor.siape as matricula,
+case when reserva then 'Reserva' else 'Titular' end as titular
+from vestibular.processo_seletivo inner join vestibular.fiscal using (id_processo_seletivo)
+inner join vestibular.local_aplicacao_prova using (id_local_aplicacao_prova)
+inner join comum.pessoa using (id_pessoa)
+inner join rh.servidor using (id_servidor)
+where fiscal.id_discente is null
+and  fiscal.id_processo_seletivo = $P{concurso}
+and presente_reuniao = true
+order by local, nome;]]></queryString>
+
+	<field name="processoSeletivo" class="java.lang.String">
+		<fieldDescription><![CDATA[processoSeletivo.nome]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[pessoa.nome]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[pessoa.cpfCnpjFormatado]]></fieldDescription>
+	</field>
+	<field name="numeroInscricao" class="java.lang.Integer"/>
+	<field name="rg" class="java.lang.String">
+		<fieldDescription><![CDATA[pessoa.identidade.numero]]></fieldDescription>
+	</field>
+	<field name="ufrg" class="java.lang.String">
+		<fieldDescription><![CDATA[pessoa.identidade.unidadeFederativa.sigla]]></fieldDescription>
+	</field>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="16"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-55"
+						y="0"
+						width="538"
+						height="16"
+						key="subreport-1"/>
+					<subreportParameter  name="titulo">
+						<subreportParameterExpression><![CDATA["REQUERIMENTO DE SOLICITAÇÃO DO BENEFÍCIO DO ARGUMENTO DE INCLUSÃO"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subsistema">
+						<subreportParameterExpression><![CDATA[$P{subSistema}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subSistemaLink">
+						<subreportParameterExpression><![CDATA[$P{subSistemaLink}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/tituloUFRN.jasper")]]></subreportExpression>
+				</subreport>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="267"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="79"
+						width="483"
+						height="29"
+						key="textField-1"/>
+					<box></box>
+					<textElement textAlignment="Justified" lineSpacing="Double">
+						<font size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["        Eu, "+
+$F{nome}
++", CPF nº "+
+$F{cpf}
++", Documento de Identificação "+
+$F{rg}+"/"+$F{ufrg}
++", inscrito no "+
+$F{processoSeletivo}
++" sob o nº "+
+$F{numeroInscricao}
++", requeiro o Benefício do Argumento de Inclusão, à Comissão Permente de Vestibular. Declaro que são verdadeiras as informações preenchidas no Formulário de Inscrição e a documentação entregue para o processo de solicitação do benefício do Argumento de Inclusão do "+
+$F{processoSeletivo}
++" da UFRN."]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="231"
+						y="238"
+						width="248"
+						height="0"
+						key="line-1"
+						positionType="Float"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="238"
+						y="241"
+						width="233"
+						height="13"
+						key="textField-2"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Assinatura do Candidato"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="129"
+						width="483"
+						height="28"
+						key="textField-3"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Justified" lineSpacing="Double">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["        Estou ciente de que a inexatidão das afirmativas ou a falsidade de documentos, ainda que verificadas posteriormente à realização do " +
+$F{processoSeletivo}+
+", implicarão em minha eliminação, ressalvado o direito de ampla defesa, sendo declarados nulos, de pleno direito, a minha inscrição e todos os atos dela decorrentes, sem prejuízo de eventuais sanções de caráter judicial. As informações inverídicas serão enquadradas no Art. 299, parágrafo único, do Código Penal (Crime de Falsidade Ideológica)."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="139"
+						y="192"
+						width="340"
+						height="18"
+						key="textField-4"
+						positionType="Float"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["______________________________________, " 
++ (new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy", new Locale("pt","BR"))).format(new Date()).toLowerCase()]]></textFieldExpression>
+				</textField>
+				<image  scaleImage="RetainShape" vAlign="Top" hAlign="Right" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="363"
+						y="12"
+						width="117"
+						height="31"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="barcode-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch" fill="Solid" />
+					<imageExpression class="java.awt.Image"><![CDATA[it.businesslogic.ireport.barcode.BcImage.getBarcodeImage(13,String.format("%010d", $F{numeroInscricao}),false,false,null,0,0)]]></imageExpression>
+				</image>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

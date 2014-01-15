@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="Livro_Registro_Diploma"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<style 
+		name="Removido"
+		isDefault="false"
+	>
+
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean(!($F{ativo}.booleanValue()))]]></conditionExpression>
+			<style 
+				isDefault="false"
+				isStrikeThrough="true"
+			>
+			</style>
+		</conditionalStyle>
+	</style>
+	<style 
+		name="Normal"
+		isDefault="true"
+	>
+
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{ativo}]]></conditionExpression>
+			<style 
+				name="Normal"
+				isDefault="false"
+			>
+			</style>
+		</conditionalStyle>
+	</style>
+
+	<parameter name="idLivro" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(14095101)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ifes" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select registro_diploma.ativo as ativo,
+pessoa.nome_oficial as nome,
+pessoa.data_nascimento,
+pessoa.sexo,
+pessoa.nome_pai,
+pessoa.nome_mae,
+coalesce(pessoa.numero_identidade, '0')||'-'||coalesce(pessoa.orgao_expedicao_identidade,'NI')||'/'||coalesce(unidade_federativa.sigla,'NI') as identidade,
+curso.nome as curso,
+municipio.nome as municipio,
+(select portaria_decreto from graduacao.reconhecimento where id_matriz = matriz_curricular.id_matriz_curricular order by data_publicacao desc limit 1) as portaria_decreto,
+(select data_publicacao from graduacao.reconhecimento where id_matriz = matriz_curricular.id_matriz_curricular order by data_publicacao desc limit 1) as data_publicao_decreto,
+(select data_decreto from graduacao.reconhecimento where id_matriz = matriz_curricular.id_matriz_curricular order by data_publicacao desc limit 1) as data_decreto,
+registro_diploma.data_colacao,
+registro_diploma.data_expedicao,
+registro_diploma.data_registro,
+(select array_to_string(
+ array(select observacao
+   from diploma.observacao_registro_diploma ord
+   where ord.id_registro_diploma = registro_diploma.id_registro_diploma
+   and ativo = true
+   order by data_observacao
+ ))) as observacoes,
+coalesce(grau_academico.titulo_masculino, curso.titulacao_masculino) as grau,
+habilitacao.nome as habilitacao,
+registro_diploma.processo,
+livro_registro_diploma.titulo as titulo_livro,
+folha_registro_diploma.numero_folha,
+registro_diploma.numero_registro,
+case when municipio_nascimento.nome is null then pessoa.municipio_naturalidade_outro else municipio_nascimento.nome end as municipio_nascimento, 
+uf_nascimento.descricao as uf_nascimento,
+uf_nascimento.sigla as sigla_uf_nascimento,
+case when pessoa.id_uf_naturalidade in (25, 29) then 'a'
+     when pessoa.id_uf_naturalidade in (26,11,35,31,27,28,14,52,42) then 'e'
+     else 'o'
+     end as artigo_uf_nascimento,
+livro_registro_diploma.instituicao,
+livro_registro_diploma.registro_externo as externo,
+responsavel_assinatura.nome_reitor as reitor,
+responsavel_assinatura.nome_diretor_unidade_diploma as diretor,
+responsavel.nome as responsavel
+from diploma.registro_diploma
+inner join discente using (id_discente)
+left join graduacao.discente_graduacao on (id_discente = discente_graduacao.id_discente_graduacao)
+left join stricto_sensu.discente_stricto using (id_discente)
+inner join comum.registro_entrada on (registro_diploma.id_registro_entrada = registro_entrada.id_entrada)
+inner join comum.usuario using (id_usuario)
+inner join comum.pessoa responsavel on (usuario.id_pessoa = responsavel.id_pessoa)
+inner join diploma.folha_registro_diploma using (id_folha_registro_diploma)
+inner join diploma.livro_registro_diploma using (id_livro_registro_diploma)
+left join graduacao.matriz_curricular using (id_matriz_curricular)
+inner join curso on (discente.id_curso = curso.id_curso)
+inner join comum.municipio using (id_municipio)
+left join diploma.responsavel_assinatura using (id_responsavel_assinatura)
+left join ensino.grau_academico on (matriz_curricular.id_grau_academico = grau_academico.id_grau_academico)
+left join graduacao.habilitacao using (id_habilitacao)
+inner join comum.pessoa on (discente.id_pessoa = pessoa.id_pessoa)
+left join comum.identidade on (pessoa.id_identidade = identidade.id_identidade)
+left join comum.unidade_federativa on (unidade_federativa.id_unidade_federativa = pessoa.id_uf_identidade)
+left join comum.municipio municipio_nascimento on (municipio_nascimento.id_municipio = pessoa.id_municipio_naturalidade)
+left join comum.unidade_federativa uf_nascimento on (pessoa.id_uf_naturalidade = uf_nascimento.id_unidade_federativa)
+where livro_registro_diploma.id_livro_registro_diploma = $P{idLivro}
+order by numero_folha, indice, numero_registro;]]></queryString>
+
+	<field name="ativo" class="java.lang.Boolean"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="data_nascimento" class="java.sql.Date"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="nome_pai" class="java.lang.String"/>
+	<field name="nome_mae" class="java.lang.String"/>
+	<field name="identidade" class="java.lang.String"/>
+	<field name="curso" class="java.lang.String"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="portaria_decreto" class="java.lang.String"/>
+	<field name="data_publicao_decreto" class="java.sql.Date"/>
+	<field name="data_decreto" class="java.sql.Date"/>
+	<field name="data_colacao" class="java.sql.Date"/>
+	<field name="data_expedicao" class="java.sql.Date"/>
+	<field name="data_registro" class="java.sql.Date"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="grau" class="java.lang.String"/>
+	<field name="habilitacao" class="java.lang.String"/>
+	<field name="processo" class="java.lang.String"/>
+	<field name="titulo_livro" class="java.lang.String"/>
+	<field name="numero_folha" class="java.lang.Integer"/>
+	<field name="numero_registro" class="java.lang.Integer"/>
+	<field name="municipio_nascimento" class="java.lang.String"/>
+	<field name="uf_nascimento" class="java.lang.String"/>
+	<field name="sigla_uf_nascimento" class="java.lang.String"/>
+	<field name="artigo_uf_nascimento" class="java.lang.String"/>
+	<field name="instituicao" class="java.lang.String"/>
+	<field name="externo" class="java.lang.Boolean"/>
+	<field name="reitor" class="java.lang.String"/>
+	<field name="diretor" class="java.lang.String"/>
+	<field name="responsavel" class="java.lang.String"/>
+
+
+		<group  name="folha" isStartNewPage="true" >
+			<groupExpression><![CDATA[$F{numero_folha}]]></groupExpression>
+			<groupHeader>
+			<band height="19"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="480"
+						y="1"
+						width="55"
+						height="18"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{numero_folha}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="-23"
+						y="18"
+						width="580"
+						height="0"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="485"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						style="Normal"
+						x="0"
+						y="274"
+						width="535"
+						height="47"
+						key="staticText-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24"/>
+					</textElement>
+				<text><![CDATA[LIVRO DE REGISTRO DE DIPLOMAS]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Normal"
+						x="0"
+						y="334"
+						width="535"
+						height="85"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="48"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{titulo_livro}]]></textFieldExpression>
+				</textField>
+				<break>
+					<reportElement
+						x="0"
+						y="484"
+						width="535"
+						height="0"
+						key="element-1"/>
+				</break>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="11"
+						width="535"
+						height="47"
+						key="textField-10"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ifes}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="191"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="134"
+						width="535"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="0"
+						width="456"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NOME: <style isBold=\"true\" pdfFontName=\"Times-Bold\">"+$F{nome}+"</style>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="13"
+						width="456"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PAI: " + ($F{nome_pai}== null?"NÃO INFORMADO":$F{nome_pai})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="26"
+						width="456"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["MÃE: "+($F{nome_mae}== null?"NÃO INFORMADO":$F{nome_mae})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="39"
+						width="265"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NASCIDO EM: " + 
+(new SimpleDateFormat("dd 'de' MMMMMMMMMM 'de' yyyy", new Locale("pt","BR"))).format($F{data_nascimento})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="52"
+						width="456"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["NATURALIDADE: " + ($F{municipio_nascimento} == null || $F{municipio_nascimento}.length() == 0?
+"NÃO INFORMADO":
+$F{municipio_nascimento} +"/"+$F{sigla_uf_nascimento})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="265"
+						y="91"
+						width="265"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CONCLUÍDO EM: "+
+(new SimpleDateFormat("dd 'de' MMMMMMMMMM 'de' yyyy", new Locale("pt","BR"))).format($F{data_colacao})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="91"
+						width="265"
+						height="13"
+						key="textField-4"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["REITOR: " + $F{reitor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="104"
+						width="265"
+						height="13"
+						key="textField-5"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["DIRETOR: " + $F{diretor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="117"
+						width="265"
+						height="13"
+						key="textField-6"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["REGISTRADO POR: "+$F{responsavel}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="137"
+						width="535"
+						height="46"
+						key="textField-7"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Justified" verticalAlignment="Top" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["OBSERVAÇÕES: <style isUnderline=\"true\">"+$F{observacoes}+"</style>"]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="0"
+						width="535"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="456"
+						y="0"
+						width="79"
+						height="13"
+						key="staticText-8"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<text><![CDATA[Nº do Registro]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="456"
+						y="13"
+						width="79"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Integer"><![CDATA[$F{numero_registro}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="65"
+						width="530"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["CURSO: " + $F{curso} + " - " + $F{municipio}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="0"
+						y="78"
+						width="265"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRAU: " + ($F{grau} == null ? "" : $F{grau})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="265"
+						y="39"
+						width="270"
+						height="13"
+						key="textField"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["IDENTIDADE: " + $F{identidade}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="265"
+						y="104"
+						width="270"
+						height="13"
+						key="textField-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["EXPEDIDO EM: "+
+(new SimpleDateFormat("dd 'de' MMMMMMMMMM 'de' yyyy", new Locale("pt","BR"))).format($F{data_expedicao})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="265"
+						y="117"
+						width="91"
+						height="13"
+						key="textField-2"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["DATA: "+
+(new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"))).format($F{data_registro})]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="-23"
+						y="190"
+						width="580"
+						height="0"
+						key="line-7"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="356"
+						y="117"
+						width="178"
+						height="13"
+						key="textField-8"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["PROCESSO: "+$F{processo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						style="Removido"
+						x="265"
+						y="78"
+						width="265"
+						height="13"
+						key="textField-9"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["HABILITAÇÃO: "+($F{habilitacao} != null ? $F{habilitacao} : "")]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

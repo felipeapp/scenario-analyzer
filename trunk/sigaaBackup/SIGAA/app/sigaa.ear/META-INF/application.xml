@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE application PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.2//EN" "http://java.sun.com/j2ee/dtds/application_1_2.dtd">
+
+<application>
+	<display-name>SIGAA</display-name>
+	<description>Sistema Integrado de Gestão e Atividades Acadêmicas</description>
+	<module>
+		<web>
+			<web-uri>sigaa.war</web-uri>
+			<context-root>/sigaa</context-root>
+		</web>
+	</module>
+	<module>
+		<ejb>facade.jar</ejb>
+	</module>
+	<module>
+		<java>lib.jar</java>
+	</module>
+
+</application>

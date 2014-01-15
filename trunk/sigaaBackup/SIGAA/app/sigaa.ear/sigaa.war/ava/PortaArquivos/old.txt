@@ -1,0 +1,182 @@
+<%@ taglib uri="/tags/mf_core" prefix="f" %>
+<f:view>
+<%@ include file="/portais/turma/cabecalho.jsp" %>
+
+	<h:outputText value="#{ pastaArquivos.create }"/>
+	<h:outputText value="#{ arquivoUsuario.create }"/>
+
+	<script type="text/javascript">
+		var objs = new Array();
+		${ pastaArquivos.pastasUsuario }
+	</script>
+
+	<h2>Porta Arquivos</h2>
+
+
+
+	<div>
+		<img src="${ctx}/img/help.png" width="32" height="32"/>
+		<p>
+			Bem vindo ao porta-arquivos do SIGAA. Com esta funcionalidade você poderá guardar os arquivos
+			que utiliza nas aulas para disponibilizar para seus alunos.
+		</p>
+		<p>
+			Você está usando <strong>
+			<c:if test="${ tamanhoOcupado >= (1024 * 1024) }"><fmt:formatNumber value="${ tamanhoOcupado / (1024 * 1024) }" pattern="#0.00"/>MB</c:if>
+			<c:if test="${ tamanhoOcupado < (1024 * 1024) }"><fmt:formatNumber value="${ tamanhoOcupado / 1024 }" pattern="#0.00"/>KB</c:if> </strong>
+			de
+			<strong><c:if test="${ tamanhoTotal >= (1024 * 1024) }"><fmt:formatNumber value="${ tamanhoTotal / (1024 * 1024) }" pattern="#0.00"/>MB</c:if>
+			<c:if test="${ tamanhoTotal < (1024 * 1024) }"><fmt:formatNumber value="${ tamanhoTotal / 1024 }" pattern="#0.00"/>KB</c:if></strong>
+			disponíveis. Isso corresponde a <strong><fmt:formatNumber value="${ porcentagem * 100 }" pattern="#0.0"/>%</strong> do total.
+		</p>
+		
+	<tr><th width="${ 250 * porcentagem }"><strong><fmt:formatNumber value="${ porcentagem * 100 }" pattern="#0.0"/>%</strong></th><td width="${ 250 * (1 - porcentagem) }"></td></tr>
+	</table></p>
+	</td>
+	</tr>
+	</table>
+	</center>
+
+
+
+	<div id="porta-arquivos" style="width: 99%">
+		<div id="menu-arquivos">
+			<ul>
+			<li id="link-novo-arquivo"><a href="${ pageContext.request.contextPath }/portais/porta_arquivos/index.jsf">Novo Arquivo</a></li>
+			<li id="link-nova-pasta">Nova Pasta</li>
+			<li id="link-alterar-pasta">Alterar Pasta</li>
+			<li id="link-remover-pasta">Remover Pasta</li>
+			</ul>
+		</div>
+
+		<div id="arquivos">
+
+		</div>
+
+		<div id="diretorios">
+
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+
+	<div id="painel-renomear">
+		<div class="ydlg-hd">Renomear Arquivo</div>
+
+		<div class="ydlg-bd">
+		<html:form action="renomearArquivo" styleId="form-renomear">
+			<table cellpadding="3">
+			<tr><td>Nome anterior: </td><td> <label id="nomeAnterior"></label> </td></tr>
+			<tr><td>Novo nome: </td><td> <html:text property="arquivo.nome" styleId="nomeArquivo" size="45"/> </td></tr>
+			</table>
+			<html:hidden property="arquivo.id" styleId="idArquivo"/>
+		</html:form>
+		</div>
+	</div>
+
+	<div id="painel-nova-pasta">
+
+	</div>
+
+	<div id="painel-remover-pasta">
+
+	</div>
+
+	<div id="painel-alterar-pasta">
+
+	</div>
+
+<input type="hidden" name="idArquivo" id="idArquivo"/>
+<input type="hidden" name="idPasta" id="idPasta"/>
+<input type="hidden" name="pastaAtual" id="pastaAtual" value="-1"/>
+<div id="dummyDiv" style="display: none"></div>
+
+</f:view>
+<%@include file="/portais/turma/rodape.jsp"%>
+<script type="text/javascript" src="/shared/javascript/porta_arquivos/arvore.js"></script>
+<script type="text/javascript" src="/shared/javascript/porta_arquivos/diretorios.js"></script>
+
+<script type="text/javascript">
+showFiles(-1);
+</script>
+
+
+
+
+
+#menu-arquivos {
+	background-color: #C4D2EB;
+	padding: 7px 5px;	
+	height: 15px;
+}
+
+#menu-arquivos ul {
+	padding: 0;
+	margin: 0;	
+}
+
+#menu-arquivos ul li {
+	display: inline;
+	font-weight: bold;
+	height: 25px;
+	color: #003395;
+	cursor: pointer;
+	padding-left: 20px;
+	margin-right: 20px;
+}
+
+#link-nova-pasta {
+	background: url("/sigaa/img/porta_arquivos/folder_add.png") no-repeat 1px -3px;	
+}
+
+#link-alterar-pasta {
+	background: url("/sigaa/img/porta_arquivos/folder_edit.png") no-repeat 1px -3px;
+}
+
+#link-remover-pasta {
+	background: url("/sigaa/img/porta_arquivos/folder_delete.png") no-repeat 1px -3px;	
+}
+
+#link-novo-arquivo {
+	background: url("/sigaa/img/porta_arquivos/page_add.png") no-repeat 1px 8px;	
+	padding: 10px 0;
+}
+
+#diretorios {
+	margin-left: 0px;
+/*	border-right: 1px solid #C4D2EB; */
+	padding-bottom: 10px;
+	width: 29%;
+/*	height: 100%; */
+}
+
+#arquivos {
+	float: right;
+	width: 70%;
+}
+
+#porta-arquivos {
+	/* border: 1px solid #C4D2EB; */
+}
+
+#painel-renomear {
+	background-color: #FFF;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+}
+
+
+table.espacoOcupado {
+	border: 1px solid #000;	
+	width: 250px;
+	margin-bottom: 7px;
+}
+
+table.espacoOcupado th {
+	background-color: #EAAD55;
+}
+
+.ajudaPortaArquivos p {
+	padding: 2px 2px;
+}

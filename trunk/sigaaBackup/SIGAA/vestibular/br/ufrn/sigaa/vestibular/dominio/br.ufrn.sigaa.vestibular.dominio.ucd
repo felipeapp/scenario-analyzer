@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="1724,2309" id="br.ufrn.sigaa.vestibular.dominio" metadata="uml2-1.0" initialized="true" tag="1000" key="32303037303533312D313030302053494741412F4C7563656E61">
+  <children xsi:type="editmodel:ClassEditModel" name="ConceitoFiscal" location="484,900" size="135,75" id="br.ufrn.sigaa.vestibular.dominio/ConceitoFiscal" runTimeClassModel="iNSUFICIENTE,sUFICIENTE">
+    <children xsi:type="editmodel:CompartmentEditModel" size="112,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="iNSUFICIENTE" id="br.ufrn.sigaa.vestibular.dominio/ConceitoFiscal#iNSUFICIENTE"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sUFICIENTE" id="br.ufrn.sigaa.vestibular.dominio/ConceitoFiscal#sUFICIENTE"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AvisoProcessoSeletivoVestibular" location="158,782" size="265,165" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular" runTimeClassModel="setChamada(Ljava.lang.String;),getProcessoSeletivo(),isAtivo(),setInicioPublicacao(Ljava.util.Date;),idArquivo,AvisoProcessoSeletivoVestibular(),setId(I),toString(),id,processoSeletivo,corpo,validate(),getCorpo(),getId(),getChamada(),ativo,inicioPublicacao,chamada,setAtivo(Z),getInicioPublicacao(),setCorpo(Ljava.lang.String;),setProcessoSeletivo(Lbr.ufrn.sigaa.vestibular.dominio.ProcessoSeletivoVestibular;),setIdArquivo(Ljava.lang.Integer;),getIdArquivo()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="242,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chamada" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#chamada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="corpo" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#corpo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idArquivo" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#idArquivo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="inicioPublicacao" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#inicioPublicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="processoSeletivo" id="br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular#processoSeletivo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.vestibular.dominio/AvisoProcessoSeletivoVestibular" source="//@children.1" target="//@children.7/@sourceConnections.0" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="240,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,110" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Fiscal" location="435,548" size="314,327" id="br.ufrn.sigaa.vestibular.dominio/Fiscal" runTimeClassModel="getLocalAplicacaoProva(),getRecadastro(),setFrequencia(I),getFrequencia(),setPresenteReuniao(Ljava.lang.Boolean;),getDiscente(),getNovato(),frequencia,presenteAplicacao,processoSeletivoVestibular,setDiscente(Lbr.ufrn.sigaa.pessoa.dominio.Discente;),setRecadastro(Ljava.lang.Boolean;),Fiscal(IIZZZZLjava.lang.String;Ljava.lang.String;),getPresenteReuniao(),observacao,setId(I),presenteReuniao,Fiscal(),getInscricaoFiscal(),getId(),setConceito(Ljava.lang.Character;),getOrdemPreferencia(I),setProcessoSeletivoVestibular(Lbr.ufrn.sigaa.vestibular.dominio.ProcessoSeletivoVestibular;),justificou,getPresenteAplicacao(),reserva,getServidor(),setServidor(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),setPresenteAplicacao(Ljava.lang.Boolean;),Fiscal(Lbr.ufrn.sigaa.vestibular.dominio.InscricaoFiscal;),setJustificou(Ljava.lang.Boolean;),conceito,localAplicacaoProva,toString(),id,getConceito(),setReserva(Ljava.lang.Boolean;),setObservacao(Ljava.lang.String;),getReserva(),setPessoa(Lbr.ufrn.sigaa.pessoa.dominio.Pessoa;),setLocalAplicacaoProva(Lbr.ufrn.sigaa.vestibular.dominio.LocalAplicacaoProva;),pessoa,getJustificou(),setNovato(Ljava.lang.Boolean;),getObservacao(),getProcessoSeletivoVestibular(),discente,novato,servidor,Fiscal(IIZZZZLjava.lang.String;Ljava.lang.String;CF),recadastro,setInscricaoFiscal(Lbr.ufrn.sigaa.vestibular.dominio.InscricaoFiscal;),inscricaoFiscal,getPessoa()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="291,288">
+      <children xsi:type="editmodel:AttributeEditModel" name="conceito" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#conceito"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="frequencia" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#frequencia"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="inscricaoFiscal" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#inscricaoFiscal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="justificou" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#justificou"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="localAplicacaoProva" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#localAplicacaoProva"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="novato" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#novato"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="observacao" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#observacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pessoa" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#pessoa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="presenteAplicacao" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#presenteAplicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="presenteReuniao" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#presenteReuniao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="processoSeletivoVestibular" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#processoSeletivoVestibular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="recadastro" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#recadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="reserva" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#reserva"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="servidor" id="br.ufrn.sigaa.vestibular.dominio/Fiscal#servidor"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.vestibular.dominio/Fiscal" source="//@children.2" target="//@children.8/@sourceConnections.0" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="7,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="LinguaEstrangeira" location="480,150" size="158,129" id="br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira" runTimeClassModel="id,eSPANHOL,getId(),getDenominacao(),setDenominacao(Ljava.lang.String;),fRANCES,iNGLES,setId(I),denominacao,toString()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="117,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="denominacao" id="br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira#denominacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eSPANHOL" id="br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira#eSPANHOL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fRANCES" id="br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira#fRANCES"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="iNGLES" id="br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira#iNGLES"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.vestibular.dominio/LinguaEstrangeira" source="//@children.3" target="//@children.8/@sourceConnections.0" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="79,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.8/@sourceConnections.0" name="PersistDB" location="495,15" size="114,57" id="br.ufrn.arq.dominio/PersistDB" runTimeClassModel="getId(),setId(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.7/@sourceConnections.0" name="Validatable" location="270,557" size="165,57" id="br.ufrn.arq.negocio.validacao/Validatable" runTimeClassModel="validate()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.arq.negocio.validacao/Validatable" source="//@children.5" target="//@children.8/@sourceConnections.0" targetEnd="//@children.5/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="151,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="-113,0" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="EscolaInep" location="184,285" size="233,273" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep" runTimeClassModel="getEmail(),setNome(Ljava.lang.String;),getFax(),getTelefone(),toString(),id,setFax(Ljava.lang.String;),setZonaUrbana(Z),tipoRedeEnsino,setCodigoAreaNacionalTelefoneFixo(Ljava.lang.Short;),nomeAscii,setEndereco(Lbr.ufrn.sigaa.pessoa.dominio.Endereco;),setTelefone(Ljava.lang.String;),setTipoRedeEnsino(Lbr.ufrn.sigaa.pessoa.dominio.TipoRedeEnsino;),getCodigoINEP(),fax,telefonePublico1,codigoAreaNacionalTelefoneFixo,getNomeAscii(),setEmail(Ljava.lang.String;),telefonePublico2,getNome(),codigoINEP,getTelefonePublico1(),getCodigoAreaNacionalTelefoneFixo(),setId(I),isZonaUrbana(),setNomeAscii(Ljava.lang.String;),EscolaInep(),email,getId(),getEndereco(),telefone,getTipoRedeEnsino(),setTelefonePublico1(Ljava.lang.String;),nome,setTelefonePublico2(Ljava.lang.String;),getTelefonePublico2(),endereco,zonaUrbana,setCodigoINEP(I)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="210,234">
+      <children xsi:type="editmodel:AttributeEditModel" name="codigoAreaNacionalTelefoneFixo" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#codigoAreaNacionalTelefoneFixo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="codigoINEP" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#codigoINEP"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="email" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#email"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="endereco" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#endereco"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fax" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#fax"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nome" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#nome"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nomeAscii" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#nomeAscii"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="telefone" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#telefone"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="telefonePublico1" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#telefonePublico1"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="telefonePublico2" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#telefonePublico2"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoRedeEnsino" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#tipoRedeEnsino"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="zonaUrbana" id="br.ufrn.sigaa.vestibular.dominio/EscolaInep#zonaUrbana"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.vestibular.dominio/EscolaInep" source="//@children.6" target="//@children.8/@sourceConnections.0" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="212,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AreaConhecimentoVestibular" location="150,690" size="228,93" id="br.ufrn.sigaa.vestibular.dominio/AreaConhecimentoVestibular" runTimeClassModel="isAtivo(),AreaConhecimentoVestibular(),descricao,setId(I),toString(),id,AreaConhecimentoVestibular(I),getDescricao(),validate(),getId(),ativo,setDescricao(Ljava.lang.String;),setAtivo(Z)">
+    <children xsi:type="editmodel:CompartmentEditModel" size="101,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.vestibular.dominio/AreaConhecimentoVestibular#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.vestibular.dominio/AreaConhecimentoVestibular#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/AreaConhecimentoVestibular#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.1/@sourceConnections.0 //@children.10/@sourceConnections.0" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.vestibular.dominio/AreaConhecimentoVestibular" source="//@children.7" target="//@children.5" targetEnd="//@children.7/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="114,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="CandidatoVestibular" location="190,150" size="201,129" id="br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular" runTimeClassModel="getMatrizAprovado(),argumentoClassificacao,setClassificacao(I),classificacao,getObservacao(),setArgumentoClassificacao(D),observacao,setId(I),toString(),setMatrizAprovado(Lbr.ufrn.sigaa.ensino.graduacao.dominio.MatrizCurricular;),id,getArgumentoClassificacao(),getId(),matrizAprovado,setObservacao(Ljava.lang.String;),getClassificacao()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="178,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="argumentoClassificacao" id="br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular#argumentoClassificacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="classificacao" id="br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular#classificacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matrizAprovado" id="br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular#matrizAprovado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="observacao" id="br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular#observacao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.6/@sourceConnections.0 //@children.2/@sourceConnections.0 //@children.9/@sourceConnections.0 //@children.3/@sourceConnections.0 //@children.5/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.vestibular.dominio/CandidatoVestibular" source="//@children.8" target="//@children.4" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="100,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="InscricaoVestibular" location="450,285" size="283,255" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular" runTimeClassModel="getProcessoSeletivo(),getDataInscricao(),numeroInscricao,linguaEstrangeira,setLinguaEstrangeira(Lbr.ufrn.sigaa.vestibular.dominio.LinguaEstrangeira;),validada,regiaoPreferencialProva,setDataInscricao(Ljava.util.Date;),getOpcoesCurso(),toString(),id,processoSeletivo,InscricaoVestibular(),valorInscricao,prepararDados(),setObservacao(Ljava.lang.String;),setProcessoSeletivo(Lbr.ufrn.sigaa.vestibular.dominio.ProcessoSeletivoVestibular;),setOpcoesCurso([Lbr.ufrn.sigaa.ensino.graduacao.dominio.MatrizCurricular;),getValorInscricao(),setNumeroInscricao(I),dataInscricao,getRegiaoPreferencialProva(),getEscolaConclusaoEnsinoMedio(),opcoesCurso,pessoa,setPessoa(Lbr.ufrn.sigaa.vestibular.dominio.PessoaVestibular;),getObservacao(),observacao,setId(I),setValorInscricao(D),getLinguaEstrangeira(),getId(),setRegiaoPreferencialProva(Lbr.ufrn.sigaa.vestibular.dominio.RegiaoPreferencialProva;),isValidada(),setValidada(Z),escolaConclusaoEnsinoMedio,getNumeroInscricao(),setEscolaConclusaoEnsinoMedio(Lbr.ufrn.sigaa.vestibular.dominio.EscolaInep;),getPessoa()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="260,216">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInscricao" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#dataInscricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="escolaConclusaoEnsinoMedio" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#escolaConclusaoEnsinoMedio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="linguaEstrangeira" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#linguaEstrangeira"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroInscricao" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#numeroInscricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="observacao" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#observacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="opcoesCurso" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#opcoesCurso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pessoa" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#pessoa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="processoSeletivo" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#processoSeletivo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="regiaoPreferencialProva" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#regiaoPreferencialProva"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="validada" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#validada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="valorInscricao" id="br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular#valorInscricao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.vestibular.dominio/InscricaoVestibular" source="//@children.9" target="//@children.8/@sourceConnections.0" targetEnd="//@children.9/@sourceConnections.0/@children.1" sourceEnd="//@children.9/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="11,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="InscricaoFiscal" location="121,960" size="314,273" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal" runTimeClassModel="isDisponibilidadeOutrasCidades(),disponibilidadeOutrasCidades,addObservacao(Ljava.lang.String;),getServidor(),setServidor(Lbr.ufrn.sigaa.pessoa.dominio.Servidor;),numeroInscricao,setContaBancaria(Lbr.ufrn.sigaa.pessoa.dominio.ContaBancaria;),setLocalAplicacaoProvas(Ljava.util.List;),getDiscente(),toString(),isRecadastro(),id,InscricaoFiscal(),getNit(),getLocalAplicacaoProvas(),setDisponibilidadeOutrasCidades(Z),InscricaoFiscal(IIIII),InscricaoFiscal(IILbr.ufrn.sigaa.pessoa.dominio.Pessoa;Lbr.ufrn.sigaa.pessoa.dominio.Servidor;Lbr.ufrn.sigaa.pessoa.dominio.Discente;ZZ),processoSeletivoVestibular,equals(Ljava.lang.Object;),setNit(Ljava.lang.String;),setObservacao(Ljava.lang.String;),InscricaoFiscal(IIII),setPessoa(Lbr.ufrn.sigaa.pessoa.dominio.Pessoa;),setNumeroInscricao(I),setDiscente(Lbr.ufrn.sigaa.pessoa.dominio.Discente;),localAplicacaoProvas,getContaBancaria(),pessoa,getObservacao(),getProcessoSeletivoVestibular(),setId(I),setRecadastro(Z),setNovato(Z),observacao,isNovato(),novato,discente,servidor,validate(),getId(),recadastro,setProcessoSeletivoVestibular(Lbr.ufrn.sigaa.vestibular.dominio.ProcessoSeletivoVestibular;),nit,getNumeroInscricao(),getPessoa(),contaBancaria">
+    <children xsi:type="editmodel:CompartmentEditModel" size="291,234">
+      <children xsi:type="editmodel:AttributeEditModel" name="contaBancaria" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#contaBancaria"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="disponibilidadeOutrasCidades" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#disponibilidadeOutrasCidades"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="localAplicacaoProvas" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#localAplicacaoProvas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nit" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#nit"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="novato" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#novato"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroInscricao" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#numeroInscricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="observacao" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#observacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pessoa" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#pessoa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="processoSeletivoVestibular" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#processoSeletivoVestibular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="recadastro" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#recadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="servidor" id="br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal#servidor"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.vestibular.dominio/InscricaoFiscal" source="//@children.10" target="//@children.7/@sourceConnections.0" targetEnd="//@children.10/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="10,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="237,-336" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
