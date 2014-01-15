@@ -1,0 +1,60 @@
+<!--========================================================
+Arquivo de Build dos Projetos UFRN
+Autor: Gleydson Lima
+=========================================================-->
+
+<project name="deploySERVICOSBibl" default="deployServicosBiblioteca">
+
+	<target name="deployServicosBiblioteca" description="Constroi e implanta os DTO's">
+
+		<property resource="build.properties">
+			<classpath>
+				<pathelement path="."/>
+			</classpath>
+		</property>
+		
+		<property name="sistema" value="ServicosRemotoBibCirculacao"/>
+		<property name="dirSistema" value="ServicoRemotoBibCirculacao"/>
+		<property name="app.dir" value="${workspace}/${dirSistema}/app/bibliotecaremoto.jar/"/>
+		<property name="build.tempdir" value="${temp}/${sistema}Build"/>
+		<property name="jarName" value="servicos_biblioteca"/>
+		
+		<input message="Qual a versão do sistema ${dirSistema}" addproperty="versao" defaultvalue="${versaoServicosBiblioteca}"/>
+		<antcall target="alterarVersao" inheritall="true" inheritrefs="true"/>
+		<antcall target="buildServicosBiblioteca" inheritall="true" inheritrefs="true"/>
+
+	</target>
+	
+	<target name="alterarVersao" description="Alterar número da versão do sistema">
+
+		<propertyfile file="${workspace}/build.properties">
+			<entry key="versaoServicosBiblioteca" value="${versao}"/>
+		</propertyfile>
+	</target>
+
+
+	<target name="buildServicosBiblioteca" description="Constroi o pacote com os DTOs para Deployment">
+		
+		<echo message="Construindo pacote do ${sistema}"/>
+		<mkdir dir="${build.tempdir}" />
+
+		<delete>
+			<fileset dir="${build.tempdir}" includes="**" />
+			<fileset dir="${build.tempdir}" includes="**/**" />
+		</delete>
+		
+		<delete>
+			<fileset file="${build.tempdir}/${jarName}.jar" />
+		</delete>
+		
+		<jar destfile="${build.tempdir}/${jarName}.jar">
+			<fileset dir="${app.dir}"/>
+		</jar>
+		
+		<copy tofile="${diretorioJAR}/${jarName}-${versao}.jar">
+			<fileset file="${build.tempdir}/${jarName}.jar" />
+		</copy>
+		
+	</target>
+
+</project>
