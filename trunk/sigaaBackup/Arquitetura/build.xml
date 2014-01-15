@@ -1,0 +1,56 @@
+<!--========================================================
+Arquivo de Build dos Projetos UFRN
+Autor: Gleydson Lima
+=========================================================-->
+
+<project name="deployARQ" default="deployAll">
+
+	<target name="deployArq" description="Constroi a arquitetura e faz deploy em homologação">
+
+		<property name="arq.dir" value="${workspace}Arquitetura\app\" />
+
+		<echo message="Construindo pacote da Arquitetura"/>
+		<property name="build.tempdir" value="${temp}/arquiteturaBuild"/>
+		<mkdir dir="${build.tempdir}" />
+		<delete>
+			<fileset dir="${build.tempdir}" includes="**" />
+			<fileset dir="${build.tempdir}" includes="**/**" />
+		</delete>
+
+		<echo message="Gerando pacote arquitetura"/>
+				
+		<jar destfile="${build.tempdir}/arq.jar">
+				<fileset dir="${arq.dir}/arq.jar"/>
+		</jar>
+		
+		<copy tofile="${sharedLibs}/arq-${versaoArquiteturaIn}.jar">
+			<fileset file="${build.tempdir}/arq.jar"/>
+		</copy>
+		
+		<copy tofile="${diretorioHistoricoBuilds}/arq-${versaoArquiteturaIn}.jar">
+			<fileset file="${build.tempdir}/arq.jar"/>
+		</copy>
+		
+	</target>
+
+	<target name="deployAll" description="Constroi e implanta todos os pacotes de sistemas">
+		<property resource="build.properties">
+			<classpath>
+				<pathelement path="."/>
+			</classpath>
+		</property>
+		
+		<input message="Indique a versão da arquitetura que deverá ser gerado." addproperty="versaoArquiteturaIn" defaultvalue="${versaoArquitetura}"/>
+		
+		<antcall target="alterarProperties" inheritall="true"/>
+		<antcall target="deployArq" inheritall="true"/>
+
+	</target>
+	
+	<target name="alterarProperties" description="Muda a configuração do ANT de ARQ">
+		<propertyfile file="build.properties" comment="Arquivo de geração das Builds">
+			<entry key="versaoArquitetura" value="${versaoArquiteturaIn}"/>
+		</propertyfile>
+	</target>
+
+</project>

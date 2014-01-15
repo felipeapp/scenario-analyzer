@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<project default="test-report" basedir="." name="junit_report">
+	
+	<property name="src.dir" value="${basedir}/src/" />
+	<property name="test.report.dir" value="report" />
+
+	<!-- junit.jar must be in Ant's lib directory in order to run the targets below -->
+
+	<target name="batchtest">
+		
+		<antcall target="clean"/>
+		
+		<mkdir dir="${test.report.dir}" />
+		<junit printsummary="true" dir="${build.dir}">
+			<formatter type="xml" usefile="true" />
+			<classpath>
+				<pathelement path="${basedir}/app/arq.jar"/>
+				<fileset dir="${basedir}/app/libs.jar/">
+					<include name="*.jar"/>
+				</fileset>
+			</classpath>
+			<batchtest todir="${test.report.dir}">
+				<fileset dir="${src.dir}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="test-report" depends="batchtest" >
+		<junitreport todir="${test.report.dir}">
+			<fileset dir="${test.report.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${test.report.dir}/html" />
+		</junitreport>
+	</target>
+
+	<target name="clean">
+		<delete dir="report" />
+	</target>
+
+</project>
+

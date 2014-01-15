@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="br.ufrn.comum.dominio.SubSistema"
+        table="SUBSISTEMA" dynamic-update="false" dynamic-insert="false"
+        mutable="false" schema="comum">
+
+        <id name="id" column="ID" type="int">
+        	<generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+				<param name="sequence_name">pessoa_seq</param>
+			</generator>
+        </id>
+
+        <property name="nome" type="java.lang.String" update="true"
+            insert="true" access="property" column="NOME" not-null="true"/>
+
+        <property name="nomeReduzido" type="java.lang.String" update="true"
+            insert="true" access="property" column="NOME_REDUZIDO" not-null="true"/>
+
+        <property name="link" type="java.lang.String" update="true"
+            insert="true" access="property" column="LINK_ENTRADA" not-null="true"/>
+
+		<many-to-one fetch="join" name="sistema" class="br.ufrn.comum.dominio.Sistema" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_SISTEMA"/>
+
+    </class>
+    
+</hibernate-mapping>

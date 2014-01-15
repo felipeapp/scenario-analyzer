@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="br.ufrn.comum.dominio.NoticiaPortal"
+        table="NOTICIA_PORTAL" dynamic-update="false" dynamic-insert="false" schema="comum">
+
+        <id name="id" column="ID" type="int" unsaved-value="0">
+        	<generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+     			<param name="sequence_name">comum.noticia_portal_seq</param>
+  			</generator>
+        </id>
+
+		<property name="titulo" type="java.lang.String" update="true"
+            insert="true" access="property" column="TITULO"/>
+
+        <property name="descricao" type="java.lang.String" update="true"
+            insert="true" access="property" column="DESCRICAO"/>
+
+        <property name="publicada" type="boolean" update="true"
+            insert="true" access="property" column="PUBLICADA"/>
+            
+        <property name="destaque" type="boolean" update="true"
+            insert="true" access="property" column="DESTAQUE"/>
+
+        <property name="localizacao" type="int" update="true"
+            insert="true" access="property" column="LOCALIZACAO"/>
+
+        <property name="criadoEm" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_CADASTRO"/>
+            
+        <property name="expirarEm" type="java.util.Date" update="true"
+            insert="true" access="property" column="EXPIRAR_EM"/>
+
+        <property name="idArquivo" type="java.lang.Integer" update="true"
+            insert="true" access="property" column="ID_ARQUIVO"/>
+            
+        <property name="nomeArquivo" type="java.lang.String" update="true"
+            insert="true" access="property" column="NOME_ARQUIVO"/>
+
+		<many-to-one fetch="join" name="criadoPor" class="br.ufrn.comum.dominio.UsuarioGeral" cascade="none"
+            outer-join="true" update="true" insert="true" access="property"
+            column="ID_USUARIO_CADASTRO"/>
+
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="br.ufrn.comum.dominio.UsuarioGeral" schema="COMUM"
+		table="USUARIO" dynamic-update="false" dynamic-insert="false" mutable="false">
+
+		<id name="id" column="ID_USUARIO" type="int" />
+
+		<property name="login" type="java.lang.String" update="true"
+			insert="true" access="property" column="LOGIN" not-null="true" />
+
+		<property name="senha" type="java.lang.String" update="true"
+			insert="true" access="property" column="SENHA" not-null="true" />
+
+		<property name="ramal" type="java.lang.String" update="true"
+			insert="true" access="property" column="RAMAL" not-null="true" />
+
+		<property name="email" type="java.lang.String" update="true"
+			insert="true" access="property" column="EMAIL" not-null="true" />
+
+		<many-to-one fetch="join" name="tipo" class="br.ufrn.comum.dominio.TipoUsuario" cascade="none" outer-join="true"
+			update="true" insert="true" access="property" column="TIPO" />
+
+		<property name="inativo" type="boolean" update="true" insert="true"
+			access="property" column="INATIVO" not-null="true" />
+
+		<property name="autorizado" type="boolean" update="true"
+			insert="true" access="property" column="AUTORIZADO" not-null="true" />
+
+		<property name="dataCadastro" type="java.util.Date" update="true"
+			insert="true" access="property" column="data_cadastro" not-null="false" />
+
+		<property name="idFoto" type="java.lang.Integer" update="true"
+			insert="true" access="property" column="ID_FOTO" not-null="true" />
+
+		<property name="idServidor" type="java.lang.Integer" update="true"
+			insert="true" access="property" column="ID_SERVIDOR" not-null="true" />
+
+		<many-to-one fetch="join" name="pessoa"
+			class="br.ufrn.comum.dominio.PessoaGeral" cascade="none" outer-join="true"
+			update="true" insert="true" access="property" column="ID_PESSOA" />
+
+		<many-to-one fetch="join" name="unidade"
+			class="br.ufrn.comum.dominio.UnidadeGeral" cascade="none" outer-join="true"
+			update="true" insert="true" access="property" column="ID_UNIDADE" />
+
+		<set name="papeis" table="comum.PERMISSAO" lazy="true" cascade="none">
+			<key column="ID_USUARIO" />
+			<many-to-many column="ID_PAPEL" class="br.ufrn.comum.dominio.Papel" />
+		</set>
+		
+		<set name="usuariosUnidades" lazy="true" cascade="all-delete-orphan" inverse="true">
+			<key column="ID_USUARIO" />
+			<one-to-many class="br.ufrn.comum.dominio.UsuarioUnidade" />
+		</set>
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.arq.dominio.Parametro"
+        table="PARAMETRO" dynamic-update="false" dynamic-insert="false" schema="comum">
+
+
+        <id name="codigo" column="CODIGO" type="java.lang.String" access="field">
+            <generator class="assigned"/>
+        </id>
+
+		<many-to-one fetch="join" name="sistema" class="br.ufrn.comum.dominio.Sistema" cascade="none"
+            outer-join="true" update="true" insert="true" access="field"
+            column="ID_SISTEMA"/>
+
+		<many-to-one fetch="join" name="subSistema" class="br.ufrn.comum.dominio.SubSistema" cascade="none"
+            outer-join="true" update="true" insert="true" access="field"
+            column="ID_SUBSISTEMA"/>
+
+        <property name="nome" type="java.lang.String" update="true"
+            insert="true" access="field" column="NOME" not-null="true"/>
+            
+        <property name="valor" type="java.lang.String" update="true"
+            insert="true" access="field" column="VALOR" not-null="true"/>
+
+        <property name="descricao" type="java.lang.String" update="true"
+            insert="true" access="field" column="descricao" not-null="true"/>
+            
+        <property name="tempoMaximo" type="java.lang.Integer" update="true"
+            insert="true" access="field" column="tempo_maximo"/>
+
+		<bag name="casosUso" table="comum.casos_uso_parametros" lazy="true">
+			<key column="id_parametro"/>
+			<many-to-many column="id_caso_uso" class="br.ufrn.comum.dominio.CasoUso"/>
+		</bag>
+		
+		<property name="tipo" type="java.lang.Integer" update="true" insert="true"
+			access="field" column="tipo"/>
+			
+		<property name="padrao" type="java.lang.String" update="true" insert="true"
+			access="field" column="padrao"/>
+			
+		<property name="valorMinimo" type="java.math.BigDecimal" update="true" insert="true"
+			access="field" column="valor_minimo"/>
+
+		<property name="valorMaximo" type="java.math.BigDecimal" update="true" insert="true"
+			access="field" column="valor_maximo"/>
+
+    </class>
+
+</hibernate-mapping>
