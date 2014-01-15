@@ -1,0 +1,2241 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="r_382_alunos_evadidos_no_curso_segundo_forma_saida_turno_genero"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="2"
+		 bottomMargin="1"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="unidade" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(440)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ano" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2006)]]></defaultValueExpression>
+	</parameter>
+	<queryString><![CDATA[SELECT B.*,
+       DIURNO_MASC+DIURNO_FEM+NOTURNO_MASC+NOTURNO_FEM AS TOTAL
+FROM (
+SELECT DESCRICAO,ID_UNIDADE,SIGLA,ID_CURSO,NOME,
+       DESLIGADOS_DIURNO_MASC,DESLIGADOS_DIURNO_FEM,
+       DESLIGADOS_NOTURNO_MASC,DESLIGADOS_NOTURNO_FEM,DESLIGADOS_DIURNO_MASC+DESLIGADOS_DIURNO_FEM+DESLIGADOS_NOTURNO_MASC+DESLIGADOS_NOTURNO_FEM AS DESLIGADOS_TOTAL,
+       MUDANCA_NA_IES_DIURNO_MASC,MUDANCA_NA_IES_DIURNO_FEM,
+       MUDANCA_NA_IES_NOTURNO_MASC,MUDANCA_NA_IES_NOTURNO_FEM,MUDANCA_NA_IES_DIURNO_MASC+MUDANCA_NA_IES_DIURNO_FEM+MUDANCA_NA_IES_NOTURNO_MASC+MUDANCA_NA_IES_NOTURNO_FEM AS MUDANCA_NA_IES_TOTAL,
+       MUDANCA_OUTRA_IES_DIURNO_MASC,MUDANCA_OUTRA_IES_DIURNO_FEM,
+       MUDANCA_OUTRA_IES_NOTURNO_MASC,MUDANCA_OUTRA_IES_NOTURNO_FEM,MUDANCA_OUTRA_IES_DIURNO_MASC+MUDANCA_OUTRA_IES_DIURNO_FEM+MUDANCA_OUTRA_IES_NOTURNO_MASC+MUDANCA_OUTRA_IES_NOTURNO_FEM AS MUDANCA_OUTRA_IES_TOTAL,
+       
+       DESLIGADOS_DIURNO_MASC+MUDANCA_NA_IES_DIURNO_MASC+MUDANCA_OUTRA_IES_DIURNO_MASC AS DIURNO_MASC,
+       DESLIGADOS_DIURNO_FEM+MUDANCA_NA_IES_DIURNO_FEM+MUDANCA_OUTRA_IES_DIURNO_FEM AS DIURNO_FEM,
+       DESLIGADOS_NOTURNO_MASC+MUDANCA_NA_IES_NOTURNO_MASC+MUDANCA_OUTRA_IES_NOTURNO_MASC AS NOTURNO_MASC,
+       DESLIGADOS_NOTURNO_FEM+MUDANCA_NA_IES_NOTURNO_FEM+MUDANCA_OUTRA_IES_NOTURNO_FEM AS NOTURNO_FEM
+FROM (       
+SELECT ME.DESCRICAO,U.ID_UNIDADE,U.SIGLA,C.ID_CURSO,C.NOME,count(DISTINCT D.ID_DISCENTE) AS QTD,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (2,3,6,7,9,13,14,15,16)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='M'
+            AND T.SIGLA<>'N'
+       ) AS DESLIGADOS_DIURNO_MASC,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (2,3,6,7,9,13,14,15,16)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='F'
+            AND T.SIGLA<>'N'
+       ) AS DESLIGADOS_DIURNO_FEM,       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (2,3,6,7,9,13,14,15,16)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='M'
+            AND T.SIGLA='N'
+       ) AS DESLIGADOS_NOTURNO_MASC,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (2,3,6,7,9,13,14,15,16)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='F'
+            AND T.SIGLA='N'
+       ) AS DESLIGADOS_NOTURNO_FEM,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (10,11)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='M'
+            AND T.SIGLA<>'N'
+       ) AS MUDANCA_NA_IES_DIURNO_MASC,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (10,11)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='F'
+            AND T.SIGLA<>'N'
+       ) AS MUDANCA_NA_IES_DIURNO_FEM,       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (10,11)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='M'
+            AND T.SIGLA='N'
+       ) AS MUDANCA_NA_IES_NOTURNO_MASC,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (10,11)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='F'
+            AND T.SIGLA='N'
+       ) AS MUDANCA_NA_IES_NOTURNO_FEM,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (4)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='M'
+            AND T.SIGLA<>'N'
+       ) AS MUDANCA_OUTRA_IES_DIURNO_MASC,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (4)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='F'
+            AND T.SIGLA<>'N'
+       ) AS MUDANCA_OUTRA_IES_DIURNO_FEM,       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (4)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='M'
+            AND T.SIGLA='N'
+       ) AS MUDANCA_OUTRA_IES_NOTURNO_MASC,
+       (SELECT COUNT(DISTINCT D2.ID_DISCENTE)
+          FROM ENSINO.MOVIMENTACAO_ALUNO MA
+          INNER JOIN PUBLIC.DISCENTE D2 			 ON D2.ID_DISCENTE=MA.ID_DISCENTE
+          INNER JOIN GRADUACAO.DISCENTE_GRADUACAO DG ON DG.ID_DISCENTE_GRADUACAO=D2.ID_DISCENTE
+          INNER JOIN GRADUACAO.MATRIZ_CURRICULAR MC  ON MC.ID_MATRIZ_CURRICULAR=DG.ID_MATRIZ_CURRICULAR
+          INNER JOIN ENSINO.TURNO T					 ON T.ID_TURNO=MC.ID_TURNO
+          INNER JOIN COMUM.PESSOA P 			  	 ON P.ID_PESSOA=D2.ID_PESSOA
+          WHERE MA.ano_referencia=$P{ano}
+            AND MA.ID_TIPO_MOVIMENTACAO_ALUNO in (4)
+            AND D2.ID_CURSO=C.ID_CURSO
+            AND P.SEXO='F'
+            AND T.SIGLA='N'
+       ) AS MUDANCA_OUTRA_IES_NOTURNO_FEM
+  FROM PUBLIC.DISCENTE D
+ INNER JOIN PUBLIC.CURSO C 			   		ON C.ID_CURSO=D.ID_CURSO
+ INNER JOIN COMUM.MODALIDADE_EDUCACAO ME  	ON ME.ID_MODALIDADE_EDUCACAO=C.ID_MODALIDADE_EDUCACAO
+ INNER JOIN COMUM.UNIDADE  U 				ON U.ID_UNIDADE=C.ID_UNIDADE
+ WHERE ((U.ID_UNIDADE=$P{unidade}) OR ($P{unidade}=-1))
+   AND D.ANO_INGRESSO=$P{ano}
+   AND C.NIVEL='G'
+--   AND D.STATUS IN (1,2) -- 1=ATIVO 2=CADASTRADO
+ GROUP BY ME.DESCRICAO,U.ID_UNIDADE,U.SIGLA,C.ID_CURSO,C.NOME
+ ORDER BY ME.DESCRICAO,U.SIGLA,C.NOME
+) A
+) B]]></queryString>
+
+	<field name="descricao" class="java.lang.String"/>
+	<field name="id_unidade" class="java.lang.Integer"/>
+	<field name="sigla" class="java.lang.String"/>
+	<field name="id_curso" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="desligados_diurno_masc" class="java.lang.Long"/>
+	<field name="desligados_diurno_fem" class="java.lang.Long"/>
+	<field name="desligados_noturno_masc" class="java.lang.Long"/>
+	<field name="desligados_noturno_fem" class="java.lang.Long"/>
+	<field name="desligados_total" class="java.lang.Long"/>
+	<field name="mudanca_na_ies_diurno_masc" class="java.lang.Long"/>
+	<field name="mudanca_na_ies_diurno_fem" class="java.lang.Long"/>
+	<field name="mudanca_na_ies_noturno_masc" class="java.lang.Long"/>
+	<field name="mudanca_na_ies_noturno_fem" class="java.lang.Long"/>
+	<field name="mudanca_na_ies_total" class="java.lang.Long"/>
+	<field name="mudanca_outra_ies_diurno_masc" class="java.lang.Long"/>
+	<field name="mudanca_outra_ies_diurno_fem" class="java.lang.Long"/>
+	<field name="mudanca_outra_ies_noturno_masc" class="java.lang.Long"/>
+	<field name="mudanca_outra_ies_noturno_fem" class="java.lang.Long"/>
+	<field name="mudanca_outra_ies_total" class="java.lang.Long"/>
+	<field name="diurno_masc" class="java.lang.Long"/>
+	<field name="diurno_fem" class="java.lang.Long"/>
+	<field name="noturno_masc" class="java.lang.Long"/>
+	<field name="noturno_fem" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+
+	<variable name="qtdRegistros" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[new Boolean(true)]]></variableExpression>
+	</variable>
+	<variable name="v_desligados_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_desligados_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_desligados_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_desligados_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_desligados_total" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_desligados_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_desligados_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_desligados_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_desligados_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_desligados_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_desligados_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_desligados_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_desligados_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_desligados_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_desligados_total" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{desligados_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_na_ies_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_na_ies_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_na_ies_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_na_ies_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_na_ies_total" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_na_ies_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_na_ies_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_na_ies_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_na_ies_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_na_ies_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_na_ies_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_na_ies_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_na_ies_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_na_ies_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_na_ies_total" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_na_ies_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_outra_ies_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_outra_ies_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_outra_ies_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_outra_ies_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_mudanca_outra_ies_total" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_outra_ies_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_outra_ies_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_outra_ies_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_outra_ies_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_outra_ies_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_outra_ies_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_outra_ies_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_outra_ies_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_mudanca_outra_ies_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_mudanca_outra_ies_total" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{mudanca_outra_ies_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_total" class="java.lang.Long" resetType="Group" resetGroup="nomeDepartamento" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_diurno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{diurno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_diurno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{diurno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_noturno_masc" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{noturno_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_noturno_fem" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{noturno_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vt_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="vtt_total" class="java.lang.Long" resetType="Group" resetGroup="totalUFRN" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+
+		<group  name="totalUFRN" >
+			<groupExpression><![CDATA[new Boolean(true)]]></groupExpression>
+			<groupHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="15"
+						y="2"
+						width="134"
+						height="10"
+						key="textField-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TOTAL DA INSTITUIÇÃO"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-198"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_desligados_diurno_masc}==null?new Long(0):$V{vtt_desligados_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-199"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_desligados_diurno_fem}==null?new Long(0):$V{vtt_desligados_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-200"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_desligados_noturno_masc}==null?new Long(0):$V{vtt_desligados_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-201"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_desligados_noturno_fem}==null?new Long(0):$V{vtt_desligados_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-202"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_desligados_total}==null?new Long(0):$V{vtt_desligados_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-213"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_na_ies_total}==null?new Long(0):$V{vtt_mudanca_na_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-214"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_na_ies_noturno_fem}==null?new Long(0):$V{vtt_mudanca_na_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-215"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_na_ies_noturno_masc}==null?new Long(0):$V{vtt_mudanca_na_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-216"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_na_ies_diurno_fem}==null?new Long(0):$V{vtt_mudanca_na_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-217"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_na_ies_diurno_masc}==null?new Long(0):$V{vtt_mudanca_na_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-218"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_outra_ies_total}==null?new Long(0):$V{vtt_mudanca_outra_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-219"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_outra_ies_noturno_fem}==null?new Long(0):$V{vtt_mudanca_outra_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-220"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_outra_ies_noturno_masc}==null?new Long(0):$V{vtt_mudanca_outra_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-221"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_outra_ies_diurno_fem}==null?new Long(0):$V{vtt_mudanca_outra_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-222"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_mudanca_outra_ies_diurno_masc}==null?new Long(0):$V{vtt_mudanca_outra_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-233"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_total}==null?new Long(0):$V{vtt_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-234"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_noturno_fem}==null?new Long(0):$V{vtt_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-235"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_noturno_masc}==null?new Long(0):$V{vtt_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-236"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_diurno_fem}==null?new Long(0):$V{vtt_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="506"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-237"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vtt_diurno_masc}==null?new Long(0):$V{vtt_diurno_masc}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="modalidadeEducacao" >
+			<groupExpression><![CDATA[$F{descricao}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="159"
+						height="12"
+						key="textField-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRADUAÇÃO ("+$F{descricao}+")"]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="149"
+						height="12"
+						key="textField-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["GRADUAÇÃO ("+$F{descricao}+")"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-193"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_desligados_diurno_masc}==null?new Long(0):$V{vt_desligados_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-194"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_desligados_diurno_fem}==null?new Long(0):$V{vt_desligados_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-195"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_desligados_noturno_masc}==null?new Long(0):$V{vt_desligados_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-196"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_desligados_noturno_fem}==null?new Long(0):$V{vt_desligados_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-197"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_desligados_total}==null?new Long(0):$V{vt_desligados_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-208"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_na_ies_diurno_masc}==null?new Long(0):$V{vt_mudanca_na_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-209"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_na_ies_diurno_fem}==null?new Long(0):$V{vt_mudanca_na_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-210"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_na_ies_noturno_masc}==null?new Long(0):$V{vt_mudanca_na_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-211"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_na_ies_noturno_fem}==null?new Long(0):$V{vt_mudanca_na_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-212"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_na_ies_total}==null?new Long(0):$V{vt_mudanca_na_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-223"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_outra_ies_diurno_masc}==null?new Long(0):$V{vt_mudanca_outra_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-224"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_outra_ies_diurno_fem}==null?new Long(0):$V{vt_mudanca_outra_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-225"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_outra_ies_noturno_masc}==null?new Long(0):$V{vt_mudanca_outra_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-226"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_outra_ies_noturno_fem}==null?new Long(0):$V{vt_mudanca_outra_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-227"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_mudanca_outra_ies_total}==null?new Long(0):$V{vt_mudanca_outra_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="506"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-238"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_diurno_masc}==null?new Long(0):$V{vt_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-239"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_diurno_fem}==null?new Long(0):$V{vt_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-240"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_noturno_masc}==null?new Long(0):$V{vt_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-241"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_noturno_fem}==null?new Long(0):$V{vt_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="1"
+						width="23"
+						height="11"
+						key="textField-242"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{vt_total}==null?new Long(0):$V{vt_total}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="nomeDepartamento" >
+			<groupExpression><![CDATA[$F{id_unidade}]]></groupExpression>
+			<groupHeader>
+			<band height="13"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="159"
+						height="12"
+						key="textField-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{sigla}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="12"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="159"
+						y="1"
+						width="463"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="121"
+						y="1"
+						width="29"
+						height="11"
+						key="staticText-56"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-188"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_desligados_diurno_masc}==null?new Long(0):$V{v_desligados_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-189"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_desligados_diurno_fem}==null?new Long(0):$V{v_desligados_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-190"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_desligados_noturno_masc}==null?new Long(0):$V{v_desligados_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-191"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_desligados_noturno_fem}==null?new Long(0):$V{v_desligados_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-192"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_desligados_total}==null?new Long(0):$V{v_desligados_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-203"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_na_ies_total}==null?new Long(0):$V{v_mudanca_na_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-204"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_na_ies_noturno_fem}==null?new Long(0):$V{v_mudanca_na_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-205"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_na_ies_noturno_masc}==null?new Long(0):$V{v_mudanca_na_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-206"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_na_ies_diurno_fem}==null?new Long(0):$V{v_mudanca_na_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-207"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_na_ies_diurno_masc}==null?new Long(0):$V{v_mudanca_na_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="483"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-228"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_outra_ies_total}==null?new Long(0):$V{v_mudanca_outra_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="460"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-229"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_outra_ies_noturno_fem}==null?new Long(0):$V{v_mudanca_outra_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-230"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_outra_ies_noturno_masc}==null?new Long(0):$V{v_mudanca_outra_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-231"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_outra_ies_diurno_fem}==null?new Long(0):$V{v_mudanca_outra_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="391"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-232"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_mudanca_outra_ies_diurno_masc}==null?new Long(0):$V{v_mudanca_outra_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-243"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_total}==null?new Long(0):$V{v_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-244"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_noturno_fem}==null?new Long(0):$V{v_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-245"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_noturno_masc}==null?new Long(0):$V{v_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-246"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_diurno_fem}==null?new Long(0):$V{v_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="506"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-247"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_diurno_masc}==null?new Long(0):$V{v_diurno_masc}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[new Boolean(false)]]></printWhenExpression>
+			</band>
+		</background>
+		<title>
+			<band height="58"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						x="-1"
+						y="0"
+						width="781"
+						height="42"
+						key="rectangle-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="3"
+						y="1"
+						width="76"
+						height="39"
+						key="image-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/portal/cpdi/relatorios/ufrn.gif")]]></imageExpression>
+				</image>
+				<image  evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="715"
+						y="3"
+						width="62"
+						height="37"
+						key="image-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch"/>
+					<imageExpression class="java.io.InputStream"><![CDATA[getClass().getResourceAsStream("/br/ufrn/sigaa/portal/cpdi/relatorios/sinfo.gif")]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="1"
+						width="781"
+						height="13"
+						key="staticText-20"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="-1"
+						y="15"
+						width="780"
+						height="13"
+						key="staticText-21"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Sistema Integrado de Gestao de Atividades Acadêmicas]]></text>
+				</staticText>
+				<line direction="TopDown">
+					<reportElement
+						x="-1"
+						y="56"
+						width="780"
+						height="1"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="28"
+						width="780"
+						height="13"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="textField-39"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["EMITIDO EM "+new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="-1"
+						y="42"
+						width="780"
+						height="14"
+						key="textField-40"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["3.8.2-Alunos evadidos nos cursos de graduação, segundo a forma de saída, turno e gênero, no ano de "+$P{ano}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="37"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="162"
+						height="37"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[UNIDADE / CURSO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="162"
+						y="0"
+						width="115"
+						height="13"
+						key="staticText-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Desligados/Desistentes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="162"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-44"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Diurno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="162"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-57"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="185"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-58"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="208"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-61"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Noturno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="208"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-62"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="231"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-63"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="254"
+						y="13"
+						width="23"
+						height="24"
+						key="staticText-65"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="277"
+						y="0"
+						width="115"
+						height="13"
+						key="staticText-66"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Mudaram de curso na IES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="277"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-67"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Diurno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="277"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-68"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="300"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="323"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Noturno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="323"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-71"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="346"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-72"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="369"
+						y="13"
+						width="23"
+						height="24"
+						key="staticText-73"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="392"
+						y="0"
+						width="115"
+						height="13"
+						key="staticText-74"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Transferidos para outra IES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="392"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-75"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Diurno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="392"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-76"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="415"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-77"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="438"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-78"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Noturno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="438"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-79"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="461"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-80"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="484"
+						y="13"
+						width="23"
+						height="24"
+						key="staticText-81"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="507"
+						y="0"
+						width="115"
+						height="13"
+						key="staticText-82"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="507"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-83"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Diurno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="507"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-84"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="530"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-85"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="553"
+						y="13"
+						width="46"
+						height="12"
+						key="staticText-86"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Noturno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="553"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-87"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="576"
+						y="25"
+						width="23"
+						height="12"
+						key="staticText-88"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="599"
+						y="13"
+						width="23"
+						height="24"
+						key="staticText-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="11"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="782"
+						height="10"
+						forecolor="#F7F7F7"
+						backcolor="#F7F7F7"
+						key="rectangle-5">
+							<printWhenExpression><![CDATA[new java.lang.Boolean(($V{REPORT_COUNT}.intValue() % 2)==1)]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="159"
+						height="11"
+						key="textField-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="1" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nome}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="161"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-42"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{desligados_diurno_masc}==null?new Long(0):$F{desligados_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="184"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{desligados_diurno_fem}==null?new Long(0):$F{desligados_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-100"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{desligados_noturno_masc}==null?new Long(0):$F{desligados_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="230"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-101"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{desligados_noturno_fem}==null?new Long(0):$F{desligados_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="253"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-102"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{desligados_total}==null?new Long(0):$F{desligados_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="276"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-173"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_na_ies_diurno_masc}==null?new Long(0):$F{mudanca_na_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="299"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-174"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_na_ies_diurno_fem}==null?new Long(0):$F{mudanca_na_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="322"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-175"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_na_ies_noturno_masc}==null?new Long(0):$F{mudanca_na_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-176"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_na_ies_noturno_fem}==null?new Long(0):$F{mudanca_na_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="368"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-177"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_na_ies_total}==null?new Long(0):$F{mudanca_na_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="482"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-178"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_outra_ies_total}==null?new Long(0):$F{mudanca_outra_ies_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="459"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-179"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_outra_ies_noturno_fem}==null?new Long(0):$F{mudanca_outra_ies_noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="436"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-180"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_outra_ies_noturno_masc}==null?new Long(0):$F{mudanca_outra_ies_noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="413"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-181"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_outra_ies_diurno_fem}==null?new Long(0):$F{mudanca_outra_ies_diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="390"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-182"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{mudanca_outra_ies_diurno_masc}==null?new Long(0):$F{mudanca_outra_ies_diurno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-183"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{total}==null?new Long(0):$F{total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="575"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-184"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{noturno_fem}==null?new Long(0):$F{noturno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="552"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-185"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{noturno_masc}==null?new Long(0):$F{noturno_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="529"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-186"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{diurno_fem}==null?new Long(0):$F{diurno_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="506"
+						y="0"
+						width="23"
+						height="11"
+						key="textField-187"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{diurno_masc}==null?new Long(0):$F{diurno_masc}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="650"
+						y="0"
+						width="100"
+						height="16"
+						key="textField-37"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pág. " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="751"
+						y="0"
+						width="30"
+						height="16"
+						key="textField-38"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

@@ -1,0 +1,88 @@
+<ehcache>
+<!-- 
+entidades candidatas ->
+Tabelas normalizadas com MUITOS REGISTROS e pouco alteradas:
+MUNICIPIO, UNIDADE_FEDERATIVA, PAIS,AREA_CONHECIMENTO_CNPQ,
+AREA_CONCENTRACAO, AREA_CONHECIMENTO_UNESCO, VEICULACAO_EAD,
+TIPO_PUBLIC_ALVO
+ -->
+	<diskStore path="java.io.tmpdir"/>
+       
+	<cache name="net.sf.hibernate.cache.StandardQueryCache"
+	       maxElementsInMemory="500"
+	       eternal="false"
+	       timeToLiveSeconds="120"
+	       overflowToDisk="true"/>        
+
+	<cache name="br.ufrn.arq.dominio.SubSistema"
+	        maxElementsInMemory="50"
+	        eternal="true"
+	        overflowToDisk="false"/>
+	        
+	<cache name="br.ufrn.arq.dominio.Papel"
+	        maxElementsInMemory="200"
+	        eternal="true"
+	        overflowToDisk="false"/>
+
+
+	<cache name="br.ufrn.sigaa.dominio.Usuario"
+	        maxElementsInMemory="200"
+	        eternal="false"
+	        timeToIdleSeconds="600"
+	        timeToLiveSeconds="840"
+	        overflowToDisk="true"/>
+
+	<cache name="br.ufrn.sigaa.dominio.Unidade"
+	        maxElementsInMemory="300"
+	        eternal="false"
+	        timeToIdleSeconds="6000"
+	        timeToLiveSeconds="8400"
+	        overflowToDisk="true"/>
+
+	<cache name="br.ufrn.sigaa.dominio.Municipio"
+	        maxElementsInMemory="300"
+	        eternal="false"
+	        timeToIdleSeconds="6000"
+	        timeToLiveSeconds="8400"
+	        overflowToDisk="true"/>
+
+
+     <!-- Parametros ficam em cache 30 minutos 
+    <cache name="br.ufrn.sipac.parametro.dominio.Parametro"
+	        maxElementsInMemory="200"
+	        eternal="false"
+	        timeToIdleSeconds="900"
+	        timeToLiveSeconds="8400"
+	        overflowToDisk="true"/>
+     -->
+	        
+	<cache name="br.ufrn.sigaa.dominio.Servidor"
+	        maxElementsInMemory="2000"
+	        eternal="false"
+	        timeToIdleSeconds="7200"
+	        timeToLiveSeconds="14400"
+	        overflowToDisk="true"/>
+	        
+	<cache name="br.ufrn.rh.dominio.Categoria"
+	        maxElementsInMemory="2000"
+	        eternal="false"
+	        timeToIdleSeconds="7200"
+	        timeToLiveSeconds="14400"
+	        overflowToDisk="true"/>
+	        
+	<cache name="br.ufrn.rh.dominio.Formacao"
+	        maxElementsInMemory="2000"
+	        eternal="false"
+	        timeToIdleSeconds="7200"
+	        timeToLiveSeconds="14400"
+	        overflowToDisk="true"/>
+     
+	 <defaultCache
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+      />
+     
+</ehcache>

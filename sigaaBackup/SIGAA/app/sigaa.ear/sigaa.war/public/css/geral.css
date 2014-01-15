@@ -1,0 +1,271 @@
+/*
+ * Folha de Estilo geral da area publica do SIGAA (Sistema Integrado de Gestao de Atividades Academicas)
+ *
+ * Autor: Vinicius Brandao Mendes (vbmendes@info.ufrn.br)
+ * Data: 23/06/2007
+ *
+ * Diretoria de Sistemas - Superintendencia de Informatica - UFRN
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+body {
+	text-align: center;
+	/*background: white url('../images/body_bg.gif') repeat center center;*/
+	background: #F5F5F5;
+	font-family: verdana,arial,sans-serif;
+	font-size: 13px;
+}
+
+#container ul.hr_menu {
+	position: relative;
+	list-style: none;
+	height: inherit;
+}
+
+#container ul.hr_menu li {
+	float: left;
+	height: inherit;
+}
+
+#container ul.hr_menu:after{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: left;
+	visibility: hidden;
+}
+
+#container ul.big_link_list {
+	margin: 5px;
+}
+
+#container ul.big_link_list li {
+	width: 100px;
+	padding: 5px 10px;
+	height: 85px;
+
+}
+
+#container ul.big_link_list li a {
+	display: block;
+	padding-top: 50px;
+	text-align: center;
+	background-repeat: no-repeat;
+	background-position: center top;
+	font-weight: normal;
+}
+
+#container ul.link_list {
+	padding: 5px 10px 5px 28px;
+	list-style-image: url('../images/link_list_style.gif');
+}
+
+#container ul.link_list li {
+	border-bottom: 1px solid #c4d2eb;
+}
+
+#container ul.link_list li a,
+#container ul.link_list li a:link,
+#container ul.link_list li a:visited,
+#container ul.link_list li a:active,
+#container ul.link_list li a:hover {
+	font-weight: normal;
+}
+
+#container div.imgs {
+	margin: 10px;
+}
+
+#container div.box{
+	background: #c4d3eb;
+	background: #e2e9f5;
+	margin: 0;
+	font-size: 11px;
+	/*padding-bottom: 15px;*/
+}
+
+#container div.box h3{
+	background: #e2e9f5 url('../images/box_h3_bg.gif') no-repeat left top;
+	background-color: #c4d2eb;
+	height: 20px;
+	font-size: 13px;
+	height: 16px;
+	line-height: 16px;
+}
+
+#container div.box h3 span {
+	padding-left: 25px;
+	color: #404e82;
+	background-repeat: no-repeat;
+	background-position: 3px center;
+}
+
+#container div.box h4{
+	border-bottom: 2px solid #404e82;
+	font-size: 11px;
+	margin-top: 5px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	height: 11px;
+	line-height: 11px;
+	padding-left: 10px;
+}
+
+#container div.box p {
+	padding: 5px 10px;
+	text-align: justify;
+}
+
+#container div.box a {
+	color: #404e82;
+	text-decoration: none;
+}
+
+#container div.box a:hover {
+	color: #707ea2;
+	text-decoration: underline;
+}
+
+#container div.highlight {
+	background: #fffdc8;
+}
+
+div#container {
+	margin: 0 auto;
+	width: 950px;
+	text-align: left;
+
+	background: #fff url('../images/container_bg.gif') repeat-y center center;
+	position: relative;
+	padding: 0;
+	/*padding-top: 0;*/
+}
+
+/* ---- TOPO ---- */
+
+div#topo{
+	background: #404e82;
+	border-bottom: 3px solid #E1B26E;
+	color: white;
+	height: 22px;
+}
+
+div#topo p.data {
+	float: right;
+	padding: 3px;
+	padding-right: 110px;
+	font-size: 13px;
+}
+
+div#topo h2 {
+	font-size: 13px;
+	padding: 3px;
+	border-bottom: none;
+	padding: 0;
+	background: none;
+	color: white;
+	margin: 0;
+}
+
+/* ---- LOGO ---- */
+
+div#logo {
+	position: relative;
+	background: transparent url('../images/logo_bg.jpg') no-repeat center top;
+	height: 100px;
+	width: 770px;
+}
+
+div#logo h1 {
+	display: none;
+}
+
+div#logo a {
+	position: absolute;
+	height: 39px;
+	width: 152px;
+	top: 5px;
+	left: 199px;
+	background: transparent url('../images/entrar_bg.gif') no-repeat left top;
+}
+
+div#logo a:hover {
+	background-position: right top
+	/*background: transparent url('../images/entrar_hover_bg.gif') no-repeat center top;*/
+	/*background: transparent url(javascript:document.myimage.src='../images/entrar_hover_bg.gif') no-repeat center top;*/
+}
+
+div#logo a span {
+	display: none;
+}
+
+/* ---- MENU ---- */
+
+div#menu {
+	height: 22px;
+	position: absolute;
+	top: 0;
+	left: 660px;
+}
+
+div#menu li {
+	margin: 0 5px;
+	height: 22px;
+	width: 35px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+}
+
+div#menu li a
+{
+	display: block;
+	height: 22px;
+	width: 35px;
+	background-position: left center;
+}
+
+div#menu li.inicio a {background-image: url('../images/inicio_bg.gif');}
+div#menu li.contato a {background-image:url('../images/contato_bg.gif');}
+
+div#menu li.inicio a:hover,
+div#menu li.contato a:hover {
+	background-position: right center;
+}
+
+div#menu li a span {
+	display: none;
+}
+
+div#left {
+	float: left;
+	position: relative;
+	width: 210px;
+}
+
+div#center {
+	float: left;
+	position: relative;
+	width: 570px;
+	margin: 0 0 0 10px;
+}
+
+
+/* ---- RODAPE ---- */
+
+div#rodape{
+	background: #404e82;
+	border-top: 3px solid #E1B26E;
+	color: white;
+	margin-top:30px;
+	clear: both;
+}
+
+div#rodape p {
+	text-align: center;
+	padding: 3px;
+}

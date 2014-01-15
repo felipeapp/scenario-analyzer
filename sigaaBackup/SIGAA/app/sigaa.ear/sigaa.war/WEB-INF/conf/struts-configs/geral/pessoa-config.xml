@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!-- 
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de Atividades Academicas
+# Arquivo de configuracao do Struts - PESSOA
+ -->
+<struts-config>
+
+    <form-beans>
+		<form-bean name="pessoaForm" type="br.ufrn.sigaa.arq.struts.SigaaForm">
+			<form-property name="id" 						type="java.lang.Integer" />
+			<form-property name="nome"						type="java.lang.String" />
+			<form-property name="cpf" 						type="java.lang.Integer" />
+			<form-property name="sexo"				 		type="java.lang.Boolean" />
+			<form-property name="dataNascimento"			type="java.lang.String" />
+			<form-property name="nomeMae"					type="java.lang.String" />						
+			<form-property name="nomePai"					type="java.lang.String" />
+			<form-property name="email"						type="java.lang.String" />
+			<form-property name="passaporte" 				type="java.lang.String" />
+			<form-property name="tipoEstadoCivil" 			type="br.ufrn.sigaa.dominio.TipoEstadoCivil" />
+			<form-property name="paisNacionalidade" 		type="br.ufrn.sigaa.dominio.Pais" />
+			<form-property name="ufNaturalidade"		 	type="br.ufrn.sigaa.dominio.UnidadeFederativa" />
+			<form-property name="municipioNaturalidade" 	type="br.ufrn.sigaa.dominio.Municipio" />
+			<form-property name="municipioNaturalidadeOutro" type="java.lang.String" />
+			<form-property name="tipoGrauFormacao"		 	type="br.ufrn.sigaa.dominio.TipoGrauFormacao" />
+			<form-property name="tipoRedeEnsino" 			type="br.ufrn.sigaa.dominio.TipoRedeEnsino" />
+			<form-property name="tipoRaca"		 			type="br.ufrn.sigaa.dominio.TipoRaca" />			
+			<!-- endereco -->
+			<form-property name="tipoLogradouro"			type="br.ufrn.sigaa.dominio.TipoLogradouro" />
+			<form-property name="numero"					type="java.lang.Integer" />
+			<form-property name="bairro"					type="java.lang.String" />
+			<form-property name="cep"						type="java.lang.String" />
+			<form-property name="complemento"				type="java.lang.String" />
+			<form-property name="municipio"					type="java.lang.String" />
+			<form-property name="pais"						type="br.ufrn.sigaa.dominio.Pais" />
+			<form-property name="uf"						type="br.ufrn.sigaa.dominio.UnidadeFederativa" />
+			<!-- identidade -->
+			<form-property name="orgaoExpedicaoI" 			type="java.lang.String" />
+			<form-property name="dataExpedicaoI" 			type="java.lang.String" />
+			<form-property name="numI" 						type="java.lang.Integer" />
+			<!-- titulo eleitoral -->
+			<form-property name="numTE"						type="java.lang.Integer" />
+			<form-property name="dataExpedicaoTE"			type="java.lang.String" />
+			<form-property name="zona"						type="java.lang.Integer" />
+			<form-property name="secao"						type="java.lang.Integer" />
+			<!-- certificado militar -->
+			<form-property name="numCM"						type="java.lang.Integer" />
+			<form-property name="serie"						type="java.lang.String" />
+			<form-property name="categoria"					type="java.lang.String" />
+			<form-property name="dataExpedicaoCM"			type="java.lang.String" />
+			<form-property name="orgaoExpedicaoCM"			type="java.lang.String" />
+		</form-bean>
+    </form-beans>
+
+    <action-mappings>
+
+		<action path="/geral/criarPessoa" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm"
+					 input="/geral/recarregarPessoaForm.do" parameter="criar" validate="true">
+			<forward name="sucesso" 			path="/geral/verPessoaForm.do" />
+			<forward name="falha" 				path=".geral.pessoa/form.jsp" />
+		</action>
+		
+		<action path="/geral/alterarPessoa" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm"
+					 input="/geral/recarregarPessoaForm.do" parameter="alterar" validate="true">
+			<forward name="sucesso" 			path="/geral/listarPessoas.do" />
+			<forward name="falha" 				path=".geral.pessoa/form.jsp" />
+		</action>
+		
+		<action path="/geral/removerPessoa" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm" 
+				parameter="remover" validate="false">
+			<forward name="sucesso" 			path="/geral/listarPessoas.do" />
+			<forward name="falha" 				path=".geral.pessoa/form.jsp" />
+		</action>
+		
+		<action path="/geral/listarPessoas" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm" 
+				parameter="listar" validate="false">
+			<forward name="sucesso" 			path=".geral.pessoa/lista.jsp" />
+		</action>
+		
+		<action path="/geral/detalharPessoa" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm" 
+				parameter="detalhar" validate="false">
+			<forward name="sucesso" 			path=".geral.pessoa/form.jsp" />
+		</action>
+
+		<action path="/geral/verPessoaForm" forward="/geral/detalharPessoa.do?acao=criar" />
+		<action path="/geral/recarregarPessoaForm" forward="/geral/detalharPessoa.do?acao=recarregar" />
+		
+		<action path="/geral/buscarNomePessoa" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm"
+		 		parameter="listarPessoas" validate="false">
+		 	<forward name="sucesso" 				path=".geral.pessoa/busca.jsp"/>
+		</action>
+		
+		<action path="/geral/listarPessoas" type="br.ufrn.sigaa.struts.PessoaActions" name="pessoaForm"
+		 		parameter="listarPessoas" validate="false">
+		 	<forward name="buscaParaTecOrientacao" 				path="/WEB-INF/jsp/ensino/tecnico/tecorientacaodiscente.seleciona_orientador"/>
+		</action>
+		
+		<action path="/geral/verTelaBuscaPessoa" forward=".geral.pessoa/busca.jsp" />
+		
+    </action-mappings>
+
+</struts-config>

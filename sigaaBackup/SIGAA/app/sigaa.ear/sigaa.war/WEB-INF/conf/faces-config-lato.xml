@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>menuLato</from-outcome>
+			<to-view-id>/ensino/menus/menu_lato.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<managed-bean>
+		<managed-bean-name>lato</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.latosensu.jsf.LatoMBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>prematricula</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.latosensu.jsf.PreInscricaoMBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>relatorioFinalLato</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.latosensu.jsf.RelatorioFinalLatoMBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>relatoriosLato</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.latosensu.jsf.RelatoriosLatoMBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+		<managed-bean>
+		<managed-bean-name>tipoProcedenciaAluno</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.jsf.TipoProcedenciaAlunoMBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+</faces-config>

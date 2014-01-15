@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!--
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de Atividades Academicas
+# Arquivo de configuracao do Struts - SUBSISTEMA LATO SENSU
+ -->
+<struts-config>
+
+    <form-beans>
+		<form-bean name="cursoLatoForm" type="br.ufrn.sigaa.ensino.latosensu.form.CursoLatoForm"/>
+		<form-bean name="matriculaPreInscritoForm" type="br.ufrn.sigaa.ensino.latosensu.form.MatriculaPreInscritoForm"/>
+		<form-bean name="parceriaLatoForm" type="br.ufrn.sigaa.ensino.latosensu.form.ParceriaLatoForm"/>
+		<form-bean name="noticiaLatoForm" type="br.ufrn.sigaa.ensino.latosensu.form.NoticiaLatoForm"/>
+		<form-bean name="solicitacaoProrrogacaoPrazoForm" type="br.ufrn.sigaa.ensino.latosensu.form.SolicitacaoProrrogacaoPrazoForm"/>
+		<form-bean name="historicoSituacaoForm" type="br.ufrn.sigaa.ensino.latosensu.form.HistoricoSituacaoForm"/>
+		<form-bean name="formDocumentoLegal"				type="br.ufrn.sigaa.ensino.form.DocumentoLegalForm"/>
+		<form-bean name="formBolsistaLato"		 		type="br.ufrn.sigaa.ensino.latosensu.form.BolsistaLatoForm"/>
+		<form-bean name="formTrabalhoFinalLato"		 		type="br.ufrn.sigaa.ensino.latosensu.form.TrabalhoFinalLatoForm"/>
+		<form-bean name="formRelatoriosLato"		 		type="br.ufrn.sigaa.ensino.latosensu.form.RelatoriosLatoForm"/>
+    </form-beans>
+
+    <action-mappings>
+
+		<action path="/ensino/latosensu/criarCurso"
+				type="br.ufrn.sigaa.ensino.latosensu.struts.CursoLatoAction"
+				name="cursoLatoForm"
+				parameter="dispatch" >
+			<forward name="dadosGerais"	 		path="/WEB-INF/jsp/ensino/latosensu/CursoLato/dados_gerais.jsp" />
+			<forward name="proposta"	 		path="/WEB-INF/jsp/ensino/latosensu/CursoLato/proposta.jsp" />
+			<forward name="selecao"		 		path="/WEB-INF/jsp/ensino/latosensu/CursoLato/selecao.jsp" />
+			<forward name="recursos"	    	path="/WEB-INF/jsp/ensino/latosensu/CursoLato/recursos.jsp"  />
+			<forward name="docentes"	 		path="/WEB-INF/jsp/ensino/latosensu/CursoLato/docentes.jsp" />
+			<forward name="turmasEntrada" 		path="/WEB-INF/jsp/ensino/latosensu/CursoLato/turmas_entrada.jsp"  />
+			<forward name="disciplinas" 		path="/WEB-INF/jsp/ensino/latosensu/CursoLato/disciplinas.jsp"  />
+			<forward name="coordenacaoCurso"	path="/WEB-INF/jsp/ensino/latosensu/CursoLato/coordenacao_curso.jsp"   />
+			<forward name="resumo_impressao"	path="/WEB-INF/jsp/ensino/latosensu/CursoLato/resumo_impressao.jsp" />
+			<forward name="resumo"	 			path="/WEB-INF/jsp/ensino/latosensu/CursoLato/resumo.jsp" />
+			<forward name="listar"	 			path="/WEB-INF/jsp/ensino/latosensu/CursoLato/lista.jsp" />
+			<forward name="continuar" 			path="/WEB-INF/jsp/ensino/latosensu/CursoLato/continuar.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/criarParceria"
+				type="br.ufrn.sigaa.ensino.latosensu.struts.ParceriaLatoAction"
+				name="parceriaLatoForm"
+				parameter="dispatch" >
+			<forward name="form"	 		path="/WEB-INF/jsp/ensino/latosensu/ParceriaLato/form.jsp" />
+			<forward name="listar"	 			path="/WEB-INF/jsp/ensino/latosensu/ParceriaLato/lista.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/matriculaPreInscrito"
+				type="br.ufrn.sigaa.ensino.latosensu.struts.MatriculaPreInscritoAction"
+				name="matriculaPreInscritoForm"
+				parameter="dispatch" >
+			<forward name="dadosPessoais" 	path="/pessoa/wizard.do?dispatch=popular" />
+			<forward name="listar"	 			path="/WEB-INF/jsp/ensino/latosensu/MatriculaPreInscrito/lista.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/cadastroHistoricoSituacao"
+				type="br.ufrn.sigaa.ensino.latosensu.struts.HistoricoSituacaoAction"
+				name="historicoSituacaoForm"
+				parameter="dispatch" >
+			<forward name="form"	 			path="/WEB-INF/jsp/ensino/latosensu/HistoricoSituacao/form.jsp" />
+			<forward name="listar"	 			path="/WEB-INF/jsp/ensino/latosensu/HistoricoSituacao/lista.jsp" />
+			<forward name="historico" 			path="/WEB-INF/jsp/ensino/latosensu/HistoricoSituacao/historico.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/cadastroDocumentoLegal" type="br.ufrn.sigaa.ensino.struts.DocumentoLegalAction"
+				name="formDocumentoLegal" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/latosensu/DocumentoLegal/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/latosensu/DocumentoLegal/lista.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/cadastroBolsistaLato" type="br.ufrn.sigaa.ensino.latosensu.struts.BolsistaLatoAction"
+				name="formBolsistaLato" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/latosensu/BolsistaLato/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/latosensu/BolsistaLato/lista.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/cadastroTrabalhoFinalLato" type="br.ufrn.sigaa.ensino.latosensu.struts.TrabalhoFinalLatoAction"
+				name="formTrabalhoFinalLato" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/latosensu/TrabalhoFinalLato/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/latosensu/TrabalhoFinalLato/lista.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/cadastroNoticiaLato" type="br.ufrn.sigaa.ensino.latosensu.struts.NoticiaLatoAction"
+				name="noticiaLatoForm" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/latosensu/NoticiaLato/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/latosensu/NoticiaLato/lista.jsp" />
+			<forward name="noticia"			path="/WEB-INF/jsp/ensino/latosensu/NoticiaLato/noticia.jsp" />
+		</action>
+		
+		<action path="/ensino/latosensu/cadastroSolicitacaoProrrogacaoPrazo" type="br.ufrn.sigaa.ensino.latosensu.struts.SolicitacaoProrrogacaoPrazoAction"
+				name="solicitacaoProrrogacaoPrazoForm" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/latosensu/SolicitacaoProrrogacaoPrazo/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/latosensu/SolicitacaoProrrogacaoPrazo/lista.jsp" />
+		</action>
+
+		<action path="/ensino/latosensu/relatoriosLato" type="br.ufrn.sigaa.ensino.latosensu.struts.RelatoriosLatoAction"
+				name="formRelatoriosLato" parameter="dispatch" >
+			<forward name="formEntradasAno"			path="/WEB-INF/jsp/ensino/latosensu/relatorios/form_entradas_ano.jsp" />
+			<forward name="entradasAnoSintetico"			path="/WEB-INF/jsp/ensino/latosensu/relatorios/entradas_ano_sintetico.jsp" />
+			<forward name="alunosCursoSintetico"			path="/WEB-INF/jsp/ensino/latosensu/relatorios/alunos_curso_sintetico.jsp" />
+			<forward name="cursosCentroSintetico"			path="/WEB-INF/jsp/ensino/latosensu/relatorios/cursos_centro_sintetico.jsp" />
+		</action>
+
+    </action-mappings>
+
+</struts-config>

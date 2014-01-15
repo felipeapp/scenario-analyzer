@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="Diploma_Graduacao_Modelo1"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="792"
+		 pageHeight="612"
+		 columnWidth="792"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="0"
+		 bottomMargin="0"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false"
+		 whenResourceMissingType="Empty">
+	<property name="net.sf.jasperreports.export.pdf.force.linebreak.policy" value="true" />
+	<property name="net.sf.jasperreports.export.pdf.fontdir.jasper" value="./" />
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="segunda_via" isForPrompting="false" class="java.lang.Boolean">
+		<defaultValueExpression ><![CDATA[new Boolean(true)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="processo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeReitor" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="descricaoFuncaoReitor" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeDiretorGraduacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="descricaoFuncaoDiretorGraduacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeDiretorUnidadeDiplomas" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="descricaoFuncaoDiretorUnidadeDiplomas" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="generoReitor" isForPrompting="false" class="java.lang.Character"/>
+	<parameter name="nomeInstituicao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="cidadeInstituicao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="estadoInstituicao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeUnidadeGestoraGraduacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="siglaInstituicao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeUnidadeRegistroDiploma" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="idUfDF" isForPrompting="false" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[53]]></defaultValueExpression>
+	</parameter>
+
+	<field name="titulo_formacao_especifica_masculino" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.curso.titulacaoMasculino]]></fieldDescription>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.nomeOficial]]></fieldDescription>
+	</field>
+	<field name="data_nascimento" class="java.util.Date">
+		<fieldDescription><![CDATA[registro.discente.pessoa.dataNascimento]]></fieldDescription>
+	</field>
+	<field name="sexo" class="java.lang.Character">
+		<fieldDescription><![CDATA[registro.discente.pessoa.sexo]]></fieldDescription>
+	</field>
+	<field name="nome_pai" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.nomePai]]></fieldDescription>
+	</field>
+	<field name="nome_mae" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.nomeMae]]></fieldDescription>
+	</field>
+	<field name="identidade" class="br.ufrn.sigaa.pessoa.dominio.Identidade">
+		<fieldDescription><![CDATA[registro.discente.pessoa.identidade]]></fieldDescription>
+	</field>
+	<field name="curso" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.curso.nome]]></fieldDescription>
+	</field>
+	<field name="portaria_decreto" class="java.lang.String">
+		<fieldDescription><![CDATA[reconhecimento.portariaDecreto]]></fieldDescription>
+	</field>
+	<field name="data_publicacao_decreto" class="java.util.Date">
+		<fieldDescription><![CDATA[reconhecimento.dataPublicacao]]></fieldDescription>
+	</field>
+	<field name="data_decreto" class="java.util.Date">
+		<fieldDescription><![CDATA[reconhecimento.dataDecreto]]></fieldDescription>
+	</field>
+	<field name="data_colacao" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[registro.dataColacao]]></fieldDescription>
+	</field>
+	<field name="data_expedicao" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[registro.dataExpedicao]]></fieldDescription>
+	</field>
+	<field name="data_registro" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[registro.dataRegistro]]></fieldDescription>
+	</field>
+	<field name="habilitacao" class="java.lang.String">
+		<fieldDescription><![CDATA[matrizCurricular.habilitacao.nome]]></fieldDescription>
+	</field>
+	<field name="processo" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.processo]]></fieldDescription>
+	</field>
+	<field name="titulo_livro" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.livroRegistroDiploma.titulo]]></fieldDescription>
+	</field>
+	<field name="numero_folha" class="java.lang.Integer">
+		<fieldDescription><![CDATA[registro.folha.numeroFolha]]></fieldDescription>
+	</field>
+	<field name="numero_registro" class="java.lang.Integer">
+		<fieldDescription><![CDATA[registro.numeroRegistro]]></fieldDescription>
+	</field>
+	<field name="pais" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.pais.nome]]></fieldDescription>
+	</field>
+	<field name="nacionalidade" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.pais.nacionalidade]]></fieldDescription>
+	</field>
+	<field name="municipio_nascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.municipio.nome]]></fieldDescription>
+	</field>
+	<field name="uf_nascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.unidadeFederativa.descricao]]></fieldDescription>
+	</field>
+	<field name="sigla_uf_nascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.unidadeFederativa.sigla]]></fieldDescription>
+	</field>
+	<field name="artigo_uf_nascimento" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.pessoa.unidadeFederativa.artigoGenitivo]]></fieldDescription>
+	</field>
+	<field name="instituicao" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.livroRegistroDiploma.instituicao]]></fieldDescription>
+	</field>
+	<field name="externo" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[registro.livroRegistroDiploma.registroExterno]]></fieldDescription>
+	</field>
+	<field name="responsavel" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.registroEntrada.usuario.pessoa.nome]]></fieldDescription>
+	</field>
+	<field name="convenio" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.formaIngresso.descricao]]></fieldDescription>
+	</field>
+	<field name="diploma_convenio" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[registro.discente.formaIngresso.diplomaConvenio]]></fieldDescription>
+	</field>
+	<field name="registro" class="br.ufrn.sigaa.diploma.dominio.RegistroDiploma">
+		<fieldDescription><![CDATA[registro]]></fieldDescription>
+	</field>
+	<field name="grauAcademico" class="java.lang.String">
+		<fieldDescription><![CDATA[matrizCurricular.grauAcademico.descricao]]></fieldDescription>
+	</field>
+	<field name="modalidadeEducacao" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.curso.modalidadeEducacao.descricao]]></fieldDescription>
+	</field>
+	<field name="idModalidadeEducacao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[registro.discente.curso.modalidadeEducacao.id]]></fieldDescription>
+	</field>
+	<field name="id_uf_nascimento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[registro.discente.pessoa.unidadeFederativa.id]]></fieldDescription>
+	</field>
+	<field name="tituloFeminino" class="java.lang.String">
+		<fieldDescription><![CDATA[matrizCurricular.grauAcademico.tituloFeminino]]></fieldDescription>
+	</field>
+	<field name="tituloMasculino" class="java.lang.String">
+		<fieldDescription><![CDATA[matrizCurricular.grauAcademico.tituloMasculino]]></fieldDescription>
+	</field>
+	<field name="titulo_formacao_especifica_feminino" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.curso.titulacaoFeminino]]></fieldDescription>
+	</field>
+	<field name="cursoSimples" class="java.lang.String">
+		<fieldDescription><![CDATA[registro.discente.curso.nomeSimples]]></fieldDescription>
+	</field>
+
+
+		<group  name="nova_pagina" >
+			<groupExpression><![CDATA[$F{nome}]]></groupExpression>
+			<groupHeader>
+			<band height="568"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="137"
+						width="792"
+						height="28"
+						key="staticText-1"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[REPÚBLICA FEDERATIVA DO BRASIL
+MINISTÉRIO DA EDUCAÇÃO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="165"
+						width="792"
+						height="23"
+						key="textField-20"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" pdfFontName="Times-Bold" size="16" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{nomeInstituicao}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="246"
+						width="792"
+						height="62"
+						key="textField-2"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Brush Script MT" pdfFontName="brushsci.ttf" size="32" isPdfEmbedded ="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[br.ufrn.arq.util.Formatador.getInstance().formataNomePessoa($F{nome})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="309"
+						width="792"
+						height="45"
+						key="textField-3"
+						positionType="Float">
+							<printWhenExpression><![CDATA[$F{diploma_convenio} == null || !$F{diploma_convenio}.booleanValue()]]></printWhenExpression>
+						</reportElement>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["brasileir"+($F{sexo}.equals('F')?"a":"o")+
+", natural"+ ($F{id_uf_nascimento}.equals($P{idUfDF}) ? "": " do Estado") +" d"+
+$F{artigo_uf_nascimento}+
+" "+
+$F{uf_nascimento}+
+", nascid"+
+($F{sexo}.equals('F')?"a":"o")+" em "+
+(new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy", new Locale("pt","BR"))).format($F{data_nascimento}).toLowerCase()+
+", \n"+
+"e outorga-lhe o presente diploma, para que possa gozar de todos os direitos e prerrogativas legais."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="234"
+						y="461"
+						width="347"
+						height="65"
+						key="textField-9"
+						positionType="Float">
+							<printWhenExpression><![CDATA[$F{diploma_convenio} == null || !$F{diploma_convenio}.booleanValue()]]></printWhenExpression>
+						</reportElement>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["___________________________________________________\n"+
+"<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\" size=\"9\">DIPLOMAD"+($F{sexo}.equals('M')?"O":"A")+"</style>\n"+
+"<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">RG:</style> "+$F{identidade}.toString()+""]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="367"
+						width="792"
+						height="24"
+						key="textField-12"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{cidadeInstituicao}
++"/"
++$P{estadoInstituicao}
++", "+
+(new SimpleDateFormat("dd 'de' MMMMMMM 'de' yyyy", new Locale("pt","BR"))).format(
+($P{segunda_via} ? new Date() : $F{data_expedicao})).toLowerCase()+
+"."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="34"
+						y="411"
+						width="347"
+						height="68"
+						key="textField-13"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["_________________________________________\n"+
+"<style isBold=\"true\" pdfFontName=\"Times-Bold\">"+$P{nomeDiretorGraduacao}+"</style>\n"+
+$P{descricaoFuncaoDiretorGraduacao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="414"
+						y="411"
+						width="347"
+						height="68"
+						key="textField-14"
+						positionType="Float"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["_________________________________________\n"+
+"<style isBold=\"true\" pdfFontName=\"Times-Bold\">"+$P{nomeReitor}+"</style>\n"+
+$P{descricaoFuncaoReitor}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="196"
+						width="792"
+						height="50"
+						key="textField-15"/>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[($P{generoReitor}.equals('M') ? "O" : "A")+
+" "+
+$P{descricaoFuncaoReitor}+" da "
++$P{nomeInstituicao}
++", no uso de suas atribuições\n" + 
+"e tendo em vista a conclusão do Curso de <style isBold=\"true\" pdfFontName=\"Times-Bold\">"+br.ufrn.arq.util.Formatador.getInstance().formataNomePessoa($F{curso})+ "</style>, em "+
+(new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy", new Locale("pt","BR"))).format($F{data_colacao}).toLowerCase()+",\n" +
+"confere o título de <style isBold=\"true\" pdfFontName=\"Times-Bold\">"+ 
+($F{tituloMasculino} == null ? 
+ ($F{sexo}.equals('M') ? $F{titulo_formacao_especifica_masculino} : $F{titulo_formacao_especifica_feminino}) +"</style> a" : 
+ ($F{sexo}.equals('M') ? $F{tituloMasculino} : $F{tituloFeminino}) +" em "+br.ufrn.arq.util.Formatador.getInstance().formataNomePessoa($F{cursoSimples}) +"</style> a"
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="309"
+						width="792"
+						height="45"
+						key="textField-16"
+						positionType="Float">
+							<printWhenExpression><![CDATA[$F{diploma_convenio} != null && $F{diploma_convenio}.booleanValue()]]></printWhenExpression>
+						</reportElement>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="14"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Filho de "+$F{nome_pai}+" e de "+$F{nome_mae}+
+", natural de "+$F{municipio_nascimento}+" - "+$F{pais}+",  nascido em "+
+(new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy", new Locale("pt","BR"))).format($F{data_nascimento}).toLowerCase()+
+", e outorga-lhe o presente diploma, para que possa gozar de todos os direitos e prerrogativas legais."]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="234"
+						y="461"
+						width="347"
+						height="65"
+						key="textField-19"
+						positionType="Float">
+							<printWhenExpression><![CDATA[$F{diploma_convenio} != null && $F{diploma_convenio}.booleanValue()]]></printWhenExpression>
+						</reportElement>
+					<box>					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman" pdfFontName="Times-Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["___________________________________________________\n"+
+"<style isBold=\"true\" pdfFontName=\"Times-Bold\" size=\"9\">DIPLOMAD"+($F{sexo}.equals('M')?"O":"A")+"</style>"]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="243"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="512"
+						y="63"
+						width="255"
+						height="105"
+						key="textField-10">
+							<printWhenExpression><![CDATA[$P{segunda_via}]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="20" rightPadding="20" topPadding="5" bottomPadding="5">					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+</box>
+					<textElement textAlignment="Justified" isStyledText="true">
+						<font fontName="Times New Roman" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["\t\tExpedido" +
+($P{processo} != null && $P{processo}.trim().length() > 0 ? " de acordo com o Processo n.º <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$P{processo}+"</style>" : " em " + (new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"))).format(new Date()))+
+", tendo em vista o extravio da 1ª via registrada nesta sob n.º <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$F{numero_registro}+
+"</style> do livro <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">" + $F{titulo_livro} + 
+"</style> folha <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">" + $F{numero_folha} +
+ "</style> em <style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+
+(new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"))).format($F{data_registro})+
+"</style>.\n"+
+"\n"+
+"\t\t"
++$P{nomeUnidadeGestoraGraduacao}
++", em "
++$P{cidadeInstituicao}
++"/"
++$P{estadoInstituicao}
++", "+
+(new SimpleDateFormat("dd/MM/yyyy", new Locale("pt","BR"))).format(new Date())+".\n"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="512"
+						y="25"
+						width="255"
+						height="38"
+						key="textField-21">
+							<printWhenExpression><![CDATA[$P{segunda_via}]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="10" rightPadding="10" topPadding="5" bottomPadding="5">					<topPen lineWidth="0.75" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" pdfFontName="Helvetica-BoldOblique" size="18" isBold="true" isItalic="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{siglaInstituicao}
++" – 2ª VIA"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="512"
+						y="167"
+						width="255"
+						height="49"
+						key="textField-11">
+							<printWhenExpression><![CDATA[$P{segunda_via}]]></printWhenExpression>
+						</reportElement>
+					<box leftPadding="10" rightPadding="10" topPadding="5" bottomPadding="5">					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.75" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.75" lineColor="#000000"/>
+					<rightPen lineWidth="0.75" lineStyle="Solid" lineColor="#000000"/>
+</box>
+					<textElement textAlignment="Center" isStyledText="true">
+						<font fontName="Times New Roman"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["____________________________________\n"+
+"<style isBold=\"true\" pdfFontName=\"Helvetica-Bold\">"+$P{nomeDiretorUnidadeDiplomas}+"</style>\n" + 
+$P{descricaoFuncaoDiretorUnidadeDiplomas}]]></textFieldExpression>
+				</textField>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="98"
+						y="49"
+						width="264"
+						height="20"
+						key="subreport-2"
+						positionType="Float"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[new Boolean($F{habilitacao} != null)]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="habilitacao">
+						<subreportParameterExpression><![CDATA[$F{habilitacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="data_registro">
+						<subreportParameterExpression><![CDATA[$F{data_registro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="segunda_via">
+						<subreportParameterExpression><![CDATA[$P{segunda_via}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="processo">
+						<subreportParameterExpression><![CDATA[$P{processo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeReitor">
+						<subreportParameterExpression><![CDATA[$P{nomeReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoReitor">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeDiretorGraduacao">
+						<subreportParameterExpression><![CDATA[$P{nomeDiretorGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoDiretorGraduacao">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoDiretorGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeDiretorUnidadeDiplomas">
+						<subreportParameterExpression><![CDATA[$P{nomeDiretorUnidadeDiplomas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoDiretorUnidadeDiplomas">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoDiretorUnidadeDiplomas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="generoReitor">
+						<subreportParameterExpression><![CDATA[$P{generoReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeInstituicao">
+						<subreportParameterExpression><![CDATA[$P{nomeInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="cidadeInstituicao">
+						<subreportParameterExpression><![CDATA[$P{cidadeInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="estadoInstituicao">
+						<subreportParameterExpression><![CDATA[$P{estadoInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeUnidadeGestoraGraduacao">
+						<subreportParameterExpression><![CDATA[$P{nomeUnidadeGestoraGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="siglaInstituicao">
+						<subreportParameterExpression><![CDATA[$P{siglaInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeUnidadeRegistroDiploma">
+						<subreportParameterExpression><![CDATA[$P{nomeUnidadeRegistroDiploma}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource(new Object[] { $F{registro} })]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/CarimboHabilitacao.jasper")
+/*"/home/edipo/workspaces/sinfo-ws/SIGAA/geral/br/ufrn/sigaa/relatorios/fontes/CarimboHabilitacao.jasper"*/]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="98"
+						y="74"
+						width="264"
+						height="20"
+						key="subreport-3"
+						positionType="Float"
+						isRemoveLineWhenBlank="true"/>
+					<subreportParameter  name="habilitacao">
+						<subreportParameterExpression><![CDATA[$F{habilitacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="data_registro">
+						<subreportParameterExpression><![CDATA[$F{data_registro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="numero_registro">
+						<subreportParameterExpression><![CDATA[$F{numero_registro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="titulo_livro">
+						<subreportParameterExpression><![CDATA[$F{titulo_livro}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="numero_folha">
+						<subreportParameterExpression><![CDATA[$F{numero_folha}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="processo">
+						<subreportParameterExpression><![CDATA[($P{segunda_via} ? $P{processo} : $F{processo})]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="data_expedicao">
+						<subreportParameterExpression><![CDATA[$F{data_expedicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="segunda_via">
+						<subreportParameterExpression><![CDATA[$P{segunda_via}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeReitor">
+						<subreportParameterExpression><![CDATA[$P{nomeReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoReitor">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeDiretorGraduacao">
+						<subreportParameterExpression><![CDATA[$P{nomeDiretorGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoDiretorGraduacao">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoDiretorGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeDiretorUnidadeDiplomas">
+						<subreportParameterExpression><![CDATA[$P{nomeDiretorUnidadeDiplomas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoDiretorUnidadeDiplomas">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoDiretorUnidadeDiplomas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="generoReitor">
+						<subreportParameterExpression><![CDATA[$P{generoReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeInstituicao">
+						<subreportParameterExpression><![CDATA[$P{nomeInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="cidadeInstituicao">
+						<subreportParameterExpression><![CDATA[$P{cidadeInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="estadoInstituicao">
+						<subreportParameterExpression><![CDATA[$P{estadoInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeUnidadeGestoraGraduacao">
+						<subreportParameterExpression><![CDATA[$P{nomeUnidadeGestoraGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="siglaInstituicao">
+						<subreportParameterExpression><![CDATA[$P{siglaInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeUnidadeRegistroDiploma">
+						<subreportParameterExpression><![CDATA[$P{nomeUnidadeRegistroDiploma}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource(new Object[] { $F{registro} })]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/CarimboRegistro.jasper")
+/*"/home/edipo/workspaces/sinfo-ws/SIGAA/geral/br/ufrn/sigaa/relatorios/fontes/CarimboRegistro.jasper"*/]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="98"
+						y="25"
+						width="264"
+						height="20"
+						key="subreport-4">
+							<printWhenExpression><![CDATA[$F{portaria_decreto} != null]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="curso">
+						<subreportParameterExpression><![CDATA[$F{curso} + ($F{idModalidadeEducacao} == 2 ? " - " + $F{modalidadeEducacao}.toUpperCase() : "") + ($F{grauAcademico} != null ? " - " + $F{grauAcademico} : "")]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="portaria_decreto">
+						<subreportParameterExpression><![CDATA[$F{portaria_decreto}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="data_decreto">
+						<subreportParameterExpression><![CDATA[$F{data_decreto}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="data_publicacao_decreto">
+						<subreportParameterExpression><![CDATA[$F{data_publicacao_decreto}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="segunda_via">
+						<subreportParameterExpression><![CDATA[$P{segunda_via}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="processo">
+						<subreportParameterExpression><![CDATA[$P{processo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeReitor">
+						<subreportParameterExpression><![CDATA[$P{nomeReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoReitor">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeDiretorGraduacao">
+						<subreportParameterExpression><![CDATA[$P{nomeDiretorGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoDiretorGraduacao">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoDiretorGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeDiretorUnidadeDiplomas">
+						<subreportParameterExpression><![CDATA[$P{nomeDiretorUnidadeDiplomas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="descricaoFuncaoDiretorUnidadeDiplomas">
+						<subreportParameterExpression><![CDATA[$P{descricaoFuncaoDiretorUnidadeDiplomas}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="generoReitor">
+						<subreportParameterExpression><![CDATA[$P{generoReitor}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeInstituicao">
+						<subreportParameterExpression><![CDATA[$P{nomeInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="cidadeInstituicao">
+						<subreportParameterExpression><![CDATA[$P{cidadeInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="estadoInstituicao">
+						<subreportParameterExpression><![CDATA[$P{estadoInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeUnidadeGestoraGraduacao">
+						<subreportParameterExpression><![CDATA[$P{nomeUnidadeGestoraGraduacao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="siglaInstituicao">
+						<subreportParameterExpression><![CDATA[$P{siglaInstituicao}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="nomeUnidadeRegistroDiploma">
+						<subreportParameterExpression><![CDATA[$P{nomeUnidadeRegistroDiploma}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanArrayDataSource(new Object[] { $F{registro} })]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/CarimboPortaria.jasper")]]></subreportExpression>
+				</subreport>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

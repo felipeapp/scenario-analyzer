@@ -1,0 +1,83 @@
+
+
+/****************************************************
+*    Estito para os botoes grandes                  *
+*****************************************************/
+
+
+
+/* a lista onde ficam os botoes */
+ul.menu-botoes {
+	float: left;
+	width: 750px;
+	list-style: none;
+}
+
+/*  estilo geral dos botoes . formato o posicionamento na pagina*/
+ul.menu-botoes li {
+	float:left;
+	width: 342px;
+	height: 55px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+
+/* estilo dos botoes. A imagem de fundo e estilo das letras */
+ul.menu-botoes li a {
+	display: block;
+	height: 57px;
+	background: transparent url('/sigaa/img/biblioteca/botao-bank-menu.png') no-repeat top left;
+	position: relative;
+	font-family: arial;
+	text-decoration: none;
+}
+
+/* estilo dos botoes quando tiver selecionado  */
+ul.menu-botoes li a:hover {
+	background: transparent url('/sigaa/img/biblioteca/botao-bank-menu.png') no-repeat bottom left;
+	text-decoration: none;
+	cursor: hand;
+}
+
+/* Texto principal dentro dos botoes */
+ul.menu-botoes li a h5 {
+	color: #404e82;
+	font-size: 14px;
+	font-weight: bold;
+	position: absolute;
+	left: 50px;
+	top: 5px;
+	width: 290px;
+}
+
+/* Texto secundario dentro dos botoes  */
+ul.menu-botoes li a p {
+	color: #014fb5;
+	font-size: 12px;
+	font-weight: normal;
+	position: absolute;
+	left: 10px;
+	top: 0px;
+	height: 34px;
+	background-position: center left;
+	padding-left: 40px;
+	padding-right: 25px;
+	padding-top: 21px;
+	width: 290px;
+}
+
+/* imagens dentro de cada botao  */ 
+
+div.menu-bib li.cadastro-livros a p {
+	background-image: url('../Livro.gif');
+}
+
+div.menu-bib li.cadastro-periodicos a p {
+	background-image: url('../document.png');
+}
+
+div.menu-bib li.materiais-especiais a p {
+	background-image: url('../livros_especiais.png');
+
+

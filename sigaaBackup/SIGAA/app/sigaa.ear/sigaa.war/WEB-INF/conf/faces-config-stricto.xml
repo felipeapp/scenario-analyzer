@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>menuPPG</from-outcome>
+			<to-view-id>/stricto/ppg.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!--
+	Trecho comentado, pois foi adicionada as anotações no próprio MBean
+	<managed-bean>
+		<managed-bean-name>recomendacao</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.stricto.jsf.RecomendacaoMBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>conceitoNota</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.stricto.jsf.ConceitoNotaMBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>trabalhoFinalStricto</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.stricto.jsf.TrabalhoFinalStrictoMBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>aproveitamentoCredito</managed-bean-name>
+		<managed-bean-class>br.ufrn.sigaa.ensino.stricto.jsf.AproveitamentoCreditoMBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	 -->
+</faces-config>
+

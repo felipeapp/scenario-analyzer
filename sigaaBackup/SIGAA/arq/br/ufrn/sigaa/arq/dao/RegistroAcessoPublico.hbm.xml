@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.arq.dominio.RegistroAcessoPublico"
+        table="REGISTRO_ACESSO_PUBLICO" dynamic-update="false" dynamic-insert="false">
+
+        <id name="id" column="ID" type="int">
+			<generator class="br.ufrn.arq.dao.SequenceStyleGenerator">
+     			<param name="sequence_name">acesso_publico_seq</param>
+  			</generator>
+        </id>
+
+        <property name="IP" type="java.lang.String" update="true"
+            insert="true" access="property" column="IP" not-null="false"/>
+
+        <property name="data" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA" not-null="false"/>
+
+		<property name="sistema" type="int" update="true"
+            insert="true" access="property" column="SISTEMA"/>
+
+        <property name="server" type="java.lang.String" update="true"
+            insert="true" access="property" column="host"/>
+
+		<property name="userAgent" type="java.lang.String" update="true"
+            insert="true" access="property" column="user_agent"/>
+
+        <property name="resolucao" type="java.lang.String" update="true"
+            insert="true" access="property" column="resolucao"/>
+
+    </class>
+
+</hibernate-mapping>

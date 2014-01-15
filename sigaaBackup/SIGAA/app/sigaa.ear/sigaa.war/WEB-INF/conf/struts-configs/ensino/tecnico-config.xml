@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!--
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de Atividades Academicas
+# Arquivo de configuracao do Struts - SUBSISTEMA DE ENSINO TECNICO
+ -->
+<struts-config>
+
+    <form-beans>
+		<form-bean name="formTurmaEntradaTecnico" 		type="br.ufrn.sigaa.ensino.tecnico.form.TurmaEntradaTecnicoForm"/>
+		<form-bean name="formCursoTecnico" 				type="br.ufrn.sigaa.ensino.tecnico.form.CursoTecnicoForm"/>
+		<form-bean name="qualificacaoForm" 				type="br.ufrn.sigaa.ensino.tecnico.form.QualificacaoForm"/>
+		<form-bean name="estruturaCurTecnicoForm" 		type="br.ufrn.sigaa.ensino.tecnico.form.EstruturaCurricularTecnicoForm" />
+		<form-bean name="moduloTecnicoForm" 			type="br.ufrn.sigaa.ensino.tecnico.form.ModuloTecnicoForm" />
+    </form-beans>
+
+	<global-forwards>
+		<forward name="menuTecnico" path="/verMenuEnsinoTecnico.do"/>
+	</global-forwards>
+
+    <action-mappings>
+
+		<action path="/ensino/tecnico/cadastroTurmaEntradaTecnico" type="br.ufrn.sigaa.ensino.tecnico.struts.TurmaEntradaTecnicoAction"
+				name="formTurmaEntradaTecnico" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/tecnico/TurmaEntradaTecnico/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/tecnico/TurmaEntradaTecnico/lista.jsp" />
+		</action>
+
+		<action path="/ensino/tecnico/cadastroCursoTecnico" type="br.ufrn.sigaa.ensino.tecnico.struts.CursoTecnicoAction"
+				name="formCursoTecnico" parameter="dispatch" >
+			<forward name="form"			path="/WEB-INF/jsp/ensino/tecnico/Curso/form.jsp" />
+			<forward name="listar"			path="/WEB-INF/jsp/ensino/tecnico/Curso/lista.jsp" />
+		</action>
+
+		<action path="/ensino/tecnico/criarQualificacao" type="br.ufrn.sigaa.ensino.tecnico.struts.QualificacaoTecnicoAction" name="qualificacaoForm"
+				parameter="dispatch">
+			<forward name="dadosBasicos"	path="/WEB-INF/jsp/ensino/tecnico/Qualificacao/dados_basicos.jsp" />
+			<forward name="modulos"			path="/WEB-INF/jsp/ensino/tecnico/Qualificacao/adicionar_modulos.jsp"  />
+			<forward name="resumo"	 		path="/WEB-INF/jsp/ensino/tecnico/Qualificacao/resumo.jsp" />
+			<forward name="listar"	 		path="/WEB-INF/jsp/ensino/tecnico/Qualificacao/lista.jsp" />
+		</action>
+
+		<action path="/ensino/tecnico/modulo/wizard" type="br.ufrn.sigaa.ensino.tecnico.struts.ModuloTecnicoAction"
+				name="moduloTecnicoForm" parameter="dispatch" scope="session">
+			<forward name="form" 		path="/WEB-INF/jsp/ensino/tecnico/Modulo/form.jsp" />
+			<forward name="listar"		path="/WEB-INF/jsp/ensino/tecnico/Modulo/lista.jsp" />
+			<forward name="detalhes"		path="/WEB-INF/jsp/ensino/tecnico/Modulo/detalhes.jsp" />
+			<forward name="popular"		path="/ensino/tecnico/modulo/wizard.do?dispatch=popular" />
+		</action>
+
+		<action path="/ensino/tecnico/estruturaCurricular/wizard" type="br.ufrn.sigaa.ensino.tecnico.struts.EstruturaCurricularTecnicoAction"
+				name="estruturaCurTecnicoForm" parameter="dispatch" scope="session">
+			<forward name="dadosGerais" 	path="/WEB-INF/jsp/ensino/tecnico/EstruturaCurricular/dados_gerais.jsp" />
+			<forward name="modulos"			path="/WEB-INF/jsp/ensino/tecnico/EstruturaCurricular/modulos.jsp" />
+			<forward name="disciplinas"		path="/WEB-INF/jsp/ensino/tecnico/EstruturaCurricular/disciplinas.jsp" />
+			<forward name="resumo"			path="/WEB-INF/jsp/ensino/tecnico/EstruturaCurricular/resumo.jsp" />
+			<forward name="lista"			path="/WEB-INF/jsp/ensino/tecnico/EstruturaCurricular/lista.jsp" />
+		</action>
+    </action-mappings>
+
+</struts-config>

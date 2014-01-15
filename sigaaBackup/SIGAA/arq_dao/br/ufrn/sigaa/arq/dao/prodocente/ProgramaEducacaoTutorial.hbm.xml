@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="br.ufrn.academico.dominio.ProgramaEducacaoTutorial"
+        table="PET" schema="PRODOCENTE"  dynamic-update="false" dynamic-insert="false"
+        mutable="false">
+
+        <id name="id" column="ID_PET" type="int"/>
+
+        <property name="descricao" type="java.lang.String" update="true"
+            insert="true" access="property" column="DESCRICAO" not-null="true"/>
+
+        <property name="idCurso" type="int" update="true"
+            insert="true" access="property" column="ID_CURSO" not-null="true"/>
+            
+        <property name="idAreaConhecimentoCnpq" type="int" update="true"
+            insert="true" access="property" column="ID_AREA_CONHECIMENTO_CNPQ" not-null="true"/>
+
+        <property name="dataInicio" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_INICIO" not-null="false"/>
+            
+        <property name="dataFim" type="java.util.Date" update="true"
+            insert="true" access="property" column="DATA_FIM" not-null="false"/>
+
+        <property name="limiteBolsas" type="int" update="true"
+            insert="true" access="property" column="LIMITE_BOLSAS" not-null="true"/>
+            
+        <property name="ativo" type="boolean" update="true"
+            insert="true" access="property" column="ATIVO" not-null="true"/>
+    </class>
+</hibernate-mapping>

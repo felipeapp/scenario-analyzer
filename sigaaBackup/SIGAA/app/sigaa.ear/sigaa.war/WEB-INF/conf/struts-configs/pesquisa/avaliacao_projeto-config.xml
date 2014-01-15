@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!-- 
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de GradDisciplinas Academicas
+# Arquivo de configuracao do Struts - AVALIAÇÃO PROJETO
+ -->
+<struts-config>
+    <form-beans>
+		<form-bean name="avaliacaoProjetoForm" type="br.ufrn.sigaa.arq.struts.SigaaForm">
+			<form-property name="id" 						type="java.lang.Integer" />
+			<form-property name="observacoes" 				type="java.lang.String" />
+			<form-property name="somaNotas" 				type="java.lang.Integer" />
+			<form-property name="status" 					type="java.lang.Boolean" />
+			<form-property name="dataSubmissao" 			type="java.lang.String" />
+			<form-property name="dataAvaliacao" 			type="java.lang.String" />			
+		</form-bean>
+		
+		<form-bean name="desistirAvaliacaoProjetoForm" type="br.ufrn.sigaa.arq.struts.SigaaForm">
+			<form-property name="id" 						type="java.lang.Integer" />
+			<form-property name="justificativa" 			type="java.lang.String" />
+		</form-bean>
+
+
+		<form-bean name="distribuirAvaliacaoAutomaticaForm" type="br.ufrn.sigaa.arq.struts.SigaaForm">
+			<form-property name="quantidade"	 			type="java.lang.String" />
+		</form-bean>
+		
+    </form-beans>
+    
+    
+
+    <action-mappings>
+
+		<action path="/pesquisa/criarAvaliacaoProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm"
+					 input="/pesquisa/recarregarAvaliacaoProjetoForm.do" parameter="criar" validate="true">
+			<forward name="sucesso" 		path="/pesquisa/verAvaliacaoProjetoForm.do" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/form.jsp" />
+		</action>
+		
+		<action path="/pesquisa/alterarAvaliacaoProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm"
+					 input="/pesquisa/recarregarAvaliacaoProjetoForm.do" parameter="alterar" validate="true">
+			<forward name="sucesso" 		path="/pesquisa/listarAvaliacoesProjeto.do" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/resumo.jsp" />
+		</action>
+		
+		<action path="/pesquisa/removerAvaliacaoProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="remover" 	validate="false">
+			<forward name="sucesso" 		path="/pesquisa/listarAvaliacoesProjeto.do" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/form.jsp" />
+		</action>
+		
+		<action path="/pesquisa/listarAvaliacoesProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="listar" 		validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/lista.jsp" />
+		</action>
+		
+		<action path="/pesquisa/detalharAvaliacaoProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="detalhar" 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/form.jsp" />
+		</action>
+
+		<action path="/pesquisa/verAvaliacaoProjetoForm" forward="/pesquisa/detalharAvaliacaoProjeto.do?acao=criar" />
+		<action path="/pesquisa/recarregarAvaliacaoProjetoForm" forward="/pesquisa/detalharAvaliacaoProjeto.do?acao=recarregar" />
+
+		
+		<!-- Lista as avaliaçoes que UM consultor (logado) tem q fazer -->
+		<action path="/pesquisa/listarAvaliacoesConsultor" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="listarAvaliacoesConsultor" 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.avaliacoesconsultor" />
+			<forward name="falha" 			path="/verMenuPesquisa.do" />
+		</action>
+	
+		<!-- Action que leva para a tela de avaliação de projeto de pesquisa-->
+		<action path="/pesquisa/iniciarAvaliacao" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="iniciarAvaliacao" 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/form.jsp" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/lista.jsp" />
+		</action>
+		
+		<!-- Submete avaliação de um projeto de pesquisa -->
+		<action path="/pesquisa/avaliarProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="avaliarProjeto" 	validate="false">
+			<forward name="resumo" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto/resumo.jsp" />
+		</action>
+		
+		<!-- action que leva para a tela pro consultor justificar o motivo que nao poder realizar a avaliacao -->
+		<action path="/pesquisa/prepararDesistirAvaliacaoProjeto" forward="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.desistiravaliacao" />
+		
+
+		<!-- action para gravar a justificativa de um consultor nao poder realizar a avaliacao -->
+		<action path="/pesquisa/desistirAvaliacaoProjeto" type="br.ufrn.sigaa.pesquisa.struts.AvaliacaoProjetoActions" name="desistirAvaliacaoProjetoForm" 
+				parameter="desistirAvaliacaoProjeto" 	validate="true">
+			<forward name="sucesso" 		path="/pesquisa/listarAvaliacoesConsultor.do" />
+			<forward name="falha" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.desistiravaliacao" />
+		</action>
+		
+
+	<!-- Os mapeamentos a seguir se referem e distribuiçao de projetos de pesquisa para consultores -->
+		<!-- Distribui projetos nao avaliados para consultores cadastrados -->
+		<action path="/pesquisa/avaliacaoProjeto/verificarDistribuicaoManual" type="br.ufrn.sigaa.pesquisa.struts.DistribuirAvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="verificarDistribuicaoManual" 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.distribuicaomanual" />
+			<forward name="falha" 			path="/verMenuPesquisa.do" />
+		</action>		
+
+		<!-- Distribui projetos nao avaliados para consultores cadastrados -->
+		<action path="/pesquisa/avaliacaoProjeto/verificarDistribuicaoAutomatica" type="br.ufrn.sigaa.pesquisa.struts.DistribuirAvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="verificarDistribuicaoAutomatica" 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.distribuicaoautomatica" />
+			<forward name="falha" 			path="/verMenuPesquisa.do" />
+		</action>		
+
+
+		<action path="/pesquisa/avaliacaoProjeto/distribuirProjetosManualmente" type="br.ufrn.sigaa.pesquisa.struts.DistribuirAvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="distribuirProjetosManualmente" 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.distribuicao" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.distribuicao" />
+		</action>	
+		
+		<action path="/pesquisa/avaliacaoProjeto/distribuirProjetosAutomaticamente" type="br.ufrn.sigaa.pesquisa.struts.DistribuirAvaliacaoProjetoActions" name="distribuirAvaliacaoAutomaticaForm" 
+				parameter="distribuirProjetosAutomaticamente" 	validate="false">
+			<forward name="sucesso" 		path="/verMenuPesquisa.do" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.distribuicaoautomatica" />
+		</action>				
+
+		<action path="/pesquisa/avaliacaoProjeto/selecionarConsultores" type="br.ufrn.sigaa.pesquisa.struts.DistribuirAvaliacaoProjetoActions" name="avaliacaoProjetoForm" 
+				parameter="selecionarConsultores"	 	validate="false">
+			<forward name="sucesso" 		path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.consultoresprojeto" />
+			<forward name="falha" 			path="/WEB-INF/jsp/pesquisa/avaliacaoprojeto.distribuicao" />
+		</action>				
+
+
+				
+    </action-mappings>
+
+</struts-config>

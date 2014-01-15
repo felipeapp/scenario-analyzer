@@ -1,0 +1,2010 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="r_41_numero_total_docentes_formacao_regime_sexo"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="2"
+		 bottomMargin="1"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="mes" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ano" isForPrompting="true" class="java.lang.Integer">
+		<defaultValueExpression ><![CDATA[new Integer(2008)]]></defaultValueExpression>
+	</parameter>
+	<parameter name="subSistema" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="subSistemaLink" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT A.*,
+       A.RT20_MASC+A.RT20_FEM AS RT20_TOTAL, 
+       A.RT40_MASC+A.RT40_FEM AS RT40_TOTAL, 
+       A.RTDE_MASC+A.RTDE_FEM AS RTDE_TOTAL,
+       A.RTOU_MASC+A.RTOU_FEM AS RTOU_TOTAL,
+       A.RT20_MASC+A.RT40_MASC+A.RTOU_MASC+A.RTDE_MASC AS TOTAL_MASC,
+       A.RT20_FEM+A.RT40_FEM+A.RTOU_FEM+A.RTDE_FEM AS TOTAL_FEM,
+       A.RT20_MASC+A.RT20_FEM+
+       A.RT40_MASC+A.RT40_FEM+
+       A.RTOU_MASC+A.RTOU_FEM+
+       A.RTDE_MASC+A.RTDE_FEM AS TOTAL
+ FROM (
+SELECT DISTINCT 'PERMANENTE' AS QUADRO,
+       ID_FORMACAO,DENOMINACAO,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND REGIME_TRABALHO=20
+           AND P.SEXO='M'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+								LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RT20_MASC,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND REGIME_TRABALHO=20
+           AND P.SEXO='F'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+									LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RT20_FEM,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND REGIME_TRABALHO=40
+           AND P.SEXO='M'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+								LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RT40_MASC,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND REGIME_TRABALHO=40
+           AND P.SEXO='F'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+								LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RT40_FEM,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND REGIME_TRABALHO=99
+           AND P.SEXO='M'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+									LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RTDE_MASC,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND REGIME_TRABALHO=99
+           AND P.SEXO='F'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+								LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RTDE_FEM,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND ((REGIME_TRABALHO NOT IN (20,40,99)) OR (REGIME_TRABALHO IS NULL))
+           AND P.SEXO='M'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+         					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+							LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RTOU_MASC,
+       (SELECT COUNT(*)
+		  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+         INNER JOIN RH.SERVIDOR S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+		 INNER JOIN COMUM.PESSOA  P ON P.ID_PESSOA=S.ID_PESSOA
+		 LEFT  JOIN COMUM.UNIDADE U ON U.ID_UNIDADE=S.ID_UNIDADE
+		 WHERE H.ANO=$P{ano} AND H.MES=$P{mes}
+           AND S.ID_CATEGORIA=1 /*DOCENTE*/
+           AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                ((RHF.ID_FORMACAO=4) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+               )
+           AND ((REGIME_TRABALHO NOT IN (20,40,99)) OR (REGIME_TRABALHO IS NULL))
+           AND P.SEXO='F'
+		   AND S.ID_SITUACAO IN (1,20) /*ATIVO/CELETISTA*/
+           AND S.ID_SERVIDOR NOT IN (SELECT ID_SERVIDOR 
+                                       FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+ 		          					   LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+									LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+					    		      WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR 
+					 		            AND AGO.ID_GRUPO_OCORRENCIA=2
+                                        AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                                        AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes})
+       ) AS RTOU_FEM
+ FROM RH.FORMACAO RHF
+ WHERE ID_FORMACAO<>29) A
+ WHERE RT20_MASC+RT20_FEM+
+       RT40_MASC+RT40_FEM+
+       RTDE_MASC+RTDE_FEM+
+       RTOU_MASC+RTOU_FEM>0
+------------------------------------------------------------------
+UNION
+------------------------------------------------------------------
+SELECT A.*,
+       A.RT20_MASC+A.RT20_FEM AS RT20_TOTAL,
+       A.RT40_MASC+A.RT40_FEM AS RT40_TOTAL,
+       A.RTDE_MASC+A.RTDE_FEM AS RTDE_TOTAL,
+       A.RTOU_MASC+A.RTOU_FEM AS RTOU_TOTAL,
+       A.RT20_MASC+A.RT40_MASC+A.RTOU_MASC+A.RTDE_MASC AS TOTAL_MASC,
+       A.RT20_FEM+A.RT40_FEM+A.RTOU_FEM+A.RTDE_FEM AS TOTAL_FEM,
+       A.RT20_MASC+A.RT20_FEM+
+       A.RT40_MASC+A.RT40_FEM+
+       A.RTDE_MASC+A.RTDE_FEM+
+       A.RTOU_MASC+A.RTOU_FEM AS TOTAL
+ FROM (
+SELECT DISTINCT 'TEMPORÁRIO' AS QUADRO,
+       ID_FORMACAO,DENOMINACAO,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       )
+                   AND S.REGIME_TRABALHO=20
+                   AND P.SEXO='M'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RT20_MASC,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND S.REGIME_TRABALHO=20
+                   AND P.SEXO='F'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RT20_FEM,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND S.REGIME_TRABALHO=40
+                   AND P.SEXO='M'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RT40_MASC,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+				LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND S.REGIME_TRABALHO=40
+                   AND P.SEXO='F'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RT40_FEM,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND S.REGIME_TRABALHO=99
+                   AND P.SEXO='M'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RTDE_MASC,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND S.REGIME_TRABALHO=99
+                   AND P.SEXO='F'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RTDE_FEM,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND (S.REGIME_TRABALHO NOT IN (20,40,99) OR S.REGIME_TRABALHO IS NULL)
+                   AND P.SEXO='M'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RTOU_MASC,
+       (SELECT count(DISTINCT ID_SERVIDOR)
+          FROM (SELECT s.id_servidor,
+                      (SELECT AGO.ID_GRUPO_OCORRENCIA
+                         FROM FUNCIONAL.OCORRENCIA_FUNCIONAL OC
+                         LEFT JOIN FUNCIONAL.OCORRENCIA O ON O.ID_OCORRENCIA=OC.ID_OCORRENCIA
+			LEFT JOIN FUNCIONAL.ASSOCIACAO_GRUPO_OCORRENCIA AGO ON O.ID_OCORRENCIA=AGO.ID_OCORRENCIA
+                        WHERE OC.ID_SERVIDOR=S.ID_SERVIDOR
+                          AND AGO.ID_GRUPO_OCORRENCIA=2
+                          AND EXTRACT(YEAR FROM OC.DATA)<=$P{ano} 
+                          AND EXTRACT(MONTH FROM OC.DATA)<=$P{mes} LIMIT 1
+                      ) AS ID_GRUPO_OCORRENCIA
+   				  FROM FUNCIONAL.HISTORICO_SERVIDOR H
+        		 INNER JOIN RH.SERVIDOR 					S ON S.ID_SERVIDOR=H.ID_SERVIDOR
+                 INNER JOIN RH.CARGO             			C ON C.ID=S.ID_CARGO
+                 INNER JOIN COMUM.PESSOA        			P ON P.ID_PESSOA=S.ID_PESSOA
+                 INNER JOIN COMUM.UNIDADE       			U ON U.ID_UNIDADE=S.ID_UNIDADE
+                  LEFT JOIN RH.SITUACAO_SERVIDOR 		   SS ON SS.ID_SITUACAO=S.ID_SITUACAO
+                 WHERE S.ID_CATEGORIA=1 /*DOCENTE*/
+                   AND ((P.ID_TIPO_FORMACAO=RHF.ID_FORMACAO) OR
+                        ((RHF.ID_FORMACAO IN (4,29)) AND (P.ID_TIPO_FORMACAO IN (4,29)))
+                       ) 
+                   AND (S.REGIME_TRABALHO NOT IN (20,40,99) OR S.REGIME_TRABALHO IS NULL)
+                   AND P.SEXO='F'
+                   AND S.ID_SITUACAO IN (1,12,19,20)
+                   AND S.ID_ATIVO=1
+                   AND S.ID_CARGO IN (/*60001,*/60002,60003,
+                                      8036,8028,8010,8044,8230,8222,8214,8249
+                                     )
+                 ORDER BY C.DENOMINACAO,P.NOME
+               ) A
+         WHERE ((A.ID_GRUPO_OCORRENCIA<>2) OR (A.ID_GRUPO_OCORRENCIA IS NULL))
+           AND (SELECT SUM(VALOR_NO_MES)
+                  FROM (
+                        select case
+                                  when $P{mes}-1 =0 THEN (SELECT DEZEMBRO
+                                                                              FROM financeiro.ficha_financeira
+                                                                             WHERE ID_SERVIDOR=A.ID_SERVIDOR
+                                                                               AND ANO=$P{ano}-1
+                                                                               AND ID_RUBRICA=7422 LIMIT 1
+                                                                           )
+                                  when $P{mes}-1 =1 THEN FF.JANEIRO
+                                  when $P{mes}-1 =2 THEN FF.FEVEREIRO
+                                  when $P{mes}-1 =3 THEN FF.MARCO
+                                  when $P{mes}-1 =4 THEN FF.ABRIL
+                                  when $P{mes}-1 =5 THEN FF.MAIO
+                                  when $P{mes}-1 =6 THEN FF.JUNHO
+                                  when $P{mes}-1 =7 THEN FF.JULHO
+                                  when $P{mes}-1 =8 THEN FF.AGOSTO
+                                  when $P{mes}-1 =9 THEN FF.SETEMBRO
+                                  when $P{mes}-1 =10 THEN FF.OUTUBRO
+                                  when $P{mes}-1 =11 THEN FF.NOVEMBRO
+                               END AS VALOR_NO_MES
+                          from financeiro.ficha_financeira FF
+                         where id_servidor=A.ID_SERVIDOR
+                           and ano =$P{ano}
+                           and id_rubrica = 7422
+                         LIMIT 1
+                       ) A
+               )>0
+       ) AS RTOU_FEM
+ FROM RH.FORMACAO RHF
+ WHERE ID_FORMACAO<>29) A
+ WHERE RT20_MASC+RT20_FEM+
+       RT40_MASC+RT40_FEM+
+       RTDE_MASC+RTDE_FEM+
+       RTOU_MASC+RTOU_FEM>0]]></queryString>
+
+	<field name="quadro" class="java.lang.String"/>
+	<field name="id_formacao" class="java.lang.Integer"/>
+	<field name="denominacao" class="java.lang.String"/>
+	<field name="rt20_masc" class="java.lang.Long"/>
+	<field name="rt20_fem" class="java.lang.Long"/>
+	<field name="rt40_masc" class="java.lang.Long"/>
+	<field name="rt40_fem" class="java.lang.Long"/>
+	<field name="rtde_masc" class="java.lang.Long"/>
+	<field name="rtde_fem" class="java.lang.Long"/>
+	<field name="rtou_masc" class="java.lang.Long"/>
+	<field name="rtou_fem" class="java.lang.Long"/>
+	<field name="rt20_total" class="java.lang.Long"/>
+	<field name="rt40_total" class="java.lang.Long"/>
+	<field name="rtde_total" class="java.lang.Long"/>
+	<field name="rtou_total" class="java.lang.Long"/>
+	<field name="total_masc" class="java.lang.Long"/>
+	<field name="total_fem" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Long"/>
+
+	<variable name="qtdRegistros" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[new Boolean(true)]]></variableExpression>
+	</variable>
+	<variable name="v_rt20_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rt20_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rt20_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rt40_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rt40_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rt40_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rtde_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rtde_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rtde_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rtou_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_rtou_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_total_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_total_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trt20_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trt20_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trt20_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trt40_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trt40_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trt40_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trtou_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trtou_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trtou_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trtde_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trtde_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_trtde_total" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttotal_masc" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttotal_fem" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttotal" class="java.lang.Long" resetType="Group" resetGroup="modalidadeEducacao" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrt20_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrt20_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrt20_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt20_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrt40_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrt40_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrt40_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rt40_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrtde_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrtde_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrtde_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtde_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrtou_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrtou_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_ttrtou_total" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{rtou_total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_tttotal_masc" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_masc}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_tttotal_fem" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_fem}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+	<variable name="v_tttotal" class="java.lang.Long" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
+
+		<group  name="totalUFRN" >
+			<groupExpression><![CDATA[new Boolean(true)]]></groupExpression>
+			<groupHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="2"
+						width="100"
+						height="11"
+						key="textField-90"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TOTAL DA INSTITUIÇÃO"]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="13"
+						width="535"
+						height="0"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="2"
+						width="31"
+						height="11"
+						key="textField-138"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrt20_masc}==null?new Long(0):$V{v_ttrt20_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="133"
+						y="2"
+						width="31"
+						height="11"
+						key="textField-139"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrt20_fem}==null?new Long(0):$V{v_ttrt20_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="2"
+						width="31"
+						height="11"
+						key="textField-140"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrt20_total}==null?new Long(0):$V{v_ttrt20_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="195"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-179"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrt40_masc}==null?new Long(0):$V{v_ttrt40_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-180"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrt40_fem}==null?new Long(0):$V{v_ttrt40_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-181"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrt40_total}==null?new Long(0):$V{v_ttrt40_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="279"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-182"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrtde_masc}==null?new Long(0):$V{v_ttrtde_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="307"
+						y="2"
+						width="27"
+						height="11"
+						key="textField-183"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrtde_fem}==null?new Long(0):$V{v_ttrtde_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="334"
+						y="2"
+						width="27"
+						height="11"
+						key="textField-184"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrtde_total}==null?new Long(0):$V{v_ttrtde_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="2"
+						width="30"
+						height="11"
+						key="textField-185"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_tttotal}==null?new Long(0):$V{v_tttotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-186"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrtou_total}==null?new Long(0):$V{v_ttrtou_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-187"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrtou_fem}==null?new Long(0):$V{v_ttrtou_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="361"
+						y="2"
+						width="28"
+						height="11"
+						key="textField-188"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttrtou_masc}==null?new Long(0):$V{v_ttrtou_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="445"
+						y="2"
+						width="30"
+						height="11"
+						key="textField-189"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttotal_masc}==null?new Long(0):$V{v_ttotal_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="475"
+						y="2"
+						width="30"
+						height="11"
+						key="textField-190"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttotal_fem}==null?new Long(0):$V{v_ttotal_fem}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="1"
+						width="535"
+						height="0"
+						forecolor="#CCCCCC"
+						key="line-8"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="modalidadeEducacao" >
+			<groupExpression><![CDATA[$F{quadro}]]></groupExpression>
+			<groupHeader>
+			<band height="11"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="-1"
+						width="535"
+						height="12"
+						key="textField-69"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{quadro}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="12"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="32"
+						y="1"
+						width="69"
+						height="11"
+						key="textField-89"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["TOTAL "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="1"
+						width="31"
+						height="11"
+						key="textField-123"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trt20_masc}==null?new Long(0):$V{v_trt20_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="133"
+						y="1"
+						width="31"
+						height="11"
+						key="textField-124"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trt20_fem}==null?new Long(0):$V{v_trt20_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="1"
+						width="31"
+						height="11"
+						key="textField-125"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trt20_total}==null?new Long(0):$V{v_trt20_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="195"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-165"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trt40_masc}==null?new Long(0):$V{v_trt40_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-166"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trt40_fem}==null?new Long(0):$V{v_trt40_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-167"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trt40_total}==null?new Long(0):$V{v_trt40_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="279"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-168"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trtde_masc}==null?new Long(0):$V{v_trtde_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="307"
+						y="1"
+						width="27"
+						height="11"
+						key="textField-169"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trtde_fem}==null?new Long(0):$V{v_trtde_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="334"
+						y="1"
+						width="27"
+						height="11"
+						key="textField-170"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trtde_total}==null?new Long(0):$V{v_trtde_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-173"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_ttotal}==null?new Long(0):$V{v_ttotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-174"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trtou_total}==null?new Long(0):$V{v_trtou_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-175"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trtou_fem}==null?new Long(0):$V{v_trtou_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="361"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-176"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_trtou_masc}==null?new Long(0):$V{v_trtou_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="445"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-177"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_total_masc}==null?new Long(0):$V{v_total_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##,##0" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="475"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-178"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$V{v_total_fem}==null?new Long(0):$V{v_total_fem}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+				<printWhenExpression><![CDATA[new Boolean(false)]]></printWhenExpression>
+			</band>
+		</background>
+		<title>
+			<band height="18"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-31"
+						y="0"
+						width="444"
+						height="17"
+						key="subreport-1"
+						isPrintRepeatedValues="false"/>
+					<subreportParameter  name="titulo">
+						<subreportParameterExpression><![CDATA["4.1 - Número total de docentes por grau de formação, regime de trabalho e sexo ("+$P{mes}+"/"+$P{ano}+")"]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subsistema">
+						<subreportParameterExpression><![CDATA[$P{subSistema}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="subSistemaLink">
+						<subreportParameterExpression><![CDATA[$P{subSistemaLink}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[this.getClass().getResourceAsStream("br/ufrn/sigaa/relatorios/fontes/tituloUFRN.jasper")]]></subreportExpression>
+				</subreport>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="38"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="0"
+						y="1"
+						width="102"
+						height="37"
+						key="staticText-1"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[FORMAÇÃO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="102"
+						y="26"
+						width="31"
+						height="12"
+						key="staticText-44"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="133"
+						y="26"
+						width="31"
+						height="12"
+						key="staticText-45"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="164"
+						y="26"
+						width="31"
+						height="12"
+						key="staticText-46"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="102"
+						y="1"
+						width="93"
+						height="25"
+						key="staticText-57"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[20 Horas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="195"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-70"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="223"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-71"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="251"
+						y="26"
+						width="27"
+						height="12"
+						key="staticText-72"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="195"
+						y="1"
+						width="83"
+						height="25"
+						key="staticText-73"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[40 Horas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="278"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-74"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="306"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-75"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="334"
+						y="26"
+						width="27"
+						height="12"
+						key="staticText-76"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="278"
+						y="1"
+						width="83"
+						height="25"
+						key="staticText-77"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Dedicação
+Exclusiva]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="361"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-78"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="389"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-79"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="417"
+						y="26"
+						width="28"
+						height="12"
+						key="staticText-80"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="361"
+						y="1"
+						width="84"
+						height="25"
+						key="staticText-81"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Outros
+Regimes de trab.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="445"
+						y="26"
+						width="30"
+						height="12"
+						key="staticText-82"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Masc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="475"
+						y="26"
+						width="30"
+						height="12"
+						key="staticText-83"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Fem]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="505"
+						y="26"
+						width="30"
+						height="12"
+						key="staticText-84"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Transparent"
+						x="445"
+						y="1"
+						width="90"
+						height="25"
+						key="staticText-85"/>
+					<box topBorder="Thin" topBorderColor="#000000" leftBorder="Thin" leftBorderColor="#000000" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="13"  isSplitAllowed="true" >
+				<rectangle>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="1"
+						width="535"
+						height="10"
+						forecolor="#F7F7F7"
+						backcolor="#F5FFFA"
+						key="rectangle-5">
+							<printWhenExpression><![CDATA[new java.lang.Boolean(($V{REPORT_COUNT}.intValue() % 2)==1)]]></printWhenExpression>
+						</reportElement>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="1"
+						width="101"
+						height="11"
+						key="textField-41"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="1" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{denominacao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="1"
+						width="31"
+						height="11"
+						key="textField-43"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rt20_masc}==null?new Long(0):$F{rt20_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="133"
+						y="1"
+						width="31"
+						height="11"
+						key="textField-61"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rt20_fem}==null?new Long(0):$F{rt20_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="164"
+						y="1"
+						width="31"
+						height="11"
+						key="textField-62"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rt20_total}==null?new Long(0):$F{rt20_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="251"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-153"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rt40_total}==null?new Long(0):$F{rt40_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="223"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-154"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rt40_fem}==null?new Long(0):$F{rt40_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="195"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-155"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rt40_masc}==null?new Long(0):$F{rt40_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="334"
+						y="1"
+						width="27"
+						height="11"
+						key="textField-156"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rtde_total}==null?new Long(0):$F{rtde_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="307"
+						y="1"
+						width="27"
+						height="11"
+						key="textField-157"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rtde_fem}==null?new Long(0):$F{rtde_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="279"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-158"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rtde_masc}==null?new Long(0):$F{rtde_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="417"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-159"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rtou_total}==null?new Long(0):$F{rtou_total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="389"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-160"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rtou_fem}==null?new Long(0):$F{rtou_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="361"
+						y="1"
+						width="28"
+						height="11"
+						key="textField-161"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{rtou_masc}==null?new Long(0):$F{rtou_masc}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="505"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-162"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{total}==null?new Long(0):$F{total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="475"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-163"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{total_fem}==null?new Long(0):$F{total_fem}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="445"
+						y="1"
+						width="30"
+						height="11"
+						key="textField-164"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" rightPadding="1" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Long"><![CDATA[$F{total_masc}==null?new Long(0):$F{total_masc}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="12"
+						width="535"
+						height="0"
+						forecolor="#CCCCCC"
+						key="line-9"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="16"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="401"
+						y="0"
+						width="100"
+						height="16"
+						key="textField-37"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Pág. " + $V{PAGE_NUMBER} + " de "]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="502"
+						y="0"
+						width="30"
+						height="16"
+						key="textField-38"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER} + ""]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

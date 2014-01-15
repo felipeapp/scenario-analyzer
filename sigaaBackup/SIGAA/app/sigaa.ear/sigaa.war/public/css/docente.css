@@ -1,0 +1,356 @@
+body {
+	font-size: 70%;
+	line-height: 1.25em;
+	font-family: Verdana, sans-serif;
+	color: #333;
+	margin: 0;
+	padding: 0;
+	background: transparent url(../images/bg_pagina_1024.jpg) center repeat-y; /*#404E82;*/
+}
+
+#corpo {
+	background: transparent;
+	padding: 0;
+}
+
+#rodape {
+
+}
+
+div#container {
+	background: #fff url('../images/docente/container_professores_bg.gif') repeat-y center left;
+}
+
+div#left {
+	width: 230px;
+	padding-bottom: 15px;
+}
+
+div.foto_professor {
+	width: 220px;
+	margin: 5px;
+	text-align: center;
+}
+
+div.foto_professor img {
+	margin: 0;
+	border: 1px solid #FFF;
+	border-width: 5px 4px 10px;
+}
+
+div#center {
+	width: 700px;
+}
+
+#container div.barra_professor h3 {
+	margin: 5px 10px;
+	font-family: verdana;
+	font-size: 0.8em;
+	text-align: center;
+}
+
+#container div.barra_professor h3.departamento {
+	font-weight: normal;
+}
+#container div.barra_professor h3.situacao {
+	font-weight: bold;
+	color: #D59030;
+	text-transform: uppercase;
+}
+
+#container div.barra_professor h4 {
+	text-transform: uppercase;
+	margin: 5px 10px;
+	font-family: verdana;
+	font-size: 10px;
+	font-weight: normal;
+}
+
+#container ul.menu_professor {
+	margin: 10px 5px;
+	list-style: none;
+}
+
+#container ul.menu_professor li {
+	background: #FAFAFA;
+}
+
+#container ul.menu_professor a {
+	display: block;
+	line-height: 24px;
+	margin: 5px 0;
+	background: transparent url(../images/docente/icones/item_menu.gif) no-repeat 5px 5px;
+	background-repeat: no-repeat;
+	padding-left: 30px;
+}
+
+#container ul.menu_professor li.perfil_pessoal a { background-image: url(../images/docente/icones/perfil.png);}
+#container ul.menu_professor li.publicacoes a { background-image: url('../images/docente/icones/producao.png'); }
+#container ul.menu_professor li.projetos_pesquisa a { background-image: url('../images/docente/icones/pesquisa.png'); }
+#container ul.menu_professor li.projetos_extensao a { background-image: url('../images/docente/icones/extensao.png'); }
+#container ul.menu_professor li.projetos_monitoria a { background-image: url('../images/docente/icones/monitoria.png'); }
+#container ul.menu_professor li.listagem_pid a { background-image: url('../images/page.png'); }
+#container ul.menu_professor li.disciplinas_ministradas a { background-image: url('../images/docente/icones/disciplinas.png'); }
+#container ul.menu_professor li.formacao a { background-image: url('../images/docente/icones/formacao.png'); }
+
+#container ul.menu_professor a:hover {
+	background-color: #FFF;
+	color: #D59030;
+}
+
+#container a.home-link {
+	display: block;
+	width: 70%;
+	margin: 25px auto -14px;
+	text-align: center;
+	font-variant: small-caps;
+	background: url(../images/house.png) no-repeat 3px;
+	padding: 3px 0 3px 8px;
+}
+
+#container p.vazio {
+	background: #EDF1F8; /* #eee */
+	margin: 10px 5px;
+	padding: 10px 0;
+	text-align: center;
+	font-style: italic;
+	color: #666;
+}
+
+#container h4 {
+	border-bottom: 1px solid #DDD;
+	color: #444;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	margin: 20px 0 10px; /*margin-bottom: 10px;*/
+	padding: 2px 0 1px 24px;
+}
+
+#cabecalho {
+	color: #F9F9F9;
+	width: 100%;
+	height: auto;
+	background: none;
+}
+#cabecalho #identificacao{
+	height: 100%;
+	width: 928px;
+	padding: 5px 11px;
+	border-bottom: #D99C44 2px solid;
+}
+#cabecalho #identificacao a{
+	color: #fff;
+}
+
+#id-docente {
+	background: #EDF1F8; /* #fafaff */
+	margin: 10px 0 10px; /* 10px 0 20px */
+}
+
+#id-docente h3 {
+	background: white;
+	border-bottom: 1px solid #9fb3ea;
+	color: #039;
+	font-size: 1.4em;
+	font-variant: small-caps;
+	margin-bottom: 2px;
+	text-transform: capitalize;
+}
+
+#id-docente p.departamento{
+	font-style: italic;
+	color: #D59030; /* adicionado 28/04/10 */
+}
+
+/* Forma��o acad�mica */
+#formacao-academica h4{
+	background: url(../images/docente/icones/formacao.png) no-repeat 2px;
+}
+
+/* Perfil Pessoal */
+#perfil-docente h4{
+	background: url(../images/docente/icones/perfil.png) no-repeat 2px;
+}
+
+/* Contatos */
+#contato h4{
+	background: url(../images/docente/icones/contato.png) no-repeat 2px;
+}
+
+#formacao-academica dl, #perfil-docente dl, #contato dl{
+	margin: 0 0 0 20px;
+}
+
+#formacao-academica dt, #perfil-docente dt, #contato dt {
+	border-bottom: 1px solid #EEE;
+	margin-right: 20px;
+	padding: 0 0 2px 6px;
+	font-weight: bold;
+	color: #666;
+}
+
+#formacao-academica dd, #perfil-docente dd, #contato dd{
+	background: #EDF1F8; /*#F6F6F6*/
+	font-style: italic;
+	line-height: 1.4em;
+	margin: 0 20px 8px 0;
+	padding: 3px 6px;
+}
+
+#perfil-docente #endereco-lattes {
+	background: url(/sigaa/img/prodocente/lattes.gif) no-repeat 2px;
+	padding: 5px 0 5px 20px;
+	line-height: 2em;		
+}
+
+/* Produ��o Intelectual */
+#producao-docente h4{
+	background: url(../images/docente/icones/producao.png) no-repeat 2px;
+}
+
+#producao-docente h2{
+	font-size: 1em;
+	margin: 0 5px;
+	padding: 2px 10px;
+
+	/*background: #F1F1F1;*/
+}
+
+#producao-docente ul {
+	margin: 5px 10px 15px 25px;
+}
+
+#producao-docente li {
+	padding: 5px 0 5px; /*1px 0 2px*/
+	border-bottom: 1px dashed #CCC;
+	text-indent: -2.8em;
+	padding-left: 2.8em;
+}
+
+#producao-docente a.linkArquivo {
+	display: block;
+	width: 30%;
+	padding-left: 52px;
+	line-height: 1.8em;
+	background: url(../images/page_save.png) no-repeat;
+	font-style: italic;
+	font-size: 0.9em;
+	font-weight: normal;
+	margin-top:5px; /* adicionado 28/04/10 */
+}
+
+/* Disciplinas Ministradas */
+#disciplinas-docente h4{
+	background: url(../images/docente/icones/disciplinas.png) no-repeat 2px;
+}
+
+#disciplinas-docente #abas-turmas {
+	margin: -5px 0 15px;
+}
+
+#disciplinas-docente .aba {
+	height: 330px;
+	overflow: auto;
+}
+
+#disciplinas-docente h2{
+	font-size: 1em;
+	background: transparent;
+	margin: 0 5px;
+	padding: 2px 10px;
+}
+
+#container table.listagem {
+	width: 100%;
+	margin: 0 0 15px;
+	border:0;
+	background-color:#FFFFFF; /* adicionado 28/04/10 */
+}
+
+#container table thead tr { /* adicionado 28/04/10 */
+	display:table-row;
+	width: 100%;
+	height:23px;
+	background-color: #4D5D9C;
+	color: #ffffff;
+}
+
+#container table.listagem tbody { /* adicionado 28/04/10 */
+	background-color:#FFF;
+}
+
+#container table.listagem th{
+	padding: 2px;
+}
+
+#container table.listagem td{
+	padding: 2px;
+	border-bottom: 1px solid #f5f7f9; /*#eee*/
+}
+
+#container table.listagem td.spacer{
+	height: 10px;
+	border-width: 0;
+}
+
+table.listagem td.ch, table.listagem td.horario{
+	text-align: center;
+}
+
+table.listagem td.anoPeriodo, table.listagem td.ano {
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #333366;
+	background: #EDF1F8;
+	background-image: none;
+	text-align: left;
+	border: 0;
+	letter-spacing: 1px;
+	padding: 3px 0 3px 20px;
+	border-bottom: 1px solid #C8D5EC;
+}
+
+#container table.listagem .linhaPar { /* adicionado 28/04/10 */
+	background-color:#ffffff;
+}
+
+#container table.listagem .linhaImpar { /* adicionado 28/04/10 */
+	background-color:#f5f7f9;
+}
+
+/* Projetos de Pesquisa */
+#pesquisa-docente h4{
+	background: url(../images/docente/icones/pesquisa.png) no-repeat 2px;
+}
+
+#pids-portal-docente h4{
+	background: url(../images/page.png) no-repeat 2px;
+}
+
+#atividade-docente h4{
+	background: url(../images/docente/icones/extensao.png) no-repeat 2px;
+}
+
+/* Projetos de Pesquisa */
+#monitoria-docente h4{
+	background: url(../images/docente/icones/monitoria.png) no-repeat 2px;
+}
+
+
+fieldset { border: 0; border-top: 2px solid #15428B; margin: 10px auto; width: 97%; }
+fieldset legend { color: #15428B; font-size: 1.5em; font-variant: small-caps; font-weight: bold; padding: 3px 7px; margin: 1px 0; }
+
+fieldset ul.form { list-style: none; margin: 0; padding: 5px 10px;}
+fieldset ul.form li { padding: 5px 0; clear: both; }
+fieldset ul.form li label { display: block; float: left; width: 117px; text-align: right; padding: 0; margin-right: 2px;}
+fieldset ul.form li label.required { font-weight: bold; padding: 0; }
+
+span.required { background: url(../img/required.gif) no-repeat 0px 2px; margin-left: 4px; padding-left: 0.9em;}
+div.botoes { border-top: 2px solid #CDCDCD; padding-top: 2px; margin-top: 10px; }
+div.botoes div.form-actions { float: left; padding-top: 2px; width: 150px; }
+div.botoes div.other-actions { float: right; width: 150px; text-align: right; padding-top: 5px;}
+div.botoes div.required-items { margin-left: 150px; margin-right: 150px; padding-top: 5px; text-align: center; }
+
+div.campo { margin-left: 150px; margin-top: 0px;  }
+div.botoes-show { border-top: 2px solid #CDCDCD; padding-top: 10px; margin-top: 10px; text-align:center; font-weight:normal; font-size:1em; }
+ul.show label { font-weight: bold; }

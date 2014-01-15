@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="relatorios_convocacao_2011"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="595"
+		 columnSpacing="0"
+		 leftMargin="0"
+		 rightMargin="0"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="comprovante" isForPrompting="false" class="java.io.InputStream"/>
+	<parameter name="declaracao" isForPrompting="false" class="java.io.InputStream"/>
+	<parameter name="processoSeletivo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="ano" isForPrompting="false" class="java.lang.Integer"/>
+	<parameter name="lista_aprovados" isForPrompting="false" class="java.io.InputStream"/>
+	<parameter name="discentesConvocados" isForPrompting="false" class="java.util.List"/>
+	<parameter name="lista_assinaturas_aprovados" isForPrompting="false" class="java.io.InputStream"/>
+
+	<field name="linha" class="java.util.List"/>
+
+
+		<group  name="declaracao" >
+			<groupExpression><![CDATA[$F{linha}]]></groupExpression>
+			<groupHeader>
+			<band height="28"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-1"
+						y="0"
+						width="583"
+						height="20"
+						key="subreport-3">
+							<printWhenExpression><![CDATA[$P{comprovante} != null]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="processoSeletivo">
+						<subreportParameterExpression><![CDATA[$P{processoSeletivo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ano">
+						<subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((List) $F{linha})]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{comprovante}]]></subreportExpression>
+				</subreport>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="declaracao2" >
+			<groupExpression><![CDATA[$F{linha}]]></groupExpression>
+			<groupHeader>
+			<band height="27"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="-1"
+						y="0"
+						width="583"
+						height="20"
+						key="subreport-7">
+							<printWhenExpression><![CDATA[$P{declaracao} != null]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="processoSeletivo">
+						<subreportParameterExpression><![CDATA[$P{processoSeletivo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ano">
+						<subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((List) $F{linha})]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{declaracao}]]></subreportExpression>
+				</subreport>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="termo" >
+			<groupExpression><![CDATA[$F{linha}]]></groupExpression>
+			<groupHeader>
+			<band height="30"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="583"
+						height="20"
+						key="subreport-6"
+						stretchType="RelativeToTallestObject">
+							<printWhenExpression><![CDATA[$P{declaracao} != null]]></printWhenExpression>
+						</reportElement>
+					<subreportParameter  name="processoSeletivo">
+						<subreportParameterExpression><![CDATA[$P{processoSeletivo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ano">
+						<subreportParameterExpression><![CDATA[$P{ano}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((List) $F{linha})]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{declaracao}]]></subreportExpression>
+				</subreport>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<group  name="listas" >
+			<groupExpression><![CDATA[$P{lista_aprovados}]]></groupExpression>
+			<groupHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="60"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="40"
+						width="582"
+						height="20"
+						key="subreport-2"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[$P{lista_aprovados} != null]]></printWhenExpression>
+						</reportElement>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((List) $P{discentesConvocados})]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{lista_aprovados}]]></subreportExpression>
+				</subreport>
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="0"
+						y="0"
+						width="583"
+						height="20"
+						key="subreport-1"
+						isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[$P{lista_assinaturas_aprovados} != null]]></printWhenExpression>
+						</reportElement>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((List) $P{discentesConvocados})]]></dataSourceExpression>
+					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{lista_assinaturas_aprovados}]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement
+						x="0"
+						y="30"
+						width="595"
+						height="0"
+						key="element-1"
+						positionType="Float"/>
+				</break>
+			</band>
+		</summary>
+</jasperReport>

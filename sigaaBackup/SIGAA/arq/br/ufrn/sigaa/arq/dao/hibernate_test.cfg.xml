@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+		<!--
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        -->
+		
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.password">sigaa</property>
+		<property name="connection.username">sigaa</property>
+		<property name="connection.url">jdbc:postgresql://bddesenv.info.ufrn.br:5432/sigaa_desenv</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.show_sql">false</property>
+		<property name="connection.release_mode">on_close</property>
+		<property name="max_fetch_depth">5</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+			
+		<!-- ARQ -->
+		<mapping class="br.ufrn.sigaa.arq.dominio.OperacaoLote" />
+		<mapping class="br.ufrn.sigaa.arq.dominio.SeqAno" />
+		<mapping class="br.ufrn.rh.dominio.ClasseFuncional" />
+		<mapping class="br.ufrn.rh.dominio.Categoria" />
+		
+
+		<!-- PESSOA -->
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Banco" />
+        <mapping class="br.ufrn.sigaa.pessoa.dominio.Cep" />
+        <mapping class="br.ufrn.sigaa.pessoa.dominio.CertificadoMilitar" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.ContaBancaria" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Discente" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.DocenteExterno" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoDocenteExterno" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Endereco" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.EstadoCivil" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Estrangeiro" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Identidade" />
+	 	<mapping class="br.ufrn.sigaa.pessoa.dominio.Municipio" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Pais" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.Pessoa" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.AlteracaoPessoa" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.PessoaJuridica" />
+	 	<mapping class="br.ufrn.sigaa.pessoa.dominio.Servidor" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoEtnia" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoLogradouro" />
+		<mapping class="br.ufrn.comum.dominio.TipoNecessidadeEspecial" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoProcedenciaAluno" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoRaca" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoRedeEnsino" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.TituloEleitor" />
+		<mapping class="br.ufrn.sigaa.pessoa.dominio.ObservacaoDiscente" />
+
+		<!-- ELEICAO -->
+        <mapping class="br.ufrn.sigaa.eleicao.dominio.Eleicao"/>
+        <mapping class="br.ufrn.sigaa.eleicao.dominio.Candidato"/>
+        <mapping class="br.ufrn.sigaa.eleicao.dominio.Voto"/>
+
+		  <!-- QUESTIONARIO -->
+        <mapping class="br.ufrn.sigaa.questionario.dominio.Alternativa"/>
+        <mapping class="br.ufrn.sigaa.questionario.dominio.PerguntaQuestionario"/>
+        <mapping class="br.ufrn.sigaa.questionario.dominio.Questionario"/>
+        <mapping class="br.ufrn.sigaa.questionario.dominio.QuestionarioRespostas"/>
+        <mapping class="br.ufrn.sigaa.questionario.dominio.Resposta"/>
+        <mapping class="br.ufrn.sigaa.questionario.dominio.TipoQuestionario"/>
+	
+		<!-- GERAL -->
+		<mapping class="br.ufrn.sigaa.dominio.AtendimentoAluno" />
+		<mapping class="br.ufrn.sigaa.dominio.StatusAtendimentoAluno" />
+        <mapping class="br.ufrn.sigaa.dominio.ParametrosGestoraAcademica" />
+        <mapping class="br.ufrn.sigaa.dominio.DestinoPadraoProcesso" />
+        <mapping class="br.ufrn.sigaa.dominio.AutoCadastroDiscente" />
+        <mapping class="br.ufrn.sigaa.dominio.TipoBolsa" />
+        <mapping class="br.ufrn.sigaa.dominio.CategoriaTipoBolsa" />
+        <mapping class="br.ufrn.sigaa.dominio.Bolsista" />
+        <mapping class="br.ufrn.sigaa.dominio.AreaConhecimentoCnpq" />
+        <mapping class="br.ufrn.sigaa.dominio.TipoUnidade" />
+<!--    <mapping class="br.ufrn.sigaa.dominio.Categoria" />  -->
+		<mapping class="br.ufrn.sigaa.dominio.GrauFormacao" />
+        <mapping class="br.ufrn.sigaa.dominio.UnidadeFederativa" />
+        <mapping class="br.ufrn.sigaa.dominio.Unidade" />
+        
+        <mapping class="br.ufrn.sigaa.dominio.UnidadesRh" />
+        <mapping class="br.ufrn.sigaa.dominio.InstituicoesEnsino" />
+<!--    <mapping class="br.ufrn.sigaa.dominio.SituacaoServidor" />  -->
+        <mapping class="br.ufrn.sigaa.dominio.AlteracaoStatusAluno" />
+        <mapping class="br.ufrn.sigaa.dominio.Bolsa" />
+        <mapping class="br.ufrn.sigaa.dominio.CampusIes" />
+        <mapping class="br.ufrn.sigaa.dominio.Curso" />
+        <mapping class="br.ufrn.sigaa.dominio.CursoInstituicoesEnsino" />
+        <mapping class="br.ufrn.sigaa.dominio.CursoSede" />
+        <mapping class="br.ufrn.sigaa.dominio.TipoEsferaAdministrativa" />
+        <mapping class="br.ufrn.sigaa.dominio.CalendarioAcademico" />
+        <mapping class="br.ufrn.sigaa.dominio.EventoExtraSistema" />
+        <mapping class="br.ufrn.sigaa.dominio.Usuario" />
+        <mapping class="br.ufrn.sigaa.dominio.ModalidadeEducacao" />
+        <mapping class="br.ufrn.sigaa.dominio.TipoInstituicao"/>
+        <mapping class="br.ufrn.sigaa.dominio.UsuarioMobile" />
+        <mapping class="br.ufrn.sigaa.dominio.UsuarioUnidade" />
+        
+        
+<!--    <mapping class="br.ufrn.sigaa.dominio.Cargo" />  -->
+<!--    <mapping class="br.ufrn.sigaa.dominio.Designacao" />  -->
+<!--    <mapping class="br.ufrn.sigaa.dominio.Escolaridade" />  -->
+<!-- 	<mapping class="br.ufrn.sigaa.dominio.Ativo" />  -->
+
+		<!--  DIPLOMA   -->
+		<mapping class="br.ufrn.sigaa.diploma.dominio.ControleNumeroRegistro"/>
+		<mapping class="br.ufrn.sigaa.diploma.dominio.FolhaRegistroDiploma"/>
+        <mapping class="br.ufrn.sigaa.diploma.dominio.LivroRegistroDiploma" />
+        <mapping class="br.ufrn.sigaa.diploma.dominio.LogGeracaoDiploma" />
+		<mapping class="br.ufrn.sigaa.diploma.dominio.ObservacaoRegistroDiploma"/>
+		<mapping class="br.ufrn.sigaa.diploma.dominio.RegistroDiploma"/>
+		<mapping class="br.ufrn.sigaa.diploma.dominio.RegistroDiplomaColetivo"/>
+		
+		<!--  SITE   -->
+		<mapping class="br.ufrn.sigaa.sites.dominio.SecaoExtraSite" />
+		<mapping class="br.ufrn.sigaa.sites.dominio.NoticiaSite" />
+		<mapping class="br.ufrn.sigaa.sites.dominio.DetalhesSite" />
+		<mapping class="br.ufrn.sigaa.sites.dominio.DocumentoSite" />
+		<mapping class="br.ufrn.sigaa.sites.dominio.TipoDocumentoSite" />
+		<mapping class="br.ufrn.sigaa.sites.dominio.SolicitacaoRevalidacaoDiploma"/>
+		<mapping class="br.ufrn.sigaa.sites.dominio.AgendaRevalidacaoDiploma"/>
+		<mapping class="br.ufrn.sigaa.sites.dominio.EditalRevalidacaoDiploma"/>
+		<mapping class="br.ufrn.sigaa.sites.dominio.TemplateSite" />
+		
+		<!--  PROJETOS  -->
+		<mapping class="br.ufrn.sigaa.projetos.dominio.AvisoProjeto" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.ArquivoProjeto"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.CategoriaMembro" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.ClassificacaoFinanciadora" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.CronogramaProjeto" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.Edital"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.EntidadeFinanciadora" />		
+		<mapping class="br.ufrn.sigaa.projetos.dominio.FuncaoMembro"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.FotoProjeto"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.GrupoEntidadeFinanciadora" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.GrupoPublicoAlvo" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.HistoricoSituacaoProjeto"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.IntervaloCronograma" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.MembroProjeto" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.MembroComissao"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.OrcamentoDetalhado"/>		
+		<mapping class="br.ufrn.sigaa.projetos.dominio.Projeto" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.SolicitacaoReconsideracao"/>		
+		<mapping class="br.ufrn.sigaa.projetos.dominio.TipoPublicoAlvo" />
+		<mapping class="br.ufrn.sigaa.projetos.dominio.TipoSituacaoProjeto"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.TipoSolicitacaoReconsideracao"/>
+		<mapping class="br.ufrn.sigaa.projetos.dominio.ModalidadeBolsaExterna"/>
+		<mapping class="br.ufrn.sigaa.projetos.avaliacoes.dominio.Avaliacao"/>
+		<mapping class="br.ufrn.sigaa.projetos.avaliacoes.dominio.PerguntaAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.projetos.avaliacoes.dominio.ItemAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.projetos.avaliacoes.dominio.GrupoAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.projetos.avaliacoes.dominio.TipoAvaliacaoProjeto"/>
+		
+		<!-- ENSINO -->
+		<mapping class="br.ufrn.sigaa.ensino.dominio.AtualizacaoMediaDiscente" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.MotivoTrancamento" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.MotivoTrancamentoPrograma" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.SolicitacaoTrancamentoMatricula" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.ConvenioAcademico" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.SituacaoTurma" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.ProcessoSeletivo" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoOfertaCurso" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.CursoVeiculacaoEad" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.SituacaoDiploma" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoProcessamento" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.NaturezaCurso" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoRegimeLetivo" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.DocenteTurma" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.DocumentoLegal" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoCampusUnidade" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.SituacaoMatricula" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoVeiculacaoEad" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoConcessao" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.AreaSesu" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.CoordenacaoCurso" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.GrauAcademico" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.ComponenteCurricular" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoComponenteCurricular" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.FormaParticipacaoAtividade" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.RetificacaoMatricula" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.MatriculaComponente" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.RegistroAtividade" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.OrientacaoAtividade" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.UnidadeTempo" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoSistemaCurricular" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.Turma" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoEntrada" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.FormaIngresso" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.MovimentacaoAluno" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoAtividadeComplementar" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.InscricaoSelecao" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.PessoaInscricao" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.Turno" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.Horario" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.HorarioTurma" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.HorarioDocente" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.GeracaoMatricula" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.SituacaoCursoHabil" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.AlteracaoComponenteCurricular" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.AlteracaoStatusTurma" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.ConsolidacaoIndividual" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoMovimentacaoAluno" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoRegimeAluno" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.CargoAcademico" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoDocumentoLegal" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.Avaliacao"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.NotaUnidade"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.AlteracaoMatricula"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.EstornoMovimentacaoAluno"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.ComponenteDetalhes"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.ComponenteCurricularPrograma"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.AlteracaoAtivacaoComponente"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.SecretariaUnidade"/>
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoAtividade" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoTrabalhoConclusao" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.OrientacaoMatricula" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoOfertaDisciplina" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.OfertaVagasCurso"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.AvisoFaltaDocenteHomologada"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.PlanoReposicaoAula"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.ParecerPlanoReposicaoAula"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.StatusParecerPlanoReposicaoAula"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.StatusFaltaDocenteHomologada"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.DadosAvisoFalta"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.AvisoFaltaDocente"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.FrequenciaEletronica"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.TipoCicloFormacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.EditalProcessoSeletivo" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.AgendaProcessoSeletivo" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.PlanoCurso" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.IndiceAcademico"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.IndiceAcademicoDiscente"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.AtualizacaoIndiceAcademicoDiscente"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.EquivalenciaEspecifica"/>
+		<mapping class="br.ufrn.sigaa.ensino.dominio.SolicitacaoTrancamentoPrograma" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.MobilidadeEstudantil" />
+		<mapping class="br.ufrn.sigaa.ensino.dominio.SolicitacaoReposicaoProva" />
+		
+        <!-- TECNICO -->
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.TurmaEntradaTecnico" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.ModalidadeCursoTecnico" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.CursoTecnico" />
+<!--    <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.ProcessoSeletivo" />
+-->
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.DiscenteTecnico" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.Modulo" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.ModuloQualificacao" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.QualificacaoTecnico" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.ModuloCurricular" />
+		<mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.EstruturaCurricularTecnica" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.ModuloDisciplina" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.DisciplinaComplementar" />
+        <mapping class="br.ufrn.sigaa.ensino.tecnico.dominio.EspecializacaoTurmaEntrada" />
+
+        <!-- COMUM -->
+        <mapping class="br.ufrn.comum.dominio.TipoUnidadeOrganizacional" />
+        <mapping class="br.ufrn.comum.dominio.AreaAtuacaoUnidade" />
+        <mapping class="br.ufrn.comum.dominio.AmbienteOrganizacionalUnidade" />
+
+        <!-- INFANTIL -->
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.DiscenteInfantil"/>
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.ResponsavelDiscenteInfantil"/>
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.RendaFamiliar" />
+		<mapping class="br.ufrn.sigaa.ensino.infantil.dominio.Area" />
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.Conteudo" />
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.ConteudoBimestre" />
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.FormularioEvolucaoCrianca" />
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.ObjetivoConteudo" />
+        <mapping class="br.ufrn.sigaa.ensino.infantil.dominio.ObjetivoBimestre" />
+
+        <!-- MAPEAMENTOS DO SUBSISTEMA LATO SENSU -->
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.SituacaoProposta" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.PublicoAlvoCurso" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.PropostaCursoLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.FormaSelecao" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.FormaAvaliacao" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.FormaSelecaoProposta" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.FormaAvaliacaoProposta" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.CorpoDocenteDisciplinaLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.ParceriaLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.TipoPeriodicidadeAula" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.OutrosDocumentos" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.DiscenteLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.CursoLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.TrabalhoFinalLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.NoticiaLato" />
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.TurmaEntradaLato" />
+        <mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.RelatorioFinalLato" />
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.CorpoDocenteCursoLato" />
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.ComponenteCursoLato" />
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.RegistroAlteracaoLato" />
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.TipoCursoLato" />
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.HistoricoSituacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.latosensu.dominio.ArquivoLato"/>
+
+		<!-- MAPEAMENTOS DO SUBSISTEMA DE PESQUISA -->
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.AutorResumoCongresso" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.AvaliacaoProjeto" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.CalendarioPesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.CongressoIniciacaoCientifica" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.Consultor" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ConsultoriaEspecial" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.CotaBolsas" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.CotaDocente" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.EditalPesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.FinanciamentoProjetoPesq" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.GrupoPesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.HistoricoPlanoTrabalho" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.ItemAvaliacao" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.LinhaPesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.MembroGrupoPesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.MembroProjetoDiscente" />
+        <!-- <mapping class="br.ufrn.sigaa.pesquisa.dominio.ModalidadeBolsaExterna" />
+-->
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.NotaItem" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.PlanoTrabalho" />
+		<!-- <mapping class="br.ufrn.sigaa.pesquisa.dominio.ProgramaEntidadeFinanciadora" />
+-->
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.ProjetoPesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.RelatorioBolsaFinal" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.RelatorioBolsaParcial" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.RelatorioProjeto" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ResumoCongresso" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.SiglaUnidadePesquisa" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.TipoBolsaExterna" />
+        <mapping class="br.ufrn.sigaa.pesquisa.dominio.TipoMembroGrupoPesquisa" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.TipoNaturezaFinanciamento" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.AvaliadorCIC" />
+		<mapping class="br.ufrn.sigaa.dominio.ColaboradorVoluntario" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ProjetoInfraEstruturaPesquisa" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.SubProjetoInfraEstruturaPesquisa" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.TipoBolsaPesquisa" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.EstagioDesenvolvimentoInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.FinanciamentoInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.Inventor" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.Invencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ArquivoInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.TipoInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.VinculoInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.AvaliacaoResumo" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ParecerInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.HistoricoNotificacaoInvencao" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.AvaliacaoApresentacaoResumo" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.Cotas" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.CategoriaProjetoPesquisa" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.InstitutoCienciaTecnologia" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.MembroInstitutoCienciaTecnologia" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.OrganizacaoPaineisCIC" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.DiaApresentacaoCentro" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.HistoricoResumoCongresso" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.LimiteCotaExcepcional" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ProjetoApoioGrupoPesquisa" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.ProjetoApoioNovosPesquisadores" />
+		
+		
+		<!-- MAPEAMENTOS DE MONITORIA -->
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.AtividadeMonitor"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.AvaliacaoRelatorioProjeto"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.AvaliacaoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.AutorizacaoProjetoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.AutorizacaoReconsideracao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.CalendarioMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.CancelamentoBolsa"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ComponenteCurricularMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.DiscenteMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.EditalMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.EnvioFrequencia"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.EquipeDocente"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.EquipeDocenteComponente"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.GrupoItemAvaliacao" />
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.HistoricoSituacaoDiscenteMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ItemAvaliacaoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.InscricaoSelecaoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.MovimentacaoCota"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.NotaItemMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.Orientacao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ParticipacaoSid"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ProjetoEnsino"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ProvaSelecao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ProvaSelecaoComponenteCurricular"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.ResumoSid"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.RelatorioProjetoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.RelatorioMonitor"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.RecomendacaoCorteBolsa"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.RenovacaoProjetoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.SolicitacaoReconsideracaoAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.SolicitacaoRenovacao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.StatusSolicitacaoRenovacao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.StatusAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.StatusRelatorio"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.SituacaoDiscenteMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.TipoAutorizacaoProjetoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.TipoAvaliacaoMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.TipoProjetoEnsino"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.TipoRelatorioMonitoria"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.TipoSituacaoProvaSelecao"/>
+		<mapping class="br.ufrn.sigaa.monitoria.dominio.TipoVinculoDiscenteMonitoria"/>
+		
+
+		<!-- MAPEAMENTOS DE EXTENSAO -->
+		
+		<mapping class="br.ufrn.sigaa.dominio.ElementoDespesa"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ArquivoAtividadeExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AreaTematica"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AtividadeExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AtividadeEntidadeFinanciadora"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AtividadeGrupoPesquisa"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AtividadeUnidade"/>
+	 	<mapping class="br.ufrn.sigaa.extensao.dominio.AutorizacaoDepartamento"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AvaliacaoAtividade"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AvaliacaoOrcamentoProposto"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.AvaliadorAtividadeExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.CursoEventoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.DetalhePrestServico"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.DiscenteExtensao"/>				
+	 	<mapping class="br.ufrn.sigaa.extensao.dominio.EditalExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.FatorGerador"/>		
+		<mapping class="br.ufrn.sigaa.extensao.dominio.FormaCompromisso"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.HistoricoSituacaoDiscenteExtensao"/>		
+		<mapping class="br.ufrn.sigaa.extensao.dominio.InscricaoSelecaoExtensao"/>		
+		<mapping class="br.ufrn.sigaa.extensao.dominio.LinhaProgramatica"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.LocalRealizacao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.MembroPrestacaoServico"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.NaturezaServico"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.Objetivo"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ObjetivoAtividades"/>		
+		<mapping class="br.ufrn.sigaa.extensao.dominio.OrcamentoConsolidado"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ParticipanteExterno"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ParticipanteAcaoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.PlanoTrabalhoExtensao"/>		
+		<mapping class="br.ufrn.sigaa.extensao.dominio.PrestacaoServico"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ProdutoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ProgramaExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.ProjetoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.CalendarioExtensao" />
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoAtividadeExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoCursoEventoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoGrupoPrestServico"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoParticipacaoAcaoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoProduto"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoSituacaoDiscenteExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoVinculoDiscente"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoParecerAvaliacaoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.dominio.InscricaoAtividade" />
+		<mapping class="br.ufrn.sigaa.extensao.dominio.InscricaoAtividadeParticipante" />
+		<mapping class="br.ufrn.sigaa.extensao.dominio.StatusInscricaoParticipante" />
+		<mapping class="br.ufrn.sigaa.extensao.dominio.SubAtividadeExtensao" />
+		<mapping class="br.ufrn.sigaa.extensao.dominio.TipoSubAtividadeExtensao" />
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.AtividadeDesenvolvida"/>
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.ArquivoRelatorioAcaoExtensao"/>		
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.DetalhamentoRecursos"/>
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.RelatorioBolsistaExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.RelatorioCursoEvento"/>
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.RelatorioProjetoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.RelatorioAcaoExtensao"/>
+		<mapping class="br.ufrn.sigaa.extensao.relatorio.dominio.TipoRelatorioExtensao"/>
+
+
+		<!--  Mapeamentos de Produção Intelectual -->
+		
+		<!--  <mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ApresentacaoEmEvento"/>  -->
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Artigo"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.AudioVisual"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Banca"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.BolsaObtida"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Capitulo"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.CategoriaFuncional"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Livro"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.NaturezaExame"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ParticipacaoColegiadoComissao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ParticipacaoComissaoOrgEventos"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ParticipacaoSociedade"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Patente"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.PremioRecebido"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Producao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ProducaoArtisticaLiterariaVisual"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ProducaoTecnologica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.Publicacao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.PublicacaoEvento"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.SubTipoArtistico"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TextoDidatico"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TextoDiscussao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoArtistico"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoBanca"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoComissaoColegiado"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoEvento"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoInstancia"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoMembroColegiado"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoParticipacao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoParticipacaoOrganizacaoEventos"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoParticipacaoSociedade"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoPeriodico"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoProducao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoProducaoTecnologica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.TipoRegiao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.VisitaCientifica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.ValidacaoProducao"/>
+		<!--mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.ItemAvaliacaoDocente"/-->
+		<!--mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.ItemAvaliacaoDocenteParticipacao"/-->
+		<!--mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.GrupoAvaliacaoDocente"/-->
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.CategoriaFuncional"/>
+		<mapping class="br.ufrn.sigaa.prodocente.lattes.LeituraXML"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.GrupoItem"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.GrupoRelatorioProdutividade"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.ItemRelatorioProdutividade"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.RelatorioProdutividade"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.EmissaoRelatorio"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.EmissaoRelatorioItem"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.EmissaoRelatorioMedia"/>
+		<mapping class="br.ufrn.sigaa.prodocente.relatorios.dominio.ClassificacaoRelatorio"/>
+		<mapping class="br.ufrn.sigaa.prodocente.producao.dominio.BloqueioCadastroProducao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.OrientacaoICExterno"/>
+		
+		<mapping resource="br/ufrn/sigaa/arq/dao/prodocente/ProgramaEducacaoTutorial.hbm.xml"/>
+		<!-- Atividades de um docente -->
+
+<!-- 	<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.AreaTematica"/-->
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.AtividadeEnsino"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.AvaliacaoOrganizacao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.CargoAdministrativo"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Chefia"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.ClassificacaoPet"/>
+	 	<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Colegiado"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Coordenacao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.DesignacaoCargo"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.DisciplinaQualificacao"/>
+	 	<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Estagio"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.FinanciamentoVisitaCientifica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.FormacaoAcademica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.FormacaoTese"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.IniciacaoCientifica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.InstituicaoFomento"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Licenca"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.MiniCurso"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Monitoria"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.Monografia"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.OrientacaoProdocente"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.OrientacaoProex"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TutoriaPet"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.ProgramaResidenciaMedica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.QualificacaoDocente"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.RelatorioPesquisa"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.CHDedicadaResidenciaMedica"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TeseOrientada"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoAfastamento"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoAvaliacaoOrganizacaoEvento"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoBolsaProdocente"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoChefia"/>
+
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoOrientacao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoOrientacaoDocente"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoAtividadeEnsino"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoParecer"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoQualificacao"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TrabalhoFimCurso"/>
+		<mapping class="br.ufrn.sigaa.prodocente.atividades.dominio.TipoRelatorio"/>
+		
+		<mapping class="br.ufrn.sigaa.rh.dominio.TipoAfastamentoServidor"/>
+		<mapping class="br.ufrn.sigaa.rh.dominio.TipoProvimento"/>
+		<mapping class="br.ufrn.sigaa.rh.dominio.TipoComprovacaoPublicacao"/>
+		<mapping class="br.ufrn.sigaa.rh.dominio.SolicitacaoProfessorSubstituto"/>
+		<mapping class="br.ufrn.sigaa.rh.dominio.RequisitosProfessorSubstituto"/>
+		<mapping class="br.ufrn.sigaa.rh.dominio.ComponentesProfessorSubstituto"/>
+
+		<!--  Portal do Discente e da Turma -->
+		<mapping class="br.ufrn.sigaa.portal.agenda.dominio.Compromisso"/>
+		<mapping class="br.ufrn.sigaa.portal.agenda.dominio.ConfiguracoesAgenda"/>
+
+		<mapping class="br.ufrn.sigaa.ava.dominio.Forum"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.ForumMensagem"/>
+
+		<mapping class="br.ufrn.sigaa.ava.dominio.Enquete" />
+		<mapping class="br.ufrn.sigaa.ava.dominio.EnqueteResposta" />
+		<mapping class="br.ufrn.sigaa.ava.dominio.EnqueteVotos" />
+
+		<mapping class="br.ufrn.sigaa.ava.dominio.ArquivoTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.ArquivoUsuario"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.AulaExtra"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.DiarioClasse"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.PastaArquivos"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.NoticiaTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.TopicoAula"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.ConteudoTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.ConfiguracoesAva"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.PlanoEnsino"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.TarefaTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.RespostaTarefaTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.GrupoTarefaTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.PermissaoAva"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.IndicacaoReferencia"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.RegistroAtividadeTurma"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.EstacaoChamadaBiometrica"/>
+		<mapping class="br.ufrn.sigaa.ava.dominio.EstacaoChamadaBiometricaTurma"/>
+
+		<mapping class="br.ufrn.sigaa.portal.dominio.PerfilServidor"/>
+		<mapping class="br.ufrn.sigaa.portal.dominio.PerfilDiscente"/>
+
+		<mapping class="br.ufrn.sigaa.ensino.dominio.FrequenciaAluno"/>
+<!-- 		<mapping class="br.ufrn.sigaa.ensino.dominio.TipoAvaliacao"/> -->
+		<mapping class="br.ufrn.sigaa.ava.dominio.DataAvaliacao"/>
+
+        <mapping resource="br/ufrn/sigaa/arq/dao/AlteracaoRegistroEntrada.hbm.xml"/>
+        <mapping resource="br/ufrn/sigaa/arq/dao/RegistroEntrada.hbm.xml"/>
+        <mapping resource="br/ufrn/arq/dao/conf/rh/Atividade.hbm.xml"/>
+        <mapping resource="br/ufrn/arq/dao/conf/rh/Ativo.hbm.xml"/>
+        <mapping resource="br/ufrn/arq/dao/conf/rh/Cargo.hbm.xml"/>
+        <mapping resource="br/ufrn/arq/dao/conf/rh/CategoriaServidorRH.hbm.xml"/>
+        <mapping resource="br/ufrn/arq/dao/conf/rh/Escolaridade.hbm.xml"/>
+        <mapping resource="br/ufrn/arq/dao/conf/rh/Situacao.hbm.xml"/>
+		<mapping resource="br/ufrn/arq/dao/conf/rh/Formacao.hbm.xml"/>
+		<mapping resource="br/ufrn/sigaa/arq/dao/Designacao.hbm.xml"/>
+
+		<mapping resource="br/ufrn/arq/dao/conf/Papel.hbm.xml"/>
+		<mapping resource="br/ufrn/arq/dao/conf/Parametro.hbm.xml"/>
+		<mapping resource="br/ufrn/arq/dao/conf/SubSistema.hbm.xml"/>
+		<mapping resource="br/ufrn/arq/dao/conf/Sistema.hbm.xml"/>
+
+		<!-- GRADUAÇÃO -->
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.AlteracaoDiscenteGraduacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.AreaConhecimentoCienciasTecnologia"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.ConfirmacaoMatriculaFerias"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.Curriculo"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.CurriculoComponente"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.DadosAluno" />
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.DiscenteGraduacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.DiscentesSolicitacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.Enfase" />
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.Entrada"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.ExtrapolarCredito"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.GrupoOptativas"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.Habilitacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.InteressadoBolsa" />
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.MatrizCurricular"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.MudancaCurricular"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.Reconhecimento"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.RegistroTransferencia"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.Requerimento"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.ReservaCurso"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.RestricoesMatricula"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.SolicitacaoMatricula"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.SolicitacaoEnsinoIndividual"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.SolicitacaoTurma"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.StatusRequerimento"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.TipoRequerimento"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.TipoInteressadoBolsa" />
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.TurmaSolicitacaoTurma"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.OrientacaoAcademica"/>
+		<mapping class="br.ufrn.sigaa.ensino.graduacao.dominio.OptativaCurriculoSemestre"/>
+		
+		<!-- STRICTO SENSU -->
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.AlteracaoDiscenteStricto"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.AproveitamentoCredito"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.AreaConcentracao"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.BancaPos"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.DadosDefesa"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.ConceitoNota"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.DiscenteStricto"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.EquipePrograma"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.HomologacaoTrabalhoFinal"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.LinhaPesquisaStricto"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.MembroBancaPos"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.NivelEquipe"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.OrigemDiscentePos"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.OrganizacaoAdministrativa"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.ParametrosProgramaPos"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.ProgramaProjeto"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.Recomendacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.RenovacaoAtividadePos"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TipoCursoStricto"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TrabalhoFinalStricto"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.VinculoEquipe"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.PlanoDocenciaAssistida"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.AtividadeDocenciaAssistida"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.FormaAtuacaoDocenciaAssistida"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TurmaDocenciaAssistida"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TermoAutorizacaoPublicacaoTeseDissertacao"/>
+		
+		<!-- Stricto Sensu: Bolsas REUNI -->		
+		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.EditalBolsasReuni"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.PlanoTrabalhoReuni"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.SolicitacaoBolsasReuni"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.IndicacaoBolsistaReuni"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.PeriodoIndicacaoReuni"/>
+
+
+		<!-- Ensino a Distância (EAD) -->
+
+		<mapping class="br.ufrn.sigaa.ead.dominio.Polo"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.PoloCurso"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.CoordenacaoPolo"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.CoordenacaoTutoria"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.TutorOrientador"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.TutoriaAluno"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.MetodologiaAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.FichaAvaliacaoEad"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.ItemAvaliacaoEad"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.AvaliacaoDiscenteEad"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.NotaItemAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.HorarioTutoria"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.HorarioTutor"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.VinculoTutor"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.MudancaPoloAluno"/>
+		<mapping class="br.ufrn.sigaa.ead.dominio.ItemPrograma"/>
+
+		<!-- Comunidade Virtual -->
+		<mapping class="br.ufrn.sigaa.cv.dominio.ArquivoComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.ComunidadeVirtual"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.ConteudoComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.EnqueteComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.EnqueteRespostaComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.EnqueteVotosComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.ForumComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.ForumMensagemComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.IndicacaoReferenciaComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.MembroComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.NoticiaComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.RegistroAtividadeComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.SolicitacaoParticipacaoComunidade"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.TipoComunidadeVirtual"/>
+		<mapping class="br.ufrn.sigaa.cv.dominio.TopicoComunidade"/>
+
+		<!-- Vestibular -->
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.AreaConhecimentoVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.AvisoProcessoSeletivoVestibular" />
+        <mapping class="br.ufrn.sigaa.vestibular.dominio.CandidatoVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.EscolaInep" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.Fiscal" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.InscricaoFiscal" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.InscricaoVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.IsentoTaxaVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.JustificativaAusencia" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.LinguaEstrangeira" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.LocalAplicacaoProva" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.LocalAplicacaoProvaProcessoSeletivo" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.PessoaVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.ProcessoSeletivoVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.RegiaoPreferencialProva" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.RestricaoInscricaoVestibular" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.ResumoProcessamentoSelecao" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.Sala" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.StatusFoto" />
+        
+		<!-- Avaliação Institucional -->
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.AlternativaPergunta" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.AvaliacaoDocenteTurmaInvalida" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.AvaliacaoInstitucional" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.ComentarioAvaliacaoModerado" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.EstatisticaAvaliacaoInstitucional" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.GrupoPerguntas" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.MediaNotas" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.ObservacoesDocenteTurma" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.ObservacoesTrancamento" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.ParametroProcessamentoAvaliacaoInstitucional" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.PercentualSimNao" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.Pergunta" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.ResultadoAvaliacaoDocente" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.RespostaPergunta" />
+		<mapping class="br.ufrn.sigaa.avaliacao.dominio.QuestionarioSatisfacao" />
+		
+		<!-- Sistema SAE -->
+		 
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.BolsaAuxilio" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.TipoBolsaAuxilio" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.TipoMeioTransporte" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.SituacaoBolsaAuxilio" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.CalendarioBolsaAuxilio" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.ResidenciaUniversitaria" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.BolsaAuxilioPeriodo" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.SituacaoSocioEconomicaDiscente" />				
+		<mapping class="br.ufrn.sigaa.assistencia.restaurante.dominio.DiasAlimentacao" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.AnoPeriodoReferenciaSAE" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.DocumentosEntreguesSAE" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.TipoRefeicaoRU" />
+		 
+		 		
+		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.ItemConfortoFamiliar" /> 		
+		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.AdesaoCadastroUnicoBolsa" />
+		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.ContatoFamilia" />
+		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.QuantidadeItemConfortoCadastroUnico" />
+		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.FormularioCadastroUnicoBolsa" />
+		
+	 	<!-- PLANO INDIVIDUAL DOCENTE - PID  -->
+		<mapping class="br.ufrn.sigaa.pid.dominio.PlanoIndividualDocente" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.CargaHorariaEnsino" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.CargaHorariaOrientacao" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.TipoOrientacaoPID" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.CargaHorariaProjeto" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.CargaHorariaAdministracao" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.CargaHorariaAtividadesComplementares" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.AtividadeComplementarPID" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.TipoAtividadeComplementarPID" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.CargaHorariaOutrasAtividades" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.AtividadesEspecificasDocente" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.ChEnsinoPIDocenteTurma" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.ChProjetoPIDMembroProjeto" />
+		<mapping class="br.ufrn.sigaa.pid.dominio.ChResidenciaMedicaPID" />
+		 
+		<!--  MAPEAMENTO DO DOMINIO PARA O SUB-SISTEMA DA BIBLIOTECA -->
+		
+		<mapping class="br.ufrn.sigaa.biblioteca.dominio.Biblioteca" />
+		<mapping class="br.ufrn.sigaa.biblioteca.dominio.AssociacaoCursoBiblioteca" />
+		
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ArtigoDePeriodico" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Autoridade" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.CampoControle" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.CampoDados" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.CategoriaMaterial" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.DescritorCampoControle" />		
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.DescritorSubCampo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Etiqueta" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.FormatoMaterial" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.FormatoMaterialEtiqueta" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ObjetoPlanilhaCatalogacaoControle" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ObjetoPlanilhaCatalogacaoDados" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.PlanilhaCatalogacao" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.SubCampo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.TituloCatalografico" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.CacheEntidadesMarc" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.MaterialInformacional" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Exemplar" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Assinatura" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Fasciculo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ValorDescritorCampoControle" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ValorDescritorSubCampo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ValorIndicador" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ValorPadraoCampoControle" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.RegistroExportacaoCooperacaoTecnica" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.EntidadesMarcadasParaExportacao" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.MateriaisMarcadosParaGerarEtiquetas" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.HistoricoAlteracaoArtigosDePeriodicos" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.HistoricoAlteracaoAutoridade" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.HistoricoAlteracaoMaterial" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.HistoricoAlteracaoTitulo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.ArquivoDeCargaNumeroControleFGV" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.RegistroMovimentacaoMaterialInformacional" />
+		<mapping class="br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.RenovacaoAssinatura" />
+		
+		
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.Colecao" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.Convenio" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.InterrupcaoBiblioteca" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.SituacaoMaterialInformacional" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.StatusMaterialInformacional" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.SuspensaoUsuarioBiblioteca" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.TipoEmprestimo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.TipoMaterial" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.PoliticaEmprestimo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.ProrrogacaoEmprestimo" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.RegistroCheckout" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.RegistroConsultaTituloCatalografico" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.UsuarioBiblioteca" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.HistoricoBloqueiosUsuarioBiblioteca" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.UsuarioExternoBiblioteca" />
+		<mapping class="br.ufrn.sigaa.biblioteca.circulacao.dominio.OperacoesDesfeitasDesktop" />
+		
+		
+		
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.LevantamentoBibliograficoInfra" />
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.Linguas" />		
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.ClasseCDUMaterialConsultado" />		
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.RegistroConsultasDiariasMateriais" />
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.RegistroConsultaMaterialInformacional" />		
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.RegistroFrequenciaUsuariosBiblioteca" />		
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.FichaCatalografica" />
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.SolicitacaoNormalizacaoCatalogacao" />
+		<mapping class="br.ufrn.sigaa.biblioteca.informacao_referencia.dominio.TipoDocumentoNormalizacaoCatalogacao" />
+	
+	
+	
+	
+	
+		<!--  MAPEAMENTO DO DOMINIO PARA O SUB-SISTEMA DO ESPACO FISICO -->
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.EspacoFisico"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.GestorEspacoFisico"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.RecursoEspacoFisico"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.Reserva"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.RepeticaoHorario"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.ReservaHorario"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.StatusReserva"/>		
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.TipoEspacoFisico"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.TipoGestorEspacoFisico"/>
+		<mapping class="br.ufrn.sigaa.infra_estrutura_fisica.dominio.TipoRecursoEspacoFisico"/>
+		
+		<!-- MAPEAMENTO DO COMPLEXO HOSPITALAR -->
+		<mapping class="br.ufrn.sigaa.complexohospitalar.dominio.CoordenacaoProgramaResidenciaMedica"/>
+		<mapping class="br.ufrn.sigaa.complexohospitalar.dominio.DiscenteResidenciaMedica"/>
+		
+		
+		
+		<!-- Interceptor para corrigir a instância de discente em classes de domínio que possuem DiscenteAdapter como atributo. -->
+		<event type="save">
+			<listener class="br.ufrn.sigaa.arq.dao.DiscenteAdapterListener"/>
+			<listener class="org.hibernate.event.def.DefaultSaveOrUpdateEventListener"/>
+		</event>
+		
+		<event type="update">
+			<listener class="br.ufrn.sigaa.arq.dao.DiscenteAdapterListener"/>
+			<listener class="org.hibernate.event.def.DefaultSaveOrUpdateEventListener"/>
+		</event>
+		
+    </session-factory>
+</hibernate-configuration>

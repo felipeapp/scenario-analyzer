@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<!-- 
+# Superintendencia de Informatica - UFRN
+# SIGAA - Sistema Integrado de Gestao de Atividades Academicas
+# Arquivo de configuracao do Struts - PESSOA
+ -->
+<struts-config>
+
+    <form-beans>
+		<form-bean name="pessoaJuridicaForm" type="br.ufrn.sigaa.arq.struts.SigaaForm">
+			<form-property name="id" 							type="java.lang.Integer" />
+			<form-property name="cnpj"							type="java.lang.Long" />
+			<form-property name="nome"				 			type="java.lang.String" />
+			<form-property name="razaoSocial"					type="java.lang.String" />
+			<form-property name="nomeDirigente"					type="java.lang.String" />						
+			<form-property name="cargoDirigente"				type="java.lang.String" />
+			<form-property name="esferaAdministrativaOutra"		type="java.lang.String" />
+			<form-property name="finsLucrativos" 				type="java.lang.Boolean" />
+			<form-property name="registroCNSS"					type="java.lang.Long" />
+			<form-property name="numDeclaracaoFederal"			type="java.lang.Long" />
+			<form-property name="numDeclaracaoEstadual"			type="java.lang.Long" />
+			<form-property name="numDeclaracaoMunicipal"		type="java.lang.Long" />			
+			<form-property name="privada" 						type="java.lang.Boolean" />			
+			<form-property name="atividadeFim"				 	type="java.lang.String" />			
+			<form-property name="tipoEsferaAdministrativa"		type="br.ufrn.sigaa.dominio.TipoEsferaAdministrativa" />			
+		</form-bean>
+		
+		<form-bean name="enderecoPJForm" type="br.ufrn.sigaa.arq.struts.SigaaForm">
+		<form-property name="id" 						type="java.lang.Integer" />
+		<form-property name="cep" 						type="java.lang.Integer" />
+		<form-property name="nomePais" 					type="java.lang.String" />
+		<form-property name="municipio" 				type="java.lang.String" />
+		<form-property name="bairro" 					type="java.lang.String" />
+		<form-property name="logradouro" 				type="java.lang.String" />
+		<form-property name="complemento" 				type="java.lang.String" />
+		<form-property name="numero" 					type="java.lang.String" />
+		<form-property name="caixaPostal" 				type="java.lang.String" />
+		<form-property name="pais" 						type="br.ufrn.sigaa.dominio.Pais" />
+		<form-property name="tipoLogradouro" 			type="br.ufrn.sigaa.dominio.TipoLogradouro"/>
+		<form-property name="uf" 						type="br.ufrn.sigaa.dominio.UnidadeFederativa" />		
+		</form-bean>
+		
+    </form-beans>
+
+    <action-mappings>
+
+		<action path="/geral/guardarDados" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="pessoaJuridicaForm"
+					 parameter="guardarDados" validate="true">
+			<forward name="sucesso" 			path=".geral.pessoaJuridica.endereco" />
+			<forward name="falha" 				path=".geral.pessoaJuridica/form.jsp" />
+		</action>
+		
+		<action path="/geral/criarPessoaJuridica" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="enderecoPJForm"
+					 input="/geral/recarregarPessoaJuridicaForm.do" parameter="criar" validate="true">
+			<forward name="sucesso" 			path="/geral/verPessoaJuridicaForm.do" />
+			<forward name="falha" 				path="/geral/verPessoaJuridicaForm.do"/>
+		</action>
+		
+		<action path="/geral/alterarPessoaJuridica" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="enderecoPJForm"
+					 input="/geral/recarregarPessoaJuridicaForm.do" parameter="alterar" validate="true">
+			<forward name="sucesso" 			path="/geral/listarPessoasJuridicas.do" />
+			<forward name="falha" 				path="/geral/verPessoaJuridicaForm.do" />
+		</action>
+		
+		<action path="/geral/removerPessoaJuridica" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="pessoaJuridicaForm" 
+				parameter="remover" validate="false">
+			<forward name="sucesso" 			path="/geral/listarPessoasJuridicas.do" />
+			<forward name="falha" 				path="/geral/verPessoaJuridicaForm.do" />
+		</action>
+		
+		<action path="/geral/listarPessoasJuridicas" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="pessoaJuridicaForm" 
+				parameter="listar" validate="false">
+			<forward name="sucesso" 			path=".geral.pessoaJuridica/lista.jsp" />
+			<forward name="busca"               path=".geral.pessoaJuridica/busca.jsp" />
+		</action>
+		
+		<action path="/geral/detalharPessoaJuridica" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="pessoaJuridicaForm" 
+				parameter="detalhar" validate="false">
+			<forward name="sucesso" 			path=".geral.pessoaJuridica/form.jsp" />
+		</action>
+
+		<action path="/geral/verPessoaJuridicaForm" forward="/geral/detalharPessoaJuridica.do?acao=criar" />
+		<action path="/geral/recarregarPessoaJuridicaForm" forward="/geral/detalharPessoaJuridica.do?acao=recarregar" />
+		
+		<action path="/geral/buscarNomePessoaJuridica" type="br.ufrn.sigaa.struts.PessoaJuridicaActions" name="pessoaJuridicaForm"
+		 		parameter="listar" validate="false">
+		 	<forward name="sucesso" 				path=".geral.pessoaJuridica/busca.jsp"/>
+		</action>
+		
+		<action path="/geral/verTelaBuscaPessoaJuridica" forward=".geral.pessoaJuridica/busca.jsp" />
+		
+    </action-mappings>
+
+</struts-config>

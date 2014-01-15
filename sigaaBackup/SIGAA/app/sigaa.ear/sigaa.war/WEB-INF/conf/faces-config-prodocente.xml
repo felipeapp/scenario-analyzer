@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<managed-bean>
+		<managed-bean-name>classificacaoRelatorio</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.relatorios.jsf.ClassificacaoRelatorioMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>relatorioAtividades</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.relatorios.jsf.RelatorioProdutividadeMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>tipoRelatorio</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoRelatorioMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>categoriaFuncional</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.CategoriaFuncionalMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoBolsa</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoBolsaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>naturezaExame</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.NaturezaExameMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>
+			producaoArtisticaLiterariaVisual
+		</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.ProducaoArtisticaLiterariaVisualMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>producaoTecnologica</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.ProducaoTecnologicaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>publicacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.PublicacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>publicacaoEvento</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.PublicacaoEventoMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>subTipoArtistico</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.SubTipoArtisticoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>textoDiscussao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TextoDiscussaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoArtistico</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoArtisticoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>tipoBanca</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoBancaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoComissaoColegiado</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoComissaoColegiadoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoEvento</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoEventoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoInstancia</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoInstanciaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoMembroColegiado</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoMembroColegiadoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoParticipacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoParticipacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>
+			tipoParticipacaoOrganizacaoEventos
+		</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoParticipacaoOrganizacaoEventosMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoParticipacaoSociedade</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoParticipacaoSociedadeMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoPeriodico</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoPeriodicoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoProducao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoProducaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoProducaoTecnologica</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoProducaoTecnologicaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoRegiao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoRegiaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+
+	<!--  Atividades -->
+
+	<managed-bean>
+		<managed-bean-name>afastamentoProdocente</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.AfastamentoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>agenciaFinanciadora</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.AgenciaFinanciadoraMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoOrientacaoDocente</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoOrientacaoDocenteMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>atividadeEnsino</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.AtividadeEnsinoMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>avaliacaoOrganizacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.AvaliacaoOrganizacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>cargoAdministrativo</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.CargoAdministrativoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>chefia</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.ChefiaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>classificacaoPet</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.ClassificacaoPetMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>colegiado</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.ColegiadoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>coordenacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.CoordenacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>designacaoCargo</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.DesignacaoCargoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>disciplinaQualificacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.DisciplinaQualificacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>estagio</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.EstagioMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>
+			financiamentoVisitaCientifica
+		</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.FinanciamentoVisitaCientificaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>formacaoAcademica</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.FormacaoAcademicaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>formacaoTese</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.FormacaoTeseMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>iniciacaoCientifica</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.IniciacaoCientificaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>instituicaoFomento</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.InstituicaoFomentoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>licenca</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.LicencaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>miniCurso</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.MiniCursoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>monografia</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.MonografiaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>orientacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.OrientacaoProdocenteMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>relatorio</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.RelatorioPesquisaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>orientacaoProex</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.OrientacaoProexMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>qualificacaoDocente</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.QualificacaoDocenteMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>teseOrientada</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TeseOrientadaMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>
+			tipoAvaliacaoOrganizacaoEvento
+		</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoAvaliacaoOrganizacaoEventoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoBolsa</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoBolsaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoChefia</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoChefiaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>programaResidencia</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.ProgramaResidenciaMedicaMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoOrientacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoOrientacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoQualificacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoQualificacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoParecer</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.TipoParecerMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>prodQuantitativo</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.relatorios.jsf.RelatorioQuantitativoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>tipoApresentacao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.TipoApresentacaoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>uploadCurriculo</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.lattes.UploadCurriculoMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>acervoProducao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.producao.jsf.AcervoDigitalMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>todaProducao</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.relatorios.jsf.RelatorioTodaProdutividadeMBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>residenciaMedica</managed-bean-name>
+		<managed-bean-class>
+			br.ufrn.sigaa.prodocente.atividades.jsf.CHDedicadaResidenciaMedicaMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+</faces-config>

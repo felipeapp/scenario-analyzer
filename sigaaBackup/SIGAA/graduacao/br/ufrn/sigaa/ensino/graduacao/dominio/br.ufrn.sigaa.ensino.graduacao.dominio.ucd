@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" size="5199,1888" id="br.ufrn.sigaa.ensino.graduacao.dominio" metadata="uml2-1.0" initialized="true" zoom="0.5" scrolledY="302" tag="1000" key="32303037303533312D313030302053494741412F4C7563656E61">
+  <children xsi:type="editmodel:ClassEditModel" name="Habilitacao" location="1244,904" size="265,201" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao" runTimeClassModel="id,opcaoParaHabilitacao,vinculoISE,curso,codigoIes,codigoHabilitacaoInep,linguaObrigatoriaVestibular,areaSesu,nome">
+    <children xsi:type="editmodel:CompartmentEditModel" size="242,162">
+      <children xsi:type="editmodel:AttributeEditModel" name="areaSesu" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#areaSesu"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="codigoHabilitacaoInep" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#codigoHabilitacaoInep"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="codigoIes" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#codigoIes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="linguaObrigatoriaVestibular" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#linguaObrigatoriaVestibular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nome" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#nome"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="opcaoParaHabilitacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#opcaoParaHabilitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vinculoISE" id="br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao#vinculoISE"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/Habilitacao" source="//@children.0" target="//@children.21/@sourceConnections.1" targetEnd="//@children.0/@sourceConnections.0/@children.1" sourceEnd="//@children.0/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="132,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="CurriculoComponente" location="1844,914" size="230,165" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente" runTimeClassModel="id,componente,areaConcentracao,curriculo,semestreOferta,obrigatoria,selecionado">
+    <children xsi:type="editmodel:CompartmentEditModel" size="207,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="areaConcentracao" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#areaConcentracao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="componente" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#componente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curriculo" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#curriculo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="obrigatoria" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#obrigatoria"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="selecionado" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#selecionado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="semestreOferta" id="br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente#semestreOferta"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/CurriculoComponente" source="//@children.1" target="//@children.21/@sourceConnections.1" targetEnd="//@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GrupoOptativas" location="2145,912" size="245,165" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas" runTimeClassModel="id,chTotal,curriculo,chMinima,descricao,componentes,chPendente">
+    <children xsi:type="editmodel:CompartmentEditModel" size="222,126">
+      <children xsi:type="editmodel:AttributeEditModel" name="chMinima" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#chMinima"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#chPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chTotal" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#chTotal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="componentes" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#componentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curriculo" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#curriculo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="descricao" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#descricao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas#id"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/GrupoOptativas" source="//@children.2" target="//@children.21/@sourceConnections.1" targetEnd="//@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.2/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="122,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Curriculo" location="855,904" size="339,741" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo" runTimeClassModel="chAtividadeObrigatoria,semestreConclusaoMaximo,semestreConclusaoIdeal,chNaoAtividadeObrigatoria,mesesConclusaoMinimo,chMaximaSemestre,optativasCurriculoSemestre,chMinimaSemestre,id,codigo,mesesConclusaoIdeal,anoEntradaVigor,crPraticos,periodoEntradaVigor,mesesConclusaoMaximo,crNaoAtividadeObrigatorio,dataAlteracao,situacao,crIdealSemestre,dataCadastro,sITUACAO_FECHADO,crTotalMinimo,registroCadastro,sITUACAO_ABERTO,chOptativasMinima,matriz,chTotalMinima,crMaximoSemestre,chPraticos,enfases,curriculoComponentes,semestreConclusaoMinimo,chTeoricos,curso,chAAE,registroAtualizacao,ativo,crMinimoSemestre,crTeoricos">
+    <children xsi:type="editmodel:CompartmentEditModel" size="316,702">
+      <children xsi:type="editmodel:AttributeEditModel" name="anoEntradaVigor" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#anoEntradaVigor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chAAE" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chAAE"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chAtividadeObrigatoria" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chAtividadeObrigatoria"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chMaximaSemestre" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chMaximaSemestre"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chMinimaSemestre" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chMinimaSemestre"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chNaoAtividadeObrigatoria" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chNaoAtividadeObrigatoria"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chOptativasMinima" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chOptativasMinima"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chPraticos" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chPraticos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chTeoricos" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chTeoricos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chTotalMinima" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#chTotalMinima"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="codigo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#codigo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crIdealSemestre" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crIdealSemestre"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crMaximoSemestre" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crMaximoSemestre"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crMinimoSemestre" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crMinimoSemestre"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crNaoAtividadeObrigatorio" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crNaoAtividadeObrigatorio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crPraticos" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crPraticos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crTeoricos" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crTeoricos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crTotalMinimo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#crTotalMinimo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curriculoComponentes" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#curriculoComponentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataAlteracao" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#dataAlteracao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="enfases" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#enfases"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matriz" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#matriz"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mesesConclusaoIdeal" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#mesesConclusaoIdeal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mesesConclusaoMaximo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#mesesConclusaoMaximo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mesesConclusaoMinimo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#mesesConclusaoMinimo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="optativasCurriculoSemestre" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#optativasCurriculoSemestre"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoEntradaVigor" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#periodoEntradaVigor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroAtualizacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#registroAtualizacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroCadastro" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#registroCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sITUACAO_ABERTO" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#sITUACAO_ABERTO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sITUACAO_FECHADO" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#sITUACAO_FECHADO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="semestreConclusaoIdeal" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#semestreConclusaoIdeal"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="semestreConclusaoMaximo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#semestreConclusaoMaximo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="semestreConclusaoMinimo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#semestreConclusaoMinimo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="situacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo#situacao"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/Curriculo" source="//@children.3" target="//@children.21/@sourceConnections.1" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="169,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Entrada" location="1349,1516" size="185,129" id="br.ufrn.sigaa.ensino.graduacao.dominio/Entrada" runTimeClassModel="id,ano,tipoEntrada,periodo,discente">
+    <children xsi:type="editmodel:CompartmentEditModel" size="162,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="ano" id="br.ufrn.sigaa.ensino.graduacao.dominio/Entrada#ano"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.ensino.graduacao.dominio/Entrada#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/Entrada#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodo" id="br.ufrn.sigaa.ensino.graduacao.dominio/Entrada#periodo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoEntrada" id="br.ufrn.sigaa.ensino.graduacao.dominio/Entrada#tipoEntrada"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/Entrada" source="//@children.4" target="//@children.21/@sourceConnections.1" targetEnd="//@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.4/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="169,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RegistroDiplomaColetivo" location="2145,1092" size="294,219" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo" runTimeClassModel="id,dataExpedicao,processo,aberto,curso,dataColacao,ano,registrosDiplomas,dataRegistro,periodo">
+    <children xsi:type="editmodel:CompartmentEditModel" size="271,180">
+      <children xsi:type="editmodel:AttributeEditModel" name="aberto" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#aberto"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ano" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#ano"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataColacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#dataColacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataExpedicao" location="17,90" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#dataExpedicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataRegistro" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#dataRegistro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodo" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#periodo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="processo" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#processo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registrosDiplomas" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo#registrosDiplomas"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiplomaColetivo" source="//@children.5" target="//@children.21/@sourceConnections.1" targetEnd="//@children.5/@sourceConnections.0/@children.1" sourceEnd="//@children.5/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="263,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.21/@sourceConnections.0" name="GenericTipo" location="569,735" size="149,107" id="br.ufrn.arq.dominio/GenericTipo" runTimeClassModel="id,nAO_INFORMADO,denominacao">
+    <children xsi:type="editmodel:CompartmentEditModel" size="126,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="denominacao" id="br.ufrn.arq.dominio/GenericTipo#denominacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.arq.dominio/GenericTipo#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nAO_INFORMADO" id="br.ufrn.arq.dominio/GenericTipo#nAO_INFORMADO"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.dominio/AbstractMovimento&lt;-br.ufrn.arq.dominio/GenericTipo" source="//@children.6" target="//@children.10" targetEnd="//@children.6/@sourceConnections.0/@children.1" sourceEnd="//@children.6/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="6,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="155,107" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.19/@sourceConnections.0 //@children.17/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.arq.dominio/GenericTipo" source="//@children.6" target="//@children.22" sourceEnd="//@children.6/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="74,0" anchorKind="FixedAtEdge" attachSource="true"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="EstagioDiscente" location="1814,1094" size="261,147" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente" runTimeClassModel="id,componenteCurricular,coordenador,orientador,supervisorCampo,discente">
+    <children xsi:type="editmodel:CompartmentEditModel" size="238,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="componenteCurricular" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente#componenteCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="coordenador" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente#coordenador"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="orientador" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente#orientador"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="supervisorCampo" id="br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente#supervisorCampo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/EstagioDiscente" source="//@children.7" target="//@children.21/@sourceConnections.1" targetEnd="//@children.7/@sourceConnections.0/@children.1" sourceEnd="//@children.7/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="8,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="SolicitacaoTurma" location="368,974" size="441,525" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma" runTimeClassModel="registroEntrada,aTENDIDA,dataRemocao,observacoes,rEMOVIDA,id,aBERTA,aTENDIDA_ALTERACAO,dataAtualizacao,nEGADA,aTENDIDA_PARCIALMENTE,ano,situacao,turmasSolicitacaoTurmas,periodo,dataCadastro,vagas,horario,reservas,discentes,motivo,componenteCurricular,curso,registroAtualizacao,tipo,sOLICITADA_ALTERACAO,solicitacoesEnsinoIndividualAtendidas">
+    <children xsi:type="editmodel:CompartmentEditModel" size="418,486">
+      <children xsi:type="editmodel:AttributeEditModel" name="aBERTA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#aBERTA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="aTENDIDA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#aTENDIDA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="aTENDIDA_ALTERACAO" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#aTENDIDA_ALTERACAO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="aTENDIDA_PARCIALMENTE" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#aTENDIDA_PARCIALMENTE"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ano" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#ano"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="componenteCurricular" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#componenteCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataAtualizacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#dataAtualizacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataRemocao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#dataRemocao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discentes" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#discentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="horario" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#horario"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="motivo" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#motivo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nEGADA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#nEGADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="observacoes" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#observacoes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodo" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#periodo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="rEMOVIDA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#rEMOVIDA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroAtualizacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#registroAtualizacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="reservas" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#reservas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sOLICITADA_ALTERACAO" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#sOLICITADA_ALTERACAO"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="situacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#situacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="solicitacoesEnsinoIndividualAtendidas" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#solicitacoesEnsinoIndividualAtendidas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipo" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#tipo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turmasSolicitacaoTurmas" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#turmasSolicitacaoTurmas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vagas" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma#vagas"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma" source="//@children.8" target="//@children.21/@sourceConnections.1" targetEnd="//@children.8/@sourceConnections.0/@children.1" sourceEnd="//@children.8/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="142,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.dominio/AbstractMovimento&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoTurma" source="//@children.8" target="//@children.10" targetEnd="//@children.8/@sourceConnections.1/@children.1" sourceEnd="//@children.8/@sourceConnections.1/@children.0" connectionRouterKind="Manual" anchorType="ChopBox">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="183,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="89,107"/>
+      <bendpoints secondRelativeDimension="-56,344" firstRelativeDimension="-143,-269"/>
+      <bendpoints secondRelativeDimension="-56,74" firstRelativeDimension="-143,-539"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Reconhecimento" location="2369,1380" size="153,147" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento" runTimeClassModel="id,validade,matriz,dataPublicacao,portariaDecreto,dataDecreto">
+    <children xsi:type="editmodel:CompartmentEditModel" size="130,108">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataDecreto" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento#dataDecreto"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataPublicacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento#dataPublicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matriz" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento#matriz"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="portariaDecreto" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento#portariaDecreto"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="validade" id="br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento#validade"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/Reconhecimento" source="//@children.9" target="//@children.21/@sourceConnections.1" targetEnd="//@children.9/@sourceConnections.0/@children.1" sourceEnd="//@children.9/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="81,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.6/@sourceConnections.0 //@children.8/@sourceConnections.1" name="AbstractMovimento" location="420,570" size="163,107" id="br.ufrn.arq.dominio/AbstractMovimento" runTimeClassModel="sistema,subsistema,usuario">
+    <children xsi:type="editmodel:CompartmentEditModel" size="124,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="sistema" id="br.ufrn.arq.dominio/AbstractMovimento#sistema"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="subsistema" id="br.ufrn.arq.dominio/AbstractMovimento#subsistema"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="usuario" id="br.ufrn.arq.dominio/AbstractMovimento#usuario"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RegistroTransferencia" location="2118,1320" size="237,237" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia" runTimeClassModel="id,solicitacaoMatricula,mANUAL,automatica,registroEntrada,data,turmaDestino,aUTOMATICA,turmaOrigem,discente,matricula">
+    <children xsi:type="editmodel:CompartmentEditModel" size="214,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="aUTOMATICA" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#aUTOMATICA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="automatica" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#automatica"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="data" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#data"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mANUAL" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#mANUAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matricula" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#matricula"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="solicitacaoMatricula" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#solicitacaoMatricula"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turmaDestino" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#turmaDestino"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turmaOrigem" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia#turmaOrigem"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/RegistroTransferencia" source="//@children.11" target="//@children.21/@sourceConnections.1" targetEnd="//@children.11/@sourceConnections.0/@children.1" sourceEnd="//@children.11/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="17,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RegistroMobilidadeInterna" location="1889,1246" size="210,237" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna" runTimeClassModel="id,motivoMobilidade,tipoMobilidade,registroEntrada,cOMPULSORIA,vOLUNTARIA,cursoDestino,campusDestino,anoInicio,discente,periodoInicio">
+    <children xsi:type="editmodel:CompartmentEditModel" size="176,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="anoInicio" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#anoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cOMPULSORIA" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#cOMPULSORIA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="campusDestino" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#campusDestino"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cursoDestino" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#cursoDestino"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="motivoMobilidade" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#motivoMobilidade"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoInicio" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#periodoInicio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoMobilidade" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#tipoMobilidade"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vOLUNTARIA" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna#vOLUNTARIA"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/RegistroMobilidadeInterna" source="//@children.12" target="//@children.21/@sourceConnections.1" targetEnd="//@children.12/@sourceConnections.0/@children.1" sourceEnd="//@children.12/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="197,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="SolicitacaoEnsinoIndividual" location="1214,1110" size="249,399" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual" runTimeClassModel="registroEntradaAtendente,componente,registroEntrada,cANCELADA,aTENDIDA,justificativaNegacao,dataAtendimento,cANCELADA_POR_MATRICULA,dataSolicitacao,sugestaoHorario,discente,id,sOLICITADA,tipo,nEGADA,ano,situacao,solicitacaoTurma,matriculaGerada,periodo">
+    <children xsi:type="editmodel:CompartmentEditModel" size="226,360">
+      <children xsi:type="editmodel:AttributeEditModel" name="aTENDIDA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#aTENDIDA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ano" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#ano"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cANCELADA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#cANCELADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cANCELADA_POR_MATRICULA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#cANCELADA_POR_MATRICULA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="componente" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#componente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataAtendimento" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#dataAtendimento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataSolicitacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#dataSolicitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="justificativaNegacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#justificativaNegacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matriculaGerada" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#matriculaGerada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nEGADA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#nEGADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodo" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#periodo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntradaAtendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#registroEntradaAtendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sOLICITADA" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#sOLICITADA"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="situacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#situacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="solicitacaoTurma" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#solicitacaoTurma"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="sugestaoHorario" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#sugestaoHorario"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipo" id="br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual#tipo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/SolicitacaoEnsinoIndividual" source="//@children.13" target="//@children.21/@sourceConnections.1" targetEnd="//@children.13/@sourceConnections.0/@children.1" sourceEnd="//@children.13/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="14,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="DiscenteGraduacao" location="1544,914" size="260,903" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao" runTimeClassModel="crTotalPendentes,cidadeConclusaoMedio,chAtividadeObrigPendente,prazoMaximoConclusao,orientacaoAcademica,colaGrau,chEstagioPendente,crNaoAtividadeObrigPendente,pontosVestibular,chTotalPendente,chOptativaIntegralizada,chAtividadeObrigInteg,chAulaIntegralizada,ultimaAtualizacaoTotais,escolaConclusaoMedio,crEstagioIntegralizado,chLabPendente,crTotalIntegralizados,paisConclusaoMedio,matrizCurricular,tutor,participacaoENAD,crLabPendente,crExtraIntegralizados,chEstagioIntegralizada,totalAtividadesPendentes,crNaoAtividadeObrigInteg,chNaoAtividadeObrigPendente,chNaoAtividadeObrigInteg,chOptativaPendente,polo,ufConclusaoMedio,possivelFormando,chLabIntegralizada,trabalhoConclusaoCurso,chAulaPendente,classificacaoVestibular,anoConclusaoMedio,crAulaIntegralizado,ira,tutorEad,chTotalIntegralizada,totalGruposOptativasPendentes,perfilInicial,crAulaPendente,crLabIntegralizado,crEstagioPendente,anistiado">
+    <children xsi:type="editmodel:CompartmentEditModel" size="237,864">
+      <children xsi:type="editmodel:AttributeEditModel" name="anistiado" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#anistiado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="anoConclusaoMedio" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#anoConclusaoMedio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chAtividadeObrigInteg" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chAtividadeObrigInteg"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chAtividadeObrigPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chAtividadeObrigPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chAulaIntegralizada" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chAulaIntegralizada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chAulaPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chAulaPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chEstagioIntegralizada" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chEstagioIntegralizada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chEstagioPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chEstagioPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chLabIntegralizada" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chLabIntegralizada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chLabPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chLabPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chNaoAtividadeObrigInteg" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chNaoAtividadeObrigInteg"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chNaoAtividadeObrigPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chNaoAtividadeObrigPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chOptativaIntegralizada" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chOptativaIntegralizada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chOptativaPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chOptativaPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chTotalIntegralizada" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chTotalIntegralizada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chTotalPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#chTotalPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="cidadeConclusaoMedio" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#cidadeConclusaoMedio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="classificacaoVestibular" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#classificacaoVestibular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="colaGrau" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#colaGrau"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crAulaIntegralizado" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crAulaIntegralizado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crAulaPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crAulaPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crEstagioIntegralizado" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crEstagioIntegralizado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crEstagioPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crEstagioPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crExtraIntegralizados" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crExtraIntegralizados"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crLabIntegralizado" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crLabIntegralizado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crLabPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crLabPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crNaoAtividadeObrigInteg" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crNaoAtividadeObrigInteg"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crNaoAtividadeObrigPendente" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crNaoAtividadeObrigPendente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crTotalIntegralizados" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crTotalIntegralizados"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="crTotalPendentes" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#crTotalPendentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="escolaConclusaoMedio" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#escolaConclusaoMedio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ira" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#ira"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matrizCurricular" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#matrizCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="orientacaoAcademica" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#orientacaoAcademica"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="paisConclusaoMedio" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#paisConclusaoMedio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="participacaoENAD" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#participacaoENAD"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="perfilInicial" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#perfilInicial"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="polo" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#polo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pontosVestibular" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#pontosVestibular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="possivelFormando" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#possivelFormando"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="prazoMaximoConclusao" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#prazoMaximoConclusao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="totalAtividadesPendentes" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#totalAtividadesPendentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="totalGruposOptativasPendentes" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#totalGruposOptativasPendentes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="trabalhoConclusaoCurso" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#trabalhoConclusaoCurso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tutor" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#tutor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tutorEad" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#tutorEad"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ufConclusaoMedio" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#ufConclusaoMedio"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="ultimaAtualizacaoTotais" id="br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao#ultimaAtualizacaoTotais"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.sigaa.pessoa.dominio/Discente&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao" source="//@children.14" target="//@children.17" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="189,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="69,39"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/DiscenteGraduacao" source="//@children.14" target="//@children.21/@sourceConnections.1" targetEnd="//@children.14/@sourceConnections.1/@children.1" sourceEnd="//@children.14/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="130,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="MatrizCurricular" location="2460,914" size="255,453" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular" runTimeClassModel="autorizacaoAtoNormativo,situacaoDiploma,dataExtincao,grauAcademico,possuiHabilitacao,atualizadoPor,regimeLetivo,permiteColacaoGrau,dataInicioFuncionamento,codigoINEP,turno,autorizacaoPublicacao,id,criadoPor,curso,habilitacao,ativo,autorizacaoAtoData,situacao,tipoSistemaCurricular,criadoEm,atualizadoEm,campus">
+    <children xsi:type="editmodel:CompartmentEditModel" size="232,414">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#ativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="atualizadoEm" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#atualizadoEm"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="atualizadoPor" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#atualizadoPor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="autorizacaoAtoData" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#autorizacaoAtoData"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="autorizacaoAtoNormativo" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#autorizacaoAtoNormativo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="autorizacaoPublicacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#autorizacaoPublicacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="campus" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#campus"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="codigoINEP" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#codigoINEP"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="criadoEm" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#criadoEm"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="criadoPor" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#criadoPor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataExtincao" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#dataExtincao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataInicioFuncionamento" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#dataInicioFuncionamento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="grauAcademico" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#grauAcademico"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="habilitacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#habilitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="permiteColacaoGrau" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#permiteColacaoGrau"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="possuiHabilitacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#possuiHabilitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="regimeLetivo" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#regimeLetivo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="situacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#situacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="situacaoDiploma" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#situacaoDiploma"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipoSistemaCurricular" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#tipoSistemaCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turno" id="br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular#turno"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/MatrizCurricular" source="//@children.15" target="//@children.21/@sourceConnections.1" targetEnd="//@children.15/@sourceConnections.0/@children.1" sourceEnd="//@children.15/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="127,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="RegistroDiploma" location="1972,1564" size="275,237" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma" runTimeClassModel="id,dataExpedicao,processo,impresso,numeroRegistro,livro,registroDiplomaColetivo,dataColacao,dataRegistro,folha,discente">
+    <children xsi:type="editmodel:CompartmentEditModel" size="252,198">
+      <children xsi:type="editmodel:AttributeEditModel" name="dataColacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#dataColacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataExpedicao" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#dataExpedicao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataRegistro" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#dataRegistro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="discente" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#discente"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="folha" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#folha"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="impresso" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#impresso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="livro" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#livro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numeroRegistro" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#numeroRegistro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="processo" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#processo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroDiplomaColetivo" id="br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma#registroDiplomaColetivo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/RegistroDiploma" source="//@children.16" target="//@children.21/@sourceConnections.1" targetEnd="//@children.16/@sourceConnections.0/@children.1" sourceEnd="//@children.16/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="137,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.14/@sourceConnections.0" name="Discente" location="1664,809" size="328,39" id="br.ufrn.sigaa.pessoa.dominio/Discente" runTimeClassModel="rEGULAR,periodoAtual,usuario,eSPECIAL,matricular,movimentacaoSaida,idPerfil,id,chIntegralizada,gestoraAcademica,idHistoricoDigital,prazoConclusao,perfil,dataCadastro,nivel,status,pessoa,idFoto,curriculo,matriculasDisciplina,semestreAtual,observacao,matricula,criadoPor,curso,formaIngresso,tipo,trancamentos,anoIngresso,dataColacaoGrau,prorrogacoes,periodoIngresso,selecionado">
+    <children xsi:type="editmodel:CompartmentEditModel" size="305,594">
+      <children xsi:type="editmodel:AttributeEditModel" name="anoIngresso" id="br.ufrn.sigaa.pessoa.dominio/Discente#anoIngresso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="chIntegralizada" id="br.ufrn.sigaa.pessoa.dominio/Discente#chIntegralizada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="criadoPor" id="br.ufrn.sigaa.pessoa.dominio/Discente#criadoPor"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curriculo" id="br.ufrn.sigaa.pessoa.dominio/Discente#curriculo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.pessoa.dominio/Discente#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.pessoa.dominio/Discente#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataColacaoGrau" id="br.ufrn.sigaa.pessoa.dominio/Discente#dataColacaoGrau"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="eSPECIAL" id="br.ufrn.sigaa.pessoa.dominio/Discente#eSPECIAL"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="formaIngresso" id="br.ufrn.sigaa.pessoa.dominio/Discente#formaIngresso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="gestoraAcademica" id="br.ufrn.sigaa.pessoa.dominio/Discente#gestoraAcademica"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.pessoa.dominio/Discente#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idFoto" id="br.ufrn.sigaa.pessoa.dominio/Discente#idFoto"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idHistoricoDigital" id="br.ufrn.sigaa.pessoa.dominio/Discente#idHistoricoDigital"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idPerfil" id="br.ufrn.sigaa.pessoa.dominio/Discente#idPerfil"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matricula" id="br.ufrn.sigaa.pessoa.dominio/Discente#matricula"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matricular" id="br.ufrn.sigaa.pessoa.dominio/Discente#matricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matriculasDisciplina" id="br.ufrn.sigaa.pessoa.dominio/Discente#matriculasDisciplina"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="movimentacaoSaida" id="br.ufrn.sigaa.pessoa.dominio/Discente#movimentacaoSaida"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nivel" id="br.ufrn.sigaa.pessoa.dominio/Discente#nivel"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="observacao" id="br.ufrn.sigaa.pessoa.dominio/Discente#observacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="perfil" id="br.ufrn.sigaa.pessoa.dominio/Discente#perfil"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoAtual" id="br.ufrn.sigaa.pessoa.dominio/Discente#periodoAtual"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="periodoIngresso" id="br.ufrn.sigaa.pessoa.dominio/Discente#periodoIngresso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="pessoa" id="br.ufrn.sigaa.pessoa.dominio/Discente#pessoa"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="prazoConclusao" id="br.ufrn.sigaa.pessoa.dominio/Discente#prazoConclusao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="prorrogacoes" id="br.ufrn.sigaa.pessoa.dominio/Discente#prorrogacoes"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="rEGULAR" id="br.ufrn.sigaa.pessoa.dominio/Discente#rEGULAR"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="selecionado" id="br.ufrn.sigaa.pessoa.dominio/Discente#selecionado"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="semestreAtual" id="br.ufrn.sigaa.pessoa.dominio/Discente#semestreAtual"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="status" id="br.ufrn.sigaa.pessoa.dominio/Discente#status"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="tipo" id="br.ufrn.sigaa.pessoa.dominio/Discente#tipo"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="trancamentos" id="br.ufrn.sigaa.pessoa.dominio/Discente#trancamentos"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="usuario" id="br.ufrn.sigaa.pessoa.dominio/Discente#usuario"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.sigaa.pessoa.dominio/Discente" source="//@children.17" target="//@children.6/@sourceConnections.1" sourceEnd="//@children.17/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="164,0" anchorKind="FixedAtEdge" attachSource="true"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="EditalTransferenciaVoluntaria" location="608,1516" size="231,129" id="br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria" runTimeClassModel="id,inicioPeriodoAgenda,fimPeriodoAgenda,ano,nome">
+    <children xsi:type="editmodel:CompartmentEditModel" size="145,90">
+      <children xsi:type="editmodel:AttributeEditModel" name="ano" id="br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria#ano"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="fimPeriodoAgenda" id="br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria#fimPeriodoAgenda"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="inicioPeriodoAgenda" id="br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria#inicioPeriodoAgenda"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="nome" id="br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria#nome"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/EditalTransferenciaVoluntaria" source="//@children.18" target="//@children.21/@sourceConnections.1" targetEnd="//@children.18/@sourceConnections.0/@children.1" sourceEnd="//@children.18/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="216,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.21/@sourceConnections.1" name="Validatable" location="2010,735" size="165,57" id="br.ufrn.arq.negocio.validacao/Validatable" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.dominio/PersistDB&lt;-br.ufrn.arq.negocio.validacao/Validatable" source="//@children.19" target="//@children.6/@sourceConnections.1" sourceEnd="//@children.19/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,0" anchorKind="FixedAtEdge" attachSource="true"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="ReservaCurso" location="2564,1380" size="200,309" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso" runTimeClassModel="vagasSolicitadas,usuarioAtendimento,registroEntrada,turno,dataAtendimento,vagasOcupadas,id,turma,vagasReservadas,matrizCurricular,curso,solicitacao,idSolicitacao,podeRemover,dataCadastro">
+    <children xsi:type="editmodel:CompartmentEditModel" size="177,270">
+      <children xsi:type="editmodel:AttributeEditModel" name="curso" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#curso"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataAtendimento" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#dataAtendimento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="dataCadastro" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#dataCadastro"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="id" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#id"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="idSolicitacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#idSolicitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="matrizCurricular" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#matrizCurricular"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="podeRemover" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#podeRemover"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="registroEntrada" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#registroEntrada"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="solicitacao" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#solicitacao"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turma" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#turma"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turno" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#turno"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="usuarioAtendimento" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#usuarioAtendimento"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vagasOcupadas" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#vagasOcupadas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vagasReservadas" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#vagasReservadas"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vagasSolicitadas" id="br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso#vagasSolicitadas"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/ReservaCurso" source="//@children.20" target="//@children.21/@sourceConnections.1" targetEnd="//@children.20/@sourceConnections.0/@children.1" sourceEnd="//@children.20/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="162,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="AreaConhecimentoCienciasTecnologia" location="521,904" size="289,57" id="br.ufrn.sigaa.ensino.graduacao.dominio/AreaConhecimentoCienciasTecnologia" runTimeClassModel="ativo">
+    <children xsi:type="editmodel:CompartmentEditModel" size="86,18">
+      <children xsi:type="editmodel:AttributeEditModel" name="ativo" id="br.ufrn.sigaa.ensino.graduacao.dominio/AreaConhecimentoCienciasTecnologia#ativo"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="br.ufrn.arq.dominio/GenericTipo&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/AreaConhecimentoCienciasTecnologia" source="//@children.21" target="//@children.6" targetEnd="//@children.21/@sourceConnections.0/@children.1" sourceEnd="//@children.21/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="122,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="74,107"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.3/@sourceConnections.0 //@children.1/@sourceConnections.0 //@children.14/@sourceConnections.1 //@children.18/@sourceConnections.0 //@children.4/@sourceConnections.0 //@children.7/@sourceConnections.0 //@children.2/@sourceConnections.0 //@children.0/@sourceConnections.0 //@children.15/@sourceConnections.0 //@children.9/@sourceConnections.0 //@children.16/@sourceConnections.0 //@children.5/@sourceConnections.0 //@children.12/@sourceConnections.0 //@children.11/@sourceConnections.0 //@children.20/@sourceConnections.0 //@children.13/@sourceConnections.0 //@children.8/@sourceConnections.0" autoLocated="true" id="br.ufrn.arq.negocio.validacao/Validatable&lt;-br.ufrn.sigaa.ensino.graduacao.dominio/AreaConhecimentoCienciasTecnologia" source="//@children.21" target="//@children.19" targetEnd="//@children.21/@sourceConnections.1/@children.1" sourceEnd="//@children.21/@sourceConnections.1/@children.0" connectionRouterKind="GeneralizationManhattan">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="144,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,57" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.6/@sourceConnections.1" name="PersistDB" location="1533,434" size="114,57" id="br.ufrn.arq.dominio/PersistDB" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
