@@ -50,6 +50,8 @@ import br.ufrn.dimap.ttracker.data.MethodData;
 import br.ufrn.dimap.ttracker.data.MethodState;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.Task;
+import br.ufrn.dimap.ttracker.data.TaskType;
+import br.ufrn.dimap.ttracker.data.TaskTypeSet;
 import br.ufrn.dimap.ttracker.data.TestCoverage;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 import br.ufrn.dimap.ttracker.util.FileUtil;
@@ -99,15 +101,22 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		projects.add(new Project("/EntidadesComuns", "/02_EntidadesComuns", null, false));
 		projects.add(new Project("/SharedResources", "/04_SharedResources", null, false));
 		projects.add(new Project("/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false));
-		projects.add(new Project("/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
+//		projects.add(new Project("/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
 		Set<String> packagesToTest = new HashSet<String>(1);
 		packagesToTest.add("/SIGAA/biblioteca");
-		projects.add(new Project("/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele?
+		projects.add(new Project("/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
 		
-		String URL = FileUtil.loadTextFromFile(new File("D:/UFRN/Scenario-analyzer/workspace-biblioteca/URL.txt"));
-		String usuario = FileUtil.loadTextFromFile(new File("D:/UFRN/Scenario-analyzer/workspace-biblioteca/usuario.txt"));
-		String senha = FileUtil.loadTextFromFile(new File("D:/UFRN/Scenario-analyzer/workspace-biblioteca/senha.txt"));
+		String URL = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/URL.txt"));
+		String usuario = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/usuario.txt"));
+		String senha = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/senha.txt"));
 		SVNConfig sVNConfig = new SVNConfig(URL, projects, usuario, senha);
+		
+		List<Project> projects2 = new ArrayList<Project>(); //TODO: verificar o forCheckout pois ele não pode mais ser nulo aqui
+		projects2.add(new Project("/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false));
+		String URL2 = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/URL2.txt"));
+		String usuario2 = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/usuario2.txt"));
+		String senha2 = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/senha2.txt"));
+		SVNConfig sVNConfig2 = new SVNConfig(URL2, projects2, usuario2, senha2);
 		
 		RegressionTestTechnique regressionTestTechnique = new DiffRegressionTest();
 		
@@ -159,14 +168,15 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			 * Faz a união das modificações atual-anterior para obter o conjunto total das modificações que não foram desfeitas
 			 *  
 			 */
-			
+			History history2 = new History(sVNConfig2, iWorkspace);
+//TODO: Essa revisão deve ser alterada quando seu código for atualizado
+			history2.checkoutProjects(262);
 			for(Revision revision : revisionForCheckout) {
 				if(revisionForCheckout.get(0).equals(revision))
 					history.checkoutProjects(revision.getId());
 				else
 					history.updateProjects(revision.getId());
 				
-				Integer allTestsCount = 0;
 				for(Project project : projectForExecuteAllTests) {
 					if(!project.isExecuteTests())
 						continue;
@@ -211,18 +221,29 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				//TODO: cada revisão pode conter novos testes ou excluídos testes da revisão anterior, ao calcular as métricas tem de levar em consideração apenas o que já existia
 			}
 			
-			Map<String,Set<Task>> taskTypes = new HashMap<String,Set<Task>>(4);
-			taskTypes.put(Task.APRIMORAMENTO, new HashSet<Task>());
-			taskTypes.put(Task.ERRO, new HashSet<Task>());
-			taskTypes.put(Task.ERRONEGOCIOVALIDACAO, new HashSet<Task>());
-			taskTypes.put(Task.VERIFICACAO, new HashSet<Task>());
+			Map<TaskType,TaskTypeSet> taskTypes = new HashMap<TaskType,TaskTypeSet>(4);
+			taskTypes.put(TaskType.APRIMORAMENTO, new TaskTypeSet(TaskType.APRIMORAMENTO));
+			taskTypes.put(TaskType.ERRO, new TaskTypeSet(TaskType.ERRO));
+			taskTypes.put(TaskType.ERRONEGOCIOVALIDACAO, new TaskTypeSet(TaskType.ERRONEGOCIOVALIDACAO));
+			taskTypes.put(TaskType.VERIFICACAO, new TaskTypeSet(TaskType.VERIFICACAO));
 			for(Task task : tasks) {
-				Set<TestCoverage> techniqueSelection = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "RTSSelection_"+task.getId(), "slc");
-				Set<TestCoverage> techniqueExclusion = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "RTSExclusion_"+task.getId(), "slc");
-				Set<TestCoverage> perfectSelection = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectSelection_"+task.getId(), "slc");
-				Set<TestCoverage> prefectExclusion = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectExclusion_"+task.getId(), "slc");
-				taskTypes.get(task.getType()).add(task);
+				Set<TestCoverage> techniqueSelection = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"\result", "RTSSelection_"+task.getId());
+				Set<TestCoverage> techniqueExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"\result", "RTSExclusion_"+task.getId());
+				Set<TestCoverage> perfectSelection = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectSelection_"+task.getId());
+				Set<TestCoverage> perfectExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"\result", "PerfectExclusion_"+task.getId());
+				task.setInclusion(new Float(MathUtil.intersection(techniqueSelection,perfectSelection).size())/new Float(perfectSelection.size()));
+				task.setPrecision(new Float(MathUtil.intersection(techniqueExclusion,perfectExclusion).size())/new Float(perfectExclusion.size()));
+				TaskTypeSet taskTypeSet = taskTypes.get(task.getType());
+				taskTypeSet.setInclusion(taskTypeSet.getInclusion()+task.getInclusion());
+				taskTypeSet.setPrecision(taskTypeSet.getPrecision()+task.getPrecision());
+				taskTypeSet.getTasks().add(task);
 			}
+			
+			for(TaskTypeSet taskTypeSet : taskTypes.values()) {
+				taskTypeSet.setInclusion(taskTypeSet.getInclusion()/new Float(taskTypeSet.getTasks().size()));
+				taskTypeSet.setPrecision(taskTypeSet.getPrecision()/new Float(taskTypeSet.getTasks().size()));
+			}
+			
 			/*
 			 ** Cada revision do forCheckout deve possuir uma lista com as tarefas na qual ela é oldRevision e uma lista com as tarefas nas quais ela é currentRevision
 			 ** Loop para cada task
@@ -379,9 +400,16 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			e.printStackTrace();
 		}
 	}
+
+	private Set<TestCoverage> getTestCoverageSet(String folder, String name) {
+		Object obj = FileUtil.loadObjectFromFile(folder, name, "slc");
+		if(obj != null && obj instanceof Set<?>)
+			return (Set<TestCoverage>) FileUtil.loadObjectFromFile(folder, name, "slc");
+		return new HashSet<TestCoverage>(0);
+	}
 	
 	private List<Task> loadTasks(List<Revision> revisionForCheckout) {
-		String xml = FileUtil.loadTextFromFile(new File("D:/UFRN/Scenario-analyzer/workspace-biblioteca/br.ufrn.dimap.rtquality/lib/Tasks.xml"));
+		String xml = FileUtil.loadTextFromFile(new File("D:/UFRN/Test_Quality/workspaces/SIGAALast/Tasks.xml"));
 		XStream xstream = new XStream();
 		List<Task> tasks = (List<Task>) xstream.fromXML(xml);
 		Map<Integer,Revision> allRevisionsMap = new HashMap<Integer,Revision>();

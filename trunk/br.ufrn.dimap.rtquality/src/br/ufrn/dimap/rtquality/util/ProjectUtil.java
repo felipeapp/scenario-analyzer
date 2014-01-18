@@ -2,6 +2,8 @@ package br.ufrn.dimap.rtquality.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -11,6 +13,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import junit.framework.TestCase;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -165,6 +169,9 @@ public class ProjectUtil {
 	}
 
 	private static boolean isTestClass(IType iType) throws JavaModelException {
+		String superTypeName2 = iType.getSuperclassName();
+		if(superTypeName2 != null && superTypeName2.equals("TestCase"))
+			return true;
 		for(IMethod iMethod : iType.getMethods()){
 			for(IAnnotation iAnnotation : iMethod.getAnnotations()){
 				IAnnotation teste = iMethod.getAnnotation(Test.class.getCanonicalName());
@@ -182,8 +189,6 @@ public class ProjectUtil {
 			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
 			String loadFileDirectory = TestUtil.getSaveFileDirectory(iProjectClassLoader, testClass);
 			return (TestCoverageMapping) FileUtil.loadObjectFromFile(loadFileDirectory, testCoverageMappingName, "tcm");
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
 		} catch (JavaModelException e) {
@@ -195,9 +200,9 @@ public class ProjectUtil {
 	public static TestCoverageMapping setAllUncoveredMethods(Project project, String testCoverageMappingName) throws ClassNotFoundException {
 		try{
 			IProject iProject = project.getIProject();
-			String testClass = ProjectUtil.getAClass(iProject);
+			String aClass = ProjectUtil.getAClass(iProject);
 			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-			String resultFolder = FileUtil.getResultFolderByResource(iProjectClassLoader.loadClass(testClass).getDeclaringClass());
+			String resultFolder = FileUtil.getResultFolderByResource(iProjectClassLoader.loadClass(aClass));
 			TestCoverageMapping testCoverageMapping = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
 			//Adiciona métodos uncovered
 			IJavaProject iJavaProject = JavaCore.create(iProject);
@@ -231,8 +236,6 @@ public class ProjectUtil {
 			//Modifica o state dos modifieds
 			
 			testCoverageMapping.save();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
 		} catch (JavaModelException e) {

@@ -1,6 +1,7 @@
 package br.ufrn.dimap.rtquality.history;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -49,6 +51,8 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.dimap.rtquality.plugin.Activator;
 import br.ufrn.dimap.rtquality.plugin.SysOutProgressMonitor;
+import br.ufrn.dimap.rtquality.util.ProjectUtil;
+import br.ufrn.dimap.rtquality.util.TestUtil;
 import br.ufrn.dimap.ttracker.data.CoveredMethod;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.Task;
@@ -63,6 +67,7 @@ public class History {
 	
 	private static final String LIBRARY = "1";
 	private static final String CONTAINER = "2";
+	private static final String PROJECT = "3";
 	
 	public History(SVNConfig sVNConfig, IWorkspace iWorkspace) throws SVNException{
 		this.sVNConfig = sVNConfig;
@@ -88,32 +93,29 @@ public class History {
     public Set<String> getChangedMethodsSignaturesFromProjects(List<Project> projects, Integer oldRevision, Integer currentRevision) {
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
     	for(Project project : projects) {
+    		if(project.getProjectPath().equals("/SharedResources"))
+    			continue;
     		for(String changedMethodSignature : getChangedMethodsSignatures(project.getProjectPath(), oldRevision, currentRevision))
     			changedMethodsSignatures.add(project.getProjectName()+"."+changedMethodSignature);
     	}
     	return changedMethodsSignatures;
     }
     
-    public void checkoutProjects(Integer revision) throws SVNException, CoreException, IOException {
+    public void checkoutProjects(Integer revision) throws SVNException, CoreException, IOException { //TODO: O checkout e o update tem muitas partes em comum, tentar juntar em um único método
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
 		for(Project project : sVNConfig.getProjects()) {
 			String tempDir = iWorkspace.getRoot().getLocation().toString()+project.getProjectName();
 			File file = new File(tempDir);
-			if(!file.exists()){
+			if(!file.exists()) {
 				file.mkdir();
 				sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getProjectPath()),
 						file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
 			}
 			project.setIProject(iWorkspace.getRoot().getProject(project.getProjectName()));
 		}
-		for(Project project : sVNConfig.getProjects()) {
-			importProject(project);
-//			if(project.isAspectJNature()) //TODO: Remover comentário quando for rodar a execução completa 
-//				configureAspectJ(project.getIProject());
-			buildingProject(project.getIProject());
-		}
+		importConfigureRefreshBuild();
     }
     
     public void updateProjects(Integer revision) throws SVNException, CoreException, IOException {
@@ -126,13 +128,33 @@ public class History {
 			names.add(new File(tempDir));
 		}
 		sVNUpdateClient.doUpdate(names.toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
+		importConfigureRefreshBuild();
+    }
+
+	private void importConfigureRefreshBuild() throws CoreException, IOException {
 		for(Project project : sVNConfig.getProjects()) {
 			importProject(project);
-//			if(project.isAspectJNature()) //TODO: Remover comentário quando for rodar a execução completa
-//				configureAspectJ(project.getIProject());
+			if(project.isAspectJNature())
+				configureAspectJ(project.getIProject());
+			else if(project.getProjectName().equals("/LIBS")) { //TODO: Código específico para o SIGAA
+				changeLib(project, "aspectjrt*.jar", "aspectjrt.jar");
+				changeLib(project, "aspectjweaver*.jar", "aspectjweaver.jar");
+			}
+			project.getIProject().refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
 			buildingProject(project.getIProject());
 		}
-    }
+	}
+
+	private void changeLib(Project project, String oldLib, String newLib) { //TODO: Código específico para o SIGAA
+		File destino = new File(project.getIProject().getLocation().toString()+"/app/libs.jar");
+		FileFilter fileFilter = new WildcardFileFilter(oldLib);
+		File[] filesDestino = destino.listFiles(fileFilter);
+		for (File fileDestino : filesDestino) {
+			String fileNameDestino = fileDestino.getName();
+			fileDestino.delete();
+			copyFile(project.getIProject(), "/lib/"+newLib, "/app/libs.jar/"+fileNameDestino);
+		}
+	}
 
 	private void buildingProject(IProject iProject) throws CoreException {
 		SysOutProgressMonitor.out.println("Building eclipse project: " + iProject.getName());
@@ -160,21 +182,17 @@ public class History {
     				iProjectDescription.setLocation(null);
     				iProject.create(iProjectDescription, monitor);
     				iProject.open(IResource.NONE, monitor);
-    			} else {
-    				iProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
     			}
     		}
     	}, iWorkspace.getRoot(), IWorkspace.AVOID_UPDATE, new SysOutProgressMonitor());
-    	
-    	iProject.refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
     	
     	SysOutProgressMonitor.out.println("Eclipse project imported");
     }
     
     private void configureAspectJ(IProject iProject) throws CoreException, IOException {
-    	copyFile(iProject, "/lib/aspectjweaver.jar");
-    	copyFile(iProject, "/lib/ttracker.jar");
-    	iProject.refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
+//    	copyFile(iProject, "/lib/aspectjweaver.jar");
+//    	copyFile(iProject, "/lib/ttracker.jar");
+//    	iProject.refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor()); //TODO: Verificar se comentar essa linha deu certo
     	SysOutProgressMonitor.out.println("Adding AspectJ nature");
     	IProjectDescription iProjectDescription = iProject.getDescription();
 		String ajNature = "org.eclipse.ajdt.ui.ajnature";
@@ -196,24 +214,25 @@ public class History {
     	IClasspathAttribute ajdtInpath = JavaCore.newClasspathAttribute("org.eclipse.ajdt.inpath", "org.eclipse.ajdt.inpath");
 //    	IClasspathAttribute restrictions[] = {restriction};
     	IClasspathAttribute ajdtInpaths[] = {ajdtInpath};
-    	
-		IClasspathEntry aspectjContainer = JavaCore.newContainerEntry(new Path("org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"));
+    	IProject tTrackerIProject = iProject.getWorkspace().getRoot().getProject("/br.ufrn.dimap.ttracker");
+//		IClasspathEntry aspectjContainer = JavaCore.newContainerEntry(new Path("org.eclipse.ajdt.core.ASPECTJRT_CONTAINER")); //TODO: Quando o projeto não possuir AspectJ, nem a natureza nem o .jar descomentar esta linha
+//		IClasspathEntry aspectjJar = JavaCore.newLibraryEntry(new Path(iWorkspace.getRoot().getLocation().toString()+"/LIBS/app/libs.jar/aspectjrt-1.2.1.jar"), null, null, iAccessRule, ajdtInpaths, false); //TODO: Quando o projeto já tiver o AspectJ, seja a natureza ou o .jar, não adicionar nada
 //		IClasspathEntry aspectjweaverJar = JavaCore.newLibraryEntry(new Path(iProject.getFullPath().toString()+"/lib/aspectjweaver.jar"), null, null);
-		IClasspathEntry testtrackerJar = JavaCore.newLibraryEntry(new Path(iProject.getFullPath().toString()+"/lib/ttracker.jar"), null, null, iAccessRule, ajdtInpaths, false);
+		IClasspathEntry testtrackerJar = JavaCore.newProjectEntry(tTrackerIProject.getFullPath(), iAccessRule, false, ajdtInpaths, false);
 //		IClasspathEntry requiredPlugins = JavaCore.newContainerEntry(new Path("org.eclipse.pde.core.requiredPlugins"),iAccessRule,restrictions,false);
 		
 		List<IClasspathEntry> rawClasspath = Arrays.asList(iJavaProject.getRawClasspath());
-		List<IClasspathEntry> classpathEntriesList = new ArrayList<IClasspathEntry>(rawClasspath.size()+3);
+		List<IClasspathEntry> classpathEntriesList = new ArrayList<IClasspathEntry>(rawClasspath.size()+3); //TODO: precisa ser 3?
 		classpathEntriesList.addAll(rawClasspath);
 		
-		if(!classpathEntriesList.contains(aspectjContainer)){
-			SysOutProgressMonitor.out.println("Adding AspectJ container");
-			classpathEntriesList.add(aspectjContainer);
-		}
+//		if(!classpathEntriesList.contains(aspectjContainer)){
+//			SysOutProgressMonitor.out.println("Adding AspectJ container");
+//			classpathEntriesList.add(aspectjContainer);
+//		}
 		
 		//TODO: Verificar se este if-else sÃ£o necessÃ¡rios ou se o AspectJ roda sem isso
 //		addClasspathEntryWithAttribute(restriction, requiredPlugins, classpathEntriesList, CONTAINER);
-		addClasspathEntryWithAttribute(ajdtInpath, testtrackerJar, classpathEntriesList, LIBRARY);
+		addClasspathEntryWithAttribute(ajdtInpath, testtrackerJar, classpathEntriesList, PROJECT);
 		
 //		if(!classpathEntriesList.contains(aspectjweaverJar)){
 //			SysOutProgressMonitor.out.println("Adding AspectJ Weaver jar");
@@ -257,6 +276,9 @@ public class History {
 				SysOutProgressMonitor.out.println("Adding attribute to the classpath entry");
 				iClasspathAttributesList.add(attribute);
 				switch(type){
+				case PROJECT:
+					classpathEntry = JavaCore.newProjectEntry(classpathEntryTemp.getPath());
+					break;
 				case LIBRARY:
 					classpathEntry = JavaCore.newLibraryEntry(classpathEntryTemp.getPath(), null, null, classpathEntryTemp.getAccessRules(), iClasspathAttributesList.toArray(new IClasspathAttribute[iClasspathAttributesList.size()]), classpathEntryTemp.isExported());
 					break;
@@ -286,6 +308,28 @@ public class History {
     			f2.mkdir();
     		InputStream in = new FileInputStream(f1);
     		OutputStream out = new FileOutputStream(f3);
+    		byte[] buf = new byte[1024];
+    		int len;
+    		while ((len = in.read(buf)) > 0){
+    			out.write(buf, 0, len);
+    		}
+    		in.close();
+    		out.close();
+    	}
+    	catch(FileNotFoundException ex){
+    		ex.printStackTrace();
+    	}
+    	catch(IOException e){
+    		e.printStackTrace();
+    	}
+	}
+	
+	private void copyFile(IProject iProject, String origem, String destino) {
+		try{
+    	    File f1 = new File(findResolveURL(origem));
+    	    File f2 = new File(iProject.getLocation().toString()+destino);
+    		InputStream in = new FileInputStream(f1);
+    		OutputStream out = new FileOutputStream(f2);
     		byte[] buf = new byte[1024];
     		int len;
     		while ((len = in.read(buf)) > 0){
