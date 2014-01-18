@@ -1,0 +1,137 @@
+/** IDENTIFICAÇÃO DO DOCENTE **/
+#identificacao {
+	
+}
+	#identificacao caption, #titulo-relatorio {
+		border-bottom: 1px solid #999;
+		font-variant: small-caps;
+		font-size: 1.1em;
+		letter-spacing: 0.1em;
+		background: #EEE;
+		padding: 2px 0;
+		margin-bottom: 5px;
+		text-align: center;
+	}
+	#identificacao td {
+		padding: 3px 2px;
+	}
+
+	#identificacao p.pontosRelatorio {
+		background: #EEE;
+		padding: 10px 10px;
+		font-size: 1.2em;
+		text-align: center;
+		line-height: 2em;
+		border: 1px solid #CCC;
+	}
+
+	#identificacao p.pontosRelatorio span {
+		font-weight: bold;
+		font-size: 1.2em;
+	}
+
+
+/** LISTA DE PRODUÇÕES E ATIVIDADES **/
+h4 {
+	border-bottom: 1px solid #555;
+	margin: 0 0 10px 0;
+	padding: 2px 0;
+}
+
+h4 span.limite {
+	font-size: 0.8em;
+}
+
+h5 {
+	border-bottom: 1px solid #AAA;
+	padding: 5px 3px;
+	background: #EEE;
+}
+
+div.grupo {	margin-left: 12px; }
+
+table.producoes {
+	width: 100%;
+	margin: 0 0 15px 0;
+}
+
+	table.producoes td { padding: 2px; }
+
+	table.producoes thead th, #relatorio table.producoes thead td {
+		border-bottom: 1px solid #BBB;
+		padding: 2px;
+		background: #F8F8F8;
+	}
+
+	table.producoes tbody td { border-bottom: 1px dashed #999; }
+
+	table.producoes tfoot td {
+		border-top: 1px solid #999;
+		padding: 2px;
+		font-weight: bold;
+	}
+
+	table.producoes tfoot td span{ font-size: 0.9em; }
+
+table.producoes thead tr th.ano, table.producoes tbody tr td.ano {
+	text-align: right;
+}
+
+table th.pontos, table td.pontos {
+	text-align: right;
+}
+
+p.vazio {
+	margin: 5px 15px 15px 15px;;
+	font-style: italic;
+	text-align: center;
+}
+
+#quadro-resumo {
+	margin: 5px 0;
+}
+
+#quadro-resumo h4 {
+	text-align: center;
+	font-variant: small-caps;
+	margin-bottom: 0;
+	font-size: 1.2em;
+	border: 0;
+}
+
+#quadro-resumo table {
+	width: 100%;
+	background: #EEE;
+	border: 1px solid #AAA;
+}
+
+#quadro-resumo table td{
+	padding: 4px;
+	font-size: 1.1em;
+}
+
+#quadro-resumo table tfoot td {
+	font-weight: bold;
+	background: #DDD;
+	font-variant: small-caps;
+	border-top: 1px solid #AAA;
+}
+
+#quadro-resumo tr.grupo td {
+	border-bottom: 1px solid #999;
+}
+
+#quadro-resumo tr.item td {
+	border-bottom: 1px dashed #999;
+	font-size: 0.9em;
+	background: #FFF;
+}
+
+
+table tbody tr td.titulo {
+	padding-left: 16px;
+}
+
+table tbody tr td.validado 	 { background: url(/sigaa/img/prodocente/validacao/validado.gif) no-repeat; }
+table tbody tr td.invalidado { background: url(/sigaa/img/prodocente/validacao/invalidado.gif) no-repeat;}
+table tbody tr td.pendente 	 { background: url(/sigaa/img/prodocente/validacao/pendente.gif) no-repeat;}

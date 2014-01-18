@@ -1,0 +1,83 @@
+/* ***********************************************
+* Estilos da tela de apresentação do questionário
+************************************************ */
+div.intro {
+	margin: 0 auto;
+	width: 710px;
+	padding-left: 240px;
+	background: white url('/shared/img/questionario/questionario-bg.jpg') no-repeat left top;
+}
+
+div.intro h4 {
+	font-size: 20px;
+	color: #404e82;
+	margin-bottom: 10px;
+}
+
+div.intro h5 {
+	font-size: 18px;
+	color: #d99c44;
+	margin-bottom: 20px;
+}
+
+div.intro div.textos {
+	padding: 10px 10px 30px;
+	background: #F7F8FA;
+	margin-bottom: 10px;
+}
+
+div.intro div.textos p {
+	margin-bottom: 10px;
+}
+
+div.intro div.textos p.texto {
+	text-indent: 20px;
+}
+
+
+div.intro div.botoes {
+	width: 372px;
+	margin: 0 auto;
+}
+
+div.intro div.left { float: left; }
+div.intro div.right { margin-left: 185px; float: right; }
+div.intro div.below { float:left; clear: left; }
+
+
+div.botao,
+div.botao_depois {
+	position: relative;
+	margin: 0 auto 20px 15px;
+	height: 28px;
+	background: white url('/shared/img/questionario/bg-btn.jpg') repeat-x center center;
+	width: 250px;
+}
+
+div.botao a {
+	position: relative;
+	display: block;
+	background: transparent url('/shared/img/questionario/ok-btn.jpg') no-repeat left top;
+}
+
+div.botao_depois a {
+	position: relative;
+	display: block;
+	background: transparent url('/shared/img/questionario/jump-btn.jpg') no-repeat left top;
+}
+
+div.botao a:hover,
+div.botao_depois a:hover {
+	background-position: left bottom;
+}
+
+div.botao a span,
+div.botao_depois a span {
+	position: relative;
+	display: block;
+	line-height: 28px;
+	text-align: center;
+	padding-left: 30px;
+	padding-right: 4px;
+	background: transparent url('/shared/img/questionario/borda-btn.jpg') no-repeat right center;
+}

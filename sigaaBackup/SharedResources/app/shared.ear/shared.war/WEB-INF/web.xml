@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>DIRETORIA SISTEMAS</display-name>
+
+	<listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+    <listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+    <context-param>
+        <param-name>com.sun.faces.verifyObjects</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.validateXml</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+		<servlet-name>EntrarChat</servlet-name>
+		<servlet-class>br.ufrn.arq.chat.EntrarChatServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>EntrarChat</servlet-name>
+		<url-pattern>/EntrarChat</url-pattern>
+	</servlet-mapping>
+    
+    <servlet>
+		<servlet-name>ReceiveChat</servlet-name>
+		<servlet-class>br.ufrn.arq.chat.ReceiveChatServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ReceiveChat</servlet-name>
+		<url-pattern>/ReceiveChat</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PostChat</servlet-name>
+		<servlet-class>br.ufrn.arq.chat.PostChatServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PostChat</servlet-name>
+		<url-pattern>/PostChat</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ListMembers</servlet-name>
+		<servlet-class>br.ufrn.arq.chat.ListMembersServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ListMembers</servlet-name>
+		<url-pattern>/ListMembers</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SairChat</servlet-name>
+		<servlet-class>br.ufrn.arq.chat.SairChatServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SairChat</servlet-name>
+		<url-pattern>/SairChat</url-pattern>
+	</servlet-mapping>
+    
+    <servlet>
+		<servlet-name>VerArquivo</servlet-name>
+		<servlet-class>br.ufrn.arq.arquivos.VerArquivoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>VerArquivo</servlet-name>
+		<url-pattern>/verArquivo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>VerImagem</servlet-name>
+		<servlet-class>br.ufrn.arq.arquivos.VerArquivoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>VerImagem</servlet-name>
+		<url-pattern>/verImagem</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VerFoto</servlet-name>
+		<servlet-class>br.ufrn.arq.arquivos.VerFotoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>VerFoto</servlet-name>
+		<url-pattern>/verFoto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>VerFotoIdentificacao</servlet-name>
+		<servlet-class>br.ufrn.services.biometria.VerFotoIdentificacao</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>VerFotoIdentificacao</servlet-name>
+		<url-pattern>/verFotoIdentificacao</url-pattern>
+	</servlet-mapping>	
+    
+    <servlet>
+    	<servlet-name>BrasaoInstituicaoServlet</servlet-name>
+    	<servlet-class>br.ufrn.arq.web.BrasaoInstituicaoServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>BrasaoInstituicaoServlet</servlet-name>
+    	<url-pattern>/img/brasao.png</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>LogoInstituicaoServlet</servlet-name>
+    	<servlet-class>br.ufrn.arq.web.LogoInstituicaoServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>LogoInstituicaoServlet</servlet-name>
+    	<url-pattern>/img/ufrn.gif</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>LogoInformaticaServlet</servlet-name>
+    	<servlet-class>br.ufrn.arq.web.LogoInformaticaServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>LogoInformaticaServlet</servlet-name>
+    	<url-pattern>/img/sinfo.gif</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+		<servlet-name>Captcha</servlet-name>
+		<servlet-class>br.ufrn.arq.web.captcha.CaptchaServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Captcha</servlet-name>
+		<url-pattern>/captcha.jpg</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UploadImagemTinyMCE</servlet-name>
+		<servlet-class>br.ufrn.comum.web.UploadImagemTinyMCE</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UploadImagemTinyMCE</servlet-name>
+		<url-pattern>/javascript/tiny_mce/upload</url-pattern>
+	</servlet-mapping>
+    
+
+    <filter>
+		<filter-name>extensionsFilter</filter-name>
+		<filter-class>
+			org.apache.myfaces.component.html.util.ExtensionsFilter
+		</filter-class>
+		<init-param>
+			<description>
+				Set the size limit for uploaded files. Format: 10 - 10
+				bytes 10k - 10 KB 10m - 10 MB 1g - 1 GB
+			</description>
+			<param-name>uploadMaxFileSize</param-name>
+			<param-value>100m</param-value>
+		</init-param>
+		<init-param>
+			<description>
+				Set the threshold size - files below this limit are
+				stored in memory, files above this limit are stored on
+				disk.
+
+				Format: 10 - 10 bytes 10k - 10 KB 10m - 10 MB 1g - 1 GB
+			</description>
+			<param-name>uploadThresholdSize</param-name>
+			<param-value>100k</param-value>
+		</init-param>
+	</filter>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+
+	<filter-mapping>
+    	<filter-name>extensionsFilter</filter-name>
+	    <url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+  	<filter-mapping>
+    	<filter-name>extensionsFilter</filter-name>
+    	<url-pattern>/faces/*</url-pattern>
+  	</filter-mapping>
+
+	<!-- Configurações do RichFaces -->  
+    <context-param>
+        <param-name>org.richfaces.SKIN</param-name>
+        <param-value>blueSky</param-value>
+    </context-param>
+
+    <filter> 
+        <display-name>RichFaces Filter</display-name> 
+        <filter-name>richfaces</filter-name> 
+        <filter-class>org.ajax4jsf.Filter</filter-class> 
+    </filter> 
+
+    <filter-mapping> 
+        <filter-name>richfaces</filter-name> 
+        <servlet-name>Faces Servlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>	  
+	  
+    <context-param>
+          <param-name>org.richfaces.LoadScriptStrategy</param-name>
+          <param-value>DEFAULT</param-value>
+    </context-param>    
+
+	<!-- CONFIGURAÇÕES DO JAWR -->
+    <servlet>
+		<servlet-name>JavascriptServlet</servlet-name>
+		<servlet-class>net.jawr.web.servlet.JawrServlet</servlet-class>
+		<init-param>
+		        <param-name>configLocation</param-name>
+		        <param-value>jawr.shared.properties</param-value>
+		</init-param>
+        <init-param>
+                <param-name>mapping</param-name>
+                <param-value>/jsBundles/</param-value>
+        </init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	     
+	<servlet>
+		<servlet-name>CSSServlet</servlet-name>
+		<servlet-class>net.jawr.web.servlet.JawrServlet</servlet-class>
+		<init-param>
+		        <param-name>configLocation</param-name>
+		        <param-value>jawr.shared.properties</param-value>
+		</init-param>
+		<init-param>
+		        <param-name>type</param-name>
+		        <param-value>css</param-value>
+		</init-param>
+        <init-param>
+                <param-name>mapping</param-name>
+                <param-value>/cssBundles/</param-value>
+        </init-param>		
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+        
+	<servlet-mapping>
+	        <servlet-name>JavascriptServlet</servlet-name>
+	        <url-pattern>/jsBundles/*</url-pattern>
+	</servlet-mapping> 
+	<servlet-mapping>
+	        <servlet-name>CSSServlet</servlet-name>
+	        <url-pattern>/cssBundles/*</url-pattern>
+	</servlet-mapping> 
+
+	<!-- Tag Libraries -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/tags/tomahawk</taglib-uri>
+			<taglib-location>/WEB-INF/tld/tomahawk.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/ufrn</taglib-uri>
+			<taglib-location>/WEB-INF/tld/sipac.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/ufrnFunctions</taglib-uri>
+			<taglib-location>/WEB-INF/tld/ufrn-functions.tld</taglib-location>
+		</taglib>		
+		<taglib>
+			<taglib-uri>/tags/rich</taglib-uri>
+			<taglib-location>/WEB-INF/tld/rich.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/tags/a4j</taglib-uri>
+			<taglib-location>/WEB-INF/tld/a4j.tld</taglib-location>
+		</taglib>
+		
+		<taglib>
+			<taglib-uri>/tags/jawr</taglib-uri>
+			<taglib-location> /WEB-INF/tld/jawr.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+		
+
+    </web-app>
