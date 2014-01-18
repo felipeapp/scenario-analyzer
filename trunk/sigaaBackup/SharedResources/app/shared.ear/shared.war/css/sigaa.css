@@ -1,0 +1,687 @@
+/************************************
+*          ESTILOS BÁSICOS
+*************************************/
+html.background {
+	background: url(../img/bg_pagina.jpg) repeat-y center;
+}
+
+body {
+	margin: 0;
+	font-size: 70%;
+	font-family: Verdana, sans-serif;
+	/*background: #E6E8EC;*/
+}
+
+h1,h2,h3,h4,h5,h6,form,p {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {font-size: 1.5em;}
+h2 {
+	font-size: 1.2em;
+	color: #003395;
+	font-variant: small-caps;
+	margin: 0 5px 15px;
+	border-bottom: 1px solid #C4D2EB;
+	padding: 4px 0 2px 22px;
+	letter-spacing: 0px;
+	text-align: left;
+	background: #EFF3FA;
+}
+
+.btnCrudCadastrar{
+	background: #C4D2EB;
+	border-bottom: 1px solid #404E82;
+	border-left: 1px solid #404E82;
+	border-right: 1px solid #404E82;
+	border-top: 1px solid #404E82;
+	padding: 4px 10px 4px 10px;
+}
+
+.btnCrudListar{
+	margin-left: -4px;
+	background: #EFF3FA;
+	border-bottom: 1px solid #404E82;
+	border-left: 1px solid #404E82;
+	border-right: 1px solid #404E82;
+	border-top: 1px solid #404E82;
+	padding: 4px 10px 4px 10px;
+}
+
+
+h3 {font-size: 1.2em; }
+h4 {font-size: 1.1em;}
+h5 {font-size: 0.9em;}
+h6 {font-size: 0.8em;}
+
+hr {
+	color: #404E82;
+	background-color: #404E82;
+	height: 1px;
+	border: 0;
+}
+
+a:link {
+	color: #003395;
+	font-weight: bold;
+	font-size: inherit;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #003390;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:active {
+	color: #444444;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #333;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+label {cursor: pointer;}
+
+img {border: 0;}
+
+/** Tabelas */
+table tbody tr th, table th {
+	text-align: right;
+	font-weight: normal;
+}
+
+table thead tr th {
+	text-align: center;
+	font-weight: bold;
+}
+
+table thead {
+	background-color: #DEDFE3;
+	font-weight: bold;
+}
+
+table thead th{
+	font-weight: bold
+}
+
+/** Campos de Formulários */
+input,select,textarea {
+	font-size: 1em;
+}
+
+textarea {
+	padding: 2px;
+}
+
+select {
+	text-align: justify;
+	font-weight: normal;
+	font-size: 1em;
+	font-family: Verdana;
+}
+
+input,textarea, select {
+	font-family: Verdana, sans-serif;
+	border: 1px solid #AAA;
+}
+
+input[type="image"] {
+	border: 0;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+	border: 1px solid #D99C44;
+	background-color: #FDFAF6;
+}
+
+.required {
+	/*font-weight: bold;*/
+	background: url(../img/required.gif) no-repeat right 5px;
+  	padding-right: 0.9em;
+  	vertical-align: top;
+}
+
+/************************************
+*          ESTILOS GERAIS
+*************************************/
+.valor {
+	text-align: right;
+	font-weight: bold;
+}
+
+.erro {
+	font-weight: bold;
+	color: red;
+}
+
+.indisponivel {
+	color: #999;
+	font-weight: lighter;
+}
+
+input.noborder {
+	border: 0px solid #7A7A7A;
+}
+
+.leitura {
+	background: transparent;
+}
+
+.popUp {
+	padding: 5px;
+	border: 1px solid #FFC30E;
+	width: 200px;
+	color: #9C7600;
+	background-color: #FFFBB8;
+	text-align: left;
+	position: absolute;
+	left: 0;
+	top: -5px;
+	visibility: hidden;
+	overflow: visible;
+	z-index: 100;
+}
+
+span.tooltip {
+	cursor: help;
+}
+
+.fontePequena {
+	font-size: 0.9em;
+}
+
+.clear {
+	clear: both;
+	height: 1px;
+	margin:0; padding: 0;
+}
+
+.voltar { text-align: center; margin-top: 15px; }
+.voltar a {
+	background: url(../img/voltar.gif) no-repeat;
+	padding: 3px 0 3px 20px;
+}
+
+div.descricaoOperacao {
+	margin: 10px 18px;
+	padding: 10px 20px;
+	border: 1px solid #F9FBFD;
+	background: #FFFFD5;
+	line-height: 1.2em;
+}
+
+div.descricaoOperacao p {
+	text-indent: 3em;
+	margin: 3px 0;
+}
+
+/************************************
+*             LAYOUT
+*************************************/
+#container {
+	width: 750px;
+
+	/* Flexibilidade
+	min-width: 750px;
+	max-width: 996px;
+	width: expression(document.body.clientWidth < 760 ? "750px" : document.body.clientWidth > 990 ? "996px" : "auto");
+	*/
+	margin: 0 auto;
+	background: #FFF;
+}
+
+#cabecalho {}
+#info-sistema {
+	color: #FFF;
+	background: #404E82;
+	padding: 2px 4px;
+	position: relative;
+	border-bottom: 3px solid #E1B26E;
+}
+#info-sistema h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+	display: inline;
+}
+#info-sistema h1 span{
+	font-size: 0.9em;
+	margin-right: 10px;
+	font-family: arial;
+	letter-spacing: 0.1em;
+}
+#info-sistema span.data-atual {
+	position: absolute;
+	right: 90px;
+	top: 8px;
+}
+#info-sistema span.sair-sistema {
+	position: absolute;
+	right: 5px;
+	top: 6px;
+	font-size: 1.2em;
+	letter-spacing: 0.1em;
+}
+#info-sistema span.sair-sistema a{ color: #FEF9DC; }
+#info-sistema h3{
+	font-size: 1em;
+	font-weight: normal;
+	display: inline;
+}
+
+#painel-usuario {
+	background: #C4D2EB;
+	color: #222;
+	position: relative;
+	height: 45px;
+}
+#painel-usuario #info-usuario {
+	margin: 0 290px 0 5px;
+	position: relative;
+	width: 440px;
+	padding: 4px;
+}
+#painel-usuario #info-usuario p.usuario {
+	font-weight: bold;
+	width: 22.5em;
+	margin-left: 20px;
+	font-size: 1.1em;
+}
+#painel-usuario #info-usuario p.periodo-atual {
+	display: inline;
+	font-size: 0.9em;
+	position: absolute;
+	top: 0.6em;
+	right: 10px;
+}
+#painel-usuario #info-usuario p.unidade {}
+
+#painel-usuario #menu-usuario {
+	float: right;
+	width: 280px;
+	background: #C4D2EB;
+}
+#painel-usuario #menu-usuario ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	background: transparent;
+}
+#painel-usuario #menu-usuario li {
+	float: left;
+	width: 31.5%;
+	text-align: center;
+	margin: 0 2px;
+}
+#painel-usuario #menu-usuario li a{
+	padding: 26px 1px 2px;
+	display: block;
+	background: #E6ECF7;
+	color: #444;
+	_height: 1px;
+}
+#painel-usuario #menu-usuario li a:hover{
+	background-color: #EFF3FA;
+	color: #003395;
+}
+#painel-usuario #menu-usuario li.caixa-postal a{
+	background-image: url(../img/menu/usuario/small_caixa_postal.gif);
+	background-repeat: no-repeat;
+	background-position: center 4px;
+}
+#painel-usuario #menu-usuario li.modulos a{
+	background-image: url(../img/menu/usuario/small_modulos.gif);
+	background-repeat: no-repeat;
+	background-position: center 4px;
+}
+#painel-usuario #menu-usuario li.ajuda a{
+	background-image: url(../img/menu/usuario/small_ajuda.gif);
+	background-repeat: no-repeat;
+	background-position: center 4px;
+}
+
+#conteudo {	/*position: relative;*/ }
+
+#rodape {
+	border-top: 3px solid #D99C44;
+	background: #404E82;
+}
+
+#rodape p{
+	clear: both;
+	color: #FFF;
+	padding: 4px 3px;
+	text-align: center;
+}
+
+
+
+/************************************
+*     ERROS, AVISOS E WARNINGS
+*************************************/
+
+#painel-erros {
+	background: #F9FBFD;
+	padding: 3px 28px;
+	border-bottom: 1px solid #C8D5EC;
+}
+
+#painel-erros ul{
+	margin: 0;
+	padding: 0;
+	padding: 10px 0 10px 55px;
+}
+
+#painel-erros li{
+	font-weight: bold;
+}
+
+#painel-erros ul.info {background: url(../img/mensagens/info.gif) no-repeat left center;}
+#painel-erros ul.warning {background: url(../img/mensagens/warning.gif) no-repeat left center;}
+#painel-erros ul.erros {background: url(../img/mensagens/error.gif) no-repeat left center;}
+
+#painel-erros ul.info li {color: #0CA700;}
+#painel-erros ul.warning li {color: #333;}
+#painel-erros ul.erros li {color: #F11;}
+
+/************************************
+*       SEÇÕES, FORMULÁRIOS E LISTAGENS
+*************************************/
+.logon h3 {
+	color: #336;
+	padding: 1px 5px;
+	background: #C8D5EC url(../img/menu/div_left.gif) right no-repeat;
+	border-left: 1px solid #C8D5EC;
+	width: 50%;
+	text-align: center;
+}
+
+.logon table {
+	background: #FAFAFA;
+	border: 1px solid #C8D5EC;
+	border-width: 3px 1px;
+}
+
+
+
+/** Formulários */
+
+.formulario fieldset
+{
+
+	border:1px;
+	border-color: #c3c3c3;
+	border-bottom-color: #c3c3c3;
+	border-left-color: #c3c3c3;
+	border-right-color:#c3c3c3;
+	border-style: dotted;
+
+}
+.formulario legend
+{
+	color: #C3C3C3;
+	padding-top: 15px;
+}
+
+
+table.formulario, table.subFormulario {
+	margin: 0 auto;
+
+	background-color: #F9FBFD;
+	border-collapse: collapse;
+}
+
+table.formulario {
+	border: 1px solid #DEDFE3;
+}
+
+table.formulario tr td, table.subFormulario tr td {
+	padding: 2px;
+}
+table.formulario tr td.subFormulario {
+	padding: 3px 0 3px 20px;
+}
+
+table.formulario tfoot tr {
+	background: #C8D5EC;
+}
+
+table.formulario tfoot tr td, tfoot.formulario tr td {
+	text-align: center;
+	background: #C8D5EC;
+}
+
+table.formulario caption, table.listagem caption, table.visualizacao caption  {
+	margin: 0 auto;
+	padding: 3px 0;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #FFF;
+	letter-spacing: 1px;
+	background: url(../img/bg_caption.gif) center repeat-x;
+}
+
+table.subFormulario {
+	margin: 0;
+	background: #F9FBFD;
+}
+
+table.subFormulario caption, caption.subFormulario, td.subFormulario, table.formulario table caption {
+	margin: 1px 0px;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #333366;
+	background: #EDF1F8;
+	background-image: none;
+	text-align: center;
+	border: 0;
+	letter-spacing: 1px;
+	padding: 3px 0 3px 20px;
+	border-bottom: 1px solid #C8D5EC;
+}
+
+td.subFormularioItem {
+	margin: 1px 0px;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: black;
+	background: #EDF1F8;
+	border-top: 1px solid #6A6A6A;
+	text-align: center;
+}
+
+/**  Listagens */
+table.listagem {
+	border-collapse: collapse;
+	width: 99%;
+	margin: 0 auto;
+	border: 1px solid #DEDFE3;
+	background-color: #F9FBFD;
+}
+
+table.listagem tfoot, table.listagem tfoot td {
+	background-color: #EBEBEB;
+}
+
+table.listagem tbody {
+	background-color: #FAFAFA;
+}
+
+table.listagem tr td {
+	padding: 3px;
+}
+
+.linhaPar {
+	background-color: #F9FBFD;
+}
+
+.linhaImpar {
+	background-color: #EDF1F8;
+}
+
+table.listagem td.colPar {
+	background-color: #F9FBFD;
+}
+
+table.listagem td.colImpar {
+	background-color: #F5F5F5;
+}
+
+/** Visualização de dados */
+
+table.visualizacao {
+	border-collapse: collapse;
+	width: 90%;
+	margin: 0 auto;
+	border: 1px solid #DEDFE3;
+	background-color: #EBEBEB;
+}
+
+table.visualizacao tbody {
+	background-color: #F9FBFD;
+}
+
+table.visualizacao tbody tr th {
+	text-align: right;
+	font-weight: bold;
+	background: #F5F5F5;
+}
+
+table.visualizacao tbody tr td, table.visualizacao tbody tr th  {
+	padding: 3px;
+}
+
+/************************************
+*            CRONOGRAMAS
+*************************************/
+
+#cronograma thead th.inicioAno {
+	border-left: 1px solid #BBB;
+}
+
+#cronograma thead th.fimAno {
+	border-right: 1px solid #BBB;
+}
+
+#cronograma tbody td {
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+}
+
+#cronograma tbody th {
+	text-align: left;
+	border-top: 1px solid white;
+	background: #EEE;
+}
+
+#cronograma td.selecionado {
+	background: #C8D5EC;
+}
+
+/************************************
+*            RELATÓRIOS
+*************************************/
+.tituloRelatorio {
+	border-bottom: 1px silver solid;;
+}
+
+.infoRelatorio {
+	border-top: 1px silver solid;
+	border-bottom: 1px silver solid;
+}
+
+.tabelaRelatorio {
+	border-top: 2px black solid;
+	border-bottom: 2px black solid;
+}
+
+caption.subRelatorio {
+	font-weight: bold;
+	font-variant: small-caps;
+	border-top: 1px black solid;
+}
+
+.rodapeRelatorio {
+	border-top: 2px black solid;
+}
+
+.texto {
+	text-indent: 10px;
+	text-align: justify;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+tr.linhaParRelatorio {
+	background-color: #F7F4F4;
+}
+
+.rightAlign {
+	text-align: right;
+}
+
+.centerAlign {
+	text-align: center;
+}
+
+table.horarios {
+	width: 100%;
+	border: thin solid;
+	border-collapse: collapse;
+}
+table.horarios caption{
+	padding-bottom: 5px;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #333366;
+}
+table.horarios td.titulo {
+	background: url(../img/bg_caption.gif) center repeat-x;
+	color: white;
+	border: none;
+}
+table.horarios td {
+	width: 50px;
+	text-align: center;
+}
+table.horarios td.titulo {
+	font-weight: bold;
+}
+table.buscaAjax {
+	border-collapse: collapse;
+	width: 100%
+}
+table.buscaAjax tr.titulo td{
+	height: 7px;
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+div.conteudoAba {
+	border: 1px solid #6593CF;
+	border-top: none;
+	padding: 10px;
+}
+table.gradeHorarios td {
+	text-align: center
+}
+table.gradeHorarios{
+	border-collapse: collapse;
+}
+table.gradeHorarios tr.titulo {
+	padding-bottom: 5px;
+	font-variant: small-caps;
+	color: #333366;
+}
+table.gradeHorarios input{
+	border-style: solid;
+	border-width: thin;
+}

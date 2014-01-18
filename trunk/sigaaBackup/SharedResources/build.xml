@@ -1,0 +1,92 @@
+<!--========================================================
+Arquivo de Build dos Projetos UFRN
+Autor: Gleydson Lima
+=========================================================-->
+
+<project name="deploySHARED" default="deployShared">
+
+	<target name="copiaServidor" description="Copia para o servidor de Homologação">
+
+		<echo message="Copiando ${earName} para ${usuarioCopia}@${servidorCopia}:${diretorioDeploy}"/>
+
+		<input message="Digite senha para Deployment" addproperty="password" />
+
+		<scp file="${build.tempdir}\${earName}" todir="${usuarioCopia}@${servidorCopia}:${diretorioDeploy}"
+						password="${password}" trust="true">
+		</scp>
+	</target>
+
+	<target name="deployShared" description="Constroi e implanta o SHARED">
+
+		<property resource="build.properties">
+			<classpath>
+				<pathelement path="."/>
+			</classpath>
+		</property>
+
+		<property name="sistema" value="shared"/>
+		<property name="dirSistema" value="SharedResources"/>
+
+		<property name="app.dir" value="${workspace}/${dirSistema}/app"/>
+		<property name="dir.ear" value="${workspace}/${dirSistema}/app/${sistema}.ear" />
+		<property name="dir.web" value="${workspace}/${dirSistema}/app/${sistema}.ear/${sistema}.war" />
+		<property name="build.tempdir" value="${temp}/${sistema}Build"/>
+		<property name="facade.dir" value="${workspace}/${dirSistema}/app/${sistema}.ear/facade.jar" />
+		<property name="arq.classes" value="${workspace}/${dirSistema}/dependencias/arq-${versaoArquitetura}.jar" />
+		<property name="comum.classes" value="${workspace}/${dirSistema}/dependencias/comum-${versaoEntidadesComuns}.jar" />
+		<property name="servicos.classes" value="${workspace}/${dirSistema}/dependencias/dto-${versaoServicosIntegrados}.jar" />
+		<input message="Qual a versão do sistema ${dirSistema}?" addproperty="versao" defaultvalue="1.X"/>
+		
+		<antcall target="buildShared" inheritall="true" inheritrefs="true"/>
+
+		<property name="earName" value="shared.ear"/>
+
+		<antcall target="copiaServidor" inheritall="true"/>
+
+	</target>
+	
+	<target name="buildShared" description="Constroi o pacote do SHARED para Deployment">
+
+		<echo message="Construindo pacote do ${sistema}"/>
+		<mkdir dir="${build.tempdir}" />
+
+		<delete>
+			<fileset dir="${build.tempdir}" includes="**" />
+			<fileset dir="${build.tempdir}" includes="**/**" />
+		</delete>
+
+		<jar destfile="${build.tempdir}\shared.war">
+			<fileset dir="${dir.web}" />
+		</jar>
+		
+		<jar destfile="${build.tempdir}\facade.jar">
+			<fileset dir="${facade.dir}" />
+		</jar>
+
+		<copy tofile="${build.tempdir}\arq.jar">
+			<fileset file="${arq.classes}"/>
+		</copy>
+		
+		<copy tofile="${build.tempdir}\comum.jar">
+			<fileset file="${comum.classes}"/>
+		</copy>
+		
+		<copy tofile="${build.tempdir}\dto.jar">
+			<fileset file="${servicos.classes}"/>
+		</copy>
+
+		<copy todir="${build.tempdir}/META-INF">
+			<fileset dir="${dir.ear}/../../META-INF" />
+		</copy>
+
+		<jar destfile="${build.tempdir}\${sistema}.ear">
+			<fileset dir="${build.tempdir}" />
+		</jar>
+
+		<copy tofile="${diretorioHistoricoBuilds}\${sistema}-${versao}.ear">
+				<fileset file="${build.tempdir}\${sistema}.ear"/>
+		</copy>
+
+	</target>
+
+</project>
