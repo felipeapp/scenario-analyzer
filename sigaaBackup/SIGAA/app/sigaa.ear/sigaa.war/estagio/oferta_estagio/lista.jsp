@@ -36,7 +36,7 @@
 				<h:graphicImage value="/img/estagio/view_interesse.png" style="overflow: visible;"/>: Visualizar Inscrições
 				<br/><h:graphicImage value="/img/alterar.gif" style="overflow: visible;"/>: Alterar Oferta de Estágio
 			</c:if>		
-			<c:if test="${ofertaEstagioMBean.portalCoordenadorGraduacao || convenioEstagioMBean.permiteAnalisarConvenio}">
+			<c:if test="${convenioEstagioMBean.permiteAnalisarConvenio}">
 				<h:graphicImage value="/img/seta.gif" style="overflow: visible;"/>: Analisar Oferta de Estágio
 			</c:if>					
 		</div>

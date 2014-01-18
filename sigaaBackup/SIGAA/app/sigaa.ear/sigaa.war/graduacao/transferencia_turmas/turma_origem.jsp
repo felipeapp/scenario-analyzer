@@ -53,7 +53,7 @@
 									<h:inputText value="#{transferenciaTurma.ano}" size="4" maxlength="4" 
 										id="inputAno" converter="#{ intConverter }" 
 										valueChangeListener="#{ transferenciaTurma.changeAnoPeriodo }"
-										disabled="#{acesso.chefeDepartamento or acesso.secretarioDepartamento}" > 
+										disabled="#{transferenciaTurma.desabilitaSelecionarUnidade}" > 
 										<a4j:support event="onkeyup" oncomplete="populaAnoPeriodo();return formatarInteiro(this);" reRender="departamentos,disciplinas" />
 									</h:inputText>.	
 								</a4j:region>	
@@ -61,7 +61,7 @@
 									<h:inputText value="#{transferenciaTurma.periodo}" size="1" maxlength="1" 
 										id="inputPeriodo" converter="#{ intConverter }" 
 										valueChangeListener="#{ transferenciaTurma.changeAnoPeriodo }"
-										disabled="#{acesso.chefeDepartamento or acesso.secretarioDepartamento}">
+										disabled="#{transferenciaTurma.desabilitaSelecionarUnidade}">
 										<a4j:support event="onkeyup" oncomplete="populaAnoPeriodo();return formatarInteiro(this);" reRender="departamentos,disciplinas" />
 									</h:inputText>
 								</a4j:region>	
@@ -77,8 +77,8 @@
 						<td>
 							<a4j:region>
 								<h:selectOneMenu id="centros" style="width: 80%" value="#{transferenciaTurma.unidade.id}"
-									valueChangeListener="#{ transferenciaTurma.changeCentro }" disabled="#{acesso.chefeDepartamento or acesso.secretarioDepartamento}">
-									<f:selectItem itemValue="0" itemLabel="--> SELECIONE <--" />
+									valueChangeListener="#{ transferenciaTurma.changeCentro }" disabled="#{transferenciaTurma.desabilitaSelecionarUnidade}">
+									<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
 									<f:selectItems value="#{unidade.centrosEspecificasEscolas}" />
 									<a4j:support event="onchange" reRender="departamentos, disciplinas"/>
 								</h:selectOneMenu>
@@ -97,8 +97,8 @@
 							<h:selectOneMenu id="departamentos" style="width: 80%" 
 								value="#{unidade.obj.id}" 
 								valueChangeListener="#{ transferenciaTurma.buscarComponentes }" 
-								disabled="#{acesso.chefeDepartamento or acesso.secretarioDepartamento or empty unidade.unidades}">
-								<f:selectItem itemValue="0" itemLabel="--> SELECIONE <--" />
+								disabled="#{transferenciaTurma.desabilitaSelecionarUnidade or empty unidade.unidades}">
+								<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
 								<f:selectItems value="#{unidade.unidades}" />
 								<a4j:support event="onchange" reRender="disciplinas"/>
 							</h:selectOneMenu>
@@ -117,7 +117,7 @@
 				<td>
 					<h:selectOneMenu id="disciplinas" style="width: 95%" 
 						value="#{transferenciaTurma.turmaOrigem.disciplina.id}" 
-						disabled="#{empty transferenciaTurma.componentes and not transferenciaTurma.unidadeRestrita}">
+						disabled="#{empty transferenciaTurma.componentes}">
 						<f:selectItem itemLabel="-- SELECIONE --" itemValue="0"/>
 						<f:selectItems value="#{transferenciaTurma.componentes}" />
 					</h:selectOneMenu>

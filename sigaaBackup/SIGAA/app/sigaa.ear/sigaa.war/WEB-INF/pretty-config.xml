@@ -36,7 +36,6 @@
 		<view-id>/public/home.jsf?menuAtivo=p-biblioteca</view-id>
 	</url-mapping>
 	
-	
 	<!--              REDIRECIONAMENTOS DE  EXTENSÃO     -->
 	
 	
@@ -66,7 +65,7 @@
 		<view-id>#{cadastroParticipanteAtividadeExtensaoMBean.confirmarAlteracaoSenhaAcesso}</view-id>
 	</url-mapping>
 	
-	<url-mapping id="assinaturaDigitalGrupoPesq">
+	<url-mapping id="visualizarDadosAcaoCursoEvento">
 		<pattern>/link/public/extensao/visualizacaoAcaoExtensao/#{inscricaoParticipanteAtividadeMBean.idAtividadeSelecionada}</pattern>
 		<view-id>#{inscricaoParticipanteAtividadeMBean.visualizarDadosAcaoCursoEvento}</view-id>
 	</url-mapping>
@@ -230,4 +229,24 @@
 		<view-id>#{questionarioProjetoExtensaoMBean.listarAcoesPendentesQuestionario}</view-id>
 	</url-mapping>
 		
+	<url-mapping id="consultarProjetosPesquisaUnidade">
+		<pattern>/public/consultarProjetosPesquisa/unidade/#{consultaProjetos.codigoUnidade}</pattern>
+		<view-id>#{consultaProjetos.consultarProjetosUnidade}</view-id>
+	</url-mapping>
+	
+	<url-mapping id="consultarAcoesExtensaoUnidade">
+		<pattern>/public/consultarAcoesExtensao/unidade/#{consultaPublicaAtividadeExtensao.buscaUnidade}</pattern>
+		<view-id>#{consultaPublicaAtividadeExtensao.consultarAcoesUnidade}</view-id>
+	</url-mapping>
+	
+	<url-mapping id="consultarProjetosExtensaoUnidade">
+		<pattern>/public/consultarProjetosExtensao/unidade/#{consultaPublicaAtividadeExtensao.buscaUnidade}</pattern>
+		<view-id>#{consultaPublicaAtividadeExtensao.consultarProjetosUnidade}</view-id>
+	</url-mapping>
+
+	<url-mapping id="avaliarProjetoExtensaoLinhas">
+		<pattern>/public/extensao/avaliacaoProjeto/#{avaliacaoAtividade.codigo}</pattern>
+		<view-id>#{avaliacaoAtividade.carregarAvaliacoes}</view-id>
+	</url-mapping>
+	
 </pretty-config>

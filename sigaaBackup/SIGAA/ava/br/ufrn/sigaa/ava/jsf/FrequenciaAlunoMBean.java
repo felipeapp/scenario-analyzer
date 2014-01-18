@@ -1254,7 +1254,7 @@ public class FrequenciaAlunoMBean extends CadastroTurmaVirtual<FrequenciaAluno> 
 	public String cancelarAula () {
 
 			addMensagemWarning("Para cancelar a aula marque o campo \"Cancelar Aula\" e cadastre o tópico de aula. Após a aula ser cancelada "+
-					"não será nescessário o lançamento da frequência e os discentes não poderão notificar falta.");
+					"não será necessário o lançamento da frequência e os discentes não poderão notificar falta.");
 		
 			TopicoAulaMBean topBean = getMBean("topicoAula");	
 			String res = topBean.novo();

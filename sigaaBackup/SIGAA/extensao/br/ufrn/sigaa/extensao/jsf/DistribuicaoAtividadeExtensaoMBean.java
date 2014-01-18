@@ -95,6 +95,21 @@ public class DistribuicaoAtividadeExtensaoMBean extends
 	 * 
 	 * Método usado para fazer distribuição de ações para membros do Comitê de Extensão.
 	 *
+	 * /extensao/DistribuicaoComiteExtensao/lista_auto.jsp
+	 * 
+	 * @return
+	 * @throws ArqException 
+	 */
+	public String distribuirOutraAtividadeComiteAuto() throws ArqException {
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO);
+		prepareMovimento(SigaaListaComando.DISTRIBUIR_ATIVIDADE_EXTENSAO_AUTO_LINHA);
+		return forward(ConstantesNavegacao.DISTRIBUICAOCOMITE_FORM_AUTO);
+	}
+
+	/**
+	 * 
+	 * Método usado para fazer distribuição de ações para membros do Comitê de Extensão.
+	 *
 	 * sigaa.war/extensao/DistribuicaoComiteExtensao/form.jsp
 	 * 
 	 * @return
@@ -105,7 +120,7 @@ public class DistribuicaoAtividadeExtensaoMBean extends
 		resetBean();
 		return forward(ConstantesNavegacao.DISTRIBUICAOCOMITE_LISTA);
 	}
-
+	
 	/**
 	 * Retira uma ação de extensão da avaliacão do membro do comitê
 	 * 
@@ -546,6 +561,37 @@ public class DistribuicaoAtividadeExtensaoMBean extends
 			((FiltroAtividadesMBean)getMBean("filtroAtividades")).filtrar();
 			
 			return result;
+		} catch (NegocioException e) {
+			addMensagemErro(e.getMessage());
+			return null;
+			
+		} catch (Exception e) {
+			tratamentoErroPadrao(e);
+		}
+		return null;
+
+	}
+
+	public String distribuirAuto() throws SegurancaException {
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO);
+		try {
+			CadastroExtensaoMov mov = new CadastroExtensaoMov();
+			FiltroAtividadesMBean mBean = getMBean("filtroAtividades");
+
+			// setando a nova situacao do projeto
+			obj.getAtividade().setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.EXTENSAO_AGUARDANDO_AVALIACAO));
+			obj.setTipoAvaliacao(new TipoAvaliacao(TipoAvaliacao.AVALIACAO_ACAO_COMITE));
+			obj.setAtividades(mBean.getAtividadesSelecionadas());
+			mov.setCodMovimento(SigaaListaComando.DISTRIBUIR_ATIVIDADE_EXTENSAO_AUTO_LINHA);
+			mov.setDistribuicaoExtensao(obj);
+			mov.setObjAuxiliar(mBean.getBuscaEdital());
+			execute(mov, getCurrentRequest());
+			addMensagem(MensagensArquitetura.OPERACAO_SUCESSO);
+
+			mBean.filtrar();
+			
+			//atualizando lista de ações para distribuição.
+			return mBean.irTelaDistribuirComiteExtensaoAuto();
 		} catch (NegocioException e) {
 			addMensagemErro(e.getMessage());
 			return null;

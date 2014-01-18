@@ -31,14 +31,18 @@ import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.CalendarUtils;
-import br.ufrn.arq.util.StringUtils;
 import br.ufrn.sigaa.arq.dao.biblioteca.BibliotecaDao;
 import br.ufrn.sigaa.arq.dao.biblioteca.InterrupcaoBibliotecaDao;
+import br.ufrn.sigaa.arq.dao.biblioteca.UsuarioBibliotecaDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo;
 import br.ufrn.sigaa.biblioteca.circulacao.dominio.InterrupcaoBiblioteca;
+import br.ufrn.sigaa.biblioteca.circulacao.dominio.UsuarioBiblioteca;
 import br.ufrn.sigaa.biblioteca.circulacao.negocio.MovimentoCadastraInterrupcaoBiblioteca;
 import br.ufrn.sigaa.biblioteca.dominio.Biblioteca;
+import br.ufrn.sigaa.biblioteca.dominio.EnvioEmailBiblioteca;
+import br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.MaterialInformacional;
 import br.ufrn.sigaa.biblioteca.util.BibliotecaUtil;
 
 /**
@@ -194,8 +198,9 @@ public class InterrupcaoBibliotecaMBean  extends SigaaAbstractController <Interr
 	@Override
 	public String cadastrar () throws ArqException {
 		
-		checkRole(SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_GERAL, SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_LOCAL);
+		long tempo = System.currentTimeMillis();
 		
+		checkRole(SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_GERAL, SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_LOCAL);
 		
 		List<Biblioteca> bibliotecasSelecionadas = new ArrayList<Biblioteca>();
 		
@@ -232,12 +237,23 @@ public class InterrupcaoBibliotecaMBean  extends SigaaAbstractController <Interr
 			MovimentoCadastraInterrupcaoBiblioteca mov = new MovimentoCadastraInterrupcaoBiblioteca(obj, dataInicio, dataFim);
 			mov.setCodMovimento(SigaaListaComando.CADASTRA_INTERRUPCAO_BIBLIOTECA);
 			
-			String mensagemInterrupcoesNaoCadastradas = execute(mov);
+			List<Emprestimo> emprestimosProrrogados = execute(mov);
 			
-			addMensagemInformation(montaMensagemUsuario());
 			
-			if(StringUtils.notEmpty(mensagemInterrupcoesNaoCadastradas))
-				addMensagemWarning(mensagemInterrupcoesNaoCadastradas);
+			enviarEmailProrrogacaoPrazo(emprestimosProrrogados);
+			
+			
+			addMensagemInformation(" Em "+ (   (System.currentTimeMillis()-tempo)/1000/60  ) +" minutos. ");
+			
+			if(emprestimosProrrogados != null)
+				addMensagemInformation(emprestimosProrrogados.size()+" empréstimos foram prorrogados. ");
+			
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			if(dataInicio != null && dataFim != null)
+				addMensagemInformation("Interrupções para o período: "+format.format( dataInicio)+" a "+format.format( dataFim)+" cadastradas com sucesso.<br/> ");
+			else
+				addMensagemInformation("Interrupções para a data: "+format.format( dataInicio)+" cadastradas com sucesso.<br/> ");
+			
 			
 			montaDadosDasInterrupcoesCadastradas();
 			
@@ -250,11 +266,12 @@ public class InterrupcaoBibliotecaMBean  extends SigaaAbstractController <Interr
 			
 			// Em alguns casos esse ero ocorre, acho que é devido ao caso de uso ficar esperando conseguir o lock das tabelas
 			
-			if(arqEx != null && arqEx.getMessage() != null && arqEx.getMessage().contains("The transaction is not active")){
+			if(arqEx != null && arqEx.getMessage() != null 
+					&& ( arqEx.getMessage().contains("The transaction is not active") ||  arqEx.getMessage().contains("org.jboss.tm.JBossTransactionRolledbackException") )){
 				arqEx.printStackTrace();
 				notifyError(arqEx);
-				addMensagemErro("A operação demorou muito para ocorrer, talvez haja muitas renovações e devoluções sendo reailzados no momento. " +
-						"Tente cadastrar as interrupções em um momento de menor movimento do setor de circulação.");
+				addMensagemErro("A operação demorou muito para ocorrer, talvez haja uma quantidade muito grande de empréstimos a zerem prorrogados. " +
+						"Tente cadastrar as interrupções utilizando uma quantidade menor de dias por vez.");
 			}else
 				throw arqEx;
 		}finally{
@@ -267,6 +284,55 @@ public class InterrupcaoBibliotecaMBean  extends SigaaAbstractController <Interr
 		return null;
 	}
 
+	
+	/*
+	 * Envia um email informando ao usuário que os prazos dos empréstimo dele foram prorrogados
+	 */
+	private void enviarEmailProrrogacaoPrazo(List<Emprestimo> emprestimosProrrogados) throws DAOException{
+
+	
+		UsuarioBibliotecaDao dao = null;
+		
+		try{
+		
+			dao = getDAO( UsuarioBibliotecaDao.class);
+			
+			
+			for (Emprestimo emprestimo : emprestimosProrrogados) {		
+			
+				UsuarioBiblioteca usuario = emprestimo.getUsuarioBiblioteca();;
+				MaterialInformacional material = emprestimo.getMaterial();
+				Integer idEmprestimo = emprestimo.getId();
+				String motivo =  obj.getMotivo();
+				Date prazoNovo = emprestimo.getPrazo();
+					
+				// informacoesUsuario[0] == nome Usuario
+				// informacoesUsuario[1] == email Usuario
+				Object[] informacoesUsuario = dao.findNomeEmailUsuarioBiblioteca(usuario);
+				
+				SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				
+				String assunto = " Aviso de Prorrogação do prazo do Empréstimo ";
+				String titulo = " Prorrogação do prazo do seu Empréstimo ";
+				String mensagemUsuario = "O empréstimo do material: <i>"+BibliotecaUtil.obtemDadosMaterialInformacional(material.getId())+"</i>";
+				
+				String mensagemNivel1Email =  " Foi prorrogado para o dia: <strong>"+formatador.format(prazoNovo)+"</strong> , devido ao motivo: ";
+				String mensagemNivel3Email =  motivo;
+				
+				String codigoAutenticacao = BibliotecaUtil.geraNumeroAutenticacaoComprovantes(idEmprestimo, prazoNovo);
+				
+				new EnvioEmailBiblioteca().enviaEmail( (String)informacoesUsuario[0], (String)informacoesUsuario[1], assunto, titulo
+						, EnvioEmailBiblioteca.AVISO_PRORROGACAO_EMPRESTIMO, mensagemUsuario, mensagemNivel1Email, null, mensagemNivel3Email, null
+						, null, null,  codigoAutenticacao, null);
+				
+			}
+
+		}finally{
+			if(dao != null) dao.close();
+		}
+	}
+	
+	
 
 	/**
 	 * Tem que ser chamado fora do processador para poder atualizar os dados no banco para as outras transações.
@@ -420,21 +486,7 @@ public class InterrupcaoBibliotecaMBean  extends SigaaAbstractController <Interr
 	
 	
 	
-	/*
-	 * Monta a mensagem final que vai ser mostrada ao usuário.
-	 */
-	private String montaMensagemUsuario(){
-		StringBuilder mensagemUsuario = new StringBuilder();
-		
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy"); 
-		
-		if(dataInicio != null && dataFim != null)
-			mensagemUsuario.append("Interrupções para o período: "+format.format( dataInicio)+" a "+format.format( dataFim)+" cadastradas com sucesso.<br/> ");
-		else
-			mensagemUsuario.append("Interrupções para a data: "+format.format( dataInicio)+" cadastradas com sucesso.<br/> ");
-		
-		return mensagemUsuario.toString();
-	}
+	
 	
 	/**
 	 * 

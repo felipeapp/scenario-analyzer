@@ -8,6 +8,7 @@
  */	
 package br.ufrn.sigaa.assistencia.jsf;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,7 @@ public class DefinirDiasAlimentacaoMBean extends SigaaAbstractController<BolsaAu
 	 */
 	public String instanciar() throws DAOException {
 		obj = new BolsaAuxilio();
+		listaBolsaAuxilio = new ArrayList<BolsaAuxilio>();
 		ConsultaBolsaAuxilioMBean mBean = getMBean("consultaBolsaAuxilioMBean");
 		mBean.clear();
 		return forward("/sae/busca_bolsa_auxilio.jsp");
@@ -118,10 +120,13 @@ public class DefinirDiasAlimentacaoMBean extends SigaaAbstractController<BolsaAu
 	public String buscar() throws Exception {
 		ConsultaBolsaAuxilioMBean mBean = getMBean("consultaBolsaAuxilioMBean");
 		listaBolsaAuxilio = mBean.buscarBolsaAuxilio();
-		if (listaBolsaAuxilio.size() == 0) {
+		
+		if (listaBolsaAuxilio != null && listaBolsaAuxilio.size() == 0) {
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		}
 
+		mBean.clearResumido();
+		
 		return null;
 	}
 	

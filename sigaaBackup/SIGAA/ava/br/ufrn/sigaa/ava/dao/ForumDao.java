@@ -158,7 +158,7 @@ public class ForumDao extends GenericSigaaDAO {
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public Integer countMensagensForumCursos(int idForumMensagem) throws DAOException {
+	public Integer countMensagensForum(int idForumMensagem) throws DAOException {
 		Query q = getSession().createSQLQuery("select count(*) from ava.forum_mensagem " +
 					"where id_forum_mensagem = " + idForumMensagem + " OR id_topico = " + idForumMensagem + " and ativo = trueValue()");
 		return Integer.valueOf( String.valueOf( q.uniqueResult() ));
@@ -684,5 +684,58 @@ public class ForumDao extends GenericSigaaDAO {
 		}
 		return resultado;
 	}
+
+
+	/**
+	 * Busca todas as mensagens de um programa.
+	 * 
+	 * @param idPrograma
+	 * @return
+	 * @throws DAOException 
+	 */
+	@SuppressWarnings("unchecked")
+	public Forum findForumMensagensByIDPrograma(int idPrograma) throws DAOException {
+		
+		Criteria c = getCriteria(Forum.class);
+		c.add(Expression.eq("programaRede.id", idPrograma) );
+		c.addOrder(Order.asc("data"));
+		List<Forum> resultado = c.list();
+		return  (resultado.size() > 0) ? resultado.get(0) : new Forum();
+	}
 	
+
+	/**
+	 * Busca os fóruns de programa pelo id do programa.
+	 * 
+	 * @param idCurso
+	 * @return
+	 */
+	public List<Forum> findForunsDeProgramaByIDPrograma(int idPrograma) {
+		String sql = "select f.id_forum, f.descricao, f.titulo, f.id_turma, f.data_criacao, "
+				+ "p.nome, (select count(*) from ava.forum_mensagem where id_forum = f.id_forum and id_topico is null) as total, "
+				+ "(select data from ava.forum_mensagem fm where fm.id_forum = f.id_forum order "
+				+ "by data desc " + BDUtils.limit(1) + ") as data, f.topicos from ava.forum f, comum.usuario u, comum.pessoa p "
+				+ "where (f.ativo=trueValue() or f.ativo is null) and f.id_programa_rede = ? and f.programa = trueValue() and f.id_usuario = u.id_usuario and "
+				+ "u.id_pessoa = p.id_pessoa and f.tipo = " + Forum.TURMA + " order by f.data_criacao desc";
+			
+		@SuppressWarnings("unchecked")
+		List<Forum> lista =  getJdbcTemplate().query(sql, new Object[] { idPrograma }, new RowMapper() {
+				public Forum mapRow(ResultSet rs, int rowNum) throws SQLException {
+					Forum forum = new Forum();
+					forum.setId(rs.getInt("id_forum"));
+					forum.setDescricao(rs.getString("descricao"));
+					forum.setTitulo(rs.getString("titulo"));
+					forum.setTurma(new Turma(rs.getInt("id_turma")));
+					forum.setData(rs.getTimestamp("data_criacao"));
+					forum.setUsuario(new Usuario());
+					forum.getUsuario().setPessoa(new Pessoa());
+					forum.getUsuario().getPessoa().setNome(rs.getString("nome"));
+					forum.setTotalTopicos(rs.getInt("total"));
+					forum.setDataUltimaMensagem(rs.getTimestamp("data"));
+					forum.setTopicos(rs.getBoolean("topicos"));
+					return forum;
+				}
+			});
+		return lista;
+	}
 }

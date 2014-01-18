@@ -82,7 +82,13 @@ public class MembroComissao implements PersistDB, Validatable,
 	 * Membro da comissão integrada de ensino, pesquisa e extensão (CIEPE). 
 	 */
 	public static final int MEMBRO_COMISSAO_INTEGRADA = 5;
-
+	
+	/**
+	 * Membro da comissão de pós-graduação. 
+	 */
+	public static final int MEMBRO_COMISSAO_POS_GRADUACAO = 6;
+	
+	/**Identificador do membro da comissão. Membro de comissão pode ser de pesquisa, monitoria ou extensão.'*/
 	@Id
 	@GeneratedValue(generator="seqGenerator")
 	@Column(name="id_membro_comissao")
@@ -90,36 +96,54 @@ public class MembroComissao implements PersistDB, Validatable,
 	           parameters={ @Parameter(name="sequence_name", value="hibernate_sequence") })
 	private int id;
 
+	/**Dados do servidor membro da comissão.*/
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_servidor")
 	private Servidor servidor = new Servidor();
 
+	/**papel do membro da comissao. não confundir com os papeis do controle de acesso.*/
 	@Column(name = "id_papel")
 	private Integer papel;
 
+	/**Data que o servidor foi cadastrado como membro.*/
 	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
+	/**Data que o servidor foi desligado da comissão.*/
 	@Column(name = "data_desligamento")
 	private Date dataDesligamento;
 
+	/**Informa se o membro da comissão está ativo. Membros removidos possuem ativo=false'*/
 	@Column(name = "ativo")
 	private boolean ativo = true;
 
+	/**data de inicio do mandato que vale por 2 anos e precisa ser renovado para que o membro da comissao volte a ser ativo.*/
 	@Column(name = "data_inicio_mandato")
 	private Date dataInicioMandato;
 
+	/**data de finalizacao do mandato, se data vencida, o membro da comissao nao pode receber projetos ou relatorios para avaliar.*/
 	@Column(name = "data_fim_mandato")
 	private Date dataFimMandato;
 
 	// Usuário que cadastrou o projeto
+	/**registro de entrada do usuario que cadastrou o membro da comissao*/
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_registro_entrada", unique = false, nullable = true, insertable = true, updatable = true)
 	private RegistroEntrada registroEntrada;
 
+	/** Quantidade de avaliações já distribuidas */
+	@Transient
+	private int qntAvaliacoes=0;
+	
+	/**
+	 * Campo Transient Retorna as avaliações pendentes do membro da comissão
+	 */
 	@Transient
 	private Set<AvaliacaoMonitoria> avaliacoesPendentes = new HashSet<AvaliacaoMonitoria>();
 
+	/**
+	 * Melhora a manipulação da classe na view (chekbox)
+	 */
 	@Transient
 	private boolean selecionado;
 
@@ -282,23 +306,34 @@ public class MembroComissao implements PersistDB, Validatable,
 	 * @return
 	 */
 	public String getPapelString() {
-
-		switch (papel) {
-		case MEMBRO_COMISSAO_CIENTIFICA:
-			return "COMISSÃO CIENTÍFICA";
-		case MEMBRO_COMISSAO_MONITORIA:
-			return "COMISSÃO MONITORIA";
-		case MEMBRO_COMISSAO_PESQUISA:
-			return "COMISSÃO PESQUISA";
-		case MEMBRO_COMISSAO_EXTENSAO:
-			return "COMITÊ DE EXTENSÃO";
-		case MEMBRO_COMISSAO_INTEGRADA:
-			return "COMISSÃO INTEGRADA DE ENSINO, PESQUISA E EXTENSÃO";
-		default:
-			return "NÂO INFORMADO";
-		}
-
+		return getPapelString(papel);
 	}
+	
+	/**
+	 * Retorna a descrição do papel passado por parametro.
+	 * 
+	 * @return
+	 * @param papel
+	 */
+	public static String getPapelString(int papel) {
+		switch (papel) {
+			case MEMBRO_COMISSAO_CIENTIFICA:
+				return "COMISSÃO CIENTÍFICA";
+			case MEMBRO_COMISSAO_MONITORIA:
+				return "COMISSÃO DE MONITORIA";
+			case MEMBRO_COMISSAO_PESQUISA:
+				return "COMISSÃO DE PESQUISA";
+			case MEMBRO_COMISSAO_EXTENSAO:
+				return "COMITÊ DE EXTENSÃO";
+			case MEMBRO_COMISSAO_INTEGRADA:
+				return "COMISSÃO INTEGRADA DE ENSINO, PESQUISA E EXTENSÃO(CIEPE)";
+			case MEMBRO_COMISSAO_POS_GRADUACAO:
+				return "COMISSÃO DE PÓS-GRADUAÇÃO";
+			default:
+				return "NÂO INFORMADO";
+			}
+	}
+	
 	/**
 	 * Usado na tela de visualização de avaliação de relatório parcial.
 	 * 
@@ -316,4 +351,12 @@ public class MembroComissao implements PersistDB, Validatable,
 	    return CalendarUtils.isDentroPeriodo(getDataInicioMandato(), getDataFimMandato());
 	}
 
+	public int getQntAvaliacoes() {
+		return qntAvaliacoes;
+	}
+
+	public void setQntAvaliacoes(int qntAvaliacoes) {
+		this.qntAvaliacoes = qntAvaliacoes;
+	}
+	
 }

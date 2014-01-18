@@ -150,4 +150,23 @@ public class DiscentesBolsas {
 		return "ATIVA";
 	}
 	
+	/** 
+	 * 
+	 * @param db
+	 * @return
+	 */	
+	public Object clone() {
+		DiscentesBolsas n = new DiscentesBolsas();		
+		n.setDataFim(dataFim);
+		n.setDataFinalizacao(dataFinalizacao);
+		n.setDataInicio(dataInicio);
+		n.setIdDiscente(idDiscente);
+		n.setMatricula(matricula);
+		n.setNivel(nivel);
+		n.setNome(nome);
+		n.setStatusDiscente(statusDiscente);
+		n.setTipoBolsa(tipoBolsa);		
+		return n;
+	}
+	
 }

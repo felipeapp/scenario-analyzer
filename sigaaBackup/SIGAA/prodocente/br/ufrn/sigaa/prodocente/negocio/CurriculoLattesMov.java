@@ -44,6 +44,10 @@ public class CurriculoLattesMov extends AbstractMovimentoAdapter {
 	/** Indica se há produções não importadas */
 	private boolean producoesNaoImportadas;
 	
+	/** Indica se deve importar as produções mais recentes que o ano de referência,
+	 * ou seja, cujo ano for maior ou igual ao ano de referência. */
+	private boolean importarProducoesMaisRecentes = false;
+	
 
 	public List<? extends Producao> getProducoes() {
 		return producoes;
@@ -99,6 +103,15 @@ public class CurriculoLattesMov extends AbstractMovimentoAdapter {
 
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
+	}
+
+	public boolean isImportarProducoesMaisRecentes() {
+		return importarProducoesMaisRecentes;
+	}
+
+	public void setImportarProducoesMaisRecentes(
+			boolean importarProducoesMaisRecentes) {
+		this.importarProducoesMaisRecentes = importarProducoesMaisRecentes;
 	}
 
 	

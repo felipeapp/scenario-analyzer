@@ -14,7 +14,7 @@
 		<tbody>
 			<tr>
 				<td></td>
-				<td>Congresso:</td>
+				<td align="right" class="obrigatorio">Congresso: &nbsp;&nbsp;</td>
 				<td>
 					<h:selectOneMenu id="selectCongresso" value="#{avaliadorCIC.obj.congresso.id}">
 						<f:selectItems value="#{avaliadorCIC.allCongressosCombo}" />
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td width="3%"><h:selectBooleanCheckbox value="#{avaliadorCIC.filtroArea}" id="checkArea" styleClass="noborder"/> </td>
-				<td width="22%"><label for="checkArea" onclick="$('busca:checkArea').checked = !$('busca:checkArea').checked;">Área de Conhecimento:</label></td>
+				<td width="22%"  align="right"><label for="checkArea" onclick="$('busca:checkArea').checked = !$('busca:checkArea').checked;">Área de Conhecimento:</label></td>
 				<td>
 					<h:selectOneMenu id="selectAreaConhecimentoCnpq"
 						value="#{avaliadorCIC.obj.area.id}" style="width: 70%;"
@@ -34,8 +34,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="3%"><h:selectBooleanCheckbox value="#{avaliadorCIC.filtroTipo}" id="checkTipo" styleClass="noborder"/> </td>
-				<td width="22%"><label for="checkTipo" onclick="$('busca:checkTipo').checked = !$('busca:checkTipo').checked;">Tipo:</label></td>
+				<td width="3%"></td>
+				<td width="22%" align="right"><label for="checkTipo" onclick="$('busca:checkTipo').checked = !$('busca:checkTipo').checked;">Tipo:</label></td>
 				<td> 
 					<h:selectBooleanCheckbox id="checkAvaliadorResumo" value="#{avaliadorCIC.obj.avaliadorResumo}" 
 						onclick="$('busca:checkTipo').checked = $('busca:checkAvaliadorResumo').checked || $('busca:checkAvaliadorApresentacao').checked;"/> 
@@ -67,15 +67,16 @@
 			<thead>
 				<tr>
 					<td width="5%"><h:selectBooleanCheckbox value="false" onclick="checkAll(this)"/></td>
-					<td>Docente</td>
-					<td>Área</td>
+					<td>Docente/Discente</td>
 				</tr>
 			</thead>
 			<c:forEach items="#{avaliadorCIC.avaliadoresCIC}" var="item" varStatus="status">
 				<tr class="${status.index % 2 == 0 ? "linhaPar" : "linhaImpar" }">
 					<td><h:selectBooleanCheckbox value="#{item.presenca}" styleClass="check" /></td> 
-					<td>${item.docente.pessoa.nome}</td>
-					<td>${item.area.nome}</td>
+					<td>
+						<h:outputText value="#{ item.docente.pessoa.nome  }" rendered="#{ item.docente.pessoa.nome !=null }" />
+						<h:outputText value="#{ item.discente.pessoa.nome  }" rendered="#{ item.docente.pessoa.nome ==null && item.discente.pessoa.nome != null }" />
+					</td>
 				</tr>
 			</c:forEach>
 		</table>

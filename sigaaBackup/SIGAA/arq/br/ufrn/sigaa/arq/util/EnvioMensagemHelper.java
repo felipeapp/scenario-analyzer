@@ -13,6 +13,7 @@ import java.util.List;
 import br.ufrn.arq.email.Mail;
 import br.ufrn.arq.email.MailBody;
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.comum.dominio.Responsavel;
 import br.ufrn.sigaa.pesquisa.dominio.Consultor;
 import br.ufrn.sigaa.pesquisa.dominio.ProjetoPesquisa;
@@ -300,5 +301,25 @@ public class EnvioMensagemHelper {
 	    mail.setNome(nomeUsuario);
 	    Mail.send(mail);
 	}
-	    	
+	 
+	/**
+	 * Notificação quanto aos email enviado quanto o edital é de ações acadêmicas Associadas.
+	 */
+	public static void notificaAvaliadoresAssociados( Projeto projeto, String tipoProjeto, Servidor servidor ) throws DAOException {
+			MailBody mail = new MailBody();
+		    mail.setContentType(MailBody.HTML);
+
+		    // Definir remetente
+		    mail.setFromName( servidor.getPessoa().getNome() );
+		    mail.setEmail( servidor.getPrimeiroUsuario().getEmail() ) ;
+		    mail.setAssunto("Notificação para análise de Projeto");
+		    String mensagem = "Prezado(a) " + servidor.getPessoa().getNome() + ", informamos que o Projeto " + tipoProjeto + ", intitulado : <b>" + projeto.getTitulo() + "</b>" +  
+		    				  " foi submetido para a sua avaliação<br/><br/>";
+		    mensagem +=	" Para visualizar o conteúdo deste projeto e proceder sua avaliação, utilize o link correspondente disponível no Portal Docente ( " + RepositorioDadosInstitucionais.get("siglaSigaa") + " -> Portal Docente -> Ações Integradas -> Avaliar Proposta ) ou " +
+		    		"<a href='"+ RepositorioDadosInstitucionais.getLinkSigaa() +"/sigaa/public/extensao/avaliacaoProjeto/"+servidor.getId()+".jsf'>Clique aqui</a> <br/><br/>";
+		    
+		    mail.setMensagem(mensagem);
+		    Mail.send(mail);
+	}
+	
 }

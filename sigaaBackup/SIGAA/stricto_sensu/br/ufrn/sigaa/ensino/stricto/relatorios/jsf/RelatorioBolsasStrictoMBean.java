@@ -11,11 +11,13 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.ValidatorUtil;
+import br.ufrn.sigaa.arq.dao.ensino.BolsistaSigaaDao;
 import br.ufrn.sigaa.arq.dao.graduacao.RelatorioDiscenteSqlDao;
 import br.ufrn.sigaa.ensino.graduacao.relatorios.jsf.DiscentesBolsas;
 
@@ -82,11 +84,13 @@ public class RelatorioBolsasStrictoMBean extends RelatoriosStrictoMBean {
 	public String gerarRelatorioBolsistas() throws DAOException {
 		try {
 			ValidatorUtil.validateRequired(dataInicial, "Data inicial", erros);
-			ValidatorUtil.validateRequired(dataInicial, "Data final", erros);
+			ValidatorUtil.validateRequired(dataFinal, "Data final", erros);
 			if (hasErrors())
 				return null;
 			RelatorioDiscenteSqlDao dao = getDAO(RelatorioDiscenteSqlDao.class);
-			dadosRelatorio = dao.findDiscentesBolsas(getUnidade().getId(), dataInicial, dataFinal);
+			BolsistaSigaaDao daoBolsista = getDAO(BolsistaSigaaDao.class);
+					
+			dadosRelatorio = dao.findDiscentesBolsas(getUnidade().getId(), dataInicial, dataFinal,NivelEnsino.STRICTO,daoBolsista.tiposBolsaSigaa());
 			if (ValidatorUtil.isEmpty(dadosRelatorio)) {
 				addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 				return null;

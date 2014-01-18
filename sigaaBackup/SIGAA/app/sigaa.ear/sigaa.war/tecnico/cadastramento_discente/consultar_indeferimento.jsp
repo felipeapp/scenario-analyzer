@@ -9,7 +9,7 @@
 		<table style="width:80%;margin:auto;">
 			<tbody>
 				<tr><th>Nome:</th><td><strong>${ convocacao.discente.pessoa.nome }</strong></td></tr>
-				<tr><th>Email:</th><td><strong>${ convocacao.discente.pessoa.email }</strong></td></tr>
+				<tr><th>E-mail:</th><td><strong>${ convocacao.discente.pessoa.email }</strong></td></tr>
 				<tr><th>Processo Seletivo:</th><td><strong>${ convocacao.inscricaoProcessoSeletivo.processoSeletivo.nome }</strong></td></tr>
 				<tr><th>Polo / Grupo:</th><td><strong>${ convocacao.inscricaoProcessoSeletivo.opcao.descricao }</strong></td></tr>
 				<tr><th>Classificação:</th><td><strong>${ convocacao.resultado.classificacaoAprovado }</strong></td></tr>

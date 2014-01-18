@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Query;
 import org.hibernate.criterion.Expression;
 
@@ -22,14 +23,11 @@ import br.ufrn.arq.erros.LimiteResultadosException;
 import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.ensino.graduacao.dominio.DiscenteGraduacao;
-import br.ufrn.sigaa.monitoria.dominio.AvaliacaoMonitoria;
 import br.ufrn.sigaa.monitoria.dominio.DiscenteMonitoria;
 import br.ufrn.sigaa.monitoria.dominio.ParticipacaoSid;
 import br.ufrn.sigaa.monitoria.dominio.ProjetoEnsino;
 import br.ufrn.sigaa.monitoria.dominio.ResumoSid;
-import br.ufrn.sigaa.monitoria.dominio.StatusAvaliacao;
 import br.ufrn.sigaa.monitoria.dominio.StatusRelatorio;
-import br.ufrn.sigaa.monitoria.dominio.TipoAvaliacaoMonitoria;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 
@@ -72,20 +70,15 @@ public class ResumoSidDao extends GenericSigaaDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public ResumoSid findByProjetoAnoSid(Integer idProjeto, Integer anoSid) throws DAOException{
+	public Collection<ResumoSid> findByProjetoAnoSid(Integer idProjeto, Integer anoSid) throws DAOException{
 
 		Criteria c = getSession().createCriteria(ResumoSid.class);
+		c.setFetchMode("projetoEnsino", FetchMode.JOIN);
 		c.add( Expression.eq("projetoEnsino.id", idProjeto) );
 		c.add( Expression.eq("anoSid", anoSid) );
 		c.add( Expression.eq("ativo", true) );
-
-		if((c.list() != null) && (c.list().size() > 1))
-			throw new DAOException("Há mais de um resumo submetido para o mesmo ano do SID");
-		
-		return (ResumoSid) c.uniqueResult();
+		return c.list();
 	}
-
-	
 	
 	/**
 	 * Método para buscar os resumos de projetos de acordo com uma série de

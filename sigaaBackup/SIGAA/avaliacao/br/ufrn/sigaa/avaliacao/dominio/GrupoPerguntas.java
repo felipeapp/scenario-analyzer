@@ -24,6 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import br.ufrn.arq.dominio.PersistDB;
+import br.ufrn.arq.util.HashCodeUtil;
 
 /**
  * Agrupamento de perguntas para a avaliação institucional
@@ -208,10 +209,7 @@ public class GrupoPerguntas implements PersistDB, Comparable<GrupoPerguntas> {
 	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+		return HashCodeUtil.hashAll(id, titulo);
 	}
 
 	/** Indica se este objeto é igual ao objeto passado como parâmetro.

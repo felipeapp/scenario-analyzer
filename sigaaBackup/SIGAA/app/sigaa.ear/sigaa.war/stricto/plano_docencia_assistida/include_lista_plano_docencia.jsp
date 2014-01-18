@@ -6,6 +6,12 @@
 <%@taglib uri="/tags/rich" prefix="rich"%>
 
 <c:set var="planos" value="#{planoDocenciaAssistidaMBean.planosSemIndicacao}"/>
+<div class="infoAltRem" align="center">
+	<h:commandLink action="#{planoDocenciaAssistidaMBean.iniciarCadastro}" id="cadastroPlanoDocenciaAssistida">
+		<h:graphicImage value="/img/adicionar.gif"/> Cadastrar Plano de Docência Assistida	sem Indicação
+		<f:param name="semIndicacao" value="true"/>
+	</h:commandLink>
+</div>
 <c:if test="${not empty planos}">
 	<table class="listagem" style="width: 100%">
 		<caption class="listagem">Planos de Docência Assistida Cadastrados (${fn:length(planos)})</caption>

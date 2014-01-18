@@ -45,7 +45,7 @@
 		<table class="formulario" width="100%">
 			<caption class="listagem">Informar membros da equipe da ação de extensão</caption>
 		</table>
-		<rich:tabPanel switchType="client" selectedTab="#{atividadeExtensao.tab}">
+		<rich:tabPanel switchType="client" selectedTab="#{atividadeExtensao.tabSelecionada}">
 			<p style="text-align: center; font-style: italic; padding: 5px;">
 				Selecione a categoria do membro para realizar a busca de acordo com os critérios específicos
 			</p>

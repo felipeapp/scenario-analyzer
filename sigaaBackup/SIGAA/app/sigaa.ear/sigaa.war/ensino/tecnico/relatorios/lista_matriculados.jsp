@@ -27,7 +27,7 @@ tr.header td {padding: 2px ; border-bottom: 1px solid #888; font-weight: bold;}
 	<table cellspacing="1" width="100%" style="font-size: 10px;">
 	<c:set var="curso_"/>
 	<c:set var="especializacao_"/>
-	<c:forEach items="${relatoriosTecnico.lista}" var="linha">
+	<c:forEach items="#{relatoriosTecnico.lista}" var="linha">
 			<c:set var="cursoAtual" value="${linha.id_curso}"/>
 			<c:set var="especializacaoAtual" value="${linha.id_especializacao_turma_entrada}"/>
 		<c:if test="${curso_ != cursoAtual || especializacao_ != especializacaoAtual}">
@@ -43,11 +43,17 @@ tr.header td {padding: 2px ; border-bottom: 1px solid #888; font-weight: bold;}
 			<tr class="header">
 				<td style="text-align: center;">Matrícula</td>
 				<td>Discente</td>
+				<td>CPF</td>
+				<td>Sexo</td>
+				<td>Dt. Nascimento</td>
 			</tr>
 		</c:if>
 		<tr class="componentes">
 			<td style="text-align: center;">${linha.matricula}</td>
 			<td>${linha.nome_discente}</td>
+			<td nowrap="nowrap"><h:outputText value="#{linha.cpf_cnpj}" converter="convertCpf"></h:outputText></td>
+			<td>${linha.sexo}</td>			
+			<td nowrap="nowrap"><h:outputText value="#{linha.data_nascimento}"></h:outputText></td>
 		</tr>
 	</c:forEach>
 	</table>

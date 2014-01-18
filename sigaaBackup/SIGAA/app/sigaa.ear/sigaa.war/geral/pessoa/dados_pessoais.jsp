@@ -175,7 +175,8 @@ function mtel(v){
 								</h:selectOneMenu>
 							</td>
 							</a4j:region>
-									
+							
+							<a4j:region>
 							<th width="20%">
 								<h:outputLabel value="UF:" rendered="#{dadosPessoais.brasil}" id="naturUf" />
 							</th>
@@ -190,8 +191,9 @@ function mtel(v){
 									<a4j:support event="onchange" reRender="naturMunicipio" />
 								</h:selectOneMenu>
 							</td>
+							</a4j:region>
 						</tr>
-						
+					
 						<tr>
 							<th>Município:</th>
 							<td colspan="3">
@@ -203,6 +205,8 @@ function mtel(v){
 								<h:inputText value="#{dadosPessoais.obj.municipioNaturalidadeOutro}" id="naturMunicipioOutros" disabled="#{dadosPessoais.readOnly}" size="60" maxlength="50" onkeyup="CAPS(this)" rendered="#{!dadosPessoais.brasil}"/>
 							</td>
 						</tr>
+						
+						
 						<tr>
 							<th>Nacionalidade:</th>
 							<td colspan="3">
@@ -230,7 +234,7 @@ function mtel(v){
 						</tr>
 						<tr>
 							<th>UF:</th>
-							<td><h:selectOneMenu value="#{dadosPessoais.obj.identidade.unidadeFederativa.id}" id="ufRG" disabled="#{!dadosPessoais.permiteAlterarIdentidade}">
+							<td><h:selectOneMenu value="#{dadosPessoais.obj.identidade.unidadeFederativa.id}" id="ufRG" disabled="#{!dadosPessoais.permiteAlterarIdentidade}">															
 								<f:selectItems value="#{unidadeFederativa.allCombo}" />
 							</h:selectOneMenu></td>
 							<th>Data de Expedição:</th>
@@ -249,10 +253,11 @@ function mtel(v){
 							</td>
 							<th> Seção: </th>
 							<td>
-								<h:inputText value="#{dadosPessoais.obj.tituloEleitor.secao}" id="secaoTitulo" disabled="#{dadosPessoais.readOnly}" size="4" maxlength="4" onkeyup="return formatarInteiro(this);" onblur="return formatarInteiro(this);"/>
-								<h:outputText value=" UF:"/>
+								<h:inputText value="#{dadosPessoais.obj.tituloEleitor.secao}" id="secaoTitulo" disabled="#{dadosPessoais.readOnly}" size="4" maxlength="4" onkeyup="return formatarInteiro(this);" onblur="return formatarInteiro(this);"/>							
+							<h:outputText value=" UF:"/>
 								<h:selectOneMenu value="#{dadosPessoais.obj.tituloEleitor.unidadeFederativa.id}" 
 									 id="ufIdTitulo" disabled="#{dadosPessoais.readOnly}">
+									 <f:selectItem itemValue="-1" itemLabel="-- SELECIONE --" />
 									<f:selectItems value="#{unidadeFederativa.allCombo}" />
 								</h:selectOneMenu>
 							</td>
@@ -283,7 +288,7 @@ function mtel(v){
 							<td>
 								<h:inputText value="#{dadosPessoais.obj.passaporte}" maxlength="20" size="20" id="passaporte"  disabled="#{dadosPessoais.readOnly}"/>
 								
-							</td>
+							</td>							
 						</tr>
 					</table>
 					</t:div>
@@ -341,7 +346,8 @@ function mtel(v){
 								<td>
 									<h:selectOneMenu value="#{dadosPessoais.obj.enderecoContato.unidadeFederativa.id}" id="ufEnd" disabled="#{dadosPessoais.readOnly}"
 										valueChangeListener="#{dadosPessoais.carregarMunicipios }">
-										<f:selectItems value="#{unidadeFederativa.allCombo}" />
+										<f:selectItem itemValue="-1" itemLabel="-- SELECIONE --" />
+										<f:selectItems value="#{unidadeFederativa.allCombo}" />										
 										<a4j:support event="onchange" reRender="endMunicipio" />
 									</h:selectOneMenu>
 								</td>
@@ -454,7 +460,7 @@ function mtel(v){
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center; font-style: italic; background: #EEE;">
-							<h:selectBooleanCheckbox value="#{dadosPessoais.obj.internacional}" id="estrangeiro" onchange="toggleCPF();"/>
+							<h:selectBooleanCheckbox value="#{dadosPessoais.obj.internacional}" id="estrangeiro" />
 							<label for="cpfForm:estrangeiro"> A pessoa é estrangeira e não possui CPF</label>
 						</td>
 					</tr>
@@ -514,13 +520,6 @@ function exibeDadosBancarios(sel) {
 	}
 }
 exibeDadosBancarios($('form:contaBanco'));
-
-function toggleCPF() {
-	if ( getEl('cpfForm:estrangeiro').dom.checked )
-		getEl('cpfForm:cpf').dom.disabled = true;
-	else
-		getEl('cpfForm:cpf').dom.disabled = false;
-}
 
 var PainelCPF = (function() {
 	var painel;

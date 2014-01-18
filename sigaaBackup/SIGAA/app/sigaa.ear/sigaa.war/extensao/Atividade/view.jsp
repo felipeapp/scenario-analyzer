@@ -123,7 +123,12 @@
 					<td><h:outputText value="#{atividadeExtensao.atividadeSelecionada.publicoEstimado}" />
 					</td>
 				</tr>
-
+				<tr>
+					<th><b>Linha de Atuação:</b></th>
+					<td colspan="5">
+						<h:outputText value="#{atividadeExtensao.obj.linhaAtuacao.descricao}"/>
+					</td>
+				</tr>
 				<tr>
 					<th>Nº Bolsas Solicitadas:</th>
 					<td><h:outputText value="#{atividadeExtensao.atividadeSelecionada.bolsasSolicitadas}" /></td>
@@ -281,56 +286,200 @@
 
 				<c:if test="${atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id != PRODUTO}">
 					<tr>
-						<th>Resumo:</th>
-						<td colspan="5" style="text-align: justify;">
-							<c:if test="${(atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id != CURSO) 
-									and (atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id != EVENTO)}">
-								<h:outputText value="#{atividadeExtensao.atividadeSelecionada.resumo}" escape="false" />
-							</c:if> 
+						<td colspan="6" style="text-align: justify;">
 							<c:if test="${(atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == CURSO) 
 									or (atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == EVENTO)}">
+							<b> Resumo:</b><br/>
 								<h:outputText value="#{atividadeExtensao.atividadeSelecionada.cursoEventoExtensao.resumo}" escape="false" />
 							</c:if>
 						</td>
 					</tr>
 				</c:if>
 
-				<c:if test="${(atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == PROJETO) 
-					or (atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == PRODUTO) }">
+				<c:if test="${atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == PRODUTO}">
 					<tr>
-						<th>Justificativa:</th>
-						<td colspan="5" style="text-align: justify;">
+						<td colspan="6" style="text-align: justify;">
+						<b>Resumo do Produto:</b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.projeto.resumo}" escape="false" rendered="#{ not empty  atividadeExtensao.atividadeSelecionada.projeto.resumo }" />
+							<h:outputText value="Não Informado"  rendered="#{ empty  atividadeExtensao.atividadeSelecionada.projeto.resumo }" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+						<b>Justificativa para execução do produto:</b><br/>
+						<h:outputText value="#{atividadeExtensao.atividadeSelecionada.justificativa}" escape="false"  rendered="#{ not empty atividadeExtensao.atividadeSelecionada.justificativa }"/>
+						<h:outputText value="Não Informado" rendered="#{  empty atividadeExtensao.atividadeSelecionada.justificativa }"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+						<b>Objetivos Gereais:</b><br/>
+						<h:outputText value="#{atividadeExtensao.atividadeSelecionada.projeto.objetivos}" escape="false"  rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.objetivos}"/>
+						<h:outputText value="Não Informado" rendered="#{  empty atividadeExtensao.atividadeSelecionada.projeto.objetivos }"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+						<b>Resultados Esperados:</b><br/>
+						<h:outputText value="#{atividadeExtensao.atividadeSelecionada.projeto.resultados}" escape="false"  rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.resultados}"/>
+						<h:outputText value="Não Informado" rendered="#{  empty atividadeExtensao.atividadeSelecionada.projeto.resultados }"/>
+						</td>
+					</tr>
+					
+				</c:if>
+				
+				<c:if test="${atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == PROJETO}">
+					
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+						<b>Resumo:</b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.resumo}" rendered="#{  not empty atividadeExtensao.atividadeSelecionada.resumo }" />
+							<h:outputText value="--" rendered="#{ empty atividadeExtensao.atividadeSelecionada.resumo }" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+						<b>Justificativa:</b><br/>
 							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.justificativa}" escape="false" />
 						</td>
 					</tr>
-				</c:if>
-
-				<c:if test="${(atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == PROJETO) }">
+					
 					<tr>
-						<th>Metodologia:</th>
-						<td colspan="5" style="text-align: justify;">
+						<td colspan="6" style="text-align: justify;">
+						<b>Fundamentação Teórica:</b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.fundamentacaoTeorica}" escape="false" />
+						</td>
+					</tr>
+					
+				
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+						<b>Metodologia:</b><br>
 							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.metodologia}" escape="false" />
 						</td>
 					</tr>
 					<tr>
-						<th>Referências:</th>
-						<td colspan="5" style="text-align: justify;">
+						<td colspan="6" style="text-align: justify;">
+							<b>Referências:</b><br/>
 							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.referencias}" escape="false" />
 						</td>
 					</tr>
+					
+					<tr>
+						<td colspan="6" align="justify"> 
+							<b> Objetivos Gerais: </b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.objetivos }" escape="false"/> 
+						</td>
+					</tr>
+			
+					<tr>
+						<td colspan="6" align="justify">
+							<b>Resultados Esperados</b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.projeto.resultados}" escape="false"/> 
+						</td>
+					</tr>
+			
 				</c:if>
 
 				<%-- 	DADOS ESPECIFICOS DE CURSO/EVENTO	--%>
 				<c:if test="${(atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == CURSO) 
 					or (atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == EVENTO)}">
 					<tr>
-						<th>Programação:</th>
-						<td colspan="5" style="text-align: justify;">
+						<td colspan="6" style="text-align: justify;">
+							<b>Programação:</b><br/>
 							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.cursoEventoExtensao.programacao}" escape="false" />
 						</td>
 					</tr>
+					
+					<tr>
+						
+						<td colspan="6" style="text-align: justify;">
+							<b>Objetivos Gerais:</b><br/>	
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.objetivos }" escape="false" rendered="#{  not empty atividadeExtensao.atividadeSelecionada.projeto.objetivos  }" />
+							<h:outputText value=" Não Informado"  rendered="#{   empty atividadeExtensao.atividadeSelecionada.projeto.objetivos  }" />
+						</td>
+					</tr>
+										
+					<tr>
+						<td colspan="6" style="text-align: justify;">
+							<b>Resultados Esperados:</b><br/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.resultados }" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.resultados }" escape="false" />
+							<h:outputText value="Não Informado" rendered="#{ empty atividadeExtensao.atividadeSelecionada.projeto.resultados }"  />
+						</td>
+					</tr>
+					
 				</c:if>
 				
+				
+				<c:if test="${atividadeExtensao.atividadeSelecionada.tipoAtividadeExtensao.id == PROGRAMA}">
+					
+					
+					<tr>
+						<td colspan="6" > 
+							<b>Resumo:</b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.projeto.resumo}" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.resumo}" escape="false"/>
+							<h:outputText value="Não Informado" rendered="#{ empty atividadeExtensao.atividadeSelecionada.projeto.resumo}"/>  
+						</td>
+					</tr>
+					
+								
+					<tr>
+						<td colspan="6" > 
+							<b> Justificativa: </b><br/>
+							<h:outputText value="#{atividadeExtensao.atividadeSelecionada.justificativa}" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.justificativa }" escape="false"/>
+							<h:outputText value="Não Informado" rendered="#{ empty atividadeExtensao.atividadeSelecionada.justificativa }"/>  
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6"> 
+							<b> Fundamentação Teórica: </b><br/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.fundamentacaoTeorica }" escape="false" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.fundamentacaoTeorica  }"/>
+							<h:outputText value="Não Informado" rendered="#{ empty atividadeExtensao.atividadeSelecionada.fundamentacaoTeorica  }"/> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6"> 
+							<b> Metodologia: </b><br/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.metodologia }" escape="false" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.metodologia   }"/>
+							<h:outputText value="Não Informado" rendered="#{ empty atividadeExtensao.atividadeSelecionada.projeto.metodologia   }"/> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6"> 
+							<b> Referências:  </b><br/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.referencias }" escape="false" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.referencias }"/>
+							<h:outputText value="Não Informado" escape="false" rendered="#{ empty atividadeExtensao.atividadeSelecionada.projeto.referencias }"/> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6"> 
+							<b> Objetivos Gerais:  </b><br/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.objetivos }" escape="false" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.objetivos }"/>
+							<h:outputText value="Não Informado" rendered="#{  empty atividadeExtensao.atividadeSelecionada.projeto.objetivos }"/> 
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="6"> 
+							<b> Resultados Esperados:  </b><br/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.resultados }" escape="false" rendered="#{ not empty atividadeExtensao.atividadeSelecionada.projeto.resultados }"/>
+							<h:outputText value="#{ atividadeExtensao.atividadeSelecionada.projeto.resultados }" rendered="#{ empty atividadeExtensao.atividadeSelecionada.projeto.resultados }"/> 
+						</td>
+					</tr>
+					
+				</c:if>
+				
+				
+				
+						
 				<tr>
 					<td colspan="6" class="subFormulario">Contato</td>
 				</tr>

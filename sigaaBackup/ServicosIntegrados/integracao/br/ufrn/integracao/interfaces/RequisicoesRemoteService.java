@@ -9,6 +9,7 @@
 package br.ufrn.integracao.interfaces;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.jws.WebService;
 
@@ -24,5 +25,5 @@ import br.ufrn.integracao.exceptions.NegocioRemotoException;
 @WebService
 public interface RequisicoesRemoteService extends Serializable {
 	
-	public RequisicaoDTO findRequisicaoByNumeroAno(int numero, int ano) throws NegocioRemotoException;
+	public List<RequisicaoDTO> findRequisicaoByNumeroAno(int numero, int ano) throws NegocioRemotoException;
 }

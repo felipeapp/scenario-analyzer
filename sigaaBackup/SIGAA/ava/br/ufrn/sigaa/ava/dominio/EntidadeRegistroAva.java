@@ -104,7 +104,10 @@ public enum EntidadeRegistroAva {
 	ALUNOS_TRANCADOS (27, "Alunos Trancados",Turma.class),
 	
 	/** Aula de Ensino Individual. */
-	AULA_ENSINO_INDIVIDUAL (28, "Aula Ensino Individual", AulaExtra.class);
+	AULA_ENSINO_INDIVIDUAL (28, "Aula Ensino Individual", AulaExtra.class),
+	
+	/** Permissão. */
+	PERMISSAO_AVA (30, "Permissão", PermissaoAva.class);
 	
 	/** Valor da entidade. */
 	private int valor;

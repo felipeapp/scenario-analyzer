@@ -588,13 +588,25 @@ public class FormatosBibliograficosUtil {
 					
 				}
 				
-				String isbnTemp = recuperaValorDoCampo(Etiqueta.ISBN.getTag(), new char[]{SubCampo.SUB_CAMPO_A}, dadosCampo);
+				List<String> isbnsTemp = recuperaValorDoCampoSeparado(Etiqueta.ISBN.getTag(), new char[]{SubCampo.SUB_CAMPO_A}, dadosCampo);
 				
-				if(StringUtils.notEmpty(isbnTemp)){
-					isbnTemp = formataISBN(isbnTemp);
+				int contadorIsbns = 0;
+				
+				for (String isbnTemp : isbnsTemp) {
+					
 					if(StringUtils.notEmpty(isbnTemp)){
-						isbn = TEXTO_ISBN + isbnTemp;
+						isbnTemp = formataISBN(isbnTemp);
+						if(StringUtils.notEmpty(isbnTemp)){ // se ficou alguma coisa
+							
+							if(contadorIsbns == 0 ) // primeiro
+								isbn = TEXTO_ISBN + isbnTemp;
+							else
+								isbn += SEPARADOR_VIRGULA+isbnTemp;
+							
+							contadorIsbns++;
+						}
 					}
+					
 				}
 				
 			}
@@ -1754,6 +1766,14 @@ public class FormatosBibliograficosUtil {
 			, List<String> autoresSecundarios, String bibliotecaAtendimento, String descricaoClassificacao, String classificacao
 			, boolean saidaEmHTML, int larguraFicha){
 		
+		
+		// Object[0] = 245     (campo)
+		// Object[1] = a       (subcampo)
+		// Object[2] = "...."  (dados)
+		// Object[3] = "...."  (id campo dados)
+		// Object[4] = "...."  (posicao campo dados)
+		// Object[5] = "...."  (posicao sub campo)
+		
 		List<Object[]> dadosCampo = new ArrayList<Object[]>();
 		
 		 // 245     (tag), a       (código subcampo), dado, idCampoDados, posicaoCampoDados, posicaoSubCampo
@@ -1793,7 +1813,9 @@ public class FormatosBibliograficosUtil {
 			dadosCampo.add( new Object[]{Etiqueta.ASSUNTO_PESSOAL.getTag(), SubCampo.SUB_CAMPO_A, assuntoPessoais, 0, 0, 0});
 		}
 		
-		int contAssunto = 0;
+		// Gera ids temporários para os campos de dados gerados a partir da ficha de Inf. e Ref, porque 
+		// informações de assuntos são gerados por ids
+		int contAssunto = 1;
 		
 		for (String assunto : assuntos) {
 			dadosCampo.add( new Object[]{Etiqueta.ASSUNTO.getTag(), SubCampo.SUB_CAMPO_A, assunto, contAssunto++, 0, 0});
@@ -1943,7 +1965,7 @@ public class FormatosBibliograficosUtil {
 		List <String> notasTeses = new ArrayList<String>();               // 502a 
 		List <String> notasBibiliograficas = new ArrayList<String>();     // 504a
 		List <String> notasConteudo = new ArrayList<String>();          // 505a
-		String isbn = "";                     // 020
+		//String isbn = "";                     // 020
 		String issn = "";                     // 022   
 		List<String> assuntosPessoais = new ArrayList<String>();          // 600a 
 		List<String> assuntos = new ArrayList<String>();                 // 650a 650v 650x 650y 650z.
@@ -2060,16 +2082,28 @@ public class FormatosBibliograficosUtil {
 		}
 		
 		
+		List<String> isbnsTemp = recuperaValorDoCampoSeparado(Etiqueta.ISBN.getTag(), new char[]{SubCampo.SUB_CAMPO_A}, dadosCampo);
 		
-		isbn  = recuperaValorDoCampo(Etiqueta.ISBN.getTag(), new char[]{SubCampo.SUB_CAMPO_A}, dadosCampo);
 		
-		if(StringUtils.notEmpty(isbn)){
-			isbn = formataISBN(isbn);
-			if(StringUtils.notEmpty(isbn)){
-				retorno1Temp.append(  getMargem2Ficha(saidaEmHTML)+TEXTO_ISBN+isbn.trim()+getSeparadorNovaLinha());
+		int contadorIsbns = 0;
+		
+		for (String isbnTemp : isbnsTemp) {
+			if(StringUtils.notEmpty(isbnTemp)){
+				isbnTemp = formataISBN(isbnTemp);
+				
+				if(StringUtils.notEmpty(isbnTemp)){
+					
+					if(contadorIsbns == 0 ) // primeiro
+						retorno1Temp.append(  getMargem2Ficha(saidaEmHTML)+TEXTO_ISBN+isbnTemp.trim());
+					else
+						retorno1Temp.append(  SEPARADOR_PONTO_ESPACO_TRACO+isbnTemp.trim());
+						
+					contadorIsbns++;	
+				}
 			}
 		}
 		
+		retorno1Temp.append( getSeparadorNovaLinha() ); // nova linha do ISBN
 		
 		issn  = recuperaValorDoCampo(Etiqueta.ISSN.getTag(), new char[]{SubCampo.SUB_CAMPO_A}, dadosCampo);
 		
@@ -2498,6 +2532,97 @@ public class FormatosBibliograficosUtil {
 	}
 	
 	
+	
+	/**
+	 * <p>Método diferente do Método <code> recuperaValorDoCampoSeparado() </code>. </p> 
+	 * <p> Porque para assuntos o valor é separado por campo e não por sub campo. Os seja, todos os sub campos ficam juntos como se fossem 1. </p>
+	 * 
+	 * <p>
+	 * Devem ficar: 1. Saúde - Administracao e não : 1. Saúde. 2. Administração.
+	 * </p>
+	 *
+	 *
+	 * @param tag  exemplo: 520
+	 * @param codigoSubCampo exemplo: a
+	 * @param dadosCampo  os dados de todos os campo do título
+	 * @return  Todos os dados do Titulo para o campo passado
+	 */
+	private List<String> recuperaValorDoCampoSeparadoAssunto(String tag, char[] codigosSubCampo, List<Object[]> dadosCampo){
+
+		/**
+		 * Um mapa contento <<< id campos dados, os dados dos subcampos separados por '-' >>>
+		 * 
+		 * Ps.: Esse map não mantém a ordem original das possições dos campos
+		 */
+		Map<Integer, String> dadosSeparadosPorCampo = new HashMap<Integer, String>();
+
+		for (Object[] objects : dadosCampo) {
+			
+			if(  ( (String)objects[0] ).equals(tag)  ) {
+				
+				for(int indexSubCampo = 0 ;  indexSubCampo < codigosSubCampo.length ;  indexSubCampo++ ){
+					if(  ( (Character) objects[1]).equals(codigosSubCampo[indexSubCampo])){
+						if(dadosSeparadosPorCampo.containsKey( objects[3] ) ){
+							String dadosAntigos = dadosSeparadosPorCampo.get( objects[3]);	
+							dadosSeparadosPorCampo.put( (Integer)objects[3], dadosAntigos +" "+SEPARADOR_TRACO+(String) objects[2]);// o que tinha antes + "-"+ os novos dados
+						}else{
+							dadosSeparadosPorCampo.put( (Integer)objects[3], (String) objects[2]);
+						}
+					}
+				}
+			}
+		}
+
+		
+		List<String> resultado = new ArrayList<String>();
+		
+		/* Aqui percorre novamente os dados dos campos para adicionar a lista de retorno.
+		 * Como os dados dos campos estão ordenados corretamente pela possição do campo de dados e sub campo, deve retornar na possição correta
+		 * 
+		 * objects[3] = id campo de dados
+		 */
+		
+		for (Object[] objects : dadosCampo) {  // percorre os dados que estão ordenados
+			String dadosDoCampoFormatados = dadosSeparadosPorCampo.get( objects[3] ); // pega pelo id do campo
+			
+			if(StringUtils.notEmpty(dadosDoCampoFormatados)){ // Se o id do campo tem, é proque ele foi um dos campos formatados, então adiciona a lista
+				resultado.add(dadosDoCampoFormatados); // cada string contém os dados de vários sub campo do campo separedos por "-"
+			}
+		}
+		
+		return resultado;
+	}
+	
+
+	/**
+	 * Método que recupera os dados de todos os campos do títlo que possuem o label passado, o label é o campo + $ + codigo do sub campo.
+	 *
+	 * A diferença desse campo é que ele retorna os valores dos campos juntos em uma única string mais spera pelo separador de nova linha.
+	 *
+	 * @param tag  520
+	 * @param codigoSubCampo a
+	 * @param dadosCampo  os dados de todos os campo do título
+	 * @return  Todos os dados do Titulo para o campo passado
+	 */
+	private String recuperaValorDoCampoClassificacaoFichaCatalografica(String tag, char[] codigosSubCampo, List<Object[]> dadosCampo){
+		
+		StringBuilder buffer = new StringBuilder();
+		
+		for (Object[] objects : dadosCampo) {
+			
+			if(  ( (String)objects[0] ).equals(tag)  ) {
+				for(int indexSubCampo = 0 ;  indexSubCampo < codigosSubCampo.length ;  indexSubCampo++ ){
+					if(  ( (Character) objects[1]).equals(codigosSubCampo[indexSubCampo])){
+						buffer.append(objects[2]+getSeparadorNovaLinha());
+					}
+				}
+			}	
+		}
+		
+		return buffer.toString();
+	}
+	
+	
 	/**
 	 * Método que recupera os dados de todos os campos passados.  Recupera cada valor de cada campo separado, 
 	 * em uma lista, não tudo junto em uma string só como o metodo <code> recuperaValorDoCampo() </code>. 
@@ -2526,54 +2651,7 @@ public class FormatosBibliograficosUtil {
 		return buffer;
 	}
 	
-	/**
-	 * <p>Método diferente do Método <code> recuperaValorDoCampoSeparado() </code>. </p> 
-	 * <p> Porque para assuntos o valor é separado por campo e não por sub campo. </p>
-	 * 
-	 * <p>
-	 * Devem ficar: 1. Saúde - Administracao e não : 1. Saúde. 2. Administração.
-	 * </p>
-	 *
-	 *
-	 * @param tag  exemplo: 520
-	 * @param codigoSubCampo exemplo: a
-	 * @param dadosCampo  os dados de todos os campo do título
-	 * @return  Todos os dados do Titulo para o campo passado
-	 */
-	private List<String> recuperaValorDoCampoSeparadoAssunto(String tag, char[] codigosSubCampo, List<Object[]> dadosCampo){
-		
-		/**
-		 * Um mapa contento <id campos dados, os dados dos subcampos separedos por '-' >
-		 */
-		Map<Integer, String> dadosSeparadosPorCampo = new HashMap<Integer, String>();
-		
-		List<String> resultado = new ArrayList<String>();
-		
-		for (Object[] objects : dadosCampo) {
-			
-			if(  ( (String)objects[0] ).equals(tag)  ) {
-				
-				for(int indexSubCampo = 0 ;  indexSubCampo < codigosSubCampo.length ;  indexSubCampo++ ){
-					if(  ( (Character) objects[1]).equals(codigosSubCampo[indexSubCampo])){
-						if(dadosSeparadosPorCampo.containsKey( objects[3] ) ){
-							String dadosAntigos = dadosSeparadosPorCampo.get( objects[3]);	
-							dadosSeparadosPorCampo.put( (Integer)objects[3], dadosAntigos +" "+SEPARADOR_TRACO+(String) objects[2]);// o que tinha antes + "-"+ os novos dados
-						}else{
-							dadosSeparadosPorCampo.put( (Integer)objects[3], (String) objects[2]);
-						}
-					}
-				}
-			}
-		}
-		
-		for (String string : dadosSeparadosPorCampo.values()) {
-			resultado.add(string); // cada string  contém os dados de vários sub campo separedos por "-"
-		}
-		
-		return resultado;
-	}
 	
-
 	/**
 	 * Método que recupera os dados de todos os campos do títlo que possuem o label passado, o label é o campo + $ + codigo do sub campo.
 	 *
@@ -2582,7 +2660,7 @@ public class FormatosBibliograficosUtil {
 	 * @param dadosCampo  os dados de todos os campo do título
 	 * @return  Todos os dados do Titulo para o campo passado
 	 */
-	private String recuperaValorDoCampoClassificacaoFichaCatalografica(String tag, char[] codigosSubCampo, List<Object[]> dadosCampo){
+	private String recuperaValorDoCampo(String tag, char[] codigosSubCampo, List<Object[]> dadosCampo){
 		
 		StringBuilder buffer = new StringBuilder();
 		
@@ -2591,7 +2669,7 @@ public class FormatosBibliograficosUtil {
 			if(  ( (String)objects[0] ).equals(tag)  ) {
 				for(int indexSubCampo = 0 ;  indexSubCampo < codigosSubCampo.length ;  indexSubCampo++ ){
 					if(  ( (Character) objects[1]).equals(codigosSubCampo[indexSubCampo])){
-						buffer.append(objects[2]+getSeparadorNovaLinha());
+						buffer.append(objects[2]+" ");
 					}
 				}
 			}	
@@ -2599,6 +2677,8 @@ public class FormatosBibliograficosUtil {
 		
 		return buffer.toString();
 	}
+	
+	
 	
 	
 	/**
@@ -2736,33 +2816,6 @@ public class FormatosBibliograficosUtil {
 			return NOVA_LINHA_JAVA;
 	}
 	
-	
-	
-	/**
-	 * Método que recupera os dados de todos os campos do títlo que possuem o label passado, o label é o campo + $ + codigo do sub campo.
-	 *
-	 * @param tag  520
-	 * @param codigoSubCampo a
-	 * @param dadosCampo  os dados de todos os campo do título
-	 * @return  Todos os dados do Titulo para o campo passado
-	 */
-	private String recuperaValorDoCampo(String tag, char[] codigosSubCampo, List<Object[]> dadosCampo){
-		
-		StringBuilder buffer = new StringBuilder();
-		
-		for (Object[] objects : dadosCampo) {
-			
-			if(  ( (String)objects[0] ).equals(tag)  ) {
-				for(int indexSubCampo = 0 ;  indexSubCampo < codigosSubCampo.length ;  indexSubCampo++ ){
-					if(  ( (Character) objects[1]).equals(codigosSubCampo[indexSubCampo])){
-						buffer.append(objects[2]+" ");
-					}
-				}
-			}	
-		}
-		
-		return buffer.toString();
-	}
 	
 	
 	/**

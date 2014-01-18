@@ -207,7 +207,8 @@ public class RelatoriosAtividadesMBean extends
 	    }
 	    if (dataInicio.after(dataFim)) {
 		addMensagem(MensagensArquitetura.DATA_INICIO_MENOR_FIM);
-	    }
+		return null;
+		}
 	    if (hasErrors()) {
 			return null;
 		    }

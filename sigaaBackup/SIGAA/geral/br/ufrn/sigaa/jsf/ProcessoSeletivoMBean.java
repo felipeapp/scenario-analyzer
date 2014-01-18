@@ -130,6 +130,7 @@ public class ProcessoSeletivoMBean extends SigaaAbstractController<ProcessoSelet
 	public static final String JSP_SELECIONA_PROGRAMA = "/stricto/relatorios/processoSeletivo/seleciona_programa.jsp";	
 	/** Relatório de Demanda por Vaga. */
 	public static final String JSP_RELATORIO_DEMANDA_VAGA = "/stricto/relatorios/processoSeletivo/relatorio_demanda_por_vaga.jsp";
+
 	/** Número de caracteres permitido nas instruções específicas da GRU. */
 	private static final int TAM_MAXIMO_INSTRUCOES_GRU = 240;
 	/** Número de linhas permitido nas instruções específicas da GRU. */
@@ -2054,7 +2055,7 @@ public class ProcessoSeletivoMBean extends SigaaAbstractController<ProcessoSelet
 		if(agendas != null)
 				agendas.remove(posicao);
 	}
-
+	
 	/** Retorna a lista de Processos Seletivos. 
 	 * <br / >
 	 * Método chamado pela(s) seguinte(s) JSP(s):

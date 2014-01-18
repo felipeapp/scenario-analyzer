@@ -20,10 +20,11 @@
 
 		<div class="infoAltRem">
 		    <h:graphicImage value="/img/alterar.gif" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText rendered="#{acesso.monitoria}" value=": Alterar Proposta do Projeto"/>
-		    <h:graphicImage value="/img/alterar_old.gif" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText rendered="#{acesso.monitoria}" value=": Alterar Situação do Projeto<br/>" escape="false"/>
-		    <h:graphicImage value="/img/view.gif" style="overflow: visible;"/>: Visualizar Projeto de Ensino
+		    <h:graphicImage value="/img/alterar_old.gif" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText rendered="#{acesso.monitoria}" value=": Alterar Situação do Projeto" escape="false"/>
+		    <h:graphicImage value="/img/view.gif" style="overflow: visible;"/>: Visualizar Projeto de Ensino<br/>
 		    <h:graphicImage value="/img/alterar2.gif" style="overflow: visible;"/>: Devolver para Coordenador(a)
 		    <h:graphicImage width="18px;" height="18px;" value="/img/extensao/financiamento_faex.png" style="overflow: visible;"/>: Definir valor Financiado
+		    <h:graphicImage width="18px;" height="18px;" value="/img/monitoria/document_new.png" style="overflow: visible;"/>: Resumo SID
 		    <br/>
 		</div>
 
@@ -42,6 +43,7 @@
 		        	<th>&nbsp;</th>
 		        	<th>&nbsp;</th>
 		        	<th>&nbsp;</th>
+		        	<th>&nbsp;</th>
 		        </tr>
 		 	</thead>
 		 			 	
@@ -52,7 +54,7 @@
 						<c:if test="${ unidadeProjeto != projeto.unidade.id }">
 							<c:set var="unidadeProjeto" value="${ projeto.unidade.id }"/>
 							<tr>
-								<td colspan="10" style="background: #C8D5EC; font-weight: bold; padding: 2px 0 2px 5px;">
+								<td colspan="11" style="background: #C8D5EC; font-weight: bold; padding: 2px 0 2px 5px;">
 								${ projeto.unidade.nome } / ${ projeto.unidade.sigla }
 								</td>
 							</tr>
@@ -105,6 +107,14 @@
 					        	<h:graphicImage url="/img/alterar2.gif"/>
 							</h:commandLink>
 						</td>
+						
+						<td>
+							<h:commandLink  title="Resumo(s) SID" action="#{resumoSid.listarResumosProjeto}" style="border: 0;">
+							   	<f:param name="id" value="#{projeto.id}"/>				    	
+								<h:graphicImage url="/img/monitoria/document_new.png" />
+							</h:commandLink>
+						</td>
+	              
 	              </tr>
 	          </c:forEach>
 		 	</tbody>

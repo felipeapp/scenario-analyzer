@@ -6,6 +6,7 @@
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 <%@taglib prefix="f" uri="http://java.sun.com/jsf/core"%>
 <%@taglib prefix="ufrn" uri="/tags/ufrn" %>
+<%@ taglib uri="/tags/a4j" prefix="a4j" %>
 
 <style type="text/css">
 	.textoCentralizado{
@@ -13,6 +14,7 @@
 	}
 	
 </style>
+
 
 <c:if test="${ fn:length(materialInformacionalMBean.assinaturasPossiveisInclusaoFasciculo) > 0 }">
 
@@ -41,6 +43,7 @@
 							<th style="text-align: center;">Internacional?</th>
 							<th style="text-align: center;">Modalidade de Aquisição</th>
 							<th style="text-align: left;">Usuário criou Assinatura</th>
+							<th style="width: 1%;">Qtd</th>
 							<th style="width: 1%;"> </th>
 						</tr>
 					</thead>
@@ -70,11 +73,12 @@
 								</c:if>
 							</td>
 							<td> ${assinatura.registroCriacao.usuario.nome}</td>
+							<td style="text-align: right; ${assinatura.quantidadeFasciculos > 0 ? 'color:green;': 'color:red;'}"> ${assinatura.quantidadeFasciculos} </td> <%--  Aqui indica a quantidade registrada não incluída no acervo --%>
 							<td>
-								<h:commandLink action="#{materialInformacionalMBean.visualizarFasciculosNaoIncluidosDaAssinatura}" id="cmdLinkEscolheAssinaturaComTitulo">
+								<a4j:commandLink actionListener="#{materialInformacionalMBean.visualizarFasciculosNaoIncluidosDaAssinatura}" reRender="fromIncluirItem" id="cmdLinkEscolheAssinaturaComTitulo">
 									<h:graphicImage url="/img/view.gif" style="border:none" title="Clique aqui visualizar os fascículos da assinatura" />
 									<f:param name="idAssinaturaSelecionada" value="#{assinatura.id}"/>	
-								</h:commandLink>
+								</a4j:commandLink>
 							</td>
 						</tr>
 					</c:forEach>
@@ -89,62 +93,101 @@
 			</td>
 		</tr>
 		
+		
+		<c:if test="${fn:length(materialInformacionalMBean.assinaturasSemTitulo) > 20}">
+			<tr>
+				<td style="height: 20px; color: red; font-weight: bold; padding: 10px; text-align: justify;">
+				&nbsp&nbsp&nbsp&nbsp&nbsp ATENÇÃO: A quantidade de assinaturas não associadas a Títulos no acervo está muito grande, 
+				estão sendo criadas muitas assinaturas que não estão sendo usadas no sistema. 
+				Por favor, remova essas assinaturas se elas realmente não forem ser usadas.
+				</td>
+			</tr>
+			
+		</c:if>
+		
+		<c:if test="${fn:length(materialInformacionalMBean.assinaturasSemTitulo) > 20}">
+			<tr>
+				<td style="height: 20px; font-weight: bold; padding: 10px; text-align: center;">
+				A listagem de assinaturas não associadas a catalogações por padrão está oculta, clique a link abaixo para mostrá-la.
+				</td>
+			</tr>
+			
+		</c:if>
+		
+		
 		<c:if test="${fn:length(materialInformacionalMBean.assinaturasSemTitulo) > 0}">
-		<tr>
-			<td colspan="7">
-				<table class="subformulario" style="width: 100%;">
-				
-					<caption>Assinaturas criadas que ainda não estão associadas a nenhuma catalogação  ( ${fn:length(materialInformacionalMBean.assinaturasSemTitulo)} )</caption>
-				
-					<thead>
-						<tr>
-							<th style="text-align: left;">Código</th>
-							<th style="text-align: left;">Título</th>
-							<th style="text-align: left;">Unidade Destino</th>
-							<th style="text-align: center;">Internacional?</th>
-							<th style="text-align: center;">Modalidade de Aquisição</th>
-							<th style="text-align: left;">Usuário criou Assinatura</th>
-							<th style="width: 1%;"> </th>
-						</tr>
-					</thead>
-				
-					<c:forEach items="#{materialInformacionalMBean.assinaturasSemTitulo}" var="assinatura" varStatus="loop">
-						<tr  class="${loop.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}">
-							<td> ${assinatura.codigo} </td>
-							<td> ${assinatura.titulo}</td>
-							<td> ${assinatura.unidadeDestino.descricao}</td>
-							<td style="text-align: center">
-								<c:if test="${assinatura.internacional}">
-									SIM
-								</c:if>
-								<c:if test="${! assinatura.internacional}">
-									NÃO
-								</c:if>
-							</td>
-							<td style="text-align: center">
-								<c:if test="${assinatura.assinaturaDeCompra}">
-									COMPRA
-								</c:if>
-								<c:if test="${assinatura.assinaturaDeDoacao}">
-									DOAÇÃO
-								</c:if>
-								<c:if test="${! assinatura.assinaturaDeCompra &&  ! assinatura.assinaturaDeDoacao  }">
-									INDEFINIDO
-								</c:if>
-							</td>
-							<td> ${assinatura.registroCriacao.usuario.nome}</td>
-							<td>
-								<h:commandLink action="#{materialInformacionalMBean.visualizarFasciculosNaoIncluidosDaAssinatura}" id="cmdLinkEscolheAssinaturaSemTitulo">
-									<h:graphicImage url="/img/view.gif" style="border:none" title="Clique aqui visualizar os fascículos da assinatura" />
-									<f:param name="idAssinaturaSelecionada" value="#{assinatura.id}"/>	
-								</h:commandLink>
-							</td>
-						</tr>
-					</c:forEach>
-				
-				</table>
-			</td>
-		</tr>
+			<tr>
+				<td colspan="7">
+					<table class="subformulario" style="width: 100%;">
+					 <caption>
+					 	<%-- 
+					 	<h:commandLink value="#{materialInformacionalMBean.exibeListagemAssinaturasSemAssociadas ? "Ocultar" : "Visualizar" } Assinaturas criadas que ainda não estão associadas a nenhuma catalogação  ( #{materialInformacionalMBean.qtdAssinaturasSemTitulo} ) " actionListener="#{materialInformacionalMBean.atualizaExibicaoAssinaturasNaoAssociadas}" />
+					 	--%>
+					 	<h:commandLink value="#{materialInformacionalMBean.exibeListagemAssinaturasSemAssociadas ? 'Ocultar' : 'Visualizar' }  Assinaturas criadas que ainda não estão associadas a nenhuma catalogação  ( #{materialInformacionalMBean.qtdAssinaturasSemTitulo} ) " actionListener="#{materialInformacionalMBean.atualizaExibicaoAssinaturasNaoAssociadas}" />
+					 </caption>
+					</table>
+				</td>
+			</tr>
+			
+			<c:if test="${materialInformacionalMBean.exibeListagemAssinaturasSemAssociadas}">
+				<tr id="assinaturasSemTitulo">
+					<td colspan="7">
+						<table class="subformulario" style="width: 100%;">
+						
+						
+							<thead>
+								<tr>
+									<th style="text-align: left;">Código</th>
+									<th style="text-align: left;">Título</th>
+									<th style="text-align: left;">Unidade Destino</th>
+									<th style="text-align: center;">Internacional?</th>
+									<th style="text-align: center;">Modalidade de Aquisição</th>
+									<th style="text-align: left;">Usuário criou Assinatura</th>
+									<th style="width: 1%;">Qtd</th>
+									<th style="width: 1%;"> </th>
+								</tr>
+							</thead>
+						
+							<c:forEach items="#{materialInformacionalMBean.assinaturasSemTitulo}" var="assinatura" varStatus="loop">
+								<tr  class="${loop.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}">
+									<td> ${assinatura.codigo} </td>
+									<td> ${assinatura.titulo}</td>
+									<td> ${assinatura.unidadeDestino.descricao}</td>
+									<td style="text-align: center">
+										<c:if test="${assinatura.internacional}">
+											SIM
+										</c:if>
+										<c:if test="${! assinatura.internacional}">
+											NÃO
+										</c:if>
+									</td>
+									<td style="text-align: center">
+										<c:if test="${assinatura.assinaturaDeCompra}">
+											COMPRA
+										</c:if>
+										<c:if test="${assinatura.assinaturaDeDoacao}">
+											DOAÇÃO
+										</c:if>
+										<c:if test="${! assinatura.assinaturaDeCompra &&  ! assinatura.assinaturaDeDoacao  }">
+											INDEFINIDO
+										</c:if>
+									</td>
+									<td> ${assinatura.registroCriacao.usuario.nome}</td>
+									<td style="text-align: right; ${assinatura.quantidadeFasciculos > 0 ? 'color:green;' : 'color:red;'} "> ${assinatura.quantidadeFasciculos} </td> <%--  Aqui indica a quantidade registrada não incluída no acervo --%>
+									<td>
+										<a4j:commandLink actionListener="#{materialInformacionalMBean.visualizarFasciculosNaoIncluidosDaAssinatura}" reRender="fromIncluirItem" id="cmdLinkEscolheAssinaturaSemTitulo">
+											<h:graphicImage url="/img/view.gif" style="border:none" title="Clique aqui visualizar os fascículos da assinatura" />
+											<f:param name="idAssinaturaSelecionada" value="#{assinatura.id}"/>	
+										</a4j:commandLink>
+									</td>
+								</tr>
+							</c:forEach>
+						
+						</table>
+					</td>
+				</tr>
+			</c:if>
+			
 		</c:if> 
 		
 		
@@ -208,10 +251,10 @@
 						<td>  ${fasciculo.registroCriacao.usuario.nome}          </td>
 						<td style="text-align: center;">  <ufrn:format type="dataHora" valor="${fasciculo.dataCriacao}"> </ufrn:format> </td>
 						<td>
-							<h:commandLink action="#{materialInformacionalMBean.selecionarFasciculoParaInclusao}">
+							<a4j:commandLink actionListener="#{materialInformacionalMBean.selecionarFasciculoParaInclusao}" reRender="fromIncluirItem">
 								<h:graphicImage url="/img/seta.gif" style="border:none" title="Clique aqui para selecionar o fascículo" />
 								<f:param name="idFasciculoSelecionadoInclusao" value="#{fasciculo.id}"/>	
-							</h:commandLink>
+							</a4j:commandLink>
 						</td>
 					
 					</tr>
@@ -296,7 +339,7 @@
 									
 									<tr>
 									
-									<th class="required">Segunda Localização:</th>
+									<th>Segunda Localização:</th>
 									<td colspan="3">
 										<h:inputText id="inputTextSegundaLocalizacaoFasciculo" value="#{ materialInformacionalMBean.fasciculoSelecionado.segundaLocalizacao }" size="50" maxlength="200" />
 									</td>

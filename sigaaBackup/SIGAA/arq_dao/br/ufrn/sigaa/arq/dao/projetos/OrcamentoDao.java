@@ -9,15 +9,19 @@
 package br.ufrn.sigaa.arq.dao.projetos;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.util.HibernateUtils;
+import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.extensao.dominio.OrcamentoConsolidado;
 import br.ufrn.sigaa.projetos.dominio.OrcamentoDetalhado;
+import br.ufrn.sigaa.projetos.dominio.Projeto;
 
 /**
  * Responsável por realizar operações de busca relacionadas a orçamento.
@@ -80,5 +84,27 @@ public class OrcamentoDao extends GenericSigaaDAO {
         }
 	}
 
+	/**
+	 * Retorna se o projeto informado teve financiamento interno concedido
+	 * 
+	 * @param idAtividade
+	 * @param idElemento
+	 * @return
+	 * @throws DAOException
+	 */
+	@SuppressWarnings("unchecked")
+	public void carregarOrcamentoConsolidadoProjetos(HashMap<Integer, Projeto> projetos) throws DAOException{
+		String sql ="select id_projeto, sum(fundo_concedido + fundacao_concedido + outros_concedido) > 0" +
+				" from extensao.orcamento_consolidado" +
+				" where id_projeto in " + UFRNUtils.gerarStringIn(projetos.keySet()) +
+				" group by id_projeto";
+
+		Query query = getSession().createSQLQuery(sql);
+		List<Object[]> lista = query.list();
+		for (int a = 0; a < lista.size(); a++) {
+			projetos.get(lista.get(a)[0]).setRecebeuFinanciamentoInterno((Boolean) lista.get(a)[1]); 
+		}
+	
+	}
 	
 }

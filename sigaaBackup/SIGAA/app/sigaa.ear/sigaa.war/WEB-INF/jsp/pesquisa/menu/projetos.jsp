@@ -135,13 +135,11 @@
 			         </h:panelGroup>
 			    </f:facet>
 				<ul>
-				<%-- 
 					<li> Projetos de Apoio a Grupos de Pesquisa
 						<ul>
-							<li><h:commandLink action="#{projetoApoioGrupoPesquisaMBean.listar}" value="Listar/Alterar" onclick="setAba('projetos')"/></li>								
+							<li><h:commandLink action="#{buscaProjetoApoioGruposPesquisaMBean.iniciar}" value="Listar/Alterar" onclick="setAba('projetos')"/></li>																
 						</ul>
 					</li>
-				--%>
 					<li> Projetos de Apoio a Novos Pesquisadores
 						<ul>
 							<li><h:commandLink action="#{buscaProjetoApoioNovosPesquisadoresMBean.iniciar}" value="Listar/Alterar" onclick="setAba('projetos')"/></li>								

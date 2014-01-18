@@ -54,7 +54,7 @@ public class ProcessadorImportacaoLattes extends AbstractProcessador {
 				
 				if(cMov.getAnoReferencia() != null){
 					// Apenas do ano especificado
-					if (cMov.getAnoReferencia().equals(p.getAnoReferencia())) {					
+					if (cMov.getAnoReferencia().equals(p.getAnoReferencia()) || (cMov.isImportarProducoesMaisRecentes() && p.getAnoReferencia() > cMov.getAnoReferencia())) {					
 						
 						producoesImportadas = importar(cMov, dao, leitura,
 								conteudoLido, conteudoImportado, p);

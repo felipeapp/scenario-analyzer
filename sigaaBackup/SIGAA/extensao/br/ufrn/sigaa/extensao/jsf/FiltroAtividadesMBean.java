@@ -8,7 +8,9 @@
  */
 package br.ufrn.sigaa.extensao.jsf;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -90,7 +92,8 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 	
 	/** Usado como auxiliar de tela de busca. */
 	private Boolean checkAguardandoAvaliacaoFinal = false;
-
+	
+	
 
 	/** Usado para informar o tipo do filtro */
 	private int tipoFiltro = 0;
@@ -153,6 +156,25 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 
 	/**
 	 * Redireciona o usuário para tela de lista de projetos disponíveis para
+	 * distribuir para avaliação do comitê
+	 * 
+	 * 
+	 * sigaa.war/extensao/menu.jsp
+	 * 
+	 * @return
+	 * @throws SegurancaException
+	 */
+	public String irTelaDistribuirComiteExtensaoAuto() throws SegurancaException {
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO);
+		// Habilitando método filtro() para distribuição de atividades...
+		setTipoFiltro(FILTRO_DISTRIBUIR_ATIVIDADES_MANUAL);
+		resultadosBusca = null;
+		checkAguardandoAvaliacaoFinal = true;
+		return forward(ConstantesNavegacao.DISTRIBUICAOCOMITE_LISTA_AUTO);
+	}
+	
+	/**
+	 * Redireciona o usuário para tela de lista de projetos disponíveis para
 	 * avaliação do presidente do comitê
 	 * 
 	 * sigaa.war/portais/docente/menu_docente.jsp
@@ -163,9 +185,22 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 	public String irTelaAvaliarPresidenteComite() throws SegurancaException {
 		checkRole(SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO);
 		setTipoFiltro(FILTRO_AVALIAR_ATIVIDADES);
-		// Atualizando lista de ações para distribuição.
-		resultadosBusca = null;
-		checkAguardandoAvaliacaoFinal = true;
+		checkAguardandoAvaliacaoFinal = false;
+		buscaEdital = null;
+		buscaTitulo = null;
+		buscaFinanciamentoInterno = null;
+		buscaFinanciamentoExterno = null;
+    	buscaAutoFinanciamento = null;
+		buscaConvenioFunpec = null;
+		buscaAreaTematicaPrincipal = null;
+		buscaAno = null;
+		resultadosBusca = null;	
+		checkEdital = false;
+		checkFinanciamento = false;
+		checkTitulo = false;
+    	checkAno = false;
+		checkAreaTematicaPrincipal = false;
+		checkAguardandoAvaliacaoFinal = false;		
 		return forward(ConstantesNavegacao.AVALIACAO_PROPOSTA_LISTA_PRESIDENTE);
 	}
 
@@ -190,7 +225,8 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 			Boolean financiamentoExterno = null;
 			Boolean autofinanciamento = null;
 			Boolean convenioFunpec = null;
-			
+			Boolean checkAvaliacaoFinal = null;
+					
 			ListaMensagens lista = new ListaMensagens();
 
 			if (checkTitulo) {
@@ -219,6 +255,13 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 				autofinanciamento = buscaAutoFinanciamento;
 				convenioFunpec = buscaConvenioFunpec;
 			}
+			if (checkAguardandoAvaliacaoFinal) {
+				
+				checkAvaliacaoFinal = checkAguardandoAvaliacaoFinal;
+				
+			}
+			
+			
 			
 			if (!checkTitulo && !checkAno && !checkAreaTematicaPrincipal && !checkEdital && !checkFinanciamento && !checkAguardandoAvaliacaoFinal){
 				addMensagem(MensagensArquitetura.SELECIONE_OPCAO_BUSCA);
@@ -265,7 +308,7 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 				 */
 				else if (isTipoFiltroAvaliacao()) {
 					checkRole(SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO);
-					resultadosBusca = dao.findAguardandoAvaliacaoFinal(titulo, ano, idEdital, financiamentoInterno, financiamentoExterno, autofinanciamento, convenioFunpec, idArea);
+					resultadosBusca = dao.findAguardandoAvaliacaoFinal(titulo, ano, idEdital, financiamentoInterno, financiamentoExterno, autofinanciamento, convenioFunpec, idArea,checkAvaliacaoFinal);
 				} else {
 	
 					addMensagemErro("Tipo de filtro não foi definido.");
@@ -285,6 +328,16 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 		}
 	}
 
+	/** Só retorna as Atividades selecionada pra a distribuição */
+	public List<AtividadeExtensao> getAtividadesSelecionadas() {
+		List<AtividadeExtensao> result = new ArrayList<AtividadeExtensao>();
+		for (AtividadeExtensao atividadeExtensao : resultadosBusca) {
+			if ( atividadeExtensao.isSelecionado() )
+				result.add(atividadeExtensao);
+		}
+		return result;
+	}
+	
 	public boolean isExibir(){
 		return ParametroHelper.getInstance().getParametroBoolean(ParametrosExtensao.EXIBIR_AVALIACAO_FINAL_PROPOSTA);
 	}
@@ -433,4 +486,5 @@ public class FiltroAtividadesMBean extends SigaaAbstractController<AtividadeExte
 		this.checkAguardandoAvaliacaoFinal = checkAguardandoAvaliacaoFinal;
 	}
 
+	
 }

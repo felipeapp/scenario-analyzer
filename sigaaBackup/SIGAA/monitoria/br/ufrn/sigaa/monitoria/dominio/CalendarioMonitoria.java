@@ -27,6 +27,7 @@ import org.hibernate.annotations.Parameter;
 import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.arq.dominio.RegistroEntrada;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.util.ValidatorUtil;
 
 /*******************************************************************************
@@ -40,7 +41,7 @@ import br.ufrn.arq.util.ValidatorUtil;
  ******************************************************************************/
 @Entity
 @Table(name = "calendario_monitoria", schema = "monitoria")
-public class CalendarioMonitoria implements PersistDB {
+public class CalendarioMonitoria implements Validatable {
 
 	@Id
 	@GeneratedValue(generator="seqGenerator")

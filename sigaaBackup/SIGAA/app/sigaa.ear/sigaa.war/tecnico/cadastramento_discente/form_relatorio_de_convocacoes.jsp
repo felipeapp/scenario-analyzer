@@ -13,8 +13,7 @@ function mudarTodos(status) {
 <f:view>
 <a4j:keepAlive beanName="cadastramentoDiscenteTecnico"></a4j:keepAlive>
 <h2><ufrn:subSistema /> &gt; Relatório de Convocação</h2>
-<div class="descricaoOperacao">
-</div>
+
 
 <h:form id="form">
 <table class="formulario" width="80%">
@@ -22,16 +21,17 @@ function mudarTodos(status) {
 	<tr>
 		<th class="obrigatorio" width="25%">Processo Seletivo:</th>
 		<td>
-			<h:selectOneMenu id="selectPsVestibular" value="#{cadastramentoDiscenteTecnico.processoSeletivo.id}">
+			<h:selectOneMenu id="selectPsVestibular" value="#{cadastramentoDiscenteTecnico.processoSeletivo.id}"  valueChangeListener="#{cadastramentoDiscenteTecnico.carregarConvocacoes}">
 				<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
 				<f:selectItems id="itensPsVestibular" value="#{convocacaoProcessoSeletivoTecnico.processosCombo}" />
+				<a4j:support event="onchange" reRender="convocacao" />
 			</h:selectOneMenu>
 		</td>
 	</tr>
 	<tr>
 		<th width="25%">Convocação:</th>
 		<td>
-			<h:selectOneMenu id="opcao" value="#{cadastramentoDiscenteTecnico.idConvocacao}">
+			<h:selectOneMenu id="convocacao" value="#{cadastramentoDiscenteTecnico.idConvocacao}">
 				<f:selectItem itemValue="0" itemLabel="-- TODAS --" />
 				<f:selectItems value="#{cadastramentoDiscenteTecnico.convocacoesCombo}" />
 			</h:selectOneMenu>
@@ -46,7 +46,18 @@ function mudarTodos(status) {
 			</h:selectOneMenu>
 		</td>
 	</tr>
+	
 	<tr>
+		<th width="25%">Grupo de reserva de vagas:</th>
+		<td>
+			<h:selectOneMenu id="selectGrupo" value="#{cadastramentoDiscenteTecnico.idGrupoReservaVaga}">
+				<f:selectItem itemValue="0" itemLabel="-- TODOS --" />
+				<f:selectItems value="#{cadastramentoDiscenteTecnico.gruposCombo}" />
+			</h:selectOneMenu>
+		</td>
+	</tr>
+	
+	<!-- <tr>
 		<th width="25%">Formato:</th>
 		<td>
 			<h:selectOneRadio id="formato" value="#{cadastramentoDiscenteTecnico.formatoRelatorio}">
@@ -55,7 +66,7 @@ function mudarTodos(status) {
 				<f:selectItem itemValue="xls" itemLabel="EXCEL" />
 			</h:selectOneRadio>
 		</td>
-	</tr>
+	</tr>-->
 	<tfoot>
 		<tr>
 			<td colspan="2">

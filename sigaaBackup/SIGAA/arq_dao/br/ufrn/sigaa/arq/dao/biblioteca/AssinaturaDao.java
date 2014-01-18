@@ -8,6 +8,7 @@
  */
 package br.ufrn.sigaa.arq.dao.biblioteca;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,15 +16,20 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
+import br.ufrn.arq.dominio.RegistroEntrada;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.util.HibernateUtils;
 import br.ufrn.arq.util.StringUtils;
+import br.ufrn.comum.dominio.UsuarioGeral;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.biblioteca.aquisicao.dominio.CampoOrdenacaoConsultaAssinatura;
+import br.ufrn.sigaa.biblioteca.dominio.Biblioteca;
 import br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Assinatura;
 import br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.RegistroMovimentacaoMaterialInformacional;
+import br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.TituloCatalografico;
 import br.ufrn.sigaa.biblioteca.util.BibliotecaUtil;
+import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 
 /**
  *
@@ -193,14 +199,31 @@ public class AssinaturaDao extends GenericSigaaDAO{
 	public List<Assinatura> findAssinaturasAtivasPossiveisInclusaoFasciculos(int idTitulo, String restricaoBusca,
 			String nomeParametroRestricao, Object valorPatrametroRestricao, final Integer  tipoPatrametroRestricao) throws  DAOException {
 		
-		StringBuilder hql = new StringBuilder(" SELECT a ");
-		hql.append(" FROM Assinatura a ");
-		hql.append(" WHERE (a.tituloCatalografico.id = :idTitulo OR a.tituloCatalografico is null ) AND a.ativa = trueValue() ");
+		String projecao = " assinatura.id_assinatura as idAssinatura, assinatura.codigo as codigo, assinatura.titulo as tituloAssinatura, assinatura.internacional, assinatura.modalidade_aquisicao, assinatura.id_titulo_catalografico as idTituloCatalografico, " +
+				" biblioteca.id_biblioteca as idBiblioteca, biblioteca.descricao as biblioteca, " +
+				" registro.id_usuario as id_usuario, pessoa.id_pessoa as idPessoa, pessoa.nome as nomePessoa, "+ 
+		"  ( SELECT count(distinct fasciculos.id_fasciculo) "+ 
+		"    FROM biblioteca.fasciculo fasciculos "+
+		"    INNER JOIN biblioteca.material_informacional m ON m.id_material_informacional = fasciculos.id_fasciculo "+
+		"    WHERE assinatura.id_assinatura=fasciculos.id_assinatura and fasciculos.incluido_acervo = :false and m.ativo = :true) as quantidadeFasciculos ";
 		
-		if(StringUtils.notEmpty(restricaoBusca)) hql.append(restricaoBusca);
+		String sql = " SELECT "+projecao+
+			" FROM        biblioteca.assinatura assinatura " +
+			" INNER JOIN  biblioteca.biblioteca biblioteca     ON assinatura.id_biblioteca = biblioteca.id_biblioteca " +
+			" LEFT JOIN  comum.registro_entrada registro      ON assinatura.id_registro_criacao = registro.ID_ENTRADA " +
+			" LEFT JOIN  comum.usuario usuario                ON registro.ID_USUARIO=usuario.id_usuario " +
+			" LEFT JOIN  comum.pessoa pessoa                  ON usuario.id_pessoa=pessoa.id_pessoa "+ 
+			" WHERE assinatura.ativa = :true AND ( assinatura.id_titulo_catalografico = :idTitulo OR assinatura.id_titulo_catalografico is null) ";
 		
-		Query q = getSession().createQuery( hql.toString());
+		if(StringUtils.notEmpty(restricaoBusca)) 
+			sql += restricaoBusca;
+		
+		sql += "ORDER BY quantidadeFasciculos DESC, biblioteca, tituloAssinatura";
+		
+		Query q = getSession().createSQLQuery( sql );
 		q.setInteger("idTitulo", idTitulo);
+		q.setBoolean("true", true);
+		q.setBoolean("false", false);
 		
 		// A RESTRIÇÃO PASSADA DE OUTROS MÉTODO PARA SER ADICIONADA A CONSULTA POSSUI PARÂMETROS
 		if(nomeParametroRestricao != null && valorPatrametroRestricao != null && tipoPatrametroRestricao != null){
@@ -219,8 +242,37 @@ public class AssinaturaDao extends GenericSigaaDAO{
 			
 		}
 		
+		List<Assinatura> lista = new ArrayList<Assinatura>() ;
+		
 		@SuppressWarnings("unchecked")
-		List<Assinatura> lista = q.list();
+		List<Object[]> dados =  q.list();
+		
+		for (Object[] objects : dados) {
+			Assinatura  a = new Assinatura();
+			a.setId( (Integer) objects[0] );
+			a.setCodigo( (String) objects[1] );
+			a.setTitulo( (String) objects[2] );
+			a.setInternacional( (Boolean) objects[3] );
+			a.setModalidadeAquisicao( (Short) objects[4] );
+			
+			// se está associada a um título catalografico
+			if(objects[5] != null)
+				a.setTituloCatalografico( new TituloCatalografico( (Integer) objects[5] ) );
+			
+			a.setUnidadeDestino( new Biblioteca((Integer) objects[6], (String) objects[7] ) );
+			
+			if(objects[8] != null){
+				a.setRegistroCriacao(new RegistroEntrada());
+				a.getRegistroCriacao().setUsuario(new UsuarioGeral((Integer) objects[8]));
+				a.getRegistroCriacao().getUsuario().setPessoa( new Pessoa((Integer) objects[9], (String) objects[10]) );
+			}
+			
+			a.setQuantidadeFasciulos( objects[11] != null ? ( (BigInteger) objects[11]).intValue() : 0);
+			
+			lista.add(a);
+		}
+		
+		
 		return lista;
 	}
 	
@@ -233,7 +285,7 @@ public class AssinaturaDao extends GenericSigaaDAO{
 	 */
 	public List<Assinatura> findAssinaturasPossiveisInclusaoFasciculosByUnidadeDestino(int idTitulo, List<Integer> idsBiblioteca) throws  DAOException {
 		
-		return findAssinaturasAtivasPossiveisInclusaoFasciculos(idTitulo,  " AND a.unidadeDestino.id in (:idsBiblioteca) ",
+		return findAssinaturasAtivasPossiveisInclusaoFasciculos(idTitulo,  " AND biblioteca.id_biblioteca in (:idsBiblioteca) ",
 				"idsBiblioteca", idsBiblioteca, PARAMETRO_LISTA_INTEIROS);
 	}
 	

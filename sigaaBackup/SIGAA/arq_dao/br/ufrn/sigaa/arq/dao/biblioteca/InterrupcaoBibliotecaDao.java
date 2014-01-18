@@ -28,7 +28,9 @@ import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo;
 import br.ufrn.sigaa.biblioteca.circulacao.dominio.InterrupcaoBiblioteca;
 import br.ufrn.sigaa.biblioteca.circulacao.dominio.TipoProrrogacaoEmprestimo;
+import br.ufrn.sigaa.biblioteca.circulacao.dominio.UsuarioBiblioteca;
 import br.ufrn.sigaa.biblioteca.dominio.Biblioteca;
+import br.ufrn.sigaa.biblioteca.processos_tecnicos.dominio.Exemplar;
 
 /**
  * DAO que recupera informações sobre os feriados das bibliotecas da UFRN.
@@ -228,7 +230,9 @@ public class InterrupcaoBibliotecaDao extends GenericSigaaDAO{
 		
 		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
 		
-		String hql = "SELECT e FROM Emprestimo e WHERE e.material.biblioteca.id IN " + gerarStringIn(bibliotecas) + 
+		String projecao = "e.id, e.prazo, e.material.id, e.material.biblioteca.id, e.usuarioBiblioteca.id "; 
+		
+		String hql = "SELECT "+projecao+" FROM Emprestimo e WHERE e.material.biblioteca.id IN " + gerarStringIn(bibliotecas) + 
 					" AND e.prazo >= '"+sdf.format(dataInicio)+" 00:00:00.000'" +
 					" AND e.prazo <= '"+sdf.format(dataFim == null ? dataInicio : dataFim)+" 23:59:59.999'" +
 					" AND e.ativo = trueValue() " +
@@ -237,7 +241,20 @@ public class InterrupcaoBibliotecaDao extends GenericSigaaDAO{
 		Query q = getSession().createQuery(hql);
 		
 		@SuppressWarnings("unchecked")
-		List<Emprestimo> lista =  q.list();
+		
+		List<Object[]> dados = q.list();
+		
+		List<Emprestimo> lista = new ArrayList<Emprestimo>();
+		
+		for (Object[] objects : dados) {
+			Emprestimo e = new Emprestimo();
+			e.setId( (Integer) objects[0] );
+			e.setPrazo( (Date) objects[1] );
+			e.setMaterial( new Exemplar( (Integer) objects[2] )); // não importa se exemplar ou fasciculo, só precisamos do id
+			e.getMaterial().setBiblioteca( new Biblioteca((Integer) objects[3] ) );
+			e.setUsuarioBiblioteca( new UsuarioBiblioteca((Integer) objects[4]) );
+			lista.add(e);
+		}
 		return lista;
 	}
 	

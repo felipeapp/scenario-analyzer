@@ -69,7 +69,7 @@ import br.ufrn.sigaa.pessoa.dominio.Pessoa;
  * @author Arlindo Rodrigues
  *
  */
-@Component("convenioEstagioMBean") @Scope("request")
+@Component("convenioEstagioMBean") @Scope("session")
 public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagio> {
 	
 	/** Lista de Convênios Encontrados na Consulta */
@@ -193,12 +193,24 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 		obj.setStatus(new StatusConvenioEstagio(StatusConvenioEstagio.SUBMETIDO, "SUBMETIDO"));
 		
 		cadastro = false;
-		filtroStatus = false;
 		podeAlterarNomeConcedente = true;
 		podeAlterarNomeResponsavel = true;
-		status = new StatusConvenioEstagio();
 		modoSeletor = false;
-		analiseConvenios = true;
+		analiseConvenios = false;
+		// parâmetros da busca
+		filtroStatus = false;
+		filtroEmpresa= false;
+		filtroResponsavel= false;
+		filtroCpfCnpj= false;
+		filtroNumConvenio= false;
+		empresa = null;
+		cpfCnpj = 0;
+		responsavel = null;
+		numeroConvenio = null;
+		status = new StatusConvenioEstagio();
+		// resultados da busca
+		pendentesAnalise = null;
+		listaConvenios = null;
 	}
 	
 	/** Construtor Padrão */
@@ -219,6 +231,8 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	public String iniciar() throws ArqException{
 		checkRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.GESTOR_CONVENIOS_ESTAGIO_PROPLAN, SigaaPapeis.COORDENADOR_ESTAGIOS);	
 		prepareMovimento(SigaaListaComando.CADASTRAR_CONVENIO_ESTAGIO);
+		concedenteEstagioPessoa = null;
+		obj = null;
 		initObj();		
 		cadastro = true;
 		
@@ -381,8 +395,9 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	public String iniciarConsulta() throws SegurancaException, HibernateException, DAOException {
 		checkRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO, 
 				SigaaPapeis.GESTOR_CONVENIOS_ESTAGIO_PROPLAN, SigaaPapeis.PORTAL_CONCEDENTE_ESTAGIO, SigaaPapeis.COORDENADOR_ESTAGIOS);
-				
+		analiseConvenios = false;		
 		pendentesAnalise = new ArrayList<ConvenioEstagio>();
+		listaConvenios = new ArrayList<ConvenioEstagio>();
 		/* Busca todos os Convênios referente ao Usuário do Coord. 
 		 * logado que estão com status SUBMETIDO (Pendente de Análise) */
 		if (isPortalCoordenadorGraduacao())
@@ -392,18 +407,6 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 			status.setId(StatusConvenioEstagio.APROVADO);
 			return buscar();						
 		}
-		return telaConsulta();
-	}
-	
-	/**
-	 * Inicia a consulta a partir de um comando
-	 * <br/><br/>
-	 * Método não chamado por JSP's.
-	 * @param comando
-	 * @return
-	 */
-	public String iniciarConsulta(ComandoConvenioEstagio comando){
-		this.comandoConvenio = comando; 
 		return telaConsulta();
 	}
 	
@@ -433,6 +436,7 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
+	@Override
 	public String buscar() throws HibernateException, DAOException{
 		pendentesAnalise = new LinkedList<ConvenioEstagio>();
 		if (modoSeletor)
@@ -466,7 +470,7 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 		
 		if (hasErrors())
 			return null;
-		if (comandoConvenio == ComandoConvenioEstagio.ANALISAR_CONVENIO) {
+		if (analiseConvenios) {
 			pendentesAnalise = getConveniosPendentesAnalise(null);
 		} 
 		
@@ -507,6 +511,8 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 					iterator.remove();
 			}
 		}
+		if (isEmpty(listaConvenios) && isEmpty(pendentesAnalise))
+			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 	}
 	
 	/**
@@ -659,7 +665,7 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	 */
 	@Override
 	public String cadastrar() throws SegurancaException, ArqException, NegocioException {
-		
+		boolean novoCastro = obj.getId() == 0;
 		validarConvenio();
 		
 		if (hasErrors())
@@ -682,7 +688,8 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 			addMensagem(MensagensArquitetura.OPERACAO_SUCESSO, TipoMensagemUFRN.INFORMATION);		
 			
 			pendentesAnalise = getConveniosPendentesAnalise(isConvenioEstagio() ? null : getUsuarioLogado());
-			if (analiseConvenios){
+			if (novoCastro) return cancelar();
+			else if (analiseConvenios){
 				if (!isEmpty(pendentesAnalise)) {
 					if (isConvenioEstagio()) { 
 						return iniciarAnalise();
@@ -767,19 +774,24 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	 * @throws DAOException
 	 */
 	public void buscarCPF(ActionEvent e) throws DAOException{
-		Long cpf = StringUtils.extractLong(String.valueOf(concedenteEstagioPessoa.getPessoa().getCpf_cnpj()));
-		PessoaDao dao = null;
-		podeAlterarNomeResponsavel = true;
-		if (cpf != null && cpf > 0){
-			dao = getDAO(PessoaDao.class);
-			Pessoa p = dao.findByCpf(cpf, false);
-			if (p != null){
-				concedenteEstagioPessoa.setPessoa(p);
-				concedenteEstagioPessoa.getPessoa().prepararDados();
-			}
+		// caso o CPF seja o mesmo do concedente de estágio
+		if (obj.getConcedente().getPessoa().getCpf_cnpj().equals(concedenteEstagioPessoa.getPessoa().getCpf_cnpj())) {
+			concedenteEstagioPessoa.setPessoa(obj.getConcedente().getPessoa());
 		} else {
-			concedenteEstagioPessoa.setPessoa(new Pessoa());
-		}			
+			Long cpf = StringUtils.extractLong(String.valueOf(concedenteEstagioPessoa.getPessoa().getCpf_cnpj()));
+			PessoaDao dao = null;
+			podeAlterarNomeResponsavel = true;
+			if (cpf != null && cpf > 0){
+				dao = getDAO(PessoaDao.class);
+				Pessoa p = dao.findByCpf(cpf, false);
+				if (p != null){
+					concedenteEstagioPessoa.setPessoa(p);
+					concedenteEstagioPessoa.getPessoa().prepararDados();
+				}
+			} else {
+				concedenteEstagioPessoa.setPessoa(new Pessoa());
+			}
+		}
 	}		
 	
 	/**
@@ -847,7 +859,7 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	 * @return
 	 */
 	public boolean isPermiteAnalisarConvenio(){
-		return isUserInRole(SigaaPapeis.GESTOR_CONVENIOS_ESTAGIO_PROPLAN); 
+		return analiseConvenios && isUserInRole(SigaaPapeis.GESTOR_CONVENIOS_ESTAGIO_PROPLAN); 
 	}
 	
 	/** Retorna uma coleção de select itens de tipos de ofertas de vaga.
@@ -1036,12 +1048,14 @@ public class ConvenioEstagioMBean extends SigaaAbstractController<ConvenioEstagi
 	 * @throws DAOException 
 	 */
 	public String iniciarSeletorEstagio(SeletorConvenioEstagio mBean, Integer[] statusConvenioEstagio) throws DAOException {
+		initObj();
 		this.mBean = mBean;
 		this.statusConvenioEstagio = statusConvenioEstagio;
 		if (statusConvenioEstagio != null && statusConvenioEstagio.length == 1)
 			status = getGenericDAO().findByPrimaryKey(statusConvenioEstagio[0], StatusConvenioEstagio.class);
 		this.modoSeletor = true;
 		this.filtroStatus = true;
+		analiseConvenios = false;
 		return telaConsulta();
 	}
 	

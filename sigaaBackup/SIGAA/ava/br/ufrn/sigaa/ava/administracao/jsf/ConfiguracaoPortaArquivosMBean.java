@@ -13,8 +13,10 @@ import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.ArqListaComando;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.sigaa.arq.dao.PortaArquivosDao;
 import br.ufrn.sigaa.arq.dao.UsuarioDao;
+import br.ufrn.sigaa.arq.dominio.ConstantesParametro;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.ava.administracao.dominio.ConfiguracaoPortaArquivos;
 import br.ufrn.sigaa.dominio.Usuario;
@@ -193,8 +195,9 @@ public class ConfiguracaoPortaArquivosMBean  extends SigaaAbstractController<Con
 	 * Método não chamado por JSPs
 	 */
 	private void initObj () {
+		long capacidadeDefault = ParametroHelper.getInstance().getParametroLong(ConstantesParametro.TAMANHO_MAXIMO_PORTA_ARQUIVOS);
 		obj = new ConfiguracaoPortaArquivos();
-		obj.setTamanhoMaximoPortaArquivos((long) 2.0*GIGA_BYTE);
+		obj.setTamanhoMaximoPortaArquivos(capacidadeDefault);
 		setDocente( new Servidor());
 		setDocenteExterno( new DocenteExterno() );
 	}

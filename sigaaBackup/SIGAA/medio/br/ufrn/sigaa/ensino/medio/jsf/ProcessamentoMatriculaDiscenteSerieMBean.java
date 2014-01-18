@@ -92,7 +92,7 @@ public class ProcessamentoMatriculaDiscenteSerieMBean extends SigaaAbstractContr
 	 * </ul>
 	 * */
 	public String iniciarResultado() throws Exception {
-		checkRole(SigaaPapeis.GESTOR_MEDIO, SigaaPapeis.COORDENADOR_MEDIO);
+		checkRole(SigaaPapeis.GESTOR_MEDIO, SigaaPapeis.COORDENADOR_MEDIO, SigaaPapeis.SECRETARIA_MEDIO, SigaaPapeis.PEDAGOGICO_MEDIO);
 		
 		CalendarioAcademico calendario = CalendarioAcademicoHelper.getCalendarioUnidadeGlobalGrad();
 		ano = calendario.getAno();
@@ -129,7 +129,7 @@ public class ProcessamentoMatriculaDiscenteSerieMBean extends SigaaAbstractContr
 	 * </ul>
 	 * */
 	public String processar() throws Exception {
-		checkRole(SigaaPapeis.GESTOR_MEDIO, SigaaPapeis.COORDENADOR_MEDIO);
+		checkRole(SigaaPapeis.GESTOR_MEDIO, SigaaPapeis.COORDENADOR_MEDIO, SigaaPapeis.SECRETARIA_MEDIO, SigaaPapeis.PEDAGOGICO_MEDIO);
 		
 		ValidatorUtil.validateRequired(ano, "Ano", erros);
 		

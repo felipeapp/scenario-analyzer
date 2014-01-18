@@ -18,6 +18,7 @@
           		<rich:menuItem id="menuGerenciarPerfil" submitMode="server" value="Gerenciar Perfil" action="#{ menuTurma.acessarGerenciarPerfil }"  rendered="#{ turmaVirtual.discente }" />
 				<rich:menuItem id="menuVisualizarPC" submitMode="server" value="Plano de Curso" action="#{ menuTurma.acessarVisualizarPlanoCurso }"  rendered="#{ (turmaVirtual.discente || permissaoAva.permissaoAcesso ) && empty turmaVirtual.turma.polo }" />              	
               	
+              	<rich:menuItem id="menuRegistrarAulaEnsinoIndividual" submitMode="server" value="Registrar Aula de Ensino Individual" action="#{menuTurma.acessarRegistrarAulaEnsinoIndividual}" rendered="#{ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) && turmaVirtual.turma.turmaEnsinoIndividual }" />
               	<rich:menuItem id="menuTA" submitMode="server" value="Tópicos de Aula" action="#{ menuTurma.acessarConteudoProgramadoDiario }"  rendered="#{ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) && empty turmaVirtual.turma.polo }" />
 				<rich:menuItem id="menuAcessarPC" submitMode="server" value="Plano de Curso" action="#{ menuTurma.acessarPlanoCurso }"  rendered="#{ turmaVirtual.docente && empty turmaVirtual.turma.polo && !turmaVirtual.turma.infantil }" />				
 				<rich:menuItem id="menuAcessarCP" submitMode="server" value="Conteúdo Programado" action="#{ menuTurma.acessarConteudoProgramado }"  rendered="#{ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) && empty turmaVirtual.turma.polo }" />
@@ -40,7 +41,6 @@
 				
 				
 	        	<rich:menuItem id="menuRegistrarAulaExtra" submitMode="server" value="Registrar Aula Extra" action="#{menuTurma.acessarRegistrarAulaExtra}" rendered="#{ turmaVirtual.docente || permissaoAva.permissaoUsuario.docente }" />
-	        	<rich:menuItem id="menuRegistrarAulaEnsinoIndividual" submitMode="server" value="Registrar Aula de Ensino Individual" action="#{menuTurma.acessarRegistrarAulaEnsinoIndividual}" rendered="#{ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) && turmaVirtual.turma.turmaEnsinoIndividual }" />
 	        	<rich:menuItem id="menuVisualizarComoAluno" submitMode="server" value="Visualizar como Aluno" action="#{menuTurma.acessarVisualizarComoDiscente}" rendered="#{ turmaVirtual.docente }" />
 		        <rich:menuItem id="menuVisualizarComoDocente" style="color:#FF0000;" submitMode="server" value="Visualizar como Docente" rendered="#{ turmaVirtual.discente && turmaVirtual.acessoDocente }" action="#{menuTurma.acessarVisualizarComoDiscente}" />
               	</rich:dropDownMenu>

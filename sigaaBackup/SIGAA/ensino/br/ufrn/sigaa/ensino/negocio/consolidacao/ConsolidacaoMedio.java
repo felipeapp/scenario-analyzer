@@ -212,7 +212,8 @@ public class ConsolidacaoMedio extends AbstractEstrategiaConsolidacao implements
 		}
 		
 		for (NotaSerie nota : notasCalculadas) {
-			somaNota += nota.getNotaUnidade().getNota();
+			if (nota.getNotaUnidade().getNota() != null) 
+				somaNota += nota.getNotaUnidade().getNota();
 		}
 
 		double rs = Math.round( (somaNota / qtdUnidadeNota ) * 10D) / 10D;

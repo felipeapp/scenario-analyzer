@@ -26,6 +26,9 @@
 				</c:if>
 					
 				<c:if test="${ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) }">
+					<h:commandLink action="#{menuTurma.acessarRegistrarAulaEnsinoIndividual}" rendered="#{ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) && turmaVirtual.turma.turmaEnsinoIndividual }">
+						<div class="itemMenu" style="font-size:1em; padding-bottom: 8px;">Registrar Aula de<br/><p style="margin-left: 0px;">Ensino Individual</p></div>
+					</h:commandLink>
 				
 					<h:commandLink action="#{menuTurma.acessarConteudoProgramadoDiario}">
 						<div class="itemMenu">Tópicos de Aula</div>
@@ -86,10 +89,6 @@
 		
 				<h:commandLink action="#{menuTurma.acessarRegistrarAulaExtra}" rendered="#{ turmaVirtual.docente || permissaoAva.permissaoUsuario.docente }">
 					<div class="itemMenu">Registrar Aula Extra</div>
-				</h:commandLink>
-				
-				<h:commandLink action="#{menuTurma.acessarRegistrarAulaEnsinoIndividual}" rendered="#{ (turmaVirtual.docente || permissaoAva.permissaoUsuario.docente) && turmaVirtual.turma.turmaEnsinoIndividual }">
-					<div class="itemMenu" style="font-size:1em; padding-bottom: 8px;">Registrar Aula de<br/><p style="margin-left: 0px;">Ensino Individual</p></div>
 				</h:commandLink>
 				
 				<h:commandLink action="#{menuTurma.acessarVisualizarComoDiscente}" rendered="#{ turmaVirtual.docente }">

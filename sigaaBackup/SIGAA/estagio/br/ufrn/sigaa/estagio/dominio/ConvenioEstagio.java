@@ -150,10 +150,12 @@ public class ConvenioEstagio implements Validatable {
 		return status.getId() == StatusConvenioEstagio.RECUSADO;
 	}	
 
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -287,11 +289,12 @@ public class ConvenioEstagio implements Validatable {
 	 * Valida os atributos do convênio. 
 	 * @see br.ufrn.arq.negocio.validacao.Validatable#validate() 
 	 */		
+	@Override
 	public ListaMensagens validate() {
 		ListaMensagens lista = new ListaMensagens();
 		
 		validateRequired(tipoConvenio, "Tipo do Convênio", lista);
-		validateCPF_CNPJ(concedente.getPessoa().getCpf_cnpj(), "CNPJ", lista);
+		validateCPF_CNPJ(concedente.getPessoa().getCpf_cnpj(), "CPF/CNPJ", lista);
 		validateRequired(concedente.getPessoa().getNome(), "Nome da Empresa", lista);
 		validateRequired(concedente.getPessoa().getEnderecoContato().getCep(), "CEP", lista);
 		validateRequired(concedente.getPessoa().getEnderecoContato().getLogradouro(), "Logradouro", lista);

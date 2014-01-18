@@ -32,12 +32,13 @@
 			<c:forEach items="#{portalResultadoAvaliacao.listaResultados}" var="abaItem" varStatus="status">
 				<rich:tab  
 					action="#{portalResultadoAvaliacao.exibeResumo}"
-					label="#{abaItem.anoPeriodo}" id="aba" 
-					name="#{abaItem.anoPeriodo}">
-					<f:param id="idDocente" name="idServidor" value="#{abaItem.id_servidor}"/>
+					label="#{abaItem.rotuloAba}" id="aba" 
+					name="#{abaItem.rotuloAba}">
+					<f:param id="idPessoa" name="idPessoa" value="#{abaItem.id_pessoa}"/>
 					<f:param id="ano" name="ano" value="#{abaItem.ano}"/>
 					<f:param id="periodo" name="periodo" value="#{abaItem.periodo}"/>
-					<c:if test="${portalResultadoAvaliacao.abaSelecionada == abaItem.anoPeriodo}">
+					<f:param id="idFormulario" name="idFormulario" value="#{abaItem.id_formulario_avaliacao}"/>
+					<c:if test="${portalResultadoAvaliacao.abaSelecionada == abaItem.rotuloAba}">
 						<t:panelGrid id="avaliacaoContentPanel" columns="2" columnClasses="columnClasses, columnClasses">
 							<t:panelGroup>
 								<rich:tabPanel id="graphsTabbedPanel" switchType="client">
@@ -53,7 +54,7 @@
 														<cewolf:data> 
 															<cewolf:producer id="dados"> 
 																<cewolf:param name="resultados" value="${portalResultadoAvaliacao.resultadosDocentes}"/>
-																<cewolf:param name="idServidor" value="${ portalResultadoAvaliacao.servidor.id }"/>
+																<cewolf:param name="idPessoa" value="${ portalResultadoAvaliacao.pessoa.id }"/>
 																<cewolf:param name="grupo" value="${grupo.titulo}"/>
 															</cewolf:producer>
 														</cewolf:data>
@@ -73,7 +74,7 @@
 																<cewolf:data>
 																	<cewolf:producer id="dados"> 
 																		<cewolf:param name="resultados" value="${portalResultadoAvaliacao.resultadosDocentes}"/>
-																		<cewolf:param name="idServidor" value="${ portalResultadoAvaliacao.servidor.id }"/>
+																		<cewolf:param name="idPessoa" value="${ portalResultadoAvaliacao.pessoa.id }"/>
 																		<cewolf:param name="idTurma" value="${ linha.docenteTurma.turma.id }"/>
 																		<cewolf:param name="grupo" value="${grupo.titulo}"/>
 																	</cewolf:producer>

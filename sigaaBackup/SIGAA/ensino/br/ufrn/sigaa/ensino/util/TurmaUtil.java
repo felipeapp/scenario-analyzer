@@ -154,7 +154,7 @@ public class TurmaUtil {
 			// Busca os horários da turma.
 			List <HorarioTurma> horariosTurma = (List<HorarioTurma>) dao.findByExactField(HorarioTurma.class, "turma.id", turma.getId(), "asc", "dataInicio", "dia", "horaInicio");
 			// Busca as aulas extra da turma.
-			List <AulaExtra> aulasExtras = (List<AulaExtra>) dao.findByExactField(AulaExtra.class, "turma.id", turma.getId(), "asc", "dataAula" , "criadoEm");
+			List <AulaExtra> aulasExtras = dao.buscarTodasAulasExtras(turma);
 			// Busca todos os feriados
 			List <Date> feriados = getFeriados(turma);
 			// Busca as datas das aulas que o professor cancelou
@@ -287,13 +287,13 @@ public class TurmaUtil {
 	 */
 	public static Set<Date> getDatasAulas (Turma turma, CalendarioAcademico calendarioVigente, boolean reload) throws DAOException {
 		
-		GenericDAO dao = DAOFactory.getGeneric(Sistema.SIGAA);
+		TurmaVirtualDao dao = DAOFactory.getInstance().getDAO(TurmaVirtualDao.class);
 		
 		try{
 			// Busca os horários da turma.
 			List <HorarioTurma> horariosAulas = (List<HorarioTurma>) dao.findByExactField(HorarioTurma.class, "turma.id", turma.getId(), "asc", "dataInicio", "dia", "horaInicio");
 			// Busca as aulas extra da turma.
-			List <AulaExtra> aulasExtra = (List<AulaExtra>) dao.findByExactField(AulaExtra.class, "turma.id", turma.getId(), "asc", "dataAula");
+			List <AulaExtra> aulasExtra = dao.buscarTodasAulasExtras(turma);
 			
 			List <AulaExtra> auxAE = new ArrayList <AulaExtra> ();
 			

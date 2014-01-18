@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/include/ajax_tags.jsp"%>
 
 <f:view>
-	<h2>Lista de Turmas Oferecidas ao Curso</h2>
+	<h2><ufrn:subSistema /> > Lista de Turmas Oferecidas ao Curso</h2>
 	
 	<a4j:keepAlive beanName="buscaTurmaBean"></a4j:keepAlive>
 	

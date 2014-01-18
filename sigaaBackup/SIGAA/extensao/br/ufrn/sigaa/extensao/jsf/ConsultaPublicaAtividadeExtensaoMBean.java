@@ -24,9 +24,12 @@ import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dao.PagingInformation;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.LimiteResultadosException;
+import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.MunicipioDao;
+import br.ufrn.sigaa.arq.dao.UnidadeDao;
 import br.ufrn.sigaa.arq.dao.extensao.AtividadeExtensaoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.extensao.dominio.AtividadeExtensao;
@@ -53,7 +56,7 @@ import br.ufrn.sigaa.projetos.dominio.TipoSituacaoProjeto;
  * @author Mário Rizzi (rizzi@info.ufrn.br)
  * 
  ******************************************************************************/
-@Scope("request")
+@Scope("session")
 @Component("consultaPublicaAtividadeExtensao")
 public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExtensao> {
 
@@ -82,7 +85,7 @@ public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractControll
 	/**
 	 * Utilizado para a busca por unidade da atividade
 	 */
-	private int buscaUnidade;
+	private Integer buscaUnidade;
 
 	/**
 	 * Utilizado para a busca por ano da atividade
@@ -292,7 +295,7 @@ public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractControll
 				atividadesLocalizadas = dao.filter(null, null, null, null, null, null, null, titulo,
 						idTipoAtividade, idSituacaoAtividade,
 						idUnidadeProponente, null, null, null, idCordenador, null, ano,
-						null, null, null, null, null, paginas, false, null, null, null,null, null, isExtensao());
+						null, null, null, null, null, paginas, false, null, null, null,null, null, false);
 				}
 				catch(LimiteResultadosException e) {
 					addMensagemErro("A consulta retornou resultados excessivos. Por favor, restrinja mais a busca.");
@@ -311,7 +314,7 @@ public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractControll
 	 *   <li> \public\extensao\view.jsp</li>
 	 *   </ul>
 	 * 
-	 * @Deprecated subsitituido por  InscricaoParticipanteCursosEventosExtensaoMBean.visualizarDadosCursoEvento()
+	 * @Deprecated subsitituido por  InscricaoParticipanteAtividadeMBean.visualizarDadosCursoEvento()
 	 * 
 	 */
 	@Deprecated
@@ -583,7 +586,7 @@ public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractControll
 	 *   </ul>
 	 * @return
 	 */
-	public int getBuscaUnidade() {
+	public Integer getBuscaUnidade() {
 		return buscaUnidade;
 	}
 
@@ -597,7 +600,7 @@ public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractControll
 	 *   </ul>
 	 * @return
 	 */
-	public void setBuscaUnidade(int buscaUnidade) {
+	public void setBuscaUnidade(Integer buscaUnidade) {
 		this.buscaUnidade = buscaUnidade;
 	}
 
@@ -1031,5 +1034,52 @@ public class ConsultaPublicaAtividadeExtensaoMBean extends SigaaAbstractControll
 		return subAtividadeSelecionada;
 	}
 
-
+	/**
+	 * Realiza a busca de ações de extensão a partir da unidade.
+	 * @return
+	 * @throws DAOException
+	 * @throws NegocioException 
+	 */
+	public String consultarAcoesUnidade() throws DAOException, NegocioException {
+		clearBusca();
+		Integer idUnidade = getDAO(UnidadeDao.class).findIdByCodigo(buscaUnidade);
+		if(ValidatorUtil.isEmpty(idUnidade))
+			throw new NegocioException("Unidade não localizada.");
+		buscaUnidade = idUnidade;
+		setCheckBuscaUnidadeProponente(true);
+		localizarPublic();
+		return redirect("/public/extensao/consulta_extensao.jsf");
+	}
+	
+	/**
+	 * Realiza a busca de projetos de extensão a partir da unidade.
+	 * @return
+	 * @throws DAOException
+	 * @throws NegocioException 
+	 */
+	public String consultarProjetosUnidade() throws DAOException, NegocioException {
+		clearBusca();
+		Integer idUnidade = getDAO(UnidadeDao.class).findIdByCodigo(buscaUnidade);
+		if(ValidatorUtil.isEmpty(idUnidade))
+			throw new NegocioException("Unidade não localizada.");
+		buscaUnidade = idUnidade;
+		buscaTipoAtividade = TipoAtividadeExtensao.PROJETO;
+		setCheckBuscaTipoAtividade(true);
+		setCheckBuscaUnidadeProponente(true);
+		localizarPublic();
+		return redirect("/public/extensao/consulta_extensao.jsf");
+	}
+	
+	private void clearBusca() {
+		setCheckBuscaAno(false);
+		setCheckBuscaServidor(false);
+		setCheckBuscaTipoAtividade(false);
+		setCheckBuscaTitulo(false);
+		setCheckBuscaUnidadeProponente(false);
+		setBuscaAno(CalendarUtils.getAnoAtual());
+		setBuscaNomeAtividade(null);
+		setBuscaTipoAtividade(0);
+		setMembroEquipe(null);
+		setAtividadesLocalizadas(null);
+	}
 }

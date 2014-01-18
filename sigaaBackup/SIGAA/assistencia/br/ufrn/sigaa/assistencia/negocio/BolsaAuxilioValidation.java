@@ -5,6 +5,7 @@ import java.util.Collection;
 import br.ufrn.arq.dao.DAOFactory;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.CalendarUtils;
@@ -22,6 +23,7 @@ import br.ufrn.sigaa.assistencia.dominio.CalendarioBolsaAuxilio;
 import br.ufrn.sigaa.assistencia.dominio.RestricaoSolicitacaoBolsaAuxilio;
 import br.ufrn.sigaa.ensino.dominio.FormaIngresso;
 import br.ufrn.sigaa.ensino.negocio.CalendarioAcademicoHelper;
+import br.ufrn.sigaa.parametros.dominio.ParametrosSAE;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 
 public class BolsaAuxilioValidation {
@@ -31,6 +33,13 @@ public class BolsaAuxilioValidation {
 		verificarExistenciaDadosBancarios(bolsaAuxilio);
 		verificarAculumoBolsaAuxilio(bolsaAuxilio, lista);
 		verificarPeriodoSolicitacao(usuarioLogado, bolsaAuxilio, lista);
+		verificarCadastroUnico(bolsaAuxilio, lista);
+	}
+	
+	public static void validacaoDadosBasicoSemData(UsuarioGeral usuarioLogado, BolsaAuxilio bolsaAuxilio, ListaMensagens lista) throws DAOException {
+		validacaoSolicitacaoBolsa(bolsaAuxilio, lista);
+		verificarExistenciaDadosBancarios(bolsaAuxilio);
+		verificarAculumoBolsaAuxilio(bolsaAuxilio, lista);
 		verificarCadastroUnico(bolsaAuxilio, lista);
 	}
 	
@@ -80,22 +89,25 @@ public class BolsaAuxilioValidation {
 	}
 	
 	private static void verificarCadastroUnico(BolsaAuxilio bolsaAuxilio, ListaMensagens lista) throws DAOException {
-		AdesaoCadastroUnicoBolsaDao dao = DAOFactory.getInstance().getDAO(AdesaoCadastroUnicoBolsaDao.class);
-		try {
-			boolean discenteComCadastroUnico = dao.isAdesaoCadastroUnico(bolsaAuxilio.getDiscente().getId(), 
-					CalendarioAcademicoHelper.getCalendario(bolsaAuxilio.getDiscente()).getAno(), 
-						CalendarioAcademicoHelper.getCalendario(bolsaAuxilio.getDiscente()).getPeriodo());
-			
-			if ( !discenteComCadastroUnico ) {
-				lista.addErro("Discente não localizado no Cadastro único. Para solicitar Bolsa Auxílio é necessário aderir ao Cadastro único.");
+		boolean parametro = ParametroHelper.getInstance().getParametroBoolean(ParametrosSAE.NECESSIDADE_ADESAO_CADASTRO_UNICO);
+			if ( parametro ) {
+			AdesaoCadastroUnicoBolsaDao dao = DAOFactory.getInstance().getDAO(AdesaoCadastroUnicoBolsaDao.class);
+			try {
+				boolean discenteComCadastroUnico = dao.isAdesaoCadastroUnico(bolsaAuxilio.getDiscente().getId(), 
+						CalendarioAcademicoHelper.getCalendario(bolsaAuxilio.getDiscente()).getAno(), 
+							CalendarioAcademicoHelper.getCalendario(bolsaAuxilio.getDiscente()).getPeriodo());
+				
+				if ( !discenteComCadastroUnico ) {
+					lista.addErro("Discente não localizado no Cadastro único. Para solicitar Bolsa Auxílio é necessário aderir ao Cadastro único.");
+				}
+				
+				if ( !bolsaAuxilio.getDiscente().isRegular() ) {
+					lista.addErro("Apenas discente Regular pode solicitar bolsa auxilio.");
+				}
+				
+			} finally {
+				dao.close();
 			}
-			
-			if ( !bolsaAuxilio.getDiscente().isRegular() ) {
-				lista.addErro("Apenas discente Regular pode solicitar bolsa auxilio.");
-			}
-			
-		} finally {
-			dao.close();
 		}
 	}
 	

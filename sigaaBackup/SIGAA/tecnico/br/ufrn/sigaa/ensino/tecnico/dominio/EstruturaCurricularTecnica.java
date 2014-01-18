@@ -100,9 +100,9 @@ public class EstruturaCurricularTecnica implements Validatable {
 	private Set<DisciplinaComplementar> disciplinasComplementares = new HashSet<DisciplinaComplementar>(0);
 
 	/** Indica o conjunto das Turmas de Entrada nessa Estrutura Curricular. */
-	@OneToMany(cascade = { }, fetch = FetchType.LAZY, mappedBy = "estruturaCurricularTecnica")
+	@Transient
 	private Set<TurmaEntradaTecnico> turmasEntradaTecnico = new HashSet<TurmaEntradaTecnico>(0);
-
+	
 	/** Relacionamento entre o Módulo e a Estrutura Curricular. */
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "estruturaCurricularTecnica")
 	private Set<ModuloCurricular> modulosCurriculares = new HashSet<ModuloCurricular>(0);

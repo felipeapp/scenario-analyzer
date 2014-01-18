@@ -51,7 +51,7 @@ public class AulaExtraDao extends GenericSigaaDAO {
 	 */
 	public List <AulaExtra> findByIdsTurmas (List <Integer> idsTurmas) throws DAOException {
 		@SuppressWarnings("unchecked")
-		List <AulaExtra> rs = getSession().createQuery("select a from AulaExtra a where a.turma.id in " + UFRNUtils.gerarStringIn(idsTurmas)).list();
+		List <AulaExtra> rs = getSession().createQuery("select a from AulaExtra a where a.ativo = trueValue() and a.turma.id in " + UFRNUtils.gerarStringIn(idsTurmas)).list();
 		
 		return rs;
 	}

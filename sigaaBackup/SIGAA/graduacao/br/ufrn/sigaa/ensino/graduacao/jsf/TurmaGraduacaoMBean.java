@@ -447,11 +447,12 @@ public class TurmaGraduacaoMBean extends TurmaMBean {
 		checkRole(SigaaPapeis.GESTOR_TURMAS_UNIDADE, new int[] {SigaaPapeis.DAE, SigaaPapeis.SEDIS});
 		// verifica, para o chefe/scretário de departamento, se está no período de criação de turma
 		boolean isPeriodo = getCalendarioVigente().isPeriodoCadastroTurmas() || getCalendarioVigente().isPeriodoCadastroTurmaEnsinoIndiv() || getCalendarioVigente().isPeriodoCadastroTurmasFerias();
-		if (isUserInRole(SigaaPapeis.GESTOR_TURMAS_UNIDADE) && !isPeriodo){
+		if (!isUserInRole(SigaaPapeis.ADMINISTRADOR_DAE) &&
+				isUserInRole(SigaaPapeis.GESTOR_TURMAS_UNIDADE) && !isPeriodo){
 			erros.addErro("Não está no período de cadastro de turmas.");
 		}
-	}
-
+	}	
+	
 	@Override
 	public String formDadosGerais() {
 		return forward(JSP_DADOS_GERAIS);

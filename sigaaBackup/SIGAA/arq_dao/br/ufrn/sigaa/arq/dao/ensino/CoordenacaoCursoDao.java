@@ -852,7 +852,7 @@ StringBuffer hql = new StringBuffer();
 			throw new DAOException(e);
 		}
 	}
-
+	
 	/** Retorna o coordenador ativo de um curso em uma determinada data. 
 	 * @param data
 	 * @param curso
@@ -860,15 +860,29 @@ StringBuffer hql = new StringBuffer();
 	 * @throws DAOException 
 	 */
 	public CoordenacaoCurso findAtivoByData(Date data, Curso curso) throws DAOException{
+		Collection<CoordenacaoCurso> lista = findAtivosByData(data,curso,CargoAcademico.COORDENACAO);
+		if (!isEmpty(lista))
+			return lista.iterator().next();
+		else
+			return null;
+	}
+
+	/** Retorna os participantes da coordenação ativos de um curso em uma determinada data. 
+	 * @param data
+	 * @param curso
+	 * @return
+	 * @throws DAOException 
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<CoordenacaoCurso> findAtivosByData(Date data, Curso curso, Integer... cargoAcademico) throws DAOException{
 		data = CalendarUtils.incluirHoraFimDia(data);
 		Criteria c = getSession().createCriteria(CoordenacaoCurso.class);
 		c.add(Restrictions.eq("curso.id", curso.getId()));
 		c.add(Restrictions.and(
 				Restrictions.le("dataInicioMandato", data), Restrictions.ge("dataFimMandato", data)));
-		c.add(Restrictions.eq("cargoAcademico.id", CargoAcademico.COORDENACAO));
+		c.add(Restrictions.in("cargoAcademico.id", cargoAcademico));
 		c.addOrder(Order.desc("dataFimMandato"));
-		c.setMaxResults(1);
-		return (CoordenacaoCurso) c.uniqueResult();
+		return (Collection<CoordenacaoCurso>) c.list();
 	}
 
 }

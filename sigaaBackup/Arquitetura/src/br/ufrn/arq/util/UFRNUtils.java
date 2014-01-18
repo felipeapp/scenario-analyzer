@@ -9,7 +9,15 @@ package br.ufrn.arq.util;
 
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.RGBImageFilter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -916,7 +924,7 @@ public class UFRNUtils {
 	 * @throws IOException
 	 */
 	public static byte[] redimensionaJPG(byte[] imagem, int width, int height)
-			throws IOException {
+			throws IOException, IllegalArgumentException {
 		return redimensionaJPG(imagem, width, height, false);
 	}
 	
@@ -929,7 +937,7 @@ public class UFRNUtils {
 	 * @throws IOException
 	 */
 	public static byte[] redimensionaJPG(byte[] imagem, int width, int height, boolean proporcional)
-			throws IOException {
+			throws IOException, IllegalArgumentException {
 
 		ByteArrayInputStream in = new ByteArrayInputStream(imagem);
 		BufferedImage image = ImageIO.read(in);
@@ -946,7 +954,53 @@ public class UFRNUtils {
 	}
 	
 
-	/**
+    /**
+     * Convete Image para BufferedImage
+     * @param image
+     * @return
+     */
+	public static BufferedImage imageToBufferedImage(Image image) {
+    	BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+    	Graphics2D g2 = bufferedImage.createGraphics();
+    	g2.drawImage(image, 0, 0, null);
+    	g2.dispose();
+    	return bufferedImage;
+    }
+
+    /**
+     * Processa a Imagem removendo a cor encontrada na posição xy deixando-a transparente. Recomenda-se salvar como PNG
+     * 
+     * @param im
+     * @param color
+     * @return
+     */
+    public static Image makeColorTransparent(BufferedImage im, final int x, final int y) {
+    	return makeColorTransparent(im,new Color(im.getRGB(x, y)));
+    }
+    
+    /**
+     * Processa a Imagem removendo a cor passada como parâmetro deixando-a transparente. Recomenda-se salvar como PNG
+     * 
+     * @param im
+     * @param color
+     * @return
+     */
+    public static Image makeColorTransparent(BufferedImage im, final Color color) {
+    	ImageFilter filter = new RGBImageFilter() {
+    		public int marcadorRGB = color.getRGB() | 0xFF000000;
+    		public final int filterRGB(int x, int y, int rgb) {
+    			if ((rgb | 0xFF000000) == marcadorRGB) {
+    				return 0x00FFFFFF & rgb;
+    			} else {
+    				return rgb;
+    			}
+    		}
+    	};
+    	ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
+    	return Toolkit.getDefaultToolkit().createImage(ip);
+    }
+
+    /**
 	 * Realiza a clonagem profunda de um objeto através de serialização. É
 	 * necessário que a classe a ser clonada implemente
 	 * {@link java.io.Serializable} (lembrando que {@link PersistDB} estende
@@ -1425,11 +1479,11 @@ public class UFRNUtils {
 		throw new SegurancaException("Usuário não autorizado a realizar esta operação.", papeis);
 	}
 
-	private static StackTraceElement stackTraceInvocador(int profundidade) {
+	public static StackTraceElement stackTraceInvocador(int profundidade) {
 		return Thread.currentThread().getStackTrace()[profundidade];
 	}
 
-	private static StackTraceElement stackTraceInvocador() {
+	public static StackTraceElement stackTraceInvocador() {
 		return stackTraceInvocador(4);
 	}
 

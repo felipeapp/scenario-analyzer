@@ -7,11 +7,7 @@
 	<center>
 		<div class="infoAltRem">
 			<h:form>
-				<c:if test="${planoDocenciaAssistidaMBean.portalDiscente}">					
-					<h:commandLink action="#{planoDocenciaAssistidaMBean.iniciarCadastro}" id="cadastroPlanoDocenciaAssistida">
-						<h:graphicImage value="/img/adicionar.gif"/> Cadastrar Plano de Docência Assistida	sem Indicação
-						<f:param name="semIndicacao" value="true"/>
-					</h:commandLink>															
+				<c:if test="${planoDocenciaAssistidaMBean.portalDiscente}">															
 					<h:graphicImage value="/img/alterar.gif"/>: Preencher/Alterar Plano de Docência Assistida<br/>
 				</c:if>
 				<c:if test="${planoDocenciaAssistidaMBean.portalPpg}">

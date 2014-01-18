@@ -85,6 +85,10 @@ public class EditalExtensao implements Validatable {
 	@OneToMany(mappedBy = "editalExtensao")
 	private Collection<EditalExtensaoRegra> regras = new ArrayList<EditalExtensaoRegra>();
 
+	/** Atributo utilizado para representar as linhas de atuação do Edital de Extensão */
+	@OneToMany(mappedBy = "editalExtensao")
+	private Collection<EditalExtensaoLinhaAtuacao> linhasAtuacao = new ArrayList<EditalExtensaoLinhaAtuacao>();
+	
 	// Constructors
 
 	/** default constructor */
@@ -137,7 +141,9 @@ public class EditalExtensao implements Validatable {
 		ValidatorUtil.validateRequired(numeroEdital, "Número do Edital", lista);		
 		ValidatorUtil.validateRequired(edital.getDataInicioReconsideracao(), "Data início do limite para envio de reconsideração", lista);
 		ValidatorUtil.validateRequired(edital.getDataFimReconsideracao(), "Data fim do limite para envio de reconsideração", lista);
-		ValidatorUtil.validateRequired(regras, "Regras do Edital", lista);
+		ValidatorUtil.validateRequired(regras, "Restrições do Edital", lista);
+		ValidatorUtil.validateRequired(getLinhasAtivas(), "Linhas de Atuação do Edital", lista);
+		
 		return lista;
 	}
 
@@ -400,6 +406,21 @@ public class EditalExtensao implements Validatable {
 	    return listaAtivos;
 	}
 	
+	/**
+	 * Retorna somente as linhas de atuação ativas do edital.
+	 * @return
+	 */
+	public Collection<EditalExtensaoLinhaAtuacao> getLinhasAtivas() {
+	    ArrayList<EditalExtensaoLinhaAtuacao> listaAtivos = new ArrayList<EditalExtensaoLinhaAtuacao>();
+	    for(Iterator<EditalExtensaoLinhaAtuacao> it = linhasAtuacao.iterator(); it.hasNext();) {
+	    	EditalExtensaoLinhaAtuacao linha = it.next();
+			if (linha.isAtivo()) {
+			    listaAtivos.add(linha);
+			}		    
+	    }
+	    return listaAtivos;
+	}
+	
 	public Collection<EditalExtensaoRegra> getRegras() {
 	    return regras;
 	}
@@ -436,6 +457,14 @@ public class EditalExtensao implements Validatable {
 		    return regra;
 	    }
 	    return null;
+	}
+
+	public Collection<EditalExtensaoLinhaAtuacao> getLinhasAtuacao() {
+		return linhasAtuacao;
+	}
+
+	public void setLinhasAtuacao(Collection<EditalExtensaoLinhaAtuacao> linhasAtuacao) {
+		this.linhasAtuacao = linhasAtuacao;
 	}
 
 }

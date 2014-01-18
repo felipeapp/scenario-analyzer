@@ -315,7 +315,7 @@ public class InscricaoParticipanteSubAtividadeExtensaoDao extends GenericSigaaDA
 				          " projeto.data_inicio as inicioAtividade, projeto.data_fim as fimAtividade, projeto.ativo, projeto.id_tipo_situacao_projeto, projeto.autorizar_certificado_gestor, " +  //informações para emissão de certificado e declaração" +
 				          " tipoAtividade.descricao as tipoAtividade, projeto.id_unidade_orcamentaria, "+
 				          " coordenador.id_membro_projeto idCordenador, pessoa.id_pessoa idPessoaCoordenador, pessoa.nome as nomeCoordenador, "+
-				          " participante.id_participante_acao_extensao, participante.frequencia, participante.autorizacao_declaracao, participante.autorizacao_certificado, participante.observacao_certificado ";	
+				          " participante.id_participante_acao_extensao, participante.frequencia, participante.autorizacao_declaracao, participante.autorizacao_certificado, participante.observacao_certificado,  participante.ativo as participanteAtivo ";	
 		
 		String sql = " SELECT DISTINCT " +projecao+
 					 " FROM extensao.inscricao_atividade_participante inscricao "+
@@ -402,6 +402,7 @@ public class InscricaoParticipanteSubAtividadeExtensaoDao extends GenericSigaaDA
 				retorno.getParticipanteExtensao().setAutorizacaoDeclaracao( (Boolean) objects[35] );
 				retorno.getParticipanteExtensao().setAutorizacaoCertificado( (Boolean) objects[36] );
 				retorno.getParticipanteExtensao().setObservacaoCertificado( (String) objects[37] );
+				retorno.getParticipanteExtensao().setAtivo( (Boolean) objects[38] );
 				
 				retorno.getParticipanteExtensao().setSubAtividade(periodoInscricao.getSubAtividade()); // para emissão do certificado
 			}

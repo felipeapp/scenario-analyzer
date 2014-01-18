@@ -161,7 +161,7 @@
 	
 		<div class="infoAltRem">
 	   	    <h:graphicImage value="/img/view.gif" style="overflow: visible;" id="legendaView"/>: Visualizar Ação
-   	    	<h:graphicImage value="/img/delete.gif" style="overflow: visible;" id="legendaDelAvaliacao"/>: Remover Avaliação
+   	    	<c:if test="${acesso.extensao}"><h:graphicImage value="/img/delete.gif" style="overflow: visible;" id="legendaDelAvaliacao"/>: Remover Avaliação </c:if>
    	    	<h:graphicImage value="/img/extensao/document_chart.png" style="overflow: visible;" id="legendaViewAvaliacao"/>: Visualizar Avaliação
 		</div>
 	
@@ -216,11 +216,11 @@
 											</font>
 										</td>
 										<td width="2%">															
-												<h:commandLink title="Remover Avaliação" action="#{avaliacaoAtividade.inativar}" style="border: 0;" 
+									<c:if test="${acesso.extensao}"> <h:commandLink title="Remover Avaliação" action="#{avaliacaoAtividade.inativar}" style="border: 0;" 
 												onclick="return confirm('Tem certeza que deseja Remover esta Avaliação?');" id="cmdLnkDelAvaliacao">
 											    	<f:param name="id" value="#{avaliacao.id}"/>
 											      	<h:graphicImage url="/img/delete.gif"/>
-												</h:commandLink>
+												</h:commandLink></c:if>
 										</td>																								
 										
 										<td width="2%">															

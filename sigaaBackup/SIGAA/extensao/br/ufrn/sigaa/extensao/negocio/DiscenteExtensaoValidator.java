@@ -4,6 +4,7 @@ import br.ufrn.academico.dominio.StatusDiscente;
 import br.ufrn.arq.dao.DAOFactory;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.sigaa.arq.dao.extensao.InscricaoSelecaoExtensaoDao;
 import br.ufrn.sigaa.arq.dao.extensao.RelatorioBolsistaExtensaoDao;
 import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
@@ -11,6 +12,7 @@ import br.ufrn.sigaa.extensao.dominio.AtividadeExtensao;
 import br.ufrn.sigaa.extensao.dominio.DiscenteExtensao;
 import br.ufrn.sigaa.extensao.dominio.InscricaoSelecaoExtensao;
 import br.ufrn.sigaa.extensao.relatorio.dominio.TipoRelatorioExtensao;
+import br.ufrn.sigaa.parametros.dominio.ParametrosExtensao;
 
 public class DiscenteExtensaoValidator {
 
@@ -76,22 +78,23 @@ public class DiscenteExtensaoValidator {
 	 * @throws ArqException
 	 */
 	public static void validaEmissaoCertificado(DiscenteExtensao discenteExtensao, ListaMensagens lista) throws ArqException {		
-		RelatorioBolsistaExtensaoDao dao = DAOFactory.getInstance().getDAO(RelatorioBolsistaExtensaoDao.class);
-		try {
-			boolean enviouRelatorio  = dao.isDiscenteEnviouRelatorio(discenteExtensao.getId(), TipoRelatorioExtensao.RELATORIO_FINAL);
-			if (!enviouRelatorio) {
-				lista.addErro("O certificado não pode ser emitido porque o Relatório Final do discente não foi enviado." +
-				"Cadastre o relatório solicitado e tente realizar esta operação novamente.");
+		if ( ParametroHelper.getInstance().getParametroBoolean(ParametrosExtensao.NECESSARIO_ENVIAR_RELATORIO_FINAL) ) {
+			RelatorioBolsistaExtensaoDao dao = DAOFactory.getInstance().getDAO(RelatorioBolsistaExtensaoDao.class);
+			try {
+				boolean enviouRelatorio  = dao.isDiscenteEnviouRelatorio(discenteExtensao.getId(), TipoRelatorioExtensao.RELATORIO_FINAL);
+				if (!enviouRelatorio) {
+					lista.addErro("O certificado não pode ser emitido porque o Relatório Final do discente não foi enviado." +
+					"Cadastre o relatório solicitado e tente realizar esta operação novamente.");
+				}
+	
+				if (!discenteExtensao.isPassivelEmissaoCertificado()) {
+					lista.addErro("O certificado não pode ser emitido porque a Ação de Extensão ainda não foi concluída.");
+				}
+	
+			}finally{
+				dao.close();
 			}
-
-			if (!discenteExtensao.isPassivelEmissaoCertificado()) {
-				lista.addErro("O certificado não pode ser emitido porque a Ação de Extensão ainda não foi concluída.");
-			}
-
-		}finally{
-			dao.close();
 		}
 	}
-	
 
 }

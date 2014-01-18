@@ -612,11 +612,11 @@ public class PlanoIndividualDocente implements PersistDB, Validatable {
 		
 		for (ChEnsinoPIDocenteTurma chEnsino : getChEnsino().getChEnsinoDocenteTurma()) {
 			if (chEnsino.getDocenteTurma() != null) {
-				if (!chEnsino.getDocenteTurma().isChResidenciaSemTurma())
+				if (!chEnsino.getDocenteTurma().isChResidenciaSemTurma() && chEnsino.getDocenteTurma().getChDedicadaSemana() != null)
 					chTotalDisciplinas += chEnsino.getDocenteTurma().getChDedicadaSemana();
 			}
 			if (chEnsino.getDocenteTurma() != null) {
-				if (chEnsino.getDocenteTurma().isChResidenciaSemTurma())
+				if (chEnsino.getDocenteTurma().isChResidenciaSemTurma() && chEnsino.getDocenteTurma().getChDedicadaPeriodo() != null)
 					chTotalDisciplinas += chEnsino.getDocenteTurma().getChDedicadaPeriodo();
 			}
 		}

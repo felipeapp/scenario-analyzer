@@ -28,6 +28,45 @@
 			</tr>
 
 			<tr>
+				<td class="subFormulario" colspan="2"> Lista do Membros do Grupo de Pesquisa </td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<rich:dataTable id="dtPermanentes" value="#{ projetoApoioGrupoPesquisaMBean.obj.grupoPesquisa.equipesGrupoPesquisaCol }" 
+					var="membro" width="100%" styleClass="subFormulario" rowClasses="linhaPar, linhaImpar" binding="#{projetoApoioGrupoPesquisaMBean.membros}">
+					<rich:column width="50%">
+						<f:facet name="header"><f:verbatim>Pesquisador</f:verbatim></f:facet>
+						<h:outputText value="#{membro.pessoa.nome}"/>
+					</rich:column>
+					<rich:column width="15%">
+						<f:facet name="header"><f:verbatim>Categoria</f:verbatim></f:facet>
+						<h:outputText value="#{ membro.categoriaString }"/>
+					</rich:column>
+					<rich:column width="15%">
+						<f:facet name="header"><f:verbatim>Classificação</f:verbatim></f:facet>
+						<h:outputText value="<font color='red'>" rendered="#{membro.classificacao == 1}"  escape="false"/>
+							<h:outputText value="#{membro.classificacaoString}" />
+						<h:outputText value="</font>" rendered="#{membro.classificacao == 1}"  escape="false"/>
+					</rich:column>
+					<rich:column width="15%">
+						<f:facet name="header"><f:verbatim>Tipo</f:verbatim></f:facet>
+						<h:outputText value="#{ membro.tipoMembroGrupoPesqString }"/>
+					</rich:column>
+					<rich:column width="5%">
+						<center>
+							<f:facet name="header"><h:outputText value="Lattes" /></f:facet>
+							<a4j:commandLink id="showPanelOn" actionListener="#{projetoApoioGrupoPesquisaMBean.carregarPainel}" 
+	               					oncomplete="Richfaces.showModalPanel('painelLattes')" immediate="true" reRender="painelLattes">  
+								<h:graphicImage value="/img/prodocente/lattes.gif" style="overflow: visible;" rendered="#{not empty membro.enderecoLattes}" title="Currículo do Pesquisador na Plataforma Lattes"/>
+								<h:graphicImage value="/img/prodocente/question.png" style="overflow: visible;" rendered="#{empty membro.enderecoLattes}" title="Endereço do CV não registrado no sistema"/>
+						    </a4j:commandLink>
+					    </center>
+					</rich:column>
+				</rich:dataTable>
+				</td>
+			</tr>
+
+			<tr>
 				<td colspan="2" class="subFormulario">Justificativa dos Recursos Solicitados</td>
 			</tr>
 			

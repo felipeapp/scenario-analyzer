@@ -13,15 +13,12 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
-
 import javax.faces.FacesException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.DataException;
-
 import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dao.GenericDAOImpl;
 import br.ufrn.arq.dominio.AlteracaoRegistroEntrada;
@@ -134,8 +131,15 @@ public class ErrorUtils {
 	}
 	
 	public static void enviaAlerta(Throwable e, HttpServletRequest req, String jndiName, String loginUsuario, String nomeUsuario, Integer sistema, Integer subsistema, String serverName) {
+      enviaAlerta(e, req, jndiName, loginUsuario, nomeUsuario, sistema, subsistema, serverName, null, null);
+   }
+
+   public static void enviaAlerta(Throwable e, HttpServletRequest req, String jndiName, String loginUsuario, String nomeUsuario,
+      Integer sistema, Integer subsistema, String serverName, Boolean enviarEmail, String email) {
 		
-		boolean enviarEmail = br.ufrn.arq.parametrizacao.ParametroHelper.getInstance().getParametroBoolean(ConstantesParametroGeral.EMAIL_DE_ALERTA);
+      if (enviarEmail == null)
+         enviarEmail =
+            br.ufrn.arq.parametrizacao.ParametroHelper.getInstance().getParametroBoolean(ConstantesParametroGeral.EMAIL_DE_ALERTA);
 		
 		HttpSession session = null;
 		UsuarioGeral usuarioLogado = null;
@@ -148,7 +152,8 @@ public class ErrorUtils {
 			usuarioLogado = (UsuarioGeral) session.getAttribute("usuario");
 		}
 		
-		String email = br.ufrn.arq.parametrizacao.ParametroHelper.getInstance().getParametro(sistema+"_1_1");
+      if (email == null)
+         email = br.ufrn.arq.parametrizacao.ParametroHelper.getInstance().getParametro(sistema + "_1_1");
 
 		Throwable cause = null;
 		if (e.getCause() != null)

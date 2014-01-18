@@ -284,6 +284,14 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 	 */
 	private int operacaoPesquisaAnterior = -1;
 	
+	
+	
+	/**
+	 * Indica na página se a listagem de assinaturas não associadas a nenhum título é exibida ou não.
+	 */
+	private boolean exibeListagemAssinaturasSemAssociadas = false;
+	
+	
 	/**
 	 * Construtor padrão do bean
 	 * 
@@ -439,40 +447,49 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 		
 		incluindoMateriaisSemTombamento = true;
 		
-		AssinaturaDao assinaturaDao = getDAO(AssinaturaDao.class);
+		AssinaturaDao assinaturaDao = null;
 		
-		// Se é administrador geral, traz assinatura de todas as unidades 
-		if(isUserInRole(SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_GERAL)){
+		try{
+			assinaturaDao = getDAO(AssinaturaDao.class);
 			
-			assinaturasPossiveisInclusaoFasciculo = assinaturaDao.findAssinaturasAtivasPossiveisInclusaoFasciculos(this.titulo.getId(), null, null, null, null);
-		}else{ // se é só catalogador vai poder incluir apenas na assinatura de sua unidade
-			
-			List<Integer> idBibliotecas = BibliotecaUtil.obtemIdsBibliotecasPermisaoUsuario(getUsuarioLogado(), new Papel(SigaaPapeis.BIBLIOTECA_SETOR_CATALOGACAO_BIBLIOTECARIO), new Papel(SigaaPapeis.BIBLIOTECA_SETOR_CATALOGACAO_GERENCIAR_MATERIAIS) );
-			
-			if(idBibliotecas == null || idBibliotecas.size() == 0){
-				addMensagemErro("Usuário não tem permissão de catalogação.");
-				return null;
+			// Se é administrador geral, traz assinatura de todas as unidades 
+			if(isUserInRole(SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_GERAL)){
+				
+				assinaturasPossiveisInclusaoFasciculo = assinaturaDao.findAssinaturasAtivasPossiveisInclusaoFasciculos(this.titulo.getId(), null, null, null, null);
+			}else{ // se é só catalogador vai poder incluir apenas na assinatura de sua unidade
+				
+				List<Integer> idBibliotecas = BibliotecaUtil.obtemIdsBibliotecasPermisaoUsuario(getUsuarioLogado(), new Papel(SigaaPapeis.BIBLIOTECA_SETOR_CATALOGACAO_BIBLIOTECARIO), new Papel(SigaaPapeis.BIBLIOTECA_SETOR_CATALOGACAO_GERENCIAR_MATERIAIS) );
+				
+				if(idBibliotecas == null || idBibliotecas.size() == 0){
+					addMensagemErro("Usuário não tem permissão de catalogação.");
+					return null;
+				}
+				
+				assinaturasPossiveisInclusaoFasciculo = assinaturaDao.findAssinaturasPossiveisInclusaoFasciculosByUnidadeDestino(this.titulo.getId(), idBibliotecas );
 			}
 			
-			assinaturasPossiveisInclusaoFasciculo = assinaturaDao.findAssinaturasPossiveisInclusaoFasciculosByUnidadeDestino(this.titulo.getId(), idBibliotecas );
-		}
-		
-		assinaturasSemTitulo = new ArrayList<Assinatura>();
-		assinaturasDoTituloSelecionado = new ArrayList<Assinatura>();
-		
-		// Separa em duas lista para melhorar a visualização na tela para o usuário.
-		for (Assinatura assinatura : assinaturasPossiveisInclusaoFasciculo) {
+			// zera os dados
+			fasciculosDaAssinaturaNaoInclusos = null;
+			fasciculoSelecionado = null;
+			assinaturasSemTitulo = new ArrayList<Assinatura>();
+			assinaturasDoTituloSelecionado = new ArrayList<Assinatura>();
 			
-			if(assinatura.getTituloCatalografico() == null){
-				assinaturasSemTitulo.add(assinatura);
-			}else{
-				assinaturasDoTituloSelecionado.add(assinatura);
+			// Separa em duas lista para melhorar a visualização na tela para o usuário.
+			for (Assinatura assinatura : assinaturasPossiveisInclusaoFasciculo) {
+				
+				if(assinatura.getTituloCatalografico() == null){
+					assinaturasSemTitulo.add(assinatura);
+				}else{
+					assinaturasDoTituloSelecionado.add(assinatura);
+				}
+				
 			}
 			
-		}
-		
-		if(assinaturasPossiveisInclusaoFasciculo.size() == 0){
-			addMensagemWarning("Não existem assinaturas disponíveis da sua unidade para inclusão de fascículos.");
+			if(assinaturasPossiveisInclusaoFasciculo.size() == 0){
+				addMensagemWarning("Não existem assinaturas disponíveis da sua unidade para inclusão de fascículos.");
+			}
+		}finally{
+			if(assinaturaDao != null) assinaturaDao.close();
 		}
 			
 		
@@ -494,7 +511,7 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 	 * @return
 	 * @throws DAOException
 	 */
-	public String visualizarFasciculosNaoIncluidosDaAssinatura() throws DAOException{
+	public void visualizarFasciculosNaoIncluidosDaAssinatura(ActionEvent event) throws DAOException{
 		
 		int idAssinaturaSelecionada = getParameterInt("idAssinaturaSelecionada");
 		
@@ -511,8 +528,6 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 		
 		fasciculoSelecionado = null;
 		
-		return telaIncluirNovoMaterial();
-		
 	}
 	
 		
@@ -525,7 +540,7 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 	 * 
 	 * @throws ArqException 
 	 */
-	public String selecionarFasciculoParaInclusao() throws ArqException{
+	public void selecionarFasciculoParaInclusao(ActionEvent event) throws ArqException{
 		
 		TituloCatalograficoDao dao = null;
 		
@@ -548,10 +563,6 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 		}finally{
 			if(dao != null) dao.close();
 		}
-		
-		
-		
-		return telaIncluirNovoMaterial();
 	}
 
 	
@@ -886,7 +897,7 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 				
 				limpaDadosFasciculo();
 				
-				return telaIncluirNovoMaterial();
+				return iniciarParaAdicaoFasciculosNaoTombados(titulo);
 				
 			}catch(NegocioException ne){
 				addMensagens(ne.getListaMensagens());
@@ -1983,6 +1994,9 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 	}
 
 	
+	public void atualizaExibicaoAssinaturasNaoAssociadas(ActionEvent evet) throws ArqException {
+		this.exibeListagemAssinaturasSemAssociadas = ! exibeListagemAssinaturasSemAssociadas;
+	}
 	
 	
 	/**
@@ -2032,6 +2046,20 @@ public class MaterialInformacionalMBean extends SigaaAbstractController<Material
 		mBean.setMbeanChamadoPesquisaTitulo(null);
 		mBean.setOperacao(PesquisaTituloCatalograficoMBean.PESQUISA_NORMAL);
 		mBean.limpaResultadoPesquisa();
+	}
+
+	
+	public int getQtdAssinaturasSemTitulo(){
+		return assinaturasSemTitulo == null ? 0 : assinaturasSemTitulo.size();
+	}
+	
+	
+	public boolean isExibeListagemAssinaturasSemAssociadas() {
+		return exibeListagemAssinaturasSemAssociadas;
+	}
+
+	public void setExibeListagemAssinaturasSemAssociadas(boolean exibeListagemAssinaturasSemAssociadas) {
+		this.exibeListagemAssinaturasSemAssociadas = exibeListagemAssinaturasSemAssociadas;
 	}
 	
 	

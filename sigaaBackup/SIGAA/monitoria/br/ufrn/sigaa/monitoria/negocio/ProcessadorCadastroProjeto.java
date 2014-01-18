@@ -25,6 +25,7 @@ import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.ValidatorUtil;
+import br.ufrn.sigaa.arq.dao.monitoria.ComponenteCurricularMonitoriaDao;
 import br.ufrn.sigaa.arq.dao.monitoria.DiscenteMonitoriaDao;
 import br.ufrn.sigaa.arq.dao.monitoria.EquipeDocenteDao;
 import br.ufrn.sigaa.arq.dao.monitoria.ProjetoMonitoriaDao;
@@ -251,6 +252,7 @@ public class ProcessadorCadastroProjeto extends AbstractProcessador {
 	 */
 	private ProjetoEnsino distribuirDepartamentosComponentesCurriculares(ProjetoMonitoriaMov mov) throws NegocioException, ArqException, RemoteException {
 		ProjetoDao dao = getDAO(ProjetoDao.class, mov);
+		ComponenteCurricularMonitoriaDao compDao = getDAO(ComponenteCurricularMonitoriaDao.class, mov);
 		try {
 
 			/**
@@ -266,17 +268,22 @@ public class ProcessadorCadastroProjeto extends AbstractProcessador {
 					dao.findByExactField(AutorizacaoProjetoMonitoria.class, 
 							new String[] { "projetoEnsino.id", "ativo" }, new Object[] { pm.getId(), true });
 
+			
+			pm.setComponentesCurriculares((Set<ComponenteCurricularMonitoria>) 
+					compDao.carregarUnidadesComponentesCurricularesMonitoria(pm.getComponentesCurriculares()));
+						
+			
 			//Criando novas autorizações
 			for (ComponenteCurricularMonitoria comp : pm.getComponentesCurriculares()) {
-				comp.setDisciplina(dao.findByPrimaryKey(comp.getDisciplina().getId(), ComponenteCurricular.class));
-				if ( !autorizacoesNoBanco.contains( comp.getDisciplina().getUnidade() ) ){
-					AutorizacaoProjetoMonitoria auto = new AutorizacaoProjetoMonitoria();
-					/** @negocio:  Autorização solicitada a unidade do componente curricular do projeto.*/
-					auto.setUnidade(comp.getDisciplina().getUnidade());
-					auto.setProjetoEnsino(pm);
-					auto.setTipoAutorizacao(null);
-					auto.setAtivo(true);
+				/** @negocio:  Autorização solicitada a unidade do componente curricular do projeto.*/
+				AutorizacaoProjetoMonitoria auto = new AutorizacaoProjetoMonitoria();
+				auto.setUnidade(comp.getDisciplina().getUnidade());
+				auto.setProjetoEnsino(pm);
+				auto.setTipoAutorizacao(null);
+				auto.setAtivo(true);
+				if ( !autorizacoesNoBanco.contains(auto) ){
 					dao.create(auto);
+					autorizacoesNoBanco.add(auto);
 				}
 			}
 
@@ -285,6 +292,7 @@ public class ProcessadorCadastroProjeto extends AbstractProcessador {
 
 		}finally {
 			dao.close();
+			compDao.close();
 		}
 	}
 	

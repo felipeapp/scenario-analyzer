@@ -52,9 +52,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 
 import br.ufrn.arq.dao.dialect.SQLDialect;
+import br.ufrn.arq.dominio.ConstantesParametroGeral;
 import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.arq.dominio.RegistroEntrada;
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.seguranca.log.AtualizadoEm;
 import br.ufrn.arq.seguranca.log.AtualizadoPor;
 import br.ufrn.arq.seguranca.log.CriadoEm;
@@ -541,6 +543,11 @@ public class GenericDAOImpl implements GenericDAO {
 				throw new DAOException("Nao foi possivel abrir sessao: " + e.getMessage(), e);
 			}
 		}
+		
+		if (ParametroHelper.getInstance().getParametroBoolean(ConstantesParametroGeral.REGISTRAR_METODO_INVOCADOR_SESSAO)) {
+			SessionLogger.registerCaller(sistema, session);
+		}
+		
 		return session;
 	}
 

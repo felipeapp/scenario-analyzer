@@ -55,6 +55,17 @@
         <li>Processo Seletivo
 			<ul>
 				<li><h:commandLink action="#{processoSeletivo.listar}" value="Gerenciar Processos Seletivos"  onclick="setAba('administracao')" id="cadastrarProcSeletivo"/> </li>
+				<li> <h:commandLink action="#{interessadoProcessoSeletivo.iniciarLatoSensu}" value="Criar/Alterar Listagem de Interessados "  onclick="setAba('administracao')" id="criarAlterarListagemInteressados"/> </li>
 			</ul>
 		</li>
+		<ufrn:checkRole	papeis="<%= new int[] {SigaaPapeis.GESTOR_LATO} %>">
+			<li>Auto Avaliação
+			<ul>
+				<li> <h:commandLink action="#{questionarioBean.gerenciarQuestionarioAutoAvaliacaoLato}" value="Gerenciar Questionários de Auto Avaliação"  onclick="setAba('administracao')" id="questionarioBeam_gerenciarQuestionarioAutoAvaliacaoStricto"/> </li>
+				<li> <h:commandLink action="#{calendarioAplicacaoAutoAvaliacaoMBean.preCadastrar}" value="Cadastrar Calendário de Aplicação da Auto Avaliação"  onclick="setAba('administracao')" id="calendarioAplicacaoAutoAvaliacaoMBean_preCadastrar"/> </li>
+				<li> <h:commandLink action="#{calendarioAplicacaoAutoAvaliacaoMBean.listar}" value="Gerenciar Calendários de Aplicação da Auto Avaliação"  onclick="setAba('administracao')" id="calendarioAplicacaoAutoAvaliacaoMBean_listar"/> </li>
+			</ul>
+			</li>
+		</ufrn:checkRole>
+	</ul>
 	</ul>

@@ -10,12 +10,15 @@ package br.ufrn.sigaa.arq.dao.pesquisa;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.util.UFRNUtils;
@@ -82,11 +85,13 @@ public class AvaliacaoResumoDao extends AbstractRelatorioSqlDao {
 	@SuppressWarnings("unchecked")
 	public Collection<AvaliadorCIC> findAvaliadoresApresentacaoResumoByCentro(int idCongresso, int idCentro) throws DAOException {
 		
-		String hql = "from AvaliadorCIC where avaliadorApresentacao = trueValue() " +
-				" and (docente.unidade.gestora.id = "+ idCentro +" or docente.unidade.id = "+ idCentro +")"+
-				" and congresso.id = "+ idCongresso +
-				" order by docente.pessoa.nome";
-		return getSession().createQuery(hql).list();
+		String hql = "from AvaliadorCIC a left join a.docente d1 left join d1.pessoa p1 left join d1.unidade u1 left join u1.gestora g1" +
+				" left join a.discente d2 left join d2.pessoa p2 left join d2.curso c2 left join c2.unidade u2" +
+				" where avaliadorApresentacao = trueValue()" +
+				" and (g1.id = :idCentro or u1.id = :idCentro or u2.id = :idCentro)" +
+				" and congresso.id = :idCongresso" +
+				" order by p1.nome, p2.nome";
+		return getSession().createQuery(hql).setInteger("idCentro", idCentro).setInteger("idCongresso", idCongresso).list();
 	}
 	
 	/**
@@ -277,6 +282,15 @@ public class AvaliacaoResumoDao extends AbstractRelatorioSqlDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public Collection<AvaliadorCIC> findAvaliadorResumoByDiscente(int idCongresso, int idDiscente) throws DAOException {
+		String hql = "select distinct(a.avaliador) from AvaliacaoResumo a " +
+				" where a.avaliador.discente.id = "+ idDiscente +
+				" and a.avaliador.congresso.id = "+ idCongresso+
+				" and a.resumo.ativo = trueValue()";
+		return  getSession().createQuery(hql).list();
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Collection<AvaliadorCIC> findAvaliadorApresentacaoResumoByServidor(int idCongresso, int idServidor) throws DAOException {
 		String hql = "select distinct(a.avaliador) from AvaliacaoApresentacaoResumo a " +
 				" where a.avaliador.docente.id = "+ idServidor +
@@ -412,4 +426,39 @@ public class AvaliacaoResumoDao extends AbstractRelatorioSqlDao {
 		return  getSession().createQuery(hql.toString()).list();
 		
 	}
+	
+
+	public Collection<AvaliacaoResumo> findByAllResumoCongresso() throws DAOException {
+		String sql =  " SELECT ar.id_avaliacao_resumo, rc.id_resumo_congresso, rc.codigo, rc.titulo, rc.data_envio, rc.status" +
+					  " FROM pesquisa.avaliacao_resumo ar" +
+					  " JOIN pesquisa.resumo_congresso rc on (rc.id_resumo_congresso = ar.id_resumo)" +
+					  " JOIN pesquisa.autor_resumo_congresso arc using (id_resumo_congresso)" +
+					  " WHERE arc.tipo_participacao = " + AutorResumoCongresso.AUTOR +
+					  " and rc.ativo=trueValue()" +
+					  " and rc.status in " + UFRNUtils.gerarStringIn(
+						  new int[] {ResumoCongresso.SUBMETIDO, ResumoCongresso.CORRIGIDO, 
+								  ResumoCongresso.AGUARDANDO_AUTORIZACAO, ResumoCongresso.CORRIGIDO_AGUARDANDO_APROVACAO}) +
+					  "order by rc.status";
+		
+		Query c = getSession().createSQLQuery(sql);
+		@SuppressWarnings("unchecked")
+		List<Object[]> lista = c.list();
+		Collection<AvaliacaoResumo> resultado = new ArrayList<AvaliacaoResumo>();
+		for (Iterator<Object[]> iterator = lista.iterator(); iterator.hasNext();) {
+			int count  = 0;
+			Object[] objects = iterator.next();
+			AvaliacaoResumo avaliacao = new AvaliacaoResumo();
+			avaliacao.setId( (Integer) objects[count++]);
+			avaliacao.setResumo(new ResumoCongresso());
+			avaliacao.getResumo().setId((Integer) objects[count++]);
+			avaliacao.getResumo().setCodigo((String) objects[count++]);
+			avaliacao.getResumo().setTitulo((String) objects[count++]);
+			avaliacao.getResumo().setDataEnvio((Date) objects[count++]);
+			avaliacao.getResumo().setStatus((Integer) objects[count++]);
+			resultado.add(avaliacao);
+		}
+		
+		return resultado; 
+	}
+	
 }

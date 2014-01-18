@@ -88,6 +88,9 @@ public class ConvocacaoProcessoSeletivoDiscenteTecnico implements PersistDB, Val
 	/** Ano de ingresso para o qual o discente foi convocado. */
 	private int ano;
 	
+	/** Período de ingresso para o qual o discente foi convocado. */
+	private int periodo;
+	
 	/** Registro de Entrada do usuário que cadastrou a convocação. */
 	@CriadoPor
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -225,4 +228,14 @@ public class ConvocacaoProcessoSeletivoDiscenteTecnico implements PersistDB, Val
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
 	}
+
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+	
+	
 }

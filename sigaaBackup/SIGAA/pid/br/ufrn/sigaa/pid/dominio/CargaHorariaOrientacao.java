@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -71,6 +72,12 @@ public class CargaHorariaOrientacao implements PersistDB, Validatable {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_plano_individual_docente")
 	private PlanoIndividualDocente planoIndividualDocente;
+	
+	/**
+	 * Indica a carga horária diluída entre as semanas no semestre
+	 */
+	@Transient
+	private Double chDedicadaSemanal;
 	
 	public CargaHorariaOrientacao() {
 		super();
@@ -161,12 +168,18 @@ public class CargaHorariaOrientacao implements PersistDB, Validatable {
 		return chDedicada;
 	}
 	
-	public double getChDedicadaSemanal() {
-		return new Double( Math.round((double) chDedicada / 45 * 100d) / 100d); 
+	public Double getChDedicadaSemanal() {
+		return chDedicadaSemanal; 
 	}
 
+	public void calcularChSemanal(Short horasCreditosEstagio){
+		if (horasCreditosEstagio == null || horasCreditosEstagio == 0)
+			horasCreditosEstagio = 45;
+		chDedicadaSemanal = Math.round((double) chDedicada / horasCreditosEstagio * 100d) / 100d;
+	}
+	
 	public void setChDedicada(int chDedicada) {
 		this.chDedicada = chDedicada;
 	}
-	
+		
 }

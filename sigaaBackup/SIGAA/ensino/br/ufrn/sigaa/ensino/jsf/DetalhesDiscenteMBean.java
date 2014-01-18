@@ -131,7 +131,7 @@ public class DetalhesDiscenteMBean extends SigaaAbstractController<DiscenteAdapt
 			
 			Integer idPessoa = null;	
 			try {
-				idPessoa = getSipacTemplate().queryForInt("select id_pessoa from comum.pessoa where cpf_cnpj=?", new Object[] { obj.getPessoa().getCpf_cnpj() });
+//				idPessoa = getSipacTemplate().queryForInt("select id_pessoa from comum.pessoa where cpf_cnpj=?", new Object[] { obj.getPessoa().getCpf_cnpj() });
 				if (idPessoa != null ) 
 					alunoDto = service.findAllDiscenteBolsistasPorPeriodoUnidadeMatricula( dataInicial, dataFinal, 0, idPessoa, null );
 			}catch (EmptyResultDataAccessException e) { 

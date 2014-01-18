@@ -108,6 +108,7 @@ public class MatriculaGraduacaoValidator {
 			dao.close();
 		}
 	}
+
 	/**
 	 * Apenas alerta sobre a capacidade da turma, incluindo as desistências
 	 * realizadas que podem ser desfeitas.
@@ -462,7 +463,7 @@ public class MatriculaGraduacaoValidator {
 			ArqException {
 		Collection<Turma> horariosChocados = HorarioTurmaUtil.verificarChoqueHorarioDiscentes(turma, turmasDesseSemestre);
 		if (!horariosChocados.isEmpty()) {
-			StringBuffer msg = new StringBuffer("Ocorreram choque de horários com as turmas: ");
+			StringBuffer msg = new StringBuffer("Ocorreu choque de horários com as turmas: ");
 			for (Turma t : horariosChocados) {
 				msg.append("<br>" + turma.getDisciplina().getCodigo() + " - Turma "+turma.getCodigo()+" ("+turma.getDescricaoHorario()+") e "
 								+ t.getDisciplina().getCodigo() + " - Turma "+t.getCodigo() +

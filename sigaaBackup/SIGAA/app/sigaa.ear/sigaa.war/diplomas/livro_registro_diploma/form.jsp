@@ -86,25 +86,22 @@
 					<h:inputText value="#{livroRegistroDiplomas.obj.numeroSugeridoFolhas}" id="paginas" size="5" maxlength="4" onkeyup="return formatarInteiro(this);" converter="#{ intConverter }" disabled="#{not livroRegistroDiplomas.obj.vazio}"/>
 				</td>
 			</tr>
-			<c:if test="${livroRegistroDiplomas.obj.graduacao || livroRegistroDiplomas.obj.latoSensu}">
-				<tr>
-					<th class="rotulo">Número de Registros por Folha:</th>
-					<td>
-						<h:outputText value="#{livroRegistroDiplomas.obj.numeroRegistroPorFolha}" id="numeroRegistros" />
-					</td>
-				</tr>
-			</c:if>
-			<c:if test="${livroRegistroDiplomas.obj.strictoSensu}">
-				<tr>
-					<th class="required">Número de Registros por Folha:</th>
-					<td>
-						<h:selectOneMenu value="#{livroRegistroDiplomas.obj.numeroRegistroPorFolha}" id="numeroRegistrosStricto">
-							<f:selectItem itemLabel="3" itemValue="3"/>
-							<f:selectItem itemLabel="4" itemValue="4"/>
-						</h:selectOneMenu>
-					</td>
-				</tr>
-			</c:if>
+			<tr>
+				<th class="${!livroRegistroDiplomas.obj.livroAntigo && (livroRegistroDiplomas.obj.graduacao || livroRegistroDiplomas.obj.latoSensu) ? 'rotulo' : 'required' }">
+					Número de Registros por Folha:
+				</th>
+				<td>
+					<h:outputText value="#{livroRegistroDiplomas.obj.numeroRegistroPorFolha}" id="numeroRegistros" 
+						rendered="#{!livroRegistroDiplomas.obj.livroAntigo && (livroRegistroDiplomas.obj.graduacao || livroRegistroDiplomas.obj.latoSensu)}"/>
+					<h:selectOneMenu value="#{livroRegistroDiplomas.obj.numeroRegistroPorFolha}" id="numeroRegistrosStricto"
+						rendered="#{!livroRegistroDiplomas.obj.livroAntigo && livroRegistroDiplomas.obj.strictoSensu}">
+						<f:selectItem itemLabel="3" itemValue="3"/>
+						<f:selectItem itemLabel="4" itemValue="4"/>
+					</h:selectOneMenu>
+					<h:inputText value="#{livroRegistroDiplomas.obj.numeroRegistroPorFolha}" id="numeroRegistrosAntigo" 
+						rendered="#{livroRegistroDiplomas.obj.livroAntigo}" maxlength="2" size="2" converter="#{ intConverter }" onkeyup="return formatarInteiro(this);"/>
+				</td>
+			</tr>
 			<c:if test="${livroRegistroDiplomas.obj.graduacao}">
 				<c:if test="${not livroRegistroDiplomas.obj.registroExterno}">
 					<tr>

@@ -59,8 +59,14 @@ public class ProgramaComponenteCurricularMBean extends SigaaAbstractController<C
 	/** Caminho para o relatório com as informações do programa do componente cuja modalidade de ensino é a distância */
 	public static final String JSP_PROGRAMA_RELATORIO_EAD = "/graduacao/componente_programa/programa_relatorio_ead.jsp";
 
+	/** Caminho para o relatório com as informações do programa do componente cuja modalidade de ensino é a distância */
+	public static final String JSP_PROGRAMA_HISTORICO = "/graduacao/componente_programa/programa_historico.jsp";
+	
 	/** Lista de componentes encontrados na busca. */
 	private List<ComponenteCurricular> componentesEncontrados;
+	
+	/** Lista de componentes encontrados na busca. */
+	private List<ComponenteCurricularPrograma> programasEncontrados;
 
 	/** Indica se o usuário pode buscar por unidade. */
 	public boolean isPermiteBuscarUnidade() {
@@ -76,7 +82,7 @@ public class ProgramaComponenteCurricularMBean extends SigaaAbstractController<C
 	private void initObj() {
 		obj = new ComponenteCurricularPrograma();
 		obj.setComponenteCurricular(new ComponenteCurricular());
-		componentesEncontrados = new ArrayList<ComponenteCurricular>();
+		
 	}
 
 	/** Retorna uma coleção de semestres.
@@ -174,6 +180,57 @@ public class ProgramaComponenteCurricularMBean extends SigaaAbstractController<C
 			return forward(JSP_PROGRAMA_RELATORIO_EAD);
 		} 
 	}
+	
+	/**
+	 * Realizar a busca dos dados do programa do componente curricular, 
+	 * tratando os casos de EAD (Ensino a distância) ou ensino presencial.
+	 * <br />
+	 * Chamado por:
+	 * <ul>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/ava/menu.jsp
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/geral/componente_curricular/busca_geral.jsp</li>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/graduacao/componente/lista.jsp</li>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/graduacao/componente/view_painel.jsp</li>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/public/componentes/busca_componentes.jsp</li>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/public/curso/relatorio_curriculo.jsp</li>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/public/curso/resumo_curriculo.jsp</li>
+	 * </ul>
+	 * 
+	 * @return
+	 * @throws DAOException
+	 */
+	public String gerarRelatorioProgramaHistorico() throws DAOException {
+		obj = new ComponenteCurricularPrograma();
+		ComponenteCurricularProgramaDao dao = getDAO(ComponenteCurricularProgramaDao.class);
+		
+		// Se não for enviado por request, utiliza o identificador enviado por parâmetro.
+		Integer auxIdComponente = getParameterInt("idComponente");
+		Integer auxIdPrograma = getParameterInt("idPrograma");
+		if (auxIdComponente == null)
+			auxIdComponente = idComponente;
+		
+		ComponenteCurricular cc = dao.findAtualByComponenteItemPrograma(auxIdComponente); 
+		ComponenteCurricularPrograma ccp = dao.findByPrimaryKey(auxIdPrograma, ComponenteCurricularPrograma.class);
+		cc.setPrograma(ccp);
+		obj.setComponenteCurricular(cc);
+		
+		// No caso de ensino a distância o componente tem os dados do programa cadastrados diretamente nele
+		if ( isEmpty(cc.getItemPrograma()) ) {
+			obj = ccp;
+			
+			if (obj == null) {
+				addMensagemErro("O componente curricular " + cc.getCodigoNome() + " não possui um programa cadastrado.");
+				return null;
+			}
+			
+			if (verificarPreechimento())
+				return null;	
+			
+			return forward(JSP_PROGRAMA_RELATORIO_PRESENCIAL);
+		} else {
+			return forward(JSP_PROGRAMA_RELATORIO_EAD);
+		} 
+	}
 
 	/** Verifica o preenchimento dos dados.
 	 * @return
@@ -205,6 +262,9 @@ public class ProgramaComponenteCurricularMBean extends SigaaAbstractController<C
 	public String iniciar() throws SegurancaException{
 		checkRole(SigaaPapeis.CHEFE_DEPARTAMENTO, SigaaPapeis.SECRETARIA_DEPARTAMENTO, SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO, SigaaPapeis.COORDENADOR_LATO, SigaaPapeis.SECRETARIA_LATO);
 		initObj();
+		componentesEncontrados = new ArrayList<ComponenteCurricular>();
+		programasEncontrados = new ArrayList<ComponenteCurricularPrograma>();
+
 		return telaBuscaComponentes();
 	}
 
@@ -280,6 +340,29 @@ public class ProgramaComponenteCurricularMBean extends SigaaAbstractController<C
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/** Gera histórico dos programas encontrados.
+	 * <br />
+     * Chamado por:
+     * <ul>
+     * <li>/SIGAA/app/sigaa.ear/sigaa.war/graduacao/componente_programa/busca_componente.jsp</li>
+     * </ul>
+	 * @return
+	 * @throws ArqException
+	 */
+	public String historicoPrograma() throws ArqException {
+		
+		initObj();
+		ComponenteCurricularProgramaDao dao = getDAO(ComponenteCurricularProgramaDao.class);
+
+		obj.setComponenteCurricular(getGenericDAO().findByPrimaryKey(getParameterInt("id"),	ComponenteCurricular.class));
+		
+		if( obj.getComponenteCurricular() != null && obj.getComponenteCurricular().getId() > 0 ){
+			programasEncontrados = (List<ComponenteCurricularPrograma>) dao.findByComponente(obj.getComponenteCurricular());
+		}
+		
+		return forward(JSP_PROGRAMA_HISTORICO);
 	}
 
 	/** Seleciona um componente para tratar.
@@ -452,6 +535,15 @@ public class ProgramaComponenteCurricularMBean extends SigaaAbstractController<C
 	 */
 	public List<ComponenteCurricular> getComponentesEncontrados() {
 		return componentesEncontrados;
+	}
+
+	public List<ComponenteCurricularPrograma> getProgramasEncontrados() {
+		return programasEncontrados;
+	}
+
+	public void setProgramasEncontrados(
+			List<ComponenteCurricularPrograma> programasEncontrados) {
+		this.programasEncontrados = programasEncontrados;
 	}
 
 	/** Seta a lista de componentes encontrados na busca.

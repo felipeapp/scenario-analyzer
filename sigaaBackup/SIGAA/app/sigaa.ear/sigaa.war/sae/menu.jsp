@@ -102,6 +102,15 @@
 				</ufrn:checkRole>
 
 				<ufrn:checkRole papeis="<%= new int[] { SigaaPapeis.SAE_COORDENADOR }  %>">
+					<li> Critérios Renovação Bolsa
+						<ul>
+							<li> <h:commandLink value="Cadastrar" action="#{criterioSolicitacaoRenovacaoMBean.preCadastrar}"></h:commandLink> </li>
+							<li> <h:commandLink value="Listar/Remover" action="#{criterioSolicitacaoRenovacaoMBean.listar}"></h:commandLink> </li>
+						</ul>
+					</li>
+				</ufrn:checkRole>
+
+				<ufrn:checkRole papeis="<%= new int[] { SigaaPapeis.SAE_COORDENADOR }  %>">
 					<li> Dados Acadêmicos
 						<ul>
 							<li> <h:commandLink value="Consolidar Índices Acadêmicos dos Curso" action="#{dadosIndiceAcaMBean.iniciarImportacao}"></h:commandLink> </li>
@@ -136,6 +145,7 @@
 						<li> <h:commandLink value="Relatório de Bolsistas Contemplados" action="#{relatoriosSaeMBean.iniciarRelatorioContempladosDeferidos}"></h:commandLink> </li>
 						<li> <h:commandLink value="Relatório de Movimentação de Discentes" action="#{relatoriosSaeMBean.iniciarRelatorioMovimentacaoDiscente}"></h:commandLink> </li>
 						<li> <h:commandLink value="Relatório de Discentes de Graduação e Pós-Graduação" action="#{relatoriosSaeMBean.gerarRelatorioDiscentesVinculadosGraducaoPos}"></h:commandLink> </li>
+						<li> <h:commandLink value="Relatório de Discentes Pagamentos no RU" action="#{relatoriosSaeMBean.discentesPagamentesRU}"></h:commandLink> </li>
 						
 						<!--
 							RELATORIOS SOLICITADOS POR GLEYDSON PARA SEREM REMOVIDOS (#36732)

@@ -2106,7 +2106,7 @@ public class ProjetoMonitoriaMBean extends SigaaAbstractController<ProjetoEnsino
 			}
 			//evitar erro de lazy na atualização do projeto
 			for (ComponenteCurricularMonitoria comp : obj.getComponentesCurriculares()) {
-				comp.getDocentesComponentes().iterator();
+				comp.getDocentesComponentesValidos().iterator();
 			}
 			//evitar erro de lazy na atualização do projeto
 			if(obj.getProjeto().getCoordenador() == null)

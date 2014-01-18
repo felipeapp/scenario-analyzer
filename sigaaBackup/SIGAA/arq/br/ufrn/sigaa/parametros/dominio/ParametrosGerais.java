@@ -161,4 +161,9 @@ public interface ParametrosGerais {
 	/** Identificador no banco do registro referente à unidade federativa do DISTRITO FEDERAL. */
 	public static final String ID_UF_DISTRITO_FEDERAL = "2_10100_42";
 	
+	/** Classe que trata da inserção de documentos digitalizados do discente no sistema. */ 
+	public static final String GERENCIADOR_ELETRONICO_DOCUMENTACAO_DISCENTE = "2_10100_56";
+
+	/** Identificadores no banco dos cargos de docentes que possuem acesso ao preenchimento do PID. */
+	public static final String IDS_CARGOS_ACESSO_PID = "2_10100_59";
 }

@@ -128,7 +128,7 @@ public class AvaliacaoAtividade implements Validatable {
     /**Status da avaliação*/ 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_status_avaliacao")
-    private StatusAvaliacao statusAvaliacao = new StatusAvaliacao();
+	private StatusAvaliacao statusAvaliacao = new StatusAvaliacao();
 
     /** usuário que fez a avaliação*/
     @ManyToOne(fetch = FetchType.LAZY)
@@ -154,6 +154,10 @@ public class AvaliacaoAtividade implements Validatable {
     @Column(name="ativo")
     private boolean ativo = true;
 
+    /** avaliação atividade ativa*/
+    @Column(name="atende_criterios")
+    private boolean atendeCriterios = true;
+    
     public int getId() {
     	return id;
     }
@@ -446,4 +450,12 @@ public class AvaliacaoAtividade implements Validatable {
     	return tipoAvaliacao.getId() == TipoAvaliacao.AVALIACAO_ACAO_PRESIDENTE_COMITE;    	
     }
 
+	public boolean isAtendeCriterios() {
+		return atendeCriterios;
+	}
+
+	public void setAtendeCriterios(boolean atendeCriterios) {
+		this.atendeCriterios = atendeCriterios;
+	}
+    
 }

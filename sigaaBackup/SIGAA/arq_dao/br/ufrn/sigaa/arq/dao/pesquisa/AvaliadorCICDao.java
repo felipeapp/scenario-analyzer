@@ -8,11 +8,13 @@
  */
 package br.ufrn.sigaa.arq.dao.pesquisa;
 
+import java.text.Normalizer;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.pesquisa.dominio.AvaliadorCIC;
 import br.ufrn.sigaa.pesquisa.dominio.CongressoIniciacaoCientifica;
@@ -37,9 +39,21 @@ public class AvaliadorCICDao extends GenericSigaaDAO{
 	}
 	
 	public List<AvaliadorCIC> findByNome(String nome, CongressoIniciacaoCientifica congresso) throws DAOException {
-		return getSession()
+		String nomeBusca = Normalizer.normalize(nome.trim(), Normalizer.Form.NFD);
+		nomeBusca = nomeBusca.replaceAll("[^\\p{ASCII}]", "");
+		
+		@SuppressWarnings("unchecked")
+		List<AvaliadorCIC> list = getSession()
 				.createQuery(
-						"from AvaliadorCIC a where congresso.id = :congresso and a.docente.pessoa.nome like '%" + nome + "%'")
+						"from AvaliadorCIC a left join a.docente d1 left join d.pessoa p1 " +
+						"left join a.discente d2 left join d2.pessoa p2 " +
+						"where congresso.id = :congresso " +
+						"and (" + UFRNUtils.convertUtf8UpperLatin9("p1.nomeAscii") + " like "
+								+ UFRNUtils.toAsciiUpperUTF8("'" + nomeBusca + "%'") 
+								+ " or "+ UFRNUtils.convertUtf8UpperLatin9("p2.nomeAscii") + " like "
+								+ UFRNUtils.toAsciiUpperUTF8("'" + nomeBusca + "%'") +")")
 				.setInteger("congresso", congresso.getId()).list();
+		
+		return list;
 	}
 }

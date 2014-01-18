@@ -1,6 +1,7 @@
 package br.ufrn.sigaa.monitoria.negocio;
 
 import java.rmi.RemoteException;
+import java.util.Collection;
 
 import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dominio.Movimento;
@@ -36,74 +37,73 @@ public class ProcessadorEquipeDocente extends AbstractProcessador {
 		try {
 		    if( mov.getCodMovimento().equals(SigaaListaComando.CADASTRAR_EQUIPEDOCENTE)){ 
 			
-			EquipeDocente doc = (EquipeDocente) mov.getObjMovimentado();
-			doc.setAtivo(true);
-			doc.setExcluido(false);
-			//criando novos e atualizando componentes curriculares
-			for (ComponenteCurricularMonitoria comp : doc.getProjetoEnsino().getComponentesCurriculares()) {
-				dao.update(comp);
-				for (EquipeDocenteComponente edc : comp.getDocentesComponentes()) {
-					if (edc.getId() != 0) {
-						dao.update(edc);
-					} else {						
-						if ( edc.getEquipeDocente().getId() == 0 ) {
-							dao.create(edc.getEquipeDocente());
-						}
-						dao.create(edc); 
-						
-						//criando orientações do novo docente
-						for (Orientacao ori : edc.getEquipeDocente().getOrientacoes()){
-							if (ori.getId() == 0) {
-								dao.create(ori);
+				EquipeDocente doc = (EquipeDocente) mov.getObjMovimentado();
+				doc.setAtivo(true);
+				doc.setExcluido(false);
+				//criando novos e atualizando componentes curriculares
+				for (ComponenteCurricularMonitoria comp : doc.getProjetoEnsino().getComponentesCurriculares()) {
+					dao.update(comp);
+					for (EquipeDocenteComponente edc : comp.getDocentesComponentes()) {
+						if (edc.getId() != 0) {
+							dao.update(edc);
+						} else {						
+							if ( edc.getEquipeDocente().getId() == 0 ) {
+								dao.create(edc.getEquipeDocente());
 							}
-						}						
+							dao.create(edc); 
+							
+							//criando orientações do novo docente
+							for (Orientacao ori : edc.getEquipeDocente().getOrientacoes()){
+								if (ori.getId() == 0) {
+									dao.create(ori);
+								}
+							}						
+						}
 					}
 				}
-			}
-			if(doc.getId() > 0)
-				dao.update(doc);
-			
-			return (doc);
+				if(doc.getId() > 0)
+					dao.update(doc);
+				
+				return (doc);
 
 			
 		    } else if( mov.getCodMovimento().equals(SigaaListaComando.ALTERAR_EQUIPEDOCENTE)){			
-			EquipeDocente eqDocente = (EquipeDocente) mov.getObjMovimentado();			
-			dao.update(eqDocente);
-			return (eqDocente);
+				EquipeDocente eqDocente = (EquipeDocente) mov.getObjMovimentado();			
+				dao.update(eqDocente);
+				return (eqDocente);
 			
 		    } else if( mov.getCodMovimento().equals(SigaaListaComando.FINALIZAR_EQUIPEDOCENTE)){
-			//finalizando o docente do projeto
-			EquipeDocente eqDocente = (EquipeDocente) mov.getObjMovimentado();
-			eqDocente.setAtivo(true);			
-			dao.update(eqDocente);
-			return (eqDocente);
+				//finalizando o docente do projeto
+				EquipeDocente eqDocente = (EquipeDocente) mov.getObjMovimentado();
+				eqDocente.setAtivo(true);			
+				dao.update(eqDocente);
+				return (eqDocente);
 			
 		    } else if( mov.getCodMovimento().equals(SigaaListaComando.EXCLUIR_EQUIPEDOCENTE)){
-			//estabelecendo situação excluído... geralmente por erro de migração			
-			EquipeDocente eqDocente = (EquipeDocente) mov.getObjMovimentado();			
-			eqDocente.setAtivo(false);
-			eqDocente.setExcluido(true);
-			eqDocente.setRegistroEntradaExclusao(mov.getUsuarioLogado().getRegistroEntrada());
-			dao.updateField(EquipeDocente.class, eqDocente.getId(), "ativo", false);
-			dao.updateField(EquipeDocente.class, eqDocente.getId(), "excluido", true);
+				//estabelecendo situação excluído... geralmente por erro de migração			
+				EquipeDocente eqDocente = (EquipeDocente) mov.getObjMovimentado();			
+				eqDocente.setAtivo(false);
+				eqDocente.setExcluido(true);
+				eqDocente.setRegistroEntradaExclusao(mov.getUsuarioLogado().getRegistroEntrada());
+				dao.updateField(EquipeDocente.class, eqDocente.getId(), "ativo", false);
+				dao.updateField(EquipeDocente.class, eqDocente.getId(), "excluido", true);
+				Collection<EquipeDocenteComponente> listaDocenteComponente = dao.findByExactField(EquipeDocenteComponente.class, "equipeDocente.id", eqDocente.getId());
 			
-			
-			//inativando componentes vinculados ao docente.
-			if(dao.findByExactField(EquipeDocenteComponente.class, "equipeDocente.id", eqDocente.getId()) != null) {
-				
-				for (EquipeDocenteComponente com : dao.findByExactField(EquipeDocenteComponente.class, "equipeDocente.id", eqDocente.getId())) {
+				//inativando componentes vinculados ao docente.
+				if( listaDocenteComponente != null) {
 					
-					dao.updateField(EquipeDocenteComponente.class, com.getId(), "ativo", false);
+					for (EquipeDocenteComponente com : listaDocenteComponente) {
+						dao.updateField(EquipeDocenteComponente.class, com.getId(), "ativo", false);
+					}
 				}
-			}
-			
-			if(eqDocente.getOrientacoesValidas() != null){
-				for (Orientacao ori : eqDocente.getOrientacoesValidas()) {
-					dao.updateField(Orientacao.class, ori.getId(), "ativo", false);
+				
+				if(eqDocente.getOrientacoesValidas() != null){
+					for (Orientacao ori : eqDocente.getOrientacoesValidas()) {
+						dao.updateField(Orientacao.class, ori.getId(), "ativo", false);
+					}
 				}
-			}
-			
-			return (eqDocente);
+				
+				return (eqDocente);
 		    }
 		
 		    return null;

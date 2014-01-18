@@ -22,10 +22,13 @@ import org.hibernate.Query;
 
 import br.ufrn.arq.dao.Database;
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
+import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.ensino.dominio.ComponenteCurricular;
 import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
 import br.ufrn.sigaa.ensino.dominio.SituacaoMatricula;
+import br.ufrn.sigaa.monitoria.dominio.ComponenteCurricularMonitoria;
 import br.ufrn.sigaa.monitoria.dominio.ProvaSelecao;
 
 /**
@@ -194,4 +197,35 @@ public class ComponenteCurricularMonitoriaDao extends GenericSigaaDAO {
 		}
 	}
 	
+	/***
+	 * Carrega as unidades dos componentes cadastrados para realizar a distribuição do projeto de monitoria.
+	 * 
+	 * @param discente
+	 * @return
+	 * @throws DAOException
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<ComponenteCurricularMonitoria> carregarUnidadesComponentesCurricularesMonitoria(Collection<ComponenteCurricularMonitoria> componentes) 
+				throws DAOException {
+			
+			String hql = "select ccm.id_componente_curricular_monitoria, cc.id_unidade" +
+					" from monitoria.componente_curricular_monitoria ccm" +
+					" join ensino.componente_curricular cc on ( ccm.id_disciplina = cc.id_disciplina )" +
+					" where ccm.id_componente_curricular_monitoria in " + UFRNUtils.gerarStringIn(componentes); 
+			
+			Query q = getSession().createSQLQuery(hql);
+			Collection<Object[]> res = q.list();
+			if (res != null) {
+				for (Object[] reg : res) {
+					for (ComponenteCurricularMonitoria comp : componentes) {
+						if ( comp.getId() == (Integer) reg[0] ) {
+							Unidade u = new Unidade((Integer) reg[1] );
+							comp.getDisciplina().setUnidade(u);
+						}
+					}
+				}
+			}
+			return componentes;
+	}
+
 }

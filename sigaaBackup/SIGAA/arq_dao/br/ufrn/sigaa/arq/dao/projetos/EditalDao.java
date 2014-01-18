@@ -27,6 +27,7 @@ import org.hibernate.criterion.Restrictions;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.extensao.dominio.EditalExtensao;
+import br.ufrn.sigaa.extensao.dominio.EditalExtensaoLinhaAtuacao;
 import br.ufrn.sigaa.monitoria.dominio.EditalMonitoria;
 import br.ufrn.sigaa.pesquisa.dominio.CotaBolsas;
 import br.ufrn.sigaa.pesquisa.dominio.EditalPesquisa;
@@ -108,6 +109,20 @@ public class EditalDao extends GenericSigaaDAO {
 	public Collection<EditalMonitoria> findAllAtivosMonitoria() throws DAOException {
 		Criteria c = getSession().createCriteria(EditalMonitoria.class);
 		c.createCriteria("edital").add(Restrictions.eq("ativo", Boolean.TRUE));
+		return c.list();
+	}
+	
+	/**
+	 * Retorna as linhas de atuação de um edital de extensão.
+	 * 
+	 * @return
+	 * @throws DAOException
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<EditalExtensaoLinhaAtuacao> findLinhasAtuacaoByEditalExtensao(int idEdital) throws DAOException {
+		Criteria c = getSession().createCriteria(EditalExtensaoLinhaAtuacao.class);
+		c.add(Restrictions.eq("ativo", Boolean.TRUE));
+		c.add(Restrictions.eq("editalExtensao.id", idEdital));
 		return c.list();
 	}
 	

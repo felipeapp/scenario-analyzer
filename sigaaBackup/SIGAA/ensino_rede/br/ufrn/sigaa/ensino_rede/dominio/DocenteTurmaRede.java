@@ -2,6 +2,7 @@ package br.ufrn.sigaa.ensino_rede.dominio;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,11 +25,11 @@ public class DocenteTurmaRede implements PersistDB {
 	@Column(name = "id_docente_turma_rede", nullable = false)
 	private int id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_docente_rede")
 	private DocenteRede docente;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_turma_rede")
 	private TurmaRede turma;
 

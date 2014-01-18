@@ -1,7 +1,7 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho_impressao.jsp"%>
 
 <f:view>
-	<h2><ufrn:subSistema /> > Relatório Quantitativo de Monitores Por Projetos</h2>
+<!-- 	<h2><ufrn:subSistema /> > Relatório Quantitativo de Monitores Por Projetos</h2> -->
 
 
 
@@ -74,8 +74,8 @@
 		</td>
 	</tr>
 		<tr>
-			<td>TOTAL DE MONITORES ATIVOS</td>
-	    	<td>${comissaoMonitoria.total}</td>
+			<td><b>TOTAL DE MONITORES ATIVOS</b></td>
+	    	<td width="10%"><b>${comissaoMonitoria.total}</b></td>
 	    </tr>
 	</tbody>
 	

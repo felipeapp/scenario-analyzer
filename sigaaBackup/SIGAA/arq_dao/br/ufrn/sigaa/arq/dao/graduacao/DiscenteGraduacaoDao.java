@@ -1113,5 +1113,18 @@ public class DiscenteGraduacaoDao extends GenericSigaaDAO {
 			}
 		});
 	}
+
+	/** Retorna uma coleção de discentes por matrícula.
+	 * @param matriculas
+	 * @return
+	 * @throws DAOException 
+	 */
+	public Collection<DiscenteGraduacao> findByMatriculas(Collection<Long> matriculas) throws DAOException {
+		Criteria c = getSession().createCriteria(DiscenteGraduacao.class);
+		c.createCriteria("discente").add(Restrictions.in("matricula", matriculas));
+		@SuppressWarnings("unchecked")
+		Collection<DiscenteGraduacao> lista = c.list();
+		return lista;
+	}
 	
 }

@@ -98,6 +98,7 @@
 			<caption> Resultado da busca (${fn:length(consultaPidMBean.resultadosBusca)}) </caption>
 			<thead>
 				<tr>
+					<th width="12%" style="text-align:center;"> Ano-Período </th>
 					<th> Docente </th>
 					<th> Regime Trabalho </th>
 					<th> Unidade </th>
@@ -108,6 +109,7 @@
 			<tbody>
 				<c:forEach items="#{consultaPidMBean.resultadosBusca}" var="_pid" varStatus="status">
 				<tr class="${ status.index % 2 == 0 ? 'linhaPar' : 'linhaImpar' }">
+					<td style="text-align:center;"> ${_pid.ano}.${_pid.periodo } </td>
 					<td> ${_pid.servidor.nome} </td>
 					<td> ${_pid.servidor.descricaoRegimeTrabalho} </td>
 					<td> ${_pid.servidor.unidade.sigla} </td>

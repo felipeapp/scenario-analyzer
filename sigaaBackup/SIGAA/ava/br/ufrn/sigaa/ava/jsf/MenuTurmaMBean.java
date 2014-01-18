@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
-import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.sigaa.ava.dominio.AcaoAva;
 import br.ufrn.sigaa.ava.dominio.EntidadeRegistroAva;
@@ -27,6 +26,7 @@ import br.ufrn.sigaa.ensino.jsf.DiarioClasseMBean;
 import br.ufrn.sigaa.ensino.jsf.RelatorioConsolidacaoMBean;
 import br.ufrn.sigaa.ensino.medio.jsf.ConsolidarDisciplinaMBean;
 import br.ufrn.sigaa.ensino.medio.jsf.DiarioClasseMedioMBean;
+import br.ufrn.sigaa.ensino.metropoledigital.jsf.RelatoriosDiscentesIMDMbean;
 import br.ufrn.sigaa.parametros.dominio.ParametrosTurmaVirtual;
 import br.ufrn.sigaa.twitter.jsf.TwitterMBean;
 
@@ -424,6 +424,12 @@ public class MenuTurmaMBean extends ControllerTurmaVirtual {
 	public String acessarVerNotas () throws ArqException, NegocioException {
 		
 		registrarAcao(null, EntidadeRegistroAva.NOTAS, AcaoAva.ACESSAR, turma().getId() );
+		
+		if (getAcessoMenu().isDiscenteIMD()){
+			RelatoriosDiscentesIMDMbean r = getMBean ("relatoriosDiscentesIMD");
+			TurmaVirtualMBean tBean = getMBean("turmaVirtual");
+			return r.initRelatorioNotasDisciplina(tBean.getTurma());
+		}
 		
 		menuExpandido = "menuAlunos";
 		RelatorioConsolidacaoMBean r = getMBean ("relatorioConsolidacao");

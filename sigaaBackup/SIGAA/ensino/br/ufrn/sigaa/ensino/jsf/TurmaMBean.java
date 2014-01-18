@@ -301,7 +301,7 @@ public abstract class TurmaMBean extends SigaaAbstractController<Turma> implemen
 			return null;
 		}
 		
-		if (obj.isDistancia() != componente.isDistancia()){
+		if (obj.isGraduacao() && !obj.isDistancia() && componente.isDistancia() ){
 			addMensagemErro("O componente curricular (" + (componente.isDistancia() ? "EAD" :"presencial")+") não é compatível com a modalidade de educação da turma (" + (obj.isDistancia() ? "EAD" :"presencial")+")");
 			return null;
 		}

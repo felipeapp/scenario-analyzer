@@ -199,13 +199,13 @@ public abstract class AbstractControllerNotificacoes extends SigaaAbstractContro
 	private void definirMensagemConfirmacao() {
 		StringBuilder mensagem = new StringBuilder("Envio de notificações realizado com sucesso: ");
 		if (obj.isEnviarEmail()) {
-			mensagem.append(obj.getDestinatariosEmail().size() + " e-mail(s)");
+			mensagem.append(obj.getDestinatariosEmail().size() + (obj.getDestinatariosEmail().size() > 1 ? " e-mails" : " e-mail"));
 		}
 		if (obj.isEnviarEmail() && obj.isEnviarMensagem()) {
 			mensagem.append(" e ");
 		}
 		if (obj.isEnviarMensagem()) {
-			mensagem.append(obj.getDestinatariosMensagem().size() + " mensagen(s)");
+			mensagem.append(obj.getDestinatariosMensagem().size() + (obj.getDestinatariosMensagem().size() > 1 ? " mensagens" : " mensagem"));
 		}
 		addMensagemInformation(mensagem.toString());
 	}

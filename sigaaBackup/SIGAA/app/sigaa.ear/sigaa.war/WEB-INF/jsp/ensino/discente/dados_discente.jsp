@@ -7,7 +7,7 @@
 		var selTurmaEntrada;
 	
 		function postCurriculo() {
-			$('curriculoId').value = ${discenteForm.discente.turmaEntradaTecnico.estruturaCurricularTecnica.id};
+			$('cursoId').value = ${discenteForm.discente.cursoTecnico.id};
 			$('turmaEntradaId').value = ${discenteForm.discente.turmaEntradaTecnico.id};
 			if (${discenteForm.discente.turmaEntradaTecnico.id} != "") {
 				selTurmaEntrada.execute();
@@ -67,7 +67,7 @@
 			<th class="required">Curso:</th>
 			<td colspan="4">
 			<ufrn:subSistema teste="tecnico,medio">
-				<html:select property="discente.turmaEntradaTecnico.estruturaCurricularTecnica.cursoTecnico.id" styleId="cursoId">
+				<html:select property="discente.estruturaCurricularTecnica.cursoTecnico.id" styleId="cursoId">
 					<html:option value="">-- SELECIONE --</html:option>
 					<html:options collection="cursosTecnicos" property="id" labelProperty="codigoNome"/>
 				</html:select>
@@ -91,7 +91,7 @@
 			<tr>
 				<th class="required">Currículo</th>
 				<td>
-					<html:select property="discente.turmaEntradaTecnico.estruturaCurricularTecnica.id" styleId="curriculoId">
+					<html:select property="discente.estruturaCurricularTecnica.id" styleId="curriculoId">
 		                <html:option value="">-- SELECIONE --</html:option>
 		                <html:options collection="curriculos" property="id" labelProperty="descricao"/>
 		            </html:select>
@@ -112,8 +112,8 @@
 				</html:select>
 				<ajax:select baseUrl="${applicationScope.contexto}/ajaxTurmaEntradaTecnico"
 					var="selTurmaEntrada"
-					parameters="curriculoId={curriculoId}" 
-					source="curriculoId" target="turmaEntradaId" postFunction="postTurmaEntrada"
+					parameters="cursoId={cursoId}" 
+					source="cursoId" target="turmaEntradaId" postFunction="postTurmaEntrada"
 					defaultOptions="${ discenteForm.discente.turmaEntradaTecnico.id}"  />
 			</ufrn:subSistema>
 			<ufrn:subSistema teste="lato, portalCoordenadorLato">

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.model.SelectItem;
 
@@ -322,7 +323,22 @@ public abstract class AbstractRelatorioGraduacaoMBean extends
 
 	}
 
-
+	/** Verifica se possui algum filtro selecionado. 
+	 * <br>
+	 * Método não invocado por JSP.
+	 * 
+	 * */
+	public boolean isPossuiFiltroSelecionado(){
+		Set<Integer> chaves = filtros.keySet(); 
+		boolean possuiSelecao = false;
+		for(Integer chave : chaves){
+			if(filtros.get(chave)){
+				possuiSelecao = true;
+				break;
+			}
+		}
+		return possuiSelecao;
+	}
     /**
 	 * @return the filtroAnoPeriodo
 	 */

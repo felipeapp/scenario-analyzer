@@ -130,7 +130,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorMBean extends AbstractRelat
 			// Realiza a contagem de Títulos Incluídos pelo Operador //
 			if (tipoDeAcervo == ConstantesRelatorioBiblioteca.TIPO_ACERVO_TODOS || 
 				tipoDeAcervo == ConstantesRelatorioBiblioteca.TIPO_ACERVO_TITULOS) {
-				resultadoTitulos = dao.findTitulosCadastradosPorOperadorSintetico(UFRNUtils.toInteger(variasBibliotecas), UFRNUtils.toInteger(variasPessoas)
+				resultadoTitulos = dao.countTitulosCadastradosPorOperadorSintetico(UFRNUtils.toInteger(variasBibliotecas), UFRNUtils.toInteger(variasPessoas)
 						, inicioPeriodo, fimPeriodo
 						, UFRNUtils.toInteger(tiposDeMaterial)
 						, UFRNUtils.toInteger(colecoes)
@@ -143,7 +143,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorMBean extends AbstractRelat
 			if (tipoDeAcervo == ConstantesRelatorioBiblioteca.TIPO_ACERVO_TODOS || 
 					tipoDeAcervo == ConstantesRelatorioBiblioteca.TIPO_ACERVO_MATERIAIS) {
 			
-				resultadoMateriais = dao.findMateriaisCadastradosPorOperadorSintetico(UFRNUtils.toInteger(variasBibliotecas), UFRNUtils.toInteger(variasPessoas)
+				resultadoMateriais = dao.countMateriaisCadastradosPorOperadorSintetico(UFRNUtils.toInteger(variasBibliotecas), UFRNUtils.toInteger(variasPessoas)
 						, inicioPeriodo, fimPeriodo
 						, UFRNUtils.toInteger(tiposDeMaterial)
 						, UFRNUtils.toInteger(colecoes)
@@ -190,7 +190,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorMBean extends AbstractRelat
 				
 				super.gerarDescricaoDosParametros();
 				
-				resultadoTitulos = dao.findTitulosCadastradosPorOperadorAnalitico(UFRNUtils.toInteger(variasPessoas)
+				resultadoTitulos = dao.findTitulosCadastradosPorOperadorAnalitico(UFRNUtils.toInteger(variasBibliotecas), UFRNUtils.toInteger(variasPessoas)
 						, inicioPeriodo, fimPeriodo
 						, UFRNUtils.toInteger(tiposDeMaterial)
 						, UFRNUtils.toInteger(colecoes), 
@@ -205,7 +205,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorMBean extends AbstractRelat
 					linhas.add( new DataRelatorioMateriaisTrabalhadosPorOperador((String)object[0], null,
 							(String)object[1], (String) object[2], (String) object[3],  // as classificações  
 							(Integer) object[4], (String) object[5], (String) object[6], (String) object[7], 
-							(String) object[8], (String) object[9], (String) object[10], (Date) object[11] ) );
+							(String) object[8], (String) object[9], null, (Date) object[10] ) );
 				}
 				
 				Collections.sort(linhas);
@@ -297,7 +297,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorMBean extends AbstractRelat
 						, UFRNUtils.toInteger(tiposDeMaterial)
 						, UFRNUtils.toInteger(colecoes));
 				
-				resultadoTitulos = dao.findTitulosCadastradosPorOperadorAnalitico(UFRNUtils.toInteger(variasPessoas)
+				resultadoTitulos = dao.findTitulosCadastradosPorOperadorAnalitico(UFRNUtils.toInteger(variasBibliotecas), UFRNUtils.toInteger(variasPessoas)
 						, inicioPeriodo, fimPeriodo
 						, UFRNUtils.toInteger(tiposDeMaterial)
 						, UFRNUtils.toInteger(colecoes), 
@@ -314,7 +314,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorMBean extends AbstractRelat
 					linhas.add( new DataRelatorioMateriaisTrabalhadosPorOperador((String)object[0], null,
 							(String)object[1], (String) object[2], (String) object[3],  // as classificações  
 							(Integer) object[4], (String) object[5], (String) object[6], (String) object[7], 
-							(String) object[8], (String) object[9], (String) object[10], (Date) object[11] ) );
+							(String) object[8], (String) object[9], null, (Date) object[10] ) );
 				}
 				
 				Collections.sort(linhas);

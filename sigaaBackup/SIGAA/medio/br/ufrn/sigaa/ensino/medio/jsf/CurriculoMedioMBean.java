@@ -630,7 +630,18 @@ public class CurriculoMedioMBean extends SigaaAbstractController<CurriculoMedio>
 		return "codigo";
 	}
 	
-	
+	/**
+	 * Verifica se o usuário pode alterar/remover a disciplina
+	 * <br/>
+	 * Método chamado pela seguinte JSP:
+	 * <ul>
+	 * 	<li>/sigaa.war/medio/curriculo/lista.jsp</li>
+	 * </ul>
+	 * @return
+	 */
+	public boolean isPodeAlterar() {
+		return isUserInRole(SigaaPapeis.GESTOR_MEDIO);
+	}
 	
 	
 	/** Verifica os papéis: GESTOR_MEDIO, COORDENADOR_MEDIO.

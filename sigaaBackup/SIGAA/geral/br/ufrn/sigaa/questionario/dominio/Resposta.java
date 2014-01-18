@@ -329,7 +329,7 @@ public class Resposta implements Validatable, Comparable<Resposta> {
 		}
 				
 		if ( pergunta.isArquivo() ) {
-			if( isEmpty(getArquivo()) )
+			if( isEmpty(getArquivo()) && isEmpty(respostaArquivo))
 				validateRequired(arquivo, mensagem, listaMensagens);
 			/*else{
 				if ( !getArquivo().getContentType().equalsIgnoreCase("application/pdf")
@@ -375,4 +375,32 @@ public class Resposta implements Validatable, Comparable<Resposta> {
 		
 	}
 
+	/** Retorna uma representação textual desta resposta
+	 * @see java.lang.Object#toString()
+	 */
+	public String getAsString() {
+		switch(pergunta.getTipo()) {
+			case PerguntaQuestionario.VF : return getRespostaVfString();
+			case PerguntaQuestionario.DISSERTATIVA : return getRespostaDissertativa();
+			case PerguntaQuestionario.NUMERICA : return getRespostaNumericaString();
+			case PerguntaQuestionario.UNICA_ESCOLHA : return getAlternativa() != null ? getAlternativa().getAlternativa() : null;
+			case PerguntaQuestionario.UNICA_ESCOLHA_ALTERNATIVA_PESO : return getAlternativa() != null ? getAlternativa().getAlternativaComPeso() : null;
+			case PerguntaQuestionario.MULTIPLA_ESCOLHA :
+//				<c:forEach var="alternativa" items="#{resposta.alternativas}" varStatus="status2">
+//				${status2.index + 1}) <h:outputText  value="#{alternativa.alternativa}" /> <br/>
+//			</c:forEach>
+				if (getAlternativas() != null) {
+					StringBuilder sb = new StringBuilder();
+					int i = 1;
+					for (Alternativa alternativa : getAlternativas()) {
+						if (i > 1) sb.append("\n");
+						sb.append(i++).append(") ").append(alternativa.getAlternativa());
+					}
+					return sb.toString();
+				} else
+					return null;
+			case PerguntaQuestionario.ARQUIVO : return "ARQUIVO ENVIADO.";
+			default : return null;
+		}
+	}
 }

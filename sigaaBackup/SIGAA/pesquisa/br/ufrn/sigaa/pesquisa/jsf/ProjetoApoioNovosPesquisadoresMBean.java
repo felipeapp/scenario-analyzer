@@ -30,9 +30,9 @@ import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.comum.dominio.PerfilPessoa;
 import br.ufrn.integracao.dto.FormacaoAcademicaDTO;
 import br.ufrn.integracao.interfaces.FormacaoAcademicaRemoteService;
-import br.ufrn.rh.dominio.Formacao;
 import br.ufrn.sigaa.arq.dao.pesquisa.EditalPesquisaDao;
 import br.ufrn.sigaa.arq.dao.pesquisa.ProjetoApoioNovosPesquisadoresDao;
+import br.ufrn.sigaa.arq.dao.projetos.EditalDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.ElementoDespesa;
@@ -46,6 +46,7 @@ import br.ufrn.sigaa.pesquisa.dominio.TipoPassoProjetoNovoPesquisador;
 import br.ufrn.sigaa.pesquisa.form.TelaCronograma;
 import br.ufrn.sigaa.pesquisa.negocio.ProjetoApoioNovosPesquisadoresValidator;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
+import br.ufrn.sigaa.projetos.dominio.Edital;
 import br.ufrn.sigaa.projetos.dominio.OrcamentoDetalhado;
 import br.ufrn.sigaa.projetos.dominio.Projeto;
 import br.ufrn.sigaa.projetos.negocio.CronogramaProjetoHelper;
@@ -189,12 +190,16 @@ public class ProjetoApoioNovosPesquisadoresMBean extends SigaaAbstractController
 	@Override
 	public String preCadastrar() throws ArqException, NegocioException {
 
-		if(getUsuarioLogado().getVinculoAtivo().getServidor() == null){
+		if(getUsuarioLogado().getVinculoAtivo().getServidor() == null 
+				|| !getUsuarioLogado().getVinculoAtivo().getServidor().isDocente() 
+				|| !getUsuarioLogado().getVinculoAtivo().getServidor().isPermanente()) {
 			addMensagemErro("Operação restrita à docentes efetivos da instituição.");
 			return null;
 		}
 		
 		PropostaGrupoPesquisaDao dao = getDAO(PropostaGrupoPesquisaDao.class);
+		EditalDao editaldao = getDAO(EditalDao.class);
+		EditalPesquisaDao epdao = getDAO(EditalPesquisaDao.class);
 		try {
 			clear();
 			obj.setTipoPassosProjeto( TipoPassoProjetoNovoPesquisador.TELA_DADOS_GERAIS);
@@ -205,41 +210,66 @@ public class ProjetoApoioNovosPesquisadoresMBean extends SigaaAbstractController
 			
 			
 			FormacaoAcademicaRemoteService serviceFormacao = getMBean("formacaoAcademicaInvoker");
-			List<FormacaoAcademicaDTO> formacaoDoutorado = serviceFormacao.consultarFormacaoAcademica(obj.getCoordenador().getId(), 
-					null, null, null, null, null, null,	Formacao.DOUTOR);
-			
-			if ( isEmpty(formacaoDoutorado) ) {
-				addMensagemErro("Não foi encontrada nenhuma formação de Doutorado cadastrada.");
+			List<FormacaoAcademicaDTO> formacoes = serviceFormacao.consultarFormacaoAcademica(obj.getCoordenador().getId(), 
+					null, null, null, null, null, null,	(Integer[]) null);
+
+			if(ValidatorUtil.isEmpty(formacoes)){
+				addMensagemErro("Você não possui Formação Acadêmica registrada no sistema. <br/> Verifique no Menu Docente -> Produção Intelectual -> Formação Acadêmica, ou acesse diretamente o "
+						+RepositorioDadosInstitucionais.getAll().get("siglaSigrh")+ " no Menu Serviços -> Atualizar Formação Acadêmica para registrar essa informação.");
 				return null;
-			} else {
-				Date fimDoutorado = formacaoDoutorado.get(0).getFim();
-				
-				if(ValidatorUtil.isEmpty(fimDoutorado)){
-					addMensagemErro("A data de término da sua formação de doutorado não foi informada.<br/>" +
-							"Atualize a sua formação acessando o " +RepositorioDadosInstitucionais.getAll().get("siglaSigrh")+ " no menu Serviços -> Atualizar Formação Acadêmica.");
-					return null;
+			}
+			
+			FormacaoAcademicaDTO maiorFormacao = new FormacaoAcademicaDTO();
+			for(FormacaoAcademicaDTO f: formacoes){
+				if(f.getFormacao().equalsIgnoreCase("DOUTORADO")){
+					maiorFormacao = f;
+					break;
 				}
+				if(f.getFormacao().equalsIgnoreCase("MESTRADO"))
+					maiorFormacao = f;
+			}
+			
+			Date fimFormacao = maiorFormacao.getFim();
+			
+			if(ValidatorUtil.isEmpty(fimFormacao)){
+				addMensagemErro("A data de término da sua formação acadêmica não foi informada.<br/>" +
+						"Atualize a sua formação acessando o " +RepositorioDadosInstitucionais.getAll().get("siglaSigrh")+ " no Menu Serviços -> Atualizar Formação Acadêmica.");
+				return null;
+			}
+			
+			if(maiorFormacao.getFormacao().equalsIgnoreCase("mestrado")){
+				List<Integer> idsunidades = epdao.findIdsUnidadesCampiRegionais();
 				
-				Date dataReferencia = fimDoutorado;
-				
-				ParametroHelper parametroHelper = ParametroHelper.getInstance();
-				if(parametroHelper.getParametroBoolean(ParametrosPesquisa.UTILIZA_DATA_ADMISSAO_APOIO_NOVOS_PESQUISADORES))
-				{
-					Date admissao = obj.getCoordenador().getDataAdmissao();
-					if(admissao.after(fimDoutorado))
-						dataReferencia = admissao;
-				}
-				
-				int anos =  parametroHelper.getParametroInt(ParametrosPesquisa.QNT_EM_ANOS_PARA_OS_RECEM_DOUTORES);
-				
-				if(CalendarUtils.getAnoAtual() - CalendarUtils.getAno(dataReferencia) > anos ){
-					addMensagemErro("Só podem solicitar Apoio os Doutores com no máximo " + anos + " anos de doutorado.");
+				if(!idsunidades.contains(getUsuarioLogado().getServidorAtivo().getUnidade().getId())) {
+					addMensagemErro("Docentes com título de Mestre só podem concorrer se forem lotados nos Campi Regionais.");
 					return null;
 				}
 			}
 			
+			Edital edital = editaldao.findMaisRecente(Edital.PESQUISA_NOVOS_PESQUISADORES);
+			
+			Date dataReferencia = fimFormacao;
+			
+			ParametroHelper parametroHelper = ParametroHelper.getInstance();
+			if(parametroHelper.getParametroBoolean(ParametrosPesquisa.UTILIZA_DATA_ADMISSAO_APOIO_NOVOS_PESQUISADORES))
+			{
+				Date admissao = obj.getCoordenador().getDataAdmissao();
+				if(admissao.after(fimFormacao))
+					dataReferencia = admissao;
+			}
+			
+			int meses = parametroHelper.getParametroInt(ParametrosPesquisa.QNT_MESES_NOVOS_PESQUISADORES);
+			
+			if(CalendarUtils.calculoMeses(dataReferencia, edital.getInicioSubmissao()) > meses ){
+				addMensagemErro("Só podem submeter projetos os docentes que tenham obtido o título da formação acadêmica considerada nos últimos " + meses + " meses, contatos até a data de publicação do edital.");
+				return null;
+			}
+			
+			obj.setEditalPesquisa(getDAO(EditalPesquisaDao.class).findByIdEdital(edital.getId()));
+			
 		} finally {
 			dao.close();
+			editaldao.close();
 		}
 		
 		return super.preCadastrar();

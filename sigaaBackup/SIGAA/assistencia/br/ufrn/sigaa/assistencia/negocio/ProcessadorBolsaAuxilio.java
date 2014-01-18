@@ -43,12 +43,26 @@ public class ProcessadorBolsaAuxilio extends ProcessadorCadastro {
 		if ( movCad.getCodMovimento().equals(SigaaListaComando.CADASTRAR_BOLSA_AUXILIO)) {
 			criar(movCad);
 			criarAlterarAuxiliar(movCad);
+			criarAlteracaoRenovacaoBolsa(movCad);
 		} 
 		else if ( movCad.getCodMovimento().equals(SigaaListaComando.ALTERAR_BOLSA_AUXILIO) ) {
 			alterar(movCad);
 			criarAlterarAuxiliar(movCad);
 		}
 		return bolsa;
+	}
+
+	private void criarAlteracaoRenovacaoBolsa(MovimentoCadastro movCad) throws DAOException {
+		BolsaAuxilio bolsa = (BolsaAuxilio) movCad.getObjMovimentado();
+		if ( bolsa.getBolsaAuxilioOriginal() != null ) {
+			GenericDAO dao = getGenericDAO(movCad);
+			try {
+				dao.updateField(BolsaAuxilio.class, 
+					bolsa.getBolsaAuxilioOriginal().getId(), "solicitadaRenovacao", Boolean.TRUE);
+			} finally {
+				dao.close();
+			}
+		}
 	}
 
 	/**

@@ -14,6 +14,8 @@ import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
 import br.ufrn.sigaa.ensino.dominio.MatriculaComponente;
 import br.ufrn.sigaa.ensino.dominio.MovimentacaoAluno;
 import br.ufrn.sigaa.ensino.stricto.dominio.RenovacaoAtividadePos;
+import br.ufrn.sigaa.estagio.dominio.Estagiario;
+import br.ufrn.sigaa.pesquisa.dominio.AvaliadorCIC;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.vestibular.dominio.Fiscal;
 import br.ufrn.sigaa.vestibular.dominio.InscricaoFiscal;
@@ -33,6 +35,10 @@ public class DiscenteAdapterListener extends DefaultSaveOrUpdateEventListener {
 		corrigirDiscenteAdapter(event.getObject());
 	}
 	
+	/**
+	 * Método para correção dependendo do tipo de Discente. 
+	 * @param entity
+	 */
 	private void corrigirDiscenteAdapter(Object entity) {
 		if (entity instanceof MatriculaComponente) {
 			MatriculaComponente matricula = (MatriculaComponente) entity;
@@ -48,9 +54,18 @@ public class DiscenteAdapterListener extends DefaultSaveOrUpdateEventListener {
 			InscricaoFiscal inscricaoFiscal = (InscricaoFiscal) entity;
 			if (inscricaoFiscal.getDiscente() != null) 
 				inscricaoFiscal.setDiscente(inscricaoFiscal.getDiscente().getDiscente());
+		} else if (entity instanceof Estagiario) {
+			Estagiario e = (Estagiario) entity;
+			e.setDiscente(e.getDiscente().getDiscente());
 		} else if (entity instanceof RenovacaoAtividadePos) {
 			RenovacaoAtividadePos renovacao = (RenovacaoAtividadePos) entity;
 			renovacao.setDiscente(renovacao.getDiscente().getDiscente());
+		} else if (entity instanceof AvaliadorCIC) {
+			AvaliadorCIC avaliador = (AvaliadorCIC) entity;
+			if( avaliador.getDiscente()!= null ){
+				avaliador.setDiscente(avaliador.getDiscente().getDiscente());
+			}
+				
 		}
 	}
 

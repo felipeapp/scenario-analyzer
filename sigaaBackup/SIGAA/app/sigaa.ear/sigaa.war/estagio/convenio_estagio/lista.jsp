@@ -10,9 +10,7 @@
 		<center>
 			<div class="infoAltRem">
 				<c:if test="${ !convenioEstagioMBean.modoSeletor }">
-					<c:if test="${!convenioEstagioMBean.permiteAnalisarConvenio}">
-						<h:graphicImage value="/img/alterar.gif"style="overflow: visible;"/>: Alterar Convênio de Estágio
-					</c:if>	
+					<h:graphicImage value="/img/alterar.gif"style="overflow: visible;"/>: Alterar Convênio de Estágio
 					<h:graphicImage value="/img/view.gif" style="overflow: visible;"/>: Visualizar Termo de Convênio de Estágio	
 					<c:if test="${convenioEstagioMBean.permiteAnalisarConvenio}">
 						<h:graphicImage value="/img/seta.gif" style="overflow: visible;"/>: Analisar Convênio de Estágio
@@ -42,16 +40,6 @@
 		<c:set var="nenhumConvenio" value="#{false}"/>
 		<%@include file="include/_lista.jsp"%>	
 	</c:if>		
-	<c:if test="${nenhumConvenio}">
-		<table class="listagem" style="width: 100%">
-			<caption class="listagem">${nomeCaption}</caption>
-				<tr>
-					<td colspan="9" style="text-align: center;">
-						<i>Nenhum Convênio de Estágio encontrado.</i>
-					</td>
-				</tr>
-		</table>
-	</c:if>	
 </h:form>
 </f:view>
 

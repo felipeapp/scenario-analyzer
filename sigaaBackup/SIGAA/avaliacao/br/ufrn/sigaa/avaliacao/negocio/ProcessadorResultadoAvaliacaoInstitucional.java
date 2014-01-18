@@ -19,10 +19,10 @@ import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.AbstractProcessador;
-import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.sigaa.arq.dao.avaliacao.AvaliacaoInstitucionalDao;
 import br.ufrn.sigaa.arq.dao.ensino.MatriculaComponenteDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.avaliacao.dominio.FormularioAvaliacaoInstitucional;
 import br.ufrn.sigaa.avaliacao.dominio.ListaAvaliacaoInstitucionalProcessar;
 import br.ufrn.sigaa.avaliacao.dominio.MediaNotas;
 import br.ufrn.sigaa.avaliacao.dominio.ParametroProcessamentoAvaliacaoInstitucional;
@@ -32,7 +32,6 @@ import br.ufrn.sigaa.ensino.dominio.DocenteTurma;
 import br.ufrn.sigaa.ensino.dominio.SituacaoMatricula;
 import br.ufrn.sigaa.ensino.dominio.Turma;
 import br.ufrn.sigaa.ensino.stricto.docenciaassistida.dominio.TurmaDocenciaAssistida;
-import br.ufrn.sigaa.parametros.dominio.ParametrosAvaliacaoInstitucional;
 
 /**
  * Processa as notas da avaliação institucional para os docentes de uma turma.
@@ -125,6 +124,7 @@ public class ProcessadorResultadoAvaliacaoInstitucional extends
 			resultado.setTurmaDocenciaAssistida(turmaDocenciaAssistida);
 			resultado.setMediaNotas(mediasNotas);
 			resultado.setPercentualRespostasSimNao(percentualRespostasSimNao);
+			resultado.setFormularioAvaliacaoInstitucional(new FormularioAvaliacaoInstitucional(idFormulario));
 			
 			// calcula desvio padrão geral
 			resultado.setDesvioPadraoGeral(avaliacaoDao.findDesvioPadraoGeral(idDocenteTurma, idTurmaDocenciaAssistida, idAvaliacoesInvalidas, idFormulario));
@@ -132,7 +132,7 @@ public class ProcessadorResultadoAvaliacaoInstitucional extends
 			// calcula a média geral
 			int count = 0;
 			double media = 0;
-			int idGrupo = ParametroHelper.getInstance().getParametroInt(ParametrosAvaliacaoInstitucional.ID_GRUPO_PERGUNTAS_MEDIA_GERAL_RESULTADO_AVALIACAO);
+			int idGrupo = parametroProcessamento.getFormulario().getGrupoMediaGeral().getId();
 			for (MediaNotas mediaNotas : mediasNotas) {
 				if (mediaNotas.getPergunta().getGrupo().getId() == idGrupo) {
 					media += mediaNotas.getMedia();

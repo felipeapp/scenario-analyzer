@@ -15,7 +15,6 @@
 		<li> <h:commandLink action="#{alteracaoStatusDiscente.iniciar}" value="Alterar Status de Aluno"  onclick="setAba('administracao')"/> </li>
 		<li> <h:commandLink	action="#{consultaSolicitacoes.iniciar}" value="Anular Solicitações de Matrículas" onclick="setAba('dae-programa')"/> </li>
 		<li> <h:commandLink	action="#{cadastroOfertaVagasCurso.iniciarGraduacao}" value="Cadastrar Oferta de Cursos para Processos Seletivos" onclick="setAba('administracao')"/> </li>
-		<li> <h:commandLink action="#{cancelarMatriculaNaoConcluida.iniciar}" value="Cancelar Matrículas Não Concluídas"  onclick="setAba('administracao')"/> </li>
 		<li> <h:commandLink action="#{discenteGraduacao.iniciarAcrescimoPerfilInicial}" value="Alterar Perfil Inicial do Aluno"  onclick="setAba('administracao')"/> </li>	
 		<li> <h:commandLink action="#{fechamentoCompulsorioAtividades.iniciar}" value="Fechamento Compulsório de Atividades"  onclick="setAba('administracao')"/> </li>	
 		</ul>

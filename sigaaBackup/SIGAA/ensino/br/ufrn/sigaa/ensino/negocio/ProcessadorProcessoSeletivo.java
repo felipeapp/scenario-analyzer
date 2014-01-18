@@ -12,23 +12,35 @@ import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.Date;
 
+import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.arquivos.EnvioArquivoHelper;
+import br.ufrn.arq.caixa_postal.MensagemDAO;
 import br.ufrn.arq.dominio.Movimento;
+import br.ufrn.arq.email.Mail;
+import br.ufrn.arq.email.MailBody;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.arq.seguranca.SigaaPapeis;
+import br.ufrn.comum.dominio.Papel;
+import br.ufrn.integracao.exceptions.NegocioRemotoException;
+import br.ufrn.sigaa.arq.dao.UsuarioDao;
 import br.ufrn.sigaa.arq.dao.ensino.EditalProcessoSeletivoDao;
 import br.ufrn.sigaa.arq.dao.ensino.ProcessoSeletivoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.caixa_postal.dominio.Mensagem;
+import br.ufrn.sigaa.caixa_postal.dominio.MensagensHelper;
 import br.ufrn.sigaa.ensino.dominio.AgendaProcessoSeletivo;
 import br.ufrn.sigaa.ensino.dominio.EditalProcessoSeletivo;
 import br.ufrn.sigaa.ensino.dominio.ProcessoSeletivo;
 import br.ufrn.sigaa.ensino.negocio.dominio.MovimentoProcessoSeletivo;
+import br.ufrn.sigaa.ensino.stricto.dominio.InteressadoProcessoSeletivo;
 
 /**
  * Processador responsável pela manutenção dos processos seletivos
@@ -127,9 +139,9 @@ public class ProcessadorProcessoSeletivo extends AbstractProcessador {
 				edital.setRestricaoInscrito(null);
 			}
 			
-			
 			editalProcessoDao.createOrUpdate( edital );
 
+			enviarEmailNotificacao(mov);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,6 +149,82 @@ public class ProcessadorProcessoSeletivo extends AbstractProcessador {
 		} finally {
 			editalProcessoDao.close();
 			processoDao.close();
+		}
+	}
+	
+	/**
+	 * Envia email para os responsáveis pela homologação para divulgação dos processos seletivos.
+	 * 
+	 * @param movimento
+	 * @throws NegocioRemotoException 
+	 * @throws RemoteException 
+	 * @throws NegocioException 
+	 * @throws ArqException 
+	 */
+	private void enviarEmailNotificacao( Movimento movimento ) throws ArqException, NegocioException, RemoteException, NegocioRemotoException {
+		
+		UsuarioDao dao = null;
+		MovimentoProcessoSeletivo movProcessoSeletivo = (MovimentoProcessoSeletivo) movimento;
+		EditalProcessoSeletivo edital = movProcessoSeletivo.getProcessoSeletivo().getEditalProcessoSeletivo();
+		
+		try{
+			char nivel = edital.getProcessosSeletivos().iterator().next().getNivelEnsino();
+			nivel =	NivelEnsino.isAlgumNivelStricto(nivel) ? NivelEnsino.STRICTO : nivel;
+	
+			if( !(NivelEnsino.isAlgumNivelStricto(nivel) || NivelEnsino.isLato(nivel)) )
+				return;
+			
+			Collection<InteressadoProcessoSeletivo> listagemInteressados; 
+			
+			dao = getDAO(UsuarioDao.class, movimento);
+			listagemInteressados = dao.findByExactField(InteressadoProcessoSeletivo.class, new String[] { "nivel", "ativo" }, new Object[] { nivel, true });
+			
+			for (ProcessoSeletivo processo : edital.getProcessosSeletivos()) {
+				for( InteressadoProcessoSeletivo i : listagemInteressados ){
+					
+					if (i.getPessoa().getEmail() != null ) {
+						// Assunto e mensagem para homologação do processo seletivo
+						String titulo = new String("SIGAA - "+NivelEnsino.getDescricao(nivel)+" - Solicitação de homologação para processo seletivo, "+ processo.getNome());
+						String conteudo = new String("Caro(a) " + i.getPessoa().getNome() +", <br/><br/>" + 
+								"Informamos que foi cadastrado um novo processo seletivo de "+NivelEnsino.getDescricao(nivel)+", que necessita de sua homologação para divulgação. " +
+								"<br/><br/><span style='font-weight:bold'> Título do Edital: </span>" + processo.getNome() +
+								"<br/><span style='font-weight:bold'> Início das Inscrições: </span>" + processo.getEditalProcessoSeletivo().getDescricaoInicioInscricoes() +
+								"<br/><span style='font-weight:bold'> Fim das Inscrições: </span>" + processo.getEditalProcessoSeletivo().getDescricaoFimInscricoes() +
+								"<br/><span style='font-weight:bold'> Descrição do Processo: </span>" +  processo.getEditalProcessoSeletivo().getDescricao() +
+								"<br/><br/>Esta mensagem é automática e não deve ser respondida.");
+						
+						Mensagem msg = new Mensagem();
+						msg.setTitulo(titulo);
+						msg.setMensagem(conteudo);
+						msg.setTipo(br.ufrn.arq.caixa_postal.Mensagem.MENSAGEM);
+						msg.setDataCadastro(new Date());
+						msg.setConfLeitura(false);
+						msg.setUsuario(i.getUsuario());
+						msg.setRemetente(movimento.getUsuarioLogado());
+						msg.setPapel(new Papel(SigaaPapeis.PPG));
+						msg.setAutomatica(true);
+
+						MensagemDAO msgDAO = new MensagemDAO();
+						try{
+							msgDAO.create(MensagensHelper.msgSigaaToMsgArq(msg));
+						}finally{
+							msgDAO.close();
+						}
+						
+						MailBody mail = new MailBody();
+						mail.setContentType(MailBody.HTML);
+						mail.setFromName( RepositorioDadosInstitucionais.get("siglaSigaa") );
+						mail.setEmail( i.getPessoa().getEmail() );
+						mail.setAssunto( msg.getTitulo() );
+						mail.setMensagem( msg.getMensagem() );
+						Mail.send(mail);	
+						
+					}
+				}
+			}
+			
+		}finally{
+			if(dao != null) dao.close();
 		}
 	}
 

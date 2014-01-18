@@ -485,8 +485,9 @@ public class SolicitacaoServicoDocumentoMBean extends SigaaAbstractController<So
 			if(solicitacoes.size() == 0)
 				addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 			
-			if(solicitacoes.size() > 300)
-				addMensagem(MensagensArquitetura.BUSCA_MAXIMO_RESULTADOS, 100);
+			if(solicitacoes.size() >= SolicitacaoServicoDocumentoDAO.QTD_MAXIMA_RESULTADOS)
+				addMensagem(MensagensArquitetura.BUSCA_MAXIMO_RESULTADOS, SolicitacaoServicoDocumentoDAO.QTD_MAXIMA_RESULTADOS);
+			
 		} catch (IllegalArgumentException iaex) {
 			addMensagemErro(iaex.getMessage());
 		}

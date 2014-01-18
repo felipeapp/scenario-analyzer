@@ -95,6 +95,15 @@
 					<f:selectItems value="#{formaIngresso.allCombo}" />
 				</h:selectOneMenu></td>
 			</tr>
+			<tr>
+				<th class="obrigatorio">Modalidade de Educação:</th>
+				<td><h:selectOneMenu id="modalidadeEducacao"
+					value="#{processoSeletivoVestibular.obj.modalidadeEducacao.id}"
+					disabled="#{processoSeletivoVestibular.readOnly}">
+					<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
+					<f:selectItems value="#{modalidadeEducacao.allCombo}" />
+				</h:selectOneMenu></td>
+			</tr>
 			<c:if test="${ !processoSeletivoVestibular.obj.processoExterno }">
 				<tr>
 					<th class="obrigatorio">Questionário Sócio Econômico:</th>

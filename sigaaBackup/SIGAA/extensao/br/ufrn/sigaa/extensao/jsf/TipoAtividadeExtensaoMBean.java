@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.sigaa.arq.dao.extensao.AtividadeExtensaoDao;
 import br.ufrn.sigaa.extensao.dominio.TipoAtividadeExtensao;
@@ -42,8 +43,8 @@ public class TipoAtividadeExtensaoMBean extends AbstractControllerProdocente<Tip
 	 * (non-Javadoc)
 	 * @see br.ufrn.arq.web.jsf.AbstractControllerCadastro#getAllCombo()
 	 */
-	public Collection<SelectItem> getAllCombo() { 
-		return getAll(TipoAtividadeExtensao.class, "id", "descricao");
+	public Collection<SelectItem> getAllCombo() throws ArqException { 
+		return toSelectItems(getAllAtivos(), "id", "descricao");
 	}
 	
 	/**

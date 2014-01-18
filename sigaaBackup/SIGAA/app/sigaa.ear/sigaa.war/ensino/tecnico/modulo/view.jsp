@@ -55,6 +55,12 @@
 		</c:forEach>
 		
 		<tfoot>
+			<tr>
+				<td align="center" colspan="2">
+					<input type="button" value="<<Voltar" onclick="javascript:history.go(-1)" />
+					<h:commandButton value="Cancelar" action="#{moduloMBean.cancelar}" onclick="#{confirm}" id="cancelar" />
+				</td>
+			</tr>
 		</tfoot>
 	</table>
 </h:form>

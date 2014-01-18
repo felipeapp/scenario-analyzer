@@ -59,6 +59,7 @@ public class QuestionarioRespostasMBean extends SigaaAbstractController<Question
 	 */
 	private void clear() {
 		obj = new QuestionarioRespostas();
+		setReadOnly(false);
 	}
 	
 	/**
@@ -182,7 +183,7 @@ public class QuestionarioRespostasMBean extends SigaaAbstractController<Question
 
 	/**
 	 * Popular respostas cadastradas durante uma inscrição de processo seletivo
-	 * Método não invocado por JSP's
+	 * <br/>Método não invocado por JSP's
 	 * 
 	 * @param inscricao
 	 * @throws DAOException 
@@ -200,7 +201,7 @@ public class QuestionarioRespostasMBean extends SigaaAbstractController<Question
 		}else{
 		//Caso não tenha ainda respondido o questionário  	
 			List<PerguntaQuestionario> lstPQ = new ArrayList<PerguntaQuestionario>();
-			if(inscricao.getProcessoSeletivo().getQuestionario() != null){
+			if(inscricao!=null && inscricao.getProcessoSeletivo().getQuestionario() != null){
 			
 				Collection<PerguntaQuestionario> colecaoPQ = 
 				getGenericDAO().findByExactField(PerguntaQuestionario.class, "questionario.id",
@@ -218,7 +219,7 @@ public class QuestionarioRespostasMBean extends SigaaAbstractController<Question
 
 	/**
 	 * Popular respostas cadastradas durante uma adesão ao cadastro único
-	 * JSP: Não Invocado por JSP
+	 * <br/>Método não invocado por JSP's
 	 * 
 	 * @param adesao
 	 * @throws HibernateException
@@ -238,7 +239,7 @@ public class QuestionarioRespostasMBean extends SigaaAbstractController<Question
 	
 	/**
 	 * Popular respostas cadastradas
-	 * JSP: Não Invocado por JSP
+	 * <br/>Método não invocado por JSP's
 	 * @param questionario
 	 * @throws DAOException 
 	 */

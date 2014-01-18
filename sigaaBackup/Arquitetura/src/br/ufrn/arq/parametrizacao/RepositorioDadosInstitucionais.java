@@ -119,4 +119,11 @@ public class RepositorioDadosInstitucionais {
 		return ( getSiglaInstituicao() + " - " + getNomeInstituicao() );
 	}
 	
+	/**
+	 * Retorna o parâmetro que é o link para o sistema SIGED
+	 */
+	public static String getLinkAlumini() {
+		return get("linkAlumini");
+	}
+	
 }

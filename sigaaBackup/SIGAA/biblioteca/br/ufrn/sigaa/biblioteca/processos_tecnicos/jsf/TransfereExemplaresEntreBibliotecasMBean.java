@@ -387,6 +387,7 @@ public class TransfereExemplaresEntreBibliotecasMBean  extends SigaaAbstractCont
 			}
 			
 			// Verifica quais deram erro para mostrar ao usuário //
+			if(mov.getExemplaresComErroTransferencia() != null)
 			for (Exemplar exemplarErro : mov.getExemplaresComErroTransferencia()) {
 				for (Exemplar exemplar : exemplares) {
 					if(  exemplar.getCodigoBarras().equalsIgnoreCase(exemplarErro.getCodigoBarras())  ){

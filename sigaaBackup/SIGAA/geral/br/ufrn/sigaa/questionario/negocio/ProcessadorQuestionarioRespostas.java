@@ -52,7 +52,19 @@ public class ProcessadorQuestionarioRespostas extends AbstractProcessador{
 	 * @throws ArqException 
 	 */
 	public void cadastrarRespostas(Movimento mov, QuestionarioRespostas questionarioRespostas) throws NegocioException, ArqException {
-		validate(mov, questionarioRespostas);
+		cadastrarRespostas(mov, questionarioRespostas, true);
+	}
+	/**
+	 * Persistir as respostas informadas pelo usuário
+	 * 
+	 * @param mov
+	 * @param questionarioRespostas
+	 * @throws NegocioException 
+	 * @throws ArqException 
+	 */
+	public void cadastrarRespostas(Movimento mov, QuestionarioRespostas questionarioRespostas, boolean validaAntesCadastrar) throws NegocioException, ArqException {
+		if (validaAntesCadastrar)
+			validate(mov, questionarioRespostas);
 		QuestionarioRespostasDao questionarioRespostasDao =  getDAO(QuestionarioRespostasDao.class, mov);
 		try {
 			// Persistir respostas

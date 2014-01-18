@@ -41,7 +41,7 @@
 							</div>
 
 							<div id="fundamentacao" class="aba">
-								<i class="required">Metodologia de desenvolvimento do projeto:</i><br/>
+								<i class="required">Fundamentação Teórica:</i><br/>
 								<h:inputTextarea id="fundamentacao" value="#{atividadeExtensao.obj.fundamentacaoTeorica}" rows="10" style="width:99%" />
 							</div>
 

@@ -105,7 +105,7 @@
 							<f:param name="id" value="#{linha.id}"/> 
 						</h:commandLink>
 					</td>
-					<c:if test="${not acesso.pedagogico }">
+					<c:if test="${ curriculoMedio.podeAlterar }">
 					<td width="2%" align="right">
 						<h:commandLink action="#{curriculoMedio.atualizar}" >
 							<h:graphicImage value="/img/alterar.gif" style="overflow: visible;" title="Alterar Estrutura Curricular" />  

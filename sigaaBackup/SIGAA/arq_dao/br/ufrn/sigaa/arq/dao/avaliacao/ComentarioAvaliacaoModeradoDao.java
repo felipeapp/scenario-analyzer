@@ -55,8 +55,8 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public List<Map<String, Object>> findDocenteByAnoPeriodoNomeDepartamento(String nomeDocente, int idDepartamento, int ano, int periodo, boolean comentariosDiscentes) throws HibernateException, DAOException {
-		StringBuilder sql = new StringBuilder("select dep.id_unidade, dt.id_docente_turma, s.id_servidor,"
+	public List<Map<String, Object>> findDocenteByAnoPeriodoNomeDepartamento(String nomeDocente, int idDepartamento, int ano, int periodo, int idFormulario, boolean comentariosDiscentes) throws HibernateException, DAOException {
+		StringBuilder sql = new StringBuilder("select distinct dep.id_unidade, dt.id_docente_turma, s.id_servidor,"
 				+ " p.nome as nome_docente, dep.nome as departamento,"
 				+ " t.id_turma, t.codigo as codigo_turma, ccd.codigo as codigo_componente, ccd.nome as nome_componente, t.ano, t.periodo,"
 				+ " case when cam.id_docente_turma is null or cam.id_docente_turma = 0 then false else true end as docente_turma_finalizado,"
@@ -69,7 +69,8 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 				+ " inner join ensino.componente_curricular cc using (id_disciplina)"
 				+ " inner join ensino.componente_curricular_detalhes ccd on (cc.id_detalhe = ccd.id_componente_detalhes)"
 				+ " left join ensino.docente_externo using (id_servidor)"
-				+ " inner join avaliacao.resultado_avaliacao_docente using (id_docente_turma)"
+				+ " inner join avaliacao.resultado_avaliacao_docente rad using (id_docente_turma)"
+				+ (idFormulario > 0 ? " inner join avaliacao.parametro_processamento_avaliacao ppa on (ppa.ano = rad.ano and ppa.periodo = rad.periodo and ppa.id_formulario_avaliacao = rad.id_formulario_avaliacao)":"")
 				+ " left join ("
 				+ "   select dt.id_docente_turma, count(odt.id)"
 				+ "   from ensino.turma t"
@@ -86,6 +87,7 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 		if (nomeDocente != null) sql.append(" and p.nome_ascii ilike " + UFRNUtils.toAsciiUTF8(":nomeDocente"));
 		if (idDepartamento != 0) sql.append(" and dep.id_unidade = :idDepartamento");
 		if (ano != 0 && periodo != 0) sql.append(" and t.ano = :ano and t.periodo = :periodo");
+		if (idFormulario != 0 ) sql.append(" and ppa.id_formulario_avaliacao = :idFormulario");
 		sql.append(" order by ano desc, periodo desc, dep.nome, p.nome, ccd.nome, t.codigo");
 		Query q = getSession().createSQLQuery(sql.toString());
 		if (nomeDocente != null) q.setString("nomeDocente", nomeDocente + "%");
@@ -94,6 +96,7 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 			q.setInteger("ano", ano);
 			q.setInteger("periodo", periodo);
 		}
+		if (idFormulario != 0) q.setInteger("idFormulario", idFormulario);
 		q.setBoolean("comentariosDiscente", comentariosDiscentes);
 		@SuppressWarnings("unchecked")
 		List<Object[]> lista = q.list();
@@ -130,8 +133,8 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public List<Map<String, Object>> findTurmasByAnoPeriodoNomeComponente(String nomeComponente, int idDepartamento, int ano, int periodo) throws HibernateException, DAOException {
-		StringBuilder sql = new StringBuilder("select dep.id_unidade,"
+	public List<Map<String, Object>> findTurmasByAnoPeriodoNomeComponente(String nomeComponente, int idDepartamento, int ano, int periodo, int idFormulario) throws HibernateException, DAOException {
+		StringBuilder sql = new StringBuilder("select distinct dep.id_unidade,"
 				+ " dep.nome as departamento,"
 				+ " t.id_turma, t.codigo as codigo_turma, ccd.codigo as codigo_componente, ccd.nome as nome_componente, t.ano, t.periodo,"
 				+ " case when cam.id_turma is null or cam.id_turma = 0 then false else true end as trancamento_finalizado,"
@@ -141,7 +144,8 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 				+ " inner join ensino.componente_curricular cc using (id_disciplina)"
 				+ " inner join ensino.componente_curricular_detalhes ccd on (cc.id_detalhe = ccd.id_componente_detalhes)"
 				+ " inner join comum.unidade dep on (cc.id_unidade = dep.id_unidade)"
-				+ " inner join avaliacao.resultado_avaliacao_docente using (id_docente_turma)"
+				+ " inner join avaliacao.resultado_avaliacao_docente rad using (id_docente_turma)"
+				+ (idFormulario > 0 ? " inner join avaliacao.parametro_processamento_avaliacao ppa on (ppa.ano = rad.ano and ppa.periodo = rad.periodo and ppa.id_formulario_avaliacao = rad.id_formulario_avaliacao)":"")
 				+ " left join ("
 				+ "   select t.id_turma, count(ot.id)"
 				+ "   from ensino.turma t"
@@ -150,10 +154,11 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 				+ "   group by id_turma"
 				+ " ) qtd_trancamentos on (t.id_turma = qtd_trancamentos.id_turma)"
 				+ " left join avaliacao.comentario_avaliacao_moderado cam on (cam.id_turma = t.id_turma)"
-				+ " where 1=1");
+				+ " where 1=1"
+				+ (ano != 0 && periodo != 0 ? " and ppa.ano = :ano and ppa.periodo = :periodo" : ""));
 		if (nomeComponente != null) sql.append(" and ccd.nome_ascii ilike " + UFRNUtils.toAsciiUTF8(":nomeComponente"));
 		if (idDepartamento != 0) sql.append(" and dep.id_unidade = :idDepartamento");
-		if (ano != 0 && periodo != 0) sql.append(" and t.ano = :ano and t.periodo = :periodo");
+		if (idFormulario != 0 ) sql.append(" and ppa.id_formulario_avaliacao = :idFormulario");
 		sql.append(" order by ano desc, periodo desc, dep.nome, ccd.nome, t.codigo");
 		Query q = getSession().createSQLQuery(sql.toString());
 		if (nomeComponente != null) q.setString("nomeComponente", nomeComponente + "%");
@@ -162,6 +167,7 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 			q.setInteger("ano", ano);
 			q.setInteger("periodo", periodo);
 		}
+		if (idFormulario != 0) q.setInteger("idFormulario", idFormulario);
 		@SuppressWarnings("unchecked")
 		List<Object[]> lista = q.list();
 		List<Map<String, Object>> resultado = new ArrayList<Map<String,Object>>();
@@ -187,16 +193,21 @@ public class ComentarioAvaliacaoModeradoDao extends GenericSigaaDAO {
 
 	/** Retorna uma coleção de observações de uma avaliação de um docenteTurma.
 	 * @param idDocenteTurma
+	 * @param comentariosDiscentes
+	 * @param somenteFinalizada
 	 * @return
 	 * @throws DAOException
 	 */
-	public Collection<ObservacoesDocenteTurma> findObservacoesDocenteTurmaByDocenteTurma(int idDocenteTurma, boolean comentariosDiscentes) throws DAOException {
+	public Collection<ObservacoesDocenteTurma> findObservacoesDocenteTurmaByDocenteTurma(int idDocenteTurma, boolean comentariosDiscentes, boolean somenteFinalizada) throws DAOException {
 		Criteria c = getSession().createCriteria(ObservacoesDocenteTurma.class);
 		c.createCriteria("docenteTurma").add(Restrictions.eq("id", idDocenteTurma));
+		Criteria a = c.createCriteria("avaliacao");
 		if (comentariosDiscentes)
-			c.createCriteria("avaliacao").add(Restrictions.isNotNull("discente")).add(Restrictions.eq("finalizada", true));
+			a.add(Restrictions.isNotNull("discente"));
 		else
-			c.createCriteria("avaliacao").add(Restrictions.isNull("discente")).add(Restrictions.eq("finalizada", true));
+			a.add(Restrictions.isNull("discente"));
+		if (somenteFinalizada)
+			a.add(Restrictions.eq("finalizada", somenteFinalizada));
 		c.addOrder(Order.asc("id"));
 		@SuppressWarnings("unchecked")
 		Collection<ObservacoesDocenteTurma> lista = c.list();

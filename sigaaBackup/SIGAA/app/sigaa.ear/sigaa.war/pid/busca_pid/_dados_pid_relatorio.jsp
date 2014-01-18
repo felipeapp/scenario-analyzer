@@ -187,7 +187,7 @@
 				<td>
 					<h:outputText value="#{cargaHorariaPIDMBean.obj.chEnsino.chOrientacoesAlunosGraduacao}"> 
 						<f:convertNumber minFractionDigits="1" />
-					</h:outputText> h - ${fn:length(cargaHorariaPIDMBean.listaCHOrientacaoGraduacao)} orientação(ões) encontrada(s)
+					</h:outputText> h - ${fn:length(cargaHorariaPIDMBean.listaCHOrientacaoGraduacaoSemAtividades)} orientação(ões) encontrada(s)
 				</td>
 			</tr>
 			<tr>

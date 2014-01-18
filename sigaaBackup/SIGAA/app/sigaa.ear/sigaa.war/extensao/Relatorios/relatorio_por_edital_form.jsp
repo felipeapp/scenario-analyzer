@@ -1,7 +1,11 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho.jsp"%>
 <f:view>
-	<h2><ufrn:subSistema /> &gt;  Relatório de Total de Recursos Solicitados (Orçamento)</h2>
+	<h2><ufrn:subSistema /> &gt; Relatório de Ações de Extensão por Edital</h2>
 	<h:outputText value="#{relatoriosAtividades.create}" />
+	
+<c:set var="confirmm"
+		value="return confirm('Deseja cancelar a operação? ');"
+		scope="application" />
 	
 
 	<c:if test="${acesso.extensao or acesso.planejamento }">
@@ -54,7 +58,7 @@
 					<tr>
 						<td colspan="2">
 							<h:commandButton value="Gerar Relatório" action="#{relatoriosAtividades.relatorioByEdital}" /> 
-							<h:commandButton value="Cancelar" onclick="#{confirm}" action="#{relatoriosAtividades.cancelar}" />
+							<h:commandButton value="Cancelar" onclick="#{confirmm}" action="#{relatoriosAtividades.cancelar}" />
 						</td>
 					</tr>
 				</tfoot>

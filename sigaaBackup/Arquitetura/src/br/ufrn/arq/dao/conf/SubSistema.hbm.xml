@@ -15,6 +15,9 @@
 				<param name="sequence_name">pessoa_seq</param>
 			</generator>
         </id>
+        
+        <property name="ativo" type="boolean" update="true"
+            insert="true" access="property" column="ATIVO" not-null="true"/>
 
         <property name="nome" type="java.lang.String" update="true"
             insert="true" access="property" column="NOME" not-null="true"/>

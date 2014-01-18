@@ -79,6 +79,12 @@
 							<c:if test="${not empty portalPublicoCurso.coordenador.telefoneContato1}">
 								${portalPublicoCurso.coordenador.telefoneContato1}<c:if test="${not empty portalPublicoCurso.coordenador.ramalTelefone1}">/${portalPublicoCurso.coordenador.ramalTelefone1}</c:if>
 							</c:if>
+							<c:if test="${not empty portalPublicoCurso.coordenador.telefoneContato1 && not empty portalPublicoCurso.coordenador.telefoneContato2 }">
+								 | 
+							</c:if>
+							<c:if test="${not empty portalPublicoCurso.coordenador.telefoneContato2}">
+								${portalPublicoCurso.coordenador.telefoneContato2}<c:if test="${not empty portalPublicoCurso.coordenador.ramalTelefone2}">/${portalPublicoCurso.coordenador.ramalTelefone2}</c:if>
+							</c:if>
 							<c:if test="${empty portalPublicoCurso.coordenador.telefoneContato1 && empty portalPublicoCurso.coordenador.telefoneContato2}">
 								<h:outputText value="#{idioma.naoInformado}"/>
 							</c:if>

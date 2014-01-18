@@ -1082,12 +1082,12 @@ public class TurmaDao extends GenericSigaaDAO {
 	public Collection<Turma> findByCursoLato(int idCursoLato, Integer ano, Integer periodo) throws DAOException {
 		int turmasExcluidas[] = {SituacaoTurma.ABERTA, SituacaoTurma.CONSOLIDADA, SituacaoTurma.A_DEFINIR_DOCENTE};
 		try {
-			String hql = " FROM Turma t WHERE t.disciplina.id IN (";
+			String hql = " FROM Turma t WHERE t.situacaoTurma.id in " +
+			UFRNUtils.gerarStringIn(turmasExcluidas) +
+			" and t.disciplina.id IN (";
 			hql += " SELECT ccl.disciplina.id FROM ComponenteCursoLato ccl" +
-					" WHERE ccl.cursoLato.id = :idCursoLato " +
-					" and t.situacaoTurma.id in " +
-					UFRNUtils.gerarStringIn(turmasExcluidas);
-
+			" WHERE ccl.cursoLato.id = :idCursoLato ";
+	
 			if(!isEmpty(ano))
 				hql += " AND t.ano = :ano ";
 
@@ -1778,7 +1778,7 @@ public class TurmaDao extends GenericSigaaDAO {
 					if (pegarUsuario) {
 						try {
 							@SuppressWarnings("unchecked")
-							Map<String, Object> map = getJdbcTemplate().queryForMap("select id_usuario, login, email, id_foto from comum.usuario where id_pessoa=? and inativo=falseValue() " + BDUtils.limit(1), new Object[] { mc.getDiscente().getPessoa().getId() });
+							Map<String, Object> map = getJdbcTemplate().queryForMap("select id_usuario, login, email, id_foto from comum.usuario where id_pessoa=? order by inativo " + BDUtils.limit(1), new Object[] { mc.getDiscente().getPessoa().getId() });
 							if (map != null) {
 								mc.getDiscente().setUsuario(new Usuario());
 								mc.getDiscente().getUsuario().setId((Integer) map.get("id_usuario"));

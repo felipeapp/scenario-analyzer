@@ -18,6 +18,7 @@ import org.apache.myfaces.custom.navmenu.jscookmenu.HtmlCommandJSCookMenu;
 import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.academico.dominio.TipoUnidadeAcademica;
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
 
@@ -95,7 +96,7 @@ public class MenuDiscenteMBean extends SigaaAbstractController<Discente> {
 	 */
 	public NavigationMenuItem getPaginaCurso() {
 		NavigationMenuItem item = null;
-		
+		String linkSigaa = RepositorioDadosInstitucionais.getLinkSigaa(); //string capturada da tabela comum.dados_institucionais
 		if ( getUsuarioLogado().getDiscenteAtivo().getCurso() != null ){
 			int id = getUsuarioLogado().getDiscenteAtivo().getCurso().getId();
 			
@@ -103,7 +104,7 @@ public class MenuDiscenteMBean extends SigaaAbstractController<Discente> {
 			if(getCurrentRequest().getHeader("User-Agent").contains("MSIE"))
 				item = new NavigationMenuItem("Página do Curso", "#{menuDiscente.redirectPaginaCurso}");
 			else //Caso contrário, utilizar o endereço (o componente o força a abrir em uma nova janela)
-				item = new NavigationMenuItem("Página do Curso", "http://www.sigaa.ufrn.br/sigaa/public/curso/portal.jsf?id="+id+"&lc=pt_BR");
+				item = new NavigationMenuItem("Página do Curso", linkSigaa + "/sigaa/public/curso/portal.jsf?id="+id+"&lc=pt_BR");
 		}
 		return item;
 	}
@@ -120,7 +121,7 @@ public class MenuDiscenteMBean extends SigaaAbstractController<Discente> {
 	 */
 	public String redirectPaginaCurso() {
 		int id = getUsuarioLogado().getDiscenteAtivo().getCurso().getId();
-		
-		return redirectSemContexto("http://www.sigaa.ufrn.br/sigaa/public/curso/portal.jsf?id="+id+"&lc=pt_BR");
+		String linkSigaa = RepositorioDadosInstitucionais.getLinkSigaa(); //string capturada da tabela comum.dados_institucionais
+		return redirectSemContexto(linkSigaa + "/sigaa/public/curso/portal.jsf?id="+id+"&lc=pt_BR");
 	}
 }

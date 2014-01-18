@@ -15,12 +15,17 @@ import java.util.Collection;
 
 import javax.faces.model.SelectItem;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.LimiteResultadosException;
+import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.util.ValidatorUtil;
+import br.ufrn.sigaa.arq.dao.UnidadeDao;
 import br.ufrn.sigaa.arq.dao.pesquisa.ProjetoPesquisaDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
@@ -42,7 +47,8 @@ import br.ufrn.sigaa.projetos.dominio.TipoSituacaoProjeto;
  * @author Leonardo Campos
  *
  */
-
+@Component("consultaProjetos")
+@Scope("session")
 public class ConsultaProjetosPesquisaMBean extends SigaaAbstractController<ProjetoPesquisa> {
 
 	public final String JSP_CONSULTA_PROJETOS = "/public/pesquisa/consulta_projetos.jsp";
@@ -65,10 +71,16 @@ public class ConsultaProjetosPesquisaMBean extends SigaaAbstractController<Proje
 	private String codigo;
 	private Servidor pesquisador;
 	
+	private Integer codigoUnidade;
+	
 	/**      
      * Construtor Padrão.
      */
 	public ConsultaProjetosPesquisaMBean() {
+		clear();
+	}
+	
+	private void clear() {
 		obj = new ProjetoPesquisa();
 		obj.setCodigo(new CodigoProjetoPesquisa());
 
@@ -87,6 +99,8 @@ public class ConsultaProjetosPesquisaMBean extends SigaaAbstractController<Proje
 		.setClassificacaoFinanciadora(new ClassificacaoFinanciadora());
 
 		pesquisador = new Servidor();
+		
+		codigoUnidade = 0;
 	}
 	/**
 	 * Usado para buscas de projetos de pesquisa 
@@ -184,7 +198,7 @@ public class ConsultaProjetosPesquisaMBean extends SigaaAbstractController<Proje
 						idArea,
 						idGrupoPesquisa,
 						idAgenciaFinanciadora,
-						null, false);
+						null, true);
 
 				if (!lista.isEmpty()) {
 					setResultadosBusca(lista);
@@ -392,7 +406,31 @@ public class ConsultaProjetosPesquisaMBean extends SigaaAbstractController<Proje
 	 */
 	@Override
 	public String cancelar() {
+		super.cancelar();
 		return forward("/public/home.jsp");
 	}
-	
+
+	/**
+	 * Realiza a busca de projetos de pesquisa a partir da unidade.
+	 * @return
+	 * @throws DAOException
+	 * @throws NegocioException 
+	 */
+	public String consultarProjetosUnidade() throws DAOException, NegocioException {
+		Integer idUnidade = getDAO(UnidadeDao.class).findIdByCodigo(codigoUnidade);
+		if(ValidatorUtil.isEmpty(idUnidade))
+			throw new NegocioException("Unidade não localizada.");
+		obj.getCentro().setId( idUnidade );
+		setFiltroCentro(true);
+		buscar();
+		return redirect("/public/pesquisa/consulta_projetos.jsf");
+	}
+
+	public Integer getCodigoUnidade() {
+		return codigoUnidade;
+	}
+
+	public void setCodigoUnidade(Integer codigoUnidade) {
+		this.codigoUnidade = codigoUnidade;
+	}
 }

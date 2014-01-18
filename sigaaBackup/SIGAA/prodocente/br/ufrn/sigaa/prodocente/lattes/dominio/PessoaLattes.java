@@ -91,6 +91,14 @@ public class PessoaLattes implements Validatable {
 	private Date ultimaVerificacao;
 	
 	/**
+	 * Ano de referência para a importação automática.
+	 * São importadas todas as produções cujo ano seja igual ou maior que o ano de referência.
+	 * 
+	 */
+	@Column(name = "ano_referencia")
+	private Integer anoReferencia;
+	
+	/**
 	 * Utilizado somente durante a rotina de importação para
 	 * identificar se o currículo da pessoa considerada deve ser atualizado ou não.
 	 */
@@ -199,6 +207,14 @@ public class PessoaLattes implements Validatable {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	}
+
+	public Integer getAnoReferencia() {
+		return anoReferencia;
+	}
+
+	public void setAnoReferencia(Integer anoReferencia) {
+		this.anoReferencia = anoReferencia;
 	}
 
 }

@@ -120,7 +120,12 @@
 					<f:param name="tipoDocumento" value="5" />
 					<f:param name="subTipoDocumento" value="2024" />					
 				</h:commandLink></li>
-				
+				<li><h:commandLink
+					action="#{autenticidade.selecionarDocumento}"
+					value="Declaração de Participação em  Plano de Trabalho Associado">
+					<f:param name="tipoDocumento" value="6" />
+					<f:param name="subTipoDocumento" value="2030" />
+				</h:commandLink></li>				
 			</ul>
 			</li>
 

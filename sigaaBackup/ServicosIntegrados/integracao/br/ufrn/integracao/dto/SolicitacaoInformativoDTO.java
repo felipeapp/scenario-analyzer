@@ -1,6 +1,7 @@
 package br.ufrn.integracao.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -20,6 +21,8 @@ public class SolicitacaoInformativoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Integer id;
+	
 	/** Assunto do informativo */
 	private String assunto;
 	/** Informativo */
@@ -33,6 +36,12 @@ public class SolicitacaoInformativoDTO implements Serializable {
 	private int anoPortaria;
 	
 	private int numeroPortaria;
+	
+	private Integer numeroBoletim;
+	
+	private Integer anoBoletim;
+	
+	private Date dataPublicacaoBoletim;
 	
 	private Map<String, Object> mapaBoletim;
 	
@@ -90,6 +99,38 @@ public class SolicitacaoInformativoDTO implements Serializable {
 
 	public void setNumeroPortaria(int numeroPortaria) {
 		this.numeroPortaria = numeroPortaria;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getNumeroBoletim() {
+		return numeroBoletim;
+	}
+
+	public void setNumeroBoletim(Integer numeroBoletim) {
+		this.numeroBoletim = numeroBoletim;
+	}
+
+	public Integer getAnoBoletim() {
+		return anoBoletim;
+	}
+
+	public void setAnoBoletim(Integer anoBoletim) {
+		this.anoBoletim = anoBoletim;
+	}
+
+	public Date getDataPublicacaoBoletim() {
+		return dataPublicacaoBoletim;
+	}
+
+	public void setDataPublicacaoBoletim(Date dataPublicacaoBoletim) {
+		this.dataPublicacaoBoletim = dataPublicacaoBoletim;
 	}
 
 	public Map<String, Object> getMapaBoletim() {

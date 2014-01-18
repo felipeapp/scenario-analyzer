@@ -40,6 +40,7 @@ import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.bolsas.negocio.IntegracaoBolsas;
 import br.ufrn.comum.dominio.Sistema;
+import br.ufrn.sigaa.arq.dao.ensino.BolsistaSigaaDao;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.dominio.ModalidadeEducacao;
 import br.ufrn.sigaa.dominio.TipoFiltroCurso;
@@ -124,7 +125,7 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 			sqlconsulta.append("		and c.id_curso = "
 					+ matrizCurricular.getCurso().getId());
 
-		else if (filtros.get(UNIDADE))
+		else if (filtros.get(CENTRO))
 			sqlconsulta.append("		and u.id_unidade = "
 					+ matrizCurricular.getCurso().getUnidade().getId());
 
@@ -162,17 +163,17 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 			throws DAOException {
 		
 		String sqlConsulta = 
-			"	select distinct p.nome , e.logradouro, e.numero, m.nome as cidade, p.cpf_cnpj, d.matricula, " 
-				+ "  uf.sigla as estado, p.telefone_fixo, p.telefone_celular, p.email, u.sigla, c.nivel, sd.descricao as status "
-				+ "  from discente d "
-				+"   inner join comum.pessoa p on p.id_pessoa = d.id_pessoa "
-				+"   inner join status_discente sd on sd.status = d.status "
-				+"   inner join curso c on d.id_curso = c.id_curso "
-				+"   inner join comum.unidade u on c.id_unidade = u.id_unidade "
-				+"   inner join comum.endereco e on e.id_endereco = p.id_endereco_contato "
-				+"   inner join comum.municipio m on e.id_municipio = m.id_municipio "
-				+"   inner join comum.unidade_federativa uf on uf.id_unidade_federativa = m.id_unidade_federativa "
-				+ "  where 1 = 1 " 
+			"select distinct p.nome , e.logradouro, e.numero, m.nome as cidade, p.cpf_cnpj, d.matricula, " 
+				+ " uf.sigla as estado, p.telefone_fixo, p.telefone_celular, p.email, u.sigla, c.nivel, sd.descricao as status "
+				+ " from discente d "
+				+ " inner join comum.pessoa p on p.id_pessoa = d.id_pessoa "
+				+ " inner join status_discente sd on sd.status = d.status "
+				+ " left join curso c on d.id_curso = c.id_curso "
+				+ " inner join comum.unidade u on (c.id_unidade = u.id_unidade  or d.id_gestora_academica = u.id_unidade)"
+				+ " inner join comum.endereco e on e.id_endereco = p.id_endereco_contato "
+				+ " inner join comum.municipio m on e.id_municipio = m.id_municipio "
+				+ " inner join comum.unidade_federativa uf on uf.id_unidade_federativa = m.id_unidade_federativa "
+				+ " where 1 = 1 " 
 				+ (unidade > 0 ? "  and u.id_unidade = "+ unidade : "")
 				+ (status > 0 ? "  and d.status = "+ status : "")
 				+ " order by c.nivel, u.sigla, p.nome ";
@@ -391,62 +392,105 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 	 * @return
 	 * @throws ArqException
 	 */
-	public List<DiscentesBolsas> findDiscentesBolsas(int unidade, Date dataInicial, Date dataFinal) throws ArqException {
+	public List<DiscentesBolsas> findDiscentesBolsas(int unidade, Date dataInicial, Date dataFinal, Character nivelEnsino, Collection<Integer> tiposBolsaCadastroSigaa) throws ArqException {
 		
-		List<HashMap<String, Object>> bolsasSIPAC = IntegracaoBolsas.findBolsistasAtivos(new java.sql.Date(dataInicial.getTime()), new java.sql.Date(dataFinal.getTime()), null, null);
+		BolsistaSigaaDao bolsistaDao = new BolsistaSigaaDao();
 		
-		List<DiscentesBolsas> resultado = new ArrayList<DiscentesBolsas>();
-		
-		StringBuilder sql = new StringBuilder();
-		
-		sql.append(" select distinct d.matricula, p.nome, d.id_discente, c.nivel, sd.descricao"
-			+" from ensino.matricula_componente m, discente d, status_discente sd, comum.pessoa p," 
-			+"     ensino.situacao_matricula s, ensino.componente_curricular c, curso cu"
-			+"  where m.id_discente = d.id_discente"
-			+"  and d.status = sd.status"
-			+"  and d.status = "+StatusDiscente.ATIVO
-			+"  and d.id_pessoa = p.id_pessoa"
-			+"  and m.id_situacao_matricula = s.id_situacao_matricula"
-			+"  and m.id_componente_curricular = c.id_disciplina"
-			+"  and c.nivel in ('S','E','D')");
-		if(unidade > 0)
-			sql.append("  and c.id_unidade = "+unidade );	
-		
-		sql.append("  and c.id_unidade = cu.id_unidade"
-			+"  and d.id_curso = cu.id_curso"
-			+"  order by c.nivel, p.nome");		
-
-		@SuppressWarnings("unchecked")
-		List<Object[]> lista = getSession().createSQLQuery(sql.toString()).list();	
-		
-		for (Object obj[] : lista) {
-			DiscentesBolsas db = new DiscentesBolsas();
-
-			db.setIdDiscente(Integer.parseInt( ""+obj[2] ));
-			db.setMatricula(String.valueOf(obj[0]));
-			db.setNome(String.valueOf(obj[1]));			
-			db.setStatusDiscente(String.valueOf(obj[4]));
-			db.setNivel(NivelEnsino.getDescricao(String.valueOf(obj[3]).toCharArray()[0]));
-			resultado.add(db);
-		}				
-		
-		for (HashMap<String, Object> listaBolsa : bolsasSIPAC){
-				
-			DiscentesBolsas aux = new DiscentesBolsas();
-			aux.setIdDiscente(Integer.parseInt( ""+listaBolsa.get("id_discente") ) );				
+		try{
+			List<HashMap<String, Object>> bolsasSIPAC = new ArrayList<HashMap<String,Object>>();
 			
-			if (resultado.indexOf(aux) >= 0){
-				DiscentesBolsas db = resultado.get( resultado.indexOf(aux) );
-				
-				db.setTipoBolsa( String.valueOf( listaBolsa.get("denominacao") ) );
-				db.setDataInicio( (Date) listaBolsa.get("inicio") );
-				db.setDataFim( (Date) listaBolsa.get("fim")  );		
-				db.setDataFinalizacao( (Date) listaBolsa.get("data_finalizacao")  );
-				
+			if(Sistema.isSipacAtivo()){
+				bolsasSIPAC = IntegracaoBolsas.findBolsistasAtivos(new java.sql.Date(dataInicial.getTime()), new java.sql.Date(dataFinal.getTime()),nivelEnsino,tiposBolsaCadastroSigaa);
 			}
+			
+			
+					
+			List<HashMap<String, Object>> bolsasSIGAA = bolsistaDao.findBolsistasAtivosSigaa(new java.sql.Date(dataInicial.getTime()), new java.sql.Date(dataFinal.getTime()),nivelEnsino,tiposBolsaCadastroSigaa);
+			
+			List<DiscentesBolsas> resultado = new ArrayList<DiscentesBolsas>();
+			
+			StringBuilder sql = new StringBuilder();
+			
+			sql.append(" select distinct d.matricula, p.nome, d.id_discente, c.nivel, sd.descricao"
+				+" 		 from ensino.matricula_componente m, discente d, status_discente sd, comum.pessoa p," 
+				+"     ensino.situacao_matricula s, ensino.componente_curricular c, curso cu"
+				+"  where m.id_discente = d.id_discente"
+				+"  and d.status = sd.status"
+				+"  and d.status = "+StatusDiscente.ATIVO
+				+"  and d.id_pessoa = p.id_pessoa"
+				+"  and m.id_situacao_matricula = s.id_situacao_matricula"
+				+"  and m.id_componente_curricular = c.id_disciplina"
+				+"  and c.nivel in ('S','E','D')");
+			if(unidade > 0)
+				sql.append("  and c.id_unidade = "+unidade );	
+			
+			sql.append("  and c.id_unidade = cu.id_unidade"
+				+"  and d.id_curso = cu.id_curso"
+				+"  order by c.nivel, p.nome");		
+	
+			@SuppressWarnings("unchecked")
+			List<Object[]> lista = getSession().createSQLQuery(sql.toString()).list();	
+			
+			for (Object obj[] : lista) {
+				DiscentesBolsas db = new DiscentesBolsas();
+	
+				db.setIdDiscente(Integer.parseInt( ""+obj[2] ));
+				db.setMatricula(String.valueOf(obj[0]));
+				db.setNome(String.valueOf(obj[1]));			
+				db.setStatusDiscente(String.valueOf(obj[4]));
+				db.setNivel(NivelEnsino.getDescricao(String.valueOf(obj[3]).toCharArray()[0]));
+				resultado.add(db);
+			}				
+			
+			if(Sistema.isSipacAtivo()) {
+				for (HashMap<String, Object> listaBolsa : bolsasSIPAC){
+						
+					DiscentesBolsas aux = new DiscentesBolsas();
+					aux.setIdDiscente(Integer.parseInt( ""+listaBolsa.get("id_discente") ) );				
+					
+					if (resultado.indexOf(aux) >= 0){
+						DiscentesBolsas db = resultado.get( resultado.indexOf(aux) );
+						
+						db.setTipoBolsa( String.valueOf( listaBolsa.get("denominacao") ) );
+						db.setDataInicio( (Date) listaBolsa.get("inicio") );
+						db.setDataFim( (Date) listaBolsa.get("fim")  );		
+						db.setDataFinalizacao( (Date) listaBolsa.get("data_finalizacao")  );
+						
+					}
+				}
+			}
+			
+			if( ! ValidatorUtil.isEmpty(bolsasSIGAA)){
+				for (HashMap<String, Object> listaBolsa : bolsasSIGAA) {
+					
+					DiscentesBolsas aux = new DiscentesBolsas();
+					aux.setIdDiscente(Integer.parseInt( ""+listaBolsa.get("id_discente") ) );				
+					
+					int index = resultado.indexOf(aux);
+					if (index >= 0){
+						DiscentesBolsas db = resultado.get( resultado.indexOf(aux) );
+						//Prevenindo caso o discente possua bolsa no sigaa e no sipac.
+						if(ValidatorUtil.isEmpty(db.getTipoBolsa())) {				
+							db.setTipoBolsa( String.valueOf( listaBolsa.get("denominacao") ) );
+							db.setDataInicio( (Date) listaBolsa.get("inicio") );
+							db.setDataFim( (Date) listaBolsa.get("fim")  );		
+							db.setDataFinalizacao( (Date) listaBolsa.get("data_finalizacao")  );
+						} else {
+							DiscentesBolsas dbNovo =(DiscentesBolsas) db.clone();					
+							dbNovo.setTipoBolsa( String.valueOf( listaBolsa.get("denominacao") ) );
+							dbNovo.setDataInicio( (Date) listaBolsa.get("inicio") );
+							dbNovo.setDataFim( (Date) listaBolsa.get("fim")  );		
+							dbNovo.setDataFinalizacao( (Date) listaBolsa.get("data_finalizacao")  );					
+							resultado.add(index, dbNovo);
+						}
+						
+					}
+				}
+			}
+			return resultado;
+		} finally {
+			bolsistaDao.close();
 		}
-		
-		return resultado;
 	}
 		
 	
@@ -1570,7 +1614,7 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 			sqlconsulta.append("		and c.id_curso = "
 					+ matrizCurricular.getCurso().getId());
 
-		else if (filtros.get(UNIDADE))
+		else if (filtros.get(CENTRO))
 			sqlconsulta.append("		and u.id_unidade = "
 					+ matrizCurricular.getCurso().getUnidade().getId());
 
@@ -2092,7 +2136,7 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 	 * por carga horária total exigida por carga horária disciplina-atividade
 	 * obrigatória exigida por carga horária disciplina-atividade obrigatória
 	 * integralizada por ch disciplina-atividade complementar exigida por ch
-	 * disciplina-atividade complementar integralizado por % total de
+	 * disciplina-atividade complementar GRADUANDO por % total de
 	 * integralização pelo produto da ch disciplina-atividade exigida -
 	 * (subtraído) carga horária disciplina atividade complementar cumprida.
 	 * 
@@ -2977,40 +3021,56 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 	 * @throws DAOException
 	 */
 	public List<Map<String, Object>> findListaInsucessosAlunos(Integer ano,
-			Integer periodo, Integer idCurso) throws DAOException {
-		StringBuilder sqlconsulta = new StringBuilder(
-	  			" select cc.codigo as codigo_disciplina, ccd.nome as nome_disciplina, t.codigo as codigo_turma, "
+			Integer periodo, Integer idCurso, boolean relatorioSintetico) throws DAOException {
+		SituacaoMatricula situacoesInsucesso[] = { SituacaoMatricula.CANCELADO,
+				SituacaoMatricula.REPROVADO, SituacaoMatricula.REPROVADO_FALTA,
+				SituacaoMatricula.REPROVADO_MEDIA_FALTA,
+				SituacaoMatricula.TRANCADO, SituacaoMatricula.NAO_CONCLUIDO};
+		SituacaoMatricula situacoes[] = { SituacaoMatricula.CANCELADO,
+				SituacaoMatricula.REPROVADO, SituacaoMatricula.REPROVADO_FALTA,
+				SituacaoMatricula.REPROVADO_MEDIA_FALTA,
+				SituacaoMatricula.TRANCADO, SituacaoMatricula.NAO_CONCLUIDO,
+				SituacaoMatricula.MATRICULADO, SituacaoMatricula.APROVADO};
+		String projecaoDetalhada = "ccd.codigo as codigo_disciplina, ccd.nome as nome_disciplina, t.codigo as codigo_turma, "
 							+ " d.matricula as matricula_discente, p.nome as nome_discente, m.id_situacao_matricula, "
-							+ " sm.descricao as situacao, mpo.nome as municipio_polo "
-							+ " from discente d "
-							+ " inner join comum.pessoa p using(id_pessoa) "
-							+ " inner join ensino.matricula_componente m using(id_discente) "
-						    + " inner join ensino.componente_curricular cc on (cc.id_disciplina = m.id_componente_curricular) "
-						    + " inner join ensino.componente_curricular_detalhes ccd on (cc.id_disciplina = ccd.id_componente and ccd.id_componente_detalhes = cc.id_detalhe) "
-						    + " inner join ensino.situacao_matricula sm on (sm.id_situacao_matricula = m.id_situacao_matricula) "
-						    + " inner join ensino.turma t on (m.id_turma = t.id_turma) "
-						    + " left join graduacao.discente_graduacao dg on (dg.id_discente_graduacao = d.id_discente) " 
-						    + " left join ead.polo po on (dg.id_polo = po.id_polo) "
-						    + " left join comum.municipio mpo on (mpo.id_municipio = po.id_cidade) " 
-						    + " where m.ano = "	+ ano
-							+ " and m.periodo = " + periodo
-							+ " and m.id_situacao_matricula in (3,5,6,7) "
-							+ (!isEmpty(idCurso) ? (" and d.id_curso = "+idCurso) : "")
-							+ " group by codigo_disciplina, nome_disciplina, codigo_turma, matricula_discente, "
-							+ " nome_discente, m.id_situacao_matricula, situacao, mpo.nome"
-							+ " order by nome_disciplina, codigo_turma, nome_discente, m.id_situacao_matricula");
+							+ " sm.descricao as situacao, mpo.nome as municipio_polo ";
+		String projecaoSintetico = "ccd.codigo as codigo_disciplina, ccd.nome as nome_disciplina, mpo.nome as municipio_polo," +
+				" count(distinct t.id_turma) as qtd_turmas, count(distinct d.id_discente) as qtd_discentes,"+
+				" sum(case when m.id_situacao_matricula = " +SituacaoMatricula.CANCELADO.getId()+ " then 1 else 0 end) as qtd_cancelado,"+
+				" sum(case when m.id_situacao_matricula = " +SituacaoMatricula.REPROVADO.getId()+ " then 1 else 0 end) as qtd_reprovado," +
+				" sum(case when m.id_situacao_matricula = " +SituacaoMatricula.REPROVADO_FALTA.getId()+ " then 1 else 0 end) as qtd_reprovado_falta," +
+				" sum(case when m.id_situacao_matricula = " +SituacaoMatricula.REPROVADO_MEDIA_FALTA.getId()+ " then 1 else 0 end) as qtd_reprovado_media_falta," +
+				" sum(case when m.id_situacao_matricula = " +SituacaoMatricula.TRANCADO.getId()+ " then 1 else 0 end) as qtd_trancamento," +
+				" sum(case when m.id_situacao_matricula in " +UFRNUtils.gerarStringIn(situacoesInsucesso)+ " then 1 else 0 end) as  total_insucesso";
+		String sql = " select "
+				+ (relatorioSintetico ? projecaoSintetico : projecaoDetalhada)
+				+ " from discente d "
+				+ (relatorioSintetico ? "" : " inner join comum.pessoa p using(id_pessoa) ")
+				+ " inner join ensino.matricula_componente m using(id_discente) "
+			    + " inner join ensino.componente_curricular_detalhes ccd using (id_componente_detalhes) "
+			    + " inner join ensino.situacao_matricula sm using (id_situacao_matricula) "
+			    + " inner join ensino.turma t on (m.id_turma = t.id_turma) "
+			    + " left join graduacao.discente_graduacao dg on (dg.id_discente_graduacao = d.id_discente) " 
+			    + " left join ead.polo po on (dg.id_polo = po.id_polo) "
+			    + " left join comum.municipio mpo on (mpo.id_municipio = po.id_cidade) " 
+			    + " where m.ano = "	+ ano
+				+ " and m.periodo = " + periodo
+				+ " and m.id_situacao_matricula in " + (relatorioSintetico ? UFRNUtils.gerarStringIn(situacoes) : UFRNUtils.gerarStringIn(situacoesInsucesso)) 
+				+ (!isEmpty(idCurso) ? (" and d.id_curso = "+idCurso) : "")
+				+ " group by ccd.codigo, ccd.nome, mpo.nome" + (!relatorioSintetico ? ", t.codigo, d.matricula, p.nome, m.id_situacao_matricula, "
+							+ " sm.descricao" : "")
+				+ " order by nome_disciplina" + (!relatorioSintetico ? ", codigo_turma, nome_discente, m.id_situacao_matricula" : "");
 		
 		List<Map<String, Object>> result;
 
 		try {
-			result = executeSql(sqlconsulta.toString());
+			result = executeSql(sql);
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 
 		return result;
 	}
-
 
 	/** Retorna a quantidade de alunos com reprovação e desnivelados por componente curricular.
 	 * @param centroDisciplinas
@@ -3769,6 +3829,14 @@ public class RelatorioDiscenteSqlDao extends AbstractRelatorioSqlDao {
 		return mapa;
 	}
 	
+	/** Retorna uma lista com dados do relatório de índices acadêmico de uma unidade.
+	 * @param idModalidadeEducacao
+	 * @param idUnidade
+	 * @param somenteCursosConvenio
+	 * @return
+	 * @throws HibernateException
+	 * @throws DAOException
+	 */
 	public List<Map<String,Object>> relatorioIndiceAcademicos(int idModalidadeEducacao, int idUnidade, boolean somenteCursosConvenio) throws HibernateException, DAOException{
 		return CollectionUtils.toList(relatorioSumarioMediaIndicesAcademicos(idModalidadeEducacao, idUnidade, somenteCursosConvenio).values());
 	}

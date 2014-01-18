@@ -52,8 +52,7 @@
 				        <a4j:support event="onselect">
 							<f:setPropertyActionListener value="#{_servidor.id}" target="#{avaliacaoApresentacaoResumoBean.idOrientador}"  />
 						</a4j:support>
-						
-					  </rich:suggestionbox>
+					</rich:suggestionbox>
 				</td>
 			</tr>
 			
@@ -84,79 +83,63 @@
 		</table>
 		<br/>
 		
+		<div class="infoAltRem">
+			<h:graphicImage value="/img/seta.gif" style="overflow: visible;" />: Avaliar Apresentação de Trabalho
+			<h:graphicImage url="/img/monitoria/document_new.png" width="16px"/>: Criar nova Avaliação de Resumo
+		</div>
+		
 		<table class="formulario" width="100%">
 			<caption>Avaliações de Trabalhos do CIC (${ fn:length(avaliacaoApresentacaoResumoBean.avaliacoes) })</caption>
-			<tbody>
-				<tr>
-					<td colspan="2">
-						<div class="infoAltRem">
-							<h:graphicImage value="/img/seta.gif" style="overflow: visible;" />: Avaliar Apresentação de Trabalho<br/>
-						</div>
-						<t:dataTable value="#{avaliacaoApresentacaoResumoBean.avaliacoes}" var="av" id="avaliacoes" rowIndexVar="index" width="100%" rowClasses="linhaPar, linhaImpar" styleClass="listagem">
-							
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Avaliador</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.avaliador.docente.pessoa.nome}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Nº Painel</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.resumo.numeroPainel}" />
-							</t:column>
+				<c:set var="_codigo" value=" "/>
+					<c:forEach items="#{avaliacaoApresentacaoResumoBean.avaliacoes}" var="av">
+						<c:if test="${ _codigo != av.resumo.codigo }">
+					        <thead>
+								<tr>
+									<td class="subFormulario" colspan="7"> 
+										${av.resumo.codigo} - ${av.resumo.titulo}
+									</td>
+									<td class="subFormulario">										
+										<h:commandLink action="#{avaliacaoApresentacaoResumoBean.criarAvaliacao}">
+ 											<f:param name="idResumo" value="#{av.resumo.id}"/> 
+											<h:graphicImage url="/img/monitoria/document_new.png" width="16px" title="Criar nova Avaliação de Resumo"/>
+ 										</h:commandLink>
+									</td>
+								</tr>						
+						      	<tr>
+						        	<th>Avaliador</th>
+						        	<th>Nº Painel</th>
+						        	<th>Código</th>
+						        	<th>Autor</th>
+						        	<th>Orientador</th>	        	
+						        	<th>Status</th>
+						        	<th>Média</th>
+						        	<th width="5%"></th>
+						        </tr>
+						 	</thead>
+						</c:if>
 						
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Código</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.resumo.codigo}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Autor</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.resumo.autor.nome}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Orientador</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.resumo.orientador.nome}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Status</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.resumo.statusString}" />
-							</t:column>
-							
-							<t:column>
-								<f:facet name="header">
-									<f:verbatim>Média</f:verbatim>
-								</f:facet>
-								<h:outputText value="#{av.media}" />
-							</t:column>
-							
-							<t:column width="5%" styleClass="centerAlign">
-								<f:facet name="header"><f:verbatim></f:verbatim></f:facet>
+						<tr>
+							<td> ${av.avaliador.docente.pessoa.nome} </td>
+							<td> ${av.resumo.numeroPainel} </td>
+							<td> ${av.resumo.codigo} </td>
+							<td> ${av.resumo.autor.nome} </td>
+							<td> ${av.resumo.orientador.nome} </td>
+							<td> ${av.resumo.statusString} </td>
+							<td> ${av.media} </td>
+							<td>
 								<h:commandLink action="#{avaliacaoApresentacaoResumoBean.popularAvaliacao}">
-									<f:param name="id" value="#{av.id}"/>
+ 									<f:param name="id" value="#{av.id}"/> 
 									<h:graphicImage url="/img/seta.gif" title="Avaliar Apresentação de Resumo"/>
-								</h:commandLink>
-							</t:column>
-						</t:dataTable>
-					</td>
-				</tr>
-			</tbody>
+ 								</h:commandLink>
+							</td>
+						</tr>
+						
+					<c:set var="_codigo" value="${av.resumo.codigo}"/>
+					</c:forEach>
+						
 			<tfoot>
 				<tr>
-					<td colspan="2"><h:commandButton id="btnConcluir" value="Concluir Avaliações" action="#{avaliacaoApresentacaoResumoBean.cancelar}"/></td>
+					<td colspan="8"><h:commandButton id="btnConcluir" value="Concluir Avaliações" action="#{avaliacaoApresentacaoResumoBean.cancelar}"/></td>
 				</tr>
 			</tfoot>
 		</table>

@@ -13,8 +13,7 @@ function mudarTodos(status) {
 <f:view>
 <a4j:keepAlive beanName="cadastramentoDiscenteTecnico"></a4j:keepAlive>
 <h2><ufrn:subSistema /> &gt; Relatório de Cadastramento</h2>
-<div class="descricaoOperacao">
-</div>
+
 
 <h:form id="form">
 <table class="formulario" width="80%">
@@ -47,16 +46,15 @@ function mudarTodos(status) {
 		</td>
 	</tr>
 	<tr>
-		<th width="25%">Reserva de Vagas:</th>
+		<th width="25%">Grupo de reserva de vagas:</th>
 		<td>
-			<h:selectOneMenu id="reservaVagas" value="#{cadastramentoDiscenteTecnico.reservaVagas}">
-				<f:selectItem itemValue="" itemLabel="-- AMBOS --" />
-				<f:selectItem itemValue="true" itemLabel="Sim" />
-				<f:selectItem itemValue="false" itemLabel="Não" />
+			<h:selectOneMenu id="selectGrupo" value="#{cadastramentoDiscenteTecnico.idGrupoReservaVaga}">
+				<f:selectItem itemValue="0" itemLabel="-- TODOS --" />
+				<f:selectItems value="#{cadastramentoDiscenteTecnico.gruposCombo}" />
 			</h:selectOneMenu>
 		</td>
 	</tr>
-	<tr>
+	<!-- <tr>
 		<th width="25%">Formato:</th>
 		<td>
 			<h:selectOneRadio id="formato" value="#{cadastramentoDiscenteTecnico.formatoRelatorio}">
@@ -65,7 +63,7 @@ function mudarTodos(status) {
 				<f:selectItem itemValue="xls" itemLabel="EXCEL" />
 			</h:selectOneRadio>
 		</td>
-	</tr>
+	</tr>-->
 	<tfoot>
 		<tr>
 			<td colspan="2">

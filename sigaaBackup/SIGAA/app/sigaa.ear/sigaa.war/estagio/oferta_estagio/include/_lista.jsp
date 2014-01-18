@@ -24,7 +24,7 @@
 			<c:if test="${ofertaEstagioMBean.portalCoordenadorGraduacao || ofertaEstagioMBean.portalConcedenteEstagio || convenioEstagioMBean.permiteAnalisarConvenio}">
 				<td style="width:2%;"></td>
 			</c:if>
-			<c:if test="${ofertaEstagioMBean.portalCoordenadorGraduacao || convenioEstagioMBean.permiteAnalisarConvenio}">
+			<c:if test="${convenioEstagioMBean.permiteAnalisarConvenio}">
 				<td style="width:2%;"></td>
 			</c:if>
 		</tr>
@@ -77,7 +77,7 @@
 					</h:commandLink>
 				</td>
 			</c:if>
-			<c:if test="${ofertaEstagioMBean.portalCoordenadorGraduacao || convenioEstagioMBean.permiteAnalisarConvenio}">
+			<c:if test="${convenioEstagioMBean.permiteAnalisarConvenio}">
 				<td style="width:2%;">
 					<h:commandLink action="#{ofertaEstagioMBean.iniciarAnalise}" title="Analisar Oferta de Estágio" >
 						<h:graphicImage value="/img/seta.gif" alt="Analisar Oferta de Estágio"/>

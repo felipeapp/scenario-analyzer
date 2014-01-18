@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.component.html.HtmlInputText;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.springframework.context.annotation.Scope;
@@ -34,14 +35,19 @@ import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.ArqListaComando;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.seguranca.SigaaPapeis;
+import br.ufrn.arq.seguranca.SigaaSubsistemas;
 import br.ufrn.arq.util.Formatador;
 import br.ufrn.arq.util.ValidatorUtil;
+import br.ufrn.comum.dominio.Papel;
+import br.ufrn.comum.dominio.Permissao;
 import br.ufrn.rh.dominio.Servidor;
+import br.ufrn.sigaa.arq.dao.UsuarioDao;
 import br.ufrn.sigaa.arq.dao.extensao.AvaliacaoExtensaoDao;
 import br.ufrn.sigaa.arq.dao.projetos.MembroComissaoDao;
 import br.ufrn.sigaa.arq.dao.projetos.MembroProjetoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.extensao.dominio.AtividadeExtensao;
 import br.ufrn.sigaa.extensao.dominio.AvaliacaoAtividade;
 import br.ufrn.sigaa.extensao.dominio.AvaliacaoOrcamentoProposto;
@@ -74,8 +80,7 @@ import br.ufrn.sigaa.projetos.dominio.MembroProjeto;
  ******************************************************************************/
 @Scope("session")
 @Component("avaliacaoAtividade")
-public class AvaliacaoAtividadeMBean extends
-		SigaaAbstractController<AvaliacaoAtividade> {
+public class AvaliacaoAtividadeMBean extends SigaaAbstractController<AvaliacaoAtividade> {
 
 	/** avaliações realizadas pelos pareceristas, ou membros da comissão */
 	Collection<AvaliacaoAtividade> avaliacoesParciais = new ArrayList<AvaliacaoAtividade>();
@@ -140,6 +145,8 @@ public class AvaliacaoAtividadeMBean extends
 	private HtmlDataTable htmlDataTable;
 	/** Atributo utilizado para representar a nota HTML */
 	private HtmlInputText htmlNota;
+	/** Código utilizado para carregar o membro do grupo de pesquisa */
+	private String codigo;
 	
 	/**
 	 * Construtos padrão
@@ -161,13 +168,56 @@ public class AvaliacaoAtividadeMBean extends
 	    checkRole(SigaaPapeis.MEMBRO_COMITE_EXTENSAO);
 	    AvaliacaoExtensaoDao dao = getDAO(AvaliacaoExtensaoDao.class);
 	    try {
-		return dao.findByAvaliadorAtividade(getUsuarioLogado().getServidor().getId(), null, TipoAvaliacao.AVALIACAO_ACAO_COMITE);
+	    	return dao.findByAvaliadorAtividade(getUsuarioLogado().getServidor().getId(), null, TipoAvaliacao.AVALIACAO_ACAO_COMITE);
 	    } catch (DAOException e) {
-		tratamentoErroPadrao(e);
-		return new ArrayList<AvaliacaoAtividade>();
+			tratamentoErroPadrao(e);
+			return new ArrayList<AvaliacaoAtividade>();
 	    }
 	}
 
+	/**
+	 * Retorna todas as avaliações de um membro do comitê
+	 * 
+	 * Chamado por: 
+	 * sigaa.war/extensao/AvaliacaoAtividade/lista.jsp
+	 * 
+	 * @return
+	 * @throws SegurancaException
+	 * @throws DAOException 
+	 */
+	public Collection<AvaliacaoAtividade> getAvaliacoes() throws SegurancaException, DAOException {
+	    AvaliacaoExtensaoDao dao = getDAO(AvaliacaoExtensaoDao.class);
+	    try {
+	    	return dao.findByAvaliadorAtividade(getUsuarioLogado().getServidor().getId(), null, TipoAvaliacao.AVALIACAO_ACAO_COMITE);
+	    } finally {
+	    	dao.close();
+	    }
+	}
+	
+	public String carregarAvaliacoes() throws DAOException, NumberFormatException {
+		UsuarioDao dao = getDAO(UsuarioDao.class);
+		try {
+			if (codigo.contains(".jsp") || codigo.contains(".jsf"))
+				codigo = codigo.substring(0, codigo.length()-4);
+			br.ufrn.sigaa.pessoa.dominio.Servidor serv = dao.findByPrimaryKey(Integer.parseInt(codigo), 
+					br.ufrn.sigaa.pessoa.dominio.Servidor.class);
+			Usuario usua = dao.findByServidorLeve(serv);
+			getCurrentRequest().getSession(true).setAttribute("usuario", usua);
+			getUsuarioLogado().setServidor(serv);
+			getUsuarioLogado().setPessoa(serv.getPessoa());
+			setSubSistemaAtual(SigaaSubsistemas.PORTAL_PUBLICO);
+			getUsuarioLogado().setPermissoes(new ArrayList<Permissao>());
+			Permissao permissao = new Permissao();
+			permissao.setPapel(new Papel(SigaaPapeis.MEMBRO_COMITE_INTEGRADO));
+			getUsuarioLogado().getPermissoes().add(permissao);
+			getUsuarioLogado().setPapeis(new ArrayList<Papel>());
+			getUsuarioLogado().getPapeis().add(new Papel(SigaaPapeis.MEMBRO_COMITE_INTEGRADO));
+			return redirectJSF("public/extensao/avaliacao.jsp");
+		} finally {
+			dao.close();
+		}
+	}
+	
 	/**
 	 * 
 	 * Retorna todas as avaliações pendentes para o parecerista (usuário logado)
@@ -385,15 +435,20 @@ public class AvaliacaoAtividadeMBean extends
 	 * @throws ArqException
 	 */
 	public String iniciarAvaliacaoParecerista() throws ArqException, RemoteException, NegocioException {
-		checkRole(SigaaPapeis.PARECERISTA_EXTENSAO);
+		checkRole(SigaaPapeis.MEMBRO_COMITE_INTEGRADO, SigaaPapeis.GESTOR_EXTENSAO, 
+				SigaaPapeis.MEMBRO_COMITE_EXTENSAO, SigaaPapeis.PARECERISTA_EXTENSAO, 
+				SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO, SigaaPapeis.MEMBRO_COMITE_MONITORIA,
+				SigaaPapeis.MEMBRO_COMITE_PESQUISA, SigaaPapeis.MEMBRO_COMITE_CIENTIFICO_MONITORIA);
 		try {
 			prepareMovimento(SigaaListaComando.AVALIAR_ATIVIDADE_EXTENSAO);
 			int idAvaliacao = getParameterInt("idAvaliacao", 0);
 			obj = getGenericDAO().findByPrimaryKey(idAvaliacao, AvaliacaoAtividade.class);
 			getGenericDAO().refresh(obj.getAtividade().getProjeto().getCoordenador());
-			obj.setParecer(getGenericDAO().findByPrimaryKey(TipoParecerAvaliacaoExtensao.APROVADO, TipoParecerAvaliacaoExtensao.class));
-			obj.getNotasItem().iterator();
+			
+			if ( obj.getParecer() == null || obj.getParecer().getId() == 0 ) 
+				obj.setParecer(getGenericDAO().findByPrimaryKey(TipoParecerAvaliacaoExtensao.APROVADO, TipoParecerAvaliacaoExtensao.class));
 
+			obj.getNotasItem().iterator();
 			obj.getAtividade().setMembrosEquipe(getDAO(MembroProjetoDao.class).findAtivosByProjeto(obj.getAtividade().getProjeto().getId(), 
 					CategoriaMembro.DISCENTE, CategoriaMembro.DOCENTE,CategoriaMembro.EXTERNO,CategoriaMembro.SERVIDOR));
 		    // evitar erro de lazy na busca do coordenador
@@ -454,11 +509,17 @@ public class AvaliacaoAtividadeMBean extends
 	 * sigaa.war/monitoria/AvaliacaoMonitoria/confirmar_avaliacao.jsp
 	 * 
 	 * @return
-	 * @throws SegurancaException 
+	 * @throws ArqException 
 	 * @throws ParseException
 	 */
-	public String confirmarAvaliacaoParecerista() throws SegurancaException{
-		checkRole(SigaaPapeis.PARECERISTA_EXTENSAO);
+	public String confirmarAvaliacaoParecerista() throws ArqException{
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.MEMBRO_COMITE_EXTENSAO, 
+			SigaaPapeis.PARECERISTA_EXTENSAO, SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO,
+			SigaaPapeis.MEMBRO_COMITE_INTEGRADO, SigaaPapeis.MEMBRO_COMITE_MONITORIA,
+			SigaaPapeis.MEMBRO_COMITE_PESQUISA, SigaaPapeis.MEMBRO_COMITE_CIENTIFICO_MONITORIA);
+		
+		if (!confirmaSenha())
+			return null;
 		
 		try {
 			Double notaAvaliacao = new Double(obj.getNota());
@@ -475,8 +536,17 @@ public class AvaliacaoAtividadeMBean extends
 			addMensagemErro(e.getMessage());
 		}
 
-		resetBean();
-		return  forward(ConstantesNavegacao.AVALIACAO_PROPOSTA_LISTA_PARECER);
+		if ( isUserInRole(SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.MEMBRO_COMITE_EXTENSAO, 
+				SigaaPapeis.PARECERISTA_EXTENSAO, SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO) ) {
+			resetBean();
+			return forward(ConstantesNavegacao.AVALIACAO_PROPOSTA_LISTA_PARECER);
+		} else if ( isPortalDocente() ) {
+			resetBean();
+			return forward("/extensao/AvaliacaoAtividade/lista_avaliacoes.jsf");
+		} else {
+			return redirect("/public/extensao/avaliacaoProjeto/"+codigo+".jsp");
+		}
+
 	}
 	
 	/**
@@ -492,7 +562,10 @@ public class AvaliacaoAtividadeMBean extends
 	 * @throws DAOException 
 	 */
 	public String avaliarPareceristaAdHoc() throws SegurancaException, ParseException, DAOException {		
-		checkRole(SigaaPapeis.PARECERISTA_EXTENSAO);
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.MEMBRO_COMITE_EXTENSAO, 
+				SigaaPapeis.PARECERISTA_EXTENSAO, SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO,
+				SigaaPapeis.MEMBRO_COMITE_INTEGRADO, SigaaPapeis.MEMBRO_COMITE_MONITORIA,
+				SigaaPapeis.MEMBRO_COMITE_PESQUISA, SigaaPapeis.MEMBRO_COMITE_CIENTIFICO_MONITORIA);
 
 		obj.calcularMedia();
 		obj.setDataAvaliacao(new Date());
@@ -611,7 +684,7 @@ public class AvaliacaoAtividadeMBean extends
 	@Override
 	protected String forwardInativar() {
 	    try {
-		localizarAvaliacoes();		
+		localizarAvaliacoes();			
 	    } catch (ArqException e) {
 		tratamentoErroPadrao(e);
 	    }
@@ -673,7 +746,7 @@ public class AvaliacaoAtividadeMBean extends
 	 * @throws SegurancaException
 	 */
 	public String iniciarConsultarAvaliacoesAtividade() throws SegurancaException {
-		checkRole(SigaaPapeis.GESTOR_EXTENSAO);
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO , SigaaPapeis.PORTAL_PLANEJAMENTO);
 		return forward(ConstantesNavegacao.AVALIACAO_CONSULTAR_AVALIACOES);
 	}
 
@@ -713,7 +786,7 @@ public class AvaliacaoAtividadeMBean extends
 	 * 
 	 */
 	public void localizarAvaliacoes() throws ArqException {
-		checkRole(SigaaPapeis.GESTOR_EXTENSAO);
+		checkRole(SigaaPapeis.GESTOR_EXTENSAO , SigaaPapeis.PORTAL_PLANEJAMENTO);
 		prepareMovimento(ArqListaComando.DESATIVAR);
 		
 		if (avaliacoesLocalizadas != null) {
@@ -874,6 +947,20 @@ public class AvaliacaoAtividadeMBean extends
 		return getAll(StatusAvaliacao.class, "id", "descricao");
 	}
 
+	/**
+	 * Verifica se ação de extensão foi marcada como não atendendo aos critérios de avaliação do edital
+	 * @param arg
+	 * @throws DAOException
+	 */
+	public void criteriosAvaliacao(ActionEvent arg) throws DAOException{
+		if ( !obj.isAtendeCriterios() && obj.getNotasItem() != null && !obj.getNotasItem().isEmpty() ) {
+			for (NotaItemMonitoria nota : obj.getNotasItem()) {
+				nota.setNota(0);
+			}
+			obj.setParecer(new TipoParecerAvaliacaoExtensao(TipoParecerAvaliacaoExtensao.REPROVADO));
+		}
+	}
+	
 	public Collection<AvaliacaoAtividade> getAvaliacoesLocalizadas() {
 		return avaliacoesLocalizadas;
 	}
@@ -1110,5 +1197,13 @@ public class AvaliacaoAtividadeMBean extends
 	public void setHtmlNota(HtmlInputText htmlNota) {
 	    this.htmlNota = htmlNota;
 	}
-	
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
 }

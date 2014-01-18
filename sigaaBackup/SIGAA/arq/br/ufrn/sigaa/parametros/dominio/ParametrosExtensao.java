@@ -22,7 +22,27 @@ public interface ParametrosExtensao {
 	 * Nome do Pró-Reitor de extensão. Utilizado nos certificados.
 	 */
 	public static final String NOME_PRO_REITOR_EXTENSAO = "2_10900_2";
-
+	
+	/**
+	 * Número do telefone da pró-reitoria de extensão. Utilizado nos certificados.
+	 */
+	public static final String TELEFONE_PRO_REITORIA_EXTENSAO = "2_10900_18";
+	
+	/**
+	 * Número do fax da pró-reitoria de extensão. Utilizado nos certificados.
+	 */
+	public static final String FAX_PRO_REITORIA_EXTENSAO = "2_10900_19";
+	
+	/**
+	 * Endereço do e-mail da pró-reitoria de extensão. Utilizado nos certificados.
+	 */
+	public static final String EMAIL_PRO_REITORIA_EXTENSAO = "2_10900_20";
+	
+	/**
+	 * Endereço do sitio da pró-reitoria de extensão. Utilizado nos certificados.
+	 */
+	public static final String SITIO_PRO_REITORIA_EXTENSAO = "2_10900_21";
+	
 	/**
 	 * Total de ações ativas que um docente pode Coordenar simultaneamente.
 	 */
@@ -88,5 +108,15 @@ public interface ParametrosExtensao {
 	 * Quantidade de ano(s) que se pode cadastrar ações retroativas. 
 	 */
 	public static final String ANO_LIMITE_REGISTRO_ACAO_ANTIGA = "2_10900_16";
+
+	/**
+	 * Quantidade de avaliações máximas permitida 
+	 */
+	public static final String LIMITE_AVALIACOES_PENDENTES = "2_10900_17";
+	
+	/**
+	 * Parâmetro que deve verificar a necessidade do envio do relatório final por parte do discente.
+	 */
+	public static final String NECESSARIO_ENVIAR_RELATORIO_FINAL = "2_10900_22";
 
 }

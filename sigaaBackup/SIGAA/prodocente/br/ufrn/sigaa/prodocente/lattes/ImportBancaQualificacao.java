@@ -46,10 +46,10 @@ public class ImportBancaQualificacao extends ImportProducao<Banca> {
 			item.setTipoParticipacao(null);
 			item.setArea(null);
 			item.setSubArea(null);
-			item.setDepartamento(null);
 			item.setInstituicao(null);
 			item.setMunicipio(null);
 			item.setCategoriaFuncional(null);
+			item.setDepartamento(null);
 			
 			//item.setNaturezaExame(getNaturezaExame(natureza));
 			parse = true;

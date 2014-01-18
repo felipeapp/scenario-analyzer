@@ -23,8 +23,11 @@ import java.util.TimerTask;
 
 import org.hibernate.Session;
 
+import br.ufrn.arq.dao.GenericDAOImpl;
 import br.ufrn.arq.dominio.ConstantesParametroGeral;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
+import br.ufrn.arq.util.StringUtils;
+import br.ufrn.arq.util.UFRNUtils;
 
 /**
  * Classe com a finalidade de logar quando uma sessão do Hibernate
@@ -134,6 +137,27 @@ public class SessionLogger {
 		}
 		
 		return list.toArray(new StackTraceElement[list.size()]);
+	}
+	
+	/**
+	 * Registra no banco de dados quem está chamando a session do hibernate
+	 * para realizar alguma operação no banco.
+	 * @param session
+	 */
+	public static void registerCaller(int sistema, Session session) {
+		StackTraceElement stackLine = UFRNUtils.stackTraceInvocador(5);
+		
+		if (stackLine.getClassName().equals(GenericDAOImpl.class.getName())) {
+			stackLine = UFRNUtils.stackTraceInvocador(6);
+		}
+		
+		String applicationName = "(" + sistema + "):" + stackLine.getClassName().substring(stackLine.getClassName().lastIndexOf(".") + 1) + "." + stackLine.getMethodName() + "(..):" + stackLine.getLineNumber() + " (" + stackLine.getClassName().substring(0, stackLine.getClassName().lastIndexOf(".")) + ")";
+
+		if (applicationName.length() > 64) {
+			applicationName = applicationName.substring(0, 64);
+		}
+		
+		session.createSQLQuery("SET application_name = '" + StringUtils.escapeBackSlash(applicationName)+ "'").executeUpdate();
 	}
 	
 }

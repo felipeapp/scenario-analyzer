@@ -72,4 +72,19 @@ public interface ParametrosMonitoria {
 	 */
 	public static final String EMAIL_DESLIGAMENTO_MONITORIA = "2_11000_13";
 	
+	/**
+	 * Número máximo de bolsistas por resumo SID.
+	 */
+	public static final String NUMERO_MAXIMO_BOLSISTAS_MONITORIA = "2_11000_14";
+
+	/**
+	 * Informa o número máximo de coordenaçãoes ativas para cada docente. 
+	 */
+	public static final String MAXIMO_COORDENACOES_ATIVAS = "2_11000_15";
+
+	/**
+	 * Indica se o discente vai ficar impossibilitado de submeter projeto. 
+	 */
+	public static final String PUNICAO_RELATORIO_FINAL_REPROVADO = "2_11000_16";
+
 }

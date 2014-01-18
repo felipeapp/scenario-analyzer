@@ -19,15 +19,6 @@
 			</tr>
 			
 			<tr>
-				<th width="25%" class="obrigatorio">Currículo:</th>
-				<td>
-					<h:selectOneMenu value="#{turmaEntradaTecnicoMBean.obj.estruturaCurricularTecnica.id}" id="curriculo"> 
-						<f:selectItem itemValue="0" itemLabel=" --- SELECIONE --- " />
-						<f:selectItems value="#{turmaEntradaTecnicoMBean.listaEstCurricularTecnico}" />
-					</h:selectOneMenu>
-				</td>
-			</tr>
-			<tr>
 				<th class="obrigatorio">Data de Entrada:</th>
 				<td>
 					<t:inputCalendar value="#{turmaEntradaTecnicoMBean.obj.dataEntrada}" id="data" size="10" maxlength="10" 

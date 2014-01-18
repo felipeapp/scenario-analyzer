@@ -268,6 +268,23 @@ public class ProcessadorInscricaoSelecao extends AbstractProcessador {
 			} finally {
 				inscricaoDao.close();
 			}
+		}else{
+			try{
+				inscricaoDao = getDAO(InscricaoSelecaoDao.class, mov);
+				InscricaoSelecao outraInscricao = inscricaoDao.findByCpfAndProcessoEdital(
+						inscricao.getPessoaInscricao().getCpf(),
+						(inscricao.getPessoaInscricao().isEstrangeiro()?inscricao.getPessoaInscricao().getPassaporte():null),
+						inscricao.getProcessoSeletivo(), null);
+				
+				if ( !isEmpty(outraInscricao) && outraInscricao.getId() != inscricao.getId() ) {
+					erros.addErro("Já existe uma inscrição realizada neste processo seletivo para este " + 
+							( !isEmpty(inscricao.getPessoaInscricao().getPassaporte())?"passaporte.":"CPF." )		
+					);
+				}
+					
+			}finally {
+				inscricaoDao.close();
+			}
 		}
 		
 		if( movInscricao.getCodMovimento().equals(SigaaListaComando.INSCREVER_PROCESSO_SELETIVO) ){

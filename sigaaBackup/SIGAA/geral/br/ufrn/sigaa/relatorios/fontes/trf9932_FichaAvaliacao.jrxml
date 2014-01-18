@@ -823,86 +823,8 @@
 				</rectangle>
 				<staticText>
 					<reportElement
-						x="11"
-						y="269"
-						width="281"
-						height="15"
-						key="staticText-99"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Nome]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="292"
-						y="269"
-						width="91"
-						height="15"
-						key="staticText-100"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Centro]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="383"
-						y="269"
-						width="141"
-						height="15"
-						key="staticText-101"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Departamento]]></text>
-				</staticText>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="292"
-						y="284"
-						width="91"
-						height="15"
-						key="textField-124"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="3" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{centro}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="11"
-						y="284"
-						width="281"
-						height="15"
-						key="textField-125"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nome_avaliador}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="383"
-						y="284"
-						width="141"
-						height="15"
-						key="textField-126"/>
-					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="10"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{departamento}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement
 						x="0"
-						y="252"
+						y="332"
 						width="535"
 						height="13"
 						key="staticText-102"/>
@@ -910,12 +832,12 @@
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font pdfFontName="Helvetica-Bold" size="10" isBold="true" isUnderline="false"/>
 					</textElement>
-				<text><![CDATA[3. IDENTIFICAÇÃO DO PROFESSOR(A) AVALIADOR(A)]]></text>
+				<text><![CDATA[4. IDENTIFICAÇÃO DO PROFESSOR(A) AVALIADOR(A)]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="11"
-						y="299"
+						y="347"
 						width="281"
 						height="15"
 						key="staticText-103"/>
@@ -928,7 +850,7 @@
 				<staticText>
 					<reportElement
 						x="11"
-						y="314"
+						y="362"
 						width="513"
 						height="151"
 						key="staticText-104"/>
@@ -941,7 +863,7 @@
 				<staticText>
 					<reportElement
 						x="191"
-						y="516"
+						y="544"
 						width="153"
 						height="15"
 						key="staticText-105"/>
@@ -1003,6 +925,115 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nome_orientador}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="258"
+						width="534"
+						height="13"
+						key="staticText-113"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true" isUnderline="false"/>
+					</textElement>
+				<text><![CDATA[3. WORKSHOP]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="300"
+						width="273"
+						height="20"
+						key="staticText-114"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="3" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[Este trabalho está apto para ir ao workshop? ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="284"
+						y="300"
+						width="119"
+						height="20"
+						key="staticText-115"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="3" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="403"
+						y="300"
+						width="120"
+						height="20"
+						key="staticText-118"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="3" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="11"
+						y="271"
+						width="273"
+						height="29"
+						key="staticText-119"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="3" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Itens da Avaliação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="284"
+						y="271"
+						width="120"
+						height="29"
+						key="staticText-120"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[SIM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="404"
+						y="271"
+						width="119"
+						height="29"
+						key="staticText-121"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[NÃO]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement
+						x="338"
+						y="304"
+						width="10"
+						height="10"
+						key="rectangle-21"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
+				<rectangle>
+					<reportElement
+						x="457"
+						y="304"
+						width="10"
+						height="10"
+						key="rectangle-22"/>
+					<graphicElement stretchType="NoStretch"/>
+				</rectangle>
 			</band>
 		</detail>
 		<columnFooter>

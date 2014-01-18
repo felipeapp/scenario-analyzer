@@ -9,7 +9,7 @@
  */
 package br.ufrn.sigaa.biblioteca.controle_estatistico.dao;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +33,12 @@ import br.ufrn.sigaa.biblioteca.controle_estatistico.dominio.FiltroClassificacoe
  */
 public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO {
 
+	/** Sintaxe exepecífica no posgtgres */
+	public static final String CAST_NULL_TO_INTEGER = " CAST(null AS integer) ";
+	
+	
+	////////////////////////Consultas do Sintético /////////////////////////////
+	
 	/**
 	 * Consulta que gera os dados do relatório sintetico (apenas títulos) de Materiais Catalogados por Operador.
 	 * 
@@ -43,7 +49,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<Object[]> findTitulosCadastradosPorOperadorSintetico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa, 
+	public List<Object[]> countTitulosCadastradosPorOperadorSintetico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa, 
 			Date inicioPeriodo, Date fimPeriodo, Collection<Integer> idsTipoMaterial, Collection<Integer> idsColecao, 
 			FiltroClassificacoesRelatoriosBiblioteca classificacao) throws DAOException {
 		
@@ -54,10 +60,10 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 				" SELECT " +
 				"	 usuario, " +
 				"	 classe, " +
-				"	 SUM(titulos) AS qtd_titulos " +
+				"	 COUNT (DISTINCT idsTitulos) AS qtd_titulos " +
 				" FROM ( " +
 					 sqlExemplar.toString() +
-				"	 UNION " +
+				"	 UNION ALL " +
 					 sqlFasciculo.toString() +
 				" ) AS uniao " +
 				" GROUP BY usuario, classe " +
@@ -84,7 +90,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<Object[]> findMateriaisCadastradosPorOperadorSintetico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa, 
+	public List<Object[]> countMateriaisCadastradosPorOperadorSintetico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa, 
 			Date inicioPeriodo, Date fimPeriodo, Collection<Integer> idsTipoMaterial, Collection<Integer> idsColecao, 
 			FiltroClassificacoesRelatoriosBiblioteca classificacao  ) throws DAOException {
 		
@@ -96,11 +102,11 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 				"	 usuario, " +
 				"	 classe, " +
 				"	 colecao, " +
-				"	 SUM(exemplares) AS qtd_exemplares, " +
-				"	 SUM(fasciculos) AS qtd_fasciculos " +
+				"	 COUNT( DISTINCT exemplares) AS qtd_exemplares, " +
+				"	 COUNT( DISTINCT fasciculos) AS qtd_fasciculos " +
 				" FROM ( " +
 					 sqlExemplar.toString() +
-				"	 UNION " +
+				"	 UNION ALL" +
 					 sqlFasciculo.toString() +
 				" ) AS uniao " +
 				" GROUP BY usuario, classe, colecao " +
@@ -117,100 +123,19 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 		return resultado;
 	}
 
+	
+	
+	
+	
+	//////////////////////// Consultas do Analítico /////////////////////////////
+	
+	
+	
+	
 	/**
-	 * Monta o SQL específico do tipo de material (exemplar ou fascículo) da consulta de materiais trabalhados por operador sintética. 
-	 * O tipo de material é definido pelo parâmetro <i>isExemplar</i>, onde o valor <i>true</i> indica <i>Exemplar</i>, e <i>false</i> indica 
-	 * <i>Fascículo</i>. O filtro de tipo de acervo indica se a consulta deve pesquisar no acervo de <i>Títulos</i>(<i>true</i>) ou 
-	 * <i>Materiais</i>(<i>false</i>).
+	 * <p>Consulta que gera a contagem dos dados do relatório analítico (apenas títulos) de Materiais Catalogados por Operador.</p>
 	 * 
-	 * @param idsPessoa
-	 * @param idsTipoMaterial
-	 * @param classe
-	 * @param isTitulos
-	 * @param isExemplar
-	 * @return
-	 */
-	private StringBuilder montarSQLEspecificoSintetico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa,
-			Collection<Integer> idsTipoMaterial, Collection<Integer> idsColecao, FiltroClassificacoesRelatoriosBiblioteca classificacao, boolean isTitulos, 
-			boolean isExemplar) {
-		String selectEspecifico = null;
-		String joinEspecifico = null;
-		
-		if (isExemplar) {
-			if (isTitulos) {
-				selectEspecifico = "	 COUNT(DISTINCT t.id_titulo_catalografico) AS titulos " ;
-			} else {
-				selectEspecifico = "	 COALESCE(c.descricao, 'Sem coleção') AS colecao, " + 
-									"	 COUNT(DISTINCT t.id_titulo_catalografico) AS titulos, " + 
-									"	 COUNT(mi.id_material_informacional) AS exemplares, " +
-									"	 0 AS fasciculos ";
-			}
-			
-			joinEspecifico = "	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.exemplar AS e ON e.id_titulo_catalografico = t.id_titulo_catalografico " +
-							"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.material_informacional AS mi ON mi.id_material_informacional = e.id_exemplar ";
-		} else {
-			if (isTitulos) {
-				selectEspecifico = "	 COUNT(DISTINCT t.id_titulo_catalografico) AS titulos ";
-			} else {
-				selectEspecifico = "	 COALESCE(c.descricao, 'Sem coleção') AS colecao, " + 
-									"	 COUNT(DISTINCT t.id_titulo_catalografico) AS titulos, " + 
-									"	 0 AS exemplares, " +
-									"	 COUNT(mi.id_material_informacional) AS fasciculos ";
-			}
-			
-			joinEspecifico = "	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.assinatura a ON a.id_titulo_catalografico = t.id_titulo_catalografico " +
-							"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.fasciculo f ON f.id_assinatura = a.id_assinatura " +
-							"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.material_informacional AS mi ON mi.id_material_informacional = f.id_fasciculo ";
-		}
-		
-		StringBuilder sqlEspecifico = new StringBuilder("" +
-				" SELECT " +
-				"	 pessoa.nome AS usuario, " + 
-				"	 COALESCE(t." + classificacao.getColunaClassePrincipal() + ", 'Sem classe') AS classe, " + 
-					 selectEspecifico +
-				" FROM biblioteca.titulo_catalografico t " +
-					 joinEspecifico +
-				"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.situacao_material_informacional AS smi ON smi.id_situacao_material_informacional = mi.id_situacao_material_informacional " +
-				(isTitulos ? "" : "	 INNER JOIN biblioteca.colecao AS c ON c.id_colecao = mi.id_colecao ") +
-				"	 INNER JOIN comum.registro_entrada AS registro_entrada ON registro_entrada.id_entrada = " + (isTitulos ? "t" : "mi") + ".id_registro_criacao " +
-				"	 INNER JOIN comum.usuario AS usuario ON registro_entrada.id_usuario = usuario.id_usuario " +
-				"	 INNER JOIN comum.pessoa AS pessoa ON pessoa.id_pessoa = usuario.id_pessoa " +
-				" WHERE t.ativo = trueValue() ");
-		
-		if (isTitulos) {
-			sqlEspecifico.append("AND (mi.id_material_informacional is null OR (mi.ativo = trueValue() AND smi.situacao_de_baixa = falseValue())) ");
-		} else {
-			sqlEspecifico.append("AND mi.ativo = trueValue() ");
-			sqlEspecifico.append("AND smi.situacao_de_baixa = falseValue() ");
-		}
-
-		if ( idsPessoa != null && ! idsPessoa.isEmpty() ) {
-			sqlEspecifico.append(" AND pessoa.id_pessoa IN ("+ StringUtils.join(idsPessoa, ',') +") ");
-		}
-		
-		if ( idsBibliotecas != null && ! idsBibliotecas.isEmpty() ) {
-			sqlEspecifico.append(" AND mi.id_biblioteca IN ("+ StringUtils.join(idsBibliotecas, ',') +") ");
-			
-		}
-		
-		if ( idsTipoMaterial != null && ! idsTipoMaterial.isEmpty() ) {
-			sqlEspecifico.append(" AND mi.id_tipo_material IN ("+ StringUtils.join(idsTipoMaterial, ',') +") ");
-		}
-		
-		if ( idsColecao != null && ! idsColecao.isEmpty() ) {
-			sqlEspecifico.append(" AND mi.id_colecao IN ("+ StringUtils.join(idsColecao, ',') +") ");
-		}
-
-		sqlEspecifico.append(" AND " + (isTitulos ? "t" : "mi") + ".data_criacao >= :inicioPeriodo ");
-		sqlEspecifico.append(" AND " + (isTitulos ? "t" : "mi") + ".data_criacao <= :fimPeriodo ");
-		
-		sqlEspecifico.append(" GROUP BY usuario, classe" + (isTitulos ? " " : ", colecao "));
-		
-		return sqlEspecifico;
-	}
-
-	/**
-	 * Consulta que gera a contagem dos dados do relatório analítico (apenas títulos) de Materiais Catalogados por Operador.
+	 * <p>Esse método é usado para saber a quantidade de páginas total do relatório.</p>
 	 * 
 	 * @param idsPessoa
 	 * @param inicioPeriodo
@@ -227,7 +152,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 
 		StringBuilder sqlGeral = new StringBuilder("" +
 				" SELECT " +
-				"	 SUM(cherokee) " + 
+				"	 COUNT(DISTINCT idsContagem) " + 
 				" FROM ( " +
 					 sqlExemplar.toString() +
 				"	 UNION ALL  " +
@@ -239,11 +164,13 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 		q.setTimestamp("inicioPeriodo", inicioPeriodo);
 		q.setTimestamp("fimPeriodo", fimPeriodo);
 		
-		int resultado = ((BigDecimal) q.uniqueResult()).intValue();
+		int resultado = ((BigInteger) q.uniqueResult()).intValue();
 		
 		return resultado;
 	}
 
+	
+	
 	/**
 	 * Consulta que gera os dados do relatório sintetico (apenas títulos) de Materiais Catalogados por Operador.
 	 * 
@@ -256,12 +183,12 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 	 * @return
 	 * @throws DAOException
 	 */
-	public List<Object[]> findTitulosCadastradosPorOperadorAnalitico(Collection<Integer> idsPessoa, 
+	public List<Object[]> findTitulosCadastradosPorOperadorAnalitico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa, 
 			Date inicioPeriodo, Date fimPeriodo, Collection<Integer> idsTipoMaterial, Collection<Integer> idsColecao
 			, int paginaAtual, Integer limiteRegistrosPorPagina) throws DAOException {
 		
-		StringBuilder sqlExemplar = montarSQLEspecificoAnalitico(null, idsPessoa, idsTipoMaterial, idsColecao, true, true, false);
-		StringBuilder sqlFasciculo = montarSQLEspecificoAnalitico(null, idsPessoa, idsTipoMaterial, idsColecao, true, false, false);
+		StringBuilder sqlExemplar = montarSQLEspecificoAnalitico(idsBibliotecas, idsPessoa, idsTipoMaterial, idsColecao, true, true, false);
+		StringBuilder sqlFasciculo = montarSQLEspecificoAnalitico(idsBibliotecas, idsPessoa, idsTipoMaterial, idsColecao, true, false, false);
 
 		StringBuilder sqlGeral = new StringBuilder("" +
 				" SELECT DISTINCT " +
@@ -274,15 +201,14 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 				"	 autor, " +  
 				"	 edicao, " +  
 				"	 ano, " +  
-				"	 numero_chamada, " +  
-				"	 biblioteca, " +  
+				"	 numero_chamada, " +
 				"	 data_criacao " + 
 				" FROM ( " +
 					 sqlExemplar.toString() +
 				"	 UNION ALL  " +
 					 sqlFasciculo.toString() +
 				" ) AS uniao " +
-				" ORDER BY usuario, biblioteca, titulo ");
+				" ORDER BY usuario, titulo ");
 		
 		Query q = getSession().createSQLQuery(sqlGeral.toString());
 		
@@ -298,8 +224,12 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 		return resultado;
 	}
 
+	
+	
 	/**
 	 * Consulta que gera a contagem dos dados do relatório analítico (apenas materiais) de Materiais Catalogados por Operador.
+	 * 
+	 * <p>Esse método é usado para saber a quantidade de páginas total do relatório.</p>
 	 * 
 	 * @param idsPessoa
 	 * @param inicioPeriodo
@@ -317,7 +247,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 
 		StringBuilder sqlGeral = new StringBuilder("" +
 				" SELECT " +
-				"	 SUM(cherokee) " + 
+				"	 COUNT(DISTINCT idsContagem) " + 
 				" FROM ( " +
 					 sqlExemplar.toString() +
 				"	 UNION ALL " +
@@ -329,7 +259,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 		q.setTimestamp("inicioPeriodo", inicioPeriodo);
 		q.setTimestamp("fimPeriodo", fimPeriodo);
 		
-		int resultado = ((BigDecimal) q.uniqueResult()).intValue();
+		int resultado = ((BigInteger) q.uniqueResult()).intValue();
 		
 		return resultado;
 	}
@@ -389,7 +319,107 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 		
 		return resultado;
 	}
+	
+	
+	
+	///////////////////////////// métodos internos do DAO ///////////////////////////////
 
+	
+	/**
+	 * Monta o SQL específico do tipo de material (exemplar ou fascículo) da consulta de materiais trabalhados por operador sintética. 
+	 * O tipo de material é definido pelo parâmetro <i>isExemplar</i>, onde o valor <i>true</i> indica <i>Exemplar</i>, e <i>false</i> indica 
+	 * <i>Fascículo</i>. O filtro de tipo de acervo indica se a consulta deve pesquisar no acervo de <i>Títulos</i>(<i>true</i>) ou 
+	 * <i>Materiais</i>(<i>false</i>).
+	 * 
+	 * @param idsPessoa
+	 * @param idsTipoMaterial
+	 * @param classe
+	 * @param isTitulos
+	 * @param isExemplar
+	 * @return
+	 */
+	private StringBuilder montarSQLEspecificoSintetico(Collection<Integer> idsBibliotecas, Collection<Integer> idsPessoa,
+			Collection<Integer> idsTipoMaterial, Collection<Integer> idsColecao, FiltroClassificacoesRelatoriosBiblioteca classificacao, boolean isTitulos, 
+			boolean isExemplar) {
+		String selectEspecifico = null;
+		String joinEspecifico = null;
+		
+		if (isExemplar) {
+			if (isTitulos) {
+				selectEspecifico = "	 t.id_titulo_catalografico AS idsTitulos " ;
+			} else {
+				selectEspecifico = "	 COALESCE(c.descricao, 'Sem coleção') AS colecao, " + 
+								  // "	  t.id_titulo_catalografico AS titulos, " + 
+								  	"	 mi.id_material_informacional AS exemplares, "+
+								  	"	 "+CAST_NULL_TO_INTEGER+" AS fasciculos ";
+			}
+			
+			joinEspecifico = "	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.exemplar AS e ON e.id_titulo_catalografico = t.id_titulo_catalografico " +
+							"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.material_informacional AS mi ON mi.id_material_informacional = e.id_exemplar ";
+		} else {
+			if (isTitulos) {
+				selectEspecifico = "	 t.id_titulo_catalografico AS idsTitulos ";
+			} else {
+				selectEspecifico = "	 COALESCE(c.descricao, 'Sem coleção') AS colecao, " + 
+								 //  "	  t.id_titulo_catalografico AS titulos, " + 
+								 	"	 "+CAST_NULL_TO_INTEGER+" AS exemplares, "+
+								 	"	 mi.id_material_informacional AS fasciculos ";
+			}
+			
+			joinEspecifico = "	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.assinatura a ON a.id_titulo_catalografico = t.id_titulo_catalografico " +
+							"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.fasciculo f ON f.id_assinatura = a.id_assinatura " +
+							"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.material_informacional AS mi ON mi.id_material_informacional = f.id_fasciculo ";
+		}
+		
+		StringBuilder sqlEspecifico = new StringBuilder("" +
+				" SELECT DISTINCT " +
+				"	 pessoa.nome AS usuario, " + 
+				"	 COALESCE(t." + classificacao.getColunaClassePrincipal() + ", 'Sem classe') AS classe, " + 
+					 selectEspecifico +
+				" FROM biblioteca.titulo_catalografico t " +
+					 joinEspecifico +
+				
+				// podem ser recuperados títulos em materiais
+				(isTitulos ? " LEFT" : " INNER") + " JOIN biblioteca.situacao_material_informacional AS smi ON smi.id_situacao_material_informacional = mi.id_situacao_material_informacional " +
+				(isTitulos ? "     " : " LEFT JOIN biblioteca.colecao AS c ON c.id_colecao = mi.id_colecao ") +
+						 
+				"	 INNER JOIN comum.registro_entrada AS registro_entrada ON registro_entrada.id_entrada = " + (isTitulos ? "t" : "mi") + ".id_registro_criacao " +
+				"	 INNER JOIN comum.usuario AS usuario ON registro_entrada.id_usuario = usuario.id_usuario " +
+				"	 INNER JOIN comum.pessoa AS pessoa ON pessoa.id_pessoa = usuario.id_pessoa " +
+				" WHERE t.ativo = trueValue() AND t.catalogado = trueValue() ");
+		
+		if (isTitulos) {
+			sqlEspecifico.append("AND (mi.id_material_informacional is null OR (mi.ativo = trueValue() AND smi.situacao_de_baixa = falseValue())) ");
+		} else {
+			sqlEspecifico.append("AND mi.ativo = trueValue() ");
+			sqlEspecifico.append("AND smi.situacao_de_baixa = falseValue() ");
+		}
+
+		if ( idsPessoa != null && ! idsPessoa.isEmpty() ) {
+			sqlEspecifico.append(" AND pessoa.id_pessoa IN ("+ StringUtils.join(idsPessoa, ',') +") ");
+		}
+		
+		if ( idsBibliotecas != null && ! idsBibliotecas.isEmpty() ) {
+			sqlEspecifico.append(" AND mi.id_biblioteca IN ("+ StringUtils.join(idsBibliotecas, ',') +") ");
+			
+		}
+		
+		if ( idsTipoMaterial != null && ! idsTipoMaterial.isEmpty() ) {
+			sqlEspecifico.append(" AND mi.id_tipo_material IN ("+ StringUtils.join(idsTipoMaterial, ',') +") ");
+		}
+		
+		if ( idsColecao != null && ! idsColecao.isEmpty() ) {
+			sqlEspecifico.append(" AND mi.id_colecao IN ("+ StringUtils.join(idsColecao, ',') +") ");
+		}
+
+		sqlEspecifico.append(" AND " + (isTitulos ? "t" : "mi") + ".data_criacao >= :inicioPeriodo ");
+		sqlEspecifico.append(" AND " + (isTitulos ? "t" : "mi") + ".data_criacao <= :fimPeriodo ");
+		
+		return sqlEspecifico;
+	}
+
+	
+	
 	/**
 	 * Monta o SQL específico do tipo de material (exemplar ou fascículo) da consulta de materiais trabalhados por operador analítica. 
 	 * O tipo de material é definido pelo parâmetro <i>isExemplar</i>, onde o valor <i>true</i> indica <i>Exemplar</i>, e <i>false</i> indica 
@@ -413,7 +443,7 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 		String joinEspecifico = null;
 		
 		if (isCount) {
-			selectEspecifico = "	 COUNT(DISTINCT " + (isTitulos ? "t.id_titulo_catalografico" : "mi.id_material_informacional") + ") AS cherokee ";
+			selectEspecifico = "	 DISTINCT " + (isTitulos ? "t.id_titulo_catalografico" : "mi.id_material_informacional") + " AS idsContagem ";
 		} else {
 			selectEspecifico = "	 pessoa.nome AS usuario, " +  
 								(isTitulos ? "": "	 mi.codigo_barras, ") +  
@@ -445,15 +475,15 @@ public class RelatorioMateriaisTrabalhadosPorOperadorDAO extends GenericSigaaDAO
 				" FROM biblioteca.titulo_catalografico t " +
 					 joinEspecifico +
 				"	 " + (isTitulos ? "LEFT" : "INNER") + " JOIN biblioteca.situacao_material_informacional AS smi ON smi.id_situacao_material_informacional = mi.id_situacao_material_informacional " +
-				"	 INNER JOIN biblioteca.biblioteca b on mi.id_biblioteca = b.id_biblioteca " +
+				"	 LEFT JOIN biblioteca.biblioteca b on mi.id_biblioteca = b.id_biblioteca " +
 				"	 INNER JOIN biblioteca.cache_entidades_marc cem on cem.id_titulo_catalografico = t.id_titulo_catalografico " +
 				"	 INNER JOIN comum.registro_entrada AS registro_entrada ON registro_entrada.id_entrada = " + (isTitulos ? "t" : "mi") + ".id_registro_criacao " +
 				"	 INNER JOIN comum.usuario AS usuario ON registro_entrada.id_usuario = usuario.id_usuario " +
 				"	 INNER JOIN comum.pessoa AS pessoa ON pessoa.id_pessoa = usuario.id_pessoa " +
-				" WHERE t.ativo = trueValue() ");
+				" WHERE t.ativo = trueValue() AND t.catalogado = trueValue() ");
 		
 		if (isTitulos) {
-			// sqlEspecifico.append("AND (mi.id_material_informacional is null OR (mi.ativo = trueValue() AND smi.situacao_de_baixa = falseValue())) ");
+			 sqlEspecifico.append("AND (mi.id_material_informacional is null OR (mi.ativo = trueValue() AND smi.situacao_de_baixa = falseValue())) ");
 		} else {
 			// Só recupera materiais ativos não baixados //
 			sqlEspecifico.append("AND mi.ativo = trueValue() ");

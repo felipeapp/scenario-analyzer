@@ -16,10 +16,10 @@ import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
-import br.ufrn.sigaa.arq.dao.ensino.BolsistaDao;
+import br.ufrn.sigaa.arq.dao.ensino.BolsistaSigaaDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
-import br.ufrn.sigaa.bolsas.dominio.Bolsista;
 import br.ufrn.sigaa.dominio.Usuario;
+import br.ufrn.sigaa.ensino.dominio.Bolsistas;
 
 /**
  * Processador responsável pelo registro e finalização de bolsas do CNPq
@@ -55,21 +55,21 @@ public class ProcessadorBolsaCnpqStricto extends AbstractProcessador {
 	 * @throws ArqException 
 	 */
 	private void cadastrar(MovimentoCadastro mov) throws NegocioException, ArqException {		
-		BolsistaDao dao = new BolsistaDao();		
+		BolsistaSigaaDao dao = getBolsistaSigaaDao(mov);		
 		try{				
-			Bolsista bolsista =  mov.getObjMovimentado();
+			Bolsistas bolsista =  mov.getObjMovimentado();
 			validate(mov);
-			if ( bolsista.getIdBolsa() == 0 ) {
+			if ( bolsista.getBolsa().getId() == 0 ) {
 				// Validar se já existe um bolsista ativo para o discente informado
 				boolean bolsistaJaCadastrado = dao.hasAtivoByDiscente(bolsista.getDiscente());
 				if (bolsistaJaCadastrado) {
 					throw new NegocioException("Já existe um registro ativo de bolsa para o discente informado");
-				}
-				
-				bolsista.setIdTipoBolsa(Bolsista.BOLSA_CNPQ);
+				}				
 				dao.create(bolsista);
+				bolsista.getBolsa().setBolsista(bolsista);
+				dao.create(bolsista.getBolsa());
 			}  else {
-				dao.update(bolsista);
+				dao.update(bolsista.getBolsa());
 			}
 		}
 		finally {
@@ -85,14 +85,13 @@ public class ProcessadorBolsaCnpqStricto extends AbstractProcessador {
 	 * @throws NegocioException 
 	 */
 	private void finalizar(MovimentoCadastro mov) throws DAOException, NegocioException {
-		BolsistaDao dao = new BolsistaDao();
+		BolsistaSigaaDao dao = getBolsistaSigaaDao(mov);
 		try{
-			Bolsista bolsista =  mov.getObjMovimentado();
+			Bolsistas bolsista =  mov.getObjMovimentado();
 			
-			if ( bolsista.getIdBolsa() != 0 ) {
-				bolsista.setDataFinalizacao(new Date());
-				bolsista.setUsuarioFinalizacao((Usuario) mov.getUsuarioLogado());
-				dao.finalizar(bolsista);
+			if ( bolsista.getBolsa().getId() != 0 ) {
+				bolsista.getBolsa().setFim(new Date());				
+				dao.finalizar(bolsista,(Usuario) mov.getUsuarioLogado());
 			} else {
 				throw new NegocioException("É necessário informar o bolsista cuja bolsa terá seu registro finalizado.");
 			}
@@ -110,16 +109,17 @@ public class ProcessadorBolsaCnpqStricto extends AbstractProcessador {
 	 * @return
 	 * @throws DAOException
 	 */
-	private BolsistaDao getBolsistaDao(Movimento mov) throws DAOException {
-		return getDAO(BolsistaDao.class, mov);
+	private BolsistaSigaaDao getBolsistaSigaaDao(Movimento mov) throws DAOException {
+		return getDAO(BolsistaSigaaDao.class, mov);
 	}
 
 	/* (non-Javadoc)
 	 * @see br.ufrn.arq.negocio.ProcessadorComando#validate(br.ufrn.arq.dominio.Movimento)
 	 */
 	public void validate(Movimento mov) throws NegocioException, ArqException {
-		Bolsista bolsista =  ((MovimentoCadastro) mov).getObjMovimentado();
+		Bolsistas bolsista =  ((MovimentoCadastro) mov).getObjMovimentado();
 		ListaMensagens mensagens = bolsista.validate();
+		mensagens.addAll(bolsista.getBolsa().validate());
 		checkValidation(mensagens);
 	}
 

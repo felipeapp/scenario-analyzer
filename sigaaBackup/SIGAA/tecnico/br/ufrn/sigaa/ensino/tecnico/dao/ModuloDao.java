@@ -166,7 +166,7 @@ public class ModuloDao extends GenericSigaaDAO {
 			Criteria c = getSession().createCriteria(Modulo.class);
 			c.add(Expression.eq("nivel", nivel));
 			c.add(Expression.eq("unidade", new Unidade(unidade)));
-			c.addOrder(Order.desc("id"));
+			c.addOrder(Order.desc("codigo"));
 			c.setMaxResults(1);
 			return (Modulo) c.uniqueResult();
 		} catch (Exception e) {
@@ -207,6 +207,7 @@ public class ModuloDao extends GenericSigaaDAO {
 			if (curso != null)
 				consultaSql.append(" and estruturac2_.id_curso= " + curso);
 			consultaSql.append(" and m.nivel='"+ nivel +"' and m.id_unidade= " + idUnidade);
+			consultaSql.append(" order by m.codigo ");
 			
 			List<Object[]> mult= getSession().createSQLQuery(consultaSql.toString()).list(); 
 			for (Object[] item : mult) {

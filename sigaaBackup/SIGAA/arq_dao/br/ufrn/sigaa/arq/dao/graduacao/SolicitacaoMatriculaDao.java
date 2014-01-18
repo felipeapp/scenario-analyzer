@@ -924,6 +924,37 @@ public class SolicitacaoMatriculaDao extends GenericSigaaDAO {
 		return findTurmasSolicitadasEmEspera(discente, ano, periodo, false);
 	}	
 	
+	/**
+	 * Buscas as solicitações em espera de um discente para outros niveis
+	 *
+	 * @param discente
+	 * @param ano
+	 * @param periodo
+	 * @return
+	 * @throws DAOException
+	 */
+	public Collection<Turma> findTurmasSolicitadasEmEsperaOutrosCursos(Discente discente, int ano, int periodo) throws DAOException {
+		int[] pendentes = new int[] {SolicitacaoMatricula.SUBMETIDA, SolicitacaoMatricula.ORIENTADO, SolicitacaoMatricula.VISTA};
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("select sol.turma ");
+		
+		hql.append(" FROM SolicitacaoMatricula sol " +
+			" WHERE sol.anulado = falseValue() " +
+			" and sol.discente.pessoa.id=" + discente.getPessoa().getId() +
+			" and sol.status in " + gerarStringIn(pendentes) +
+			" and sol.ano = " + ano + " and sol.periodo = " + periodo +
+			" and sol.idMatriculaGerada is null " +
+			" and sol.discente.nivel <> '" + discente.getNivel() + "'" +
+			" ORDER BY sol.turma.disciplina.codigo");
+		
+		Collection<Turma> turmas = null;
+		@SuppressWarnings("unchecked")
+		Collection<Turma> lista  = getSession().createQuery(hql.toString()).list();		
+		turmas = lista;
+		
+		return turmas;
+	}
 	/** Retorna a solicitação de matrícula excluída de um discente
 	 * @param turma
 	 * @param discente

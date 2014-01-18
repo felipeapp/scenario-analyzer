@@ -17,6 +17,7 @@
 		   <li><h:commandLink action="#{notificacaoAcademica.iniciarIndividual}" value="Notificação Individual" onclick="setAba('administracao')" /></li>
 		   <li><h:commandLink action="#{notificacaoAcademica.acompanhar}" value="Acompanhar Notificações Acadêmicas" onclick="setAba('administracao')" /></li>
 		   <li><h:commandLink action="#{importacaoDiscenteMBean.preImportar}" value="Importar Discente Lato"  onclick="setAba('administracao')"/> </li>
+		   <li><h:commandLink action="#{importacaoDiscenteIMDMBean.preImportar}" value="Importar Discentes Convocados do IMD"  onclick="setAba('administracao')"/> </li>
 		   </ul>
 		  </li>
 		  

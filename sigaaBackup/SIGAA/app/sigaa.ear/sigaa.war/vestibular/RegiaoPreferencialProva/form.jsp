@@ -10,7 +10,7 @@
 				<th class="required">Denominação:</th>
 				<td><h:inputText id="nome"
 					value="#{regiaoPreferencialProva.obj.denominacao}" size="60"
-					disabled="#{readOnly}" maxlength="255" /></td>
+					disabled="#{regiaoPreferencialProva.readOnly}" maxlength="255" /></td>
 			</tr>
 			<tfoot>
 				<tr>

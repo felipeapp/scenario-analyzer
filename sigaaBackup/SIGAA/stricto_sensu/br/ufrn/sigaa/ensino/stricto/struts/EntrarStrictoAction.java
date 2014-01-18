@@ -77,17 +77,23 @@ public class EntrarStrictoAction extends SigaaAbstractAction {
 				ArrayList<CoordenacaoCurso> coordenacoesPos = (ArrayList<CoordenacaoCurso>) coordCursoDao.findCoordPosByServidor(usr.getServidor() .getId(), true, null);
 				if (!ValidatorUtil.isEmpty(coordenacoesPos)) {
 					dados.setProgramas(new ArrayList<Unidade>(0));
+					Unidade programa = null;
 					for( CoordenacaoCurso cc: coordenacoesPos ){
 						dados.getProgramas().add(cc.getUnidade());
-						
-						Unidade programa = cc.getUnidade();
-						request.getSession().setAttribute(PROGRAMA_ATUAL, programa);
-						configurarCalendarioSessao(programa, request,response);
-						request.getSession().setAttribute(PARAMETROS_SESSAO, ParametrosGestoraAcademicaHelper.getParametros(programa, NivelEnsino.STRICTO, null, null, null) );
-						
+						// seta a unidade do programa coordenado caso seja nula, ou igual a unidade de lotação do servidor
+						if (programa == null || 
+								 usr.getVinculoAtivo().getUnidade() != null && cc.getUnidade().getId() == usr.getVinculoAtivo().getUnidade().getId())
+							programa = cc.getUnidade();
 						if(cc.getUnidade().getMunicipio() != null)
 							cc.getUnidade().getMunicipio().getNomeUF();
 					}
+					// seta o programa coordenado, caso não esteja especificado em sessão 
+					if (request.getSession().getAttribute(PROGRAMA_ATUAL) == null) {
+						request.getSession().setAttribute(PROGRAMA_ATUAL, programa);
+						configurarCalendarioSessao(programa, request,response);
+						request.getSession().setAttribute(PARAMETROS_SESSAO, ParametrosGestoraAcademicaHelper.getParametros(programa, NivelEnsino.STRICTO, null, null, null) );
+					}
+					
 					usr.setNivelEnsino(NivelEnsino.STRICTO);
 					request.getSession().setAttribute("nivel", NivelEnsino.STRICTO);
 				}			

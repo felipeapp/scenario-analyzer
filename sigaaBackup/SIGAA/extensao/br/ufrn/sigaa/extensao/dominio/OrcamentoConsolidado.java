@@ -24,6 +24,7 @@ import org.hibernate.annotations.Parameter;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.util.EqualsUtil;
+import br.ufrn.arq.util.HashCodeUtil;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.dominio.ElementoDespesa;
 import br.ufrn.sigaa.projetos.dominio.Projeto;
@@ -163,6 +164,11 @@ public class OrcamentoConsolidado implements Validatable {
 		return EqualsUtil.testEquals(this, obj, "id,", "elementoDespesa.id");
 	}
 
+	@Override
+	public int hashCode() {
+		return HashCodeUtil.hashAll(id, elementoDespesa.getId());
+	}
+	
 	public Double getTotalConsolidado() {
 		return fundo + fundacao + outros;
 	}

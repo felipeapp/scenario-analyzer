@@ -14,6 +14,7 @@ import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.extensao.dominio.EditalExtensao;
+import br.ufrn.sigaa.extensao.dominio.EditalExtensaoLinhaAtuacao;
 import br.ufrn.sigaa.extensao.dominio.EditalExtensaoRegra;
 import br.ufrn.sigaa.projetos.dominio.Edital;
 
@@ -42,6 +43,10 @@ public class ProcessadorEditalExtensao extends AbstractProcessador {
 				for (EditalExtensaoRegra regra: editalExtensao.getRegras()) {
 					regra.setRegistroEntrada(mov.getUsuarioLogado().getRegistroEntrada());
 					dao.createOrUpdate(regra);
+				}
+				for (EditalExtensaoLinhaAtuacao linha: editalExtensao.getLinhasAtuacao()) {
+					linha.setRegistroEntrada(mov.getUsuarioLogado().getRegistroEntrada());
+					dao.createOrUpdate(linha);
 				}
 			} else if(mov.getCodMovimento().equals(SigaaListaComando.REMOVER_EDITAL_EXTENSAO)){
 				if(editalExtensao.getIdArquivo() != null) {

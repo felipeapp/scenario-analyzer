@@ -16,7 +16,6 @@ import br.ufrn.arq.dominio.Movimento;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.AbstractProcessador;
-import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.ensino.graduacao.dominio.MudancaCurricular;
 import br.ufrn.sigaa.pessoa.dominio.ObservacaoDiscente;

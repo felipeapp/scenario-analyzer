@@ -461,7 +461,8 @@ public class VinculosDao extends GenericSigaaDAO {
 		hql.append(projecao);
 		hql.append(" from CoordenadorUnidade coord " +
 				"		inner join coord.pessoa pessoa " +
-				" where pessoa.id = :idPessoa ");
+				" where pessoa.id = :idPessoa " +
+				" and coord.ativo = trueValue() ");
 		
 		Query query = getSession().createQuery(hql.toString());
 		query.setInteger("idPessoa", pessoa.getId());

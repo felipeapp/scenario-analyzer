@@ -10,7 +10,7 @@
 				<cewolf:data> 
 					<cewolf:producer id="dados"> 
 						<cewolf:param name="evolucao" value="<%= new Boolean(true)%>"/>
-						<cewolf:param name="idServidor" value="${ portalResultadoAvaliacao.servidor.id }"/>
+						<cewolf:param name="idPessoa" value="${ portalResultadoAvaliacao.pessoa.id }"/>
 					</cewolf:producer>
 				</cewolf:data>
 			</cewolf:chart> 

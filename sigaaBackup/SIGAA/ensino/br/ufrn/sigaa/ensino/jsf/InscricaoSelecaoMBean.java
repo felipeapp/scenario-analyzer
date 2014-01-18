@@ -396,14 +396,8 @@ public class InscricaoSelecaoMBean extends SigaaAbstractController<InscricaoSele
 			mov.setArquivoProjeto(null);
 		}
 		if (obj.getQuestionario() != null) {
-			QuestionarioRespostas questionarioResposta = dao.findByPrimaryKey(getQuestionarioRespostasMBean().getObj().getId(), QuestionarioRespostas.class);
-			for(Resposta r : questionarioResposta.getRespostas()) {
-				r.getPergunta().getPergunta();
-			}
-			
-			questionarioResposta.getQuestionario().isProcessoSeletivo();
-			
-			mov.setQuestionarioRespostas( questionarioResposta );
+			getQuestionarioRespostasMBean().getObj().setQuestionario(obj.getQuestionario());
+			mov.setQuestionarioRespostas( getQuestionarioRespostasMBean().getObj() );
 		}
 		
 		if( isEmpty(obj.getId()) ){
@@ -862,7 +856,7 @@ public class InscricaoSelecaoMBean extends SigaaAbstractController<InscricaoSele
 			
 			CursoTecnico cursoTecnico = getGenericDAO().findByPrimaryKey(obj.getProcessoSeletivo().getCurso().getId(), CursoTecnico.class);
 			discente.getEstruturaCurricularTecnica().setCursoTecnico(cursoTecnico);
-			discente.getTurmaEntradaTecnico().getEstruturaCurricularTecnica().setCursoTecnico(cursoTecnico);
+			discente.getTurmaEntradaTecnico().setCursoTecnico(cursoTecnico);
 			
 			discente.setFormaIngresso(FormaIngresso.PROCESSO_SELETIVO);
 			discente.setProcessoSeletivo(obj.getProcessoSeletivo());

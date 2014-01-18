@@ -22,6 +22,7 @@ import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.seguranca.log.CriadoEm;
 import br.ufrn.arq.seguranca.log.CriadoPor;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.arq.util.Formatador;
 import br.ufrn.arq.util.ValidatorUtil;
 
 /**
@@ -131,6 +132,19 @@ public class CalendarioExtensao implements Validatable {
 		return dataCadastro;
 	}
 
+	public boolean isDentroPeriodo() {
+		Date dataAtual = CalendarUtils.descartarHoras(new Date());
+		if ( CalendarUtils.getDiaByData(inicioCadastroBolsa) > CalendarUtils.getDiaByData(fimCadastroBolsa)  )
+			inicioCadastroBolsa = CalendarUtils.createDate(CalendarUtils.getDiaByData(inicioCadastroBolsa), CalendarUtils.getMesByData(dataAtual)-1, CalendarUtils.getAnoAtual());
+		else
+			inicioCadastroBolsa = CalendarUtils.createDate(CalendarUtils.getDiaByData(inicioCadastroBolsa), CalendarUtils.getMesByData(dataAtual), CalendarUtils.getAnoAtual());
+		
+		fimCadastroBolsa = CalendarUtils.createDate(CalendarUtils.getDiaByData(fimCadastroBolsa), CalendarUtils.getMesByData(dataAtual), CalendarUtils.getAnoAtual());
+		
+		return !(CalendarUtils.compareTo(dataAtual, CalendarUtils.descartarHoras(fimCadastroBolsa)) > 0 || 
+					CalendarUtils.compareTo(dataAtual, CalendarUtils.descartarHoras(inicioCadastroBolsa))< 0);
+	}
+	
 	/**
 	 * Método utilizado para informar o período de cadastro de bolsas
 	 * @return
@@ -148,16 +162,16 @@ public class CalendarioExtensao implements Validatable {
 		
 		ListaMensagens lista = new ListaMensagens();
 		ValidatorUtil.validaInt(this.anoReferencia, "Ano Referência", lista);
-		if (this.inicioCadastroBolsa == null)
-			lista.addErro("Data inicial do período de efetivação das bolsas de extensão: Campo obrigatório não informado ou data inválida.");
-		if (this.fimCadastroBolsa == null)
-			lista.addErro("Data final do período de efetivação das bolsas de extensão: Campo obrigatório não informado ou data inválida.");
+		ValidatorUtil.validaData(Formatador.getInstance().formatarData(inicioCadastroBolsa), "Data inicial", lista);
+		ValidatorUtil.validaData(Formatador.getInstance().formatarData(fimCadastroBolsa), "Data final", lista);
+		ValidatorUtil.validaInicioFim(this.inicioCadastroBolsa, this.fimCadastroBolsa, "Período de efetivação das bolsas de extensão", lista);
+		
 		if ( inicioCadastroBolsa != null && fimCadastroBolsa != null ) {
 			if ( !( CalendarUtils.calculoDias(inicioCadastroBolsa, fimCadastroBolsa) > 0 && CalendarUtils.calculoDias(inicioCadastroBolsa, fimCadastroBolsa) <= 15) ) {
 				lista.addErro("O período máximo para a definição da efetivação das bolsas são 15 dias.");
 			}
 		}
-		ValidatorUtil.validaInicioFim(this.inicioCadastroBolsa, this.fimCadastroBolsa, "Período de efetivação das bolsas de extensão", lista);
+		
 		return lista;
 	}
 

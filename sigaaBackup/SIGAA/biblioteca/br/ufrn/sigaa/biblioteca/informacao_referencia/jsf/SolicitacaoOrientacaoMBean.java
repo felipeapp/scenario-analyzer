@@ -848,8 +848,8 @@ public class SolicitacaoOrientacaoMBean extends SigaaAbstractController<Solicita
 		if(solicitacoes.size() == 0)
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		
-		if(solicitacoes.size() > 300)
-			addMensagem(MensagensArquitetura.BUSCA_MAXIMO_RESULTADOS, 100);
+		if(solicitacoes.size() > SolicitacaoOrientacaoDAO.QTD_MAXIMA_RESULTADOS)
+			addMensagem(MensagensArquitetura.BUSCA_MAXIMO_RESULTADOS, SolicitacaoOrientacaoDAO.QTD_MAXIMA_RESULTADOS);
 		
 		return telaListaSolicitacoes();
 	}

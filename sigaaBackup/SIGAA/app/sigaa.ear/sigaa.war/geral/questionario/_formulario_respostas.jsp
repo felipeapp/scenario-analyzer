@@ -2,6 +2,8 @@
 <%@taglib prefix="h" uri="http://java.sun.com/jsf/html"%>
 <%@taglib prefix="t" uri="http://myfaces.apache.org/tomahawk" %>
 
+<%@ taglib uri="/tags/sigaaFunctions" prefix="sf" %>
+
 <%@taglib uri="/tags/rich" prefix="rich"%>
 <%@taglib uri="/tags/a4j" prefix="a4j"%>
 
@@ -33,36 +35,42 @@
 	rowClasses="linhaPar, linhaImpar" >
 
 	<rich:column rendered="#{resposta.pergunta.ativo}">
-		<b><h:outputText value="#{row + 1}. #{resposta.pergunta.pergunta}" /></b>
-		<h:outputText styleClass="required" style="padding-bottom: 9px; display: inline;" rendered="#{resposta.pergunta.obrigatoria || resposta.pergunta.questionario.respostasObrigatorias}"/> 
+		<b><h:outputText value="#{row + 1}. #{resposta.pergunta.pergunta}"  styleClass="required" style="padding-bottom: 9px; display: inline;" rendered="#{resposta.pergunta.obrigatoria || resposta.pergunta.questionario.respostasObrigatorias}"/></b>
+		<b><h:outputText value="#{row + 1}. #{resposta.pergunta.pergunta}"  rendered="#{!(resposta.pergunta.obrigatoria || resposta.pergunta.questionario.respostasObrigatorias)}"/></b>
 		<h:outputText rendered="#{ resposta.pergunta.exibeMaxCaracteres }" value="#{ resposta.pergunta.mensagemExibicao }"/>
 		 		
 		<h:panelGroup>
 			<rich:panel>
-				<h:selectOneRadio value="#{resposta.respostaVf}" 
+				<h:selectOneRadio value="#{resposta.respostaVf}" disabled="#{ questionarioRespostasBean.readOnly }" 
 					rendered="#{resposta.pergunta.vf}" id="respostaVf">
 					<f:selectItem itemValue="true" itemLabel="Verdadeiro"/>
 					<f:selectItem itemValue="false" itemLabel="Falso"/>
 				</h:selectOneRadio>
 				
 				<h:inputTextarea value="#{resposta.respostaDissertativa}" rows="4" style="width: 98%;" 
-					rendered="#{resposta.pergunta.dissertativa}" id="respostaDissertativa"/>
+					rendered="#{resposta.pergunta.dissertativa}" id="respostaDissertativa" disabled="#{ questionarioRespostasBean.readOnly }"/>
 
-				<h:inputText value="#{resposta.respostaNumerica}" rendered="#{resposta.pergunta.numerica}"
+				<h:inputText value="#{resposta.respostaNumerica}" rendered="#{resposta.pergunta.numerica}" disabled="#{ questionarioRespostasBean.readOnly }"
 						size="10" maxlength="12" id="respostaNumerica" onkeyup="return formatarInteiro(this);" style="text-align: right;">
 				</h:inputText>	
 				
-				<h:selectOneRadio value="#{resposta.alternativa}" layout="pageDirection" 
+				<h:selectOneRadio value="#{resposta.alternativa}" layout="pageDirection"  disabled="#{ questionarioRespostasBean.readOnly }"
 					converter="convertAlternativa" rendered="#{resposta.pergunta.unicaEscolha || resposta.pergunta.unicaEscolhaAlternativaPeso}" id="unicaEscolha"> 
 					<t:selectItems value="#{resposta.pergunta.alternativasValidas}" var="a" itemLabel="#{a.alternativa}" itemValue="#{a}"/>
 				</h:selectOneRadio>
 				
-				<h:selectManyCheckbox value="#{resposta.alternativas}" layout="pageDirection" 
+				<h:selectManyCheckbox value="#{resposta.alternativas}" layout="pageDirection"  disabled="#{ questionarioRespostasBean.readOnly }"
  					converter="convertAlternativa" rendered="#{resposta.pergunta.multiplaEscolha}" id="multiplaEscolha">
 					<t:selectItems value="#{resposta.pergunta.alternativasValidas}" var="a" itemLabel="#{a.alternativa}" itemValue="#{a}"/>
 				</h:selectManyCheckbox>
 				
-				<t:inputFileUpload value="#{resposta.arquivo}" rendered="#{resposta.pergunta.arquivo}" />	
+				<t:inputFileUpload value="#{resposta.arquivo}" rendered="#{resposta.pergunta.arquivo}"  disabled="#{ questionarioRespostasBean.readOnly }"/>
+				<h:panelGroup rendered="#{not empty resposta.respostaArquivo}" >
+					<a href="${ctx}/verProducao?idProducao=<h:outputText value="#{ resposta.respostaArquivo }"/>&key=<h:outputText value="#{ sf:generateArquivoKey(resposta.respostaArquivo) }"/>" 
+						target="_blank">
+						Baixar Arquivo Atual
+					</a>
+				</h:panelGroup>
 				<%--
 				<c:if test="${resposta.pergunta.arquivo}">
 					:help img="/img/ajuda.gif" over="true">

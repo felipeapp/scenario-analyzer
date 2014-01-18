@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.dominio.Unidade;
+import br.ufrn.sigaa.pesquisa.dominio.EditalPesquisa;
 import br.ufrn.sigaa.pesquisa.dominio.MembroGrupoPesquisa;
 import br.ufrn.sigaa.pesquisa.dominio.ProjetoApoioGrupoPesquisa;
 import br.ufrn.sigaa.pesquisa.dominio.TipoMembroGrupoPesquisa;
@@ -199,19 +202,21 @@ public class ProjetoApoioGrupoPesquisaDao extends GenericSigaaDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public Collection<ProjetoApoioGrupoPesquisa> projetosParaAvaliar() throws DAOException {
+	public Collection<ProjetoApoioGrupoPesquisa> projetosParaAvaliar(EditalPesquisa edital) throws DAOException {
 		
 		Collection<ProjetoApoioGrupoPesquisa> result = new ArrayList<ProjetoApoioGrupoPesquisa>();
-		String sb = " SELECT pa.id_projeto_apoio_grupo_pesquisa, p.titulo, gp.codigo, p.id_tipo_situacao_projeto, tsp.descricao, u.sigla" +
+		StringBuilder sb = new StringBuilder();
+		 sb.append(" SELECT pa.id_projeto_apoio_grupo_pesquisa, p.titulo, gp.codigo, p.id_tipo_situacao_projeto, tsp.descricao, u.sigla" +
 					" FROM pesquisa.projeto_apoio_grupo_pesquisa pa " +
 					" JOIN projetos.projeto p using ( id_projeto )" +
 					" JOIN comum.unidade u using ( id_unidade )" +
 					" JOIN pesquisa.grupo_pesquisa gp on ( pa.id_grupo_pesquisa = gp.id_grupo_pesquisa )" +
 					" JOIN projetos.tipo_situacao_projeto tsp on  ( tsp.id_tipo_situacao_projeto = p.id_tipo_situacao_projeto )"+
-					" WHERE p.id_tipo_situacao_projeto in " + UFRNUtils.gerarStringIn(new int[]{TipoSituacaoProjeto.PROJETO_BASE_AGUARDANDO_AVALIACAO, TipoSituacaoProjeto.PROJETO_BASE_AVALIADO}) +
-					" ORDER BY u.id_gestora";
-		
-		Query q = getSession().createSQLQuery(sb);
+					" WHERE p.id_tipo_situacao_projeto in " + UFRNUtils.gerarStringIn(new int[]{TipoSituacaoProjeto.PROJETO_BASE_AGUARDANDO_AVALIACAO, TipoSituacaoProjeto.PROJETO_BASE_AVALIADO}));
+		if(edital != null)
+			sb.append(" AND pa.id_edital_pesquisa = " + edital.getId());
+		sb.append(" ORDER BY u.id_gestora");
+		Query q = getSession().createSQLQuery(sb.toString());
 		
 		@SuppressWarnings("unchecked")
 		List<Object[]> lista = q.list();
@@ -234,6 +239,10 @@ public class ProjetoApoioGrupoPesquisaDao extends GenericSigaaDAO {
 		return result;
 	}
 	
+	/**Retorna a distribuição de projetos para avaliação mais recente
+	 *  
+	 *  @throws HibernateException
+	 *  @throws DAOException*/
 	public DistribuicaoAvaliacao distribuicaoMaisRecente() throws HibernateException, DAOException{
 		return (DistribuicaoAvaliacao) getSession()
 				.createQuery(
@@ -243,5 +252,59 @@ public class ProjetoApoioGrupoPesquisaDao extends GenericSigaaDAO {
 				.setInteger(0, CalendarUtils.getAnoAtual())
 				.setString(1, "%GRUPOS DE PESQUISA%").setMaxResults(1)
 				.uniqueResult();
+	}
+	
+	/** Método para buscar os projetos de acordo com uma série de  filtros opcionais.
+	 * 
+	 * @param ano
+	 * @param titulo
+	 * @param idCoordenador
+	 * @param status*/
+	public Collection<ProjetoApoioGrupoPesquisa> filter(Integer ano, String titulo, Integer idCoordenador, Integer status) throws DAOException {
+		Collection<ProjetoApoioGrupoPesquisa> result = new ArrayList<ProjetoApoioGrupoPesquisa>();
+		StringBuilder sql = new StringBuilder(" SELECT panp.id_projeto_apoio_grupo_pesquisa, p.titulo, tsp.id_tipo_situacao_projeto, " +
+					 " tsp.descricao, gp.codigo, pe.nome" +
+					 " FROM pesquisa.projeto_apoio_grupo_pesquisa panp" +
+					 " JOIN projetos.projeto p using ( id_projeto )" +
+					 " JOIN projetos.tipo_situacao_projeto tsp using ( id_tipo_situacao_projeto )" +
+					 " JOIN pesquisa.grupo_pesquisa gp on ( gp.id_grupo_pesquisa = panp.id_grupo_pesquisa  )" +
+					 " JOIN rh.servidor s on s.id_servidor = gp.id_coordenador" +
+					 " JOIN comum.pessoa pe on pe.id_pessoa = s.id_pessoa" +
+					 " WHERE p.id_tipo_situacao_projeto <> " + TipoSituacaoProjeto.PROJETO_BASE_REMOVIDO);
+		if(ano != null)
+			sql.append(" AND p.ano = :ano ");
+		if(titulo != null)
+			sql.append(" AND p.titulo ilike :titulo ");
+		if(idCoordenador != null)
+			sql.append(" AND gp.id_coordenador = :idServidor ");
+		if(status != null)
+			sql.append(" AND p.id_tipo_situacao_projeto = :status");
+		sql.append(" ORDER BY p.id_tipo_situacao_projeto, p.data_cadastro desc");
+		
+		Query q = getSession().createSQLQuery(sql.toString());
+		if(ano != null) q.setInteger("ano", ano);
+		if(titulo != null) q.setString("titulo", "%"+titulo+"%");
+		if(idCoordenador != null) q.setInteger("idServidor", idCoordenador);
+		if(status != null) q.setInteger("status", status);
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> lista = q.list();
+		if(result != null){
+			for (int i = 0; i < lista.size(); i++){
+				int col = 0;
+				Object[] colunas = lista.get(i);
+				ProjetoApoioGrupoPesquisa  projApoio = new ProjetoApoioGrupoPesquisa();
+				projApoio.setId((Integer) colunas[col]);
+				projApoio.getProjeto().setTitulo((String) colunas[++col]);
+				projApoio.getProjeto().getSituacaoProjeto().setId((Integer) colunas[++col]);
+				projApoio.getProjeto().getSituacaoProjeto().setDescricao((String) colunas[++col]);
+				projApoio.getGrupoPesquisa().setCodigo((String) colunas[++col]);
+				//projApoio.setConcluido( projApoio.getProjeto().getSituacaoProjeto().getId() == TipoSituacaoProjeto.PROJETO_BASE_SUBMETIDO );
+				projApoio.getGrupoPesquisa().setCoordenador(new Servidor());
+				projApoio.getGrupoPesquisa().getCoordenador().getPessoa().setNome((String) colunas[++col]);
+				result.add(projApoio);
+			}
+		}
+		return result;
 	}
 }

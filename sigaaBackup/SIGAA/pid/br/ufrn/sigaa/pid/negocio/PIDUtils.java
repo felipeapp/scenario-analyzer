@@ -26,6 +26,8 @@ public class PIDUtils {
 	 */
 	public static void calcularChDedicadaSemana(DocenteTurma dt, Short horasCreditosAula, Short horasCreditosEstagio) throws DAOException {
 		
+		if(dt == null) return;
+		
 		// Valores Default
 		if (horasCreditosAula == null || horasCreditosAula == 0)
 			horasCreditosAula = 15;
@@ -36,7 +38,7 @@ public class PIDUtils {
 		// Cálculo arbitrário definido pelo gestor de graduação.
 		//********************************************************
 		
-		if (dt.getTurma() != null && dt.getTurma().getDisciplina().getChEstagio() > 0)
+		if (dt.getTurma().getDisciplina().getChEstagio() > 0)
 			dt.setChDedicadaSemana( Math.round((double) dt.getChDedicadaPeriodo() / horasCreditosEstagio * 100d) / 100d ); 
 		else
 			dt.setChDedicadaSemana( Math.round((double) dt.getChDedicadaPeriodo() / horasCreditosAula * 100d) / 100d );

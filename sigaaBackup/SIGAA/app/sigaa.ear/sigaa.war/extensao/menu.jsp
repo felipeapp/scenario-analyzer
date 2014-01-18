@@ -229,7 +229,8 @@
 											<ul>
 												<li> <h:commandLink action="#{filtroAtividades.irTelaDistribuirManualComiteAdHoc}" value="Distribuir para Avaliadores Ad Hoc (Manual)" onclick="setAba('comite')"/>	</li>
 												<li> <h:commandLink action="#{filtroAtividades.irTelaDistribuirAutomaticaComiteAdHoc}" value="Distribuir para Avaliadores Ad Hoc (Automática)" onclick="setAba('comite')"/>	</li>										
-												<li> <h:commandLink action="#{filtroAtividades.irTelaDistribuirComiteExtensao}" value="Distribuir para Comitê de Extensão" onclick="setAba('comite')"/> </li>
+												<li> <h:commandLink action="#{filtroAtividades.irTelaDistribuirComiteExtensao}" value="Distribuir para Comitê de Extensão (Manual)" onclick="setAba('comite')"/> </li>
+												<li> <h:commandLink action="#{filtroAtividades.irTelaDistribuirComiteExtensaoAuto}" value="Distribuir para Comitê de Extensão (Automática)" onclick="setAba('comite')"/> </li>
 											</ul>
 										</li>
 	

@@ -949,6 +949,13 @@ public class OperacaoDiscente {
 	 */
 	public static final int MATRICULAR_DISCENTE_PLANO_MATRICULA = 131;
 	
+	/** Constante utilizada para selecionar discente nos seguinte(s) controller(s):<br/> 
+	 * <ul>
+	 * <li>br.ufrn.sigaa.diploma.jsf.RegistroDiplomaIndividualMBean</li>
+	 * </ul>
+	*/
+	public static final int REGISTRO_DIPLOMA_ANTIGO = 133;
+	
 	/** HashMap com as Operações Disponíveis */
 	private static HashMap<Integer, OperacaoDiscente> mapa;
 	static {
@@ -1092,6 +1099,7 @@ public class OperacaoDiscente {
 		mapa.put(INTERNACIONALIZAR_ELEMENTOS_HISTORICO_DISCENTE, new OperacaoDiscente("elementosDiscenteTraducaoMBean", "Internacionalizar Elementos do Discente", new int[] {StatusDiscente.ATIVO, StatusDiscente.FORMANDO, StatusDiscente.CONCLUIDO, StatusDiscente.GRADUANDO }, null));
 		mapa.put(ACOMPANHAMENTO_ACADEMICO_DISCENTE, new OperacaoDiscente("acompanhamentoAcademicoDiscenteMBean", "Acompanhamento Acadêmico Discente", new int[] {StatusDiscente.ATIVO, StatusDiscente.FORMANDO, StatusDiscente.CADASTRADO,StatusDiscente.CONCLUIDO } ));
 		mapa.put(MATRICULAR_DISCENTE_PLANO_MATRICULA, new OperacaoDiscente("matricularDiscentePlanoMatriculaMBean", "Matricular Discente Usando Plano de Matrículas", new int[] {StatusDiscente.CADASTRADO}));
+		mapa.put(REGISTRO_DIPLOMA_ANTIGO, new OperacaoDiscente("registroDiplomaAntigoMBean", "Registrar Diploma Antigo", new int[] {StatusDiscente.CONCLUIDO}));
 	}
 
 	public OperacaoDiscente() {

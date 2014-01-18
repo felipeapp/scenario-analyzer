@@ -54,7 +54,6 @@ import br.ufrn.sigaa.avaliacao.dominio.ParametroProcessamentoAvaliacaoInstitucio
 import br.ufrn.sigaa.avaliacao.dominio.Pergunta;
 import br.ufrn.sigaa.avaliacao.dominio.ResultadoAvaliacaoDocente;
 import br.ufrn.sigaa.avaliacao.dominio.TabelaRespostaResultadoAvaliacao;
-import br.ufrn.sigaa.avaliacao.dominio.TipoAvaliacaoInstitucional;
 import br.ufrn.sigaa.avaliacao.dominio.TipoPergunta;
 import br.ufrn.sigaa.dominio.CalendarioAcademico;
 import br.ufrn.sigaa.dominio.Unidade;
@@ -64,6 +63,7 @@ import br.ufrn.sigaa.ensino.negocio.CalendarioAcademicoHelper;
 import br.ufrn.sigaa.jsf.UnidadeMBean;
 import br.ufrn.sigaa.mensagens.MensagensAvaliacaoInstitucional;
 import br.ufrn.sigaa.parametros.dominio.ParametrosAvaliacaoInstitucional;
+import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
 /**
@@ -507,15 +507,16 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 	 * @throws DAOException
 	 */
 	public String viewResultadoDocente() throws HibernateException, DAOException {
-		int idServidor = Integer.parseInt(getCurrentRequest().getParameter("idServidor"));
+		int idPessoa = Integer.parseInt(getCurrentRequest().getParameter("idServidor"));
 		int ano = Integer.parseInt(getCurrentRequest().getParameter("ano"));
 		int periodo = Integer.parseInt(getCurrentRequest().getParameter("periodo"));
+		int idFormulario = Integer.parseInt(getCurrentRequest().getParameter("idFormulario"));
 		PortalResultadoAvaliacaoMBean mBean = getMBean("portalResultadoAvaliacao");
 		if (viewPortalDocente) {
-			mBean.setServidor(getGenericDAO().findByPrimaryKey(idServidor, Servidor.class));
+			mBean.setPessoa(getGenericDAO().findByPrimaryKey(idPessoa, Pessoa.class));
 			return mBean.paginaInicial();
 		} else { 
-			return mBean.viewResultadoDocente(idServidor, ano, periodo);
+			return mBean.viewResultadoDocente(idPessoa, ano, periodo, idFormulario);
 		}
 	}
 	
@@ -555,11 +556,14 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 	 * @throws DAOException
 	 */
 	public String relatorioSintetico() throws HibernateException, DAOException {
-
+		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
 		ValidatorUtil.validateRequiredId(idUnidade, "Departamento", erros);
 		ValidatorUtil.validateRequired(anoPeriodo, "Ano-Período", erros);
-		ano = anoPeriodo / 10;
-		periodo = anoPeriodo % 10;
+		ParametroProcessamentoAvaliacaoInstitucional parametro = dao.findByPrimaryKey(anoPeriodo, ParametroProcessamentoAvaliacaoInstitucional.class); 
+		if (parametro == null) return null;
+		obj = parametro;
+		ano = parametro.getAno();
+		periodo = parametro.getPeriodo();
 		validacaoAnoPeriodo(erros);
 		if (hasErrors())
 			return null;
@@ -581,8 +585,7 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 				SigaaPapeis.COMISSAO_AVALIACAO, SigaaPapeis.BOLSISTA_AVALIACAO_INSTITUCIONAL)) {
 			idDepartamento = idUnidade;
 		}
-		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
-		resultadosDocentes = dao.findResultadoByDocenteCentroDepartamentoAnoPeriodo(0, idCentro, idDepartamento, ano, periodo);
+		resultadosDocentes = dao.findResultadoByDocenteCentroDepartamentoAnoPeriodo(0, idCentro, idDepartamento, ano, periodo, obj.getFormulario().getId());
 		if (resultadosDocentes == null || resultadosDocentes.isEmpty()) {
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 			return null;
@@ -611,50 +614,44 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 		if (isPortalAvaliacaoInstitucional())
 			return relatorioSintetico();
 		ValidatorUtil.validateRequiredId(idUnidade, "Departamento", erros);
-		ValidatorUtil.validateRequired(anoPeriodo, "Ano-Período", erros);
-		ano = anoPeriodo / 10;
-		periodo = anoPeriodo % 10;
+		ValidatorUtil.validateRequiredId(anoPeriodo, "Ano-Período", erros);
+		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
+		ParametroProcessamentoAvaliacaoInstitucional parametro = dao.findByPrimaryKey(anoPeriodo, ParametroProcessamentoAvaliacaoInstitucional.class); 
+		if (parametro == null) return null;
+		ano = parametro.getAno();
+		periodo = parametro.getPeriodo();
 		validacaoAnoPeriodo(erros);
 		if (hasErrors())
 			return null;
-		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
 		int idCentro = 0;
 		int idDepartamento = idUnidade;
+		int idFormulario = parametro.getFormulario().getId();
 		String ids[] = ParametroHelper.getInstance().getParametroStringArray(ParametrosAvaliacaoInstitucional.ID_PERGUNTAS_FIXAS_CONSULTA_PUBLICA_RESULTADO);
 		perguntasSelecionadas = new ArrayList<String>();
-		String fields[] = {"ano", "periodo", "formulario.tipoAvaliacao", "formulario.ead"};
-		Object values[] = {ano, periodo, TipoAvaliacaoInstitucional.AVALIACAO_DISCENTE_GRADUACAO, false};
-		Collection<CalendarioAvaliacao> forms = dao.findByExactField(CalendarioAvaliacao.class, fields, values);
 		Collection<Integer> perguntasForm = new LinkedList<Integer>();
-		if (!isEmpty(forms)) {
-			// filta os IDs de perguntas para apenas as perguntas do formulário usado no ano/período.
-			CalendarioAvaliacao calAval = forms.iterator().next();
-			for (GrupoPerguntas gp : calAval.getFormulario().getGrupoPerguntas()) {
-				for (Pergunta p : gp.getPerguntas()) {
-					perguntasForm.add(p.getId());
-				}
+		// filta os IDs de perguntas para apenas as perguntas do formulário usado no ano/período.
+		for (GrupoPerguntas gp : parametro.getFormulario().getGrupoPerguntas()) {
+			for (Pergunta p : gp.getPerguntas()) {
+				perguntasForm.add(p.getId());
 			}
-			for (String id : ids) {
-				if (!id.isEmpty() && perguntasForm.contains(Integer.valueOf(id))) {
-					perguntasSelecionadas.add(id.trim());
-				}
+		}
+		for (String id : ids) {
+			if (!id.isEmpty() && perguntasForm.contains(Integer.valueOf(id))) {
+				perguntasSelecionadas.add(id.trim());
 			}
-			resultadosDocentes = dao.findResultadoByDocenteCentroDepartamentoAnoPeriodo(0, idCentro, idDepartamento, ano, periodo);
-			if (resultadosDocentes == null || resultadosDocentes.isEmpty()) {
-				addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
-				return null;
-			}
-			Collections.sort(resultadosDocentes);
-			unidade = dao.refresh(new Unidade(idUnidade));
-			carregaLegendaPerguntas();
-			if (getPerguntasSelecionadas().isEmpty())
-				return forward(JSP_RELATORIO_MEDIA_DOCENTES);
-			else
-				return forward(JSP_RELATORIO_MEDIA_DOCENTES_DETALHADO);
-		} else {
+		}
+		resultadosDocentes = dao.findResultadoByDocenteCentroDepartamentoAnoPeriodo(0, idCentro, idDepartamento, ano, periodo, idFormulario);
+		if (resultadosDocentes == null || resultadosDocentes.isEmpty()) {
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 			return null;
 		}
+		Collections.sort(resultadosDocentes);
+		unidade = dao.refresh(new Unidade(idUnidade));
+		carregaLegendaPerguntas();
+		if (getPerguntasSelecionadas().isEmpty())
+			return forward(JSP_RELATORIO_MEDIA_DOCENTES);
+		else
+			return forward(JSP_RELATORIO_MEDIA_DOCENTES_DETALHADO);
 	}	
 	
 	/**
@@ -862,7 +859,14 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 	}
 
 	
-	/** Carrega uma lista de formulários que foram aplicados no ano-período selecionado. */
+	/** Carrega uma lista de formulários que foram aplicados no ano-período selecionado.
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>/avaliacao/relatorios/form_nao_computado.jsp</li>
+	 * </ul>
+	 * @param evt
+	 */
 	public void carregaFormularios(ValueChangeEvent evt) {
 		anoPeriodo = (Integer) evt.getNewValue();
 		formularioCombo = new LinkedList<SelectItem>();
@@ -1033,24 +1037,21 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 	 * @throws DAOException 
 	 */
 	public void carregaPerguntasAnoPeriodo(ValueChangeEvent evt) throws DAOException {
-		anoPeriodo = (Integer) evt.getNewValue();
-		ano = anoPeriodo / 10;
-		periodo = anoPeriodo % 10;
-		perguntas = new ArrayList<Pergunta>();
+		int id = (Integer) evt.getNewValue();
 		GenericDAO dao = getGenericDAO();
-		String[] fields = {"ano", "periodo", "formulario.tipoAvaliacao", "ativo", "formulario.ead"};
-		Object[] values = {ano, periodo, TipoAvaliacaoInstitucional.AVALIACAO_DISCENTE_GRADUACAO, true, false};
-		Collection<CalendarioAvaliacao> calendarios = dao.findByExactField(CalendarioAvaliacao.class, fields, values);
-		if (!isEmpty(calendarios)) {
-			Collection<GrupoPerguntas> grupos = calendarios.iterator().next().getFormulario().getGrupoPerguntas();
-			for (GrupoPerguntas grupo : grupos) {
-				if (grupo.isAvaliaTurmas()) {
-					for (Pergunta p : grupo.getPerguntas()) {
-						// retirando a tag <br/> que está cadastrada no banco.
-						if (p.getTipoPergunta().equals(TipoPergunta.PERGUNTA_NOTA)) {
-							p.setDescricao(p.getDescricao().replaceAll("<br/>", ""));
-							perguntas.add(p);
-						}
+		ParametroProcessamentoAvaliacaoInstitucional parametro = dao.findByPrimaryKey(id, ParametroProcessamentoAvaliacaoInstitucional.class); 
+		if (parametro == null) return;
+		ano = parametro.getAno();
+		periodo = parametro.getPeriodo();
+		perguntas = new ArrayList<Pergunta>();
+		Collection<GrupoPerguntas> grupos = parametro.getFormulario().getGrupoPerguntas();
+		for (GrupoPerguntas grupo : grupos) {
+			if (grupo.isAvaliaTurmas()) {
+				for (Pergunta p : grupo.getPerguntas()) {
+					// retirando a tag <br/> que está cadastrada no banco.
+					if (p.getTipoPergunta().equals(TipoPergunta.PERGUNTA_NOTA)) {
+						p.setDescricao(p.getDescricao().replaceAll("<br/>", ""));
+						perguntas.add(p);
 					}
 				}
 			}
@@ -1287,14 +1288,12 @@ public class RelatorioAvaliacaoMBean extends SigaaAbstractController<ParametroPr
 			if (ultimos != null)
 				for (ParametroProcessamentoAvaliacaoInstitucional parametro : ultimos) {
 					// monta o combo para usuários discentes ou docentes, de acordo com o perfil do usuário
-					if (isPortalDiscente() && parametro.isConsultaDiscenteLiberada()) {
-						anoPeriodoCombo.add(new SelectItem(parametro.getAno() * 10 + parametro.getPeriodo(), parametro.getAno() +"." +parametro.getPeriodo()));
-					} else  if (isPortalDocente() && parametro.isConsultaDocenteLiberada()){
-						anoPeriodoCombo.add(new SelectItem(parametro.getAno() * 10 + parametro.getPeriodo(), parametro.getAno() +"." +parametro.getPeriodo()));
-					} else if (isPortalAvaliacaoInstitucional()) {
-						anoPeriodoCombo.add(new SelectItem(parametro.getAno() * 10 + parametro.getPeriodo(), parametro.getAno() +"." +parametro.getPeriodo()));
-					} else if (isPortalReitoria() && parametro.isConsultaDiscenteLiberada()) {
-						anoPeriodoCombo.add(new SelectItem(parametro.getAno() * 10 + parametro.getPeriodo(), parametro.getAno() +"." +parametro.getPeriodo()));
+					if (isPortalDiscente() && parametro.isConsultaDiscenteLiberada()
+						|| isPortalDocente() && parametro.isConsultaDocenteLiberada()
+						|| isPortalAvaliacaoInstitucional()
+						|| isPortalReitoria() && parametro.isConsultaDiscenteLiberada()) {
+						anoPeriodoCombo.add(new SelectItem(parametro.getId(), parametro.getAno() +"." +parametro.getPeriodo()
+								+ (parametro.getFormulario().isEad() ? " - EAD" : "")));
 					}
 				}
 		}

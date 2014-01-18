@@ -65,12 +65,9 @@
 			</tr>
 
 			<tr>
-				<th class="obrigatorio">Edital de Pesquisa:</th>
+				<th>Edital:</th>
 				<td  colspan="5"> 
-					<h:selectOneMenu value="#{ projetoApoioNovosPesquisadoresMBean.obj.editalPesquisa.id}">
-						<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
-						<f:selectItems value="#{projetoApoioNovosPesquisadoresMBean.editaisCombo}"/> 
-					</h:selectOneMenu>
+					<h:outputText value="#{projetoApoioNovosPesquisadoresMBean.obj.editalPesquisa.edital.descricao}" />
 				</td>
 			</tr>
 
@@ -111,7 +108,7 @@
 			<tr>
 				<th class="obrigatorio">Título</th>
 				<td  colspan="6"> 
-					<h:inputText id="titulo" value="#{ projetoApoioNovosPesquisadoresMBean.obj.projeto.titulo}" size="62" maxlength="60"/>
+					<h:inputText id="titulo" value="#{ projetoApoioNovosPesquisadoresMBean.obj.projeto.titulo}" size="62" maxlength="400"/>
 				</td>
 			</tr>
 

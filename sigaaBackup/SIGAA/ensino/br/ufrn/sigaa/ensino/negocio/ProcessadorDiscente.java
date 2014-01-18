@@ -382,9 +382,9 @@ public class ProcessadorDiscente extends ProcessadorCadastro {
 		if (discente instanceof DiscenteTecnico) {
 			DiscenteTecnico tec = (DiscenteTecnico) discente;
 			
-			if (tec.getTurmaEntradaTecnico() != null && tec.getTurmaEntradaTecnico().getEstruturaCurricularTecnica() != null){
-				tec.getTurmaEntradaTecnico().setEstruturaCurricularTecnica( getGenericDAO(mov).findByPrimaryKey(tec.getTurmaEntradaTecnico().getEstruturaCurricularTecnica().getId(), EstruturaCurricularTecnica.class) );
-					Curso curso = tec.getTurmaEntradaTecnico().getEstruturaCurricularTecnica().getCursoTecnico();
+			if (tec.getTurmaEntradaTecnico() != null && tec.getTurmaEntradaTecnico().getCursoTecnico() != null){
+				tec.setEstruturaCurricularTecnica( getGenericDAO(mov).findByPrimaryKey(tec.getEstruturaCurricularTecnica().getId(), EstruturaCurricularTecnica.class) );
+					Curso curso = tec.getTurmaEntradaTecnico().getCursoTecnico();
 					discente.setCurso(curso);
 			}
 		} else if(discente instanceof DiscenteLato) {
@@ -850,7 +850,7 @@ public class ProcessadorDiscente extends ProcessadorCadastro {
 			}
 	
 			//setando prazo de conclusão
-			EstruturaCurricularTecnica ect = dao.findByPrimaryKey(discTecnico.getTurmaEntradaTecnico().getEstruturaCurricularTecnica().getId(), EstruturaCurricularTecnica.class);
+			EstruturaCurricularTecnica ect = dao.findByPrimaryKey(discTecnico.getEstruturaCurricularTecnica().getId(), EstruturaCurricularTecnica.class);
 			int prazoMaximo = DiscenteHelper.somaSemestres(discTecnico.getAnoIngresso(), discTecnico.getPeriodoIngresso(), ect.getPrazoMaxConclusao()-1);
 			disc.setPrazoConclusao(prazoMaximo);
 		}
@@ -1322,7 +1322,9 @@ public class ProcessadorDiscente extends ProcessadorCadastro {
 				Collection<DiscenteAdapter> outrosRegistros = ddao.findByDadosPessoaisMesmoNivel(disc);
 				for (DiscenteAdapter reg : outrosRegistros) {
 					
-					if ((disc.isTecnico() || disc.isFormacaoComplementar())
+					if (disc.isFormacaoComplementar() && disc.getCurso().getId() != reg.getCurso().getId()){
+						continue;
+					} else if ((disc.isTecnico())
 							&& (disc.getGestoraAcademica().getId() != reg.getGestoraAcademica().getId()
 								|| disc.getCurso().isPermiteAlunosVariosVinculos())) {
 						continue;

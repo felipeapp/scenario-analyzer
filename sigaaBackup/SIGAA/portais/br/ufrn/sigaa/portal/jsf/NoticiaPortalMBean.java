@@ -25,6 +25,8 @@ import br.ufrn.comum.dominio.LocalizacaoNoticiaPortal;
 import br.ufrn.comum.dominio.NoticiaPortal;
 import br.ufrn.comum.dominio.Sistema;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
+import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoCoordenadorUnidadeRede;
+import br.ufrn.sigaa.ensino_rede.dominio.DadosCursoRede;
 import br.ufrn.sigaa.portal.dao.NoticiaPortalAcademicoDAO;
 
 
@@ -150,6 +152,32 @@ public class NoticiaPortalMBean extends	SigaaAbstractController<NoticiaPortal> {
 		
 		if (noticiasDoPrograma != null)
 			noticias.addAll(noticiasDoPrograma);
+		
+		return ordenaNoticias( noticias );
+	}
+	
+	/**
+	 * Retorna uma coleção de notícias referente a coordenação de um programa
+	 * <br>JSP: \SIGAA\app\sigaa.ear\sigaa.war\ensino_rede\portal\portal.jsp
+	 * @return
+	 * @throws DAOException
+	 * @throws IllegalArgumentException
+	 * @throws IOException
+	 */
+	public Collection<NoticiaPortal> getNoticiasProgramaRede() throws DAOException, IllegalArgumentException,  IOException {
+		Collection<NoticiaPortal> noticias = new ArrayList<NoticiaPortal>();
+		Collection<NoticiaPortal> noticiasDoProgramaRede = null;
+		
+		noticias = carregarNoticias(LocalizacaoNoticiaPortal.PORTAL_PROGRAMA_REDE);
+		
+		TipoVinculoCoordenadorUnidadeRede tipoVinculo = (TipoVinculoCoordenadorUnidadeRede) getUsuarioLogado().getVinculoAtivo().getTipoVinculo();
+		DadosCursoRede dadosCurso = tipoVinculo.getCoordenacao().getDadosCurso();
+		
+		if (dadosCurso != null)
+			noticiasDoProgramaRede = carregarNoticiasDoProgramaRede(dadosCurso.getId(), 4);
+		
+		if (noticiasDoProgramaRede != null)
+			noticias.addAll(noticiasDoProgramaRede);
 		
 		return ordenaNoticias( noticias );
 	}
@@ -279,6 +307,23 @@ public class NoticiaPortalMBean extends	SigaaAbstractController<NoticiaPortal> {
 		NoticiaPortalAcademicoDAO dao = getDAO(NoticiaPortalAcademicoDAO.class);
 		try {
 			return dao.findPublicadasByPrograma(idPrograma, quantidade);
+		} finally {
+			dao.close();
+		}
+	}
+	
+	/***
+	 * Esse método é responsável por carregar as notícias do DadosCursoRede passado como 
+	 * parâmetro e a quantidade.
+	 * 
+	 * @param idDadosCursoRede
+	 * @param quantidade
+	 * @return
+	 */
+	private Collection<NoticiaPortal> carregarNoticiasDoProgramaRede(int idDadosCursoRede, int quantidade) {
+		NoticiaPortalAcademicoDAO dao = getDAO(NoticiaPortalAcademicoDAO.class);
+		try {
+			return dao.findPublicadasByProgramaRede(idDadosCursoRede, quantidade);
 		} finally {
 			dao.close();
 		}

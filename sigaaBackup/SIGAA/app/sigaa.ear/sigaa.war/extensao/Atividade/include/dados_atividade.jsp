@@ -173,6 +173,12 @@
 			</td>
 		</tr>
 		
+		<tr>
+			<th><b>Linha de Atuação:</b></th>
+			<td>
+				<h:outputText value="#{atividadeExtensao.obj.linhaAtuacao.descricao}"/>
+			</td>
+		</tr>
 		
 		<tr>
 			<th><b>Convênio Funpec:</b></th>
@@ -337,7 +343,56 @@
 				</td>
 			</tr>
 		</c:if>
+		
+		<c:if test="${atividadeExtensao.obj.tipoAtividadeExtensao.id == PROGRAMA}">
+			<tr>
+				<td colspan="2" > 
+					<b> Justificativa para execução do projeto: </b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.justificativa}" escape="false"/> 
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"> 
+					<b> Metodologia de desenvolvimento do projeto: </b><br/>
+					<h:outputText value="#{ atividadeExtensao.obj.fundamentacaoTeorica }" escape="false"/> 
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"> 
+					<b> Referências:  </b><br/>
+					<h:outputText value="#{ atividadeExtensao.obj.projeto.referencias }" escape="false"/> 
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"> 
+					<b> Objetivos Gerais:  </b><br/>
+					<h:outputText value="#{ atividadeExtensao.obj.projeto.objetivos }" escape="false"/> 
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2"> 
+					<b> Resultados Esperados:  </b><br/>
+					<h:outputText value="#{ atividadeExtensao.obj.projeto.resultados }" escape="false"/> 
+				</td>
+			</tr>
+		
+		</c:if>
 
+		
+		<c:if test="${atividadeExtensao.obj.tipoAtividadeExtensao.id == PRODUTO }"> 
+			<tr>
+				<td colspan="2" align="justify"> 
+					<b> Resumo: </b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.projeto.resumo}" escape="false"/> 
+				</td>
+			</tr>
+			
+		</c:if>	
+		
 		<c:if test="${(atividadeExtensao.obj.tipoAtividadeExtensao.id == PROJETO) or (atividadeExtensao.obj.tipoAtividadeExtensao.id == PRODUTO) }"> 
 
 			<tr>
@@ -347,9 +402,36 @@
 				</td>
 			</tr>
 			
-		</c:if>		
+		</c:if>	
+		
+		<c:if test="${atividadeExtensao.obj.tipoAtividadeExtensao.id == PRODUTO }"> 
+			<tr>
+				<td colspan="2" align="justify"> 
+					<b> Objetivos Gerais: </b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.projeto.objetivos}" escape="false" rendered="#{ not empty atividadeExtensao.obj.projeto.objetivos }"/>
+					<h:outputText value="Não Informado"  rendered="#{  empty atividadeExtensao.obj.projeto.objetivos }"/> 
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="justify"> 
+					<b> Resultados Esperados: </b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.projeto.resultados }" escape="false" rendered="#{ not empty atividadeExtensao.obj.projeto.resultados  }"/>
+					<h:outputText value="Não Informado" rendered="#{ empty atividadeExtensao.obj.projeto.resultados  }"/> 
+				</td>
+			</tr>
+			
+		</c:if>	
+			
 	
 		<c:if test="${(atividadeExtensao.obj.tipoAtividadeExtensao.id == PROJETO) }">
+			<tr>
+				<td colspan="2" align="justify"> 
+					<b> Fundação Teórica: </b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.fundamentacaoTeorica}" escape="false"/> 
+				</td>
+			</tr>
+			
 			<tr>
 				<td colspan="2" align="justify"> 
 					<b> Metodologia: </b><br/>
@@ -362,17 +444,55 @@
 					<h:outputText value="#{atividadeExtensao.obj.referencias}" escape="false"/> 
 				</td>
 			</tr>
+			
+			<tr>
+				<td colspan="2" align="justify"> 
+					<b> Objetivos Gerais: </b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.objetivos }" escape="false"/> 
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="justify">
+					<b>Resultados Esperados</b><br/>
+					<h:outputText value="#{atividadeExtensao.obj.projeto.resultados}" escape="false"/> 
+				</td>
+			</tr>
+			
 		</c:if>
 		
 		<%-- 	DADOS ESPECIFICOS DE CURSO/EVENTO	--%>
 		<c:if test="${(atividadeExtensao.obj.tipoAtividadeExtensao.id == CURSO) or (atividadeExtensao.obj.tipoAtividadeExtensao.id == EVENTO)}"> 
 			<tr>
-				<td colspan="2" align="justify"> 
+				<td colspan="2" > 
 					<b> Programação: </b><br/>
 					<h:outputText value="#{atividadeExtensao.obj.cursoEventoExtensao.programacao}" escape="false"/>
 				</td>
 			</tr>
+			
+			<tr>
+				 <td colspan="2" align="justify">
+					<b> Objetivos Gerais: </b><br/>
+					<h:outputText value="#{ atividadeExtensao.obj.projeto.objetivos }" escape="false" rendered="#{  not empty atividadeExtensao.obj.projeto.objetivos  }" />
+					<h:outputText value=" --"  rendered="#{   empty atividadeExtensao.obj.projeto.objetivos  }" />
+				</td>
+			</tr>
+								
+			<tr>
+				<td colspan="2" style="text-align: justify;">
+					<b> Resultados Esperados:</b><br/>
+					<h:outputText value="#{ atividadeExtensao.obj.projeto.resultados }" rendered="#{ not empty atividadeExtensao.obj.projeto.resultados }" escape="false" />
+					<h:outputText value=" --" rendered="#{ empty atividadeExtensao.obj.projeto.resultados }" escape="false" />
+				</td>
+			</tr>
+		
+		
 		</c:if>
+		
+		
+		
+			
+		
 	
 		<%-- 	LISTAS GERAIS, DE Ação 	--%>
 		<c:if test="${not empty atividadeExtensao.obj.membrosEquipe}">

@@ -17,7 +17,7 @@ function mudarTodos(status) {
 	<link rel="stylesheet" type="text/css" href="/sigaa/ava/primefaces/redmond/skin.css" />
 	
 	<a4j:keepAlive beanName="cadastramentoDiscenteTecnico"></a4j:keepAlive>
-	<h2><ufrn:subSistema /> &gt; <h:outputText value="Gerenciar Cadastramento de Discentes" rendered="#{!cadastramentoDiscenteTecnico.enviarEmail }" /><h:outputText value="Enviar Email aos Candidatos" rendered="#{cadastramentoDiscenteTecnico.enviarEmail }" /></h2>
+	<h2><ufrn:subSistema /> &gt; <h:outputText value="Gerenciar Cadastramento de Discentes" rendered="#{!cadastramentoDiscenteTecnico.enviarEmail }" /><h:outputText value="Enviar E-mail aos Candidatos" rendered="#{cadastramentoDiscenteTecnico.enviarEmail }" /></h2>
 	<div class="descricaoOperacao">
 		<h:outputText value="
 		<p> Esta operação permite confirmar os alunos que compareceram ao cadastramento após uma convocação,
@@ -28,7 +28,7 @@ function mudarTodos(status) {
 		</ul>
 		<p> Também nesta operação é possível cancelar as convocações dos alunos já cadastrados mas que tiveram seus vínculos cancelados no sistema pelo não comparecimento à matrícula.</p>
 		" rendered="#{!cadastramentoDiscenteTecnico.enviarEmail }" escape="false" />
-		<h:outputText value="<p>Esta operação permite enviar discente para um grupo de candidatos do processo seletivo do IMD.</p><p>Após filtrar os candidatos para os quais deseja enviar o email, marque-os com <strong>SIM</strong> na primeira coluna da listagem e, em seguida, selecione a opção <strong>Selecionar Candidatos >></strong>.</p>" rendered="#{cadastramentoDiscenteTecnico.enviarEmail }" escape="false" />
+		<h:outputText value="<p>Esta operação permite enviar discente para um grupo de candidatos do processo seletivo do IMD.</p><p>Após filtrar os candidatos para os quais deseja enviar o e-mail, marque-os com <strong>SIM</strong> na primeira coluna da listagem e, em seguida, selecione a opção <strong>Selecionar Candidatos >></strong>.</p>" rendered="#{cadastramentoDiscenteTecnico.enviarEmail }" escape="false" />
 	</div>
 	
 	<h:form id="form">
@@ -38,9 +38,10 @@ function mudarTodos(status) {
 		<tr>
 			<th class="obrigatorio" width="25%">Processo Seletivo:</th>
 			<td>
-				<h:selectOneMenu id="selectPsVestibular" value="#{cadastramentoDiscenteTecnico.processoSeletivo.id}">
+				<h:selectOneMenu id="selectPsVestibular" value="#{cadastramentoDiscenteTecnico.processoSeletivo.id}" valueChangeListener="#{cadastramentoDiscenteTecnico.carregarConvocacoes}">
 					<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
 					<f:selectItems id="itensPsVestibular" value="#{convocacaoProcessoSeletivoTecnico.processosCombo}" />
+					<a4j:support event="onchange" reRender="convocacao" />
 				</h:selectOneMenu>
 			</td>
 		</tr>
@@ -62,7 +63,16 @@ function mudarTodos(status) {
 				</h:selectOneMenu>
 			</td>
 		</tr>
-			<tr>
+		<tr>
+			<th width="25%">Grupo de Reserva de Vagas: </th>
+			<td>
+				<h:selectOneMenu id="selectGrupo" value="#{cadastramentoDiscenteTecnico.idGrupoReservaVaga}">
+					<f:selectItem itemValue="0" itemLabel="-- TODOS --" />
+					<f:selectItems value="#{cadastramentoDiscenteTecnico.gruposCombo}" />
+				</h:selectOneMenu>
+			</td>
+		</tr>
+		<tr>
 			<th width="25%">Status:</th>
 			<td>
 				<h:selectOneMenu id="selectStatus" value="#{cadastramentoDiscenteTecnico.status}">
@@ -78,8 +88,8 @@ function mudarTodos(status) {
 		<tr>
 			<th width="25%">Nome:</th>
 			<td>
-				<h:inputText id="nome" value="#{cadastramentoDiscenteTecnico.nome}" style="display:inline;" />
-				<rich:suggestionbox for="nome" height="100" width="500" minChars="3" id="suggestionNome" suggestionAction="#{cadastramentoDiscenteTecnico.autocompleteNomeDiscente}" var="_c" fetchValue="#{_c[0]}">
+				<h:inputText id="nome" value="#{cadastramentoDiscenteTecnico.nome}" style="display:inline;" size="50" />
+				<rich:suggestionbox for="nome" height="100" width="800" minChars="3" id="suggestionNome" suggestionAction="#{cadastramentoDiscenteTecnico.autocompleteNomeDiscente}" var="_c" fetchValue="#{_c[0]}">
 					<h:column>
 						<h:outputText value="#{_c[0]}"/>
 					</h:column>
@@ -116,7 +126,7 @@ function mudarTodos(status) {
 	
 	<div class="infoAltRem" style="width:80%">
 		<h:graphicImage value="/img/alterar.gif" /> : Alterar os dados pessoais do candidato
-		<h:graphicImage value="/img/email_go.png" /> : Reenviar email de confirmação de cadastro ao discente
+		<h:graphicImage value="/img/email_go.png" /> : Reenviar e-mail de confirmação de cadastro ao discente
 	</div>
 	
 		<table class="listagem" id="resultadoBusca">
@@ -128,7 +138,7 @@ function mudarTodos(status) {
 					<th style="text-align: center;">CPF</th>
 					<th style="text-align: center;">Matrícula</th>
 					<th>Nome</th>
-					<th>Email</th>
+					<th>E-mail</th>
 					<th>Status</th>
 					<th colspan="2">Ação</th>
 				</tr>
@@ -169,7 +179,7 @@ function mudarTodos(status) {
 					<td><strong><h:outputText value="#{conv.discente.pessoa.nome}"/></strong></td>
 					<td><h:outputText value="#{conv.discente.pessoa.email}"/></td>
 					<td><strong><h:outputText value="#{conv.discente.statusString}"/></strong></td>
-					<td rowspan="2" style="vertical-align:top;"><a onclick='return exibibirDialogDadosCandidato(<h:outputText value="#{conv.discente.pessoa.id}" />, "<h:outputText value="#{conv.discente.pessoa.nome}"/>", "<h:outputText value="#{conv.discente.pessoa.email}"/>", <h:outputText value="#{conv.discente.pessoa.cpf_cnpj}"/>);' title="Atualizar Dados Pessoais" style="cursor:pointer;"><h:graphicImage id="alterar" value="/img/alterar.gif" /></a></td>
+					<td rowspan="2" style="vertical-align:top;"><a onclick='return exibibirDialogDadosCandidato(<h:outputText value="#{conv.discente.pessoa.id}" />, <h:outputText value="#{conv.inscricaoProcessoSeletivo.opcao.id}"/>, <h:outputText value="#{conv.inscricaoProcessoSeletivo.grupo.id}"/>, "<h:outputText value="#{conv.discente.pessoa.nome}"/>", "<h:outputText value="#{conv.discente.pessoa.email}"/>", <h:outputText value="#{conv.discente.pessoa.cpf_cnpj}"/>);' title="Atualizar Dados Pessoais " style="cursor:pointer;"><h:graphicImage id="alterar" value="/img/alterar.gif" /></a> </td>
 					<td rowspan="2" style="vertical-align:top;"><h:commandLink action="#{ cadastramentoDiscenteTecnico.enviarConfirmacaoDeCadastroADiscente }" rendered="#{conv.discente.status == 2 }" ><f:param name="idCandidato" value="#{ conv.id }" /><h:graphicImage id="imgEnviarEmail" value="/img/email_go.png" /></h:commandLink></td>
 				</tr>
 				<tr class="<h:outputText value="linhaImpar" rendered="#{ loop % 2 == 0 }" />">
@@ -179,7 +189,8 @@ function mudarTodos(status) {
 						<strong>Classificação:</strong> <h:outputText value="#{conv.resultado.classificacaoAprovado}"/> -
 						<strong>Convocação:</strong> <h:outputText value="#{conv.convocacaoProcessoSeletivo.descricao}"/><br/> 
 						<strong>Pólo / Grupo:</strong> <h:outputText value="#{conv.inscricaoProcessoSeletivo.opcao.descricao}" /> - 
-						<strong>Res. Vagas:</strong> <h:outputText value="#{conv.inscricaoProcessoSeletivo.reservaVagas ? 'Sim' : 'Não'}" />
+						<strong>Grupo Res. Vagas:</strong> <h:outputText value="#{conv.inscricaoProcessoSeletivo.grupo.denominacao}" />
+						<!-- <strong>Res. Vagas:</strong> <h:outputText value="#{conv.inscricaoProcessoSeletivo.reservaVagas ? 'Sim' : 'Não'}" /> -->
 					</td>
 				</tr>
 			</a4j:repeat>
@@ -195,24 +206,41 @@ function mudarTodos(status) {
 		</table>
 	</c:if>
 	
-		<p:dialog header="Alterar dados do candidato" widgetVar="dialogDadosCandidato" modal="true" width="380" height="180">
+		<p:dialog header="Alterar dados do candidato" widgetVar="dialogDadosCandidato" modal="true" width="500" height="250">
 			<h:inputHidden value="#{ cadastramentoDiscenteTecnico.pessoa.id }" id="idAlterar" />
+			<h:inputHidden value="#{ cadastramentoDiscenteTecnico.cpfCnpjAtual }" id="cpfAtual" />
 			<table class="formulario">
 				<tr>
 					<th>Nome:</th>
 					<td><h:inputText value="#{ cadastramentoDiscenteTecnico.pessoa.nome }" id="nomeAlterar" size="60" /></td>
 				</tr>
 				<tr>
-					<th>Email:</th>
+					<th>E-mail:</th>
 					<td><h:inputText value="#{ cadastramentoDiscenteTecnico.pessoa.email }" id="emailAlterar" size="50" /></td>
 				</tr>
 				<tr>
 					<th>CPF:</th>
 					<td>
-						<h:inputText value="#{ cadastramentoDiscenteTecnico.pessoa.cpf_cnpj }" size="16" maxlength="14"  id="cpfAlterar" onkeypress="return formataCPF(this, event, null);">
+						<h:inputText value="#{ cadastramentoDiscenteTecnico.pessoa.cpf_cnpj }" size="20" maxlength="14"  id="cpfAlterar" onkeypress="return formataCPF(this, event, null);">
 							<f:converter converterId="convertCpf"/>
 							<f:param name="type" value="cpf" />
 						</h:inputText>
+					</td>
+				</tr>
+				<tr>
+					<th width="25%">Pólo / Grupo:</th>
+					<td>
+						<h:selectOneMenu id="idOpcaoPoloAlterar" value="#{cadastramentoDiscenteTecnico.opcaoASerAlterada}">
+							<f:selectItems value="#{convocacaoProcessoSeletivoTecnico.polosCombo}" />
+						</h:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<th width="25%">Grupo de Vagas: </th>
+					<td>
+						<h:selectOneMenu id="idGrupoAlterar" value="#{cadastramentoDiscenteTecnico.grupoReservaVagaASerAlterado}">
+							<f:selectItems value="#{cadastramentoDiscenteTecnico.gruposCombo}" />
+						</h:selectOneMenu>
 					</td>
 				</tr>
 				<tfoot>
@@ -224,11 +252,14 @@ function mudarTodos(status) {
 	</h:form>
 	
 	<script>
-		function exibibirDialogDadosCandidato (idPessoa, nome, email, cpf){
+		function exibibirDialogDadosCandidato ( idPessoa, idOpcaoPoloAlterar, idGrupoAlterar, nome, email, cpf){
 			
 			document.getElementById("form:idAlterar").value = idPessoa;
+			document.getElementById("form:cpfAtual").value = cpf;
 			document.getElementById("form:nomeAlterar").value = nome;
 			document.getElementById("form:emailAlterar").value = email;
+			document.getElementById("form:idOpcaoPoloAlterar").value = idOpcaoPoloAlterar;
+			document.getElementById("form:idGrupoAlterar").value = idGrupoAlterar;
 			
 			cpf = "" + cpf;
 			

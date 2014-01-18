@@ -67,23 +67,19 @@
 			</tr>
 
 			<tr>
-				<td colspan="6" class="subFormulario">Grupo de Pesquisa da Instituição</td>
+				<td colspan="6" class="subFormulario">Edital de Pesquisa</td>
 			</tr>
 
-			<tr class="negrito">
-				<th>Edital de Pesquisa:</th>
-				<td  colspan="5"> 
-					<h:outputText id="editalPesquisa" value="#{ projetoApoioNovosPesquisadoresMBean.obj.editalPesquisa.edital.descricao }" />
-				</td>
+			<tr>
+				<td colspan="6"><h:outputText id="editalPesquisa" value="#{ projetoApoioNovosPesquisadoresMBean.obj.editalPesquisa.edital.descricao }" /></td>
 			</tr>
 
 			<tr>
 				<td colspan="6" class="subFormulario">Grupo de Pesquisa da Instituição</td>
 			</tr>
 
-			<tr class="negrito">
-				<th width="21%">Grupo de Pesquisa:</th>
-				<td colspan="5">
+			<tr>
+				<td colspan="6">
 					<h:outputText id="suggestionNomeGP" value="#{ projetoApoioNovosPesquisadoresMBean.obj.grupoPesquisa.nome}" />
 				</td>
 			</tr>
@@ -158,7 +154,7 @@
 			<tr>
 				<td colspan="6">
 					<table class="formulario" width="100%">
-						<caption>Informações do Cronograma</caption>
+						<caption>Cronograma do Projeto</caption>
 							<table id="cronograma" class="listagem" width="100%">
 										<thead>
 											<tr>

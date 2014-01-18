@@ -47,9 +47,12 @@ public class EnvioNotificacaoProaeMBean extends SigaaAbstractController<BolsaAux
 	public String buscar() throws Exception {
 		ConsultaBolsaAuxilioMBean mBean = getMBean("consultaBolsaAuxilioMBean");
 		listaBolsaAuxilio = mBean.buscarBolsaAuxilio();
+		
 		if (listaBolsaAuxilio.size() == 0) {
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		}
+		
+		mBean.clearResumido();
 		return null;
 	}
 
@@ -57,12 +60,9 @@ public class EnvioNotificacaoProaeMBean extends SigaaAbstractController<BolsaAux
 		ArrayList<Destinatario> destinatarios = new ArrayList<Destinatario>();	
 		for (BolsaAuxilio bolsa : listaBolsaAuxilio) {
 			if ( bolsa.getDiscente().isSelecionado() ) {
-				bolsa.getDiscente().setUsuario(
-						getDAO(DiscenteDao.class).findByUsuario(bolsa.getDiscente().getPessoa().getId()));
-				Destinatario destinatario = new Destinatario(
-						bolsa.getDiscente().getNome(), 
-							bolsa.getDiscente().getPessoa().getEmail());
-				destinatario.setIdusuario(bolsa.getDiscente().getUsuario().getId());			
+				Destinatario destinatario = new Destinatario(bolsa.getDiscente().getNome(),	bolsa.getDiscente().getPessoa().getEmail());
+				if(bolsa.getDiscente().getUsuario()!=null)
+					destinatario.setIdusuario(bolsa.getDiscente().getUsuario().getId());			
 				destinatarios.add(destinatario);
 			}
 		}

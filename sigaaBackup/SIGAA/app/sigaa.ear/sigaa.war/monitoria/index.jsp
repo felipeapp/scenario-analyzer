@@ -25,7 +25,7 @@
 										<ul>
 											<%-- <li><a href="${ctx}/monitoria/AlterarComponentesObrigatorios/lista_projetos.jsf?aba=projetos">Alterar Componentes Obrigatórios</a></li> --%>									
 											<li><a href="${ctx}/monitoria/SelecaoCoordenador/consultar_projeto.jsf?aba=projetos">Alterar Coordenador</a></li>
-											<li><a href="${ctx}/monitoria/AlterarEquipeDocente/lista.jsf?aba=projetos">Alterar Docentes do Projeto</a></li>												
+											<li><h:commandLink action="#{consultarEquipeDocente.iniciar}" value="Alterar Docentes do Projeto" onclick="setAba('projetos')"/></li>												
 											<li><a href="${ctx}/monitoria/AlterarSituacaoProjeto/lista.jsf?aba=projetos">Gerenciar Projetos</a></li>
 											<li><h:commandLink action="#{alterarStatusProjetoMonitoriaMBean.iniciarSelecao}" value="Alterar Situação dos projeto" onclick="setAba('projetos')"/></li>
 											<li><a href="${ctx}/monitoria/CadastrarEquipeDocente/lista.jsf?aba=projetos">Cadastrar Novo Docente</a></li>															

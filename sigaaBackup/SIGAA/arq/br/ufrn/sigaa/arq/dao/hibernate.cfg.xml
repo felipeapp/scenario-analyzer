@@ -45,6 +45,7 @@
 		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoEtnia" />
 		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoLogradouro" />
 		<mapping class="br.ufrn.comum.dominio.TipoNecessidadeEspecial" />
+		<mapping class="br.ufrn.sigaa.dominio.Telefone" />
 		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoProcedenciaAluno" />
 		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoRaca" />
 		<mapping class="br.ufrn.sigaa.pessoa.dominio.TipoRedeEnsino" />
@@ -89,7 +90,6 @@
         <mapping class="br.ufrn.sigaa.dominio.AlteracaoStatusAluno" />
         <mapping class="br.ufrn.sigaa.dominio.CampusIes" />
         <mapping class="br.ufrn.sigaa.dominio.Curso" />
-        <mapping class="br.ufrn.sigaa.dominio.CursoInstituicoesEnsino" />
         <mapping class="br.ufrn.sigaa.dominio.CursoSede" />
         <mapping class="br.ufrn.sigaa.dominio.TipoEsferaAdministrativa" />
         <mapping class="br.ufrn.sigaa.dominio.CalendarioAcademico" />
@@ -297,9 +297,11 @@
         <mapping class="br.ufrn.sigaa.ensino.dominio.CategoriaDiscenteEspecial" />        
         <mapping class="br.ufrn.sigaa.ensino.dominio.PlanoMatriculaIngressantes" />
         <mapping class="br.ufrn.sigaa.ensino.dominio.CotaOfertaVagaCurso" />
-        <mapping class="br.ufrn.sigaa.vestibular.dominio.GrupoCotaVagaCurso" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.Bolsas" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.Bolsistas" />
+        <mapping class="br.ufrn.sigaa.ensino.dominio.TipoBolsas" />        
 		<mapping class="br.ufrn.sigaa.ensino.dominio.ValidacaoVinculo" />
-
+        <mapping class="br.ufrn.sigaa.vestibular.dominio.GrupoCotaVagaCurso" />
                 
 		<!-- PROGRAMA DE ATUALIZAÇÃO PEDAGÓGICA -->
 		<mapping class="br.ufrn.sigaa.apedagogica.dominio.AtividadeAtualizacaoPedagogica" />
@@ -458,6 +460,9 @@
 		<mapping class="br.ufrn.sigaa.pesquisa.dominio.RestricaoEnvioResumoCIC" />
 		<mapping class="br.ufrn.sigaa.pesquisa.dominio.CursosTecnologicos" />
 		<mapping class="br.ufrn.sigaa.pesquisa.dominio.AreaConhecimentoTecn" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.StatusCotaPlanoTrabalho" />
+		<mapping class="br.ufrn.sigaa.pesquisa.dominio.JustificativaAusenciaCIC" />
+
 
 		<!-- MAPEAMENTOS DE MONITORIA -->
 		<mapping class="br.ufrn.sigaa.monitoria.dominio.AtividadeMonitor"/>
@@ -517,6 +522,9 @@
 		<mapping class="br.ufrn.sigaa.extensao.dominio.DetalhePrestServico"/>
 		<mapping class="br.ufrn.sigaa.extensao.dominio.DiscenteExtensao"/>				
 	 	<mapping class="br.ufrn.sigaa.extensao.dominio.EditalExtensao"/>
+	 	<mapping class="br.ufrn.sigaa.extensao.dominio.EditalExtensaoRegra"/>
+	 	<mapping class="br.ufrn.sigaa.extensao.dominio.EditalExtensaoLinhaAtuacao"/>	 	
+	 	
 	 	<mapping class="br.ufrn.sigaa.extensao.dominio.EditalExtensaoRegra"/>	 	
 		<mapping class="br.ufrn.sigaa.extensao.dominio.FatorGerador"/>		
 		<mapping class="br.ufrn.sigaa.extensao.dominio.FormaCompromisso"/>
@@ -829,8 +837,15 @@
 		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TipoCursoStricto"/>
 		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TrabalhoFinalStricto"/>
 		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.VinculoEquipe"/>
-		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TermoAutorizacaoPublicacaoTeseDissertacao"/>		
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.TermoAutorizacaoPublicacaoTeseDissertacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.InteressadoProcessoSeletivo"/>		
 		
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.CalendarioAplicacaoAutoAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.RespostasAutoAvaliacao"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.MetaAcaoFormacaoProducaoAcademica"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.MetaAcaoFormacaoRH"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.SugestaoMelhoriaPrograma"/>
+		<mapping class="br.ufrn.sigaa.ensino.stricto.dominio.ParecerAutoAvaliacao"/>
 
 		<!-- Stricto Sensu: Docência Assistida -->		
 		<mapping class="br.ufrn.sigaa.ensino.stricto.docenciaassistida.dominio.PlanoDocenciaAssistida"/>
@@ -849,6 +864,43 @@
 		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.IndicacaoBolsistaReuni"/>
 		<mapping class="br.ufrn.sigaa.ensino.stricto.reuni.dominio.PeriodoIndicacaoReuni"/>
 
+
+		<!-- Programas de Ensino em Rede -->	
+		<!-- Programas de Ensino em Rede -->	
+		<mapping class="br.ufrn.sigaa.ensino_rede.academico.dominio.MovimentacaoDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.academico.dominio.TipoMovimentacao"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.academico.dominio.EstornoMovimentoDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.AlteracaoDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.AlteracaoSituacaoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.AlteracaoStatusDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.CalendarioAcademicoRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.ComponenteCurricularRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.ConvocacaoDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.CoordenacaoGeralRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.CoordenadorUnidade"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.CurriculoComponenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.CurriculoRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.CursoAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.DadosCoordenacaoUnidade"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.DadosCursoRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.DiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.DocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.DocenteTurmaRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.MatriculaComponenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.OfertaCursoAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.ProgramaRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.SituacaoCursoAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.SituacaoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.SolicitacaoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.StatusDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.StatusSolicitacaoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.TipoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.TurmaRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.AlteracaoStatusDiscenteAssociado"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.AlteracaoSituacaoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.SolicitacaoDocenteRede"/>
+		<mapping class="br.ufrn.sigaa.ensino_rede.dominio.StatusSolicitacaoDocenteRede"/>
+		
 
 		<!-- Ensino a Distância (EAD) -->
 
@@ -920,6 +972,7 @@
 		<mapping class="br.ufrn.sigaa.vestibular.dominio.Sala" />
 		<mapping class="br.ufrn.sigaa.vestibular.dominio.SituacaoCandidato" />
 		<mapping class="br.ufrn.sigaa.vestibular.dominio.StatusFoto" />
+		<mapping class="br.ufrn.sigaa.vestibular.dominio.GrupoCotaVagaCurso" />
 				
 		<!-- Avaliação Institucional -->
 		<mapping class="br.ufrn.sigaa.avaliacao.dominio.AlternativaPergunta" />
@@ -964,6 +1017,8 @@
  		<mapping class="br.ufrn.sigaa.assistencia.dominio.ModalidadeEsportiva" />
  		<mapping class="br.ufrn.sigaa.assistencia.dominio.DadosIndiceAcademico" />
  		<mapping class="br.ufrn.sigaa.assistencia.dominio.RestricaoSolicitacaoBolsaAuxilio" />
+ 		<mapping class="br.ufrn.sigaa.assistencia.dominio.CriterioSolicitacaoRenovacao" />
+		<mapping class="br.ufrn.sigaa.assistencia.dominio.TipoRenovacaoBolsa" /> 		
 		 		
 		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.ItemConfortoFamiliar" /> 		
 		<mapping class="br.ufrn.sigaa.assistencia.cadunico.dominio.AdesaoCadastroUnicoBolsa" />
@@ -1165,6 +1220,25 @@
 		<mapping class="br.ufrn.sigaa.ensino.internacionalizacao.dominio.AreaDocumentoEntidade" />		
 		<mapping class="br.ufrn.sigaa.ensino.internacionalizacao.dominio.ConstanteTraducao" />
 		
+		<!-- MAPEAMENTO DO DOMÍNIO DO MÓDULO METRÓPOLE DIGITAL -->
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.AcompanhamentoSemanalDiscente" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.CoordenadorPoloIMD" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.CoordenadorTutorIMD" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.CargaHorariaSemanalDisciplina" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.CronogramaExecucaoAulas" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.DadosTurmaIMD" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.ParametrosAcademicosIMD" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.PeriodoAvaliacao" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.TutorIMD" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.TutoriaIMD" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.MatriculaTurma" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.SituacaoMatriculaTurma" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.ReservaVagaCandidato" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.ReservaVagaGrupo" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.ReservaVagaProcessoSeletivo" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.SituacaoMatriculaTurma" />
+		<mapping class="br.ufrn.sigaa.ensino.metropoledigital.dominio.ParametrosAcademicosIMD" />				
+				
 		<class-cache class="br.ufrn.rh.dominio.Categoria" usage="read-only" />
 		<class-cache class="br.ufrn.rh.dominio.Formacao" usage="read-only" />
 		

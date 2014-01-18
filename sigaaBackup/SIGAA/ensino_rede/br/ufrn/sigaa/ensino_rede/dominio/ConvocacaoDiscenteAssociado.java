@@ -15,11 +15,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import br.ufrn.arq.seguranca.log.CriadoEm;
+import br.ufrn.arq.util.Formatador;
 
 /**
  * Entidade que agrupa os discente convocados.
@@ -48,6 +50,11 @@ public class ConvocacaoDiscenteAssociado {
 	@CriadoEm
 	private Date data;
 
+	@Transient
+	public String getDescricaoCompleta(){
+		return descricao + " ( " + Formatador.getInstance().formatarData(data) + " )";
+	}
+	
 	public int getId() {
 		return id;
 	}

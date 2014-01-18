@@ -142,6 +142,11 @@ public class CertificadoExtensaoMBean extends SigaaAbstractController<Participan
 				// já foi populado pelo métido exibir
 			}
 			
+			if(participante == null){
+				addMensagemErro("Sua participação no evento foi cancelada.");
+				return null;
+			}
+			
 			if(isEmissaoByCoordenador != null && isEmissaoByCoordenador == true){
 				participante.verificaEmissaoCertificadoCoordenador();
 			}else{
@@ -189,9 +194,12 @@ public class CertificadoExtensaoMBean extends SigaaAbstractController<Participan
 			addMensagens(ne.getListaMensagens());
 			return null;
 		} catch (Exception e) {
+			addMensagemErro("Erro ao tentar emitir o certificado do participante: \""+e.getMessage()+"\" contacte o suporte.");
 			notifyError(e);
-			addMensagemErro("Erro ao buscar as informações do certificado.");
+			e.printStackTrace();
 			return null;
+		}finally{
+			if(dao != null) dao.close();
 		}
 
 	}
@@ -295,12 +303,12 @@ public class CertificadoExtensaoMBean extends SigaaAbstractController<Participan
 			addMensagens(ne.getListaMensagens());
 			return null;
 		} catch (Exception e) {
+			addMensagemErro("Erro ao tentar emitir o certificado do participante: \""+e.getCause()+"\" contacte o suporte.");
 			notifyError(e);
-			addMensagemErro("Erro ao buscar as informações do certificado.");
+			e.printStackTrace();
 			return null;
 		}finally{
 			if(dao != null) dao.close();
-			if(daoMembroProjeto != null) daoMembroProjeto.close();
 		}
 
 	}
@@ -348,7 +356,6 @@ public class CertificadoExtensaoMBean extends SigaaAbstractController<Participan
 			DiscenteExtensaoValidator.validaEmissaoCertificado(discenteExtensao, lista);
 			if (ValidatorUtil.isNotEmpty(lista)) {
 				addMensagens(lista);
-				addMensagemErro("Não é possível emitir o certificado para esse discente de extensão.");
 				return null;
 			}
 			
@@ -413,7 +420,7 @@ public class CertificadoExtensaoMBean extends SigaaAbstractController<Participan
 		dadosEmissao.setNomeDeclaracao( participante.getCadastroParticipante().getNome() );
 		
 		if(participante.getCadastroParticipante().getCpf() != null)
-			dadosEmissao.setIdentificacaoDeclaracao( " CPF "+participante.getCadastroParticipante().getCpf());
+			dadosEmissao.setIdentificacaoDeclaracao( " CPF "+ Formatador.getInstance().formatarCPF(participante.getCadastroParticipante().getCpf()));
 		else{
 			dadosEmissao.setIdentificacaoDeclaracao( "PASSAPORTE "+participante.getCadastroParticipante().getPassaporte()+" DATA NASCIMENTO "+participante.getCadastroParticipante().getDataNascimentoFormatada());
 		}

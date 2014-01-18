@@ -111,6 +111,10 @@ public class TelasPosSelecaoVinculos extends SigaaAbstractController<Object> {
 			return redirect("/pendenciaQuestionarioExtensao.jsf");
 		}
 
+		if (getAcessoMenu().isPendenteRenovacaoBolsaAuxilio()) {
+			return redirect("/sae/BolsaAuxilio/form_renovacao.jsf");
+		}
+		
 		if (getUsuarioLogado().getVinculoAtivo().isVinculoServidor() && getAcessoMenu().isPendenteRelatoriosExtensao()) {
 			return redirect("/pendenciaRelatoriosExtensao.jsf");
 		}

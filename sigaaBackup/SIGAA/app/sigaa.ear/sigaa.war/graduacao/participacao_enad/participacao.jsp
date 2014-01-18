@@ -26,7 +26,7 @@
 					renderPopupButtonAsImage="true" size="10" maxlength="10"
 					onkeypress="return formataData(this,event)"
 					readonly="#{participacaoDiscenteEnade.readOnly}"
-					disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+					disabled="#{participacaoDiscenteEnade.readOnly}" popupDateFormat="dd/MM/yyyy"
 					value="#{participacaoDiscenteEnade.obj.dataProvaEnadeIngressante}" >
 					 <f:converter converterId="convertData"/>
 					 <a4j:support event="onchange" reRender="form"/>
@@ -49,7 +49,7 @@
 					renderPopupButtonAsImage="true" size="10" maxlength="10"
 					onkeypress="return formataData(this,event)"
 					readonly="#{participacaoDiscenteEnade.readOnly}"
-					disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+					disabled="#{participacaoDiscenteEnade.readOnly}" popupDateFormat="dd/MM/yyyy"
 					value="#{participacaoDiscenteEnade.obj.dataProvaEnadeConcluinte}" >
 					 <f:converter converterId="convertData"/>
 					 <a4j:support event="onchange" reRender="form"/>

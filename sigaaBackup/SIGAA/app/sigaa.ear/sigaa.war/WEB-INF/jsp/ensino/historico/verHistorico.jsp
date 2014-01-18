@@ -73,7 +73,7 @@
 			</tr>
 			<tr>
 				<td nowrap="nowrap">Estrutura Curricular:</td>
-				<td><b>${tecDiscente.turmaEntradaTecnico.estruturaCurricularTecnica.codigo}</b></td>
+				<td><b>${tecDiscente.estruturaCurricularTecnica.codigo}</b></td>
 			</tr>
 		</table>
 		</td>

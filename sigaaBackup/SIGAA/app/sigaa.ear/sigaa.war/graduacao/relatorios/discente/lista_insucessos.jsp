@@ -12,12 +12,14 @@
 	<hr>
 	<table width="100%">
 		<caption><b>Relatório de Insucessos de Alunos</b></caption>
-			<tr>
-				<th>Curso:</th>
-				<td colspan="3" width="80%">
-					<b>${ relatorioDiscente.curso.descricao }</b>
-				</td>
-			</tr>
+			<c:if test="${ not empty relatorioDiscente.curso.descricao }">
+				<tr>
+					<th>Curso:</th>
+					<td colspan="3" width="80%">
+						<b>${ relatorioDiscente.curso.descricao }</b>
+					</td>
+				</tr>
+			</c:if>
 			<tr>
 				<th>Ano-Período:</th>
 				<td colspan="3" width="80%">

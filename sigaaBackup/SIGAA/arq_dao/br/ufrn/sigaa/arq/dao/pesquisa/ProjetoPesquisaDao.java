@@ -1567,15 +1567,24 @@ public class ProjetoPesquisaDao extends GenericSigaaDAO {
 	 * @return
 	 * @throws DAOException
 	 */	
+	@SuppressWarnings("unchecked")
 	public Collection<ProjetoPesquisa> findExternosByMembro( Servidor servidor, boolean coordenador, int ano )  throws DAOException {
 		Collection<ProjetoPesquisa> projetos = new ArrayList<ProjetoPesquisa>();
 
 		try {
 			StringBuilder hql =  new StringBuilder();
 			hql.append("select new map(pp.projeto.titulo as titulo, pp.codigo.prefixo as prefixo, pp.codigo.numero as numero, max(pp.codigo.ano) as ano, pp.projeto.dataInicio as dataInicio, pp.projeto.dataFim as dataFim)");
-			hql.append(" from ProjetoPesquisa pp join pp.projeto.equipe as mp");
-			hql.append(" where pp.projeto.interno = falseValue() ");
-			hql.append(" and pp.codigo.ano = " + ano);
+			hql.append(" from ProjetoPesquisa pp ");
+			hql.append(" join pp.projeto p ");
+			hql.append(" join p.equipe as mp");
+			hql.append(" where p.interno = falseValue() ");
+			hql.append(" and ( " +
+						   " pp.codigo.ano = " + ano +
+						   " and ( " +
+						     " ( p.dataInicio between :dataInicio and :dataFim ) or " +
+						     " ( p.dataFim between :dataInicio and :dataFim ) " +
+						   " ) " +
+					     "  ) ");
 			hql.append(" and mp.servidor.id = " + servidor.getId());
 
 			if ( coordenador ) {
@@ -1584,12 +1593,13 @@ public class ProjetoPesquisaDao extends GenericSigaaDAO {
 				hql.append(" and mp.tipoParticipacao != " + FuncaoMembro.COORDENADOR);
 			}
 
-			hql.append(" group by pp.projeto.titulo, pp.codigo.prefixo, pp.codigo.numero, pp.projeto.dataInicio, pp.projeto.dataFim ");
-			hql.append(" order by pp.projeto.dataInicio, pp.projeto.titulo ");
+			hql.append(" group by p.titulo, pp.codigo.prefixo, pp.codigo.numero, p.dataInicio, p.dataFim ");
+			hql.append(" order by p.dataInicio, p.titulo ");
 
 			Query q = getSession().createQuery(hql.toString());
 		
-			@SuppressWarnings("unchecked")
+			q.setParameter("dataInicio", CalendarUtils.createDate(1, 0, ano));
+			q.setParameter("dataFim", CalendarUtils.createDate(31, 11, ano));
 			List<Map<String, Object>> resultado = q.list();
 			for (Map<String, Object> mapa : resultado) {
 				ProjetoPesquisa projeto = new ProjetoPesquisa();

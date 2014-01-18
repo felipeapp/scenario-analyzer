@@ -32,6 +32,7 @@ import br.ufrn.arq.seguranca.autenticacao.TipoDocumentoAutenticado;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.comum.dao.PerfilPessoaDAO;
 import br.ufrn.comum.dominio.PerfilPessoa;
+import br.ufrn.comum.dominio.Sistema;
 import br.ufrn.sigaa.agenda.jsf.AgendaTurmaMBean;
 import br.ufrn.sigaa.arq.dao.DiscenteDao;
 import br.ufrn.sigaa.arq.dao.ead.FichaAvaliacaoEadDao;
@@ -744,5 +745,8 @@ public class PortalDiscenteMBean extends SigaaAbstractController<DiscenteAdapter
 
 	public void setNomeTurma(String nomeTurma) {
 		this.nomeTurma = nomeTurma;
+	}
+	public boolean isRedeUfrnAtiva(){
+		return Sistema.isSistemaAtivo(Sistema.REDE_SOCIAL);
 	}
 }

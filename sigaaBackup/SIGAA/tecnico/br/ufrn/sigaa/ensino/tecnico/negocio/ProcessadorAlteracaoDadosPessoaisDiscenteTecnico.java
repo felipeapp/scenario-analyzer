@@ -17,6 +17,8 @@ import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.util.StringUtils;
+import br.ufrn.sigaa.arq.dao.PessoaDao;
+import br.ufrn.sigaa.ensino.tecnico.dao.PessoaTecnicoDao;
 import br.ufrn.sigaa.ensino.tecnico.dominio.ConvocacaoProcessoSeletivoDiscenteTecnico;
 import br.ufrn.sigaa.ensino.tecnico.dominio.PessoaTecnico;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
@@ -37,18 +39,28 @@ public class ProcessadorAlteracaoDadosPessoaisDiscenteTecnico extends AbstractPr
 		Pessoa p = m.getObjMovimentado();
 		
 		GenericDAO dao = null;
+		PessoaTecnicoDao pTecDao = new PessoaTecnicoDao();
+		PessoaDao pDao = new PessoaDao();
+		
 		try {
 			dao = getGenericDAO(m);
 			
-			dao.updateFields(Pessoa.class, p.getId(), new String [] {"nome", "nomeAscii", "email", "cpf_cnpj"}, new Object [] { p.getNome(), StringUtils.toAscii(p.getNome().trim().toUpperCase()), p.getEmail(), p.getCpf_cnpj() });
+			PessoaTecnico pTec = pTecDao.findByCPF(p.getCpf_cnpj());
+			Pessoa pAux = pDao.findByCpf(p.getCpf_cnpj());
 			
-			ConvocacaoProcessoSeletivoDiscenteTecnico conv = dao.findByExactField(ConvocacaoProcessoSeletivoDiscenteTecnico.class, "discente.discente.pessoa.id", p.getId(), true);
-			PessoaTecnico pt = conv.getInscricaoProcessoSeletivo().getPessoa();
+			dao.updateFields(Pessoa.class, pAux.getId(), new String [] {"nome", "nomeAscii", "email", "cpf_cnpj"}, new Object [] { p.getNome(), StringUtils.toAscii(p.getNome().trim().toUpperCase()), p.getEmail(), p.getCpf_cnpj() });
 			
-			dao.updateFields(PessoaTecnico.class, pt.getId(), new String [] {"nome", "nomeAscii", "email", "cpf_cnpj"}, new Object [] { p.getNome(), StringUtils.toAscii(p.getNome().trim().toUpperCase()), p.getEmail(), p.getCpf_cnpj() });
+			//ConvocacaoProcessoSeletivoDiscenteTecnico conv = dao.findByExactField(ConvocacaoProcessoSeletivoDiscenteTecnico.class, "discente.discente.pessoa.id", p.getId(), true);
+			//PessoaTecnico pt = conv.getInscricaoProcessoSeletivo().getPessoa();
+			
+			dao.updateFields(PessoaTecnico.class, pTec.getId(), new String [] {"nome", "nomeAscii", "email", "cpf_cnpj"}, new Object [] { p.getNome(), StringUtils.toAscii(p.getNome().trim().toUpperCase()), p.getEmail(), p.getCpf_cnpj() });
+			
 		} finally {
-			if (dao != null)
+			if (dao != null || pTecDao != null || pDao != null) {
 				dao.close();
+				pTecDao.close();
+				pDao.close();
+			}
 		}
 		
 		return null;

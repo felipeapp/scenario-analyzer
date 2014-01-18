@@ -1,12 +1,15 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho_impressao.jsp"%>
 <f:view>
-	<table>
-		<tr><th>Processo Seletivo:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoProcessoSeletivo}</strong></td></tr>
-		<tr><th>Polo / Grupo:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoOpcao}</strong></td></tr>
-		<tr><th>Convocação:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoConvocacao}</strong></td></tr>
-	</table>
-	
-	<table class="listagem" width="100%">
+	<div id="parametrosRelatorio">
+		<table >
+			<tr><th>Processo Seletivo:</th><td>${cadastramentoDiscenteTecnico.descricaoProcessoSeletivo}</td></tr>
+			<tr><th>Polo / Grupo:</th><td>${cadastramentoDiscenteTecnico.descricaoOpcao}</td></tr>
+			<tr><th>Convocação:</th><td>${cadastramentoDiscenteTecnico.descricaoConvocacao}</td></tr>
+			<tr><th>Grupo de vagas:</th><td>${cadastramentoDiscenteTecnico.descricaoGrupo}</td></tr>
+		</table>
+	</div>
+	<br />
+	<table class="tabelaRelatorioBorda" width="100%">
 		<caption>Relatório de Convocacao</caption>
 		<tbody>
 			<c:set var="opcao" value="" />
@@ -37,7 +40,7 @@
 						<th style="text-align: right;">Arg.</th>
 						<th style="text-align: left;">Nome</th>
 						<th style="text-align: left;">CPF</th>
-						<th style="text-align: center;">Res. de Vagas</th>
+						<th style="text-align: center;">Grupo</th>
 					</tr>	
 				</c:if>
 				<tr style="border: 1px solid;">
@@ -45,7 +48,7 @@
 					<td align="right"><h:outputText value="#{item[2] }"/></td>
 					<td align="left"><h:outputText value="#{item[3] }"/></td>
 					<td align="left"><ufrn:format type="cpf" valor="${item[4] }" /></td>
-					<td align="center"><h:outputText value="#{item[5] == true ? 'Sim' : 'Não' }"/></td>
+					<td align="center" ><h:outputText value="#{item[7] }"/></td>
 				</tr>
 				
 				<c:set var="totalConv" value="#{totalConv + 1}" />

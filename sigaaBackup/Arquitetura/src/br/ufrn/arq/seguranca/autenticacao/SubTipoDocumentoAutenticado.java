@@ -63,6 +63,9 @@ public class SubTipoDocumentoAutenticado {
 	/** Para os certificados emitido pelo SIG Eventos */
 	public static final int CERTIFICADO_SIG_EVENTOS					        = 2028;
 	
+	public static final int DECLARACAO_PLANO_ASSOCIADOS						= 2029;
+	public static final int CERTIFICADO_PLANO_ASSOCIADOS					= 2030;
+	
 	// Constantes para documentos do SIGPRH (7001 a 7999) 
 	public static final int DECLARACAO_AFASTAMENTO 							= 7001; // 706;
 	public static final int DECLARACAO_AVERBACAO 							= 7002; // 707;

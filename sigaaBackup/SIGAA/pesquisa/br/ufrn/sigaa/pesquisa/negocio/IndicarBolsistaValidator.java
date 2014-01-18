@@ -242,6 +242,9 @@ public class IndicarBolsistaValidator {
 
 			if ( plano.getDataFim().before(new Date()) )
 				lista.addErro("Não é possível realizar a indicação do discente pois o plano não está mais em vigência.");
+			
+			if ( plano.getDataInicio().after(new Date()) )
+				lista.addErro("Não é possível realizar a indicação do discente pois o plano ainda não está em vigência.");
 
 			// No caso de definição do tipo de bolsa, verificar se o docente ainda possui cotas disponíveis
 			// para o tipo selecionado
@@ -288,8 +291,6 @@ public class IndicarBolsistaValidator {
 			paramDao.close();
 			cotaDocenteDao.close();
 		}
-
-		planoDao.close();
 
 	}
 

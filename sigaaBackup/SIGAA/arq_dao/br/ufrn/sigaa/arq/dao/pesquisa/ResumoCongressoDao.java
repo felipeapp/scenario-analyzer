@@ -227,7 +227,7 @@ public class ResumoCongressoDao extends GenericSigaaDAO {
 		if(idAreaConhecimento != null)
 			hql.append(" and r.areaConhecimentoCnpq.id = :idAreaConhecimento ");
 		if(centro != null)
-			hql.append(" and ( curso.unidade.gestora.id = " + centro.getId() + " or curso.unidade.id = " + centro.getId() + " )");
+			hql.append(" and ( orientador.docente.unidade.gestora.id = " + centro.getId() + " or orientador.docente.unidade.id = " + centro.getId() + " )");
 		if(cpfAutor != null)
 			hql.append(" and autor.cpf = :cpf ");
 		if(nomeAutor != null)
@@ -245,7 +245,8 @@ public class ResumoCongressoDao extends GenericSigaaDAO {
 			hql.append(" and (select count(*) from AvaliacaoApresentacaoResumo ap where ap.resumo.id = r.id) < 2 ");
 		}
 		if(idsUnidadesCurso != null){
-			hql.append(" and curso.unidade.id = "+ UFRNUtils.gerarStringIn(idsUnidadesCurso));
+			hql.append(" and ( orientador.docente.unidade.gestora.id in " + UFRNUtils.gerarStringIn(idsUnidadesCurso) + 
+					" or orientador.docente.unidade.id in " + UFRNUtils.gerarStringIn(idsUnidadesCurso) + " )");
 		}
 		hql.append(" order by autor.discente.curso.unidade.gestora.nome, autor.discente.curso.unidade.nome, autor.nome  ");
 

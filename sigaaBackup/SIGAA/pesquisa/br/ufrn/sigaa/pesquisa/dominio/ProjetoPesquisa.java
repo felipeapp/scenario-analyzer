@@ -288,7 +288,10 @@ public class ProjetoPesquisa implements PersistDB, ViewAtividadeBuilder, Compara
 	}
 
 	public Set<PlanoTrabalho> getPlanosTrabalho() {
-		return planosTrabalho;
+		HashSet<PlanoTrabalho> planos = new HashSet<PlanoTrabalho>();
+		for(PlanoTrabalho p: planosTrabalho)
+			if(p.getStatus() != TipoStatusPlanoTrabalho.EXCLUIDO) planos.add(p);
+		return planos;
 	}
 
 	public void setPlanosTrabalho(Set<PlanoTrabalho> planoTrabalhos) {

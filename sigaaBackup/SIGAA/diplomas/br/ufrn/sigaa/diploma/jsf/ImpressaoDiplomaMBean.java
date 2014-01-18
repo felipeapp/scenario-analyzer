@@ -230,8 +230,10 @@ public class ImpressaoDiplomaMBean extends SigaaAbstractController<RegistroDiplo
 				this.processo = "";
 				getCurrentRequest().setAttribute("registro", registroSegundaVia);
 				ResponsavelAssinaturaDiplomasMBean mBean = getMBean("responsavelAssinaturaDiplomasBean");
-				mBean.setObj(new ResponsavelAssinaturaDiplomas());
 				mBean.getObj().setNivel(this.nivelEnsino);
+				if (isEmpty(registroSegundaVia.getAssinaturaDiploma())) {
+					registroSegundaVia.setAssinaturaDiploma(mBean.getResponsaveisAtual());
+				}
 				return forward("/diplomas/registro_diplomas/segunda_via.jsp");
 			} else {
 				listaIdDiscente.add(discente.getId());

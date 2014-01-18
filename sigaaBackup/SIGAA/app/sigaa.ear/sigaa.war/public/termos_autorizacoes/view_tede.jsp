@@ -58,7 +58,7 @@
 			<tr>
 				<th>Identidade:</th>
 				<td>${termoPublicacaoTD.obj.discente.pessoa.identidade.numero } - 
-				${termoPublicacaoTD.obj.discente.pessoa.identidade.orgaoExpedicao }/${termoPublicacaoTD.obj.discente.pessoa.identidade.unidadeFederativa.sigla }</td>
+				${termoPublicacaoTD.obj.discente.pessoa.identidade.orgaoExpedicao }/${termoPublicacaoTD.obj.discente.pessoa.unidadeFederativa.sigla }</td>
 				<th>CPF:</th>
 				<td></td>
 				<th>E-mail:</th>

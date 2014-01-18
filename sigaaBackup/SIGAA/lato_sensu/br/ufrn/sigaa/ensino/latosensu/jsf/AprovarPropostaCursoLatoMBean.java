@@ -10,7 +10,9 @@ package br.ufrn.sigaa.ensino.latosensu.jsf;
 
 import static br.ufrn.arq.mensagens.MensagensArquitetura.OPERACAO_SUCESSO;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.hibernate.HibernateException;
 import org.springframework.context.annotation.Scope;
@@ -26,9 +28,12 @@ import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.comum.dominio.Sistema;
 import br.ufrn.comum.gru.dominio.ConfiguracaoGRU;
+import br.ufrn.sigaa.arq.dao.ensino.CoordenacaoCursoDao;
 import br.ufrn.sigaa.arq.dao.ensino.latosensu.CursoLatoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.ensino.dominio.CargoAcademico;
+import br.ufrn.sigaa.ensino.dominio.CoordenacaoCurso;
 import br.ufrn.sigaa.ensino.latosensu.dominio.CursoLato;
 import br.ufrn.sigaa.ensino.latosensu.dominio.HistoricoSituacao;
 import br.ufrn.sigaa.ensino.latosensu.dominio.PropostaCursoLato;
@@ -77,7 +82,7 @@ public class AprovarPropostaCursoLatoMBean extends SigaaAbstractController<Histo
 	public String carregarPropostasSubmetidas() throws ArqException {
 		checkRole(SigaaPapeis.GESTOR_LATO);
 		setPropostasSubmetidas(getDAO(CursoLatoDao.class).
-				filter(null, null, null, new SituacaoProposta(SituacaoProposta.SUBMETIDA), null, true));
+				filter(null,null,null, null, null, new SituacaoProposta(SituacaoProposta.SUBMETIDA), null,null,null, true));
 		return forward("/lato/aprovar_proposta_curso/lista.jsp");
 	}
 	
@@ -96,6 +101,9 @@ public class AprovarPropostaCursoLatoMBean extends SigaaAbstractController<Histo
 		CursoLatoDao dao = getDAO(CursoLatoDao.class);
 		obj.setProposta(dao.findPropostaByCurso(id));
 		curso = dao.findById(id);
+		CoordenacaoCurso coordenador = getDAO(CoordenacaoCursoDao.class).findUltimaByCurso(curso);
+		if(coordenador == null || coordenador.getDataFimMandato().before(new Date()))
+			addMensagemWarning("Curso não possui coordenador(a) ativo na presente data.");
 		GenericDAO comumDao = DAOFactory.getGeneric(Sistema.COMUM);
 		try {
 			if (curso.getIdConfiguracaoGRUInscricao() != null) {
@@ -142,8 +150,13 @@ public class AprovarPropostaCursoLatoMBean extends SigaaAbstractController<Histo
 		obj.setSituacao(new SituacaoProposta(SituacaoProposta.ACEITA));
 		obj.getProposta().getSituacaoProposta().setId(SituacaoProposta.ACEITA);
 		
+		CoordenacaoCursoDao dao = getDAO(CoordenacaoCursoDao.class);
+		Collection<CoordenacaoCurso> coordenacao = new ArrayList<CoordenacaoCurso>();
+		coordenacao = dao.findAtivosByData(curso.getDataInicio(), curso, new Integer[]{CargoAcademico.COORDENACAO,CargoAcademico.VICE_COORDENACAO,CargoAcademico.SECRETARIA});
+		
 		MovimentoCadastro mov = new MovimentoCadastro();
 		mov.setObjMovimentado(obj);
+		mov.setObjAuxiliar(coordenacao);
 		mov.setCodMovimento(SigaaListaComando.GRAVAR_HISTORICO_SITUACAO);
 
 		try {

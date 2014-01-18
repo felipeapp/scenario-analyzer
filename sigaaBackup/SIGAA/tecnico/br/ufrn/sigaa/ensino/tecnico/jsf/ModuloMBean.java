@@ -1,5 +1,7 @@
 package br.ufrn.sigaa.ensino.tecnico.jsf;
 
+import static br.ufrn.arq.mensagens.MensagensArquitetura.OPERACAO_SUCESSO;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -8,6 +10,7 @@ import javax.faces.model.SelectItem;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.arq.dominio.MovimentoCadastro;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
@@ -15,10 +18,13 @@ import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.ArqListaComando;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.ensino.dominio.ComponenteCurricular;
+import br.ufrn.sigaa.ensino.tecnico.dao.EstruturaCurricularTecDao;
 import br.ufrn.sigaa.ensino.tecnico.dao.ModuloDao;
+import br.ufrn.sigaa.ensino.tecnico.dominio.EstruturaCurricularTecnica;
 import br.ufrn.sigaa.ensino.tecnico.dominio.Modulo;
 import br.ufrn.sigaa.ensino.tecnico.dominio.ModuloDisciplina;
 import br.ufrn.sigaa.ensino.tecnico.negocio.ModuloMov;
@@ -29,6 +35,7 @@ import br.ufrn.sigaa.ensino.tecnico.negocio.ModuloMov;
  *  
  * @author guerethes
  */
+@SuppressWarnings("serial")
 @Component @Scope("request")
 public class ModuloMBean extends SigaaAbstractController<Modulo> {
 
@@ -38,6 +45,13 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 	private boolean filtroNome;
 	/** Constante utilizada para auxiliar na busca por curso  */
 	private boolean filtroCurso;
+	/**Descrição do modulo, usada na busca*/
+	private String descricao;	
+	/**Codigo do modulo, usado na busca*/
+	private String codigo;
+	/**Identificador do curso que o modulo está vinculado, usado na busca*/
+	private Integer idCurso;
+	
 	/** E a represetação de um módulo com uma Disciplina */
 	private ModuloDisciplina modulodisciplina;
 	/** Armazena uma coleção de Modulo Disciplina */
@@ -45,7 +59,7 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 	/** Retorna uma coleção de Modulo */
 	private Collection<Modulo> listaModulos = new ArrayList<Modulo>();
 	/** Serve pra auxiliar na edição ou noa do nome do Módulo */
-	private boolean editar;
+	private boolean bloquearEdicao;
 	
 	/**
 	 * Construtor padrão
@@ -61,7 +75,7 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 		obj = new Modulo();
 		modulodisciplina = new ModuloDisciplina();
 		modulodisciplina.setDisciplina(new ComponenteCurricular());
-		editar = false;
+		bloquearEdicao = false;
 	}
 	
 	/**
@@ -73,9 +87,23 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 	 * </ul>
 	 * 
 	 * @throws DAOException
+	 * @throws NegocioException 
 	 */
-	public void adicionarDisciplina() throws DAOException {
-		if (modulodisciplina.getDisciplina().getId() != 0) {
+	public void adicionarDisciplina() throws DAOException, NegocioException {
+		if(moduloDisciplinas.isEmpty() && obj.getDescricao() != null && !obj.getDescricao().equals("")){
+			ModuloDao dao = getDAO(ModuloDao.class);
+			
+			Collection<Modulo> modulosMesmoNome = dao.findByCodCursoNome(obj.getDescricao(), null, null, getNivelEnsino(), getUsuarioLogado().getVinculoAtivo().getUnidade().getId());
+			if(!modulosMesmoNome.isEmpty() && !obj.equals(modulosMesmoNome.iterator().next())){
+				addMensagemErro("Já existe um módulo com a descrição " + obj.getDescricao()+".");
+				return;
+			}
+				
+		}
+		if (modulodisciplina.getDisciplina().getId() == 0) {
+			addMensagemErro("Disciplina: Campo obrigatório não informado.");
+			return;
+		}
 			modulodisciplina.setDisciplina((getGenericDAO().findByPrimaryKey(modulodisciplina.getDisciplina().getId(), ComponenteCurricular.class)));
 			modulodisciplina.setModulo(obj);
 			obj.setModuloDisciplina(modulodisciplina);
@@ -84,7 +112,7 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 			if (moduloDisciplinas.contains(modulodisciplina)) 
 				addMensagemErro("A disciplina já está contida no Módulo.");
 			
-			if (obj.getCargaHoraria() < getChTotal() + modulodisciplina.getDisciplina().getChTotal())  
+			if (obj.getCargaHoraria() != null && obj.getCargaHoraria() < getChTotal() + modulodisciplina.getDisciplina().getChTotal())  
 				addMensagemErro("Não é possível adicionar a disciplina, pois ultrapassa a carga horária total do Módulo.");
 			
 			if (!hasOnlyErrors()) {
@@ -92,9 +120,12 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 				obj.getModuloDisciplinas().add(modulodisciplina);
 				modulodisciplina = new ModuloDisciplina();
 				modulodisciplina.setDisciplina(new ComponenteCurricular());
-				editar = true;
+				bloquearEdicao = true;
+				modulodisciplina = new ModuloDisciplina();
+				modulodisciplina.setDisciplina(new ComponenteCurricular());
 			}
-		}
+		
+		
 	}
 
 	
@@ -138,7 +169,7 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 				moduloDisciplinas.remove(md);
 				obj.getDisciplinas().remove(md);
 				if (moduloDisciplinas.size() == 0) 
-					editar = false;
+					bloquearEdicao = false;
 				break;
 			}
 		}
@@ -170,25 +201,40 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 	 * <ul>
 	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/ensino/tecnico/modulo/lista.jsp</li>
 	 * </ul>
+	 * @return
+	 * @throws ArqException 
+	 * @throws DAOException 
 	 */
 	@Override
-	public String buscar() throws Exception {
+	public String buscar() throws DAOException, ArqException{
 		ModuloDao dao = getDAO(ModuloDao.class);
 		
 		try {
-			String nome = null;
-			String codigo = null;
-			Integer curso = null;
 			
-			if (filtroCodigo) 
-				codigo = obj.getCodigo();
-			if (filtroNome) 
-				nome = obj.getDescricao();
-			if (filtroCurso) 
-				curso = modulodisciplina.getDisciplina().getId();
+			if (filtroCodigo){
+				ValidatorUtil.validateRequired(codigo,"Código",erros);
+			}else
+				codigo = null;
+			if (filtroNome){
+				ValidatorUtil.validateRequired(descricao,"Nome",erros);
+			}else
+				descricao = null;
+			if (filtroCurso){
+				ValidatorUtil.validateRequiredId(idCurso, "Curso", erros);
+			}else
+				idCurso = null;
+			if(!filtroCodigo && !filtroCurso && !filtroNome)
+				addMensagemErro("Selecione uma opção para efetuar a busca.");
+				
 			
-			listaModulos.clear();
-			listaModulos = dao.findByCodCursoNome(nome, codigo, curso, getNivelEnsino(), getUnidadeGestora());
+			if(!hasErrors()){
+				listaModulos.clear();
+				listaModulos = dao.findByCodCursoNome(descricao, codigo, idCurso, getNivelEnsino(), getUnidadeGestora());
+				if(listaModulos == null || listaModulos.isEmpty()){
+					addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
+				}
+			}else 
+				return null;
 		} finally {
 			dao.close();
 		}
@@ -210,10 +256,29 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 		moduloDisciplinas.clear();
 		moduloDisciplinas.addAll(obj.getModuloDisciplinas());
 		if (moduloDisciplinas.size() == 0) 
-			editar = false;
+			bloquearEdicao = false;
 		else
-			editar = true;
+			bloquearEdicao = true;
 		return getFormPage();
+	}
+
+	/**
+	 * Ação realizada antes de entrar no cadastrar
+	 * 
+	 *  * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/ensino/tecnico/menu/curso.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws ArqException
+	 * @throws NegocioException
+	 */
+	public String preCadastrar() throws ArqException, NegocioException {
+		checkChangeRole();
+		prepareMovimento(ArqListaComando.CADASTRAR);
+		setOperacaoAtiva(ArqListaComando.CADASTRAR.getId());
+		setConfirmButton("Cadastrar");
+		return forward(getFormPage());
 	}
 
 	/**
@@ -227,7 +292,10 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 	@Override
 	public String cadastrar() throws SegurancaException, ArqException,
 			NegocioException {
-		
+		if (!isOperacaoAtiva(ArqListaComando.CADASTRAR.getId(),ArqListaComando.ALTERAR.getId())) {
+			addMensagem(MensagensArquitetura.PROCEDIMENTO_PROCESSADO_ANTERIORMENTE);
+			return cancelar();
+		}
 		erros.addAll(obj.validate());
 		if (hasErrors()) 
 			return null;
@@ -263,6 +331,7 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 		try {
 			ModuloMov mov;
 			if (obj.getId() > 0){ 
+				atualizaTotalCargaHorariaEstruturas(obj);
 				prepareMovimento(SigaaListaComando.ALTERAR_MODULO_TECNICO);
 				mov = new ModuloMov(obj, SigaaListaComando.ALTERAR_MODULO_TECNICO);
 				execute(mov);
@@ -273,15 +342,50 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 				execute(mov);
 				addMensagem(MensagensArquitetura.CADASTRADO_COM_SUCESSO, "Módulo");
 			}
+		} catch (NegocioException ne){
+			addMensagemErro(ne.getMessage());
+			ne.printStackTrace();
+			return null;
 		} catch (Exception e) {
 			notifyError(e);
 			addMensagemErroPadrao();
 			e.printStackTrace();
 			return forward(getCurrentURL());
 		}
-		return forward(getListPage());
+		return cancelar();
 	}
 
+	/**
+	 * Define se é uma operação de cadastro ou de atualização.
+	 * 
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>/SIGAA/app/sigaa.ear/sigaa.war/ensino/tecnico/modulo/form.jsp</li>
+	 * </ul>
+	 * */
+	public String getDescricaoOperacao(){
+		return getConfirmButton().equals("Cadastrar")? "Cadastro de":"Atualizar";
+	}
+	
+	/**
+	 * Método não invocado por JSP(s):
+	 * @param modulo
+	 * @throws DAOException 
+	 */
+	private void atualizaTotalCargaHorariaEstruturas(Modulo modulo) throws DAOException{
+		EstruturaCurricularTecDao dao = getDAO(EstruturaCurricularTecDao.class);
+		Collection<EstruturaCurricularTecnica> estruturas = dao.findByModulo(modulo.getId());
+		Modulo moduloPersistido =  dao.findByPrimaryKey(modulo.getId(), Modulo.class, "cargaHoraria");
+		int diferencaCH = 0;
+		if(moduloPersistido != null && estruturas!= null){
+			diferencaCH = modulo.getCargaHoraria() - moduloPersistido.getCargaHoraria() ; 
+			if(diferencaCH != 0);
+				for(EstruturaCurricularTecnica ect:estruturas){
+					dao.updateField(EstruturaCurricularTecnica.class, ect.getId(), "chTotalModulos",ect.getChTotalModulos() + diferencaCH );
+				}
+		}
+	}
+	
 	/**
 	 * Método responsável pela remoção dos módulos técnicos.
 	 * 
@@ -302,8 +406,17 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 			addMensagemErro("O objeto acessado não existe mais.");
 			return forward(getListPage());
 		}
-		super.remover();
-		return forwardRemover();
+		
+		MovimentoCadastro mov = new MovimentoCadastro(obj, ArqListaComando.REMOVER);
+		try {
+			execute(mov);
+			addMensagem(OPERACAO_SUCESSO);
+		} catch (NegocioException e) {
+			addMensagens(e.getListaMensagens());
+			return null;
+		} 
+		listaModulos.remove(obj);
+		return null;
 	}
 	
 	/**
@@ -359,12 +472,12 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 		this.moduloDisciplinas = moduloDisciplinas;
 	}
 
-	public boolean isEditar() {
-		return editar;
+	public boolean isBloquearEdicao() {
+		return bloquearEdicao;
 	}
 
-	public void setEditar(boolean editar) {
-		this.editar = editar;
+	public void setBloquearEdicao(boolean bloquearEdicao) {
+		this.bloquearEdicao = bloquearEdicao;
 	}
 
 	public boolean isFiltroCodigo() {
@@ -398,6 +511,24 @@ public class ModuloMBean extends SigaaAbstractController<Modulo> {
 	public void setListaModulos(Collection<Modulo> listaModulos) {
 		this.listaModulos = listaModulos;
 	}
-	
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	public Integer getIdCurso() {
+		return idCurso;
+	}
+
+	public void setIdCurso(Integer idCurso) {
+		this.idCurso = idCurso;
+	}
 
 }

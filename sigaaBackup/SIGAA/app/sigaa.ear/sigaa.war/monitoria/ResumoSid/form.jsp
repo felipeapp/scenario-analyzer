@@ -1,5 +1,16 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho.jsp"%>
-
+<script type="text/javascript">
+<!--
+	function limitText(limitField, limitCount, limitNum) {
+	    if (limitField.value.length > limitNum) {
+	        limitField.value = limitField.value.substring(0, limitNum);
+	    } else {
+	        $(limitCount).value = limitNum - limitField.value.length;
+	    }
+	}
+	
+//-->
+</script>
 <f:view>
 	<%@include file="/portais/docente/menu_docente.jsp" %>
 
@@ -25,7 +36,9 @@
 	<h:messages showDetail="true" showSummary="true"/>
 
 	<h2><ufrn:subSistema /> > Cadastro de Resumo das Atividades do Projeto no Seminário de Iniciação à Docência (SID) </h2>
-
+	<div class="descricaoOperacao">
+		<center>Discentes que não participaram do Resumo poderão ser desligados do projeto pela PROGRAD.</center>
+	</div>
 	<h:form id="formCadastroResumoSid">	
 	
 		<table class="formulario" width="100%">
@@ -47,7 +60,10 @@
 			</th>
 			<td>
 					<h:inputTextarea id="txaResumo"  value="#{resumoSid.obj.resumo}" rows="10" 
-					style="width: 98%" readonly="#{resumoSid.readOnly}" /> 
+					style="width: 98%" readonly="#{resumoSid.readOnly}" onkeydown="limitText(this, countResumo, 1500);" onkeyup="limitText(this, countResumo, 1500);"/>
+					<center>
+					     Você pode digitar <input readonly type="text" id="countResumo" size="3" value="${1500 - fn:length(resumoSid.obj.resumo) < 0 ? 0 : 1500 - fn:length(resumoSid.obj.resumo)}"> caracteres.
+					</center> 
 			</td>
 		</tr>
 	
@@ -92,8 +108,8 @@
 											<t:column>
 													<h:outputText value="<b>#{partSid.discenteMonitoria.discente.matriculaNome}</b>"  escape="false"/>
 
-													<h:outputText value="<div id='txaJustificativaSid#{partSid.discenteMonitoria.discente.matricula}' style='display: #{partSid.participou ? 'none':'' }'>"  escape="false"/>
-														<f:verbatim><label><i>Justificar motivo do não envio do Resumo SID :</i></label><ufrn:help img="/img/ajuda.gif">Discentes que não participaram do Resumo poderão ser desligados do projeto pela PROGRAD.</ufrn:help><br/></f:verbatim>													
+													<h:outputText value="<div id='txaJustificativaSid#{partSid.discenteMonitoria.discente.matricula}'style='display:#{partSid.participou ? \"none\":\"\" }' >"  escape="false" />
+														<label ><i>Justificar motivo do não envio do Resumo SID :</i></label><h:graphicImage url="/img/required.gif"/>	
 														<h:inputTextarea value="#{partSid.justificativa}" rows="3" style="width: 98%" readonly="#{resumoSid.readOnly}"/>
 														
 													<f:verbatim></div></f:verbatim>

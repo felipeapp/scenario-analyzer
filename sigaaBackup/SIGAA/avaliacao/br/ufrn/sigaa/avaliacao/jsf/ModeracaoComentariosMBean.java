@@ -8,6 +8,10 @@
  */
 package br.ufrn.sigaa.avaliacao.jsf;
 
+import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
+import static br.ufrn.arq.util.ValidatorUtil.validateRequired;
+import static br.ufrn.arq.util.ValidatorUtil.validateRequiredId;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +32,20 @@ import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.avaliacao.dominio.ComentarioAvaliacaoModerado;
 import br.ufrn.sigaa.avaliacao.dominio.ObservacoesDocenteTurma;
 import br.ufrn.sigaa.avaliacao.dominio.ObservacoesTrancamento;
+import br.ufrn.sigaa.avaliacao.dominio.ParametroProcessamentoAvaliacaoInstitucional;
 import br.ufrn.sigaa.ensino.dominio.DocenteTurma;
 import br.ufrn.sigaa.ensino.dominio.Turma;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
+/**
+ * Controller responsável pela moderação de comentários na Avaliação
+ * Institucional.<br/>
+ * A moderação de comentários se faz necessária para que sejam divulgados sem
+ * termos chulos, pejorativos, ou que possam ofender alguém.
+ * 
+ * @author Édipo Elder F. de Melo
+ * 
+ */
 @Component("moderadorObservacaoBean")
 @Scope("request")
 public class ModeracaoComentariosMBean extends SigaaAbstractController<ComentarioAvaliacaoModerado> {
@@ -45,7 +59,7 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 	/** Turma selecionado para o qual os comentários de trancamento serão moderados. */ 
 	private Turma turma;
 	/** Ano Período ao qual a busca por itens a ser moderados se restringe. */
-	private int anoPeriodo;
+	private int idParametroProcessamento;
 	/** Nome do componente curricular o qual a busca por itens a ser moderados se restringe. */
 	private String nomeComponente;
 	
@@ -135,46 +149,42 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 		int idDepartamento = 0;
 		String nomeDocente = null;
 		String nomeComponente = null;
-		int ano = anoPeriodo / 10, periodo = anoPeriodo % 10;
+		int idFormulario = 0;
+		int ano = 0;
+		int periodo = 0;
+		ComentarioAvaliacaoModeradoDao dao = getDAO(ComentarioAvaliacaoModeradoDao.class);
 		if (isCheckBuscaDepartamento()) {
 			idDepartamento = this.idDepartamento;
-		} else {
-			idDepartamento = 0;
+			validateRequiredId(idDepartamento, "Departamento", erros);
+		}
+		if (isCheckBuscaAnoPeriodo()) {
+			validateRequiredId(idParametroProcessamento, "Ano-Período", erros);
+			if (idParametroProcessamento > 0) {
+				ParametroProcessamentoAvaliacaoInstitucional parametro = dao.findByPrimaryKey(this.idParametroProcessamento, ParametroProcessamentoAvaliacaoInstitucional.class);
+				ano = parametro.getAno();
+				periodo = parametro.getPeriodo();
+				idFormulario = parametro.getFormulario().getId();
+			}
 		}
 		if (isCheckBuscaComponente()) {
 			nomeComponente = this.nomeComponente;
-		} else {
-			nomeComponente = null;
+			validateRequired(nomeComponente, "Componente Curricular", erros);
 		}
 		if (isCheckBuscaNome()) {
 			nomeDocente = this.docente.getNome();
-		} else {
-			nomeDocente = null;
+			validateRequired(nomeDocente, "Docente", erros);
 		}
-		if (isCheckBuscaDepartamento()) {
-			idDepartamento = this.idDepartamento;
-		} else {
-			idDepartamento = 0;
-		}
-		if (isCheckBuscaAnoPeriodo()) {
-			ano = this.anoPeriodo / 10;
-			periodo = this.anoPeriodo % 10;
-		} else {
-			ano = 0;
-			periodo = 0;
-		}
-		if (nomeDocente == null && nomeComponente == null && idDepartamento == 0 && ano == 0 && periodo == 0) {
+		if (nomeDocente == null && nomeComponente == null && idDepartamento == 0 && idFormulario == 0) {
 			addMensagem(MensagensArquitetura.SELECIONE_OPCAO_BUSCA);
 			listaDocentes = null;
-		} else {
-			ComentarioAvaliacaoModeradoDao dao = getDAO(ComentarioAvaliacaoModeradoDao.class);
-			if (moderarTrancamentos)
-				listaDocentes = dao.findTurmasByAnoPeriodoNomeComponente(nomeComponente, idDepartamento, ano, periodo);
-			else
-				listaDocentes = dao.findDocenteByAnoPeriodoNomeDepartamento(nomeDocente, idDepartamento, ano, periodo, discentes);
-			if (listaDocentes == null || listaDocentes.isEmpty()) {
-				addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
-			}
+		} 
+		if (hasErrors()) return null;
+		if (moderarTrancamentos)
+			listaDocentes = dao.findTurmasByAnoPeriodoNomeComponente(nomeComponente, idDepartamento, ano, periodo, idFormulario);
+		else
+			listaDocentes = dao.findDocenteByAnoPeriodoNomeDepartamento(nomeDocente, idDepartamento, ano, periodo, idFormulario, discentes);
+		if (listaDocentes == null || listaDocentes.isEmpty()) {
+			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		}
 		return formBusca();
 	}
@@ -200,6 +210,22 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 	/** Copia a observação dada pelo discente para o campo de edição utilizado pelo usuário para moderar a observação.<br>
 	 * Método chamado pela(s) seguinte(s) JSP(s):
 	 * <ul>
+	 * <li>/sigaa.war/avaliacao/moderacao/observacoes.jsp</li>
+	 * </ul>
+	 * @return
+	 */
+	public String copiarTodasObservacaoDocenteTurma(){
+		for (ObservacoesDocenteTurma obs : observacoes) {
+			if (isEmpty(obs.getObservacoesModeradas())) {
+				obs.setObservacoesModeradas(obs.getObservacoes());
+			}
+		}
+		return null;
+	}
+	
+	/** Copia a observação dada pelo discente para o campo de edição utilizado pelo usuário para moderar a observação.<br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
 	 * <li>/sigaa.war/avaliacao/moderacao/trancamentos.jsp</li>
 	 * </ul>
 	 * @return
@@ -210,6 +236,22 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 			if (obs.getId() == id) {
 				obs.setObservacoesModeradas(obs.getObservacoes() + obs.getObservacoesModeradas());
 				break;
+			}
+		}
+		return null;
+	}
+	
+	/** Copia todas observações dada pelo discente para o campo de edição utilizado pelo usuário para moderar a observação.<br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>/sigaa.war/avaliacao/moderacao/trancamentos.jsp</li>
+	 * </ul>
+	 * @return
+	 */
+	public String copiarTodasObservacaoTrancamento(){
+		for (ObservacoesTrancamento obs : trancamentos) {
+			if (isEmpty(obs.getObservacoesModeradas())) {
+				obs.setObservacoesModeradas(obs.getObservacoes());
 			}
 		}
 		return null;
@@ -302,7 +344,7 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 		int id = getParameterInt("idDocenteTurma", 0);
 		ComentarioAvaliacaoModeradoDao dao = getDAO(ComentarioAvaliacaoModeradoDao.class);
 		docenteTurma = dao.refresh(new DocenteTurma(id));
-		observacoes = dao.findObservacoesDocenteTurmaByDocenteTurma(id, discentes);
+		observacoes = dao.findObservacoesDocenteTurmaByDocenteTurma(id, discentes, false);
 		return formModerarObservacoes();
 	}
 	
@@ -349,19 +391,6 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 		return forward("/avaliacao/moderacao/trancamentos.jsp");
 	}
 
-	/** Retorna o Ano Período ao qual a busca por itens a ser moderados se restringe.
-	 * @return
-	 */
-	public int getAnoPeriodo() {
-		return anoPeriodo;
-	}
-
-	/** Seta o Ano Período ao qual a busca por itens a ser moderados se restringe.
-	 * @param anoPeriodo
-	 */
-	public void setAnoPeriodo(int anoPeriodo) {
-		this.anoPeriodo = anoPeriodo;
-	}
 
 	/** Indica se a busca por docentes deve ser filtrada por nome do docente.
 	 * @return
@@ -551,6 +580,14 @@ public class ModeracaoComentariosMBean extends SigaaAbstractController<Comentari
 
 	public void setDiscentes(boolean discentes) {
 		this.discentes = discentes;
+	}
+
+	public int getIdParametroProcessamento() {
+		return idParametroProcessamento;
+	}
+
+	public void setIdParametroProcessamento(int idParametroProcessamento) {
+		this.idParametroProcessamento = idParametroProcessamento;
 	}
 	
 	

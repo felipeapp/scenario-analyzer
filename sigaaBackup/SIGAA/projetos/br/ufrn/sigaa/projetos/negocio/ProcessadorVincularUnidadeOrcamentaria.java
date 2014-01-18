@@ -46,7 +46,7 @@ public class ProcessadorVincularUnidadeOrcamentaria extends AbstractProcessador 
     }
 
     public void validate(Movimento mov) throws NegocioException, ArqException {
-    	checkRole(new int[]{SigaaPapeis.MEMBRO_COMITE_INTEGRADO}, mov);
+    	checkRole(new int[]{SigaaPapeis.MEMBRO_COMITE_INTEGRADO, SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO}, mov);
     	
     	MovimentoCadastro movC = (MovimentoCadastro) mov;
     	Projeto projeto = movC.getObjMovimentado();

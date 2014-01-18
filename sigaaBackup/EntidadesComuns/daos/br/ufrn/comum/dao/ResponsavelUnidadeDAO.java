@@ -120,6 +120,7 @@ public class ResponsavelUnidadeDAO extends GenericSharedDBDao {
 			resp.getServidor().setPessoa(new PessoaGeral());
 			resp.getServidor().getPessoa().setId(rs.getInt("id_pessoa"));
 			resp.getServidor().getPessoa().setNome(resp.getNomeServidor());
+			resp.getServidor().getPessoa().setEmail(rs.getString("EMAIL_PESSOA"));
 
 			UnidadeGeral unidade = new UnidadeGeral();
 			unidade.setId(rs.getInt("ID_UNIDADE_LOTACAO"));
@@ -133,7 +134,7 @@ public class ResponsavelUnidadeDAO extends GenericSharedDBDao {
 				pe.setNome(rs.getString("NOME_USUARIO"));
 				usuario.setPessoa(pe);
 				resp.setUsuario(usuario);
-				pe.setEmail("EMAIL_PESSOA");
+				pe.setEmail(rs.getString("EMAIL_PESSOA"));
 				
 			}catch (Exception e) {			}
 

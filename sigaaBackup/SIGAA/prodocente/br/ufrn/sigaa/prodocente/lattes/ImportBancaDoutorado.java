@@ -48,9 +48,9 @@ public class ImportBancaDoutorado extends ImportProducao<Banca> {
 			item.setArea(null);
 			item.setSubArea(null);
 			item.setInstituicao(null);
-			item.setDepartamento(null);
 			item.setMunicipio(null);
 			item.setCategoriaFuncional(null);
+			item.setDepartamento(null);
 			
 			parse = true;
 		}

@@ -125,7 +125,13 @@
 	</li>
 	<li>Quantitativos
 		<ul>
-		<li><a href="${ctx}/graduacao/relatorios/discente/selecionaq_concluintes.jsf?aba=graduacao"> Alunos Concluintes</a></li>
+		
+		<li>
+			<h:commandLink value="Alunos Concluintes"  action="#{relatorioPorCurso.iniciar}" onclick="setAba('graduacao')">
+				<f:param name="relatorio" value="QuantitativoAlunosConcluintes"/>
+			</h:commandLink>
+		</li>
+				
 		<li>
 			<h:commandLink value="Alunos Matriculados"  action="#{relatorioPorCurso.iniciar}" onclick="setAba('graduacao')">
 				<f:param name="relatorio" value="QuantitativoAlunosMatriculados"/>

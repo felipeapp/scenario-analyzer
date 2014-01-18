@@ -202,20 +202,9 @@
 					</c:if>
 					<th class="required">Carga Horária:</th>
 					<td align="left">
-					
-						<c:if test="${!docenteTurmaBean.turmaGraduacao}">
-							<h:inputText id="chDedicada" value="#{ docenteTurmaBean.docenteTurma.chDedicadaPeriodo }" size="4"maxlength="4" onkeyup="formatarInteiro(this);"
-								rendered="#{not docenteTurmaBean.turmaEad }"/>
-							<h:outputText value="h" rendered="#{not docenteTurmaBean.turmaEad }"/>
-						</c:if>
-						<c:if test="${docenteTurmaBean.turmaGraduacao}">
-							<input type="hidden" id="chComponente" value="${ docenteTurmaBean.obj.chTotalTurma }"/>
-							<h:inputText id="porcentagemCh" value="#{ docenteTurmaBean.docenteTurma.porcentagemChDedicada }" size="4"maxlength="4" 
-								onkeyup="formatarInteiro(this);calcularChDocente(this);" rendered="#{not docenteTurmaBean.turmaEad }"/>
-							<h:outputText value="%" rendered="#{not docenteTurmaBean.turmaEad }"/>
-							<span id="chDocente"></span>
-						</c:if>
-						
+						<h:inputText id="chDedicada" value="#{ docenteTurmaBean.docenteTurma.chDedicadaPeriodo }" size="4"maxlength="4" onkeyup="formatarInteiro(this);"
+							rendered="#{not docenteTurmaBean.turmaEad }"/>
+						<h:outputText value="h" rendered="#{not docenteTurmaBean.turmaEad }"/>
 						<h:outputText value="A carga horária dedicada será cadastrada pela SEDIS" rendered="#{ docenteTurmaBean.turmaEad }"/> 
 					</td>
 					</table>
@@ -345,26 +334,14 @@
 								<f:facet name="header">
 									<h:outputText>CH</h:outputText>
 								</f:facet>
-								
-								<h:inputText id="grupoinputAtualizaChDedicadaPeriodo_${grupo.key}"  maxlength="3" size="3" value="#{ docenteTurma.chDedicadaPeriodo }" rendered="#{!docenteTurmaBean.turmaGraduacao}" onkeyup="formatarInteiro(this);">
+								<h:inputText id="grupoinputAtualizaChDedicadaPeriodo_${grupo.key}"  maxlength="3" size="3" value="#{ docenteTurma.chDedicadaPeriodo }" onkeyup="formatarInteiro(this);">
 									<a4j:support event="onblur" actionListener="#{docenteTurmaBean.atualizaCHDocenteGrupo}" reRender="painelErrosAjax,formListaDocentesGrupo_#{grupo.key}">
 										<f:attribute name="grupo" value="#{grupo.key}"/>
 										<f:attribute name="docenteTurma" value="#{docenteTurma.id}"/>
 									</a4j:support>
 								</h:inputText>
-										
-								<h:inputText id="grupoinputAtualizaPorcentagemCHPeriodo_${grupo.key}"  maxlength="3" size="3" value="#{ docenteTurma.porcentagemChDedicada }" rendered="#{docenteTurmaBean.turmaGraduacao}" onkeyup="formatarInteiro(this);">
-									<a4j:support event="onblur" actionListener="#{docenteTurmaBean.atualizaCHDocenteGrupo}" reRender="painelErrosAjax,formListaDocentesGrupo_#{grupo.key} ">
-										<f:attribute name="grupo" value="#{grupo.key}"/>
-										<f:attribute name="docenteTurma" value="#{docenteTurma.id}"/>
-									</a4j:support>
-								</h:inputText>
-								
-								<h:outputText value="% " rendered="#{docenteTurmaBean.turmaGraduacao}"/>
-								<h:outputText value="h " rendered="#{!docenteTurmaBean.turmaGraduacao}"/>
-								
-								<h:outputText value="#{ docenteTurma.chDedicadaPeriodo }" rendered="#{docenteTurmaBean.turmaGraduacao && !docenteTurmaBean.turmaEad}" />
-								<h:outputText value="h " rendered="#{docenteTurmaBean.turmaGraduacao && !docenteTurmaBean.turmaEad && (docenteTurma.chDedicadaPeriodo != null) }"/>
+						
+								<h:outputText value="h " />
 							</h:column>
 				
 							<h:column >
@@ -409,33 +386,6 @@
 <br/>
 <%@include file="/WEB-INF/jsp/include/mensagem_obrigatoriedade.jsp"%>
 	
-	<script type="text/javascript">
-	
-		// Muda o nome do jQuery para J, evitando conflitos com a Prototype.
-		var J = jQuery.noConflict();
-	
-		var chComponente = null;
-		if (getEl('chComponente') != null)
-			chComponente = getEl('chComponente').dom.value;
-
-		function calcularChDocente (porcentagemElem) {
-
-			var porcentagem = porcentagemElem.value;
-			var chDocenteElem = document.getElementById("chDocente");
-			var chDocente = chComponente * porcentagem / 100;
-
-			var chDocenteTexto = " " + chDocente + "h";
-			if (isNaN(chDocente))
-				chDocenteTexto = "";
-			
-			chDocenteElem.innerHTML = chDocenteTexto;
-			
-		}	
-
-		J(document).ready(function () {
-			calcularChDocente(document.getElementById("formDocentes:porcentagemCh"));
-		});
-	</script>
 		
 	<script type="text/javascript">
 		var Abas = function() {

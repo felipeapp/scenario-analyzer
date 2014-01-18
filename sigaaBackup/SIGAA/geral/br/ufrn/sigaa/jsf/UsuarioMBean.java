@@ -376,7 +376,7 @@ public class UsuarioMBean extends SigaaAbstractController<Usuario> {
 	public String logarComo() throws ArqException, RemoteException {
 
 		checkRole(SigaaPapeis.ADMINISTRADOR_SIGAA, SigaaPapeis.ADMINISTRADOR_DAE,
-				SigaaPapeis.ADMINISTRADOR_STRICTO, SigaaPapeis.GESTOR_LATO);
+				SigaaPapeis.ADMINISTRADOR_STRICTO, SigaaPapeis.GESTOR_LATO,SigaaPapeis.COORDENADOR_GERAL_REDE);
 		
 		ValidatorUtil.validateRequired(obj.getLogin(), "Login", erros);
 		if (hasErrors()) return null;

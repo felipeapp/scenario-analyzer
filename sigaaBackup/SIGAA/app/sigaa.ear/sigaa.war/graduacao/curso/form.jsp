@@ -38,8 +38,8 @@
 </script>
 
 <f:view>
+	<a4j:keepAlive beanName="cursoGrad"/>
 	<%@include file="/WEB-INF/jsp/include/errosAjax.jsp" %>
-	<h:outputText value="#{cursoGrad.create }"></h:outputText>
 	<h2 class="title"><ufrn:subSistema /> > Cadastro de Cursos</h2>
 
 	<h:form id="cadastroCurso" enctype="multipart/form-data">
@@ -168,7 +168,7 @@
 			<tr>
 				<th class="required">Estado de Andamento do Curso:</th>
 				<td>
-					<h:selectOneMenu value="#{municipio.obj.unidadeFederativa.id}" id="uf" disabled="#{cursoGrad.readOnly}"
+					<h:selectOneMenu value="#{municipio.obj.unidadeFederativa.id}" id="uf" disabled="#{cursoGrad.readOnly}" title="Estado de Andamento do Curso"
 						converter="#{intConverter}">
 						<f:selectItem itemLabel="-- SELECIONE --" itemValue="0"/>
 						<f:selectItems value="#{unidadeFederativa.allCombo}"/>
@@ -180,7 +180,7 @@
 				<th class="required">Município de Andamento do Curso:</th>
 				<td>
 					<a4j:keepAlive beanName="municipio"/>
-					<h:selectOneMenu value="#{cursoGrad.obj.municipio.id}" id="municipio" disabled="#{cursoGrad.readOnly}"
+					<h:selectOneMenu value="#{cursoGrad.obj.municipio.id}" id="municipio" disabled="#{cursoGrad.readOnly}" title="Município de Andamento do Curso"
 						converter="#{intConverter}">
 						<f:selectItem itemLabel="-- SELECIONE --" itemValue="0"/>
 						<f:selectItems value="#{municipio.municipiosByUF}"/>
@@ -208,9 +208,9 @@
 
 			<c:if test="${!cursoGrad.stricto}">
 				<tr>
-					<th class="required">Area Sesu:</th>
+					<th class="required">Área Sesu:</th>
 					<td><h:selectOneMenu id="areaSesu" value="#{cursoGrad.obj.areaSesu.id}"
-						readonly="#{cursoGrad.readOnly}" disabledClass="#{habilitacaoGrad.cursoGrad}">
+						disabled="#{cursoGrad.readOnly}" >
 						<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
 						<f:selectItems value="#{areaSesu.allCombo}" />
 					</h:selectOneMenu></td>
@@ -332,15 +332,17 @@
 					de alunos deste curso.</ufrn:help>
 				</td>
 			</tr>
-			<tr>
-				<th>Ativo:</th>
-				<td>
-					<h:selectBooleanCheckbox id="checkAtivo"
-						value="#{cursoGrad.obj.ativo}" styleClass="noborder" disabled="#{cursoGrad.confirmButton eq 'Remover'}"/> <ufrn:help
-						img="/img/ajuda.gif">Marque esta opção para Ativar ou Desativar o curso.</ufrn:help>
-				</td>
-			</tr>
-			<c:if test="${!cursoGrad.stricto}">
+			<c:if test="${ cursoGrad.obj.id > 0 }">
+				<tr>
+					<th>Ativo:</th>
+					<td>
+						<h:selectBooleanCheckbox id="checkAtivo"
+							value="#{cursoGrad.obj.ativo}" styleClass="noborder" disabled="#{cursoGrad.confirmButton eq 'Remover' or cursoGrad.moduloDiplomas}"/> <ufrn:help
+							img="/img/ajuda.gif">Marque esta opção para Ativar ou Desativar o curso.</ufrn:help>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${!cursoGrad.stricto && !cursoGrad.readOnly}">
 			<tr>
 				<td colspan="2">
 					<table width="100%" class="subFormulario">
@@ -351,7 +353,7 @@
 						</tr>
 						<tr>
 							<th width="24%" valign="top">Perfil do Profissional:</th>
-							<td><h:inputTextarea id="perfilProfissional" value="#{cursoGrad.obj.perfilProfissional}" disabled="#{cursoGrad.readOnly}" rows="5" cols="60"/></td>
+							<td><h:inputTextarea id="perfilProfissional" value="#{cursoGrad.obj.perfilProfissional}" disabled="#{cursoGrad.readOnly}" rows="5" cols="60" /></td>
 						</tr>
 						
 						<tr>

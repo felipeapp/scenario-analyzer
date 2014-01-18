@@ -14,6 +14,22 @@
 			<h:inputText id="empresa" value="#{convenioEstagioMBean.empresa}" onfocus="$('form:checkEmpresa').checked = true;" onkeyup="CAPS(this);" size="60" maxlength="80"/>
 		</td>
 	</tr>	 
+	<tr>
+		<td width="5px">
+			<h:selectBooleanCheckbox id="checkCpfCnpj" value="#{convenioEstagioMBean.filtroCpfCnpj}" styleClass="noborder" />
+		</td>		
+		<td style="width: 10%;">
+			<label for="checkCpfCnpj" onclick="$('form:checkCpfCnpj').checked = !$('form:checkCpfCnpj').checked;">
+				CPF/CNPJ:
+			</label>
+		</td>				
+		<td>
+			<h:inputText id="cpfCnpj" value="#{convenioEstagioMBean.cpfCnpj}" onfocus="$('form:checkCpfCnpj').checked = true;" onkeypress="return formataCpfCnpj(this, event, null)" size="19" maxlength="18">
+				<f:converter converterId="convertCpf"/>
+				<f:param name="type" value="cnpj" />
+			</h:inputText>
+		</td>
+	</tr>
 	
 	<c:if test="${ofertaEstagioMBean.portalConcedenteEstagio}">
 		<tr>
@@ -37,6 +53,19 @@
 			</td>
 		</tr>
 	</c:if>	
+	<tr>
+		<td width="5px">
+			<h:selectBooleanCheckbox id="checkNumConvenio" value="#{convenioEstagioMBean.filtroNumConvenio}" styleClass="noborder" />
+		</td>		
+		<td style="width: 10%;">
+			<label for="checkNumConvenio" onclick="$('form:checkNumConvenio').checked = !$('form:checkNumConvenio').checked;">
+				Número do Convênio:
+			</label>
+		</td>				
+		<td>
+			<h:inputText id="numeroConvenio" value="#{convenioEstagioMBean.numeroConvenio}" onfocus="$('form:checkNumConvenio').checked = true;" size="10" maxlength="30"/>
+		</td>
+	</tr>	
 	
 	<tr>
 		<td width="5px">

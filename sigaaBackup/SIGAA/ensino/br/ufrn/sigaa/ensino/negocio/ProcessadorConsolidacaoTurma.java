@@ -152,7 +152,7 @@ public class ProcessadorConsolidacaoTurma extends ProcessadorConsolidacao {
 
 						if (mov.getCodMovimento().equals(SigaaListaComando.CONSOLIDAR_TURMA) && matricula.getDiscente().isStricto()) {
 							tDao.updateField(MatriculaComponente.class, matricula.getId(), "anoFim", CalendarUtils.getAnoAtual());
-							tDao.updateField(MatriculaComponente.class, matricula.getId(), "mesFim", CalendarUtils.getMesAtual());
+							tDao.updateField(MatriculaComponente.class, matricula.getId(), "mesFim", CalendarUtils.getMesAtual1a12());
 						}
 
 						// Refazer os cálculos do discente na consolidação

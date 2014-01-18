@@ -20,6 +20,7 @@ import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.ArqListaComando;
 import br.ufrn.arq.seguranca.SigaaPapeis;
+import br.ufrn.sigaa.arq.dao.graduacao.ProcessamentoMatriculaDAO;
 import br.ufrn.sigaa.arq.dominio.MovimentoAcademico;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
@@ -117,7 +118,8 @@ public class ProcessamentoMatriculaMBean extends SigaaAbstractController<Object>
 	public String processar() throws Exception {
 		checkRole(SigaaPapeis.ADMINISTRADOR_SIGAA);
 		
-		boolean autenticado = true;//dao.autenticacaoProcessamento(senhaProcessamento);
+		ProcessamentoMatriculaDAO daoP = getDAO(ProcessamentoMatriculaDAO.class);
+		boolean autenticado = daoP.autenticacaoProcessamento(senhaProcessamento);
 		
 		if (autenticado) {
 			

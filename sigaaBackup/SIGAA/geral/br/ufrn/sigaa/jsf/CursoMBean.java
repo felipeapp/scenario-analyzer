@@ -59,6 +59,8 @@ public class CursoMBean extends SigaaAbstractController<Curso> {
 	private Character nivel;
 	/** Tipo da busca */
 	private String tipoBusca;
+	/** Lista contando todos os cursos de especialização aceitos. */
+	private Collection<Curso> allCursoEspecializacaoAceito;
 
 	/**
 	 * construtor
@@ -319,8 +321,11 @@ public class CursoMBean extends SigaaAbstractController<Curso> {
 	 * @throws DAOException
 	 */
 	public Collection<SelectItem> getAllCursoEspecializacaoAceitoCombo() throws DAOException{
-		CursoDao dao = getDAO(CursoDao.class);
-		return toSelectItems(dao.findByNivelAceito(NivelEnsino.LATO, true, false), "id", "descricao");
+		if (allCursoEspecializacaoAceito == null) {
+			CursoDao dao = getDAO(CursoDao.class);
+			allCursoEspecializacaoAceito= dao.findByNivelAceito(NivelEnsino.LATO, true, false); 
+		}
+		return toSelectItems(allCursoEspecializacaoAceito, "id", "descricao");
 	}
 
 	/**

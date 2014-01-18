@@ -72,8 +72,13 @@
 			${convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.logradouro},
 			n&deg;
 			${convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.numero},
-
+			<h:outputText value="#{ convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.complemento }, " 
+				rendered="#{ not empty convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.complemento }" />
+			<h:outputText value="#{ convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.bairro }, " 
+				rendered="#{ not empty convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.bairro }" />
 			${convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.municipio.nome}/${convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.unidadeFederativa.sigla},
+			<h:outputText value="CEP: #{ convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.cep }, " 
+				rendered="#{ not empty convenioEstagioMBean.obj.concedente.pessoa.enderecoContato.cep }" />
 			inscrita no CNPJ/MF sob o n&deg;
 			${convenioEstagioMBean.obj.concedente.pessoa.cpfCnpjFormatado },
 			doravante denominada <b>CONCEDENTE</b>, neste ato representada por seu(ua)

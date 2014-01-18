@@ -10,15 +10,18 @@ package br.ufrn.sigaa.arq.dao.pesquisa;
 
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.jdbc.core.RowMapper;
 
 import br.ufrn.arq.dao.PagingInformation;
 import br.ufrn.arq.erros.DAOException;
@@ -27,6 +30,8 @@ import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
 import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.pesquisa.dominio.GrupoPesquisa;
+import br.ufrn.sigaa.pesquisa.dominio.MembroGrupoPesquisa;
+import br.ufrn.sigaa.pesquisa.dominio.StatusGrupoPesquisa;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
 /**
@@ -51,13 +56,35 @@ public class GrupoPesquisaDao extends GenericSigaaDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public Collection<GrupoPesquisa> findByCoordenador(Servidor servidor, PagingInformation paginacao, int anoInicial, int anoFinal) throws DAOException {
-		Criteria c = getSession().createCriteria(GrupoPesquisa.class);
-		c.add(Restrictions.eq("coordenador", servidor));
-		c.add(Restrictions.or(Restrictions.eq("ativo", true), Restrictions.isNull("ativo")));
-		c.add(Expression.sql("extract(year from this_.data_criacao) >= " + anoInicial));
-		c.add(Expression.sql("extract(year from this_.data_criacao) <= " + anoFinal));
-		
-		return c.list();
+
+		StringBuilder sql = new StringBuilder(
+				" select gp.nome, gp.codigo, gp.data_criacao, mgp.classificacao, mgp.data_inicio, mgp.data_fim" +
+				" from pesquisa.membro_grupo_pesquisa mgp" +
+				" join pesquisa.grupo_pesquisa gp using ( id_grupo_pesquisa )" +
+				" where extract(year from gp.data_criacao) <= " + anoFinal +
+				" and gp.status in " + UFRNUtils.gerarStringIn(StatusGrupoPesquisa.getAllCertificados()) +
+				" and mgp.classificacao = " + MembroGrupoPesquisa.COORDENADOR +
+				" and mgp.ativo = trueValue() " +
+				" and gp.id_coordenador= " + servidor.getId());	
+
+		List<GrupoPesquisa> lista = getJdbcTemplate().query(sql.toString(), new Object[] {}, new RowMapper() {
+				public Object mapRow(ResultSet rs, int row) throws SQLException {
+					GrupoPesquisa gp = new GrupoPesquisa();
+					gp.setNome( rs.getString("nome") );
+					gp.setCodigo( rs.getString("codigo") );  
+					gp.setDataCriacao( rs.getDate("data_criacao") );
+					
+					gp.setEquipesGrupoPesquisa(new HashSet<MembroGrupoPesquisa>(0));
+					MembroGrupoPesquisa membro = new MembroGrupoPesquisa();
+					membro.setClassificacao( rs.getInt("classificacao") );
+					membro.setDataInicio( rs.getDate("data_inicio") );
+					membro.setDataFim( rs.getDate("data_fim") );
+					gp.getEquipesGrupoPesquisa().add(membro);
+					
+					return gp;
+				}
+			});
+			return lista;
 	}
 
 	/** Retorna uma coleção de grupos de pesquisa de acordo com os parâmetros informados.

@@ -73,7 +73,7 @@ public class PoloMBean extends SigaaAbstractController<Polo> {
 		GenericDAO dao = getGenericDAO();
 		setId();
 		setReadOnly(false);
-		this.obj = dao.findAndFetch(obj.getId(), Polo.class, "polosCursos");
+		this.obj = dao.findAndFetch(obj.getId(), Polo.class, "polosCursos", "cidade", "cidade.unidadeFederativa");
 		setConfirmButton("Alterar");
 		return forward("/ead/Polo/formCoordenador.jsf");
 	}
@@ -164,7 +164,6 @@ public class PoloMBean extends SigaaAbstractController<Polo> {
 	 */
 	@SuppressWarnings("unchecked")
 	private boolean cadastro() throws ArqException {
-	
 		obj.getCidade().getUnidadeFederativa().setId(idUf);
 		obj.getCidade().setId(idCidade);
 		
@@ -180,7 +179,7 @@ public class PoloMBean extends SigaaAbstractController<Polo> {
 		
 		if ( obj.getCidade() != null ){
 			Polo poloExistente = getGenericDAO().findByExactField(Polo.class, "cidade.id",obj.getCidade().getId(),true);
-			if (poloExistente != null)
+			if (poloExistente != null && poloExistente.getId() != obj.getId())
 				erros.addErro("Já existe pólo cadastrado para este município.");
 		}
 		

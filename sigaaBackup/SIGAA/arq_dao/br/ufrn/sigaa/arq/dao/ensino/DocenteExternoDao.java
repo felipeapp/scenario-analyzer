@@ -255,8 +255,7 @@ public class DocenteExternoDao extends GenericSigaaDAO {
 	public Collection<DocenteExterno> findByPessoaDocenteExternoAtivo(String nomePessoa) throws DAOException {
 		StringBuilder query = new StringBuilder("from DocenteExterno de where ");
 		if (!("".equals(nomePessoa))) {
-			query.append(" lower(de.pessoa.nome) like lower(:pessoa) and de.ativo = :ativo" +
-						 " and (de.prazoValidade >= :hoje or de.prazoValidade is null))");
+			query.append(" lower(de.pessoa.nome) like lower(:pessoa) and de.ativo = :ativo" );
 		}else{
 			query.append(" (de.prazoValidade >= :hoje or de.prazoValidade is null))");
 		}
@@ -265,10 +264,10 @@ public class DocenteExternoDao extends GenericSigaaDAO {
 		if (!"".equals(nomePessoa)){
 			q.setParameter("pessoa", "%"+ nomePessoa + "%");
 			q.setBoolean("ativo", true);
-		}else
+		}else {
 			q.setMaxResults(200);
-		q.setDate("hoje", new Date());
-		
+			q.setDate("hoje", new Date());
+		}
 		@SuppressWarnings("unchecked")
 		Collection<DocenteExterno> lista = q.list();
 		return lista;

@@ -34,6 +34,8 @@
 		<t:navigationMenuItem itemLabel="Oferta de Vagas nos Cursos" action="#{cadastroOfertaVagasCurso.iniciarStricto}" id="ofertVagasCurso"/>
 		<t:navigationMenuItem itemLabel="Projetos de pesquisa vinculados ao programa" action="#{programaProjetoBean.iniciar}" id="ProjPesqVinculadosAoProg"/>
 
+		<t:navigationMenuItem itemLabel="Solicitar Cadastro de Componente Curricular" action="#{componenteCurricular.preCadastrarStricto}" id="solicitarCompoenenteCurricular"/>
+
 		<t:navigationMenuItem itemLabel="Componente Curricular" split="true" rendered="#{componenteCurricular.coordenadorOpcaoAlterarComponenteCurricular or componenteCurricular.coordenadorOpcaoCadastrarComponenteCurricular}">
 			<t:navigationMenuItem itemLabel="Cadastrar"   action="#{componenteCurricular.preCadastrar}"    id="cadastrarCompoenenteCurricular" rendered="#{componenteCurricular.coordenadorOpcaoCadastrarComponenteCurricular}"/>
 			<t:navigationMenuItem itemLabel="Alterar"   action="#{componenteCurricular.listar}"    id="alterarComponeneteCurricular" rendered="#{componenteCurricular.coordenadorOpcaoAlterarComponenteCurricular}"/>			
@@ -109,7 +111,7 @@
 			<t:navigationMenuItem id="parecerNEE" itemLabel="Solicitações Enviadas para CAENE" action="#{ solicitacaoApoioNee.listaAllSolicitacoes }" />
 			<t:navigationMenuItem id="manualNEE"   itemLabel="Manual de Solicitação de Apoio"  action="javascript:redirectManual()" icon="/img/report.png"/>
 		</t:navigationMenuItem>		
-		<t:navigationMenuItem itemLabel="Cadastro dos Bolsistas CNPq" action="#{ bolsaCnpqStrictoBean.listar }" />
+		<t:navigationMenuItem itemLabel="Cadastro dos Bolsistas CNPq" action="#{ bolsasCnpqStrictoMBean.listar }" />
 		<t:navigationMenuItem itemLabel="Bolsas Docência Assistida">
 			<t:navigationMenuItem itemLabel="Submeter Proposta" action="#{ solicitacaoBolsasReuniBean.iniciarCadastro }" id="submissaoPropostas"/>
 			<t:navigationMenuItem itemLabel="Consultar Propostas Cadastradas" action="#{ solicitacaoBolsasReuniBean.listBuscar }" id="consultarPropostasCadastradas"/>
@@ -220,7 +222,8 @@
 	</t:navigationMenuItem>
 	
 	<t:navigationMenuItem itemLabel="Outros" split="true" icon="/img/contato.png">
-		<t:navigationMenuItem action="#{ coordenacaoCurso.iniciarAlterarContatos }" itemLabel="Alterar dados de contato da coordenação"/>
+		<t:navigationMenuItem action="#{ coordenacaoCurso.iniciarAlterarContatos }" itemLabel="Alterar dados de contato da coordenação" id="coordenacaoCurso_iniciarAlterarContatos"/>
+		<t:navigationMenuItem action="#{ respostasAutoAvaliacaoMBean.iniciarPreenchimento }" itemLabel="Preencher a Auto Avaliação" id="calendarioAplicacaoAutoAvaliacaoMBean_iniciarPreenchimento"/>
 	</t:navigationMenuItem>
 
 

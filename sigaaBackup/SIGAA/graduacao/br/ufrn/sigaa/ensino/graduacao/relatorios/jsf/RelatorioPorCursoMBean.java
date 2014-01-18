@@ -148,7 +148,7 @@ public class RelatorioPorCursoMBean extends AbstractControllerRelatorio {
 		
 		//  Definir restrições dos cursos
 		Unidade centro = null;
-		if (isUserInRole(SigaaPapeis.SECRETARIA_CENTRO)) {
+		if (isUserInRole(SigaaPapeis.SECRETARIA_CENTRO , SigaaPapeis.PORTAL_PLANEJAMENTO)) {
 			centro = getAcessoMenu().getSecretariaCentro(); 
 		}
 		

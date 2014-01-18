@@ -29,12 +29,12 @@
 			de <t:inputCalendar renderAsPopup="true"
 					renderPopupButtonAsImage="true" size="10" maxlength="10"
 					onkeypress="return formataData(this,event)"
-					disabled="#{readOnly}"
+					disabled="#{relatorioBolsasStrictoBean.readOnly}"
 					value="#{relatorioBolsasStrictoBean.dataInicial}"
 					id="inicio" /> até <t:inputCalendar
 					renderAsPopup="true" renderPopupButtonAsImage="true" size="10"
 					maxlength="10" onkeypress="return formataData(this,event)"
-					disabled="#{readOnly}"
+					disabled="#{relatorioBolsasStrictoBean.readOnly}"
 					value="#{relatorioBolsasStrictoBean.dataFinal}"
 					id="fim" />
 		</td>
@@ -42,8 +42,8 @@
 	<tfoot>
 	<tr>
 		<td colspan="2">
-			<h:commandButton action="#{relatorioBolsasStrictoBean.gerarRelatorioBolsistas}" value="Gerar Relatório"/>
-			<h:commandButton action="#{relatorioBolsasStrictoBean.cancelar}" value="Cancelar" onclick="#{confirm}"/>
+			<h:commandButton action="#{relatorioBolsasStrictoBean.gerarRelatorioBolsistas}" value="Gerar Relatório" id="btnGerarRelatorio"/>
+			<h:commandButton action="#{relatorioBolsasStrictoBean.cancelar}" value="Cancelar" onclick="#{confirm}" id="btnCancelar"/>
 		</td>
 	</tr>
 	</tfoot>

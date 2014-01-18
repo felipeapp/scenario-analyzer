@@ -720,6 +720,22 @@ public class ComunidadeVirtualMBean extends SigaaAbstractController<ComunidadeVi
 	}
 
 	/**
+	 * Retorna uma lista de Administradores<br/><br/>
+	 * 
+	 * Método chamado pela seguinte JSP: /sigaa.war/cv/include/_info_comunidade.jsp
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<MembroComunidade> getAdministradores() {
+		return CollectionUtils.select(getParticipantes(), new Predicate() {
+			public boolean evaluate(Object obj) {
+				return ((MembroComunidade) obj).isAdministrador();
+			}
+			
+		});
+	}
+	/**
 	 * Retorna uma lista de notícias de acordo com a comunidade<br/><br/>
 	 * 
 	 * Método chamado pelas seguintes JSPs:

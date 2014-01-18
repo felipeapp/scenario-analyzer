@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoCoordenadorUnidadeRede;
+import br.ufrn.sigaa.ensino_rede.dao.TurmaRedeDao;
 import br.ufrn.sigaa.ensino_rede.dominio.CoordenadorUnidade;
+import br.ufrn.sigaa.ensino_rede.dominio.DadosCursoRede;
 import br.ufrn.sigaa.ensino_rede.dominio.TurmaRede;
 import br.ufrn.sigaa.ensino_rede.jsf.EnsinoRedeAbstractController;
 
@@ -15,6 +17,8 @@ import br.ufrn.sigaa.ensino_rede.jsf.EnsinoRedeAbstractController;
 @Component("portalCoordenadorRedeBean") @Scope("session")
 public class PortalCoordenadorRedeMBean extends EnsinoRedeAbstractController<Object> {
 
+	private List<TurmaRede> turmasAbertas;
+	
 	/**
 	 * Retorna a coordenação do curso em rede
 	 * 
@@ -26,6 +30,30 @@ public class PortalCoordenadorRedeMBean extends EnsinoRedeAbstractController<Obj
 	}
 	
 	public List<TurmaRede> getTurmasAbertas() throws DAOException {
-		return (List<TurmaRede>) getGenericDAO().findAll(TurmaRede.class);
+
+		TurmaRedeDao dao = null;
+		
+		try {
+		
+			if (turmasAbertas == null) {
+				dao = getDAO(TurmaRedeDao.class);
+				
+				TipoVinculoCoordenadorUnidadeRede vinculo = (TipoVinculoCoordenadorUnidadeRede) getUsuarioLogado().getVinculoAtivo().getTipoVinculo();
+				DadosCursoRede dc = vinculo.getCoordenacao().getDadosCurso();
+				
+				turmasAbertas = (List<TurmaRede>) dao.findTurmasAbertasByCampusAnoPeriodo(dc.getCampus().getId(),dc.getProgramaRede().getId(),null,null);
+			}
+			
+			return turmasAbertas;
+		
+		} finally {
+			if (dao != null)
+				dao.close();
+		}
 	}
+
+	public void setTurmasAbertas(List<TurmaRede> turmasAbertas) {
+		this.turmasAbertas = turmasAbertas;
+	}	
+	
 }

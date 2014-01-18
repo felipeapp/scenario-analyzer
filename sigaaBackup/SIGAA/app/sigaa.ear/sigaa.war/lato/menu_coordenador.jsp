@@ -75,7 +75,10 @@
 		</t:navigationMenuItem>
 	</t:navigationMenuItem>
 
-
+	<t:navigationMenuItem itemLabel="Outros" split="true" icon="/img/outros.png">
+		<t:navigationMenuItem action="#{ respostasAutoAvaliacaoMBean.iniciarPreenchimento }" itemLabel="Preencher a Auto Avaliação" id="calendarioAplicacaoAutoAvaliacaoMBean_iniciarPreenchimento"/>
+		<t:navigationMenuItem id="notificarParticipantesCurso" action="#{ notificarParticipantesCurso.iniciar }" itemLabel="Notificar alunos e docentes do curso"/>
+	</t:navigationMenuItem>
 </t:jscookMenu>
 
 	</h:form>

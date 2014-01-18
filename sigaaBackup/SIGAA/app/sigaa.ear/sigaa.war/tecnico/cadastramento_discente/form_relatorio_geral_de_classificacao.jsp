@@ -13,8 +13,7 @@ function mudarTodos(status) {
 <f:view>
 <a4j:keepAlive beanName="cadastramentoDiscenteTecnico"></a4j:keepAlive>
 <h2><ufrn:subSistema /> &gt; Relatório Geral de Classificação</h2>
-<div class="descricaoOperacao">
-</div>
+
 
 <h:form prependId="false">
 <table class="formulario" width="80%">
@@ -38,6 +37,15 @@ function mudarTodos(status) {
 		</td>
 	</tr>
 	<tr>
+		<th width="25%">Grupo de reserva de vagas:</th>
+		<td>
+			<h:selectOneMenu id="selectGrupo" value="#{cadastramentoDiscenteTecnico.idGrupoReservaVaga}">
+				<f:selectItem itemValue="0" itemLabel="-- TODOS --" />
+				<f:selectItems value="#{cadastramentoDiscenteTecnico.gruposCombo}" />
+			</h:selectOneMenu>
+		</td>
+	</tr>
+	<tr>
 		<th width="25%">Tipo:</th>
 		<td>
 			<h:selectOneRadio id="opcao" value="#{cadastramentoDiscenteTecnico.tipoRelatorio}">
@@ -46,7 +54,7 @@ function mudarTodos(status) {
 			</h:selectOneRadio>
 		</td>
 	</tr>
-	<tr>
+	<!-- <tr>
 		<th width="25%">Formato:</th>
 		<td>
 			<h:selectOneRadio id="formato" value="#{cadastramentoDiscenteTecnico.formatoRelatorio}">
@@ -56,6 +64,7 @@ function mudarTodos(status) {
 			</h:selectOneRadio>
 		</td>
 	</tr>
+	 -->
 	<tr>
 		<th width="25%">Ordenação:</th>
 		<td>

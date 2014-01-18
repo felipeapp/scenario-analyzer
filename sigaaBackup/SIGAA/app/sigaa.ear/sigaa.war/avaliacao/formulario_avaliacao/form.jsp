@@ -121,13 +121,22 @@ tinyMCE.init({
 	</c:if>
 	<table class="formulario" width="100%">
 		<tr>
-			<td class="caixaCinza" style="text-align: center">
+			<td colspan="2" class="caixaCinza" style="text-align: center">
 				<h:commandButton value="Adicionar Grupo de Pergunta" action="#{ cadastrarFormularioAvaliacaoInstitucionalMBean.formGrupoPergunta }" id="novoGrupoPergunta" />
+			</td>
+		</tr>
+		<tr>
+			<th class="required" width="45%">Grupo de Perguntas que determina a média geral da Avaliação:</th>
+			<td>
+				<h:selectOneMenu value="#{ cadastrarFormularioAvaliacaoInstitucionalMBean.hashGrupoMediaGeral }" id="grupoMediaGeral">
+						<f:selectItem itemValue="0" itemLabel="-- SELECIONE --"/>
+						<f:selectItems value="#{ cadastrarFormularioAvaliacaoInstitucionalMBean.grupoPerguntasCombo }"/>
+					</h:selectOneMenu>
 			</td>
 		</tr>
 		<tfoot>
 			<tr>
-				<td>
+				<td colspan="2">
 					<h:commandButton value="Cancelar" action="#{ cadastrarFormularioAvaliacaoInstitucionalMBean.cancelar }" id="cancelar" onclick="#{confirm }" />
 					<h:commandButton value="Próximo Passo >>" action="#{ cadastrarFormularioAvaliacaoInstitucionalMBean.submeterFormulario }" id="proximoPasso" />
 				</td>

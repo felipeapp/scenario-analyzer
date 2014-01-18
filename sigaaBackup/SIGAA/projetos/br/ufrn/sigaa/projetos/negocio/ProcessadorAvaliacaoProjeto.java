@@ -9,12 +9,16 @@
 package br.ufrn.sigaa.projetos.negocio;
 
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dominio.Movimento;
 import br.ufrn.arq.dominio.MovimentoCadastro;
+import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
@@ -22,6 +26,7 @@ import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.projetos.AvaliacaoDao;
+import br.ufrn.sigaa.arq.dao.projetos.OrcamentoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.arq.util.EnvioMensagemHelper;
 import br.ufrn.sigaa.negocio.ProjetoHelper;
@@ -254,15 +259,24 @@ public class ProcessadorAvaliacaoProjeto extends AbstractProcessador {
 		@SuppressWarnings("unchecked")
 		List<Projeto> projetos = (List<Projeto>) ((MovimentoCadastro)mov).getColObjMovimentado();
 		AvaliacaoDao dao = getDAO(AvaliacaoDao.class, mov);
+		OrcamentoDao orcamentoDao = getDAO(OrcamentoDao.class, mov);
 		try {
 			//Finaliza a distribuição
 			dao.updateField(DistribuicaoAvaliacao.class, distribuicao.getId(), "avaliacaoConsolidada", Boolean.TRUE);
+			orcamentoDao.carregarOrcamentoConsolidadoProjetos((HashMap<Integer, Projeto>) convertListToMap(projetos));
 			
 			//Alterando a situação de todos os projetos para avaliado
 			for (Projeto projeto : projetos) {
-					projeto.setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.PROJETO_BASE_AVALIADO));
-					dao.updateField(Projeto.class, projeto.getId(), "situacaoProjeto.id", projeto.getSituacaoProjeto().getId());
-					ProjetoHelper.gravarHistoricoSituacaoProjeto(projeto.getSituacaoProjeto().getId(), projeto.getId(), mov.getUsuarioLogado().getRegistroEntrada());
+				projeto.setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.PROJETO_BASE_AVALIADO));
+				dao.updateField(Projeto.class, projeto.getId(), "situacaoProjeto.id", projeto.getSituacaoProjeto().getId());
+				ProjetoHelper.gravarHistoricoSituacaoProjeto(projeto.getSituacaoProjeto().getId(), projeto.getId(), mov.getUsuarioLogado().getRegistroEntrada());
+
+				if (projeto.isRecebeuFinanciamentoInterno())
+					projeto.setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.PROJETO_BASE_APROVADO_COM_RECURSOS));
+				else
+					projeto.setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.PROJETO_BASE_APROVADO_SEM_RECURSOS));
+				dao.updateField(Projeto.class, projeto.getId(), "situacaoProjeto.id", projeto.getSituacaoProjeto().getId());
+				ProjetoHelper.gravarHistoricoSituacaoProjeto(projeto.getSituacaoProjeto().getId(), projeto.getId(), mov.getUsuarioLogado().getRegistroEntrada());
 			}
 			
 			//Cancelando as avaliações pendentes.
@@ -274,8 +288,17 @@ public class ProcessadorAvaliacaoProjeto extends AbstractProcessador {
 			}			
 		}finally {	
 			dao.close();
+			orcamentoDao.close();
 		}
 	}
+	
+	public static <T extends PersistDB> Map<Integer, T> convertListToMap(Collection<T> list) {
+	    Map<Integer, T> newMap = new HashMap<Integer, T>();
+	    for( T item : list )
+	        newMap.put(item.getId(), item );
+	    return newMap;
+	}
+		
 	
 	/**
 	 * Responsável por realizar a classificação dos projetos.

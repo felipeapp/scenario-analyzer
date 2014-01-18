@@ -59,6 +59,7 @@ import br.ufrn.arq.negocio.validacao.MensagemAviso;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.arq.seguranca.autenticacao.AutenticacaoUtil;
+import br.ufrn.arq.seguranca.log.LogExcecao;
 import br.ufrn.arq.seguranca.log.SessionLogger;
 import br.ufrn.arq.seguranca.log.UserAgent;
 import br.ufrn.arq.tasks.CancelamentoTarefasScheduler;
@@ -222,6 +223,7 @@ public class ViewFilter implements Filter {
 						request.setAttribute("mensagem", "Sua sessão foi expirada. É necessário  autenticar-se novamente!");
 						response.sendRedirect(request.getContextPath() + "/mobile/login.jsp");
 					} else {
+						LogExcecao.logarErroSessao(request);
 						response.sendRedirect(request.getContextPath() + "/expirada.jsp");
 					}
 					

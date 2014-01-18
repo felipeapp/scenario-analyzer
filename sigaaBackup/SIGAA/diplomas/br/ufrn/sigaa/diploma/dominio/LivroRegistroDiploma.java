@@ -7,6 +7,7 @@
  */
 package br.ufrn.sigaa.diploma.dominio;
 
+import static br.ufrn.arq.util.ValidatorUtil.validateMinValue;
 import static br.ufrn.arq.util.ValidatorUtil.validateRequired;
 
 import java.util.ArrayList;
@@ -321,6 +322,7 @@ public class LivroRegistroDiploma implements Validatable {
 			if (registroExterno)
 				validateRequired(instituicao, "Instituição", lista);
 		}
+		validateMinValue(numeroRegistroPorFolha, 1, "Número de Registros por Folha", lista);
 		return lista;
 	}
 	

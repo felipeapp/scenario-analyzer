@@ -97,6 +97,37 @@ public class MatriculaComponenteDao extends GenericSigaaDAO  {
 	}
 
 	/**
+	 * Busca todas as turmas,exclusivamente para outros niveis, nas quais um discente possui matrícula
+	 * com status MATRICULADO.
+	 * 
+	 * TODO refazer
+	 * @param discente
+	 * @return
+	 * @throws DAOException
+	 */
+	public Collection<Turma> findTurmasMatriculadasByDiscenteOutrosCursos(Discente discente, Integer ano, Integer periodo) throws DAOException {
+		StringBuilder hql = new StringBuilder();
+		hql.append("select mc.turma ");
+		
+		hql.append(" FROM MatriculaComponente mc " +
+			" WHERE mc.discente.pessoa.id=" + discente.getPessoa().getId() +
+			" and mc.situacaoMatricula in " + gerarStringIn(SituacaoMatricula.getSituacoesMatriculadas()) +
+			" and mc.ano = " + ano + 
+			" and mc.periodo = " + periodo +
+			" and mc.discente.nivel <> '" + discente.getNivel() + "'" +
+			" and mc.componente.tipoComponente.id in " + gerarStringIn(TipoComponenteCurricular.getNaoAtividades()) +
+			" ORDER BY mc.turma.disciplina.codigo");
+		
+		Collection<Turma> turmas = null;
+		@SuppressWarnings("unchecked")
+		Collection<Turma> lista  = getSession().createQuery(hql.toString()).list();		
+		turmas = lista;
+		
+		return turmas;
+		
+	}
+	
+	/**
 	 * Método com mesma funcionalidade que o {@link #findByDiscente(Discente discente, SituacaoMatricula... situacoes)},
 	 * mas que recebe como parâmetro uma coleção de situações, e não um array.
 	 * .

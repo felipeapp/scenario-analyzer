@@ -6,26 +6,28 @@
 package br.ufrn.sigaa.ensino.graduacao.jsf;
 
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
+import static br.ufrn.arq.util.ValidatorUtil.validateRequired;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.StringUtils;
-import br.ufrn.sigaa.arq.dao.DiscenteDao;
+import br.ufrn.sigaa.arq.dao.graduacao.DiscenteGraduacaoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
-import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
 import br.ufrn.sigaa.ensino.graduacao.dominio.DiscenteGraduacao;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
@@ -40,10 +42,26 @@ import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 @Scope("request")
 public class GerarArquivoENADEMBean extends SigaaAbstractController<Discente> {
 
+	/** Tipos de separadores CSV utilizados. */
+	private enum Separador {
+		PONTO_E_VIRGULA, VIRGULA, TABULACAO, ESPACO;
+		public String getCaractereSeparador() {
+			switch (this) {
+			case PONTO_E_VIRGULA : return ";";
+			case VIRGULA : return ",";
+			case TABULACAO : return "\t";
+			case ESPACO : return " ";
+			default : return null;
+			}
+		}
+	}
+	
 	/** Lista de matrículas para geração do arquivo. */
 	private String matriculas;
 	/** Tipo de discente. */
 	private String tipo;
+	/** Caractere separador utilizado na lista de matrículas. */
+	private Separador separador;
 
 	/**
 	 * Gera o arquivo para upload no ENADE.<br>
@@ -58,65 +76,68 @@ public class GerarArquivoENADEMBean extends SigaaAbstractController<Discente> {
 	 * @throws SegurancaException
 	 */
 	public String gerarArquivo() throws IOException, DAOException, SegurancaException {
-
 		checkRole(SigaaPapeis.DAE, SigaaPapeis.ADMINISTRADOR_SIGAA);
-
-		DiscenteDao dao = getDAO(DiscenteDao.class);
-
-		ArrayList<Integer> listaMatriculas = new ArrayList<Integer>();
-
-		// Busca as matrículas com o separador do "\n"
-		StringTokenizer st = new StringTokenizer(matriculas);
-		while (st.hasMoreTokens()) {
-			
-			String token = st.nextToken();
-			Integer matricula = 0;
-			
-			try {
-				matricula = Integer.parseInt(token);
-			} catch(NumberFormatException e) {
-				addMensagemErro("A matrícula " + token + " é inválida.");
-				return null;
+		ArrayList<Long> listaMatriculas = new ArrayList<Long>();
+		// separa as matrículas informadas pelo usuário
+		if (!isEmpty(matriculas)) {
+			String delim = separador.getCaractereSeparador();
+			StringTokenizer st = new StringTokenizer(matriculas, delim);
+			while (st.hasMoreTokens()) {
+				String token = st.nextToken().trim().replace("\r", "").replace("\n", "");
+				if (isEmpty(token)) continue;
+				Long matricula;
+				try {
+					matricula = Long.parseLong(token);
+				} catch(NumberFormatException e) {
+					addMensagemErro("A matrícula " + token + " é inválida.");
+					return null;
+				}
+				listaMatriculas.add(matricula);
 			}
-			
-			listaMatriculas.add(matricula);
 		}
-
+		validateRequired(listaMatriculas, "Matrículas", erros);
+		if (hasErrors()) return null;
+		// consulta os discentes
+		DiscenteGraduacaoDao dao = getDAO(DiscenteGraduacaoDao.class);
+		Collection<DiscenteGraduacao> discentes = dao.findByMatriculas(listaMatriculas);
+		// valida se todas as matrículas foram encontradas
+		StringBuffer naoEncontrada = new StringBuffer();
+		for (Long matricula : listaMatriculas) {
+			boolean encontrada = false;
+			for (DiscenteGraduacao discente : discentes) {
+				if (matricula.equals(discente.getMatricula())) {
+					encontrada = true; 
+					continue;
+				}
+			}
+			if (!encontrada) naoEncontrada.append(matricula).append(", ");
+		}
+		if (naoEncontrada.lastIndexOf(", ") > 0) {
+			naoEncontrada.delete(naoEncontrada.lastIndexOf(", "), naoEncontrada.length());
+			addMensagemErro("A(s) seguinte(s) matrícula(s) não foi(ram) encontrada(s): " +naoEncontrada);
+			return null;
+		}
 		String codigoINEP = null;
-
 		String nomeCurso = null;
 		
-		ArrayList<String> linhas = new ArrayList<String>();
-		
 		DecimalFormat df = new DecimalFormat("00000000000");
-		
-		for (Integer matricula : listaMatriculas) {
-
+		ArrayList<String> linhas = new ArrayList<String>();
+		for (DiscenteGraduacao discente : discentes) {
 			StringBuffer buffer = new StringBuffer();
-			
-			DiscenteAdapter d = dao.findByMatricula(matricula, NivelEnsino.GRADUACAO);
-			
-			if (isEmpty(d)) {
-				addMensagemErro("O discente " + matricula + " não foi encontrado");
-				return null;
-			}
-			
-			DiscenteGraduacao dg = (DiscenteGraduacao) dao.findByPK(d.getId());
-			
-
-			nomeCurso = StringUtils.toAscii(d.getCurso().getDescricao()).replace(" ", "_");
-			
+			nomeCurso = StringUtils.toAscii(discente.getCurso().getDescricao()).replace(" ", "_");
 			append(buffer, "0570" );
-			append(buffer, dg.getCurso().getCodigoINEP());
-			codigoINEP = dg.getCurso().getCodigoINEP();
+			codigoINEP = discente.getMatrizCurricular().getCodigoINEP();
+			if (isEmpty(codigoINEP)) codigoINEP = discente.getCurso().getCodigoINEP();
+			append(buffer, codigoINEP);
 
+			
 			if (isConcluinte()) {
 				buffer.append("C;");
 			} else {
 				buffer.append("I;");
 			}
 			
-			Pessoa p = dg.getPessoa();
+			Pessoa p = discente.getPessoa();
 			// Tratamento do CPF
 
 			Long cpf = p.getCpf_cnpj();
@@ -175,25 +196,25 @@ public class GerarArquivoENADEMBean extends SigaaAbstractController<Discente> {
 			append(buffer, DDD+telefone);
 			
 			// Ano de conclusão do ensino médio
-			Short anoConclusaoMedio =  dg.getAnoConclusaoMedio();
+			Short anoConclusaoMedio =  discente.getAnoConclusaoMedio();
 			if (anoConclusaoMedio == null) {
-				anoConclusaoMedio = new Short( (short) (dg.getAnoEntrada() - 1));
+				anoConclusaoMedio = new Short( (short) (discente.getAnoEntrada() - 1));
 			}
 			append(buffer, anoConclusaoMedio + "");
 
 			// Ano de início da graduação
 			if ( isConcluinte() ) {
-				append(buffer, (dg.getAnoEntrada()) + ""); 
+				append(buffer, (discente.getAnoEntrada()) + ""); 
 			} else {
 				append(buffer, "");
 			}
 			
 			// CEP do Município do pólo (somente para alunos EAD)
-			if (dg.getPolo() != null) {
-				if(dg.getPolo().getCep() == null || StringUtils.isEmpty(dg.getPolo().getCep())){
+			if (discente.getPolo() != null) {
+				if(discente.getPolo().getCep() == null || StringUtils.isEmpty(discente.getPolo().getCep())){
 					append(buffer,"59000000");
 				} else {
-					String cep = dg.getPolo().getCep();
+					String cep = discente.getPolo().getCep();
 					cep = cep.replace("-", "");
 					cep = cep.replace(".", "");
 					append(buffer, cep.trim());
@@ -202,9 +223,9 @@ public class GerarArquivoENADEMBean extends SigaaAbstractController<Discente> {
 				append(buffer, "");
 			}
 			
-			buffer.append((dg.getMatrizCurricular().getTurno().isManha() == true ? "1" : "0") + ";");
-			buffer.append((dg.getMatrizCurricular().getTurno().isTarde() == true ? "1" : "0")	+ ";");
-			buffer.append((dg.getMatrizCurricular().getTurno().isNoite() == true ? "1" : "0")	+ ";");
+			buffer.append((discente.getMatrizCurricular().getTurno().isManha() == true ? "1" : "0") + ";");
+			buffer.append((discente.getMatrizCurricular().getTurno().isTarde() == true ? "1" : "0")	+ ";");
+			buffer.append((discente.getMatrizCurricular().getTurno().isNoite() == true ? "1" : "0")	+ ";");
 
 			
 			linhas.add(buffer.toString());
@@ -257,5 +278,21 @@ public class GerarArquivoENADEMBean extends SigaaAbstractController<Discente> {
 		this.tipo = tipo;
 	}
 
-	
+	public Collection<SelectItem> getSeparadoresCombo() {
+		Collection<SelectItem> lista = new LinkedList<SelectItem>();
+		lista.add(new SelectItem(Separador.PONTO_E_VIRGULA, "PONTO E VÍRGULA"));
+		lista.add(new SelectItem(Separador.VIRGULA, "VÍRGULA"));
+		lista.add(new SelectItem(Separador.TABULACAO, "TABULAÇÃO"));
+		lista.add(new SelectItem(Separador.ESPACO, "ESPAÇO"));
+		return lista;
+	}
+
+	public Separador getSeparador() {
+		return separador;
+	}
+
+	public void setSeparador(Separador separador) {
+		this.separador = separador;
+	}
+
 }

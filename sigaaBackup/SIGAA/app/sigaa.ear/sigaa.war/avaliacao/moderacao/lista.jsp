@@ -20,7 +20,7 @@
 					<td width="5%">
 						<h:selectBooleanCheckbox value="#{moderadorObservacaoBean.checkBuscaDepartamento}" id="checkBuscaDepartamento" styleClass="noborder"/>
 					</td>
-					<th><label for="checkBuscaDepartamento" onclick="$('form:checkBuscaDepartamento).checked = !$('form:checkBuscaDepartamento').checked;">Departamento:</label></th>
+					<th><label for="checkBuscaDepartamento" onclick="$('form:checkBuscaDepartamento').checked = !$('form:checkBuscaDepartamento').checked;">Departamento:</label></th>
 					<td>
 						<h:selectOneMenu
 							onfocus="javascript:$('form:checkBuscaDepartamento').checked = true;"
@@ -35,12 +35,12 @@
 					<td>
 						<h:selectBooleanCheckbox value="#{moderadorObservacaoBean.checkBuscaAnoPeriodo}" id="checkBuscaAnoPeriodo" styleClass="noborder"/>
 					</td>
-					<th><label for="checkBuscaAnoPeriodo" onclick="$('form:checkBuscaAnoPeriodo).checked = !$('form:checkBuscaAnoPeriodo').checked;">Ano-Período:</label></th>
+					<th><label for="checkBuscaAnoPeriodo" onclick="$('form:checkBuscaAnoPeriodo').checked = !$('form:checkBuscaAnoPeriodo').checked;">Ano-Período:</label></th>
 					<td>
 						<h:selectOneMenu
 							onfocus="javascript:$('form:checkBuscaAnoPeriodo').checked = true;"
 							id="anoPeriodo"
-							value="#{moderadorObservacaoBean.anoPeriodo}">
+							value="#{moderadorObservacaoBean.idParametroProcessamento}">
 							<f:selectItem itemValue="0" itemLabel="-- SELECIONE --" />
 							<f:selectItems value="#{relatorioAvaliacaoMBean.anoPeriodoCombo}" />
 						</h:selectOneMenu>
@@ -51,7 +51,7 @@
 						<td>
 							<h:selectBooleanCheckbox value="#{moderadorObservacaoBean.checkBuscaNome}" id="checkBuscaNome" styleClass="noborder"/>
 						</td>
-						<th><label for="checkBuscaNome" onclick="$('form:checkBuscaNome).checked = !$('form:checkBuscaNome').checked;">Docente:</label></th>
+						<th><label for="checkBuscaNome" onclick="$('form:checkBuscaNome').checked = !$('form:checkBuscaNome').checked;">Docente:</label></th>
 						<td>
 							<h:inputText value="#{moderadorObservacaoBean.docente.pessoa.nome}" id="nomeServidor" size="59" maxlength="256" onfocus="javascript:$('form:checkBuscaNome').checked = true;"/>
 							<rich:suggestionbox for="nomeServidor" width="450" height="100" minChars="3" id="suggestionNomeServidor" 
@@ -143,6 +143,7 @@
 								</td>
 								<td style="text-align: right;">
 									${linha.qtd_observacoes_docente_turma}
+									<h:outputText value="0" rendered="#{empty linha.qtd_observacoes_docente_turma}" />
 								</td>
 								<td width="5%" style="text-align: right;">
 									<c:if test="${linha.qtd_observacoes_docente_turma > 0 and not linha.docente_turma_finalizado}">

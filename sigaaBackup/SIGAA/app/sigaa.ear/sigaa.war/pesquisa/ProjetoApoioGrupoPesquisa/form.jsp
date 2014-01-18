@@ -95,7 +95,7 @@ function limitText(limitField, limitCount, limitNum) {
 			<tr>
 				<th class="obrigatorio">Título:</th>
 				<td> 
-					<h:inputText id="titulo" value="#{ projetoApoioGrupoPesquisaMBean.obj.projeto.titulo}" size="65" maxlength="100"/>
+					<h:inputText id="titulo" value="#{ projetoApoioGrupoPesquisaMBean.obj.projeto.titulo}" size="65" maxlength="400"/>
 				</td>
 			</tr>
 

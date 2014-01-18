@@ -20,9 +20,11 @@ import br.ufrn.arq.email.MailBody;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
+import br.ufrn.sigaa.arq.dao.pesquisa.AvaliacaoResumoDao;
 import br.ufrn.sigaa.arq.dao.pesquisa.ResumoCongressoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.pesquisa.dominio.AvaliacaoResumo;
 import br.ufrn.sigaa.pesquisa.dominio.ResumoCongresso;
 
 /**
@@ -36,6 +38,10 @@ public class AutorizacaoResumoMBean extends SigaaAbstractController<ResumoCongre
 	
 	/** Armazena os resumos pendentes de avaliação */
 	private Collection<ResumoCongresso> resumosPendentes;
+	
+	private Collection<AvaliacaoResumo> avaliacoes;
+	
+	private AvaliacaoResumo avaliacao;
 	
 	/**
 	 * Exibe todos os resumos submetidos por discentes.
@@ -71,6 +77,17 @@ public class AutorizacaoResumoMBean extends SigaaAbstractController<ResumoCongre
 				getUsuarioLogado().getServidorAtivo().getId());
 	}
 	
+	public String listarResumosComissao() throws DAOException{
+		AvaliacaoResumoDao dao = getDAO(AvaliacaoResumoDao.class);
+		try {
+			avaliacoes = dao.findByAllResumoCongresso();
+		} finally {
+			dao.close();
+		}
+	
+		return forward("/pesquisa/autorizacao_resumo/lista_comissao.jsp");
+	}
+	
 	/**
 	 * Prepara a avaliação do resumo.
 	 * 
@@ -89,6 +106,27 @@ public class AutorizacaoResumoMBean extends SigaaAbstractController<ResumoCongre
 		prepareMovimento(SigaaListaComando.RECUSAR_RESUMO_CONGRESSO_IC);
 		prepareMovimento(SigaaListaComando.RECUSADO_NECESSITA_CORRECOES);
 		return forward("/pesquisa/autorizacao_resumo/autorizar_resumo.jsp");
+	}
+	
+	/**
+	 * Prepara a avaliação do resumo.
+	 * 
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * 	<li>/SIGAA/app/sigaa.ear/sigaa.war/pesquisa/autorizacao_resumo/lista.jsp</li>
+	 * </ul>
+	 * 
+	 * @return
+	 * @throws ArqException
+	 */
+	public String preAutorizarResumoComissao() throws ArqException {
+		avaliacao = getGenericDAO().findAndFetch(getParameterInt("idAvaliacao"), AvaliacaoResumo.class, "avaliador", "resumo");
+		avaliacao.getResumo().setIdAvaliacao(avaliacao.getId());
+		setObj(avaliacao.getResumo());
+		prepareMovimento(SigaaListaComando.AUTORIZAR_RESUMO_CONGRESSO_IC);
+		prepareMovimento(SigaaListaComando.RECUSAR_RESUMO_CONGRESSO_IC);
+		prepareMovimento(SigaaListaComando.RECUSADO_NECESSITA_CORRECOES);
+		return forward("/pesquisa/autorizacao_resumo/autorizar_resumo_comissao.jsp");
 	}
 	
 	/**
@@ -123,6 +161,22 @@ public class AutorizacaoResumoMBean extends SigaaAbstractController<ResumoCongre
 		return modificarStatusResumo();
 	}
 
+	/**
+	 * Autoriza o resumo pelo coordenador (docente).
+	 * 
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * 	<li>/SIGAA/app/sigaa.ear/sigaa.war/pesquisa/autorizacao_resumo/autorizar_resumo.jsp</li>
+	 * </ul>
+	 * 
+	 * @return
+	 * @throws ArqException
+	 */
+	public String corrigirResumo() throws ArqException {
+		obj.setCodMovimento(SigaaListaComando.RECUSADO_NECESSITA_CORRECOES);
+		return modificarStatusResumo();
+	}
+	
 	/**
 	 * Recusa o resumo informando as correções necessárias.
 	 * 
@@ -214,8 +268,14 @@ public class AutorizacaoResumoMBean extends SigaaAbstractController<ResumoCongre
 			return null;
 		}
 		carregarResumos();
-		return resumosPendentes.isEmpty() ? redirect("/verPortalDocente.do") 
-				: forward("/pesquisa/autorizacao_resumo/lista.jsp");
+		
+		if (isPortalDocente()) {
+			return resumosPendentes.isEmpty() ? redirect("/verPortalDocente.do") 
+					: forward("/pesquisa/autorizacao_resumo/lista.jsp");
+		} else {
+			return listarResumosComissao();
+		}
+
 	}
 
 	public void setResumosPendentes(Collection<ResumoCongresso> resumosPendentes) {
@@ -226,4 +286,20 @@ public class AutorizacaoResumoMBean extends SigaaAbstractController<ResumoCongre
 		return resumosPendentes;
 	}
 
+	public Collection<AvaliacaoResumo> getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(Collection<AvaliacaoResumo> avaliacoes) {
+		this.avaliacoes = avaliacoes;
+	}
+
+	public AvaliacaoResumo getAvaliacao() {
+		return avaliacao;
+	}
+
+	public void setAvaliacao(AvaliacaoResumo avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+	
 }

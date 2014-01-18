@@ -10,6 +10,8 @@ package br.ufrn.sigaa.ensino.latosensu.dominio;
 
 // Generated 13/09/2006 08:49:22 by Hibernate Tools 3.1.0.beta5
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -228,6 +230,7 @@ public class CursoLato extends Curso {
 	/** Unidade Orçamentária do Curso */
 	private Unidade unidadeOrcamentaria = new Unidade(); 
 	
+	/**Adamento do curso Lato*/
 	private Double andamento;
 	
 	/** Financiamento curso Lato */ 
@@ -250,6 +253,16 @@ public class CursoLato extends Curso {
 	
 	/** Título dado ao discente em reconhecimento a conclusão do curso. */
 	private String habilitacaoEspecifica;
+		
+	/** Prefixo utilizao para gerar o código */
+	String prefixo;
+
+	/** Número que se refere ao código do curso Lato */
+	Integer numero;
+
+	/** Referente ao código do ano do código do curso Lato*/
+	Integer ano;
+	
 	
 	// Constructors
 
@@ -1054,6 +1067,43 @@ public class CursoLato extends Curso {
 
 	public void setHabilitacaoEspecifica(String habilitacaoEspecifica) {
 		this.habilitacaoEspecifica = habilitacaoEspecifica;
+	}
+	
+	/** Representação o código sequencial para os curso de lato */
+	@Transient
+	public String getCodigoLatoCompleto() {
+		NumberFormat format = new DecimalFormat("000");
+		return prefixo != null ?  this.prefixo + format.format(numero) + "-" + getAno() : "";
+	}
+
+	
+	@Column(name = "cod_prefixo")
+	public String getPrefixo() {
+		return prefixo;
+	}
+
+	public void setPrefixo(String prefixo) {
+		this.prefixo = prefixo;
+	}
+
+	
+	@Column(name = "cod_numero")
+	public Integer getNumero() {
+		return numero;
+	}
+	
+	
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	@Column(name = "cod_ano")
+	public Integer getAno() {
+		return ano;
+	}
+
+	public void setAno(Integer ano) {
+		this.ano = ano;
 	}
 
 }

@@ -183,19 +183,26 @@ public class ProcessadorAtualizaExemplar extends AbstractProcessador{
 				
 			    /* *********************************************************************************************************************************
 				* Se o material está emprestado atualmente e o usuário está tentando alterar para uma situação diferente de empretado //
-				*  Pode ocorrer caso o usuário abra a tela de alterar o materail antes de realizar o empréstimos, e clicar em atualizar depois de realizar o empréstimo //
+				*  Pode ocorrer caso o usuário abra a tela de alterar o material antes de realizar o empréstimos, e clicar em atualizar depois que realizou o empréstimo //
+				*  Pode ocorrer o contrário, o usuário abre a tela de alterar o material antes de realizar a devolução, e clicar em atualizar depois que devolveu o empréstimos (ocorreu o primeiro caso em 16/10/2013 ) //
 				* **********************************************************************************************************************************/
 				
 				if(! mov.isPermiteAtualizacaoDeEmprestados()){
 					
-					SituacaoMaterialInformacional situacaoEmprestado = dao.findByExactField(
-							SituacaoMaterialInformacional.class, "situacaoEmprestado", true, true);
+					SituacaoMaterialInformacional situacaoEmprestado = dao.findByExactField(SituacaoMaterialInformacional.class, "situacaoEmprestado", true, true);
 					
 					SituacaoMaterialInformacional situacaoAtual =  situacaoDao.findSituacaoAtualMaterial(exemplar.getId());
 					
+					// Tentar alterar o material ao mesmo tempo que empresta //
 					if(situacaoAtual.isSituacaoEmprestado() && exemplar.getSituacao().getId() != situacaoEmprestado.getId()){
-						lista.addErro(" A situação do exemplar não pode ser alterada, pois ele está "+situacaoEmprestado.getDescricao() );
+						throw new NegocioException(" A situação do exemplar não pode ser alterada, pois ele está "+situacaoEmprestado.getDescricao() );
 					}
+					
+					// Tentar alterar o material ao mesmo tempo que devolve //
+					if(  exemplar.getSituacao().isSituacaoEmprestado() && ! situacaoAtual.isSituacaoEmprestado()){
+						throw new NegocioException(" A situação do exemplar não pode ser alterada para \""+exemplar.getSituacao().getDescricao()+"\", pois ele está \""+situacaoAtual.getDescricao()+"\"");
+					}
+					
 				}
 				
 				dao.detach(exemplarDoBanco);

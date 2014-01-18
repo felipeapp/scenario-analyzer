@@ -48,6 +48,8 @@ public class LocalizacaoNoticiaPortal {
 	public static final String PORTAL_CHEFIA_UNIDADE = "portal_chefia_unidade";
 	
 	public static final String PORTAL_SIGPP = "portal_sigpp";
+	
+	public static final String PORTAL_PROGRAMA_REDE = "portal_programa_rede";
 
 	private static Map<String, Portal> portais; 
 	
@@ -72,6 +74,7 @@ public class LocalizacaoNoticiaPortal {
 		portais.put(PORTAL_AVALIACAO_INSTITUCIONAL, new Portal(PORTAL_AVALIACAO_INSTITUCIONAL, "Portal Avaliação Institucional"));
 		portais.put(PORTAL_CHEFIA_UNIDADE, new Portal(PORTAL_CHEFIA_UNIDADE, "Portal da Chefia da Unidade"));
 		portais.put(PORTAL_SIGPP, new Portal(PORTAL_SIGPP, "Portal SIGPP"));
+		portais.put(PORTAL_PROGRAMA_REDE, new Portal(PORTAL_PROGRAMA_REDE, "Portal Programa em Rede"));
 	}
 	
 	/**

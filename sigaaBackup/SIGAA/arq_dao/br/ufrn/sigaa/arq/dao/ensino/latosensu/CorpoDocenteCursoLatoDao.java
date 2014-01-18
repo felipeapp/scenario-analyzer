@@ -43,9 +43,11 @@ public class CorpoDocenteCursoLatoDao extends GenericSigaaDAO {
 		
 		if (result != null) {
 			for ( CorpoDocenteCursoLato linha : result ) {
-				if (ValidatorUtil.isNotEmpty(linha.getDocenteExterno()) && ValidatorUtil.isNotEmpty(linha.getDocenteExterno().getIdPerfil()))
-					linha.setLinkCurriculoLattes( PerfilPessoaDAO.getDao().get(linha.getDocenteExterno().getIdPerfil()).getEnderecoLattes() );
-				else if (ValidatorUtil.isNotEmpty(linha.getServidor()) && ValidatorUtil.isNotEmpty(linha.getServidor().getIdPerfil())) {
+				if (ValidatorUtil.isNotEmpty(linha.getDocenteExterno()) && ValidatorUtil.isNotEmpty(linha.getDocenteExterno().getIdPerfil())) {
+					PerfilPessoa perfil = PerfilPessoaDAO.getDao().get(linha.getDocenteExterno().getIdPerfil());
+					if (perfil != null)
+						linha.setLinkCurriculoLattes( perfil.getEnderecoLattes() );
+				} else if (ValidatorUtil.isNotEmpty(linha.getServidor()) && ValidatorUtil.isNotEmpty(linha.getServidor().getIdPerfil())) {
 					PerfilPessoa perfil = PerfilPessoaDAO.getDao().get(linha.getServidor().getIdPerfil());
 					linha.setLinkCurriculoLattes( perfil != null ? perfil.getEnderecoLattes() : null );
 				} else
@@ -108,7 +110,7 @@ public class CorpoDocenteCursoLatoDao extends GenericSigaaDAO {
 				" INNER JOIN cdcl.servidor " +
 				" INNER JOIN cdcl.servidor.ativo " +
 				" where cdcl.cursoLato = :cursoLato and " + 
-				UFRNUtils.toAsciiUpperUTF8("cdcl.servidor.pessoa.nome") + " like " +
+				UFRNUtils.toAsciiUpperUTF8("cdcl.servidor.pessoa.nomeAscii") + " like " +
 				UFRNUtils.toAsciiUTF8("'" + nomeDocente.toUpperCase() + "%'"));
 		
 		q.setInteger("cursoLato", curso.getId());

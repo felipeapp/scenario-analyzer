@@ -1,7 +1,7 @@
 package br.ufrn.integracao.interfaces;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 
 import javax.jws.WebService;
 
@@ -92,4 +92,46 @@ public interface SolicitacaoInformativoRemoteService extends Serializable {
 	 * @throws DAOException 
 	 */
 	public boolean negarSolicitacaoInformativo(Integer idSolicitacaoInformativo);
+	
+	/**
+	 * Busca as solicitações de informativo do tipo PORTARIA de acordo com os identificadores informados no parâmetro.
+	 *  
+	 * @param idsSolicitacaoInformativo
+	 * 
+	 * @return
+	 * @throws NegocioRemotoException
+	 */
+	public List<SolicitacaoInformativoDTO> buscaSolicitacoesInformativo(Integer[] idsSolicitacaoInformativo) throws NegocioRemotoException;
+	
+	/**
+	 * Busca por uma determinada solicitacao de informativo de acordo com o parametro informado 
+	 * 
+	 * @param idSolicitacaoInformativo
+	 * 
+	 * @return
+	 * @throws NegocioRemotoException
+	 */
+	public SolicitacaoInformativoDTO buscaSolicitacaoInformativo(Integer idSolicitacaoInformativo) throws NegocioRemotoException;
+	
+	/**
+	 * Busca todas as solicitacoes de informativo de acordo com o numero e ano ou apenas numero ou ano.
+	 * 
+	 * @param numero
+	 * @param ano
+	 * 
+	 * @return
+	 * @throws NegocioRemotoException
+	 */
+	public List<SolicitacaoInformativoDTO> buscaSolicitacaoInformativoPorNumeroAno(Integer numero, Integer ano) throws NegocioRemotoException;
+	
+	/**
+	 * Busca uma portaria por numero, ano ou unidade.
+	 * 
+	 * @param numero
+	 * @param ano
+	 * @param unidade
+	 * @return
+	 * @throws NegocioRemotoException
+	 */
+	public List<Object[]> buscaPortariaPorNumeroAnoOuUnidade(Integer numero, Integer ano, Integer unidade) throws NegocioRemotoException;
 }

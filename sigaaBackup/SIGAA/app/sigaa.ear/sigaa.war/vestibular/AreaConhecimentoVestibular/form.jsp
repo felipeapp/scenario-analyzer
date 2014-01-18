@@ -11,14 +11,14 @@
 				<td><h:inputText
 					value="#{areaConhecimentoVestibular.obj.descricao}" size="60"
 					readonly="#{areaConhecimentoVestibular.readOnly}"
-					disabled="#{readOnly}" maxlength="80" /></td>
+					disabled="#{areaConhecimentoVestibular.readOnly}" maxlength="80" /></td>
 			</tr>
 			<tr>
 				<th>Ativo:</th>
 				<td><h:selectBooleanCheckbox
 					value="#{areaConhecimentoVestibular.obj.ativo}"
 					readonly="#{areaConhecimentoVestibular.readOnly}"
-					disabled="#{readOnly}" /></td>
+					disabled="#{areaConhecimentoVestibular.readOnly}" /></td>
 			</tr>
 			<tfoot>
 				<tr>

@@ -9,6 +9,8 @@
  */
 package br.ufrn.sigaa.extensao.jsf.inscricoes_atividades;
 
+import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,9 @@ import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.arq.util.StringUtils;
+import br.ufrn.comum.dao.BaseCorreiosDAO;
+import br.ufrn.comum.dominio.Sistema;
+import br.ufrn.comum.dominio.correios.Logradouro;
 import br.ufrn.sigaa.arq.dao.MunicipioDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
@@ -664,9 +669,12 @@ public class CadastroParticipanteAtividadeExtensaoMBean  extends SigaaAbstractCo
 	 */
 	public void carregarMunicipios(ActionEvent evet) throws DAOException {		
 		MunicipioDao dao = null;
-		
+		BaseCorreiosDAO correiosDao = null;
+		MunicipioDao municipioDao = null;		
 		try{
 			dao = getDAO(MunicipioDao.class);
+			correiosDao = getDAO(BaseCorreiosDAO.class, Sistema.COMUM);
+			municipioDao = getDAO(MunicipioDao.class);
 			
 			if(obj.getUnidadeFederativa() == null){
 				obj.setUnidadeFederativa( new UnidadeFederativa(UnidadeFederativa.ID_UF_PADRAO));
@@ -677,16 +685,28 @@ public class CadastroParticipanteAtividadeExtensaoMBean  extends SigaaAbstractCo
 			municipios = new ArrayList<Municipio>();
 			
 			if(ufSelecionada != null){
-				
 				UnidadeFederativa ufComCapital = dao.findByPrimaryKey(obj.getUnidadeFederativa().getId(), UnidadeFederativa.class, new String[]{"capital.id"});
 				if(ufComCapital != null && ufComCapital.getCapital() != null)
 					obj.getMunicipio().setId(ufComCapital.getCapital().getId());
 				
 				municipios.addAll( dao.findByUF(ufSelecionada.getId(), new String[]{"id", "nome"}) );
 			}
+
+			Logradouro logradouro = null;
+			Long cep = StringUtils.extractLong(obj.getCep());
+			if (!isEmpty(cep))
+				logradouro = correiosDao.findLogradouroByCep(cep);
+			
+			Municipio m = null;
+			if ( logradouro != null )
+				 m = municipioDao.findUniqueByNome(logradouro.getLocalidade().getNome(), logradouro.getLocalidade().getUf());
+			if ( m != null )
+				obj.setMunicipio(m);
 			
 		}finally{
 			if(dao != null) dao.close();
+			if(correiosDao != null) correiosDao.close();
+			if(municipioDao != null) municipioDao.close();
 		}
 		
 	}

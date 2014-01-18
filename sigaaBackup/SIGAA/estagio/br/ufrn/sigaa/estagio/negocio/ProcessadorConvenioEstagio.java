@@ -34,6 +34,7 @@ import br.ufrn.sigaa.estagio.dominio.ConcedentePessoaFuncao;
 import br.ufrn.sigaa.estagio.dominio.ConvenioEstagio;
 import br.ufrn.sigaa.negocio.ProcessadorPessoa;
 import br.ufrn.sigaa.pessoa.dominio.Endereco;
+import br.ufrn.sigaa.pessoa.dominio.Identidade;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 
 /**
@@ -133,15 +134,17 @@ public class ProcessadorConvenioEstagio extends AbstractProcessador {
 			convenio.getConcedente().getPessoa().setIdentidade(null);
 			ProcessadorPessoa.anularTransientObjects(convenio.getConcedente().getPessoa());
 			if (pessoaDB == null){
+				Pessoa concedente = convenio.getConcedente().getPessoa();
 				int idPessoa = SincronizadorPessoas.getNextIdPessoa();					
-				convenio.getConcedente().getPessoa().setId(idPessoa);
-				convenio.getConcedente().getPessoa().setTipo(Pessoa.PESSOA_JURIDICA);
-				convenio.getConcedente().getPessoa().setValido(true);
+				concedente.setId(idPessoa);
+				concedente.setTipo(Pessoa.PESSOA_JURIDICA);
+				concedente.setValido(true);
 				
 				/*  Sincroniza com o banco comum */
 				SincronizadorPessoas.usandoDataSource(Database.getInstance().getComumDs()).sincronizarPessoa(convenio.getConcedente().getPessoa());						
 				
-				dao.create(convenio.getConcedente().getPessoa());					
+				dao.create(concedente);
+				dao.detach(concedente);
 			} else { // se existir atualiza dados
 				boolean atualiza = false;
 				// se não há endereço cadastrado
@@ -149,11 +152,13 @@ public class ProcessadorConvenioEstagio extends AbstractProcessador {
 				if (pessoa.getEnderecoContato().getId() == 0) {
 					Endereco endereco = pessoa.getEnderecoContato();
 					dao.create(endereco);
+					dao.detach(endereco);
 					pessoaDB.setEnderecoContato(endereco);
 					atualiza = true;
 				} else {
 					// caso contrário, atualiza o endereço
 					dao.update(pessoa.getEnderecoContato());
+					dao.detach(pessoa.getEnderecoContato());
 				}
 				// atualiza dados pessoais caso tenha alterado algum
 				if (!(pessoa.getNome().equals(pessoaDB.getNome()) &&
@@ -171,6 +176,7 @@ public class ProcessadorConvenioEstagio extends AbstractProcessador {
 				if (atualiza) {
 					PessoaHelper.alteraCriaPessoa(pessoaDB, dao, ((MovimentoCadastro)mov), mov.getCodMovimento().getId());
 					dao.update(pessoaDB);
+					dao.detach(pessoaDB);
 					SincronizadorPessoas.usandoSistema(mov, Sistema.SIGAA).sincronizarEmailPessoa(pessoaDB);
 					SincronizadorPessoas.usandoSistema(mov, Sistema.COMUM).sincronizarEmailPessoa(pessoaDB);	
 				}
@@ -190,19 +196,25 @@ public class ProcessadorConvenioEstagio extends AbstractProcessador {
 				SincronizadorPessoas.usandoDataSource(Database.getInstance().getComumDs()).sincronizarPessoa(pep.getPessoa());					
 				pep.getPessoa().anularAtributosVazios();
 				dao.create(pep.getPessoa());
+				dao.detach(pep.getPessoa());
 			} else {//se existir atualiza dados pessoais caso tenha alterado algum
 				Pessoa pessoa = pep.getPessoa();
-				if (!(pessoa.getNome().equals(pessoaDB.getNome()) &&
+				if (pessoa.getIdentidade() != null && 
+						pessoa.getIdentidade().getNumero() != null &&
+						!(pessoa.getNome().equals(pessoaDB.getNome()) &&
 						pessoa.getEmail().equals(pessoaDB.getEmail()) &&
 						pessoa.getIdentidade().getNumero().equals(pessoaDB.getIdentidade().getNumero()) &&
 						pessoa.getIdentidade().getOrgaoExpedicao().equals(pessoaDB.getIdentidade().getOrgaoExpedicao()) )) {
 					pessoaDB.setNome(pessoa.getNome());
 					pessoaDB.setEmail(pessoa.getEmail());
+					if (pessoaDB.getIdentidade() == null)
+						pessoaDB.setIdentidade(new Identidade());
 					pessoaDB.getIdentidade().setNumero(pessoa.getIdentidade().getNumero());
 					pessoaDB.getIdentidade().setOrgaoExpedicao(pessoa.getIdentidade().getOrgaoExpedicao());
 					
 					PessoaHelper.alteraCriaPessoa(pessoaDB, dao, ((MovimentoCadastro)mov), mov.getCodMovimento().getId());
 					dao.update(pessoaDB);
+					dao.detach(pessoaDB);
 					SincronizadorPessoas.usandoSistema(mov, Sistema.SIGAA).sincronizarEmailPessoa(pessoaDB);
 					SincronizadorPessoas.usandoSistema(mov, Sistema.COMUM).sincronizarEmailPessoa(pessoaDB);					
 				}

@@ -146,11 +146,11 @@ public class CalendarioAvaliacao implements Validatable {
 	@Override
 	public ListaMensagens validate() {
 		ListaMensagens lista = new ListaMensagens();
-		validateRequired(inicio, "Data de Início", lista);
-		validateRequired(fim, "Data de Fim", lista);
 		validateRequired(formulario, "Formulário", lista);
 		validateRequiredId(ano, "Ano", lista);
 		validateRange(periodo, 1, 2, "Período", lista);
+		validateRequired(inicio, "Data de Início", lista);
+		validateRequired(fim, "Data de Fim", lista);
 		validaOrdemTemporalDatas(inicio, fim, true, "Início e fim", lista);
 		return lista;
 	}

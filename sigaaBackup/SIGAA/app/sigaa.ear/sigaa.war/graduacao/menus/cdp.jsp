@@ -16,6 +16,7 @@
 			<li> <h:commandLink action="#{ historico.buscarDiscente }" value="Emitir Histórico" onclick="setAba('cdp-cadastros')"/> </li>
 			<li> <h:commandLink	action="#{consultaSolicitacoes.iniciar}" value="Consultar Solicitações de Matrículas" onclick="setAba('cdp-cadastros')"/> </li>
 			<li> <h:commandLink	action="#{alteracaoStatusMatricula.iniciar }" value="Alterar Status de Matrículas em Turmas e Aproveitamentos" onclick="setAba('dae-programa')" /> </li>
+			<li> <h:commandLink action="#{ mergeDadosDiscenteMBean.iniciar }" onclick="setAba('cdp-cadastros')" value="Unificar Dados de Discentes"/> </li>				
 		</ul>
 	</li>
 	<li> Operações Administrativas

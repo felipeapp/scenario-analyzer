@@ -73,7 +73,6 @@ hr{
 						</td>
 						<td>
 							${linha.nome}
-							<c:if test="${not empty linha.municipio_polo}"> - PÓLO ${linha.municipio_polo}</c:if>
 						</td>
 						<td>
 							${linha.statusDiscente}

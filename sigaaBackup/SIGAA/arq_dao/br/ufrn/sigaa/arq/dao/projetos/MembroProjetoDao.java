@@ -1204,7 +1204,7 @@ public class MembroProjetoDao extends GenericSigaaDAO {
 	public Projeto findProjetoMembroLeve(int idMembroProjeto) throws DAOException {
 		String projecao = " m.projeto.titulo, m.projeto.id, m.projeto.dataCadastro, " +
 				          " m.projeto.dataFim, m.projeto.dataInicio, " +
-				          " m.projeto.tipoProjeto.id, m.projeto.ano, m.projeto.situacaoProjeto.id ";
+        				  " m.projeto.tipoProjeto.id, m.projeto.ano, m.projeto.situacaoProjeto.id,m.projeto.coordenador.id ";
 		String hql = " select " + projecao +
 					 " from MembroProjeto m " +
 					 " inner join m.projeto pro " +
@@ -1229,4 +1229,30 @@ public class MembroProjetoDao extends GenericSigaaDAO {
 		}
 	}
 
+	/**
+	 * Retorna todos os registros de uma pessoa como Membro da equipe de Projeto.
+	 * 
+	 * @param idPessoa
+	 * @return
+	 * @throws DAOException
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<MembroProjeto> findMembrosByPessoa(int idPessoa, int tipoProjeto) throws DAOException {
+		String hql = "select m " +
+				     "from MembroProjeto m " +
+					 "inner join m.projeto pro " +
+					 "inner join m.pessoa p " +
+					 "inner join pro.situacaoProjeto s " +
+					 "where p.id = :idPessoa " +
+					 "and pro.tipoProjeto.id = :idTipoProjeto " +
+					 "and m.ativo = trueValue() " +
+					 "and pro.ativo = trueValue() " +
+					 "order by pro.ano desc";
+
+		Query query = getSession().createQuery(hql);
+		query.setInteger( "idPessoa", idPessoa );
+		query.setInteger( "idTipoProjeto", tipoProjeto );
+		return query.list();
+	}
+	
 }

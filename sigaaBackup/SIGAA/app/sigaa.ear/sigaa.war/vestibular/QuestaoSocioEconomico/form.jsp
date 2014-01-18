@@ -39,12 +39,12 @@
 						<tr>
 							<th class="required">Ordem:</th>
 							<td><h:inputText value="#{questaoSE.ordemPergunta}" size="2"
-								disabled="#{readOnly}" maxlength="2"
+								disabled="#{questaoSE.readOnly}" maxlength="2"
 								readonly="#{questaoSE.readOnly}" onkeypress="return formatarInteiro(this)"
 								onblur="formatarInteiro(this)" /></td>
 							<th class="required">Pergunta:</th>
 							<td><h:inputText value="#{questaoSE.obj.pergunta}" size="60"
-								readonly="#{questaoSE.readOnly}" disabled="#{readOnly}"
+								readonly="#{questaoSE.readOnly}" disabled="#{questaoSE.readOnly}"
 								maxlength="120" /></td>
 						</tr>
 					</table>
@@ -62,7 +62,7 @@
 								onblur="formatarInteiro(this)" /></td>
 							<th class="required">Resposta:</th>
 							<td><h:inputText value="#{questaoSE.resposta}" size="40"
-								readonly="#{questaoSE.readOnly}" disabled="#{readOnly}"
+								readonly="#{questaoSE.readOnly}" disabled="#{questaoSE.readOnly}"
 								maxlength="120" /></td>
 							<td align="center"><h:commandButton
 								value="Adicionar resposta" disabled="#{questaoSE.readOnly}"

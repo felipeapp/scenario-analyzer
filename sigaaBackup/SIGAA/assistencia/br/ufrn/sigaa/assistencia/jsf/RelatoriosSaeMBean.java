@@ -173,7 +173,7 @@ public class RelatoriosSaeMBean extends SigaaAbstractController<RelatoriosSaeMBe
 	
 	/** Coleção de todos os cursos. **/
 	private Collection<SelectItem> allCursos;
-	
+
 	/**
 	 * Usado como filtro no relatório
 	 */
@@ -362,6 +362,9 @@ public class RelatoriosSaeMBean extends SigaaAbstractController<RelatoriosSaeMBe
 	
 	/**Lista dos discentes que possuem simultaneamente vínculo de graduação e pós.*/
 	private List<Map<String,Object>> discentesGraducaoPos;
+	
+	/** Quantidade de discentes pagantes por faixa de renda */
+	private Map<String,Integer> discentesPagantes;
 	
 	/**
 	 * 
@@ -1888,6 +1891,26 @@ public class RelatoriosSaeMBean extends SigaaAbstractController<RelatoriosSaeMBe
 	public void setDiscentesGraducaoPos(
 			List<Map<String, Object>> discentesGraducaoPos) {
 		this.discentesGraducaoPos = discentesGraducaoPos;
+	}
+	
+	public String discentesPagamentesRU() throws Exception {
+		RelatorioSAEDao dao = getDAO(RelatorioSAEDao.class);
+		try {
+			discentesPagantes = dao.relatorioPagantesRU();
+			if ( discentesPagantes.isEmpty() )
+				return null;
+		} finally {
+			dao.close();
+		}
+		return forward("/sae/relatorios/rel_discentes_pagantes_ru.jsp");
+	}
+
+	public Map<String, Integer> getDiscentesPagantes() {
+		return discentesPagantes;
+	}
+
+	public void setDiscentesPagantes(Map<String, Integer> discentesPagantes) {
+		this.discentesPagantes = discentesPagantes;
 	}
 	
 }

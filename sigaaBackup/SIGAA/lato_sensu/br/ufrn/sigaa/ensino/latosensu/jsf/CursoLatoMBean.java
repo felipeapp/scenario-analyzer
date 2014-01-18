@@ -58,7 +58,6 @@ import br.ufrn.sigaa.arq.dao.ensino.latosensu.UnidadeCursoLatoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
 import br.ufrn.sigaa.dominio.Curso;
-import br.ufrn.sigaa.dominio.CursoInstituicoesEnsino;
 import br.ufrn.sigaa.dominio.ModalidadeEducacao;
 import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.dominio.Usuario;
@@ -89,6 +88,7 @@ import br.ufrn.sigaa.ensino.latosensu.negocio.CursoLatoValidator;
 import br.ufrn.sigaa.ensino.latosensu.relatorios.LinhaComponenteCursoLato;
 import br.ufrn.sigaa.ensino.latosensu.relatorios.LinhaConsultaCursoGeral;
 import br.ufrn.sigaa.ensino.negocio.dominio.ComponenteCurricularMov;
+import br.ufrn.sigaa.ensino_rede.dominio.DadosCursoRede;
 import br.ufrn.sigaa.jsf.UnidadeMBean;
 import br.ufrn.sigaa.parametros.dominio.ParametrosLatoSensu;
 import br.ufrn.sigaa.pessoa.dominio.DocenteExterno;
@@ -915,6 +915,8 @@ public class CursoLatoMBean extends AbstractControllerAtividades<CursoLato> {
 			}
 			return forward(JSP_PROPOSTAS_SUBMETIDAS);
 		}
+		else if (isPortalLatoSensu())
+			return forward(BuscaCursoLatoMBean.getJspBuscaPropostas());
 		else
 			return super.cancelar();
 	}
@@ -1732,8 +1734,8 @@ public class CursoLatoMBean extends AbstractControllerAtividades<CursoLato> {
 		
 		CursoLatoDao dao = getDAO(CursoLatoDao.class);
 		try {
-			obj.setCursoInstituicoesEnsino((List<CursoInstituicoesEnsino>) 
-					getGenericDAO().findByExactField(CursoInstituicoesEnsino.class, "curso.id", obj.getId()));
+			obj.setCursoInstituicoesEnsino((List<DadosCursoRede>) 
+					getGenericDAO().findByExactField(DadosCursoRede.class, "curso.id", obj.getId()));
 			obj.getComponentesCursoLato().addAll(
 					getGenericDAO().findByExactField(ComponenteCursoLato.class, "cursoLato.id", obj.getId()));
 			obj.getComponentesCursoLato().addAll(

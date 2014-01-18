@@ -93,10 +93,6 @@
 	<jaxws:endpoint id="acessoRUExporter" implementor="#acessoRURemoteService" address="/AcessoRURemoteService">
  	</jaxws:endpoint>
  	
-	<!-- Bean para realização de identificação de cartões de acesso ao RU -->
-	<jaxws:endpoint id="identificacaoCartaoExporter" implementor="#identificacaoCartaoRuLocal" address="/IdentificacaoCartaoService">
- 	</jaxws:endpoint>
- 	
 	<!-- Configuração do bean que faz a comunicação remota com o sistema de Chamada por Digital -->
 	<jaxws:endpoint id="chamadaBiometricaControllerExporter" implementor="#chamadaBiometricaController" address="ChamadaBiometricaController" />
  	
@@ -195,6 +191,12 @@
  	<!-- Cursos para Fundação  -->
  	<jaxws:endpoint id="cursoFundacaoRemoteServiceExporter" implementor="#cursoFundacaoRemoteServiceImpl" address="/CursoFundacaoRemoteService">
   		<jaxws:inInterceptors><ref bean="tokenConsumer"/></jaxws:inInterceptors>
+ 	</jaxws:endpoint>
+
+	 <!-- Discentes para o sucupira  -->
+	 <bean name="dadosDiscentesRemoteService" class="br.ufrn.sigaa.ensino.servicos.DadosDiscentesRemoteServiceImpl" />
+	 
+ 	<jaxws:endpoint id="dadosDiscentesRemoteServiceExporter" implementor="#dadosDiscentesRemoteServiceImpl" address="/DadosDiscentesRemoteService">
  	</jaxws:endpoint>
  		
 </beans>

@@ -79,13 +79,14 @@
 							</h:commandLink>
 						</t:column>
 
-						<t:column>
-							<h:commandLink title="Avaliar Ação de Extensão"	action="#{ avaliacaoAtividade.iniciarAvaliacaoComite }"	
-								immediate="true" rendered="#{ aval.permitirAvaliacaoMembroComite }"> <%-- aguardando avaliacao --%>
-								<f:param name="idAvaliacao" value="#{aval.id}" />
-								<h:graphicImage url="/img/seta.gif" />
+						<t:column width="2%">
+							<h:commandLink title="Avaliar Ação de Extensão" rendered="#{ aval.permitirAvaliacaoMembroComite }" 
+								action="#{ avaliacaoAtividade.iniciarAvaliacaoParecerista }" immediate="true">
+							        <f:param name="idAvaliacao" value="#{aval.id}"/>
+					        		<h:graphicImage url="/img/seta.gif" />
 							</h:commandLink>
 						</t:column>
+
 					</t:dataTable> <c:if test="${empty avaliacaoAtividade.avaliacoesMembroComite}">
 						<center><font color="red">Não há avaliações	pendentes</font></center>
 					</c:if></td>

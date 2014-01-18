@@ -28,6 +28,7 @@ import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.negocio.validacao.TipoMensagemUFRN;
+import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.ensino.ComponenteCurricularDao;
 import br.ufrn.sigaa.arq.dao.ensino.DisciplinaDao;
@@ -36,6 +37,7 @@ import br.ufrn.sigaa.arq.expressao.ExpressaoUtil;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.Curso;
+import br.ufrn.sigaa.dominio.ModalidadeEducacao;
 import br.ufrn.sigaa.dominio.ParametrosGestoraAcademica;
 import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.ensino.dominio.ComponenteCurricular;
@@ -108,6 +110,7 @@ public class DisciplinaMedioMBean extends SigaaAbstractController<ComponenteCurr
 		try {
 			obj.setTipoComponente(dao.refresh(obj.getTipoComponente()));			
 			obj.setUnidade(dao.findByPrimaryKey(getUnidadeGestora(), Unidade.class, "id", "nome"));
+			obj.setModalidadeEducacao(new ModalidadeEducacao(ModalidadeEducacao.PRESENCIAL));
 		} finally {
 			if (dao != null)
 				dao.close();
@@ -442,6 +445,19 @@ public class DisciplinaMedioMBean extends SigaaAbstractController<ComponenteCurr
 		return (comando != null && 
 				(comando.equals(SigaaListaComando.CADASTRAR_COMPONENTE_CURRICULAR) || 
 						comando.equals(SigaaListaComando.ALTERAR_COMPONENTE_CURRICULAR)));
+	}
+	
+	/**
+	 * Verifica se o usuário pode alterar/remover a disciplina
+	 * <br/>
+	 * Método chamado pela seguinte JSP:
+	 * <ul>
+	 * 	<li>/sigaa.war/medio/disciplina/lista.jsp</li>
+	 * </ul>
+	 * @return
+	 */
+	public boolean isPodeAlterar() {
+		return isUserInRole(SigaaPapeis.GESTOR_MEDIO);
 	}
 
 	public Collection<ComponenteCurricular> getDisciplinas() {

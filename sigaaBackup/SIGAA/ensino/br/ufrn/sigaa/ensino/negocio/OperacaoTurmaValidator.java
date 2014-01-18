@@ -21,6 +21,7 @@ import br.ufrn.sigaa.arq.acesso.DadosAcesso;
 import br.ufrn.sigaa.arq.dao.graduacao.ReservaCursoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaHelper;
+import br.ufrn.sigaa.ava.dao.PermissaoAvaDao;
 import br.ufrn.sigaa.dominio.CalendarioAcademico;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.dominio.Unidade;
@@ -189,7 +190,8 @@ public class OperacaoTurmaValidator {
 	 */
 	public static boolean isPermiteCadastrarNoticia(Turma turma) {
 		
-		if (	(getAcesso().isChefeDepartamento() && turma.getDisciplina().getUnidade().getId() == getAcesso().getUsuario().getUnidade().getId()) 
+		if (	((getAcesso().isChefeDepartamento() || getAcesso().isSecretarioDepartamento()) 
+				&& turma.getDisciplina().getUnidade().getId() == getUnidadeResponsabilidade().getId()) 
 				|| verificarNivelTecnico(turma) 
 				|| verificarNivelFormacaoComplementar(turma))
 			return true;
@@ -562,15 +564,24 @@ public class OperacaoTurmaValidator {
 		if(verificarCoordenadores(turma))
 			return true;
 		
-		return (getAcesso().isChefeDepartamento() && turma.getDisciplina()
-				.getUnidade().getId() == getAcesso().getUsuario().getUnidade()
-				.getId())
-				|| getAcesso().isPpg()
-				|| getAcesso().isDae()
-				|| verificarNivelTecnico(turma)
-				|| verificarNivelFormacaoComplementar(turma)
-				|| getUsuarioLogado().getDiscenteAtivo() != null;
-		
+		PermissaoAvaDao dao = null;
+		try {
+			dao = DAOFactory.getInstance().getDAO(PermissaoAvaDao.class);
+			boolean possuiPermissao = dao.possuiPermissaoTurma(getUsuarioLogado().getPessoa(), turma);
+			
+			return (getAcesso().isChefeDepartamento() && turma.getDisciplina()
+					.getUnidade().getId() == getAcesso().getUsuario().getUnidade()
+					.getId())
+					|| possuiPermissao
+					|| getAcesso().isPpg()
+					|| getAcesso().isDae()
+					|| verificarNivelTecnico(turma)
+					|| verificarNivelFormacaoComplementar(turma)
+					|| getUsuarioLogado().getDiscenteAtivo() != null;
+		} finally {
+			if (dao != null)
+				dao.close();
+		}
 	}
 	
 	/**
@@ -587,7 +598,7 @@ public class OperacaoTurmaValidator {
 	 * @return
 	 */
 	public static boolean verificarNivelTecnico(Turma turma) {
-		return getAcesso().isTecnico() && turma.isTecnico() && turma.getDisciplina().getUnidade().getId() == getUnidadeResponsabilidade().getId();
+		return (getAcesso().isTecnico() || getAcesso().isCoordenadorCursoTecnico()) && turma.isTecnico() && turma.getDisciplina().getUnidade().getId() == getUnidadeResponsabilidade().getId();
 	}
 	
 	/**
@@ -634,6 +645,11 @@ public class OperacaoTurmaValidator {
 		if ((getAcesso().isCoordenadorCursoStricto() || getAcesso().isSecretariaPosGraduacao()) && (getSubSistema().equals(SigaaSubsistemas.PORTAL_COORDENADOR_STRICTO)) || getSubSistema().equals(SigaaSubsistemas.PORTAL_TURMA)) {
 			return isMesmaUnidadeStrictoTurma(turma);
 		}
+		
+		if (verificarNivelTecnico(turma)){
+			return true;
+		}
+		
 		
 		return false;
 	}

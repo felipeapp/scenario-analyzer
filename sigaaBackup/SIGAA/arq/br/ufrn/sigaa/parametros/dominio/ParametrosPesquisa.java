@@ -102,8 +102,8 @@ public interface ParametrosPesquisa {
 	/** Valor máximo permito para o orçamento de uma projeto de apoio para um novo pesquisador */
 	public static final String VALOR_MAXIMO_ORCAMENTO_PROJ_APOIO_NOVOS_PESQUISADORES = "2_10800_28";
 
-	/** Quantidade em anos para ser considerado recém doutor */
-	public static final String QNT_EM_ANOS_PARA_OS_RECEM_DOUTORES = "2_10800_29";
+	/** Quantidade em MESES para ser considerado apto a concorrer no edital de novos pesquisadores */
+	public static final String QNT_MESES_NOVOS_PESQUISADORES = "2_10800_29";
 
 	/** Valor máximo permitido para o orçamento de uma projeto de apoio hpá um grupo de pesquisa */
 	public static final String VALOR_MAXIMO_ORCAMENTO_PROJ_APOIO_GRUPO_PESQUISA = "2_10800_30";

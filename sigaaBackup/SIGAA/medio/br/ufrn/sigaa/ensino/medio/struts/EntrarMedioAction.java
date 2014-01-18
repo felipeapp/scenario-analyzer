@@ -108,7 +108,8 @@ public class EntrarMedioAction extends SigaaAbstractAction {
 			cal = CalendarioAcademicoHelper.getCalendarioUnidadeGlobalMedio();
 		
 		req.getSession().setAttribute(CALENDARIO_SESSAO, cal);
-
+		if(isUserInRole(req, SigaaPapeis.COORDENADOR_MEDIO))
+			return mapping.findForward("sucesso_coordenador");
 		return mapping.findForward("sucesso");
 	}	
 

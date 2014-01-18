@@ -103,7 +103,7 @@
 						<td width="10%">Tipo</td>
 					</ufrn:subSistema>
 					<td width="10%">Ativo</td>
-					<c:if test="${sessionScope.acesso.cdp or sessionScope.acesso.ppg}">
+					<c:if test="${sessionScope.acesso.cdp or sessionScope.acesso.ppg or sessionScope.acesso.moduloDiploma}">
 					<td width="2%"></td>
 					<td width="2%"></td>
 					</c:if>
@@ -123,7 +123,7 @@
 					<td>${item.tipoCursoStricto.descricao }</td>
 					</ufrn:subSistema>
 					<td><h:outputText value="#{item.ativo}" converter="convertSimNao"/></td>
-					<c:if test="${sessionScope.acesso.cdp or sessionScope.acesso.ppg}">
+					<c:if test="${sessionScope.acesso.cdp or sessionScope.acesso.ppg or sessionScope.acesso.moduloDiploma}">
 						<td width="2%">
 							<h:commandLink action="#{cursoGrad.atualizar}" id="alterar">
 									<h:graphicImage url="/img/alterar.gif" alt="Alterar Dados do Curso" title="Alterar Dados do Curso"/>

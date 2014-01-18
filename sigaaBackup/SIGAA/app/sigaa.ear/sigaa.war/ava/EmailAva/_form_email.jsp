@@ -45,7 +45,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="3">
-						<h:commandButton value="Enviar Email" action="#{envioEmailTurma.enviarEmail}" id="btnCadastrar"/>
+						<h:commandButton value="Enviar E-mail" action="#{envioEmailTurma.enviarEmail}" id="btnCadastrar"/>
 						<input type="button" value="<< Voltar" onclick="javascript:history.go(-1)"/> 
 						<h:commandButton value="Cancelar" onclick="#{confirm}" action="#{envioEmailTurma.cancelar}" id="btnCancelar" immediate="true"/>
 					</td>

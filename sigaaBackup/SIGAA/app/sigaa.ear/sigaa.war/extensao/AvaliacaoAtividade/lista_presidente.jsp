@@ -31,12 +31,26 @@
 
 				<c:if test="${not empty ativids}">
 					
-					<div class="infoAltRem"><h:graphicImage value="/img/view.gif"
-						style="overflow: visible;" />: Visualizar Ação de Extensão 
+					<div class="infoAltRem">
+					
+					<h:graphicImage value="/img/view.gif" style="overflow: visible;" />: Visualizar Ação de Extensão 
 						
-						<h:graphicImage value="/img/seta.gif"
-						style="overflow: visible;" /><h:outputText
-						value=": Avaliar Ação de Extensão" /></div>
+						<h:graphicImage value="/img/seta.gif" style="overflow: visible;" />
+						<h:outputText value=": Avaliar Ação de Extensão" />
+						<br>
+						<h:graphicImage value="/img/extensao/bullet_square_green.png" title="Financiamento Interno" style="overflow: visible;" />
+						<h:outputText value=": Financiamento Interno" />	
+						<h:graphicImage value="/img/extensao/bullet_square_red.png" title="Financiamento Externo" style="overflow: visible;" />
+						<h:outputText value=": Financiamento Externo" />
+						<h:graphicImage value="/img/extensao/bullet_square_blue.png" title="Auto Financiamento" style="overflow: visible;" />
+						<h:outputText value=": Auto Financiamento" />	
+						<h:graphicImage value="/img/extensao/bullet_square_yellow.png" title="Convênio Funpec" style="overflow: visible;" />
+						<h:outputText value=": Convênio Funpec" />
+						
+				
+					</div>
+						
+						
 					<br/>
 		
 						
@@ -75,6 +89,7 @@
 												<f:param name="id" value="#{ativid.id}" />
 												<h:graphicImage url="/img/view.gif" />
 											</h:commandLink>
+											
 										</td>
 										<td width="2%">
 											<h:commandLink title="Avaliar Ação de Extensão"

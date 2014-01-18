@@ -22,7 +22,7 @@
 		</p>
 		<p class="texto">
 			<big>
-			<a href="${linkPublico.urlDownload}/turmaVirtual.pdf" target="_blank">
+			<a href="http://www.info.ufrn.br/wikisistemas/doku.php?id=suporte:manuais:sigaa:turma_virtual:portal_do_docente:menu_turma_virtual:turma:principal" target="_blank">
 			CLIQUE AQUI PARA BAIXAR O MATERIAL DE AJUDA!
 			</a>
 			</big>

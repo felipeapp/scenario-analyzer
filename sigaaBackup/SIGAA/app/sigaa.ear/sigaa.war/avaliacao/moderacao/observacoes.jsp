@@ -37,14 +37,16 @@
 					<c:if test="${moderadorObservacaoBean.discentes}">pelo Discente</c:if>
 					<c:if test="${not moderadorObservacaoBean.discentes}">pelo Docente</c:if> 
 				</th>
-				<th style="text-align: center"></th>
+				<th style="text-align: center">
+					<h:commandLink value="Copiar Todos >>" action="#{ moderadorObservacaoBean.copiarTodasObservacaoDocenteTurma }" id="copiarTodos"/>
+				</th>
 				<th style="text-align: center">Comentário Moderado</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="#{moderadorObservacaoBean.observacoes}" var="item" varStatus="status">
 				<tr class="${status.index % 2 == 0 ? "linhaPar" : "linhaImpar"}">
-					<td width="45%" style="text-align: center">
+					<td width="40%" style="text-align: center">
 						<h:inputTextarea cols="65" rows="4" readonly="true" value="#{item.observacoes}" />
 					</td>
 					<td style="text-align: center">
@@ -52,7 +54,7 @@
 							<f:param id="idObservacao" name="idObservacao" value="#{item.id}" />
 						</h:commandLink>
 					</td>
-					<td width="45%" style="text-align: center">
+					<td width="40%" style="text-align: center">
 						<h:inputTextarea cols="65" rows="4" value="#{item.observacoesModeradas}" />
 					</td>
 				</tr>

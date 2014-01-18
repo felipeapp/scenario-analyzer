@@ -58,6 +58,12 @@ public class TipoQuestionario implements PersistDB {
 	/** Constante que representa os questionários de Relatório do Orientador de Estágio que o Orientador do Estágio Responde */
 	public static final int RELATORIO_DE_ORIENTADOR_DE_ESTAGIO = 9;
 	
+	/** Constante que representa os questionários de Auto Avaliação de Stricto Sensu */
+	public static final int AUTO_AVALIACAO_STRICTO_SENSU = 10;
+	
+	/** Constante que representa os questionários de Auto Avaliação de Lato Sensu */
+	public static final int AUTO_AVALIACAO_LATO_SENSU = 11;
+	
 	/** Chave primária. */
 	@Id
 	@GeneratedValue(generator="seqGenerator")
@@ -182,6 +188,20 @@ public class TipoQuestionario implements PersistDB {
 	 */
 	public boolean isRespostasObrigatorias() {
 		return isSocioEconomico() || isQuestionarioVestibular();
+	}
+
+	/** Indica se o tipo do questionário é de auto avaliação stricto sensu.
+	 * @return
+	 */
+	public boolean isAutoAvaliacaoStrictoSensu() {
+		return this.id == AUTO_AVALIACAO_STRICTO_SENSU;
+	}
+	
+	/** Indica se o tipo do questionário é de auto avaliação stricto lato.
+	 * @return
+	 */
+	public boolean isAutoAvaliacaoLatoSensu() {
+		return this.id == AUTO_AVALIACAO_LATO_SENSU;
 	}
 
 }

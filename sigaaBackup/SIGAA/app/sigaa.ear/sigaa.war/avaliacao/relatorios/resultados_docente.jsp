@@ -50,6 +50,7 @@
 									<f:param id="idDocente" name="idServidor" value="#{linha.id_servidor}"/>
 									<f:param id="ano" name="ano" value="#{linha.ano}"/>
 									<f:param id="periodo" name="periodo" value="#{linha.periodo}"/>
+									<f:param id="idFormulario" name="periodo" value="#{linha.id_formulario_avaliacao}"/>
 								</h:commandLink>
 							</td>
 						</tr>

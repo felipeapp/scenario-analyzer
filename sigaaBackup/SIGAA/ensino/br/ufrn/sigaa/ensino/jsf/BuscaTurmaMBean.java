@@ -246,7 +246,11 @@ public class BuscaTurmaMBean extends SigaaAbstractController<Turma> {
 		if (hasErrors()) {
 			return null;
 		}
-		getCurrentRequest().setAttribute("resultadoBusca", dao.findTurmasOferecidasAoCurso(obj.getAno(), obj.getPeriodo(), curso.getId()));
+		Collection<Turma> turmasOferecidas = dao.findTurmasOferecidasAoCurso(obj.getAno(), obj.getPeriodo(), curso.getId());
+		if(!isEmpty(turmasOferecidas))
+			getCurrentRequest().setAttribute("resultadoBusca",turmasOferecidas );
+		else 
+			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		return null;
 	}
 	
@@ -797,6 +801,7 @@ public class BuscaTurmaMBean extends SigaaAbstractController<Turma> {
 				nivelAntigo = nivelTurma;
 				nivelTurma = NivelEnsino.STRICTO;
 			}
+			periodoTurma = NivelEnsino.MEDIO != nivelTurma ? periodoTurma : 0; 
 			nivel = nivelTurma;
 		}
 		if(filtroUnidade) {

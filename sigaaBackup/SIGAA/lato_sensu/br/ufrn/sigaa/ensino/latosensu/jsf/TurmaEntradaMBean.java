@@ -141,12 +141,18 @@ public class TurmaEntradaMBean extends SigaaAbstractController<TurmaEntradaLato>
 	public String preCadastrarTurmaEntrada() throws ArqException {		
 		prepareMovimento(SigaaListaComando.CADASTRAR_TURMA_ENTRADA_LATO);		
 		TurmaEntradaLatoDao dao = getDAO(TurmaEntradaLatoDao.class);
+		this.obj = new TurmaEntradaLato();
+		int idCurso = getParameterInt("id",-1);
+		
+		if(idCurso < 0)
+			obj.setCursoLato( (CursoLato) getCursoAtualCoordenacao());
+		else
+			obj.setCursoLato(dao.findByPrimaryKey(idCurso, CursoLato.class));
 		try {
-			turmasEntrada = dao.findByCursoLato(getCursoAtualCoordenacao().getId(), true);
+			turmasEntrada = dao.findByCursoLato(obj.getCursoLato().getId(), true);
 			setConfirmButton("Cadastrar");
 			setReadOnly(false);
-			this.obj = new TurmaEntradaLato();
-			obj.setCodigo(UFRNUtils.completaZeros((dao.findByCursoLato(getCursoAtualCoordenacao().getId(), false).size() + 1), 3));
+			obj.setCodigo(UFRNUtils.completaZeros((dao.findByCursoLato(obj.getCursoLato().getId(), true).size() + 1), 3));
 		} finally {
 			dao.close();
 		}
@@ -186,8 +192,7 @@ public class TurmaEntradaMBean extends SigaaAbstractController<TurmaEntradaLato>
 	 *	</ul>
 	 */
 	@Override
-	public String cadastrar() throws SegurancaException, ArqException, NegocioException {
-		obj.setCursoLato( (CursoLato) getCursoAtualCoordenacao());
+	public String cadastrar() throws SegurancaException, ArqException, NegocioException {		
 		
 		if(obj.getCursoLato() == null) {
 			addMensagemErro("Curso não informado.");
@@ -238,6 +243,11 @@ public class TurmaEntradaMBean extends SigaaAbstractController<TurmaEntradaLato>
 		return null;
 	}
 
+	/**
+	 * Verifica se a turma entrada possui algum discente associado.
+	 *  
+	 *  Método não invocado por JSP(s):
+	 */
 	private boolean haDiscenteAssociado() throws DAOException {
 		DiscenteLatoDao dao = getDAO(DiscenteLatoDao.class);
 		try {
@@ -251,7 +261,7 @@ public class TurmaEntradaMBean extends SigaaAbstractController<TurmaEntradaLato>
 	public String forwardCadastrar() {
 		TurmaEntradaLatoDao dao = getDAO(TurmaEntradaLatoDao.class);
 		try {
-			turmasEntrada = dao.findByCursoLato(getCursoAtualCoordenacao().getId(), true);
+			turmasEntrada = dao.findByCursoLato(obj.getCursoLato().getId(), true);
 			prepareMovimento(SigaaListaComando.CADASTRAR_TURMA_ENTRADA_LATO);
 			obj = new TurmaEntradaLato();
 			setConfirmButton("Cadastrar");
@@ -264,14 +274,23 @@ public class TurmaEntradaMBean extends SigaaAbstractController<TurmaEntradaLato>
 		return null;
 	}
 	
+	@Override
+	public String cancelar(){
+		if(getUsuarioLogado().isCoordenadorLato())
+			return super.cancelar();
+		return forward(BuscaCursoLatoMBean.getJspBuscaPropostas());
+	}
+	
 	/**
 	 * Redireciona para a tela de inativação da turma de entrada.
 	 */
 	protected String forwardInativar() {
 		TurmaEntradaLatoDao dao = getDAO(TurmaEntradaLatoDao.class);
+		CursoLato cursoAtual = obj.getCursoLato();
 		try {
-			turmasEntrada = dao.findByCursoLato(getCursoAtualCoordenacao().getId(), true);			
+			turmasEntrada = dao.findByCursoLato(obj.getCursoLato().getId(), true);			
 			obj = new TurmaEntradaLato();
+			obj.setCursoLato(cursoAtual);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{

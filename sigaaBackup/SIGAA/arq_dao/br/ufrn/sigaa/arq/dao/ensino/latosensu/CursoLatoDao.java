@@ -14,6 +14,7 @@ import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 
 import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.academico.dominio.StatusDiscente;
@@ -37,6 +39,7 @@ import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.dominio.ModalidadeEducacao;
 import br.ufrn.sigaa.ensino.dominio.CargoAcademico;
 import br.ufrn.sigaa.ensino.dominio.CoordenacaoCurso;
+import br.ufrn.sigaa.ensino.dominio.SituacaoTurma;
 import br.ufrn.sigaa.ensino.latosensu.dominio.CursoLato;
 import br.ufrn.sigaa.ensino.latosensu.dominio.PropostaCursoLato;
 import br.ufrn.sigaa.ensino.latosensu.dominio.SituacaoProposta;
@@ -50,6 +53,9 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
  *
  */
 public class CursoLatoDao extends CursoDao {
+	
+	/** Sequência utilizada para gerar o código do curso lato */
+	private static final String SEQUENCIA_CODIGO_CURSO_LATO = "lato_sensu.seq_codigo_curso_lato_";
 
 	public CursoLatoDao(){
 	}
@@ -328,11 +334,12 @@ public class CursoLatoDao extends CursoDao {
 	 * @throws DAOException
 	 */
 	@SuppressWarnings("unchecked")
-	public Collection<LinhaConsultaCursoGeral> filter(Integer ano, Servidor coordenador, Curso curso, SituacaoProposta situacao, 
-			AreaConhecimentoCnpq area, boolean apenasCoordenador ) throws DAOException {
+	public Collection<LinhaConsultaCursoGeral> filter(Integer ano,Date dataInicio,Date dataFim, Servidor coordenador, Curso curso, SituacaoProposta situacao, 
+			AreaConhecimentoCnpq area, Integer sequenciaCodigo, Integer anoCodigo , boolean apenasCoordenador ) throws DAOException {
 		
-		StringBuilder sql = new StringBuilder("select distinct c.id_curso, c.nome, sp.descricao, cl.data_inicio, p.nome as coordenador, " +
-					" acc2.nome as area, mod.id_modalidade_educacao" +
+		StringBuilder sql = new StringBuilder("select distinct c.id_curso, c.nome, sp.id_situacao_proposta, sp.descricao, cl.data_inicio," +
+				    "( case when (cc.data_fim_mandato < :hoje) then 'INATIVO' else p.nome end) as coordenador, " +
+					" acc2.nome as area, mod.id_modalidade_educacao, cl.cod_prefixo, cl.cod_numero, cl.cod_ano " +
 					" from lato_sensu.curso_lato cl inner join curso c on (cl.id_curso = c.id_curso)" +
 					" inner join lato_sensu.proposta_curso_lato pcl on ( cl.id_proposta = pcl.id_proposta )" +
 					" inner join lato_sensu.situacao_proposta sp on (sp.id_situacao_proposta = pcl.id_situacao_proposta)" +
@@ -360,12 +367,23 @@ public class CursoLatoDao extends CursoDao {
 			
 		if (ano != null) 
 			sql.append(" and DATE_PART('year', cl.data_inicio) = :ano");
+		if(dataInicio != null)
+			sql.append(" and cl.data_inicio >= :dataInicio");
+		if(dataFim != null)
+			sql.append(" and cl.data_fim <= :dataFim");
 		if (curso != null) {
 			if (!isEmpty(curso.getNome())) 
 				sql.append(" and c.nome_ascii ilike :nomeCurso");
 			else if (curso.getId() != 0)
 				sql.append(" and cl.id_curso = :idCurso");
 		}
+		if( anoCodigo != null ){
+			sql.append(" and cl.cod_ano = :codigoAno ");
+		}
+		if( sequenciaCodigo != null ){
+			sql.append(" and cl.cod_numero = :codigoNumero ");
+		}
+		
 		if (situacao != null && situacao.getId() != 0) 
 			sql.append(" and pcl.id_situacao_proposta = :idSituacaoProposta");
         if (area != null && area.getId() != 0)
@@ -374,16 +392,28 @@ public class CursoLatoDao extends CursoDao {
 		sql.append(" order by c.nome");
         Collection<LinhaConsultaCursoGeral> cursoLato = new ArrayList<LinhaConsultaCursoGeral>();
         SQLQuery q = getSession().createSQLQuery(sql.toString());
-        if ( ( apenasCoordenador && coordenador != null ) || ( !apenasCoordenador && coordenador != null ) )
+        q.setDate("hoje", new Date());
+        if ( coordenador != null )
         	q.setInteger("idCoordenador", coordenador.getId());
         if (ano != null) 
 			q.setInteger("ano", ano);
+        if(dataInicio != null)
+        	q.setDate("dataInicio", dataInicio);
+        if(dataFim != null)
+        	q.setDate("dataFim", dataFim);
 		if (curso != null) {
 			if (!isEmpty(curso.getNome())) 
 				q.setString("nomeCurso", "%" + curso.getNomeAscii()+"%");
 			else if (curso.getId() != 0)
 				q.setInteger("idCurso", curso.getId());
 		}
+		if( anoCodigo != null ){
+			q.setInteger("codigoAno",anoCodigo);
+		}
+		if( sequenciaCodigo != null ){
+			q.setInteger("codigoNumero",sequenciaCodigo);
+		}
+		
 		if (situacao != null && situacao.getId() != 0) 
 			q.setInteger("idSituacaoProposta", situacao.getId());
         if (area != null && area.getId() != 0)
@@ -394,14 +424,21 @@ public class CursoLatoDao extends CursoDao {
 		for (Object[] item : list) {
 			LinhaConsultaCursoGeral linha = new LinhaConsultaCursoGeral();
 			linha.setIdCurso((Integer) item[0]);
-			if (item[6] != null && ((Integer) item[6]) == ModalidadeEducacao.A_DISTANCIA)
+			if (item[7] != null && ((Integer) item[7]) == ModalidadeEducacao.A_DISTANCIA)
 				linha.setNomeCurso((String) item[1] + " - EAD");
 			else
 				linha.setNomeCurso((String) item[1]);
-			linha.setSituacao((String) item[2]);
-			linha.setDataInicio((Date) item[3]);
-			linha.setCoordenador((String) item[4]);
-			linha.setAreaConhecimento((String) item[5]);
+			
+			linha.setSituacao(new SituacaoProposta());
+			linha.getSituacao().setId((Integer) item[2]);
+			linha.getSituacao().setDescricao((String) item[3]);
+			linha.setDataInicio((Date) item[4]);
+			linha.setCoordenador((String) item[5]);
+			linha.setAreaConhecimento((String) item[6]);
+			linha.setPrefixoCodigo( (String) item[8]);
+			linha.setNumeroCodigo( (Integer) item[9]);
+			linha.setAno( (Short) item[10]);
+				
 			cursoLato.add(linha);
 		}
 		return cursoLato;
@@ -484,43 +521,47 @@ public class CursoLatoDao extends CursoDao {
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public Collection<Curso> findAndamentoCursoLato(int anoInicial, int anoFinal) throws HibernateException, DAOException {
-
-		StringBuilder hql = new StringBuilder("SELECT c.dataInicio, c.dataFim, c.nome");
-		hql.append(" FROM CursoLato c");
-		hql.append(" WHERE c.dataInicio >= '" + CalendarUtils.createDate(01, 0, anoInicial) + "'" );
-		hql.append(" AND c.dataFim <= '" + CalendarUtils.createDate(31, 11, anoFinal) + "'");
-		hql.append(" AND c.propostaCurso.situacaoProposta.id = " + SituacaoProposta.ACEITA );
-		hql.append(" ORDER BY c.nome, c.dataInicio");
+	public List<HashMap<String,Object>> findAndamentoCursoLato(int anoInicial, int anoFinal) throws HibernateException, DAOException {
+		StringBuilder hql = new StringBuilder(
+				"SELECT cl.data_inicio, cl.data_fim, c.nome,"
+						+ " count(distinct ccl.id_componente_curricular) as total_componentes,"
+						+ " count(distinct t.id_disciplina) as total_turmas,"
+						+ " round(100.0*count(distinct t.id_disciplina)/count(distinct ccl.id_componente_curricular), 2) as andamento,"
+						+ " count(distinct d.id_discente) as discentes_ativos"
+						+ " from lato_sensu.curso_lato cl"
+						+ " inner join curso c using (id_curso)"
+						+ " left join discente d on (c.id_curso = d.id_curso and d.status = :ativo)"
+						+ " inner join lato_sensu.proposta_curso_lato pc using (id_proposta)"
+						+ " inner join lato_sensu.componente_curso_lato ccl on (id_curso_lato = c.id_curso)"
+						+ " left join ensino.turma t on (ccl.id_componente_curricular = t.id_disciplina AND t.id_situacao_turma = :consolidada)"
+						+ " WHERE cl.data_inicio >= :inicio"
+						+ " AND cl.data_fim <= :fim"
+						+ " AND pc.id_situacao_proposta = ")
+		.append(SituacaoProposta.ACEITA)
+		.append(" GROUP BY cl.data_inicio, cl.data_fim, c.nome" +
+				" ORDER BY c.nome, cl.data_inicio");
 		
-		Query q = getSession().createQuery(hql.toString());
-		
+		Query q = getSession().createSQLQuery(hql.toString());
+		q.setDate("inicio", CalendarUtils.createDate(01, 0, anoInicial));
+		q.setDate("fim", CalendarUtils.createDate(31, 11, anoFinal));
+		q.setInteger("consolidada", SituacaoTurma.CONSOLIDADA);
+		q.setInteger("ativo", StatusDiscente.ATIVO);
 		@SuppressWarnings("unchecked")
-		Collection<Object[]> bulk = q.list();
-		Collection<Curso> cursos = new ArrayList<Curso>();
-		
-		if (bulk != null) {
-			for (Object[] obj : bulk){
-				
-				CursoLato cl = new CursoLato();
-				cl.setDataInicio((Date) obj[0]);
-				cl.setDataFim((Date) obj[1]);
-				cl.setNome((String) obj[2]);
+		List<HashMap<String, Object>> lista = q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+		return lista;
+	}
+	
 
-				int dividendo = CalendarUtils.calculoMeses(cl.getDataInicio(), cl.getDataFim()) == 0 ? 
-						1 : CalendarUtils.calculoMeses(cl.getDataInicio(), cl.getDataFim());
-				int divisor = CalendarUtils.calculoMeses(cl.getDataInicio(), new Date()) == 0 ?
-						1 : CalendarUtils.calculoMeses(cl.getDataInicio(), new Date());
-				
-				double andamento = (divisor * 100) / dividendo ;
-				
-				cl.setAndamento( andamento > 100 ? 100 : andamento );
-				
-				cursos.add(cl);
-			}
-		}
-		
-		return cursos;
+	/**
+	 * Busca o próximo número na sequência para gerar o código do curso lato.
+	 * 
+	 * @param ano
+	 * @return
+	 * @throws DAOException 
+	 */
+	public Integer findNextSequenciaCursoLato(int ano) throws DAOException {
+		String nomeSequencia = SEQUENCIA_CODIGO_CURSO_LATO + ano;
+		return getNextSeq(nomeSequencia);
 	}
 
 }

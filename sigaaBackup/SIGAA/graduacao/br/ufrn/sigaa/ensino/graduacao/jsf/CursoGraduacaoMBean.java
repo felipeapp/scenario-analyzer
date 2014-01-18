@@ -35,6 +35,7 @@ import br.ufrn.arq.negocio.ArqListaComando;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.negocio.validacao.TipoMensagemUFRN;
 import br.ufrn.arq.seguranca.SigaaPapeis;
+import br.ufrn.arq.seguranca.SigaaSubsistemas;
 import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.CursoDao;
@@ -141,12 +142,6 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		obj.setOrganizacaoAdministrativa(new OrganizacaoAdministrativa());
 		obj.setUnidadeCoordenacao(new Unidade());
 		obj.setAreaVestibular(new AreaConhecimentoVestibular());
-		
-		try {
-			instituicoesEnsino = (List<InstituicoesEnsino>) getDAO(InstituicoesEnsinoDao.class).findByCurso(obj.getId());
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -350,7 +345,6 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		getCurrentSession().setAttribute("nivel", NivelEnsino.GRADUACAO);
 		return super.listar();
 	}
-	
 	/**
 	 * Não invocado por JSP
 	 */
@@ -370,7 +364,10 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 	 */
 	@Override
 	public String cadastrar() throws ArqException {
-
+		if (!checkOperacaoAtiva(SigaaListaComando.CADASTRAR_CURSO_GRADUACAO.getId(),
+				SigaaListaComando.ALTERAR_CURSO_GRADUACAO.getId(),ArqListaComando.REMOVER.getId()))
+			return cancelar();
+		
 		if (!confirmaSenha()) {
 			return null;
 		}
@@ -413,7 +410,11 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		mov.setObjMovimentado(obj);
 		mov.setArquivo(arquivo);
 		mov.setInstituicoesEnsino(instituicoesEnsino);
-
+		// se o curso estiver sendo cadastrado a partir do módulo de registro de diplomas, ele deve ser inativo.
+		if (isModuloDiplomas())
+			mov.setCadastrarCursoInativo(true);
+		else
+			mov.setCadastrarCursoInativo(false);
 		try {
 		
 			if("remover".equalsIgnoreCase(getConfirmButton()) && !NivelEnsino.isAlgumNivelStricto( obj.getNivel() )){
@@ -423,13 +424,17 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 			execute(mov, getCurrentRequest());
 			
 		} catch (NegocioException e) {
-			
 			addMensagens(e.getListaMensagens());
 			e.printStackTrace();
-			
+			verificaNulos();
 			return null;
-			
+		} catch (ArqException e) {
+			addMensagemErro(e.getMessage());
+			e.printStackTrace();
+			verificaNulos();
+			return null;
 		} catch (Exception e) {
+			verificaNulos();
 			return tratamentoErroPadrao(e);
 		}
 		
@@ -446,7 +451,7 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		} else if (comando.equals(ArqListaComando.REMOVER)) {
 			addMessage("Curso removido com sucesso!", TipoMensagemUFRN.INFORMATION);
 		}
-		
+		removeOperacaoAtiva();
 		return cancelar();
 	}
 
@@ -467,7 +472,13 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		setReadOnly(false);
 		setConfirmButton("Cadastrar");
 		
-		if (getNivelEnsino() == NivelEnsino.STRICTO) {
+		// gestor de diplomas poderá cadastrar cursos de graduação antigos.
+		if (isModuloDiplomas()) {
+			obj.setNaturezaCurso(new NaturezaCurso(NaturezaCurso.GRADUACAO));
+			obj.setNivel(NivelEnsino.GRADUACAO);
+			obj.setAtivo(false);
+			checkRole(SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO);
+		} else if (getNivelEnsino() == NivelEnsino.STRICTO) {
 			
 			checkRole(SigaaPapeis.PPG);
 			
@@ -494,7 +505,7 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		}
 		
 		prepareMovimento(SigaaListaComando.CADASTRAR_CURSO_GRADUACAO);
-		
+		setOperacaoAtiva(SigaaListaComando.CADASTRAR_CURSO_GRADUACAO.getId());
 		return forward(getFormPage());
 	}
 
@@ -508,7 +519,7 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		
 		try {
 			
-			checkRole(SigaaPapeis.CDP, SigaaPapeis.PPG);
+			checkRole(SigaaPapeis.CDP, SigaaPapeis.PPG, SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO);
 			setConfirmButton("Alterar");
 			
 			GenericDAO dao = getGenericDAO();
@@ -525,13 +536,10 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 			
 			if (NivelEnsino.isAlgumNivelStricto(obj.getNivel())) {
 				carregarTiposStricto(null);
-				
-				instituicoesEnsino = (List<InstituicoesEnsino>) getDAO(InstituicoesEnsinoDao.class).findByCurso(obj.getId());
-				
 			}
 			
 			prepareMovimento(SigaaListaComando.ALTERAR_CURSO_GRADUACAO);
-			
+			setOperacaoAtiva(SigaaListaComando.ALTERAR_CURSO_GRADUACAO.getId());
 			return forward(getFormPage());
 			
 		} catch (SegurancaException e) {
@@ -584,8 +592,6 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 			
 			if (NivelEnsino.isAlgumNivelStricto(obj.getNivel())) {
 				carregarTiposStricto(null);
-				
-				instituicoesEnsino = (List<InstituicoesEnsino>) getDAO(InstituicoesEnsinoDao.class).findByCurso(obj.getId());
 			}
 			
 			return forward(getViewPage());
@@ -613,15 +619,23 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 			checkRole(SigaaPapeis.CDP, SigaaPapeis.PPG);
 			
 			String ret = super.preRemover();
-			
+			if (isEmpty(obj)) {
+				addMensagem(MensagensArquitetura.OBJETO_SELECIONADO_FOI_REMOVIDO);
+				return null;
+			}
 			verificaNulos();
+			
+			//municipio.obj.unidadeFederativa.id
+			MunicipioMBean municipioMBean = getMBean("municipio");
+			municipioMBean.getObj().setUnidadeFederativa(obj.getMunicipio().getUnidadeFederativa());
+			
 			
 			if (NivelEnsino.isAlgumNivelStricto(obj.getNivel())) {
 				carregarTiposStricto(null);
 			}
 			
 			prepareMovimento(ArqListaComando.REMOVER);
-			
+			setOperacaoAtiva(ArqListaComando.REMOVER.getId());
 			return ret;
 			
 		} catch (SegurancaException e) {
@@ -767,6 +781,9 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 			obj.setAreaSesu(null);
 		}
 		
+		if (obj.getTipoCursoStricto() != null && obj.getTipoCursoStricto().getId() == 0) {
+			obj.setTipoCursoStricto(null);
+		}
 	}
 	
 	/**
@@ -857,5 +874,11 @@ public class CursoGraduacaoMBean extends SigaaAbstractController<Curso> {
 		}
 		return obj.getIdArquivo();
 	}
-	
+
+	/** Indica se o usuário está no módulo de registro de diplomas.
+	 * @return
+	 */
+	public boolean isModuloDiplomas() {
+		return SigaaSubsistemas.REGISTRO_DIPLOMAS.getId() == getSubSistema().getId();
+	}
 }

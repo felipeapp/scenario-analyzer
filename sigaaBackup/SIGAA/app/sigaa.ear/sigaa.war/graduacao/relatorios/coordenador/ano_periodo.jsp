@@ -19,11 +19,11 @@
 						</c:if>
 						<td>
 							<c:choose>
-								<c:when test="${(acesso.coordenadorCursoGrad || acesso.secretarioGraduacao) }">
-									${relatoriosCoordenador.cursoAtualCoordenacao.nomeCompleto} 
-								</c:when>
 								<c:when test="${acesso.secretarioDepartamento  || acesso.chefeDepartamento }">
 									${sessionScope.usuario.vinculoAtivo.unidade.nome}
+								</c:when>
+								<c:when test="${(acesso.coordenadorCursoGrad || acesso.secretarioGraduacao) }">
+									${relatoriosCoordenador.cursoAtualCoordenacao.nomeCompleto} 
 								</c:when>
 								<c:when test="${acesso.dae || acesso.secretarioCentro } ">
 									<h:selectOneMenu id="curso" value="#{relatoriosCoordenador.curso.id}" style="width: 90%;">
@@ -41,8 +41,7 @@
 					<th class="obrigatorio">Ano-Período:</th>
 					<td>
 						<h:inputText value="#{relatoriosCoordenador.ano}" size="4" maxlength="4" id="ano" onkeyup="return formatarInteiro(this);" converter="#{ intConverter }"/>
-						- <h:inputText value="#{relatoriosCoordenador.periodo}" size="1" maxlength="1" id="periodo" onkeyup="return formatarInteiro(this);" converter="#{ intConverter }"/>
-						<ufrn:help>Ano e período que deseja buscar</ufrn:help>
+						- <h:inputText value="#{relatoriosCoordenador.periodo}" size="1" maxlength="1" id="periodo" onkeyup="return formatarInteiro(this);" converter="#{ intConverter }"/>						
 					</td>
 				</tr>
 			  	<!--<c:if test="${acesso.dae || acesso.secretarioCentro || acesso.chefeDepartamento}"> 

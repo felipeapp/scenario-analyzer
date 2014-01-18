@@ -26,8 +26,11 @@
 			</div>
 		</c:if>
 		<c:if test="${acesso.pedagogico }">
-			<div id="consultas" class="aba">
-				<%@include file="/medio/menus/consultas.jsp"%>
+			<div id="pedagogico" class="aba">
+				<%@include file="/medio/menus/pedagogico.jsp"%>
+			</div>
+			<div id="relatorios" class="aba">
+				<%@include file="/medio/menus/relatorios.jsp"%>
 			</div>
 		</c:if>
 	</div>
@@ -53,8 +56,9 @@
 				    	</c:if>
 					</c:if>
 					<c:if test="${acesso.pedagogico}">
-						abas.addTab('consultas', "Consultas")
-						abas.activate('consultas');
+						abas.addTab('pedagogico', "Acompanhamento Pedagógico")
+						abas.addTab('relatorios', "Relatórios")
+						abas.activate('pedagogico');
 					</c:if>
 		    	}	
 	    	}

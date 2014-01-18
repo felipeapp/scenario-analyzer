@@ -2,7 +2,7 @@
 
 <f:view>
 
-	<h2><ufrn:subSistema /> &gt; Autorizar Resumos Pendentes</h2>
+	<h2><ufrn:subSistema /> &gt; Autorisar Resumos Pendentes</h2>
 	<div class="infoAltRem">
 		<h:graphicImage value="/img/monitoria/document_ok.png" style="overflow: visible;" />: Analisar Resumo
 	</div>

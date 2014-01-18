@@ -29,6 +29,7 @@ import br.ufrn.arq.negocio.ArqListaComando;
 import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.sigaa.arq.dao.UsuarioDao;
+import br.ufrn.sigaa.arq.dao.graduacao.ProcessamentoMatriculaDAO;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.CalendarioAcademico;
@@ -132,8 +133,8 @@ public class PreProcessamentoMatriculaMBean extends SigaaAbstractController<Obje
 	public String processar() throws Exception {
 		checkRole(SigaaPapeis.ADMINISTRADOR_SIGAA);
 		
-		//ProcessamentoMatriculaDAO dao = getDAO(ProcessamentoMatriculaDAO.class);
-		boolean autenticado = true;//dao.autenticacaoProcessamento(senhaProcessamento);
+		ProcessamentoMatriculaDAO daoP = getDAO(ProcessamentoMatriculaDAO.class);
+		boolean autenticado = daoP.autenticacaoProcessamento(senhaProcessamento);
 		
 		if (autenticado) {
 			
@@ -180,7 +181,7 @@ public class PreProcessamentoMatriculaMBean extends SigaaAbstractController<Obje
 							
 						}
 						
-						discentesCancelados.add(new Discente[] { vinculoAnterior, vinculoAtual});
+						//discentesCancelados.add(new Discente[] { vinculoAnterior, vinculoAtual});
 					}
 				}
 				

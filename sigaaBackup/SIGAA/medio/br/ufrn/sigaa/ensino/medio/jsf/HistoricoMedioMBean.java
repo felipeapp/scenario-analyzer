@@ -147,7 +147,7 @@ public class HistoricoMedioMBean extends SigaaAbstractController<HistoricoMedio>
 
 		// Permite o coordenador, secretaria e gestor visualizarem o histórico.
 		if (isUserInRole(new int[] { SigaaPapeis.COORDENADOR_MEDIO, 
-				SigaaPapeis.SECRETARIA_MEDIO, SigaaPapeis.GESTOR_MEDIO }))			
+				SigaaPapeis.SECRETARIA_MEDIO, SigaaPapeis.GESTOR_MEDIO, SigaaPapeis.PEDAGOGICO_MEDIO }))			
 			return true;
 		
 		//(DOCENTE/DISCENTE) Permissão liberada para visualizar o próprio histórico. 

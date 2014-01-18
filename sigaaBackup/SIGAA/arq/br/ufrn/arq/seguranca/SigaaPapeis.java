@@ -625,15 +625,26 @@ public class SigaaPapeis {
 	 * MÓDULO DO METRÓPOLE DIGITAL 
 	 *****************************************/
 	
+	/**Papel representativo do Gestor do módulo do Instituto Metrópole Digital **/
 	public static final int GESTOR_METROPOLE_DIGITAL = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 1;  // 11601
 	
+	/**Papel representativo ao Tutor do IMD **/
 	public static final int TUTOR_IMD = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 2; // 11602
 	
-	public static final int COORDENADOR_TUTORES = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 3; // 11603
+	/**Papel representativo ao coordenador de tutores do IMD **/
+	public static final int COORDENADOR_TUTOR_IMD = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 3; // 11603
 	
-	public static final int COORDENADOR_POLO = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 4; // 11604
+	/**Papel representativo ao coordenador de pólo do IMD **/
+	public static final int COORDENADOR_POLO_IMD = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 4; // 11604
 	
+	/**Papel representativo ao Assistente Social do IMD **/
 	public static final int ASSISTENTE_SOCIAL_IMD = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 5; // 11605
+	
+	/** Papel representativo para permitir que faça convocação do processo seletivo do IMD. */
+	public static final int GESTOR_CONVOCACAO_PROCESSO_SELETIVO_IMD = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 8; //11608 
+	
+	/** Papel representativo para permitir que faça cadastramento do processo seletivo do IMD. */
+	public static final int GESTOR_CADASTRAMENTO_PROCESSO_SELETIVO_IMD = SigaaSubsistemas.METROPOLE_DIGITAL.getId() + 9; //11609
 	
 
 	/******************************************

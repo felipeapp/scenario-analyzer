@@ -89,14 +89,16 @@
 							<td style="text-align:center;">${item.ano}.${item.periodo}</td>
 							<td>${item.servidor.nome}</td>
 							<td align="right">
-								<h:outputText value="#{item.totalGrupoEnsino} h">
+								<h:outputText value="#{item.totalGrupoEnsino}">
 									<f:convertNumber maxFractionDigits="1" groupingUsed="false" />
 								</h:outputText>
+								<h:outputText value=" h"/>
 							</td>
 							<td align="right">
-								<h:outputText value="#{item.totalGrupoOutrasAtividades} h">
+								<h:outputText value="#{item.totalGrupoOutrasAtividades}">
 									<f:convertNumber maxFractionDigits="1" groupingUsed="false" />
 								</h:outputText>
+								<h:outputText value=" h"/>
 							</td>
 							
 							<c:set var="situacaoPid" value="#{item.homologado ? 'homologado' : 'pendente'}"/>
@@ -132,14 +134,16 @@
 							<td align="center">${item.ano}.${item.periodo}</td>
 							<td>${item.servidor.nome}</td>
 							<td align="right">
-								<h:outputText value="#{item.totalGrupoEnsino} h">
+								<h:outputText value="#{item.totalGrupoEnsino}">
 									<f:convertNumber maxFractionDigits="1" groupingUsed="false" />
-								</h:outputText>
+								</h:outputText> 
+								<h:outputText value=" h"/>
 							</td>
 							<td align="right">
-								<h:outputText value="#{item.totalGrupoOutrasAtividades} h">
+								<h:outputText value="#{item.totalGrupoOutrasAtividades}">
 									<f:convertNumber maxFractionDigits="1" groupingUsed="false" />
-								</h:outputText>
+								</h:outputText>	
+								<h:outputText value=" h"/>
 							</td>
 							
 							<c:set var="situacaoPid" value="#{item.homologado ? 'homologado' : 'pendente'}"/>

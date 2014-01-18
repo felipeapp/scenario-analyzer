@@ -51,11 +51,9 @@
 							 Editar Dados do Site Pessoal do Docente
 						</a>
 					</li>
-					<%--
 					<li>
-						<h:commandLink  action="#{calendarioAgendaMBean.iniciarCalendario}" value="Ver Agenda das Turmas" id="verAgendaTurmas"/>
+						<h:commandLink  action="#{calendarioAgendaMBean.iniciarCalendario}" value="Ver Agenda das Turmas" id="verAgendaTurmas"/> 
 					</li>
-					--%> 
 				</ul>
   			    </h:form>
 				<div class="clear"> </div>
@@ -495,7 +493,7 @@
 								<c:choose>
 									<c:when test="${edital.emAberto}">
 										<c:choose>
-											<c:when test="${edital.tipoString == 'MONITORIA'}">
+											<c:when test="${edital.monitoriaOuPAMQEG}">
 												<h:form style="display: inline;">
 												<h:commandLink action="#{projetoMonitoria.iniciarProjetoMonitoria}">
 													<h:graphicImage url="/img/seta.gif" alt="Submeter Proposta de Projeto" title="Submeter Proposta de Projeto"/>

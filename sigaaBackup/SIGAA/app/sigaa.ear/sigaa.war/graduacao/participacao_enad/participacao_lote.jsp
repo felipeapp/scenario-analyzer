@@ -2,9 +2,12 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho.jsp"%>
 <script type="text/javascript">
 function marcarTodos(chk) {
-	var checks = document.getElementsByName('selecao');
-	for (i=0;i<checks.length;i++) {
-		checks[i].checked = chk.checked;
+	var re= new RegExp('selecionaDiscente', 'g')
+	var elements = document.getElementsByTagName('input');
+	for (i = 0; i < elements.length; i++) {
+		if (elements[i].id.match(re)) {
+			elements[i].checked = chk.checked;
+		}
 	}
 }
 </script>
@@ -50,7 +53,7 @@ function marcarTodos(chk) {
 						renderPopupButtonAsImage="true" size="10" maxlength="10"
 						onkeypress="return formataData(this,event)"
 						readonly="#{participacaoDiscenteEnade.readOnly}"
-						disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+						disabled="#{participacaoDiscenteEnade.readOnly}" popupDateFormat="dd/MM/yyyy"
 						value="#{participacaoDiscenteEnade.obj.dataProvaEnadeIngressante}" >
 						 <f:converter converterId="convertData"/>
 					 </t:inputCalendar>
@@ -89,7 +92,7 @@ function marcarTodos(chk) {
 						renderPopupButtonAsImage="true" size="10" maxlength="10"
 						onkeypress="return formataData(this,event)"
 						readonly="#{participacaoDiscenteEnade.readOnly}"
-						disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+						disabled="#{participacaoDiscenteEnade.readOnly}" popupDateFormat="dd/MM/yyyy"
 						value="#{participacaoDiscenteEnade.obj.dataProvaEnadeConcluinte}" >
 						 <f:converter converterId="convertData"/>
 					 </t:inputCalendar>
@@ -104,7 +107,8 @@ function marcarTodos(chk) {
 				<table class="listagem">
 					<thead>
 						<tr>
-							<th></th>
+							<th><input type="checkbox" id="selectAllDiscentes" title="Marcar/Desmarcar Todos" checked="checked"
+										onclick="marcarTodos(this)"/></th>
 							<th style="text-align: right;">Matrícula</th>
 							<th>Nome</th>
 							<th>Participação no ENADE</th>
@@ -126,7 +130,7 @@ function marcarTodos(chk) {
 						</c:if>
 					
 						<tr class="${status.index % 2 == 0 ? "linhaPar" : "linhaImpar" }">
-							<td><h:selectBooleanCheckbox value="#{item.discente.matricular}" label="selecao"/></td>
+							<td><h:selectBooleanCheckbox value="#{item.discente.matricular}" id="selecionaDiscente"/></td>
 							<td style="text-align: right;">${item.discente.matricula }</td>
 							<td>${item.discente.pessoa.nome }</td>
 							<c:if test="${ participacaoDiscenteEnade.tipoEnadeIngressante }">

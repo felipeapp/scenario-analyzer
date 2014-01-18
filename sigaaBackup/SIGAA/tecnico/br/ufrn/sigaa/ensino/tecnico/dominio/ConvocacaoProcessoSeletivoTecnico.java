@@ -30,6 +30,7 @@ import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.seguranca.log.CriadoEm;
 import br.ufrn.arq.seguranca.log.CriadoPor;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.sigaa.ensino.metropoledigital.dominio.ReservaVagaGrupo;
 
 /**
  * Classe de domínio responsável pelo modelo da convocação do processo seletivo.
@@ -62,9 +63,15 @@ public class ConvocacaoProcessoSeletivoTecnico implements PersistDB, Validatable
 	@JoinColumn(name = "id_processo_seletivo")
 	private ProcessoSeletivoTecnico processoSeletivo = new ProcessoSeletivoTecnico ();
 	
+	/** Objeto que corresponde a opção pólo grupo que pode ser vinculado ou não a uma convocação*/
 	@ManyToOne
 	@JoinColumn(name="id_opcao")
 	private OpcaoPoloGrupo opcao;
+	
+	/** Objeto que corresponde ao grupo de reserva de vagas que pode ser vinculado ou não a uma convocação*/
+	@ManyToOne
+	@JoinColumn(name="id_reserva_vaga_grupo")
+	private ReservaVagaGrupo grupo;
 
 	/** Registro de Entrada do usuário que cadastrou a convocação. */
 	@CriadoPor
@@ -77,12 +84,15 @@ public class ConvocacaoProcessoSeletivoTecnico implements PersistDB, Validatable
 	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 	
+	/** Quantidade de discentes com reserva de vagas */
 	@Column(name="quantidade_discentes_com_reserva")
-	private int quantidadeDiscentesComReserva;
+	private Integer quantidadeDiscentesComReserva;
 	
+	/** Quantidade de discentes sem reserva de vagas */
 	@Column(name="quantidade_discentes_sem_reserva")
-	private int quantidadeDiscentesSemReserva;
+	private Integer quantidadeDiscentesSemReserva;
 	
+	/** Indica se a convocação irá ou não convocar todos os aprovados */
 	@Column(name="todos_aprovados")
 	private boolean todosAprovados;
 	
@@ -90,12 +100,15 @@ public class ConvocacaoProcessoSeletivoTecnico implements PersistDB, Validatable
 	public ConvocacaoProcessoSeletivoTecnico () {
 		super();
 		opcao = new OpcaoPoloGrupo();
+		grupo = new ReservaVagaGrupo();
 	}
 	
 	/**	Constructor parametrizado. **/
 	public ConvocacaoProcessoSeletivoTecnico (int id) {
 		this();
 		this.id = id;
+		this.quantidadeDiscentesSemReserva = null;
+		this.quantidadeDiscentesComReserva = null;
 	}
 
 	/** Getters and Setters **/
@@ -167,19 +180,19 @@ public class ConvocacaoProcessoSeletivoTecnico implements PersistDB, Validatable
 		return this.descricao;
 	}
 
-	public int getQuantidadeDiscentesComReserva() {
+	public Integer getQuantidadeDiscentesComReserva() {
 		return quantidadeDiscentesComReserva;
 	}
 
-	public void setQuantidadeDiscentesComReserva(int quantidadeDiscentesComReserva) {
+	public void setQuantidadeDiscentesComReserva(Integer quantidadeDiscentesComReserva) {
 		this.quantidadeDiscentesComReserva = quantidadeDiscentesComReserva;
 	}
 
-	public int getQuantidadeDiscentesSemReserva() {
+	public Integer getQuantidadeDiscentesSemReserva() {
 		return quantidadeDiscentesSemReserva;
 	}
 
-	public void setQuantidadeDiscentesSemReserva(int quantidadeDiscentesSemReserva) {
+	public void setQuantidadeDiscentesSemReserva(Integer quantidadeDiscentesSemReserva) {
 		this.quantidadeDiscentesSemReserva = quantidadeDiscentesSemReserva;
 	}
 
@@ -198,4 +211,14 @@ public class ConvocacaoProcessoSeletivoTecnico implements PersistDB, Validatable
 	public void setTodosAprovados(boolean todosAprovados) {
 		this.todosAprovados = todosAprovados;
 	}
+
+	public ReservaVagaGrupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(ReservaVagaGrupo grupo) {
+		this.grupo = grupo;
+	}
+
+	
 }

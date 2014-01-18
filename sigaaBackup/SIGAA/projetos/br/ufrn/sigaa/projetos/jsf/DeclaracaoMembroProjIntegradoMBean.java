@@ -31,6 +31,7 @@ import br.ufrn.arq.seguranca.autenticacao.TipoDocumentoAutenticado;
 import br.ufrn.arq.util.Formatador;
 import br.ufrn.arq.util.JasperReportsUtil;
 import br.ufrn.sigaa.arq.dao.projetos.AvaliacaoDao;
+import br.ufrn.sigaa.arq.dao.projetos.DiscenteProjetoDao;
 import br.ufrn.sigaa.arq.dao.projetos.MembroProjetoDao;
 import br.ufrn.sigaa.arq.dominio.ConstantesParametro;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
@@ -38,6 +39,7 @@ import br.ufrn.sigaa.parametros.dominio.ParametrosExtensao;
 import br.ufrn.sigaa.parametros.dominio.ParametrosMonitoria;
 import br.ufrn.sigaa.parametros.dominio.ParametrosPesquisa;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
+import br.ufrn.sigaa.projetos.dominio.DiscenteProjeto;
 import br.ufrn.sigaa.projetos.dominio.MembroProjeto;
 
 /**
@@ -60,7 +62,10 @@ public class DeclaracaoMembroProjIntegradoMBean extends
 
 	/** Participações em projetos */
 	private DataModel membros;
-	
+
+    /** Lista de discentes do projeto. */
+	private Collection<DiscenteProjeto> discentesProjeto = new ArrayList<DiscenteProjeto>();
+
 	public DeclaracaoMembroProjIntegradoMBean() {
 		obj = new MembroProjeto();
 	}
@@ -79,15 +84,18 @@ public class DeclaracaoMembroProjIntegradoMBean extends
 	 */
 	public String participacoesDiscenteUsuarioLogado() throws DAOException, SegurancaException {
 		MembroProjetoDao dao = getDAO(MembroProjetoDao.class);
+		DiscenteProjetoDao discenteDao = getDAO(DiscenteProjetoDao.class);
 		try {
 			if ((getDiscenteUsuario() != null) && (getDiscenteUsuario().getPessoa() != null)) {
 				Discente d = getDiscenteUsuario().getDiscente();
 				membros = new ListDataModel( dao.findMembrosAssociadosByDiscente(d.getId()) );
+				discentesProjeto = discenteDao.findByDiscenteComPlanoTrabalho(getDiscenteUsuario().getId(), null);
 			} else {
 				membros = new ListDataModel();
 			}
 		} finally {
 			dao.close();
+			discenteDao.close();
 		}
 		
 		return forward("/projetos/DeclaracaoCertificado/certificados_declaracoes_discente.jsp");
@@ -311,4 +319,12 @@ public class DeclaracaoMembroProjIntegradoMBean extends
 		this.membros = membros;
 	}
 
+	public Collection<DiscenteProjeto> getDiscentesProjeto() {
+		return discentesProjeto;
+	}
+
+	public void setDiscentesProjeto(Collection<DiscenteProjeto> discentesProjeto) {
+		this.discentesProjeto = discentesProjeto;
+	}
+	
 }

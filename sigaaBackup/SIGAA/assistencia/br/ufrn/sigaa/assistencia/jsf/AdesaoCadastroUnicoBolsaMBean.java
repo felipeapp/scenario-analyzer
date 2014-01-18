@@ -85,7 +85,12 @@ public class AdesaoCadastroUnicoBolsaMBean extends SigaaAbstractController<Adesa
 	 * Atributo que indica se o usuário concorda com os termos de participação
 	 */
 	private boolean termoConcordancia;	
-	
+
+	/**
+	 * Atributo que indica se o usuário está tentando renovar a bolsa
+	 */
+	private boolean renovacaoBolsa;	
+
 	/**
 	 * Verificar se o endereço da família é a mesma do discente
 	 */
@@ -120,6 +125,20 @@ public class AdesaoCadastroUnicoBolsaMBean extends SigaaAbstractController<Adesa
 		obj.setContatoFamilia(new ContatoFamilia());
 		obj.getContatoFamilia().clear();
 	}
+
+	/**
+	 * Inicia o processo de adesão do aluno ao programa de 
+	 * cadastro único de bolsa
+	 * JSP: sigaa.war/portais/discente/menu_discente.jsp
+	 * 
+	 * @return
+	 * @throws ArqException 
+	 */
+	public String apresentacaoCadastroUnicoRenovacao() throws ArqException {
+		init();
+		renovacaoBolsa = true;
+		return iniciarAdesao();
+	}
 	
 	/**
 	 * Inicia o processo de adesão do aluno ao programa de 
@@ -130,9 +149,12 @@ public class AdesaoCadastroUnicoBolsaMBean extends SigaaAbstractController<Adesa
 	 * @throws ArqException 
 	 */
 	public String apresentacaoCadastroUnico() throws ArqException {
-		
 		init();
-		
+		renovacaoBolsa = false;
+		return iniciarAdesao();
+	}
+
+	private String iniciarAdesao() throws DAOException, ArqException {
 		if (getCalendarioVigente() == null) {
 			addMensagemErro("O Calendário Acadêmico não foi localizado.");
 			return null;
@@ -438,6 +460,10 @@ public class AdesaoCadastroUnicoBolsaMBean extends SigaaAbstractController<Adesa
 			return null;
 		}
 		resetBean();
+		
+		if ( renovacaoBolsa ) {
+			return forward("/sae/BolsaAuxilio/renovar_bolsa.jsf");
+		}
 		
 		if (mBeanFluxo != null)
 			return mBeanFluxo.getUrlDestino();
@@ -745,6 +771,14 @@ public class AdesaoCadastroUnicoBolsaMBean extends SigaaAbstractController<Adesa
 	public void setIdDiscenteVisualizacaoCadastro(
 			Integer idDiscenteVisualizacaoCadastro) {
 		this.idDiscenteVisualizacaoCadastro = idDiscenteVisualizacaoCadastro;
+	}
+
+	public boolean isRenovacaoBolsa() {
+		return renovacaoBolsa;
+	}
+
+	public void setRenovacaoBolsa(boolean renovacaoBolsa) {
+		this.renovacaoBolsa = renovacaoBolsa;
 	}
 	
 }

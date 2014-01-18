@@ -47,6 +47,7 @@ import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.comum.dominio.Sistema;
 import br.ufrn.sigaa.arq.dao.CursoDao;
 import br.ufrn.sigaa.arq.dao.DiscenteDao;
+import br.ufrn.sigaa.arq.dao.ensino.BolsistaSigaaDao;
 import br.ufrn.sigaa.arq.dao.graduacao.AbstractRelatorioSqlDao;
 import br.ufrn.sigaa.arq.dao.graduacao.IndiceAcademicoDao;
 import br.ufrn.sigaa.arq.dao.graduacao.MatrizCurricularDao;
@@ -161,6 +162,9 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 	/** Lista de municípios do relatório. */
 	private Set<String> municipios;
 	
+	/** Indica se o relatório a ser gerado é sintético. */
+	private boolean relatorioSintetico;
+	
 	//Listas
 
 	/** Link do relatório de alunos ingressantes. */
@@ -207,6 +211,8 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 	private static final String JSP_RELATORIO_VINVCULADOS_ESTRUTURA = "lista_vinculados_estrutura.jsp";
 	/** Link do relatório de insucessos de alunos em uma disciplina. */
 	private static final String JSP_RELATORIO_INSUCESSOS = "lista_insucessos.jsp";
+	/** Link do relatório sintético de insucessos de alunos em uma disciplina. */
+	private static final String JSP_RELATORIO_INSUCESSOS_SINTETICO = "lista_insucessos_sintetico.jsp";
 	/** Link do formulário de seleção de parâmetros para o relatório de alunos reprovados. */
 	private static final String JSP_SELECIONA_RELATORIO_ALUNOS_REPROVADOS = "seleciona_alunos_reprovados.jsp";
 	/** Link do relatório de alunos reprovados. */
@@ -567,8 +573,15 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 			
 			try {
 				listaDiscente = dao.findListaContatoDiscente(status, matrizCurricular.getCurso().getUnidade().getId());
+				if (isEmpty(listaDiscente)) {
+					addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
+					return null;
+				}
 				for ( Map<String,Object>vlistaDiscente : listaDiscente){
-					vlistaDiscente.put("nivel", NivelEnsino.getDescricao(vlistaDiscente.get("nivel").toString().toCharArray()[0]));
+					if (vlistaDiscente.get("nivel") == null)
+						vlistaDiscente.put("nivel", "ALUNO ESPECIAL");
+					else
+						vlistaDiscente.put("nivel", NivelEnsino.getDescricao(vlistaDiscente.get("nivel").toString().toCharArray()[0]));
 				}
 			} finally {
 				dao.close();
@@ -806,7 +819,16 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 			RelatorioDiscenteSqlDao dao = getDAO(RelatorioDiscenteSqlDao.class);
 			try {
 				
-				listaDiscenteBolsa = dao.findDiscentesBolsas(matrizCurricular.getCurso().getUnidade().getId(), dataInicio, dataFinal);
+				Character nivelEnsino = null;
+				Collection<Integer> tiposBolsaSigaa = null;				
+				BolsistaSigaaDao daoBolsista = getDAO(BolsistaSigaaDao.class);
+				
+				if(isPortalPpg()) {
+					tiposBolsaSigaa = daoBolsista.tiposBolsaSigaa();
+					nivelEnsino = NivelEnsino.STRICTO;
+				}
+				
+				listaDiscenteBolsa = dao.findDiscentesBolsas(matrizCurricular.getCurso().getUnidade().getId(), dataInicio, dataFinal,nivelEnsino,tiposBolsaSigaa);
 				if (listaDiscenteBolsa.size() == 0)
 					addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);					
 				else {
@@ -839,11 +861,14 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 		
 		try {
 			curso = dao.findByPrimaryKey(idCurso, Curso.class, "nome");
-			listaDiscente = dao.findListaInsucessosAlunos(ano, periodo, idCurso);
+			listaDiscente = dao.findListaInsucessosAlunos(ano, periodo, idCurso, relatorioSintetico);
 		} finally {
 			dao.close();
 		}
-		return forward(CONTEXTO+getAmbito()+JSP_RELATORIO_INSUCESSOS);
+		if (relatorioSintetico)
+			return forward(CONTEXTO+getAmbito()+JSP_RELATORIO_INSUCESSOS_SINTETICO);
+		else
+			return forward(CONTEXTO+getAmbito()+JSP_RELATORIO_INSUCESSOS);
 	}
 
 	/**
@@ -1154,7 +1179,10 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 	 */
 	
 	public String gerarRelatorioListaAlunoTipoSaida() throws DAOException, SegurancaException{
-		checkRole(SigaaPapeis.DAE,SigaaPapeis.ADMINISTRADOR_DAE,SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO);
+		
+		checkRole(SigaaPapeis.DAE,SigaaPapeis.ADMINISTRADOR_DAE,SigaaPapeis.COORDENADOR_CURSO, 
+				SigaaPapeis.SECRETARIA_COORDENACAO , SigaaPapeis.SECRETARIA_COORDENACAO , SigaaPapeis.PORTAL_PLANEJAMENTO );
+		
 		if(idMatrizCurricular!=null)
 			matrizCurricular.setId(idMatrizCurricular);
 		if(idCurso!=null)
@@ -1530,7 +1558,7 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 	 * @throws SegurancaException 
 	 */
 	public String gerarRelatorioListaAlunoLaureados() throws DAOException, SegurancaException{
-		checkRole(SigaaPapeis.DAE,SigaaPapeis.ADMINISTRADOR_DAE, SigaaPapeis.PORTAL_PLANEJAMENTO );		
+		checkRole(SigaaPapeis.DAE,SigaaPapeis.ADMINISTRADOR_DAE, SigaaPapeis.PORTAL_PLANEJAMENTO );
 		carregarTituloRelatorio();
 		
 		RelatorioDiscenteSqlDao dao = getDAO(RelatorioDiscenteSqlDao.class);
@@ -1648,8 +1676,12 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 	 * @throws SegurancaException
 	 */
 	public String gerarRelatorioMobilidade() throws DAOException, SegurancaException {
-		checkRole(SigaaPapeis.DAE, SigaaPapeis.ADMINISTRADOR_DAE);
-
+		checkRole(SigaaPapeis.DAE, SigaaPapeis.ADMINISTRADOR_DAE, SigaaPapeis.GESTOR_TRADUCAO_DOCUMENTOS);
+		if (ano != null && anoFim != null && anoFim > ano)
+			addMensagemErro("O ano final não pode ser posterior ao ano inicial.");
+		if (ano != null && anoFim != null && periodo != null && periodoFim != null && anoFim *10 + periodoFim > ano * 10 + periodo)
+			addMensagemErro("O ano-período final não pode ser posterior ao ano-período inicial.");
+		if (hasErrors()) return null;
 		RelatorioDiscenteSqlDao dao = getDAO(RelatorioDiscenteSqlDao.class);
 		
 		try {
@@ -2422,10 +2454,12 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 		this.filtroStatus = filtroStatus;
 	}
 
+	@Override
 	public boolean isFiltroUnidade() {
 		return filtroUnidade;
 	}
 
+	@Override
 	public void setFiltroUnidade(boolean filtroUnidade) {
 		this.filtroUnidade = filtroUnidade;
 	}
@@ -2438,18 +2472,22 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 		this.todosCentros = todosCentros;
 	}
 
+	@Override
 	public Integer getAno() {
 		return ano;
 	}
 
+	@Override
 	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
+	@Override
 	public Integer getPeriodo() {
 		return periodo;
 	}
 
+	@Override
 	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
 	}
@@ -2668,6 +2706,14 @@ public class RelatorioDiscenteMBean extends AbstractRelatorioGraduacaoMBean {
 
 	public void setOrdenarPorOrientador(boolean ordenarPorOrientador) {
 		this.ordenarPorOrientador = ordenarPorOrientador;
+	}
+
+	public boolean isRelatorioSintetico() {
+		return relatorioSintetico;
+	}
+
+	public void setRelatorioSintetico(boolean relatorioSintetico) {
+		this.relatorioSintetico = relatorioSintetico;
 	}
 	
 }

@@ -1668,6 +1668,27 @@ public class ProjetoPesquisaAction extends AbstractWizardAction {
         return mapping.findForward(RESUMO);
 	}
 
+	public ActionForward viewProjeto(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		int idProjetoBase = getParameterInt(req, "idProjeto", 0);
+		if(idProjetoBase != 0) {
+			ProjetoPesquisaDao dao = getDAO(ProjetoPesquisaDao.class, req);
+			try {
+				ProjetoPesquisa pp = dao.findByIdProjetoBase(idProjetoBase);
+				ProjetoPesquisaForm projetoForm = (ProjetoPesquisaForm) form;
+				projetoForm.setObj(pp);
+				req.setAttribute("id", pp.getId());
+				return view(mapping, form, req, res);
+			} finally {
+				dao.close();
+			}
+		} else {
+			addMensagemErro("Não há um projeto de pesquisa associado a esse projeto base.", req);
+			return mapping.findForward(getSubSistemaCorrente(req).getForward());
+		}
+
+	}
+	
+	
 	/**
 	 * Visualiza o projeto de pesquisa a partir do projeto-base.
 	 * <br>

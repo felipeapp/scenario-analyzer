@@ -33,11 +33,14 @@
 	</tr>
 </c:forEach>
 </tbody>
+<tfoot>
+	 <tr>
+		<td colspan="2">
+			<input type="button" value="<< Voltar" onclick="javascript:history.go(-1)" />
+		</td>
+	 </tr>
+</tfoot>
 </table>
-
-	<div class = "voltar">
-		<a href="javascript:history.go(-1)">  Voltar </a>
-	</div>
 
 </f:view>
 <%@include file="/WEB-INF/jsp/include/rodape.jsp"%>

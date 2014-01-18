@@ -57,6 +57,12 @@ public class DesignacaoFuncaoProjetoHelper {
 						TipoDesignacaoFuncaoProjeto.FUNCAO_COORDENACAO_EXTENSAO, false);
 	}
 
+	public static boolean isCoordenadorOrDesignacaoGerenciarParticipantesExtensao( int idPessoa ) {
+		return DAOFactory.getInstance().getDAO(DesignacaoFuncaoProjetoDao.class).
+				findDesignacaoMembroProjeto(0, idPessoa, 
+						TipoDesignacaoFuncaoProjeto.GERENCIAR_PARTICIPANTES_EXTENSAO, false);
+	}
+	
 	public static Collection<Integer> projetosByCoordenadoresOrDesignacaoCoordenador( int idServidor ) throws HibernateException, DAOException {
 		return DAOFactory.getInstance().getDAO(DesignacaoFuncaoProjetoDao.class).
 				findDesignacoesByServidor(idServidor, true, 

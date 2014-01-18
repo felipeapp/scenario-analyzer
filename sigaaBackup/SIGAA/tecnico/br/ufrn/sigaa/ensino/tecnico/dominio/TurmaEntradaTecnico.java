@@ -32,6 +32,7 @@ import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.arq.util.HashCodeUtil;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.dominio.Unidade;
+import br.ufrn.sigaa.ensino.metropoledigital.dominio.DadosTurmaIMD;
 
 /**
  * Conjunto de alunos que entram na escola no mesmo período, e devem cursar as
@@ -48,11 +49,6 @@ public class TurmaEntradaTecnico implements Validatable, Comparable<TurmaEntrada
 	@GenericGenerator(name="seqGenerator", strategy="br.ufrn.arq.dao.SequenceStyleGenerator")
 	@Column(name = "id_turma_entrada", unique = true, nullable = false, insertable = true, updatable = true)
 	private int id;
-
-	/** Indica a Estrutura Curricular vinculada a Turma de Entrada. */
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_estrutura_curricular", unique = false, nullable = false, insertable = true, updatable = true)
-	private EstruturaCurricularTecnica estruturaCurricularTecnica = new EstruturaCurricularTecnica();
 
 	/** Indica a data da entrada da Turma no Curso. */
 	@Temporal(TemporalType.DATE)
@@ -116,6 +112,15 @@ public class TurmaEntradaTecnico implements Validatable, Comparable<TurmaEntrada
 	@AtualizadoPor
 	private RegistroEntrada registroAtualizacao;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_dados_turma_imd")
+	private DadosTurmaIMD dadosTurmaIMD;
+	
+	/** Curso Técnico que a Turma de entrada em vínculado. */
+	@ManyToOne(cascade = {}, fetch = FetchType.EAGER)
+	@JoinColumn(name="id_curso")
+	private CursoTecnico cursoTecnico = new CursoTecnico();
+	
 	// Constructors
 
 	/** default constructor */
@@ -127,38 +132,12 @@ public class TurmaEntradaTecnico implements Validatable, Comparable<TurmaEntrada
 		this.id = id;
 	}
 
-	/** minimal constructor */
-	public TurmaEntradaTecnico(int idTurmaEntrada, EstruturaCurricularTecnica estruturaCurricularTecnica) {
-		this.id = idTurmaEntrada;
-		this.estruturaCurricularTecnica = estruturaCurricularTecnica;
-	}
-
-	/** full constructor */
-	public TurmaEntradaTecnico(int idTurmaEntrada, Unidade unidade,
-			EstruturaCurricularTecnica estruturaCurricularTecnica, Date dataEntrada, Integer anoReferencia,
-			Integer periodoReferencia, Set<DiscenteTecnico> discenteTecnicos) {
-		this.id = idTurmaEntrada;
-		this.estruturaCurricularTecnica = estruturaCurricularTecnica;
-		this.dataEntrada = dataEntrada;
-		this.anoReferencia = anoReferencia;
-		this.periodoReferencia = periodoReferencia;
-		this.discentesTecnicos = discenteTecnicos;
-	}
-
 	public int getId() {
 		return this.id;
 	}
 
 	public void setId(int idTurmaEntrada) {
 		this.id = idTurmaEntrada;
-	}
-
-	public EstruturaCurricularTecnica getEstruturaCurricularTecnica() {
-		return this.estruturaCurricularTecnica;
-	}
-
-	public void setEstruturaCurricularTecnica(EstruturaCurricularTecnica estruturaCurricularTecnica) {
-		this.estruturaCurricularTecnica = estruturaCurricularTecnica;
 	}
 
 	public Date getDataEntrada() {
@@ -201,12 +180,8 @@ public class TurmaEntradaTecnico implements Validatable, Comparable<TurmaEntrada
 		this.unidade = unidade;
 	}
 
-	public CursoTecnico getCursoTecnico() {
-		return getEstruturaCurricularTecnica().getCursoTecnico();
-	}
-
 	public String getDescricao() {
-		return getCursoTecnico().getCodigoNome()+ " (" + getAnoPeriodo() + ")"
+		return (getCursoTecnico() != null ? getCursoTecnico().getCodigoNome() : "") + " (" + getAnoPeriodo() + ")"
 			+ ((especializacao != null)?" - "+especializacao.getDescricao():"");
 	}
 
@@ -229,7 +204,6 @@ public class TurmaEntradaTecnico implements Validatable, Comparable<TurmaEntrada
 
 		ListaMensagens lista = new ListaMensagens();
 		ValidatorUtil.validateRequired(getCursoTecnico(), "Curso", lista);
-		ValidatorUtil.validateRequired(estruturaCurricularTecnica, "Currículo", lista);
 		ValidatorUtil.validateRequired(dataEntrada, "Data de Entrada", lista);
 		ValidatorUtil.validaInt(getAnoReferencia(), "Ano de Referência", lista);
 		ValidatorUtil.validaInt(getPeriodoReferencia(), "Período de Referência", lista);
@@ -317,4 +291,20 @@ public class TurmaEntradaTecnico implements Validatable, Comparable<TurmaEntrada
 		this.registroAtualizacao = registroAtualizacao;
 	}
 
+	public DadosTurmaIMD getDadosTurmaIMD() {
+		return dadosTurmaIMD;
+	}
+
+	public void setDadosTurmaIMD(DadosTurmaIMD dadosTurmaIMD) {
+		this.dadosTurmaIMD = dadosTurmaIMD;
+	}
+
+	public CursoTecnico getCursoTecnico() {
+		return cursoTecnico;
+	}
+
+	public void setCursoTecnico(CursoTecnico cursoTecnico) {
+		this.cursoTecnico = cursoTecnico;
+	}
+	
 }

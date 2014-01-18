@@ -18,7 +18,11 @@ import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.ProcessadorCadastro;
 import br.ufrn.sigaa.arq.dao.pesquisa.CongressoIniciacaoCientificaDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
 import br.ufrn.sigaa.pesquisa.dominio.AvaliadorCIC;
+import br.ufrn.sigaa.pesquisa.dominio.CongressoIniciacaoCientifica;
+import br.ufrn.sigaa.pessoa.dominio.Discente;
+import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
 /**
  * Processador para efetuar o cadastro dos avaliadores do CIC.
@@ -47,8 +51,9 @@ public class ProcessadorAvaliadorCIC extends ProcessadorCadastro {
 		AvaliadorCIC obj = (AvaliadorCIC) ((MovimentoCadastro)mov).getObjMovimentado();
 		CongressoIniciacaoCientificaDao dao = getDAO(CongressoIniciacaoCientificaDao.class, mov);
 		try{
-			if(!dao.isAvaliador(obj.getCongresso(), obj.getDocente(), obj.getArea())){
-				throw new NegocioException("O docente informado já está cadastrado como avaliador nessa área para congresso selecionado.");
+			
+			if(!dao.isAvaliador(obj.getCongresso(), obj.getDocente(), obj.getDiscente() , obj.getArea())){
+				throw new NegocioException("O discente/docente informado já está cadastrado como Avaliador desse congresso.");
 			}
 		}finally{
 			dao.close();

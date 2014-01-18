@@ -112,9 +112,8 @@ public class TurmaTecnicoMBean extends TurmaMBean {
 				cmd = SigaaListaComando.ALTERAR_TURMA;
 				mov.setAlteracaoTurma(getAlteracaoTurma());
 			}
-			if (obj.getCurso() != null && obj.getCurso().getId() == 0)
-				obj.setCurso(null);
-			
+
+			obj.setCurso(null);
 			mov.setCodMovimento(cmd);
 			mov.setTurma(obj);
 			mov.setSolicitacaoEnsinoIndividualOuFerias(null);
@@ -343,8 +342,7 @@ public class TurmaTecnicoMBean extends TurmaMBean {
 			addMensagemWarning("O ano-período da turma foi ajustado conforme a data de início da turma.");
 		}
 
-		if (obj.getCurso() != null && obj.getCurso().getId() > 0)
-			obj.setCurso(dao.findByPrimaryKey(obj.getCurso().getId(), Curso.class));
+		obj.setCurso(null);
 
 		// tratando sub-turmas 
 		if( obj.getDisciplina().isAceitaSubturma() ){
@@ -436,7 +434,7 @@ public class TurmaTecnicoMBean extends TurmaMBean {
 		obj.setDataFim( getCalendario().getFimPeriodoLetivo() );
 		obj.setSituacaoTurma( new SituacaoTurma( SituacaoTurma.A_DEFINIR_DOCENTE ) );
 		obj.setTipo( Turma.REGULAR );
-		obj.setCurso(getCursoAtualCoordenacao());
+		obj.setCurso(null);
 		obj.setEspecializacao(new EspecializacaoTurmaEntrada());
 		registroAlteracao = null;
 	}

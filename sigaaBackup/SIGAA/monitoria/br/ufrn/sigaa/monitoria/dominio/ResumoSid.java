@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,16 +18,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import br.ufrn.arq.dominio.RegistroEntrada;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.negocio.validacao.Validatable;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.seguranca.log.CriadoPor;
 import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.arq.util.ValidatorUtil;
+import br.ufrn.sigaa.parametros.dominio.ParametrosMonitoria;
 
 /*******************************************************************************
  * <p>
- * Representa um resumo do das atividades do projeto para o seminário de
+ * Representa um resumo das atividades do projeto para o seminário de
  * iniciação à docência. Anualmente um resumo das atividades do projeto é
  * submetido a avaliação da PROGRAD para apresentação na semana de ciência e
  * tecnologia através do seminário de iniciação à docência (SID).
@@ -48,50 +52,53 @@ import br.ufrn.arq.util.ValidatorUtil;
 @Table(name = "resumo_sid", schema = "monitoria")
 public class ResumoSid implements Validatable {
 
-	// Fields
+	/**Identificador do resumo  das atividades do projeto para o seminário de iniciação à docência*/
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(generator="seqGenerator")
+	@GenericGenerator(name="seqGenerator", strategy="br.ufrn.arq.dao.SequenceStyleGenerator",
+	           parameters={ @Parameter(name="sequence_name", value="hibernate_sequence") })
 	@Column(name = "id_resumo_sid")
 	private int id;
-
+	/**Texto resumido contendo todas as atividade desenvolvidas no projeto.*/
 	@Column(name = "resumo")
 	private String resumo;
-
+	/**Ano em que o resumo foi publicado*/
 	@Column(name = "ano_sid")
 	private Integer anoSid;
-
+	/**Palavras chaves do resumo*/
 	@Column(name = "palavras_chave")
 	private String palavrasChave;
-
+	/**data de envio do resumo*/
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_envio")
 	private Date dataEnvio;
-	
+	/**projeto de monitotoria*/
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_projeto_monitoria")
 	private ProjetoEnsino projetoEnsino = new ProjetoEnsino();
-
+	/**	status do resumo. valores possiveis: 1-aguardando distribuicao, 2-aguardando avaliacao,
+	 *  3-avaliado sem ressalvas, 4-avaliado com ressalvas, 5-cadastro em andamento*/
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status")
 	private StatusRelatorio status = new StatusRelatorio();
-
+	/**Representa a participação de um discente de monitoria em um resumo do SID*/
 	@OneToMany(mappedBy = "resumoSid")
 	@OrderBy(value = "discenteMonitoria")
 	private Set<ParticipacaoSid> participacoesSid = new HashSet<ParticipacaoSid>();
-
+	/** Atributo utilizado para representar as avaliações do projeto */
 	@OneToMany(mappedBy = "resumoSid")
 	@OrderBy(value = "avaliador")
 	private Set<AvaliacaoMonitoria> avaliacoes = new HashSet<AvaliacaoMonitoria>();
-
+	/** Registro entrada do usuário que cadastrou. */
 	@CriadoPor
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro_entrada")	
 	private RegistroEntrada registroEntrada;
-
-	@ManyToOne
+	/** Registro entrada do usuário que removeu o resumo. */
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro_entrada_exclusao")
 	private RegistroEntrada registroEntradaExclusao;
-
+	/**ativo = false quando o resumo for excluido*/
 	private boolean ativo;
 
 	// Constructors
@@ -162,31 +169,33 @@ public class ResumoSid implements Validatable {
 		ValidatorUtil.validateRequired(palavrasChave, "Palavras-Chave", lista);
 		ValidatorUtil.validaInt(anoSid, "Ano do Seminário", lista);
 		ValidatorUtil.validateRequired(projetoEnsino, "Projeto de Monitoria", lista);
+		int totalParticipacoes = 0;
 		if ((participacoesSid != null) && (!participacoesSid.isEmpty())) {
 			for (ParticipacaoSid ps : participacoesSid) {
 				if ((!ps.isParticipou()) && (ps.getJustificativa().trim().equals(""))) {
 					lista.addErro("Em caso de não participação do discente no resumo, deve ser informada uma justificativa.");
 					break;
 				}
+				if ( ps.isParticipou() ) 
+					totalParticipacoes++;
 			}
 		}
+		
+		int maximoBolsistasSid = ParametroHelper.getInstance().getParametroInt(ParametrosMonitoria.NUMERO_MAXIMO_BOLSISTAS_MONITORIA);
+		if ( totalParticipacoes > maximoBolsistasSid ) {
+			lista.addErro("Só é permitido cadastrar no máximo " + maximoBolsistasSid + " bolsistas por Resumo SID.");
+		}
+		
 		if ((resumo != null) && (!resumo.trim().equals(""))) {
 			ValidatorUtil.validateMaxLength(resumo, 1500, "Resumo", lista);
 		}
 		return lista;
 	}
 
-	/**
-	 * @return the status
-	 */
 	public StatusRelatorio getStatus() {
 		return status;
 	}
 
-	/**
-	 * @param status
-	 *            the status to set
-	 */
 	public void setStatus(StatusRelatorio status) {
 		this.status = status;
 	}
@@ -359,6 +368,10 @@ public class ResumoSid implements Validatable {
 		return result;
 	}
 	
+	/**
+	 * verifica se o resumo ou relatorio possui algum status valido para a exibição.
+	 *@return  
+	 */
 	public boolean isPermitidoVisualizarResumoSid() {		
 		if(status!= null && status.getId() != StatusRelatorio.REMOVIDO)
 			return true;

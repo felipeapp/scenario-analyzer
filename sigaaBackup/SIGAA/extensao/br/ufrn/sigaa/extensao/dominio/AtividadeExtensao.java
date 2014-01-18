@@ -236,6 +236,7 @@ public class AtividadeExtensao implements Validatable {
     @Transient
     private LocalRealizacao localRealizacao = new LocalRealizacao();
 
+    /**Lista de locais da realização da ação de extensão*/
     @OneToMany(mappedBy = "atividade")
 	private List<LocalRealizacao> locaisRealizacao = new ArrayList<LocalRealizacao>();
 	
@@ -249,6 +250,11 @@ public class AtividadeExtensao implements Validatable {
     @JoinColumn(name = "id_edital")
     private EditalExtensao editalExtensao = new EditalExtensao();
 
+    /** Linha de Atuação ao qual a atividade está associada. */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_linha_atuacao")
+    private EditalExtensaoLinhaAtuacao linhaAtuacao = new EditalExtensaoLinhaAtuacao();
+    
     /** Uma ação de extensão é um projeto. Para obter dados mais gerais
        da ação de extensão veja a tabela projetos.projeto */
     @ManyToOne(fetch = FetchType.EAGER)
@@ -2103,6 +2109,7 @@ public class AtividadeExtensao implements Validatable {
 		this.publicoAlvoExterno = publicoAlvoExterno;
 	}
 
+	/**Retorna apenas os objetivos da ação que estão ativos.*/
 	public Collection<Objetivo> getObjetivo() {
 		if (objetivo != null){
 			// Removendo os inativos
@@ -2127,6 +2134,7 @@ public class AtividadeExtensao implements Validatable {
 		this.financProex = financProex;
 	}
 
+	/**retorna apenas os locais de realização da ação, que estão ativos.*/
 	public List<LocalRealizacao> getLocaisRealizacao() {
 		if (locaisRealizacao != null){
 			// Removendo os inativos
@@ -2200,5 +2208,13 @@ public class AtividadeExtensao implements Validatable {
 
 	public Boolean getVinculoProgramaEstrategico(){
 		return vinculadoProgramaEstrategico;
+	}
+
+	public EditalExtensaoLinhaAtuacao getLinhaAtuacao() {
+		return linhaAtuacao;
+	}
+
+	public void setLinhaAtuacao(EditalExtensaoLinhaAtuacao linhaAtuacao) {
+		this.linhaAtuacao = linhaAtuacao;
 	}
 }

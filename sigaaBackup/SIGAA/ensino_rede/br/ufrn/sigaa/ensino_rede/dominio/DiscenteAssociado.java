@@ -25,10 +25,12 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.arq.dominio.RegistroEntrada;
 import br.ufrn.arq.seguranca.log.CriadoEm;
 import br.ufrn.arq.seguranca.log.CriadoPor;
+import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 
 /**
@@ -71,7 +73,7 @@ public class DiscenteAssociado implements PersistDB {
 	private DadosCursoRede dadosCurso;
 	
 	/** Situação do discente. */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_status", nullable = false)
 	private StatusDiscenteAssociado status;
 	
@@ -94,6 +96,10 @@ public class DiscenteAssociado implements PersistDB {
 
 	/** Observações que o usuário pode realizar nos discentes */
 	private String observacao;
+	
+	/** Registra os discentes que estão marcados para alteração */
+	@Transient
+	private boolean selected;
 	
 	/**
 	 * Construtor padrão 
@@ -119,6 +125,10 @@ public class DiscenteAssociado implements PersistDB {
 
 	public char getNivel() {
 		return nivel;
+	}
+	
+	public String getNivelDesc() {
+		return NivelEnsino.getDescricao(nivel);
 	}
 
 	public void setNivel(char nivel) {
@@ -195,4 +205,23 @@ public class DiscenteAssociado implements PersistDB {
 		this.convocacao = convocacao;
 	}
 
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	@Override
+	public boolean equals (Object o){
+		return EqualsUtil.testEquals(this, o, "id");
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
 }

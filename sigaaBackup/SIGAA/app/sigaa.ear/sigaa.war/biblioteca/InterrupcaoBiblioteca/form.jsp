@@ -119,7 +119,7 @@ function textCounter(field, idMostraQuantidadeUsuario, maxlimit) {
 function ativaBotaoFalso() {
 	
 	// infelizmente não tem como colocar acento aqui //
-	confirmou =  confirm('Confirma a interrupcao? Todos os emprestimos das bibliotecas selecionadas com prazo para a data desta interrupcao serao adiados para o proximo dia util.  ?');
+	confirmou =  confirm('Confirma a interrupcao? Todos os emprestimos das bibliotecas selecionadas com prazo para a data desta interrupcao serao adiados para o proximo dia util?');
 	
 	if(confirmou){
 		$('fromCadastraInterrupcao:botaoCadastraInterrupcao').hide();

@@ -109,13 +109,7 @@ public class DocenteTurma implements PersistDB, ViewAtividadeBuilder, Comparable
 	 */
 	@Transient
 	private Double chDedicadaSemana;
-	
-	/**
-	 * Indica a porcentagem da carga horária dedicada do docente. 
-	 */
-	@Transient
-	private Integer porcentagemChDedicada;
-	
+		
 	/** default constructor */
 	public DocenteTurma() {
 	}
@@ -234,7 +228,7 @@ public class DocenteTurma implements PersistDB, ViewAtividadeBuilder, Comparable
 		if (!isEmpty(getDocente()))
 			return getDocente().getNome();
 		if (!isEmpty(getDocenteExterno()))
-			return getDocenteExterno().getNomeInstituicaoENomeDocente();
+			return getDocenteExterno().getNome();
 		return null;
 	}
 
@@ -396,29 +390,7 @@ public class DocenteTurma implements PersistDB, ViewAtividadeBuilder, Comparable
 	public void setHorarios(List<HorarioDocente> horarios) {
 		this.horarios = horarios;
 	}
-	
-	/** 
-	 * Calcula a carga horária dedicada do docente a partir da porcentagem da carga horária do componente.
-	 */
-	public void calculaChDedicadaByPorcentagemChComponente ( Integer chComponente) {
 		
-		if (porcentagemChDedicada == null || chComponente == null)
-			chDedicadaPeriodo = null;
-		else
-			chDedicadaPeriodo = chComponente * porcentagemChDedicada / 100;	
-	}
-	
-	/** 
-	 * Calcula a porcentagem de carga horária do docente em relação a ch do componente, a partir de sua ch dedicada.
-	 */
-	public void calculaPorcentagemByChDedicadaChComponente ( Integer chComponente) {
-		
-		if (chDedicadaPeriodo == null || chComponente == null)
-			porcentagemChDedicada = null;
-		else
-			porcentagemChDedicada = chDedicadaPeriodo * 100 / chComponente;	
-	}
-	
 	/** Retorna uma representação textual do horário do docente na turma.
 	 * @return
 	 */
@@ -537,14 +509,6 @@ public class DocenteTurma implements PersistDB, ViewAtividadeBuilder, Comparable
 
 	public boolean isChResidenciaSemTurma() {
 		return chResidenciaSemTurma;
-	}
-
-	public void setPorcentagemChDedicada(Integer porcentagemChDedicada) {
-		this.porcentagemChDedicada = porcentagemChDedicada;
-	}
-
-	public Integer getPorcentagemChDedicada() {
-		return porcentagemChDedicada;
 	}
 
 	public void setChDedicadaSemana(Double chDedicadaSemana) {

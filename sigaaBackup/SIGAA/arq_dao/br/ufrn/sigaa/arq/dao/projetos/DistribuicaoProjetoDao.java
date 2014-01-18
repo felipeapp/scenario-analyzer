@@ -44,7 +44,8 @@ public class DistribuicaoProjetoDao  extends GenericSigaaDAO {
 			"d.modeloAvaliacao.tipoAvaliacao ";
 			String hql = "select " + projecao + ", " +
 			"(select count(*) from br.ufrn.sigaa.projetos.dominio.Avaliacao a1 where a1.ativo = trueValue() and a1.distribuicao.id = d.id) as totalAvaliacoesDistribuidas, " +
-			"(select count(*) from br.ufrn.sigaa.projetos.dominio.Avaliacao a2 where a2.ativo = trueValue() and a2.distribuicao.id = d.id and a2.situacao.id = :idAvaliacaoRealizada) as totalAvaliacoesRealizadas " +
+			"(select count(*) from br.ufrn.sigaa.projetos.dominio.Avaliacao a2 where a2.ativo = trueValue() and a2.distribuicao.id = d.id and a2.situacao.id = :idAvaliacaoRealizada) as totalAvaliacoesRealizadas, " +
+			"d.avaliacaoConsolidada " +
 			" from DistribuicaoAvaliacao d " +
 			" where d.ativo = trueValue() and d.modeloAvaliacao.tipo = :tipo" +
 			" order by d.id desc";
@@ -71,7 +72,8 @@ public class DistribuicaoProjetoDao  extends GenericSigaaDAO {
 				distribuicao.setModeloAvaliacao(ma);
 				distribuicao.setTotalAvaliacoesDistribuidas(Long.valueOf((Long)colunas[col++]).intValue());
 				distribuicao.setTotalAvaliacoesRealizadas(Long.valueOf((Long)colunas[col++]).intValue());
-
+				distribuicao.setAvaliacaoConsolidada((Boolean) colunas[col++]);
+				
 				result.add(distribuicao);
 			}
 

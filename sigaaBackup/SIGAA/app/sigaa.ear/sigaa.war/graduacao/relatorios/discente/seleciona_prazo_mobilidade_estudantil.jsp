@@ -31,14 +31,14 @@
 			<h:inputText value="#{relatorioDiscente.periodoFim}" size="1" maxlength="1"	id="periodoFim" onkeyup="return formatarInteiro(this);" />
 		</td>	
 	</tr>
-	<tr>
-		<td width="100%" colspan="2" align="center">
-			<h:commandButton id="gerarRelatorio" value="Gerar Relatório"
-				action="#{relatorioDiscente.gerarRelatorioMobilidade}"/>
-			<h:commandButton value="Cancelar" action="#{relatorioDiscente.cancelar}" id="cancelar" />
-		</td>
-	</tr>
-
+	<tfoot>
+		<tr>
+			<td width="100%" colspan="2" align="center">
+				<h:commandButton id="gerarRelatorio" value="Gerar Relatório" action="#{relatorioDiscente.gerarRelatorioMobilidade}"/>
+				<h:commandButton value="Cancelar" action="#{relatorioDiscente.cancelar}" id="cancelar" />
+			</td>
+		</tr>
+	</tfoot>
 </table>
 </h:form>
 </f:view>

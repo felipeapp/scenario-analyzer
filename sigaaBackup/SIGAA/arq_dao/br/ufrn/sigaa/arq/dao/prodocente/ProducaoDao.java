@@ -189,13 +189,14 @@ public class ProducaoDao extends GenericSigaaDAO {
 		Query qTotal = getSession().createQuery(
 				"select count(p.id) from Banca p where p.servidor = "
 						+ servidor.getId() + " and p.tipoBanca.id = "
-						+ tipoBanca);
+						+ tipoBanca + " and (p.ativo is null or p.ativo = trueValue())") ;
 
 		Long total = (Long) qTotal.uniqueResult();
 
 		Criteria c = getSession().createCriteria(Banca.class);
 		c.add(Expression.eq("servidor", servidor));
 		c.add(Expression.eq("tipoBanca", new TipoBanca(tipoBanca)));
+		c.add(Expression.or(Expression.eq("ativo", true), Expression.isNull("ativo")));
 		c.addOrder(Order.desc("anoReferencia")).addOrder(Order.desc("dataCadastro"));
 
 		if (paginacao != null) {

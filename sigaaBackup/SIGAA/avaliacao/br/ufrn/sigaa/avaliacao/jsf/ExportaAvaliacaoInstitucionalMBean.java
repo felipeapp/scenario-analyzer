@@ -34,6 +34,7 @@ import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.avaliacao.AvaliacaoInstitucionalDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
@@ -71,8 +72,10 @@ public class ExportaAvaliacaoInstitucionalMBean extends SigaaAbstractController<
 	/** Indica se a exportação de dados será de discentes, docentes ou tutor EAD. */
 	private int tipoDados;
 	
+	/** Calendários disponíveis para preenchimento de Avaliação. */
 	private Collection<CalendarioAvaliacao> calendariosAvaliacao;
 	
+	/** Calendário usado para preenchimento de Avaliação. */
 	private CalendarioAvaliacao calendario;
 	
 	/** Construtor padrão. */
@@ -99,10 +102,11 @@ public class ExportaAvaliacaoInstitucionalMBean extends SigaaAbstractController<
 		obj.setPeriodo(periodo);
 		obj.setNumMinAvaliacoes(ParametroHelper.getInstance().getParametroInt(ParametrosAvaliacaoInstitucional.NUM_MINIMO_AVALIACOES_PROCESSAMENTO_DOCENTE));
 		calendario = new CalendarioAvaliacao();
+		calendariosAvaliacao = null;
 	}
 
 	/** Retorna uma coleção de todos calendários de avaliação ativos.
-	 * 
+	 * <br/>Método não invocado por JSP´s
 	 * @return
 	 * @throws DAOException 
 	 * @throws ArqException
@@ -117,8 +121,8 @@ public class ExportaAvaliacaoInstitucionalMBean extends SigaaAbstractController<
 				CalendarioAvaliacao cal = iterator.next();
 				FormularioAvaliacaoInstitucional form = cal.getFormulario();
 				if (tipoDados == DADOS_DISCENTES && !form.isAvaliacaoDiscente()
-					|| tipoDados == DADOS_DOCENTES && form.isAvaliacaoDiscente()
-					|| tipoDados == DADOS_TUTOR && !form.isEad())
+					|| tipoDados == DADOS_DOCENTES && !form.isAvaliacaoDocente()
+					|| tipoDados == DADOS_TUTOR && !form.isAvaliacaoTutorEad())
 					iterator.remove();
 			}
 		}
@@ -263,7 +267,7 @@ public class ExportaAvaliacaoInstitucionalMBean extends SigaaAbstractController<
 			getCurrentResponse().setContentType("text/csv");
 			getCurrentResponse().setCharacterEncoding("iso-8859-15");
 			getCurrentResponse().setHeader("Content-disposition", "attachment; filename=\""+nomeArquivo+"\"");
-			out.print(tabelaCSV);
+			out.print(StringUtils.toAscii(tabelaCSV).toUpperCase());
 			FacesContext.getCurrentInstance().responseComplete();
 		} catch (IOException e) {
 			throw new ArqException(e);

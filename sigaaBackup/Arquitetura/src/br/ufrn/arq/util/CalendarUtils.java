@@ -52,6 +52,19 @@ import br.ufrn.arq.erros.DAOException;
  */
 public class CalendarUtils {
 
+	
+	/** Constante que define o número de horas em um dia. */
+	public static final int HORAS = 24;
+	
+	/** Constante que define o número de minutos em uma hora. */
+	public static final int MINUTOS = 60;
+	
+	/** Constante que define o número de segundos em um minuto. */
+	public static final int SEGUNDOS = 60;
+	
+	/** Constante que define um milésimo de segundo. */
+	public static final  int MILESIMOS = 1000;
+	
 	/**
 	 * Incrementa uma data em um dia
 	 * 
@@ -1510,5 +1523,38 @@ public class CalendarUtils {
 		return jt.queryForList(sql, Date.class);
 	}
 	
+	
+	/** Retorna a quantidade de dias existentes entre duas datas arredondando para a quantidade mais próxima da diferença entre os períodos.
+	 * @param dataInicio
+	 * @param dataFim
+	 * @return
+	 */
+	public static int calculoDiasArredondado(Date dataInicio, Date dataFim){
+		Date a = ( new Date( dataFim.getTime() - dataInicio.getTime() ) );
+		double diferencaDiasMilisegundos = a.getTime(); 
+		return (int) Math.round((diferencaDiasMilisegundos / (HORAS * MINUTOS * SEGUNDOS * MILESIMOS))); 
+	}
+
+	
+	/**
+	 * Retorna a quantidade de dias úteis entre duas datas, tirando os fins de semana e feriados considerando cidade e estados.
+	 * A soma das horas dos dias parametrizados será arredondado para a quantidade mais próxima. 
+	 * <br /><br />
+	 * Exemplo: 01/01/2000 01:00 à 03/01/2000 00:00 = 47 horas, será arredondada para 2 dia.
+	 * @return
+	 */
+	public static int getDiasUteisEntreDatasArrendondado(Date inicio, Date fim,Integer cidade, Integer estado) {
+		int total = calculoDiasArredondado(inicio, fim);
+		int fds = quantidadeFds(inicio, fim);
+		int qtdFeriados = 0;
+		List<Date> feriados = getDatasFeriados(inicio, fim, false, cidade, estado);
+		if (!isEmpty(feriados)) {
+			for (Date f : feriados) {
+				if (!isWeekend(f))
+					qtdFeriados++;
+			}
+		}
+		return total - fds - qtdFeriados;
+	}
 	
 }

@@ -151,16 +151,17 @@ public class ProcessadorRenovaEmprestimo extends ProcessadorCadastro{
 						novoPrazo = new Date(c.getTime().getTime());
 					}
 					
-					// Cria a prorrogação por renovação do empréstimo //
-					ProrrogacaoEmprestimo prorrogacaoRenovacao = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.RENOVACAO, e.getPrazo());
-					prorrogacaoRenovacao.setDataAtual(novoPrazo);
-					
-					//configuraTipoUsuarioRenovacao(personalMov, prorrogacaoRenovacao);
-					
 					e.setPrazo(novoPrazo);
 					
 					//Calcula o prazo correto para o empréstimo, livrando feriados e finais de semana, dependendo da biblioteca do material emprestado.
-					List <ProrrogacaoEmprestimo> prorrogacoes = CirculacaoUtil.geraProrrogacoesEmprestimo(e, null);
+					List <ProrrogacaoEmprestimo> prorrogacoes = CirculacaoUtil.geraProrrogacoesEmprestimo(e, e.getMaterial().getBiblioteca(), null);
+					
+					
+					// Cria a prorrogação por renovação do empréstimo (depois que calculou as outras prorrogações ) //
+					ProrrogacaoEmprestimo prorrogacaoRenovacao = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.RENOVACAO, e.getPrazo());
+					prorrogacaoRenovacao.setDataAtual(e.getPrazo());
+					
+					
 					prorrogacoes.add(prorrogacaoRenovacao);
 					
 					//dao.update(e);

@@ -3,7 +3,9 @@
 	<table>
 		<tr><th>Processo Seletivo:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoProcessoSeletivo}</strong></td></tr>
 		<tr><th>Polo / Grupo:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoOpcao}</strong></td></tr>
+		<tr><th>Grupo de vagas:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoGrupo}</strong></td></tr>
 	</table>
+	<br />
 		
 	<table class="listagem" width="100%">
 		<caption>Relatório Geral de Classificacao</caption>
@@ -18,14 +20,14 @@
 						<th style="text-align: right;">Class.</th>
 						<th style="text-align: right;">Arg.</th>
 						<th style="text-align: left;">Nome</th>
-						<th style="text-align: center;">Res. de Vagas</th>
+						<th style="text-align: center;">Grupo de Vagas</th>
 					</tr>	
 				</c:if>
 				<tr style="border: 1px solid;">
 					<td align="right"><h:outputText value="#{item[0] }"/> </td>
 					<td align="right"><h:outputText value="#{item[1] }"/> </td>
 					<td align="left"><h:outputText value="#{item[2] }"/> </td>
-					<td align="center"><h:outputText value="#{item[3] == true ? 'Sim' : 'Não' }"/> </td>
+					<td align="center"><h:outputText value="#{item[5]}"/> </td>
 				</tr>
 			</c:forEach>
 		</tbody>

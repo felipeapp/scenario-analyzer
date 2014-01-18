@@ -1,8 +1,6 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho.jsp"%>
 <%@page import="br.ufrn.sigaa.arq.util.CheckRoleUtil"%>
 
-<ufrn:checkRole	papeis="<%= new int[] { SigaaPapeis.MEMBRO_COMITE_INTEGRADO } %>">
-
 <f:view>
 	<a4j:keepAlive beanName="alteracaoProjetoMBean" />
 	
@@ -93,7 +91,5 @@
 		
 </h:form>
 </f:view>
-
-</ufrn:checkRole>
 
 <%@include file="/WEB-INF/jsp/include/rodape.jsp"%>

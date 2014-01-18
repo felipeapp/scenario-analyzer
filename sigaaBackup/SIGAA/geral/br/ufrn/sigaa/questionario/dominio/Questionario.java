@@ -306,8 +306,21 @@ public class Questionario implements Validatable {
 		return tipo != null && tipo.getId() > 0 && tipo.isAcaoExtensao();
 	}
 	
+	/**
+	 * Indica se o questionário tem período de publicação. Alguns tipos de
+	 * questionários como, por exemplo, Processo Seletivo e Auto Avaliação do
+	 * Stricto Sensu não tem este período. O período de aplicação do
+	 * questionário, nestes casos, é controlado pelo próprio caso de uso.
+	 * 
+	 * @return
+	 */
 	public boolean isNecessarioPeriodoPublicacao() {
-		return tipo != null && tipo.getId() > 0 && !isProcessoSeletivo() && !isRelatorioEstagio() && !isQuestionarioInscricaoAtividade();
+		return tipo != null && tipo.getId() > 0 
+				&& !isProcessoSeletivo()
+				&& !isRelatorioEstagio() 
+				&& !isQuestionarioInscricaoAtividade()
+				&& !tipo.isAutoAvaliacaoStrictoSensu()
+				&& !tipo.isAutoAvaliacaoLatoSensu();
 	}
 
 	public boolean isRespostasObrigatorias() {

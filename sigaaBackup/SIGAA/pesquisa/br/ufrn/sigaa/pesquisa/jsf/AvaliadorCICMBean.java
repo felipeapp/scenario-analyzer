@@ -9,6 +9,9 @@
 package br.ufrn.sigaa.pesquisa.jsf;
 
 
+import static br.ufrn.arq.mensagens.MensagensArquitetura.NAO_HA_OBJETO_REMOCAO;
+import static br.ufrn.arq.mensagens.MensagensArquitetura.OPERACAO_SUCESSO;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,6 +30,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.arq.dao.GenericDAO;
+import br.ufrn.arq.dao.GenericDAOImpl;
 import br.ufrn.arq.dominio.MovimentoCadastro;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
@@ -54,6 +59,7 @@ import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
 import br.ufrn.sigaa.pesquisa.dominio.AvaliadorCIC;
 import br.ufrn.sigaa.pesquisa.dominio.CongressoIniciacaoCientifica;
+import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
 /**
@@ -63,21 +69,43 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
  *
  */
 @Component("avaliadorCIC")
-@Scope("request")
+@Scope("session")
 public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
-
-	private final String JSP_LISTA_CERTIFICADOS = "/pesquisa/avaliador_cic/lista_certificados.jsf"; 
-	private final String JSP_RELATORIO = "/pesquisa/avaliador_cic/relatorio.jsf"; 
-
+	
+	/**Constante para jsp da lista de certificados */
+	private static final String JSP_LISTA_CERTIFICADOS = "/pesquisa/avaliador_cic/lista_certificados.jsf";
+	/**Constante para jsp da lista do relatório */
+	private static final String JSP_RELATORIO = "/pesquisa/avaliador_cic/relatorio.jsf";
+	
+	
+	
+	/** Constante boolean que auxilia a exibição de dados*/
 	private boolean verificando = false;
+	
+	/** Atributo que auxilia na exibição do comprovante*/
 	private EmissaoDocumentoAutenticado comprovante;
-	
-	// Atributos usados no filtro da busca.
+	/** Filtro da área */
 	private boolean filtroArea;
+	/** Filtro do tipo usuário */
 	private boolean filtroTipo;
+	/** Filtro do relatório */
 	private boolean filtroRelatorio;
+	/** Filtro do status indica que a busca vai utilizar o status para relizara busca. */
+	private boolean filtroStatus;
 	
+	public boolean isFiltroStatus() {
+		return filtroStatus;
+	}
+
+	public void setFiltroStatus(boolean filtroStatus) {
+		this.filtroStatus = filtroStatus;
+	}
+
+	/** Coleção dos avaliadores*/
 	private Collection<AvaliadorCIC> avaliadoresCIC;
+	
+	/** Lista de avaliadores*/
+	private ArrayList<AvaliadorCIC> lista;
 	
 	public AvaliadorCICMBean(){
 		initObj();
@@ -87,10 +115,13 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 	 * Responsável pela inicialização do obj com os atributos.
 	 */
 	private void initObj() {
+		filtroArea=false;
 		obj = new AvaliadorCIC();
 		obj.setCongresso(new CongressoIniciacaoCientifica());
 		obj.setDocente(new Servidor());
+		obj.setDiscente(new Discente());
 		obj.setArea(new AreaConhecimentoCnpq());
+		obj.setTipoUsuario(AvaliadorCIC.STATUS_DOCENTE);
 	}
 	
 	@Override
@@ -116,7 +147,60 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 	public String preCadastrar() throws ArqException{
 		checkRole(SigaaPapeis.GESTOR_PESQUISA);
 		prepareMovimento(SigaaListaComando.CADASTRAR_AVALIADOR_CIC);
+		initObj();
+		setConfirmButton("Cadastrar");
 		return forward(getFormPage());
+	}
+	
+	/**
+	 * Método responsável por atualizar o avaliador
+	 * <br/>
+	 * Invodado pela JSP: /sigaa.war/pesquisa/avaliador_cic/lista.jsp 
+	 */
+	public String atualizar() throws ArqException {
+
+		try {
+			int id = getParameterInt("id");
+			
+			setOperacaoAtiva(ArqListaComando.ALTERAR.getId());
+			prepareMovimento(ArqListaComando.ALTERAR);
+
+			GenericDAO dao = new GenericDAOImpl(getSistema(),getSessionRequest());
+			obj = dao.findByPrimaryKey(id, AvaliadorCIC.class);
+			
+			if( ValidatorUtil.isNotEmpty( obj.getDiscente() )  ){
+				obj.setDocente( new Servidor() );
+				obj.setTipoUsuario(AvaliadorCIC.STATUS_DISCENTE);
+			} 
+			if( ValidatorUtil.isNotEmpty( obj.getDocente() ) ){
+				obj.setDiscente(new Discente());
+				obj.setTipoUsuario(AvaliadorCIC.STATUS_DOCENTE);
+			}
+			
+			if(ValidatorUtil.isEmpty( obj.getArea() ) ){
+				obj.setArea(new AreaConhecimentoCnpq());
+			}
+			
+			setConfirmButton("Alterar");
+		
+		} catch (Exception e) {
+			notifyError(e);
+			addMensagemErroPadrao();
+			e.printStackTrace();
+		}
+
+		return forward(getFormPage());
+	}
+	
+	/**
+	 * Retorna para listagem;
+	 * <br/>
+	 * JSP:/sigaa.war/pesquisa/avaliador_cic/form.jsp
+	 * @return
+	 */
+	public String cancelarListar(){
+		initObj();
+		return forward( getListPage() );
 	}
 	
 	/**
@@ -129,16 +213,15 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 		NegocioException {
 
 			checkRole(SigaaPapeis.GESTOR_PESQUISA);
-			
+								
 			if (getConfirmButton().equalsIgnoreCase("remover")) {
 				return remover();
 			} else {
-						
 				beforeCadastrarAndValidate();
-				
 				erros = new ListaMensagens();
 				ListaMensagens lista = obj.validate();
 		
+												
 				if (lista != null && !lista.isEmpty()) {
 				erros.addAll(lista.getMensagens());
 			}
@@ -150,6 +233,16 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 			}
 		
 			if (!hasErrors()) {
+				
+				
+				if(obj.isUsuarioDiscente() ){
+					obj.setDocente(null);
+				}else if( obj.isUsuarioDocente() ){
+					obj.setDiscente(null);
+				}
+				if( ValidatorUtil.isEmpty( obj.getArea() ) ){
+					obj.setArea(null);
+				}
 		
 				MovimentoCadastro mov = new MovimentoCadastro();
 				mov.setObjMovimentado(obj);
@@ -170,6 +263,7 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 					} catch (Exception e) {
 						addMensagemErro(e.getMessage());
 						e.printStackTrace();
+						initObj();
 						return forward(getFormPage());
 					}
 		
@@ -185,7 +279,20 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 				} else {
 					mov.setCodMovimento(ArqListaComando.ALTERAR);
 					try {
-						execute(mov,(HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+						
+						if( ValidatorUtil.isEmpty(obj.getArea() ) ){
+							obj.setArea(null);
+						}
+						if( ValidatorUtil.isEmpty( obj.getDiscente() ) ){
+							obj.setDiscente(null);
+						}
+						if( ValidatorUtil.isEmpty( obj.getDocente() ) ){
+							obj.setDocente(null);
+						}
+						
+						AvaliadorCIC av = execute(mov);
+						atualizarColecao(av);
+						
 						if (descDominio != null && !descDominio.equals("")) {
 							addMessage(descDominio + "  alterado com sucesso!",
 									TipoMensagemUFRN.INFORMATION);
@@ -193,25 +300,39 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 							addMessage("Operação Realizada com sucesso",
 									TipoMensagemUFRN.INFORMATION);
 						}
+						
+						initObj();
+						setConfirmButton("Cadastrar");
+						return forward(getListPage());
+						
 					} catch (Exception e) {
 						addMensagemErro("Erro Inesperado: " + e.getMessage());
 						e.printStackTrace();
 						return forward(getFormPage());
 					}
-		
-					afterCadastrar();
-		
-					String forward = forwardCadastrar();
-					if (forward == null) {
-						return redirectJSF(getCurrentURL());
-					} else {
-						return redirectJSF(forward);
-					}
+					
 				}
 		
 			} else {
 		
 				return null;
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Atualizar colecao de dados
+	 * @throws DAOException 
+	 */
+	private  void atualizarColecao( AvaliadorCIC avalidador ) throws DAOException{
+		if( ValidatorUtil.isNotEmpty( lista ) ){
+			if( lista.contains( avalidador )){
+				int index = lista.indexOf(avalidador);
+				lista.remove(index);
+				getGenericDAO().initialize(avalidador);
+				lista.add(index, avalidador);
 			}
 		}
 	}
@@ -230,10 +351,19 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 	@Override
 	public String listar() throws ArqException {
 		checkRole(SigaaPapeis.GESTOR_PESQUISA);
+		initObj();
+		lista=new ArrayList<AvaliadorCIC>();
 		obj.setCongresso(getDAO(CongressoIniciacaoCientificaDao.class).findAtivo());
 		return forward(getListPage());
 	}
 	
+	/**
+	 * Método busca e preenche o select item para o combo com todos os congresso de iniciação cientifica.
+	 * <br/>
+	 * JSP: /sigaa.war/pesquisa/avaliador_cic/form.jsp
+	 * @return
+	 * @throws DAOException
+	 */
 	public Collection<SelectItem> getAllCongressosCombo() throws DAOException{
 		return toSelectItems(getGenericDAO().findAll(CongressoIniciacaoCientifica.class), "id", "descricao");
 	}
@@ -257,19 +387,34 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 			area = obj.getArea();
 			ValidatorUtil.validateRequiredId(area.getId(), "Área de Conhecimento", erros);
 		}
-		if(filtroTipo){
-			avaliadorResumo = obj.isAvaliadorResumo();
-			avaliadorApresentacao = obj.isAvaliadorApresentacao();
+		avaliadorResumo = obj.isAvaliadorResumo();
+		avaliadorApresentacao = obj.isAvaliadorApresentacao();
+		
+		
+		if( ValidatorUtil.isEmpty( obj.getTipoUsuario() ) ){
+			erros.addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO,"Tipo do Usuário");
 		}
 		
 		if(!erros.isEmpty()){
 			addMensagens(erros);
 			return forward(getListPage());
 		} else {
-			setResultadosBusca(dao.findByCongresso(obj.getCongresso(), avaliadorResumo, avaliadorApresentacao, area));
+			boolean buscarDocente=false;
+			boolean buscarDiscente=false;
+			
+			if(  obj.isUsuarioDiscente() ){
+				buscarDiscente=true;
+			}
+			if( obj.isUsuarioDocente() ){
+				buscarDocente=true;
+			}
+			lista = (ArrayList<AvaliadorCIC>) dao.findByCongresso(obj.getCongresso(), avaliadorResumo, avaliadorApresentacao, area,buscarDiscente , buscarDocente);
 		}
 		
 		if(!filtroRelatorio){
+			if(	ValidatorUtil.isEmpty( lista ) ){
+				addMensagem( MensagensArquitetura.BUSCA_SEM_RESULTADOS );
+			}
 			return forward(getListPage());
 		} else {
 			obj.setCongresso( dao.refresh(obj.getCongresso()) );
@@ -379,7 +524,7 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 	 * Serve para validar o certificado informando os dados necessários para a realização
 	 * de tal evento;
 	 * <br>
-	 * JSP: /sigaa/public/autenticidade/tipo_documento.jsf
+	 * JSP: /sigaa.war/public/autenticidade/tipo_documento.jsp
 	 * 
 	 * @param comprovante
 	 * @param req
@@ -401,7 +546,7 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 	/**
 	 * Validação das emissões de certificado.  
 	 * <br>
-	 * JSP: /sigaa/public/autenticidade/tipo_documento.jsf
+	 * JSP: /sigaa.war/public/autenticidade/tipo_documento.jsp
 	 * 
 	 * @param comprovante
 	 * @return
@@ -430,6 +575,8 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 	 */
 	public String iniciarMarcacaoPresenca() throws SegurancaException, DAOException {
 		checkRole(SigaaPapeis.GESTOR_PESQUISA);
+		initObj();
+		avaliadoresCIC=new ArrayList<AvaliadorCIC>();
 		obj.setCongresso(getDAO(CongressoIniciacaoCientificaDao.class).findAtivo());
 		return forward(getPresenca());
 	}
@@ -456,10 +603,10 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 			area = obj.getArea();
 			ValidatorUtil.validateRequiredId(area.getId(), "Área de Conhecimento", erros);
 		}
-		if(filtroTipo && obj.isAvaliadorResumo()){
+		if(obj.isAvaliadorResumo()){
 			avaliadorResumo = obj.isAvaliadorResumo();
 		}
-		if(filtroTipo && obj.isAvaliadorApresentacao()){
+		if( obj.isAvaliadorApresentacao()){
 			avaliadorApresentacao = obj.isAvaliadorApresentacao();
 		}
 		
@@ -467,7 +614,7 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 			addMensagens(erros);
 			return forward(getPresenca());
 		} else {
-			avaliadoresCIC = dao.findByCongresso(obj.getCongresso(), avaliadorResumo, avaliadorApresentacao, area);
+			avaliadoresCIC = dao.findByCongresso(obj.getCongresso(), avaliadorResumo, avaliadorApresentacao, area,false,false);
 		}
 		return forward(getPresenca());
 	}
@@ -486,6 +633,55 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 		addMensagem(MensagensArquitetura.ALTERADO_COM_SUCESSO, "Presença dos Avaliadores ");
 		
 		return forward(getPresenca());
+	}
+	
+	
+	/**
+	 * Método chamado para remover uma entidade
+	 * <br/>
+	 * JSP: /sigaa.war/pesquisa/avaliador_cic/lista.jsp
+	 * @return
+	 * @throws ArqException
+	 */
+	public String remover() throws ArqException {
+		int id = getParameterInt("id", 0 );
+		AvaliadorCICDao dao = getDAO(AvaliadorCICDao.class);
+		MovimentoCadastro mov = new MovimentoCadastro(obj, ArqListaComando.REMOVER);
+		prepareMovimento(ArqListaComando.REMOVER);
+		AvaliadorCIC avalidador = dao.findByPrimaryKey(id, AvaliadorCIC.class );
+		
+		if ( ValidatorUtil.isEmpty( avalidador ) ) {
+			addMensagem(NAO_HA_OBJETO_REMOCAO);
+			return null;
+		} else {
+			try {
+				mov.setObjMovimentado(avalidador);
+				execute(mov);
+				addMensagem(OPERACAO_SUCESSO);
+			} catch (NegocioException e) {
+				addMensagens(e.getListaMensagens());
+				return redirect(getListPage());
+			} 
+
+		}
+		lista.remove(avalidador);
+		return forward( getListPage());
+	}
+	
+	/**
+	 * Retorna os select item para o radio da escolha do tipo de avaliador.
+	 * </br>
+	 * Invocado pela JSP:
+	 * 
+	 * @return
+	 */
+	public Collection<SelectItem> getComboStatusPessoa(){
+		Collection<SelectItem> itens = new ArrayList<SelectItem>();
+		SelectItem item1= new SelectItem(AvaliadorCIC.STATUS_DOCENTE,"DOCENTE");
+		SelectItem item2= new SelectItem(AvaliadorCIC.STATUS_DISCENTE,"DISCENTE");
+		itens.add(item1);
+		itens.add(item2);
+		return itens;
 	}
 	
 	public boolean isVerificando() {
@@ -536,9 +732,27 @@ public class AvaliadorCICMBean extends SigaaAbstractController<AvaliadorCIC> {
 		this.avaliadoresCIC = avaliadoresCIC;
 	}
 
+	/**
+	 * Autocomplete para nome do avaliador.
+	 * </br>
+	 * JSP:/sigaa.war/pesquisa/avaliacao_apresentacao_resumo/lista_gestor.jsp
+	 * @param event
+	 * @return
+	 * @throws DAOException
+	 */
 	public List<AvaliadorCIC> autoComplete(Object event) throws DAOException {
 		String nome = event.toString();
 		CongressoIniciacaoCientificaDao dao = getDAO(CongressoIniciacaoCientificaDao.class);
 		return getDAO(AvaliadorCICDao.class).findByNome(nome, dao.findAtivo());
 	}
+
+	public ArrayList<AvaliadorCIC> getLista() {
+		return lista;
+	}
+
+	public void setLista(ArrayList<AvaliadorCIC> lista) {
+		this.lista = lista;
+	}
+
+
 }
