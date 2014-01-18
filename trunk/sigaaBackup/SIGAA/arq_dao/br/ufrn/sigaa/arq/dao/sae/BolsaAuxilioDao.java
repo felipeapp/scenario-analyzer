@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,11 +35,13 @@ import br.ufrn.integracao.dto.PessoaDto;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.assistencia.dominio.BolsaAuxilio;
 import br.ufrn.sigaa.assistencia.dominio.BolsaAuxilioPeriodo;
+import br.ufrn.sigaa.assistencia.dominio.CriterioSolicitacaoRenovacao;
 import br.ufrn.sigaa.assistencia.dominio.ResidenciaUniversitaria;
 import br.ufrn.sigaa.assistencia.dominio.SituacaoBolsaAuxilio;
 import br.ufrn.sigaa.assistencia.dominio.TipoBolsaAuxilio;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.dominio.UnidadeFederativa;
+import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.pessoa.dominio.Banco;
 import br.ufrn.sigaa.pessoa.dominio.ContaBancaria;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
@@ -90,7 +93,7 @@ public class BolsaAuxilioDao extends GenericSigaaDAO {
 				Integer idCurso, Integer idMunicipio, char nivel, Boolean incluir, char sexo, int status) throws DAOException {
 			StringBuffer sb = new StringBuffer();
 		
-			sb.append(" select distinct ba.id_bolsa_auxilio, ba.data_solicitacao, d.id_discente, d.matricula, d.nivel, p.nome, " +
+			sb.append(" select distinct ba.id_bolsa_auxilio, ba.data_solicitacao, d.id_discente, d.matricula, d.nivel, u.id_usuario, p.nome, " +			
 					  " p.id_conta_bancaria, cb.agencia, cb.numero, cb.id_banco, b.codigo, p.cpf_cnpj, d.id_pessoa, p.email, " +
 					  " tb.id_tipo_bolsa_auxilio, tb.denominacao, ba.id_situacao_bolsa, ba.id_tipo_bolsa_sipac, m.nome as municipio, " +
 					  " m.id_municipio, uf.sigla, c.id_curso, c.nome as curso" +
@@ -101,6 +104,7 @@ public class BolsaAuxilioDao extends GenericSigaaDAO {
 					  " inner join curso c on d.id_curso=c.id_curso" +
 					  " inner join comum.municipio m on c.id_municipio=m.id_municipio" +
 					  " inner join comum.pessoa p on ( d.id_pessoa=p.id_pessoa )" +
+					  " left join comum.usuario u ON ( u.id_pessoa = p.id_pessoa )" + 					  
 					  " left join comum.conta_bancaria cb on ( p.id_conta_bancaria=cb.id_conta_bancaria )" +
 					  " left join comum.banco b on ( cb.id_banco=b.id_banco )" +
 					  " left join comum.unidade_federativa uf on ( m.id_unidade_federativa=uf.id_unidade_federativa ) WHERE 1=1 ");
@@ -121,6 +125,10 @@ public class BolsaAuxilioDao extends GenericSigaaDAO {
 				Discente disc = new Discente((Integer)obj[cont++]);
 				disc.setMatricula( ((BigInteger) obj[cont++]).longValue() );
 				disc.setNivel((Character) obj[cont++] );
+				if ( obj[cont] != null ) 
+					disc.setUsuario(new Usuario((Integer)obj[cont++]));
+				else	
+					cont++;				
 				
 				Pessoa p = new Pessoa();
 				p.setNome( (String)obj[cont++] );
@@ -134,7 +142,7 @@ public class BolsaAuxilioDao extends GenericSigaaDAO {
 					p.getContaBancaria().getBanco().setId( (Integer)obj[cont++] );
 					p.getContaBancaria().getBanco().setCodigo( (Integer)obj[cont++] );
 				} else {
-					cont = 11;
+					cont += 5;
 				}
 				
 				p.setCpf_cnpj( ((BigInteger) obj[cont++]).longValue() );
@@ -238,10 +246,6 @@ public class BolsaAuxilioDao extends GenericSigaaDAO {
 
 		if (incluir != null) {
 			sb.append("AND ba.bolsa_ativa_sipac = :incluir ");
-			if ( !incluir )
-				sb.append("AND ba.bolsa_ativa_sipac is null ");
-			else
-				sb.append("AND ba.bolsa_ativa_sipac is not null ");
 		}
 		
 		sb.append("ORDER BY p.nome");
@@ -531,6 +535,67 @@ public class BolsaAuxilioDao extends GenericSigaaDAO {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<BolsaAuxilio> findAllBolsaPassivelRenovacao(int discente, List<CriterioSolicitacaoRenovacao> solicitacaoBolsa, boolean renovacao) throws DAOException {
+		try {
+			String sql = " SELECT ba.id_bolsa_auxilio, tba.id_tipo_bolsa_auxilio, tba.denominacao as tipo_bolsa, sba.id_situacao_bolsa_auxilio, sba.denominacao as situacao_bolsa"+
+						 " FROM sae.bolsa_auxilio ba" +
+						 " JOIN sae.tipo_bolsa_auxilio tba on ( ba.id_tipo_bolsa_auxilio = tba.id_tipo_bolsa_auxilio )" +
+						 " JOIN sae.situacao_bolsa_auxilio sba on ( ba.id_situacao_bolsa = sba.id_situacao_bolsa_auxilio ) " +
+						 " WHERE ba.id_discente = " + discente + 
+						 " and (";
+					 		for (int i = 0; i < solicitacaoBolsa.size(); i++) {
+					 			sql += i > 0 ? " or " : "";
+					 			sql += "( ba.id_tipo_bolsa_auxilio = " + solicitacaoBolsa.get(i).getTipoBolsaAuxilio().getId() 
+				 					 + " and ba.id_situacao_bolsa = " + solicitacaoBolsa.get(i).getSituacaoBolsa().getId() + " )";	
+							}
+				  sql += " )";
+	
+			Query q = getSession().createSQLQuery(sql);
+			List<Object[]> lista = q.list();
+			List<BolsaAuxilio> resultado = new ArrayList<BolsaAuxilio>();
+			for (Iterator<Object[]> iterator = lista.iterator(); iterator.hasNext();) {
+				int count  = 0;
+				Object[] objects = iterator.next();
+				BolsaAuxilio linha = new BolsaAuxilio();
+				linha.setId( (Integer) objects[count++]);
+				linha.setTipoBolsaAuxilio(new TipoBolsaAuxilio((Integer) objects[count++]));
+				linha.getTipoBolsaAuxilio().setDenominacao( (String) objects[count++] );
+				linha.setSituacaoBolsa(new SituacaoBolsaAuxilio((Integer) objects[count++]));
+				linha.getSituacaoBolsa().setDenominacao( (String) objects[count++] );
+				linha.setRenovacao(renovacao);
+				resultado.add(linha);
+			}
+			
+			return resultado;
+			
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}
+
+	public int countAllBolsaPassivelRenovacao(int discente, List<CriterioSolicitacaoRenovacao> solicitacaoBolsa) throws DAOException {
+		try {
+			String sql = " SELECT ba.id_bolsa_auxilio"+
+						 " FROM sae.bolsa_auxilio ba" +
+						 " WHERE ba.id_discente = " + discente + 
+						 " and (";
+						 		for (int i = 0; i < solicitacaoBolsa.size(); i++) {
+						 			sql += i > 0 ? " or " : "";
+						 			sql += "( ba.id_tipo_bolsa_auxilio = " + solicitacaoBolsa.get(i).getTipoBolsaAuxilio().getId() 
+					 					 + " and ba.id_situacao_bolsa = " + solicitacaoBolsa.get(i).getSituacaoBolsa().getId() + " )";	
+								}
+				  sql += " )";
+	
+			Query q = getSession().createSQLQuery(sql);
+				
+			return (Integer) q.uniqueResult();
+			
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}	
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<BolsaAuxilioPeriodo> acompanhamentoSolicitacaoBolsa(int idDiscente) throws SQLException,DAOException {
 		String sql = " SELECT DISTINCT ba.id_bolsa_auxilio, tba.denominacao as tipo_bolsa, sba.denominacao, bap.ano, bap.periodo,cba.inicio_divulgacao_resultado" +

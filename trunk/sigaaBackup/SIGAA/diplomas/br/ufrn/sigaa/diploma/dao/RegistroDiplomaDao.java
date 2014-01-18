@@ -465,23 +465,27 @@ public class RegistroDiplomaDao extends GenericSigaaDAO {
 	public Collection<DadosImpressaoDiploma> findDadosImpressaoDiplomaByIdDiscentes(Collection<Integer> idsDiscente) throws HibernateException, DAOException {
 		Collection<DadosImpressaoDiploma> dados = new ArrayList<DadosImpressaoDiploma>();
 		// registros de diplomas
-		String projecaoRegistro = "registro.assinaturaDiploma.id, registro.ativo, registro.coordenadorCurso.id, registro.criadoEm, registro.dataColacao," +
+		String projecaoRegistro = "registro.assinaturaDiploma.id, registro.ativo, coordenadorCurso.id as registro.coordenadorCurso.id, " +
+				" pessoa.nome as registro.coordenadorCurso.servidor.pessoa.nome, registro.criadoEm, registro.dataColacao," +
 				" registro.dataExpedicao, registro.dataRegistro, registro.discente.id, registro.discente.curso," +
 				" registro.discente.pessoa, registro.folha.id, registro.id, registro.impresso, " +
 				" registro.livre, registro.numeroRegistro, registro.processo, registro.registroDiplomaColetivo.id," +
 				" registro.folha.id, registro.folha.numeroFolha, registro.folha.livro.id, registro.folha.livro.titulo, registro.folha.livro.nivel";
-		String hql = "select " + projecaoRegistro +
+		String hql = "select " + HibernateUtils.removeAliasFromProjecao(projecaoRegistro) +
 				" from RegistroDiploma registro" +
+				" left join registro.coordenadorCurso coordenadorCurso" +
+				" left join coordenadorCurso.servidor servidor" +
+				" left join servidor.pessoa pessoa" +
 				" where registro.discente.id in "+
 				UFRNUtils.gerarStringIn(idsDiscente) +
 				" and registro.ativo = trueValue()";
 		String projecaoTCC = " tcc.ano, tcc.area, tcc.ativo, tcc.dataAlteracao, tcc.dataDefesa, tcc.dataInicio," +
-				" tcc.departamento, tcc.discenteExterno, tcc.docenteExterno," +
-				" tcc.entidadeFinanciadora, tcc.id, tcc.idArquivo, tcc.ies, tcc.informacao," +
-				" tcc.instituicao, tcc.matricula, tcc.orientacao, tcc.orientando," +
-				" tcc.orientandoString, tcc.paginas, tcc.registroCadastro, tcc.servidor," +
-				" tcc.subArea, tcc.tipoTrabalhoConclusao, tcc.titulo, tcc.validacao";
-		String hqlTCC = "select "+projecaoTCC+" from TrabalhoFimCurso tcc" +
+				" tcc.orientacao, tcc.orientando, tcc.orientandoString, tcc.tipoTrabalhoConclusao, tcc.titulo," +
+				" servidor as tcc.servidor, docenteExterno as tcc.docenteExterno";
+		String hqlTCC = "select "+HibernateUtils.removeAliasFromProjecao(projecaoTCC)+
+				" from TrabalhoFimCurso tcc" +
+				" left join tcc.servidor servidor" +
+				" left join tcc.docenteExterno docenteExterno" +
 				" where tcc.orientando.id = :idDiscente" +
 				" and (tcc.ativo = trueValue() or tcc.ativo is null)" +
 				" order by tcc.dataDefesa desc";
@@ -499,9 +503,12 @@ public class RegistroDiplomaDao extends GenericSigaaDAO {
 				dado.setRegistro(registro);
 				dados.add(dado);
 				idsDiscentes.add(registro.getDiscente().getId());
-				TrabalhoFimCurso tcc = (TrabalhoFimCurso) qTCC.setInteger("idDiscente", registro.getDiscente().getId())
-					.setMaxResults(1)
-					.uniqueResult();
+				qTCC.setInteger("idDiscente", registro.getDiscente().getId());
+				TrabalhoFimCurso tcc = null;
+				@SuppressWarnings("unchecked")
+				List<TrabalhoFimCurso> trabalhos = (List<TrabalhoFimCurso>) HibernateUtils.parseTo(qTCC.list(), projecaoTCC, TrabalhoFimCurso.class, "tcc");
+				if (!isEmpty(trabalhos))
+					tcc = trabalhos.get(0);
 				dado.setTrabalhoFimCurso(tcc);
 			}
 			switch (nivel) {

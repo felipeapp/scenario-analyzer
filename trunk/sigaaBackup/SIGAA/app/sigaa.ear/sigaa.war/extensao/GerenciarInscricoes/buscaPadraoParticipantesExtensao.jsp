@@ -110,10 +110,10 @@
 				
 				<thead>
 					<tr>
-						<th style="width: 10%;">
+						<th style="width: 12%;">
 							CPF
 						</th>
-						<th style="width: 10%;">
+						<th style="width: 12%;">
 							Passaporte
 						</th>
 						<th style="width: 39%;">
@@ -137,7 +137,7 @@
 				<c:forEach var="cadastro" items="#{buscaPadraoParticipanteExtensaoMBean.cadastros}" varStatus="status">
 					<tr class="${status.index % 2 == 0 ? "linhaPar" : "linhaImpar"}" onMouseOver="javascript:this.style.backgroundColor='#C4D2EB'" onMouseOut="javascript:this.style.backgroundColor=''">
 						<td>
-							${cadastro.cpf}
+							<ufrn:format type="cpf_cnpj" valor="${cadastro.cpf}"/>
 						</td>
 						<td>
 							${cadastro.passaporte}

@@ -15,7 +15,7 @@ public class TipoVinculoCoordenadorUnidadeRede extends TipoVinculoAbstract {
 	
 	@Override
 	public String getTipo() {
-		return "Coord. da Unidade";
+		return coordenacao.getCargo().getDescricao() + " da Unidade";
 	}
 
 	@Override

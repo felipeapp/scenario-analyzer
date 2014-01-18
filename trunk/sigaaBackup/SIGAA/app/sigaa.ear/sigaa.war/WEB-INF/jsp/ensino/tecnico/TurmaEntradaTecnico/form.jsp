@@ -1,15 +1,6 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho.jsp"%>
 <%@include file="/WEB-INF/jsp/include/ajax_tags.jsp" %>
 
-<script>
-
-	function postCurriculo() {
-		$('curriculoId').value = ${formTurmaEntradaTecnico.obj.estruturaCurricularTecnica.id};
-	}
-	
-</script>
-
-
 <h2>
 	<html:link action="ensino/tecnico/cadastroCursoTecnico.do?dispatch=cancel">
 		<ufrn:subSistema semLink="true"/>
@@ -45,18 +36,7 @@
 	            </html:select>
 	       	</td>
 	    </tr>
-		<tr>
-	        <th width="20%" class="obrigatorio">Currículo:</th>
-	       	<td>
-	       		<html:select property="obj.estruturaCurricularTecnica.id" styleId="curriculoId">
-	                <html:option value="">-- SELECIONE --</html:option>
-	                <html:options collection="curriculos" property="id" labelProperty="descricao"/>
-	            </html:select>
-	            <ajax:select baseUrl="${applicationScope.contexto}/ajaxEstruturaCurricularTecnica"
-						parameters="cursoId={cursoId}"  executeOnLoad="true"
-						source="cursoId" target="curriculoId" postFunction="postCurriculo"/>
-	       	</td>
-	    </tr>
+		
 		<tr>
 			<th class="obrigatorio">Data de Entrada:</th>
 			<td>

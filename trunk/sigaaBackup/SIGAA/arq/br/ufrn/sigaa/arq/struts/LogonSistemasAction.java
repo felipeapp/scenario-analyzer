@@ -46,6 +46,8 @@ public class LogonSistemasAction extends SigaaAbstractAction {
 			logonSigadmin(req, res);
 		} else if (req.getParameter("sistema").equalsIgnoreCase("sigpp")) {
 			logonSigpp(req, res);
+		} else if (req.getParameter("sistema").equalsIgnoreCase("alumini")) {
+			logonAlumini(req, res);
 		}
 		
 		return null;
@@ -253,6 +255,52 @@ public class LogonSistemasAction extends SigaaAbstractAction {
 					+ "&urlRedirect=" + url);
 		else
 			res.sendRedirect(RepositorioDadosInstitucionais.getLinkSigpp() + "/sigpp/Logon?login=" +passaporte.getLogin() + "&passaporte=true&idUsuario=" + user.getId());	
+		
+		return null;
+	}
+	
+	/**
+	 * Realizando logon no Alumini por meio de passaporte.
+	 * Verifica se o sistema está ativo e acessível.
+	 * @param map
+	 * @param form
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	public ActionForward logonAlumini(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		Usuario user = (Usuario) getUsuarioLogado(req);
+		String url = req.getParameter("url");
+		
+		PassaporteLogon passaporte = new PassaporteLogon();
+		passaporte.setLogin(user.getLogin());
+		passaporte.setIdUsuario(user.getId());
+		passaporte.setSistemaAlvo(Sistema.REDE_SOCIAL);
+		passaporte.setSistemaOrigem(Sistema.SIGAA);
+		long tempo = System.currentTimeMillis();
+		tempo = tempo + 30000; // 30s de timeout
+		passaporte.setValidade(tempo);
+		passaporte.setHora(new Date());
+
+		passaporte.setCodMovimento(ArqListaComando.CADASTRAR_PASSAPORTE);
+
+		try {
+			prepareMovimento(ArqListaComando.CADASTRAR_PASSAPORTE, req);
+			
+			execute(passaporte,req);
+		} catch (ArqException e) {
+			e.printStackTrace();
+		} catch (NegocioException e) {
+			e.printStackTrace();
+		}
+		
+		if (url != null)
+			res.sendRedirect(RepositorioDadosInstitucionais.getLinkAlumini()+"/redeufrn/logon?login=" +passaporte.getLogin() + "&passaporte=true&idUsuario=" + user.getId()	
+					+ "&urlRedirect=" + url);
+		else
+			res.sendRedirect(RepositorioDadosInstitucionais.getLinkAlumini()+"/redeufrn/logon?login=" +passaporte.getLogin() + "&passaporte=true&idUsuario=" + user.getId());	
 		
 		return null;
 	}

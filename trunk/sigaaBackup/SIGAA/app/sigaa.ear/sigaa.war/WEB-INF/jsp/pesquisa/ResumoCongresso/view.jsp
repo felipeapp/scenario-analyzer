@@ -139,7 +139,7 @@
 				<ufrn:format name="resumo" property="palavrasChave" type="texto"/>
 			</td>
 		</tr>
-		<c:if test="${acesso.pesquisa and not empty avaliacao}">
+		<c:if test="${(acesso.pesquisa or acesso.comissaoPesquisa) and not empty avaliacao}">
 			<tr>
 				<td colspan="2" class="subFormulario" style="text-align: center">
 					Parecer do Avaliador

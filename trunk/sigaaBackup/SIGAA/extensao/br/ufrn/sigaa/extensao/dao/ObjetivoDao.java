@@ -168,7 +168,7 @@ public class ObjetivoDao extends GenericSigaaDAO{
 				" from extensao.objetivo o" +
 				" join extensao.objetivo_atividades oa using ( id_objetivo )" +
 				" join extensao.membro_atividade ma on ( oa.id_objetivo_atividades = ma.id_objetivo_atividade and oa.ativo = trueValue())" +
-				" where o.id_atividade = :idAtividade" +
+				" where o.id_atividade = :idAtividade and o.ativo = trueValue() and oa.ativo = trueValue() and ma.ativo = trueValue()" +
 				" order by ma.id_membro_projeto";
 
 		Query q = getSession().createSQLQuery(sql);

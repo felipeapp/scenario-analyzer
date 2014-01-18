@@ -1,3 +1,10 @@
+/*
+* Universidade Federal do Rio Grande do Norte
+* Superintendência de Informática
+* Diretoria de Sistemas
+*
+* Created on 09/08/2013
+*/
 package br.ufrn.sigaa.ensino_rede.dominio;
 
 import java.util.Date;
@@ -25,38 +32,51 @@ import org.hibernate.annotations.Parameter;
 import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.sigaa.ensino.dominio.SituacaoTurma;
 
+/**
+ * Representa uma turma do ensino em rede.
+ * @author Henrique
+ *
+ */
 @Entity
 @Table(schema = "ensino_rede", name = "turma_rede")
 public class TurmaRede implements PersistDB {
 
+	/** Chave primária. */
 	@Id
 	@GeneratedValue(generator="seqGenerator")
 	@GenericGenerator(name="seqGenerator", strategy="br.ufrn.arq.dao.SequenceStyleGenerator",
-			parameters={ @Parameter(name="sequence_name", value="ensino_rede.hibernate_sequence") })
+			parameters={ @Parameter(name="sequence_name", value="ensino_rede.turma_seq") })
 	@Column(name = "id_turma_rede", nullable = false)
 	private int id;
 	
+	/** Disciplina da turma */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_componente_curricular")
 	private ComponenteCurricularRede componente;
 	
+	/** Ano letivo da turma */
 	@Column(name = "ano")
 	private int ano;
 	
+	/** Período letivo da turma */
 	@Column(name = "periodo")
 	private int periodo;
 	
+	/** Data Início da turma */
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_inicio")
 	private Date dataInicio;
 	
+	/** Data Fim da turma */
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data_fim")
 	private Date dataFim;
 	
+	/** Código gerado pelo sistema para identificar a turma. */
 	@Column(name = "codigo")
 	private String codigo;
 
+	/** Docentes que lecionarão na turma */
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "turma")
 	private Set<DocenteTurmaRede> docentesTurmas = new HashSet<DocenteTurmaRede>(0);
 	
@@ -64,6 +84,14 @@ public class TurmaRede implements PersistDB {
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_situacao_turma", unique = false, nullable = true, insertable = true, updatable = true)
 	private SituacaoTurma situacaoTurma;
+	
+	/** Dados do curso da turma */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_dados_curso_rede")
+	private DadosCursoRede dadosCurso;
+	
+	@Transient
+	private DocenteTurmaRede docenteTurma;
 	
 	public int getId() {
 		return id;
@@ -144,6 +172,16 @@ public class TurmaRede implements PersistDB {
 		return descricao;
 	}
 	
+	/** Retorna o nome da discipina e o código da turma.
+	 * @return
+	 */
+	@Transient
+	public String getNome() {
+		return getAno() + "." + getPeriodo() + " - "
+				+ getComponente().getNome() + " - Turma " + getCodigo();
+	}
+
+	
 	/**
 	 * Retorna uma String com os nomes dos docentes de uma turma.
 	 * @return
@@ -203,5 +241,21 @@ public class TurmaRede implements PersistDB {
 	public SituacaoTurma getSituacaoTurma() {
 		return situacaoTurma;
 	}
-	
+
+	public void setDadosCurso(DadosCursoRede dadosCurso) {
+		this.dadosCurso = dadosCurso;
+	}
+
+	public DadosCursoRede getDadosCurso() {
+		return dadosCurso;
+	}
+
+	public DocenteTurmaRede getDocenteTurma() {
+		return docenteTurma;
+	}
+
+	public void setDocenteTurma(DocenteTurmaRede docenteTurma) {
+		this.docenteTurma = docenteTurma;
+	}
+
 }

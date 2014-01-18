@@ -293,12 +293,15 @@ public class SigaaSubsistemas {
 
 	/** Constante que define o Subsistema de Stricto Sensu. */
 	public static final SubSistema ENSINO_REDE = new SubSistema(30000,
-			"Programa em Rede", "/sigaa/verMenuEnsinoRede.do", "menuEnsinoRede",
+			"Ensino em Rede", "/sigaa/verMenuEnsinoRede.do", "menuEnsinoRede",
 			"/ensino_rede/");
 	
 	public static final SubSistema PORTAL_ENSINO_REDE = new SubSistema(31000,
-			"Portal Programa em Rede", "/sigaa/verMenuEnsinoRede.do", "menuEnsinoRede",
+			"Portal Ensino em Rede", "/sigaa/verMenuEnsinoRede.do", "menuEnsinoRede",
 			"/ensino_rede/portal/");
+
+	public static final SubSistema PORTAL_PUBLICO = new SubSistema(110600,
+			"Portal Público", "/sigaa/verTelaLogin.do", "telaLogin");
 	
 	/* ***************************************************************** */
 	/* ***************************************************************** */

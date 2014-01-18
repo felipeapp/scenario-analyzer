@@ -41,7 +41,7 @@ import br.ufrn.sigaa.avaliacao.dominio.ResultadoAvaliacaoDocente;
 import br.ufrn.sigaa.avaliacao.dominio.TabelaRespostaResultadoAvaliacao;
 import br.ufrn.sigaa.ensino.dominio.Turma;
 import br.ufrn.sigaa.parametros.dominio.ParametrosAvaliacaoInstitucional;
-import br.ufrn.sigaa.pessoa.dominio.Servidor;
+import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 
 /**
  * Controller responsável pela exibição de informações/resultados no mini-portal
@@ -100,7 +100,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	private Collection<GrupoPerguntas> grupoPerguntas;
 	
 	/** Servidor o qual será gerado o relatório. */
-	private Servidor servidor;
+	private Pessoa pessoa;
 	
 	/** Coleção com as observações dadas pelos discentes ao docente da turma na Avaliação Institucional. */
 	private Collection<ObservacoesDocenteTurma> observacoesDocenteTurma;
@@ -131,7 +131,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	public String inicializa() throws HibernateException, DAOException {
 		mediaGeralSemestre = 0;
 		idResultado = 0;
-		servidor = getUsuarioLogado().getServidorAtivo();
+		pessoa = getUsuarioLogado().getPessoa();
 		this.observacoesDocenteTurma = null;
 		this.observacoesTrancamento = null;
 		return paginaInicial();
@@ -145,8 +145,8 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	 */
 	public String paginaInicial() throws HibernateException, DAOException {
 		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
-		if( servidor != null ){
-			listaResultados = dao.findResultadoByDocente(servidor.getId());
+		if( pessoa != null ){
+			listaResultados = dao.findResultadoByDocente(pessoa.getId());
 			// caso não seja usuário do Portal da Avaliação, remove da lista as avaliações não liberadas para consulta
 			Collection<ParametroProcessamentoAvaliacaoInstitucional> processamentos = dao.findUltimoProcessamentos();
 			if (!isPortalAvaliacaoInstitucional() && !ValidatorUtil.isEmpty(listaResultados)) {
@@ -157,7 +157,9 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 							Iterator<Map<String, Object>> iterator = listaResultados.iterator();
 							while (iterator.hasNext()) {
 								Map<String, Object> resultado = iterator.next();
-								if (resultado.get("ano").equals(processamento.getAno()) && resultado.get("periodo").equals(processamento.getPeriodo())) {
+								if (resultado.get("ano").equals(processamento.getAno()) && 
+									resultado.get("periodo").equals(processamento.getPeriodo()) &&
+									((Integer)resultado.get("id_formulario_avaliacao")) == processamento.getFormulario().getId()) {
 									iterator.remove();
 									break;
 								}
@@ -174,11 +176,11 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 		Map<String, Object> ultimoResultado = listaResultados.get(listaResultados.size() - 1);
 		int ano = (Integer) ultimoResultado.get("ano");
 		int periodo = (Integer) ultimoResultado.get("periodo");
-		parametroProcessamento = dao.findUltimoProcessamento(ano, periodo);
-		abaSelecionada = (String) ultimoResultado.get("anoPeriodo");
+		int idFormulario = (Integer) ultimoResultado.get("id_formulario_avaliacao");
+		parametroProcessamento = dao.findUltimoProcessamento(ano, periodo, idFormulario);
+		abaSelecionada = (String) ultimoResultado.get("rotuloAba");
 		turma = new Turma();
 		carregaMedias();
-		carregaMediasPorAnoPeriodo();		
 		return forward(PAGINA_PRINCIPAL);
 	}
 
@@ -191,7 +193,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	private void carregaMedias() throws HibernateException, DAOException {
 		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
 		resultadosDocentes = dao
-				.findResultadoByDocenteCentroDepartamentoAnoPeriodo(servidor.getId(), 0, 0, parametroProcessamento.getAno(), parametroProcessamento.getPeriodo());
+				.findResultadoByDocenteCentroDepartamentoAnoPeriodo(pessoa.getId(), 0, 0, parametroProcessamento.getAno(), parametroProcessamento.getPeriodo(), parametroProcessamento.getFormulario().getId());
 		if (resultadosDocentes == null || resultadosDocentes.isEmpty()) {
 			addMensagemErro("Não há registro de médias de avaliações para o ano-período");
 			return;
@@ -215,7 +217,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	 */
 	private void carregaMediasPorAnoPeriodo() throws HibernateException, DAOException{
 		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
-		this.mediasPorAnoPeriodo =  dao.findEvolucaoMediaGeralAnoPeriodo(servidor.getId(), !isUserInRole(SigaaPapeis.COMISSAO_AVALIACAO, SigaaPapeis.BOLSISTA_AVALIACAO_INSTITUCIONAL));
+		this.mediasPorAnoPeriodo =  dao.findEvolucaoMediaGeralAnoPeriodo(pessoa.getId(), !isUserInRole(SigaaPapeis.COMISSAO_AVALIACAO, SigaaPapeis.BOLSISTA_AVALIACAO_INSTITUCIONAL));
 	}
 
 	/** Retorna um dataModel das médias da Avaliação Institucional do docente.
@@ -234,7 +236,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	private void carregaNotas() throws HibernateException, DAOException {
 		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
 		if (resultadosDocentes == null || resultadosDocentes.isEmpty()) {
-			resultadosDocentes = dao.findResultadoByDocenteCentroDepartamentoAnoPeriodo(servidor.getId(), 0, 0, parametroProcessamento.getAno(), parametroProcessamento.getPeriodo());
+			resultadosDocentes = dao.findResultadoByDocenteCentroDepartamentoAnoPeriodo(pessoa.getId(), 0, 0, parametroProcessamento.getAno(), parametroProcessamento.getPeriodo(), parametroProcessamento.getFormulario().getId());
 			if (resultadosDocentes == null || resultadosDocentes.isEmpty()) {
 				addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 				return;
@@ -242,7 +244,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 		}
 		detalheRespostas = new LinkedHashMap<Turma, Map<GrupoPerguntas, TabelaRespostaResultadoAvaliacao>>();
 		for (ResultadoAvaliacaoDocente resultado : resultadosDocentes) {
-			detalheRespostas.put(resultado.getDocenteTurma().getTurma(), dao.findRespostasAvaliacaoDocenteTurma(resultado.getDocenteTurma().getId(), parametroProcessamento.getAno(), parametroProcessamento.getPeriodo(), parametroProcessamento.isExcluirRepovacoesFalta()));
+			detalheRespostas.put(resultado.getDocenteTurma().getTurma(), dao.findRespostasAvaliacaoDocenteTurma(resultado.getDocenteTurma().getId(), parametroProcessamento));
 		}
 	}
 
@@ -262,8 +264,9 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	public String exibeResumo() throws HibernateException, DAOException {
 		int ano = getParameterInt("ano");
 		int periodo = getParameterInt("periodo");
+		int idFormulario = getParameterInt("idFormulario");
 		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
-		parametroProcessamento = dao.findUltimoProcessamento(ano, periodo);
+		parametroProcessamento = dao.findUltimoProcessamento(ano, periodo, idFormulario);
 		carregaMedias();
 		return forward(PAGINA_PRINCIPAL);
 	}
@@ -325,13 +328,13 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public String viewResultadoDocente(int idServidor, int ano, int periodo) throws HibernateException,
+	public String viewResultadoDocente(int idPessoa, int ano, int periodo, int idFormulario) throws HibernateException,
 			DAOException {
 		AvaliacaoInstitucionalDao dao = getDAO(AvaliacaoInstitucionalDao.class);
-		servidor = dao.findByPrimaryKey(idServidor, Servidor.class);
+		pessoa = dao.findByPrimaryKey(idPessoa, Pessoa.class);
 		this.observacoesDocenteTurma = null;
 		this.observacoesTrancamento = null;
-		parametroProcessamento = dao.findUltimoProcessamento(ano, periodo);
+		parametroProcessamento = dao.findUltimoProcessamento(ano, periodo, idFormulario);
 		carregaMedias();
 		carregaNotas();
 		if (hasErrors())
@@ -350,7 +353,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 				ComentarioAvaliacaoModeradoDao dao = getDAO(ComentarioAvaliacaoModeradoDao.class);
 				for (ResultadoAvaliacaoDocente resultado : resultadosDocentes) {
 					// incluir somente as observações moderadas.
-					Collection<ObservacoesDocenteTurma> observacoes = dao.findObservacoesDocenteTurmaByDocenteTurma(resultado.getDocenteTurma().getId(), true); 
+					Collection<ObservacoesDocenteTurma> observacoes = dao.findObservacoesDocenteTurmaByDocenteTurma(resultado.getDocenteTurma().getId(), true, true); 
 					if (observacoes != null) {
 						for (ObservacoesDocenteTurma obs : observacoes) {
 							if (!ValidatorUtil.isEmpty(obs.getObservacoesModeradas()))
@@ -394,7 +397,7 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	 */
 	public String getDimensaoMediaGeral() throws DAOException {
 		if (dimensaoMediaGeral == null) {
-			int id = ParametroHelper.getInstance().getParametroInt(ParametrosAvaliacaoInstitucional.ID_GRUPO_PERGUNTAS_MEDIA_GERAL_RESULTADO_AVALIACAO);
+			int id = parametroProcessamento.getFormulario().getGrupoMediaGeral().getId();
 			dimensaoMediaGeral = getGenericDAO().findByPrimaryKey(id, GrupoPerguntas.class);
 		}
 		return dimensaoMediaGeral.getTitulo();
@@ -543,20 +546,6 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 		return mediasPorAnoPeriodo;
 	}
 
-	/** Retorna o Servidor o qual será gerado o relatório. 
-	 * @return
-	 */
-	public Servidor getServidor() {
-		return servidor;
-	}
-
-	/** Seta o Servidor o qual será gerado o relatório. 
-	 * @param servidor
-	 */
-	public void setServidor(Servidor servidor) {
-		this.servidor = servidor;
-	}
-
 	public ParametroProcessamentoAvaliacaoInstitucional getParametroProcessamento() {
 		return parametroProcessamento;
 	}
@@ -564,6 +553,14 @@ public class PortalResultadoAvaliacaoMBean extends SigaaAbstractController<Resul
 	public void setParametroProcessamento(
 			ParametroProcessamentoAvaliacaoInstitucional parametroProcessamento) {
 		this.parametroProcessamento = parametroProcessamento;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	

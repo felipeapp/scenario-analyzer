@@ -59,7 +59,7 @@
 					</td>
 					<td  width="8%">	
 						<ufrn:help>
-							Para o SQL digitado seja validado é nescessário que a busca seja feita apenas pelo id do discente.<br/>
+							Para o SQL digitado seja validado é necessário que a busca seja feita apenas pelo id do discente.<br/>
 							Ex: SELECT d.id_discente FROM discente d ...
 							<p>Também é possível utilizar os tokens <b>":anoReferencia"</b> e <b>":periodoReferencia"</b> no sql do filtro, 
 							assim, o sistema irá substituir automaticamente tais tokens pelo ano e período passados como parâmetros no envio da notificação.</p>

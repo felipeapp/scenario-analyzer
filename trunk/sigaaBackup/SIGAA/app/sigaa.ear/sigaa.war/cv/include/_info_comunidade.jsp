@@ -15,9 +15,13 @@
 			<h:outputText value="#{comunidadeVirtualMBean.comunidade.tipoComunidadeVirtual.descricao}" />
 		</p>
 		
-		<h4> Administrador: </h4>
+		<h4> Administrador(es): </h4>
 		<p class="nomes"> 
-			<h:outputText value="#{comunidadeVirtualMBean.comunidade.usuario.pessoa.nomeResumido}" />  
+			<p class="nomes"> 
+			<c:forEach var="_admin" items="#{comunidadeVirtualMBean.administradores}">
+				<h:outputText value="#{_admin.pessoa.nomeResumido}" styleClass="nomes" /> &nbsp;  <br/>
+			</c:forEach>
+		</p>  
 		</p>
 
 		<c:if test="${not empty comunidadeVirtualMBean.moderadores}">		

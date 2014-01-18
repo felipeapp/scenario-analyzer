@@ -31,6 +31,8 @@
 	<parameter name="discentesConvocados" isForPrompting="false" class="java.util.List"/>
 	<parameter name="lista_assinaturas_aprovados" isForPrompting="false" class="java.io.InputStream"/>
 	<parameter name="matriculado" isForPrompting="false" class="java.lang.Boolean"/>
+	<parameter name="inicioValidacaoVinculo" isForPrompting="false" class="java.util.Date"/>
+	<parameter name="fimValidacaoVinculo" isForPrompting="false" class="java.util.Date"/>
 
 	<field name="linha" class="java.util.List"/>
 
@@ -69,6 +71,12 @@
 					</subreportParameter>
 					<subreportParameter  name="matriculado">
 						<subreportParameterExpression><![CDATA[$P{matriculado}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="inicioValidacaoVinculo">
+						<subreportParameterExpression><![CDATA[$P{inicioValidacaoVinculo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="fimValidacaoVinculo">
+						<subreportParameterExpression><![CDATA[$P{fimValidacaoVinculo}]]></subreportParameterExpression>
 					</subreportParameter>
 					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource((List) $F{linha})]]></dataSourceExpression>
 					<subreportExpression  class="java.io.InputStream"><![CDATA[$P{comprovante}]]></subreportExpression>

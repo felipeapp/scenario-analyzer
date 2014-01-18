@@ -62,10 +62,25 @@
 						</t:dataTable>
 					</td>
 				</tr>
+
 				<tr>
-					<td colspan="2">
-						<b>Espaço reservado às observações:</b>
+					<td class="subFormulario" colspan="2">3. Workshop</td>
+				</tr>
+				<tr>
+					<td>Este trabalho está apto para ir ao workshop?</td> 
+					<td>
+						<h:selectOneRadio value="#{avaliacaoApresentacaoResumoBean.avaliacao.selecionadoApresentacaoOral}">
+							<f:selectItem itemLabel="Sim" itemValue="true"/>
+							<f:selectItem itemLabel="Não" itemValue="false"/>
+						</h:selectOneRadio>
 					</td>
+				</tr>
+
+				<tr>
+					<td class="subFormulario" colspan="2">4. Identificação do Professor(a) avaliador(a)</td>
+				</tr>
+				<tr>
+					<td> Espaço reservado às observações: </td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center"> 

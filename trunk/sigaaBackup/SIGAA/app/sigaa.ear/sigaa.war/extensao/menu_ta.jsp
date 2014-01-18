@@ -38,10 +38,8 @@
 					            	<li>Gerenciar Ações
 						            	<ul>
 						            		<li><h:commandLink action="#{atividadeExtensao.listarMinhasAtividades}"	value="Listar Minhas Ações"  onclick="setAba('atividade')"/></li>
-						            		<c:if test="${acesso.coordenadorExtensao}">
-						            			<li><h:commandLink value="Gerenciar Participantes" action="#{listaAtividadesParticipantesExtensaoMBean.listarAtividadesComParticipantesCoordenador}" onclick="setAba('atividade')"/></li>
-						            			<li><h:commandLink value="Equipe Organizadora" action="#{membroProjeto.gerenciarMembrosProjeto}"  onclick="setAba('atividade')" /></li>
-						            		</c:if>
+					            			<li><h:commandLink value="Gerenciar Participantes" action="#{listaAtividadesParticipantesExtensaoMBean.listarAtividadesComParticipantesCoordenador}" onclick="setAba('atividade')"/></li>
+					            			<li><h:commandLink value="Equipe Organizadora" action="#{membroProjeto.gerenciarMembrosProjeto}"  onclick="setAba('atividade')" /></li>
 						            		<li><h:commandLink action="#{documentosAutenticadosExtensao.participacoesServidorUsuarioLogado}" value="Certificados e Declarações"  onclick="setAba('atividade')" /></li>
 						            		<li><h:commandLink action="#{expirarTempoCadastro.iniciaBuscaAcoesEncerradas}" value="Ações com Tempo de Cadastro Expirado"  onclick="setAba('atividade')" /></li>
 						            	</ul>

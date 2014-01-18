@@ -192,6 +192,24 @@ public class BolsaAuxilio implements PersistDB, Validatable {
 	@Transient
 	private boolean novaSolicitacao;
 	
+	@Column(name = "solicitada_renovacao")
+	private Boolean solicitadaRenovacao;
+	
+	/** Serve para indicar se é um processo de renovação, 
+	 * nesse caso a data não deve ser considerada. */
+	@Transient
+	private boolean renovacao;
+
+	@Transient
+	private int ano;
+
+	@Transient
+	private int periodo;
+	
+	/** Bolsa utilizada para a renovação das bolsas. */
+	@Transient
+	private BolsaAuxilio bolsaAuxilioOriginal;
+	
 	public BolsaAuxilio() {
 	}
 	
@@ -452,5 +470,45 @@ public class BolsaAuxilio implements PersistDB, Validatable {
 	public void setBolsaAtivaSIPAC(boolean bolsaAtivaSIPAC) {
 		this.bolsaAtivaSIPAC = bolsaAtivaSIPAC;
 	}
-	
+
+
+	public boolean isRenovacao() {
+		return renovacao;
+	}
+
+	public void setRenovacao(boolean renovacao) {
+		this.renovacao = renovacao;
+	}
+
+	public Boolean getSolicitadaRenovacao() {
+		return solicitadaRenovacao;
+	}
+
+	public void setSolicitadaRenovacao(Boolean solicitadaRenovacao) {
+		this.solicitadaRenovacao = solicitadaRenovacao;
+	}
+
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public int getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(int periodo) {
+		this.periodo = periodo;
+	}
+
+	public BolsaAuxilio getBolsaAuxilioOriginal() {
+		return bolsaAuxilioOriginal;
+	}
+
+	public void setBolsaAuxilioOriginal(BolsaAuxilio bolsaAuxilioOriginal) {
+		this.bolsaAuxilioOriginal = bolsaAuxilioOriginal;
+	}
 }

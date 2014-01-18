@@ -28,6 +28,9 @@ import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
+import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
+import br.ufrn.sigaa.ensino.dominio.MatriculaComponente;
+import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
 /**
@@ -41,6 +44,12 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
 @Table(name = "avaliador_cic", schema = "pesquisa")
 public class AvaliadorCIC implements Validatable {
 	
+	/** Constante utilizada no filtro, identifica um docente*/
+	public final static int STATUS_DOCENTE = 1;
+	
+	/** Constante utilizada no filtro, identifica um discente*/
+	public final static int STATUS_DISCENTE= 2;
+	
 	/** Geração da chave primária */
 	@Id @GeneratedValue(generator="seqGenerator")
 	@GenericGenerator(name="seqGenerator", strategy="br.ufrn.arq.dao.SequenceStyleGenerator",
@@ -52,6 +61,11 @@ public class AvaliadorCIC implements Validatable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_docente")
 	private Servidor docente;
+	
+	/** Mapeamento da classe discente do tipo Muitos pra um*/
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity=Discente.class)
+	@JoinColumn(name = "id_discente")
+	private DiscenteAdapter discente;
 	
 	/** Mapeamento da classe Congresso Iniciação Cientifica do tipo Muitos pra um */
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -73,6 +87,10 @@ public class AvaliadorCIC implements Validatable {
 	
 	/** É responsável por indicar se o avaliador esteve presente ao congresso ou não. */
 	private boolean presenca;
+	
+	/** TRANSIENT, para indicar se é um docente ou discente*/
+	@Transient
+	private Integer tipoUsuario;
 	
 	public AvaliadorCIC(){
 	}
@@ -109,14 +127,19 @@ public class AvaliadorCIC implements Validatable {
 
 	/** Serve para validar os campos obrigatórios */
 	public ListaMensagens validate() {
-		ListaMensagens erros = new ListaMensagens();
-		ValidatorUtil.validateRequired(docente, "Docente", erros);
+ 		ListaMensagens erros = new ListaMensagens();
+		if( isUsuarioDocente() ){
+			ValidatorUtil.validateRequired(docente, "Docente", erros);
+		}
+		if( isUsuarioDiscente() ){
+			ValidatorUtil.validateRequired(discente, "Discente", erros);
+		}
 		ValidatorUtil.validateRequired(congresso, "Congresso", erros);
-		ValidatorUtil.validateRequired(area, "Área de Conhecimento", erros);
-		if(!avaliadorResumo && !avaliadorApresentacao)
+			if(!avaliadorResumo && !avaliadorApresentacao)
 			erros.addErro("Informe pelo menos um dos tipos de avaliador.");
 		return erros;
 	}
+	
 	
 	/** Retorna a descrição do domínio */
 	@Transient
@@ -169,4 +192,46 @@ public class AvaliadorCIC implements Validatable {
 		this.presenca = presenca;
 	}
 
+	public DiscenteAdapter getDiscente() {
+		return discente;
+	}
+
+	public void setDiscente(DiscenteAdapter discente) {
+		this.discente = discente;
+	}
+	
+	public boolean isUsuarioDocente(){
+		return (tipoUsuario!=null && tipoUsuario==STATUS_DOCENTE);
+	}
+	
+	public boolean isUsuarioDiscente(){
+		return (tipoUsuario!=null && tipoUsuario==STATUS_DISCENTE);
+	}
+
+	public Integer getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(Integer tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+	
+	/*
+	 * Implementação do método equals comparando os ids da 
+	 * 
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AvaliadorCIC other = (AvaliadorCIC) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 }

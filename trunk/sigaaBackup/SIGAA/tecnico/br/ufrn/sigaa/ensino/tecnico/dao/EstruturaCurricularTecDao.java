@@ -8,7 +8,9 @@
  */
 package br.ufrn.sigaa.ensino.tecnico.dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.Query;
 
@@ -136,6 +138,46 @@ public class EstruturaCurricularTecDao extends GenericSigaaDAO {
 		Query q = getSession().createQuery(hql.toString());
 		q.setInteger("discente", discenteId);
 		return (EstruturaCurricularTecnica) q.uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			 throw new DAOException(e.getMessage(), e);
+		}
+	}
+	
+	/**
+	 * Retorna o currículo atual do discente informado.
+	 * @param idModulo
+	 * @return
+	 * @throws DAOException
+	 */
+	public Collection<EstruturaCurricularTecnica> findByModulo(int idModulo) throws DAOException {
+		try {
+			StringBuffer hql = new StringBuffer();
+			hql.append(" SELECT ect.id, ect.chTotalModulos, ect.ativa "+
+					   " FROM ModuloCurricular mc " +
+					   " INNER JOIN mc.estruturaCurricularTecnica ect ");
+			hql.append(" WHERE mc.modulo.id = :idModulo");
+			
+			Query q = getSession().createQuery(hql.toString());
+			
+			q.setInteger("idModulo", idModulo);
+			
+			@SuppressWarnings("unchecked")
+			List<Object[]> lista = q.list();
+			
+			Collection<EstruturaCurricularTecnica> result = new ArrayList<EstruturaCurricularTecnica>();
+			for (Object[] linha : lista) {
+				int atributo = 0;
+
+				EstruturaCurricularTecnica ect = new EstruturaCurricularTecnica();
+				
+				ect.setId((Integer) linha[atributo++]);
+				ect.setChTotalModulos((Integer) linha[atributo++]);
+				ect.setAtiva((Boolean)linha[atributo++]);
+				
+				result.add(ect);
+			}
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			 throw new DAOException(e.getMessage(), e);

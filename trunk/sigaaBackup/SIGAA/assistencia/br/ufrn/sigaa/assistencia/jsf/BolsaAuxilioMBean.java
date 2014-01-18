@@ -135,12 +135,12 @@ public class BolsaAuxilioMBean extends SigaaAbstractController<BolsaAuxilio> {
 		erros = new ListaMensagens();
 		BolsaAuxilioValidation.validacaoDadosBasico(getUsuarioLogado(), obj, erros);
 		BolsaAuxilioValidation.validacaoBolsaPromisaes(obj, erros);
-			
+
 		if ( !erros.isEmpty() ) {
 			addMensagens(erros);
 			return null;
 		}
-		
+
 		PessoaDao pessoaDao = getDAO(PessoaDao.class);
 		Pessoa pessoa = pessoaDao.findCompleto(obj.getDiscente().getPessoa().getId());
 		obj.getDiscente().setPessoa(pessoa);
@@ -150,6 +150,7 @@ public class BolsaAuxilioMBean extends SigaaAbstractController<BolsaAuxilio> {
 			obj.setSituacaoBolsa(new SituacaoBolsaAuxilio(SituacaoBolsaAuxilio.EM_ANALISE));
 		
 		carregarQuestionarioRespostas();
+
 		setOperacaoAtiva(SigaaListaComando.CADASTRAR_BOLSA_AUXILIO.getId());
 		return direcionar();
 	}
@@ -383,7 +384,7 @@ public class BolsaAuxilioMBean extends SigaaAbstractController<BolsaAuxilio> {
 	 * Método não chamado por JSP's.
 	 * @throws DAOException
 	 */
-	private void carregarQuestionarioRespostas() throws DAOException {
+	public void carregarQuestionarioRespostas() throws DAOException {
 		AdesaoCadastroUnicoBolsaDao dao = getDAO(AdesaoCadastroUnicoBolsaDao.class);
 		try {
 			AdesaoCadastroUnicoBolsa adesao = dao.findByDiscente(obj.getDiscente().getId(), 
@@ -394,7 +395,7 @@ public class BolsaAuxilioMBean extends SigaaAbstractController<BolsaAuxilio> {
 				mBean.popularVizualicacaoRespostas(adesao);
 				obj.setAdesaoCadUnico(null);
 				obj.setAdesaoCadUnico(adesao);
-			}
+			} 
 		} finally {
 			dao.close();
 		}

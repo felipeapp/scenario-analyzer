@@ -40,7 +40,6 @@ import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.dao.BDUtils;
 import br.ufrn.arq.dao.JdbcTemplate;
 import br.ufrn.arq.erros.DAOException;
-import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.util.HibernateUtils;
 import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.UFRNUtils;
@@ -63,7 +62,6 @@ import br.ufrn.sigaa.avaliacao.dominio.ResultadoAvaliacaoDocente;
 import br.ufrn.sigaa.avaliacao.dominio.ResultadoResposta;
 import br.ufrn.sigaa.avaliacao.dominio.ResultadoTurma;
 import br.ufrn.sigaa.avaliacao.dominio.TabelaRespostaResultadoAvaliacao;
-import br.ufrn.sigaa.avaliacao.dominio.TipoAvaliacaoInstitucional;
 import br.ufrn.sigaa.avaliacao.dominio.TipoPergunta;
 import br.ufrn.sigaa.dominio.InstituicoesEnsino;
 import br.ufrn.sigaa.dominio.ModalidadeEducacao;
@@ -76,7 +74,6 @@ import br.ufrn.sigaa.ensino.dominio.SituacaoTurma;
 import br.ufrn.sigaa.ensino.dominio.Turma;
 import br.ufrn.sigaa.ensino.stricto.docenciaassistida.dominio.PlanoDocenciaAssistida;
 import br.ufrn.sigaa.ensino.stricto.docenciaassistida.dominio.TurmaDocenciaAssistida;
-import br.ufrn.sigaa.parametros.dominio.ParametrosAvaliacaoInstitucional;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.DocenteExterno;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
@@ -524,6 +521,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 
 		@SuppressWarnings("unchecked")
 		List<ResultadoAvaliacao> avaliacoes = getJdbcTemplate().query(sql, new Object[] { ano, periodo }, new RowMapper() {
+			@Override
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				ResultadoAvaliacao r = new ResultadoAvaliacao();
 				r.setIdAvaliacao(rs.getInt("id"));
@@ -749,6 +747,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 
 		@SuppressWarnings("unchecked")
 		List<ResultadoAvaliacao> avaliacoes = getJdbcTemplate().query(sql, new Object[] { ano, periodo }, new RowMapper() {
+			@Override
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				ResultadoAvaliacao r = new ResultadoAvaliacao();
 				r.setIdAvaliacao(rs.getInt("id"));
@@ -1125,7 +1124,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 		// situações das turmas na consulta
 		String abertaConsolidada = "(" + SituacaoTurma.ABERTA + ", " + SituacaoTurma.CONSOLIDADA+")";
 		// turma presencial ou a distância ?
-		boolean distancia = (Boolean) getJdbcTemplate().queryForObject("select ead" +
+		boolean distancia = getJdbcTemplate().queryForObject("select ead" +
 				" from avaliacao.formulario_avaliacao" +
 				" where id_formulario_avaliacao = ?", new Object[] {idFormulario}, Boolean.class);
 		// condições comuns às turmas.
@@ -1367,7 +1366,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	}
 
 	/** Retorna uma coleção de resultados de avaliação de docentes de um centro, ou de um docente específico, para um ano/período específicos.
-	 * @param idServidor caso seja = 0, não restringe a busca pelo docente.
+	 * @param idPessoa caso seja = 0, não restringe a busca pelo docente.
 	 * @param idCentro caso seja = 0, não restringe a busca pelo centro.
 	 * @param idDepartamento caso seja = 0, não restringe a busca pelo departamento.
 	 * @param ano
@@ -1376,9 +1375,10 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public List<ResultadoAvaliacaoDocente> findResultadoByDocenteCentroDepartamentoAnoPeriodo(int idServidor, int idCentro, int idDepartamento, int ano, int periodo) throws HibernateException, DAOException{
+	public List<ResultadoAvaliacaoDocente> findResultadoByDocenteCentroDepartamentoAnoPeriodo(int idPessoa, int idCentro, int idDepartamento, int ano, int periodo, int idFormulario) throws HibernateException, DAOException{
 		StringBuilder sql = new StringBuilder("select rad.id_resultado_avaliacao_docente," +
 				" dt.id_docente_turma," +
+				" p.id_pessoa as idPessoa," +
 				" s.id_servidor as idServidor," +
 				" dt.id_docente_externo as idDocenteExterno," +
 				" p.nome as nomeDocente," +
@@ -1403,27 +1403,30 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 				" g.id as idGrupo," +
 				" g.titulo as tituloGrupo," +
 				" g.descricao as descricaoGrupo" +
-				" from avaliacao.pergunta pg" +
-				" inner join avaliacao.grupo_perguntas g on (pg.id_grupo = g.id)" +
-				" left join avaliacao.media_notas mn on (pg.id = mn.id_pergunta)" +
-				" left join avaliacao.percentual_sim_nao psn on (pg.id = psn.id_pergunta)" +
-				" inner join avaliacao.resultado_avaliacao_docente rad on (mn.id_resultado_avaliacao_docente = rad.id_resultado_avaliacao_docente or psn.id_resultado_avaliacao_docente = rad.id_resultado_avaliacao_docente)" +
+				" from avaliacao.resultado_avaliacao_docente rad" +
 				" inner join ensino.docente_turma dt using (id_docente_turma)" +
 				" left join ensino.docente_externo de using (id_docente_externo)" +
-				" inner join rh.servidor s on (de.id_servidor = s.id_servidor or dt.id_docente = s.id_servidor)");
-		if (idDepartamento > 0) 
-			sql.append(" inner join comum.unidade d on (s.id_unidade = d.id_unidade)");
-		if (idCentro > 0) 
-			sql.append(" inner join comum.unidade c on (d.id_gestora = c.id_unidade)");
-		sql.append(" inner join comum.pessoa p on (p.id_pessoa = s.id_pessoa)" +
+				" left join rh.servidor s on (dt.id_docente = s.id_servidor or de.id_servidor = s.id_servidor)" + 
+				" inner join comum.pessoa p on (s.id_pessoa = p.id_pessoa or de.id_pessoa = p.id_pessoa"+ (idPessoa > 0 ? " and p.id_pessoa = :idPessoa" : "") +")" +
 				" inner join ensino.turma t using (id_turma)" +
 				" inner join ensino.componente_curricular cc using (id_disciplina)" +
 				" inner join ensino.componente_curricular_detalhes ccd on (cc.id_detalhe = ccd.id_componente_detalhes)" +
-				" where (t.distancia = falseValue() or t.id_polo is null)" +
+				" inner join avaliacao.grupo_perguntas_formulario_avaliacao gpfa using (id_formulario_avaliacao)" +
+				" inner join avaliacao.grupo_perguntas g on (gpfa.id_grupo_pergunta = g.id) " +
+				" inner join avaliacao.pergunta pg on (pg.id_grupo = g.id)" +
+				" left join avaliacao.media_notas mn on (mn.id_resultado_avaliacao_docente = rad.id_resultado_avaliacao_docente and mn.id_pergunta = pg.id)" +
+				" left join avaliacao.percentual_sim_nao psn on (psn.id_resultado_avaliacao_docente = rad.id_resultado_avaliacao_docente and psn.id_pergunta = pg.id)");
+		if (idDepartamento > 0) 
+			sql.append(" inner join comum.unidade d on (s.id_unidade = d.id_unidade or de.id_unidade = d.id_unidade)");
+		if (idCentro > 0) 
+			sql.append(" inner join comum.unidade c on (d.id_gestora = c.id_unidade)");
+		sql.append(" where rad.id_formulario_avaliacao = :idFormulario" +
+				// XOR usado para filtrar left join sem médias ou sem percentual sim/não
+				" and psn.id_percentual_sim_nao is null != mn.id_media_notas is null" +
 				" and rad.ano = :ano" +
 				" and rad.periodo = :periodo");
-		if (idServidor > 0) 
-			sql.append(" and s.id_servidor = :idServidor");
+		if (idPessoa > 0) 
+			sql.append(" and p.id_pessoa = :idPessoa");
 		if (idCentro > 0) 
 			sql.append(" and c.id_unidade = :idCentro");
 		if (idDepartamento > 0) 
@@ -1432,8 +1435,9 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 		Query q = getSession().createSQLQuery(sql.toString());
 		q.setInteger("ano", ano);
 		q.setInteger("periodo", periodo);
-		if (idServidor > 0)
-			q.setInteger("idServidor",idServidor);
+		q.setInteger("idFormulario", idFormulario);
+		if (idPessoa > 0)
+			q.setInteger("idPessoa",idPessoa);
 		if (idCentro > 0)
 			q.setInteger("idCentro",idCentro);
 		if (idDepartamento > 0)
@@ -1446,9 +1450,10 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 			TreeMap<Integer, ResultadoAvaliacaoDocente> mapa = new TreeMap<Integer, ResultadoAvaliacaoDocente>();
 			for (Object[] obj : bulk){
 				int i = 0;
-				Integer idResultado = (Integer) obj[i++];// id_resultado_avaliacao_docente; 
+				Integer idResultado = (Integer) obj[i++];// id_resultado_avaliacao_docente;
 				Integer idDocenteTurma = (Integer) obj[i++]; // id_docente_turma;
-				Integer idDocente = (Integer) obj[i++];
+				Integer idPessoaResultado = (Integer) obj[i++]; // id_pessoa;
+				Integer idServidor = (Integer) obj[i++]; // id_servidor;
 				Integer idDocenteExterno = (Integer) obj[i++];
 				String  nomeDocente  = (String) obj[i++]; // nome as nomeDocente; 
 				String  nomeComponente  = (String) obj[i++]; // nome as nomeComponente; 
@@ -1484,25 +1489,35 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 					turma.setCodigo(codigoTurma);
 					turma.setDescricaoHorario(descricaoHorario);
 
-					Servidor servidor = new Servidor(idDocente);
-					servidor.setPessoa(new Pessoa(0, nomeDocente));
-					
-					DocenteExterno docenteExterno = null;
-					
-					if (idDocenteExterno != null){
-						docenteExterno = new DocenteExterno(idDocenteExterno);
-						docenteExterno.setServidor(servidor);
-					}
-					
+					Pessoa pessoa = new Pessoa(idPessoaResultado, nomeDocente);
 					DocenteTurma docenteTurma = new DocenteTurma(idDocenteTurma);
-					docenteTurma.setTurma(turma);
-					if (idDocenteExterno != null){
+					Servidor servidor = null;
+					DocenteExterno docenteExterno = null;
+					if (idServidor != null) {
+						servidor = new Servidor(idServidor);
+						servidor.setPessoa(pessoa);
+					}
+					if (idDocenteExterno != null) {
+						docenteExterno = new DocenteExterno(idDocenteExterno);
+					}
+					//seta pessoa em docenteTurma ou em docenteExterno 
+					if (docenteExterno != null) {
+						if (servidor != null) {
+							docenteExterno.setServidor(servidor);
+						} else {
+							docenteExterno.setPessoa(pessoa);
+						}
 						docenteTurma.setDocenteExterno(docenteExterno);
+						docenteTurma.setDocente(null);
 					} else {
 						docenteTurma.setDocente(servidor);
+						docenteTurma.setDocenteExterno(null);
 					}
+					String nome = docenteTurma.getDocenteNome();
+					docenteTurma.setTurma(turma);
 					
 					resultado = new ResultadoAvaliacaoDocente(idResultado);
+					resultado.setFormularioAvaliacaoInstitucional(new FormularioAvaliacaoInstitucional(idFormulario));
 					resultado.setDocenteTurma(docenteTurma);
 					resultado.setNumTrancamentos(numTrancamentos);
 					resultado.setNumDiscentes(numDiscentes);
@@ -1634,6 +1649,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 			+ " order by id_pergunta";
 		@SuppressWarnings("unchecked")
 		Collection<MediaNotas> medias = getJdbcTemplate().query(sql, new Object[] {idDocenteTurma }, new RowMapper() {
+			@Override
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				MediaNotas media = new MediaNotas(rs.getInt("id_media_notas"));
 				media.setPergunta(new Pergunta(rs.getInt("id_pergunta")));
@@ -1663,6 +1679,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 			+ " order by id_pergunta";
 		@SuppressWarnings("unchecked")
 		Collection<PercentualSimNao> percentuais = getJdbcTemplate().query(sql, new Object[] {idDocenteTurma }, new RowMapper() {
+			@Override
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 				PercentualSimNao percentual = new PercentualSimNao(rs.getInt("id_percentual_sim_nao"));
 				percentual.setPergunta(new Pergunta(rs.getInt("id_pergunta")));
@@ -1788,25 +1805,28 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 * @throws DAOException
 	 */
 	public List<Map<String, Object>> findDocenteAnoPeriodoByNomeCentroDepartamento(String nome, int idCentro, int idDepartamento, int ano, int periodo) throws HibernateException, DAOException {
-		StringBuilder sql = new StringBuilder("select distinct s.id_servidor," 
-				+ " p.nome, t.ano, t.periodo, dep.nome as departamento"
-				+ " from rh.servidor s" 
-				+ " inner join comum.unidade dep using (id_unidade)"
-				+ " inner join comum.unidade centro on (dep.id_gestora = centro.id_unidade)"
-				+ " inner join comum.pessoa p using (id_pessoa)"
-				+ " left join ensino.docente_turma dt on (dt.id_docente = s.id_servidor)"
-				+ " left join ensino.docente_externo using (id_servidor)"
+		StringBuilder sql = new StringBuilder("select p.id_pessoa, " 
+				+ " p.nome, t.ano, t.periodo, dep.nome as departamento, resultado_avaliacao_docente.id_formulario_avaliacao, formulario_avaliacao.ead, "
+				+ " count(distinct t.id_turma) as qtd_turmas"
+				+ " from ensino.docente_turma dt"
+				+ " left join ensino.docente_externo de using (id_docente_externo)"
+				+ " left join rh.servidor s on (dt.id_docente = s.id_servidor or de.id_servidor = s.id_servidor)" 
+				+ " inner join comum.pessoa p on (s.id_pessoa = p.id_pessoa or de.id_pessoa = p.id_pessoa)"
+				+ " left join comum.unidade dep on (s.id_unidade = dep.id_unidade or de.id_unidade = dep.id_unidade)"
+				+ " left join comum.unidade centro on (dep.id_gestora = centro.id_unidade)"
 				+ " inner join avaliacao.resultado_avaliacao_docente using (id_docente_turma)"
-				+ " inner join avaliacao.media_notas mn using (id_resultado_avaliacao_docente)" 
+				+ " inner join avaliacao.formulario_avaliacao using (id_formulario_avaliacao)"
+				+ " inner join avaliacao.media_notas mn using (id_resultado_avaliacao_docente)"
 				+ " inner join ensino.turma t using (id_turma)"
-				+ " where (t.distancia = falseValue() or t.id_polo is null)");
+				+ " where 1=1");
 		if (nome != null) sql.append(" and p.nome_ascii ilike :nome"); 
 		if (idCentro != 0) sql.append(" and centro.id_unidade = :idCentro");
 		if (idDepartamento != 0) sql.append(" and dep.id_unidade = :idDepartamento");
 		if (ano != 0 && periodo != 0) sql.append(" and t.ano = :ano and t.periodo = :periodo");
-		sql.append(" order by nome, ano desc, periodo desc"); 
+		sql.append(" group by p.id_pessoa, p.nome, t.ano, t.periodo, dep.nome, resultado_avaliacao_docente.id_formulario_avaliacao, formulario_avaliacao.ead")
+		.append(" order by nome, ano desc, periodo desc"); 
 		Query q = getSession().createSQLQuery(sql.toString());
-		if (nome != null) q.setString("nome", nome + "%"); 
+		if (nome != null) q.setString("nome", StringUtils.toAscii(nome) + "%"); 
 		if (idCentro != 0) q.setInteger("idCentro", idCentro);
 		if (idDepartamento != 0) q.setInteger("idDepartamento", idDepartamento);
 		if (ano != 0 && periodo != 0){
@@ -1819,11 +1839,14 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 		for (Object[] rs : lista) {
 			Map<String, Object> mapa = new HashMap<String, Object>();
 			int i = 0;
-			mapa.put("id_servidor", rs[i++]);
+			mapa.put("id_pessoa", rs[i++]);
 			mapa.put("nome", rs[i++]);
 			mapa.put("ano", rs[i++]);
 			mapa.put("periodo", rs[i++]);
 			mapa.put("departamento", rs[i++]);
+			mapa.put("id_formulario_avaliacao", rs[i++]);
+			mapa.put("ead", rs[i++]);
+			mapa.put("qtd_turmas", rs[i++]);
 			resultado.add(mapa);
 		}
 		return resultado;
@@ -1835,19 +1858,20 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 * @throws DAOException 
 	 * @throws HibernateException 
 	 */
-	public List<Map<String, Object>> findResultadoByDocente(int idServidor) throws HibernateException, DAOException {
-		StringBuilder sql = new StringBuilder("select distinct s.id_servidor, p.nome, t.ano, t.periodo"
-				+ " from rh.servidor s"
-				+ " inner join comum.pessoa p using (id_pessoa)"
-				+ " left join ensino.docente_turma dt on (dt.id_docente = s.id_servidor)"
-				+ " left join ensino.docente_externo using (id_servidor)"
+	public List<Map<String, Object>> findResultadoByDocente(int idPessoa) throws HibernateException, DAOException {
+		StringBuilder sql = new StringBuilder("select distinct p.id_pessoa, "
+				+ " p.nome, t.ano, t.periodo, id_formulario_avaliacao, ead"
+				+ " from ensino.docente_turma dt"
+				+ " left join ensino.docente_externo de using (id_docente_externo)"
+				+ " left join rh.servidor s on (dt.id_docente = s.id_servidor or de.id_servidor = s.id_servidor)" 
+				+ " inner join comum.pessoa p on (s.id_pessoa = p.id_pessoa or de.id_pessoa = p.id_pessoa)"
 				+ " inner join avaliacao.resultado_avaliacao_docente using (id_docente_turma)"
+				+ " inner join avaliacao.formulario_avaliacao using (id_formulario_avaliacao)"
 				+ " inner join ensino.turma t using (id_turma)"
-				+ " where (t.distancia is null or t.distancia = falseValue() or t.id_polo is null)" 
-				+ " and s.id_servidor = :idServidor");
+				+ " where p.id_pessoa = :idPessoa");
 		sql.append(" order by nome, ano, periodo"); 
 		Query q = getSession().createSQLQuery(sql.toString());
-		q.setInteger("idServidor", idServidor);
+		q.setInteger("idPessoa", idPessoa);
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> lista = q.list();
@@ -1855,11 +1879,15 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 		for (Object[] rs : lista) {
 			Map<String, Object> mapa = new HashMap<String, Object>();
 			int i = 0;
-			mapa.put("id_servidor", rs[i++]);
+			mapa.put("id_pessoa", rs[i++]);
 			mapa.put("nome", rs[i++]);
 			mapa.put("ano", rs[i++]);
 			mapa.put("periodo", rs[i++]);
 			mapa.put("anoPeriodo", mapa.get("ano") + "." + mapa.get("periodo"));
+			mapa.put("id_formulario_avaliacao", rs[i++]);
+			boolean ead = (Boolean) rs[i++];
+			mapa.put("ead", ead);
+			mapa.put("rotuloAba", mapa.get("ano") + "." + mapa.get("periodo") + (ead?" - EAD" : ""));
 			resultado.add(mapa);
 		}
 		return resultado;
@@ -1878,9 +1906,10 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public Map<GrupoPerguntas, TabelaRespostaResultadoAvaliacao> findRespostasAvaliacaoDocenteTurma(int idDocenteTurma, int ano, int periodo, boolean excluirReprovacoesFalta) throws HibernateException, DAOException {
-		
-		ParametroProcessamentoAvaliacaoInstitucional parametroProcessamento = findUltimoProcessamento(ano, periodo);
+	public Map<GrupoPerguntas, TabelaRespostaResultadoAvaliacao> findRespostasAvaliacaoDocenteTurma(int idDocenteTurma, ParametroProcessamentoAvaliacaoInstitucional parametroProcessamento) throws HibernateException, DAOException {
+		int ano = parametroProcessamento.getAno();
+		int periodo = parametroProcessamento.getPeriodo();
+		int idFormulario = parametroProcessamento.getFormulario().getId();
 		
 		StringBuilder sql = new StringBuilder( 
 			"select rp.id as idRespostaPergunta,"
@@ -1904,6 +1933,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 			+ " where ai.finalizada = trueValue()"
 			+ "  and ai.ano = :ano"
 			+ "  and ai.periodo = :periodo"
+			+ "  and ai.id_formulario_avaliacao = :idFormulario"
 			+ "  and rp.id_docente_turma = :idDocenteTurma"
 			// docente não avaliacao
 			+ "  and rp.id_docente_turma not in (" +
@@ -1925,6 +1955,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 		qNotas.setInteger("ano", ano);
 		qNotas.setInteger("periodo", periodo);
 		qNotas.setInteger("idParametroProcessamento", parametroProcessamento.getId());
+		qNotas.setInteger("idFormulario", idFormulario);
 
 		@SuppressWarnings("unchecked")
 		List<Object[]> resultSet = qNotas.list();
@@ -2057,18 +2088,19 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public ParametroProcessamentoAvaliacaoInstitucional findUltimoProcessamento(int ano, int periodo) throws DAOException {
+	public ParametroProcessamentoAvaliacaoInstitucional findUltimoProcessamento(int ano, int periodo, int idFormulario) throws DAOException {
 		try {
 			String sql = "select id_parametro_processamento" +
 					" from avaliacao.parametro_processamento_avaliacao" +
 					" inner join (" +
-					"select ano, periodo, max(fim_processamento) as fim_processamento" +
-					" from avaliacao.parametro_processamento_avaliacao" +
-					" group by ano, periodo) subQuery using (ano, periodo, fim_processamento)" +
+					"    select ano, periodo, max(fim_processamento) as fim_processamento" +
+					"    from avaliacao.parametro_processamento_avaliacao" +
+					"    where id_formulario_avaliacao = :idFormulario" +
+					"    group by ano, periodo) subQuery using (ano, periodo, fim_processamento)" +
 					" inner join avaliacao.formulario_avaliacao using (id_formulario_avaliacao)" +
-					" where tipo_avaliacao = :tipoAvaliacao";
+					" where id_formulario_avaliacao = :idFormulario";
 			Query q = getSession().createSQLQuery(sql);
-			q.setInteger("tipoAvaliacao", TipoAvaliacaoInstitucional.AVALIACAO_DISCENTE_GRADUACAO);
+			q.setInteger("idFormulario", idFormulario);
 			@SuppressWarnings("unchecked")
 			List<Integer> ids = q.list();
 			if (ValidatorUtil.isEmpty(ids)) return null;
@@ -2124,7 +2156,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 				+ " and ai.id_formulario_avaliacao = :idFormulario"
 				+ " and ai.ano = :ano"
 				+ " and ai.periodo = :periodo"
-				+ " and id_pergunta in " + UFRNUtils.gerarStringIn(idPerguntas)
+				+ (isEmpty(idPerguntas)? "" : " and id_pergunta in " + UFRNUtils.gerarStringIn(idPerguntas))
 				+ " and resposta <= 0")
 			.append(restricaoTipoAvaliacao)
 			.append(" group by ai.id, rp.id_docente_turma, rp.id_turma_docencia_assistida");
@@ -2293,7 +2325,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 * @throws DAOException
 	 */
 	public String exportarAvaliacaoDiscentes(int ano, int periodo, int idFormularioAvaliacao, boolean somenteDadosFiltrados) throws HibernateException, DAOException {
-		ParametroProcessamentoAvaliacaoInstitucional parametro = findUltimoProcessamento(ano, periodo);
+		ParametroProcessamentoAvaliacaoInstitucional parametro = findUltimoProcessamento(ano, periodo, idFormularioAvaliacao);
 		String nomeTabela = "temp_exportacao_" + idFormularioAvaliacao+"_"+ (new Date()).getTime();
 		// dados gerais
 		String sqlDadosGerais = "create temp table " + nomeTabela+ " as " + 
@@ -2629,6 +2661,13 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 		}
 	}
 	
+	/** Carrega as respostas de uma Avaliação Institucional
+	 * @param idFormularioAvaliacao
+	 * @param nomeTabela
+	 * @return
+	 * @throws HibernateException
+	 * @throws DAOException
+	 */
 	private List<String> carregaRespostasAvaliacao(int idFormularioAvaliacao, String nomeTabela) throws HibernateException, DAOException {
 		List<String> cabecalhos = new LinkedList<String>();
 		// perguntas
@@ -3002,7 +3041,7 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	 */
 	public Map<String, Map<String, Map<String, Integer>>> findDadosRelatorioQuantitativoNaoComputado(int ano, int periodo, int idCentro, int idFormularioAvaliacao) throws HibernateException, DAOException {
 		Map<Integer, String> legenda = legendaIdPerguntas(idFormularioAvaliacao);
-		ParametroProcessamentoAvaliacaoInstitucional ultimo = findUltimoProcessamento(ano, periodo);
+		ParametroProcessamentoAvaliacaoInstitucional ultimo = findUltimoProcessamento(ano, periodo, idFormularioAvaliacao);
 		Map<String, Map<String, Map<String, Integer>>> dadosRelatorio = new HashMap<String, Map<String,Map<String,Integer>>>();
 		// docentes não avaliados
 		String sql = " select centro.nome as centro," +
@@ -3186,31 +3225,29 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 	}
 	
 	/** Retorna um mapa com a evolução da média geral do docente por ano-período na avaliação institucional. 
-	 * @param idServidor
+	 * @param idPessoa
 	 * @return
 	 * @throws HibernateException
 	 * @throws DAOException
 	 */
-	public Map<String, Double> findEvolucaoMediaGeralAnoPeriodo(int idServidor, boolean somenteResultadosLiberados) throws HibernateException, DAOException{
-		String sql = "select resultado_avaliacao_docente.ano, resultado_avaliacao_docente.periodo," +
+	public Map<String, Double> findEvolucaoMediaGeralAnoPeriodo(int idPessoa, boolean somenteResultadosLiberados) throws HibernateException, DAOException{
+		String sql = "select resultado_avaliacao_docente.ano, resultado_avaliacao_docente.periodo, formulario_avaliacao.ead," +
 				" avg(media_notas.media) as media_geral" +
 				" from avaliacao.resultado_avaliacao_docente" +
+				" inner join avaliacao.formulario_avaliacao using (id_formulario_avaliacao)" +
 				" inner join avaliacao.media_notas using (id_resultado_avaliacao_docente)" +
-				" inner join avaliacao.pergunta on (pergunta.id = media_notas.id_pergunta)" +
-				" left join avaliacao.parametro_processamento_avaliacao using (ano, periodo)" +
-				" inner join ensino.docente_turma using (id_docente_turma)" +
-				" inner join ensino.turma t using (id_turma)" +
-				" left join ensino.docente_externo on (docente_externo.id_docente_externo = docente_turma.id_docente_externo)" +
-				" left join rh.servidor on (servidor.id_servidor = docente_turma.id_docente or servidor.id_servidor = docente_externo.id_servidor)" +
-				" where (t.distancia is null or t.distancia = falseValue() or t.id_polo is null)" +
-				" and servidor.id_servidor = :idServidor" +
-				" and pergunta.id_grupo = :idGrupoPergunta" +
-				(somenteResultadosLiberados ? " and consulta_docente = trueValue()" :"") +
-				" group by resultado_avaliacao_docente.ano, resultado_avaliacao_docente.periodo" +
-				" order by resultado_avaliacao_docente.ano, resultado_avaliacao_docente.periodo";
+				" inner join avaliacao.parametro_processamento_avaliacao using (ano, periodo)" +
+				" inner join (select id_docente_turma"
+				+ "  from ensino.docente_turma dt"
+				+ "  left join ensino.docente_externo de using (id_docente_externo)"
+				+ "  left join rh.servidor s on (dt.id_docente = s.id_servidor or de.id_servidor = s.id_servidor)"
+				+ "  where (s.id_pessoa = :idPessoa or de.id_pessoa = :idPessoa)"
+				+ ") dt using (id_docente_turma)" +
+				(somenteResultadosLiberados ? " where consulta_docente = trueValue()" :"") +
+				" group by resultado_avaliacao_docente.ano, resultado_avaliacao_docente.periodo, formulario_avaliacao.ead" +
+				" order by resultado_avaliacao_docente.ano, resultado_avaliacao_docente.periodo, formulario_avaliacao.ead";
 		Query q = getSession().createSQLQuery(sql);
-		q.setInteger("idServidor", idServidor);
-		q.setInteger("idGrupoPergunta", ParametroHelper.getInstance().getParametroInt(ParametrosAvaliacaoInstitucional.ID_GRUPO_PERGUNTAS_MEDIA_GERAL_RESULTADO_AVALIACAO));
+		q.setInteger("idPessoa", idPessoa);
 		@SuppressWarnings("unchecked")
 		List<Object[]> bulk = q.list();
 		Map<String, Double> medias = new TreeMap<String, Double>();
@@ -3218,8 +3255,9 @@ public class AvaliacaoInstitucionalDao extends GenericSigaaDAO {
 			int i = 0;
 			Integer ano = (Integer) obj[i++];
 			Integer periodo = (Integer) obj[i++];
+			Boolean ead = (Boolean) obj[i++];
 			BigDecimal media = (BigDecimal) obj[i++];
-			String anoPeriodo = ano+"."+periodo;
+			String anoPeriodo = ano+"."+periodo + (ead ? " - EAD" : "");
 			medias.put(anoPeriodo, media.doubleValue());
 		}
 		return medias;

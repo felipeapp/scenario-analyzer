@@ -7,11 +7,7 @@
 <table>
 	<tr>
 		<th>Docente:</th>
-		<td><h:outputText value="#{portalResultadoAvaliacao.servidor.nome}"/></td>
-	</tr>
-	<tr>
-		<th>Departamento:</th>
-		<td><h:outputText value="#{portalResultadoAvaliacao.servidor.unidade}"/></td>
+		<td><h:outputText value="#{portalResultadoAvaliacao.pessoa.nome}"/></td>
 	</tr>
 	<tr>
 		<th>Ano-Período:</th>

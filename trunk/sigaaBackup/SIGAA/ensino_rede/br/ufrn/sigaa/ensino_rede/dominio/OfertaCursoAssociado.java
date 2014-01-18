@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -64,6 +65,9 @@ public class OfertaCursoAssociado implements PersistDB  {
 	@Column(name = "total_vagas")
 	private Integer totalVagas;
 
+	@Transient
+	private int totalAtivos;
+	
 	/**
 	 * Construtor padronizado. 
 	 */
@@ -110,4 +114,12 @@ public class OfertaCursoAssociado implements PersistDB  {
 		this.totalVagas = totalVagas;
 	}
 
+	public int getTotalAtivos() {
+		return totalAtivos;
+	}
+
+	public void setTotalAtivos(int totalAtivos) {
+		this.totalAtivos = totalAtivos;
+	}
+	
 }

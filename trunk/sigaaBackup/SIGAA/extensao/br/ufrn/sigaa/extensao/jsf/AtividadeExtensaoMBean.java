@@ -9,6 +9,7 @@
 package br.ufrn.sigaa.extensao.jsf;
 
 import static br.ufrn.arq.mensagens.MensagensArquitetura.OPERACAO_SUCESSO;
+import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 import static br.ufrn.arq.util.ValidatorUtil.validateRequiredId;
 
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ import br.ufrn.sigaa.extensao.dominio.AtividadeExtensao;
 import br.ufrn.sigaa.extensao.dominio.AtividadeUnidade;
 import br.ufrn.sigaa.extensao.dominio.DiscenteExtensao;
 import br.ufrn.sigaa.extensao.dominio.EditalExtensao;
+import br.ufrn.sigaa.extensao.dominio.EditalExtensaoLinhaAtuacao;
 import br.ufrn.sigaa.extensao.dominio.ExecutorFinanceiro;
 import br.ufrn.sigaa.extensao.dominio.LocalRealizacao;
 import br.ufrn.sigaa.extensao.dominio.Objetivo;
@@ -160,6 +162,9 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 
     /** Armazena atividades de extensão para manipulação. **/
     private Collection<AtividadeExtensao> atividadesLocalizadas;
+    
+    /** Atributo utilizado para representar as linhas de atuação do Edital de Extensão */
+	private Collection<EditalExtensaoLinhaAtuacao> linhasAtuacao ;
 
     /** Armazena as ações gravadas que são ações com cadastro em andamento que 
      * ainda não foram submetidas para avaliação dos departamentos. **/
@@ -331,7 +336,8 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
     /** Informa se o docente pode gerenciar particpantes. */
     private boolean docenteGerenciaParticipantes = false;
     
-    private String tab = "";
+    /**Guarda a categoria do membro da equipe adicionado a ação de extensão*/
+    private String tabSelecionada = "";
     
     /**
      * Construtor padrão.
@@ -675,7 +681,13 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
     		if (obj.getEditalExtensao() != null) {
     			dao.initialize(obj.getEditalExtensao());
     		}
-
+    		
+    		if (obj.getLinhaAtuacao() != null && obj.getLinhaAtuacao().getId() > 0 && !isEmpty(linhasAtuacao))
+    			dao.initialize(obj.getLinhaAtuacao());
+    		else
+    			obj.setLinhaAtuacao(null);
+    		
+    		
     		if (obj.getClassificacaoFinanciadora() != null) {
     			dao.initialize(obj.getClassificacaoFinanciadora());
     		}
@@ -1674,7 +1686,9 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		    	    obj.setEdicaoGestor(true);
 		    	else
 		    	    obj.setEdicaoGestor(false);
-		    	
+				
+			if(obj.getLinhaAtuacao() == null)
+				obj.setLinhaAtuacao(new EditalExtensaoLinhaAtuacao());
 
 			switch (obj.getTipoAtividadeExtensao().getId()) {
 			case TipoAtividadeExtensao.PROGRAMA:
@@ -2298,7 +2312,7 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 			}
 		}
 		
-		return forward(ConstantesNavegacao.ALTERAR_ATIVIDADE_LISTA);
+		return null;
 	}
 
     /**
@@ -2365,9 +2379,8 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 			Integer id = getParameterInt("id", 0);
 
 			if (id > 0) {
-
+				MembroProjetoDao memDao = getDAO(MembroProjetoDao.class);
 				try {
-
 					atividadeSelecionada.setId(id);
 
 					//Utilizado na visualização de ações de extensão a partir da página de Ações Acadêmicas Associadas.
@@ -2401,7 +2414,7 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 						}
 					}
 
-					atividadeSelecionada.setMembrosEquipe(getGenericDAO().findByExactField(MembroProjeto.class, "projeto.id", atividadeSelecionada.getProjeto().getId()));
+					atividadeSelecionada.setMembrosEquipe(memDao.findMembroProjetoAtivoByProjetoPesquisa(atividadeSelecionada.getProjeto().getId(), false));
 					// evitar erro de lazy na busca do coordenador
 					for (MembroProjeto mp : atividadeSelecionada.getMembrosEquipe()) {
 						mp.getId();
@@ -3140,6 +3153,11 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		}
 	}
 	
+	/**
+	 * popula as listas de atividades que o usuario participa.
+     * Método não invocado por JSP(s):
+     * @return
+     * */
     private void popularDadosParaListagem(Collection<AtividadeExtensao> atividades) {
     	atividadesMembroCoordena = new ArrayList<AtividadeExtensao>();
     	atividadesMembroParticipa = new ArrayList<AtividadeExtensao>();
@@ -3166,6 +3184,30 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
     }
 
     /**
+     * retorna um combo com as linhas de atuação do edital vinculado a esta tarefa.
+     * * <br>
+     * Método chamado pela(s) seguinte(s) JSP(s):
+     * </ul>
+     *  <li>sigaa.war/extensao/Atividade/dados_gerais.jsp</li> 
+     * </ul>
+     * @return
+     * @throws DAOException 
+     * */
+	public Collection<SelectItem> getLinhasCombo() throws DAOException{
+		if ( obj.getEditalExtensao() != null && obj.getEditalExtensao().getId() > 0 ) {
+			EditalDao dao = getDAO(EditalDao.class);
+			try {
+				linhasAtuacao = dao.findLinhasAtuacaoByEditalExtensao(obj.getEditalExtensao().getId());
+				return toSelectItems(linhasAtuacao, "id", "descricao");
+			} finally {
+				dao.close();
+			}
+		}
+		
+		return new ArrayList<SelectItem>();
+	}
+	
+    /**
      * Método chamado pela(s) seguinte(s) JSP(s):
      * </ul>
      *  <li>sigaa.war/extensao/Atividade/dados_gerais.jsp</li> 
@@ -3184,6 +3226,14 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
     	return collection;
     }
     
+    /**
+     * Retorna uma lista com os municipios pertencentes a mesma UF da Ação.
+     * Método chamado pela(s) seguinte(s) JSP(s):
+     * </ul>
+     *  <li>sigaa.war/extensao/Atividade/dados_gerais.jsp</li> 
+     * </ul>
+     * @return  
+     */
     public Collection<SelectItem> getAllMunicipio() throws DAOException {
     	if ( obj.getLocalRealizacao() != null && obj.getLocalRealizacao().getMunicipio().getUnidadeFederativa().getId() > 0  ) {
 	    	MunicipioDao dao = getDAO(MunicipioDao.class);
@@ -3197,10 +3247,23 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
     	}
     }
 
+    /**
+     * Retorna uma lista com todos os membros do projeto.
+     * Método chamado pela(s) seguinte(s) JSP(s):
+     * </ul>
+     *  <li>sigaa.war/extensao/Atividade/include/cadastrar_objetivo.jsp</li> 
+     * </ul>
+     * @return  
+     */
     public Collection<SelectItem> getAllMembrosProjeto() throws DAOException {
 		return toSelectItems(getMembrosEquipe(), "id", "pessoa.nome");
     }
     
+    /**
+     * Retorna uma lista com todos objetivos do projeto.
+     * Método não invocado por JSP(s)
+     * @return  
+     */
     public Collection<Objetivo> getObjetivos() throws DAOException {
 		if ( obj.getObjetivo() == null ) {
 	    	ObjetivoDao dao = getDAO(ObjetivoDao.class);
@@ -3213,11 +3276,39 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		return obj.getObjetivo();
     }
     
+    /**
+	 * Carrega os dados do servidor que foi selecionado para coordenador do projeto.
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * 		<li>sigaa.war/extensao/Atividade/dados_gerais.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws DAOException 
+	 */
 	public void carregarServidor(ActionEvent e) throws DAOException{
 		br.ufrn.rh.dominio.Servidor s = (br.ufrn.rh.dominio.Servidor) 
 			e.getComponent().getAttributes().get("docenteAutoComplete");
 		obj.getProjeto().getCoordenador().setServidor( 
 				getGenericDAO().findByPrimaryKey(s.getId(), Servidor.class) );
+	}
+	
+	 /**
+	 * Carrega o edital de extenção selecionado no cadastro de proposta de ação.
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * 		<li>sigaa.war/extensao/Atividade/dados_gerais.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws DAOException 
+	 */
+	public void carregarEditalExtensao(ValueChangeEvent e) throws DAOException {
+		if( e != null && (Integer)e.getNewValue() > 0 ){
+			obj.setEditalExtensao(getGenericDAO().findByPrimaryKey((Integer)e.getNewValue(), EditalExtensao.class));
+		}
+		if(!isEmpty(obj.getEditalExtensao()))
+			obj.getEditalExtensao().setLinhasAtuacao(linhasAtuacao);
 	}
     
     /**
@@ -3761,7 +3852,7 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		p = getGenericDAO().findByPrimaryKey(docente.getPessoa().getId(), Pessoa.class);
 		docente.setPessoa(p);
 		cpf = "";
-		tab = "DOCENTE";
+		tabSelecionada = "DOCENTE";
 		getCurrentSession().setAttribute("categoriaAtual",CategoriaMembro.DOCENTE);
 		redirectMesmaPagina();
 	}
@@ -3807,7 +3898,7 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		p = getGenericDAO().findByPrimaryKey(servidor.getPessoa().getId(), Pessoa.class);
 		servidor.setPessoa(p);
 		cpf = "";
-		tab = "SERVIDOR";
+		tabSelecionada = "SERVIDOR";
 		getCurrentSession().setAttribute("categoriaAtual",CategoriaMembro.SERVIDOR);
 		redirectMesmaPagina();
 	}
@@ -3846,7 +3937,7 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 	public void carregaDiscente(ActionEvent event){
 		discente = (Discente) event.getComponent().getAttributes().get("discenteAutoComplete");
 		cpf = "";
-		tab = "DISCENTE";
+		tabSelecionada = "DISCENTE";
 		getCurrentSession().setAttribute("categoriaAtual",CategoriaMembro.DISCENTE);
 		redirectMesmaPagina();
 	}
@@ -3886,7 +3977,7 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		participanteExterno = (ParticipanteExterno) event.getComponent().getAttributes().get("participanteExternoAutoComplete");
 		cpf = participanteExterno.getPessoa().getCpf_cnpjString();
 		buscarParticipanteExternoByCPF();
-		tab = "EXTERNO";
+		tabSelecionada = "EXTERNO";
 		redirectMesmaPagina();
 	}
 	
@@ -3969,6 +4060,13 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		this.membroEquipe = membroEquipeAtividadeExtensao;
 	}
 
+	/**
+	 * Retorna uma lista dos membros do projeto que sejam Docente, Discente, Servidor e Externo, e estejam ativos.
+	 * <br />
+	 * Método não invocado por JSP(s):
+	 * @return
+	 * @throws DAOException 
+	 */
 	public Collection<MembroProjeto> getMembrosEquipe() throws DAOException {
 		if (membrosEquipe == null) {
 			MembroProjetoDao dao = getDAO(MembroProjetoDao.class);
@@ -3982,6 +4080,13 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		return membrosEquipe;
 	}
 	
+	/**
+	 * verifica se a pessoa do membro passado no parametro já possui um cadastro como membro deste projeto.
+	 * <br />
+	 * Método não invocado por JSP(s):
+	 * @return
+	 * @throws DAOException 
+	 */
 	private boolean verificaDuplicidadePessoa(MembroProjeto membroProjeto) throws DAOException{
 		for (MembroProjeto mp : getMembrosEquipe()) {
 			if ( mp.getPessoa().getId() == membroProjeto.getPessoa().getId() )
@@ -4563,13 +4668,14 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 	public String confirmarExecucao() {
 	    setId();
 	    if (obj.getId() > 0) {
+	    	MembroProjetoDao memDao = getDAO(MembroProjetoDao.class);
 		try {
 		    
-		    obj = getGenericDAO().findByPrimaryKey(obj.getId(), AtividadeExtensao.class);		    
-		    obj.setOrcamentosDetalhados(getGenericDAO().findByExactField(OrcamentoDetalhado.class, "projeto.id", atividadeSelecionada.getProjeto().getId()));
+		    obj = memDao.findByPrimaryKey(obj.getId(), AtividadeExtensao.class);		    
+		    obj.setOrcamentosDetalhados(memDao.findByExactField(OrcamentoDetalhado.class, "projeto.id", atividadeSelecionada.getProjeto().getId()));
 
 		    // evitar erro de lazy na busca do coordenador
-		    obj.setMembrosEquipe(getGenericDAO().findByExactField(MembroProjeto.class, "projeto.id", obj.getProjeto().getId()));
+		    obj.setMembrosEquipe(memDao.findMembroProjetoAtivoByProjetoPesquisa(obj.getProjeto().getId(), false));
 		    
 		    if(obj.getProjeto().getCoordenador().getPessoa().getId() != getUsuarioLogado().getPessoa().getId()){
 		    	addMensagemWarning("Apenas o coordenador pode executar a Ação de Extensão.");
@@ -4685,6 +4791,15 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		return forward(ConstantesNavegacao.VIEW_PARTICIPANTES);
 	}
 	
+	/** Adiciona uma nova localidade a lista de locais de realização da Ação de extensão. 
+	 *	<br>
+	 *	Método chamado pela(s) seguinte(s) JSP(s):
+	 *	<ul>
+	 *		<li>/sigaa.war/extensao/Atividade/dados_gerais.jsp</li>
+	 *	</ul> 
+	 * @return
+	 * @throws DAOException
+	 */
 	public void adicionarLocalRealizacao() throws DAOException {
 		ListaMensagens lista = new ListaMensagens();
 		ValidatorUtil.validateRequiredId(obj.getLocalRealizacao().getMunicipio().getUnidadeFederativa().getId(), "Estado", lista);
@@ -4715,6 +4830,15 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		}
 	}
 	
+	/** Remove uma localidade a lista de locais de realização da Ação de extensão. 
+	 *	<br>
+	 *	Método chamado pela(s) seguinte(s) JSP(s):
+	 *	<ul>
+	 *		<li>/sigaa.war/extensao/Atividade/dados_gerais.jsp</li>
+	 *	</ul> 
+	 * @return
+	 * @throws DAOException
+	 */
 	public void removeLocalRealizacao() throws DAOException {
 
 		LocalRealizacaoDao dao = getDAO(LocalRealizacaoDao.class);
@@ -4825,12 +4949,12 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 		this.buscaRecebeuFinanciamentoInterno = buscaRecebeuFinanciamentoInterno;
 	}
 
-	public String getTab() {
-		return tab;
+	public String getTabSelecionada() {
+		return tabSelecionada;
 	}
 
-	public void setTab(String tab) {
-		this.tab = tab;
+	public void setTabSelecionada(String tabSelecionada) {
+		this.tabSelecionada = tabSelecionada;
 	}
 
 	public boolean isDocenteGerenciaParticipantes() {
@@ -4892,6 +5016,29 @@ public class AtividadeExtensaoMBean extends SigaaAbstractController<AtividadeExt
 			 p = getGenericDAO().findByPrimaryKey(obj.getProgramaEstrategico().getId(), ProgramaEstrategicoExtensao.class);
 		}
 		return p.getDescricao();
+	}
+	
+	/**
+	 * Inicializa os dados para o cadastro do objetivo de uma atividade de extensão.
+	 *	Método chamado pela(s) seguinte(s) JSP(s):
+	 *	<ul>
+	 *		<li>/sigaa.war/extensao/Atividade/include/atividades_minha_coordenacao.jsp</li>
+	 *	</ul> 
+	 * @return 
+	 * @throws ArqException
+	 */
+	public String iniciarCadastroAtividadeObjetivo() throws ArqException{
+		preAtualizar();
+		obj.setObjetivo(null);
+		return forward(ConstantesNavegacao.ALTERACAO_OBJETIVOS_ESPERADOS);
+	}
+
+	public Collection<EditalExtensaoLinhaAtuacao> getLinhasAtuacao() {
+		return linhasAtuacao;
+	}
+
+	public void setLinhasAtuacao(Collection<EditalExtensaoLinhaAtuacao> linhasAtuacao) {
+		this.linhasAtuacao = linhasAtuacao;
 	}
 	
 }

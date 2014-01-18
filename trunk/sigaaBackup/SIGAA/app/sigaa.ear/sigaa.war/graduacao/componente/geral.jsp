@@ -51,7 +51,7 @@
 					<tr>
 						<c:choose>
 							<c:when test="${ componenteCurricular.podeAlterarUnidade }">
-								<th class="required">
+								<th class="obrigatorio">
 									<c:choose>
 										<c:when test="${componenteCurricular.obj.stricto}">Programa:</c:when>
 										<c:otherwise>Unidade Responsável:</c:otherwise>
@@ -101,7 +101,7 @@
 					</c:if>
 					
 						<tr>
-							<th class="required">Código: </th>
+							<th class="obrigatorio">Código: </th>
 							<td>
 								<h:inputText id="codigo"
 									value="#{componenteCurricular.obj.codigo}" size="10" maxlength="#{componenteCurricular.validaCodigo ? 7 : 12}"
@@ -116,13 +116,10 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="required">Nome:</th>
+							<th class="obrigatorio">Nome: </th>
 							<td>
-								<h:inputText id="nome"
-								value="#{componenteCurricular.obj.detalhes.nome}" size="90"
-								maxlength="149" onkeyup="CAPS(this)"
-								disabled="#{ (componenteCurricular.obj.graduacao && !acesso.administradorDAE 
-									&& componenteCurricular.readOnly) || (componenteCurricular.obj.stricto && !acesso.ppg && (!componenteCurricular.coordenadorOpcaoCadastrarComponenteCurricular) ) }" />
+								<h:inputText id="nome" value="#{componenteCurricular.obj.detalhes.nome}" size="90" maxlength="149" 
+									onkeyup="CAPS(this)" disabled="#{componenteCurricular.permiteAlterarNome}" />
 							</td>
 						</tr>
 						<c:if test="${componenteCurricular.exibeAtivarComponente}">
@@ -158,7 +155,7 @@
 				<tr>
 					<td colspan="2" class="subFormulario">
 						Carga Horária Total:
-						<c:if test="${componenteCurricular.creditosObrigatorios}"><span style="margin-left: -10px;" class="required">&nbsp;</span></c:if>
+						<c:if test="${componenteCurricular.creditosObrigatorios}"><span style="margin-left: -10px;" class="obrigatorio">&nbsp;</span></c:if>
 						<span id="chtotal">&nbsp;${componenteCurricular.obj.detalhes.chTotal}h</span>
 					</td>
 					
@@ -278,7 +275,7 @@
 								<tr>
 									
 									<c:if test="${componenteCurricular.obj.estagio || componenteCurricular.obj.atividadeColetiva }">
-										<th width="290px"><span class="required"/>Carga Horária do Docente:</th>
+										<th width="290px"><span class="obrigatorio"/>Carga Horária do Docente:</th>
 										<td>
 											<h:inputText id="chDedicadaDocente"	value="#{componenteCurricular.obj.detalhes.chDedicadaDocente}" 
 											                                    size="4"
@@ -519,7 +516,7 @@
 							</c:if>
 							<c:if test="${componenteCurricular.exibeEmenta}">
 								<tr>
-									<th valign="top" id="campoEmenta" class="required">
+									<th valign="top" id="campoEmenta" class="obrigatorio">
 										<c:if test="${componenteCurricular.obj.atividade}">
 											Descrição:
 										</c:if>
@@ -540,7 +537,7 @@
 							<c:if test="${componenteCurricular.exibeBibliografia}">
 								<tr>
 									<c:if test="${not componenteCurricular.obj.stricto}">
-										<th valign="top" id="campoReferenciaObrigatorio" class="required">Referências:</th>
+										<th valign="top" id="campoReferenciaObrigatorio" class="obrigatorio">Referências:</th>
 									</c:if>
 									<c:if test="${componenteCurricular.obj.stricto}">
 										<th valign="top" id="campoReferencia">Referências:</th>

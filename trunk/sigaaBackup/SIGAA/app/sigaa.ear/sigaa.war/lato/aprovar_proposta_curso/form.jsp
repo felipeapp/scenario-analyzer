@@ -209,8 +209,8 @@
 			<tfoot>
 				<tr>
 					<td colspan="2">
-						<h:commandButton value="Aprovar" action="#{aprovarPropostaLato.aprovar}" /> &nbsp; 
-						<h:commandButton value="Cancelar" action="#{aprovarPropostaLato.cancelar}" onclick="#{confirm}" />
+						<h:commandButton value="Aprovar" action="#{aprovarPropostaLato.aprovar}" />
+						<h:commandButton value="Cancelar" action="#{aprovarPropostaLato.carregarPropostasSubmetidas}" onclick="#{confirm}" />
 					</td>
 				</tr>
 			</tfoot>

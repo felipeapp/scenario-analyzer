@@ -840,7 +840,7 @@ public class NotasExcelMBean extends AbstractExcelMBean{
 								throw new NegocioException ("Número de Faltas Inválido. O número máximo de faltas é: " +ctBean.getMaxFaltasTotal());
 							
 							if ( (ctBean.isConceito() || ctBean.isCompetencia()) && !avaliacao.equals("Faltas") )
-								throw new NegocioException ("Valores númericos não são válidos como notas no método de avaliação por " + ( ctBean.isCompetencia() ? "Competência." : "Conceito"));
+								throw new NegocioException ("Valores numéricos não são válidos como notas no método de avaliação por " + ( ctBean.isCompetencia() ? "Competência." : "Conceito"));
 						}
 						else if (celula.getCellType() == HSSFCell.CELL_TYPE_FORMULA){
 							nota = celula.getNumericCellValue();

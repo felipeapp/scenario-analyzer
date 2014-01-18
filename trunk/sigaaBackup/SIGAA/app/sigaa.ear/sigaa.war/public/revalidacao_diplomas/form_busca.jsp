@@ -16,11 +16,11 @@
 			<h2> Revalidaçao de Diplomas </h2>
 			<div class="descricaoOperacao">		
 				<p>O formulário abaixo deve se utilizado somente pelos inscritos no  
-					<h:outputText value="#{solRevalidacaoDiploma.obj.editalRevalidacaoDiploma.titulo}"/> que também desejam:
+					<h:outputText value="#{solRevalidacaoDiploma.obj.editalRevalidacaoDiploma.titulo}"/>:
 				</p>
 				<ul>
-					<li> Reimprimir o comprovante ou ficha de inscrição ;ou</li>
-					<li> Esteja no período de reagendamento e deseja selecionar data e horário para entrega dos documentos.</li>
+					<li> Para reimprimir o comprovante ou ficha de inscrição;</li>
+					<li> Caso esteja no período de reagendamento, selecionar data e horário para entrega dos documentos.</li>
 				</ul>
 				<c:if test="${solRevalidacaoDiploma.abertoInscricao}">
 					<h4> 

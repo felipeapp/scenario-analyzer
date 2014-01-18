@@ -32,6 +32,7 @@ import br.ufrn.sigaa.extensao.dominio.ParticipanteAcaoExtensao;
 import br.ufrn.sigaa.extensao.dominio.SubAtividadeExtensao;
 import br.ufrn.sigaa.extensao.helper.EnviarEmailExtensaoHelper;
 import br.ufrn.sigaa.extensao.jsf.ContatosExcelParticipanteAcaoExtensaoMBean;
+import br.ufrn.sigaa.extensao.jsf.helper.DesignacaoFuncaoProjetoHelper;
 
 
 
@@ -104,7 +105,8 @@ public class ListaAtividadesParticipantesExtensaoMBean extends SigaaAbstractCont
 	 */
 	public String listarAtividadesComParticipantesCoordenador() throws DAOException {
 		
-		if (!getAcessoMenu().isCoordenadorExtensao()) {
+		if ( !(DesignacaoFuncaoProjetoHelper.isCoordenadorOrDesignacaoCoordenador(getUsuarioLogado().getPessoa().getId()) || 
+				DesignacaoFuncaoProjetoHelper.isCoordenadorOrDesignacaoGerenciarParticipantesExtensao(getUsuarioLogado().getPessoa().getId()))) {
 			addMensagemErro("Usuário não autorizado a realizar esta operação");
 			return null;
 		}

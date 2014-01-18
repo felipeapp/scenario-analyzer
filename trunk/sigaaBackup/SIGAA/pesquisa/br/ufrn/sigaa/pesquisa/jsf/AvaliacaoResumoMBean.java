@@ -22,6 +22,8 @@ import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.seguranca.SigaaPapeis;
+import br.ufrn.arq.seguranca.SigaaSubsistemas;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.pesquisa.AvaliacaoResumoDao;
 import br.ufrn.sigaa.arq.dao.pesquisa.CongressoIniciacaoCientificaDao;
 import br.ufrn.sigaa.arq.dao.pesquisa.ResumoCongressoDao;
@@ -197,15 +199,18 @@ public class AvaliacaoResumoMBean extends SigaaAbstractController<AvaliacaoResum
 		AvaliacaoResumoDao dao = getDAO(AvaliacaoResumoDao.class);
 			
 		Collection<AvaliadorCIC> avaliadores = null;
-		if(getUsuarioLogado().getServidor() != null){
-			CongressoIniciacaoCientifica congresso = daoCongresso.findAtivo();
+		CongressoIniciacaoCientifica congresso = daoCongresso.findAtivo();
+		if(getUsuarioLogado().getServidorAtivo() != null &&  getSubSistema().equals(SigaaSubsistemas.PORTAL_DOCENTE )){
 			avaliadores = dao.findAvaliadorResumoByServidor(congresso.getId(), getUsuarioLogado().getServidor().getId());
-			if(avaliadores == null || avaliadores.isEmpty()){
-				addMensagemErro("Você não foi relacionado como Avaliador de Resumo para o Congresso de Iniciação Científica atual.");
-				return null;
-			}
+		} else if(getUsuarioLogado().getDiscenteAtivo() != null &&  getSubSistema().equals(SigaaSubsistemas.PORTAL_DISCENTE )) {
+			avaliadores = dao.findAvaliadorResumoByDiscente(congresso.getId(), getDiscenteUsuario().getId());
 		} else {
 			addMensagem(MensagensGerais.APENAS_DOCENTE_QUADRO_EFETIVO, "UFRN");
+			return null;
+		}
+		
+		if(ValidatorUtil.isEmpty(avaliadores)){
+			addMensagemErro("Você não foi relacionado como Avaliador de Resumo para o Congresso de Iniciação Científica atual.");
 			return null;
 		}
 		
@@ -217,8 +222,8 @@ public class AvaliacaoResumoMBean extends SigaaAbstractController<AvaliacaoResum
 		
 		avaliacoes = dao.findAvaliacoesByAvaliador(idsAvaliadores);
 		if(avaliacoes == null || avaliacoes.isEmpty()){
-			addMensagemErro("Não há mais avaliações de resumo destinadas a você.");
-			return null;
+			addMensagemWarning("Não há mais avaliações de resumo destinadas a você.");
+			return cancelar();
 		}
 		
 		return forward(JSP_LISTA_RESUMOS);

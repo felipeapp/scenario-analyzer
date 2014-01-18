@@ -204,19 +204,19 @@ public class AvaliacaoInstitucionalMBean extends SigaaAbstractController<Avaliac
 		CalendarioAcademico cal = CalendarioAcademicoHelper.getCalendario(getUsuarioLogado());
 		getCurrentSession().setAttribute(CALENDARIO_SESSAO, cal);
 		
-		if (!cal.isPeriodoAvaliacaoInstitucional()) {
-			if (cal.getInicioMatriculaOnline() == null || cal.getFimReMatricula() == null) {
-				addMensagem(MensagensAvaliacaoInstitucional.PERIODO_AVALIACAO_NAO_DEFINIDO);
-			} else {
-				addMensagem(MensagensAvaliacaoInstitucional.PERIODO_AVALIACAO_INSTITUCIONAL, cal.getInicioMatriculaOnline(), cal.getFimReMatricula());
-			}
-			return null;
-		} else {
-			avaliacaoAtiva = true;
-		}
-		
-		if (!avaliacaoAtiva)
-			throw new NegocioException(UFRNUtils.getMensagem(MensagensAvaliacaoInstitucional.INDISPONIVEL_NO_ANO_PERIODO).getMensagem());
+//		if (!cal.isPeriodoAvaliacaoInstitucional()) {
+////			if (cal.getInicioMatriculaOnline() == null || cal.getFimReMatricula() == null) {
+////				addMensagem(MensagensAvaliacaoInstitucional.PERIODO_AVALIACAO_NAO_DEFINIDO);
+////			} else {
+////				addMensagem(MensagensAvaliacaoInstitucional.PERIODO_AVALIACAO_INSTITUCIONAL, cal.getInicioMatriculaOnline(), cal.getFimReMatricula());
+////			}
+//			return null;
+//		} else {
+//			avaliacaoAtiva = true;
+//		}
+//		
+//		if (!avaliacaoAtiva)
+//			throw new NegocioException(UFRNUtils.getMensagem(MensagensAvaliacaoInstitucional.INDISPONIVEL_NO_ANO_PERIODO).getMensagem());
 		
 		TutorOrientador tutor = getUsuarioLogado().getTutor();
 		
@@ -233,6 +233,7 @@ public class AvaliacaoInstitucionalMBean extends SigaaAbstractController<Avaliac
 			obj.setPeriodo(getPeriodo());
 			obj.setRespostas(new ArrayList<RespostaPergunta>());
 			obj.setFinalizada(false);
+			obj.setFormulario(formulario);
 		} else if (obj.isFinalizada()) { // Não deixar avaliar novamente se a avaliação estiver finalizada.
 			addMensagem(MensagensAvaliacaoInstitucional.AVALIACAO_REALIZADA);
 			return null;
@@ -488,6 +489,7 @@ public class AvaliacaoInstitucionalMBean extends SigaaAbstractController<Avaliac
 			resetBean();
 			return redirect("/avaliacao/satisfacao.jsf");
 		}
+		
 		removeOperacaoAtiva();
 		return cancelar();
 	}

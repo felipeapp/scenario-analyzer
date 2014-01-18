@@ -198,9 +198,12 @@ public class GerenciarInscricoesCursosEventosExtensaoMBean extends SigaaAbstract
 			dao =getDAO(GerenciarInscricoesCursosEventosExtensaoDao.class);
 			if(projetoSelecionarGestor != null)
 				cursosEventosParaInscricao  = dao.findCursoEventoAtivosEmExecucaoByProjetoExtensao(projetoSelecionarGestor.getId());
-			else
-				cursosEventosParaInscricao  = dao.findCursoEventoAtivosEmExecucaoByCoordenador(getUsuarioLogado().getServidorAtivo());
-			
+			else{
+				if(getUsuarioLogado().getServidorAtivo() == null){
+					addMensagemErro("Apenas servidores ativos podem gerenciar inscrições.");
+				}else
+					cursosEventosParaInscricao  = dao.findCursoEventoAtivosEmExecucaoByCoordenador(getUsuarioLogado().getServidorAtivo());
+			}
 			
 		}finally{
 			if(dao != null) dao.close();

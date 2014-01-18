@@ -17,12 +17,13 @@ import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.util.DtoUtils;
 import br.ufrn.comum.dominio.UsuarioGeral;
 import br.ufrn.integracao.dto.UsuarioDTO;
+import br.ufrn.integracao.exceptions.NegocioRemotoException;
 import br.ufrn.integracao.siged.dto.ArquivoDocumento;
 import br.ufrn.integracao.siged.dto.DocumentoDTO;
 import br.ufrn.integracao.siged.dto.PastaDocumentoDTO;
+import br.ufrn.integracao.siged.service.IntegracaoSigedService;
 import br.ufrn.sigaa.diploma.dominio.ParametrosDiplomas;
 import br.ufrn.sigaa.diploma.dominio.RegistroDiploma;
-import br.ufrn.siged.integracao.SigedFacade;
 
 /** Classe para auxiliar o cadastro de diploma digitalizado no SIGED.
  * @author Édipo Elder F. Melo
@@ -39,8 +40,9 @@ public class DiplomaHelper {
 	 * @throws NegocioException
 	 * @throws ArqException
 	 * @throws IOException
+	 * @throws NegocioRemotoException 
 	 */
-	public static DocumentoDTO inserirDiplomaSIGED(ArquivoDocumento arquivo, RegistroDiploma registro, UsuarioGeral usuario, SigedFacade siged) throws NegocioException, ArqException, IOException{
+	public static DocumentoDTO inserirDiplomaSIGED(ArquivoDocumento arquivo, RegistroDiploma registro, UsuarioGeral usuario, IntegracaoSigedService siged) throws NegocioException, NegocioRemotoException{
 		PastaDocumentoDTO pastaRaiz = siged.buscarPasta(ParametroHelper.getInstance().getParametro(ParametrosDiplomas.PATH_DIPLOMAS), null);
 		if (pastaRaiz == null)
 			throw new NegocioException("A pasta para armagenzamento de diplomas não está definida ou o SIGED está desabilitado.");
@@ -51,10 +53,16 @@ public class DiplomaHelper {
 	    if (pasta == null) {
 	    	pasta = new PastaDocumentoDTO();
 	    	pasta.setNome(subPasta);
+	    	pasta.setLabel(br.ufrn.arq.util.StringUtils.primeriaMaiuscula( subPasta ));
 	    	pasta.setPai(pastaRaiz.getId());
 	    	pasta = siged.cadastrarPasta(pasta, DtoUtils.deUsuarioParaDTO(usuario));
 	    }
     	documento.setLocalizacao(pasta.getId());
+    	//arquivo do documento
+    	documento.setArquivo(arquivo);
+    	documento.setLabel(arquivo.getName());
+    	// nome do documento
+    	documento.setNome(registro.getDiscente().getNome());
     	// descritores do diploma
     	// matrícula
     	documento.adicionarDescritor(ParametroHelper.getInstance().getParametroInt(ParametrosDiplomas.DESCRITOR_DIPLOMA_MATRICULA_ALUNO), registro.getDiscente().getMatricula().toString(), true);
@@ -63,7 +71,7 @@ public class DiplomaHelper {
 	    // número de registro do diploma
 	    documento.adicionarDescritor(ParametroHelper.getInstance().getParametroInt(ParametrosDiplomas.DESCRITOR_DIPLOMA_NUMERO_REGISTRO), registro.getNumeroRegistro().toString(), true);
 	    UsuarioDTO usuarioDTO = DtoUtils.deUsuarioParaDTO(usuario);
-		siged.cadastrarDocumento(documento, arquivo, usuarioDTO);
+		siged.cadastrarDocumento(documento, usuarioDTO, false);
 		return documento;
 	}
 }

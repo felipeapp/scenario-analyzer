@@ -330,7 +330,7 @@ public class ProcessadorRealizaEmprestimo extends ProcessadorCadastro {
 				
 				
 				//Calcula o prazo correto para o empréstimo, livrando feriados e finais de semana, dependendo da biblioteca do material emprestado.
-				prorrogacoes.addAll(CirculacaoUtil.geraProrrogacoesEmprestimo(e, null));
+				prorrogacoes.addAll(CirculacaoUtil.geraProrrogacoesEmprestimo(e, e.getMaterial().getBiblioteca(), null));
 				
 				// Adiciona o empréstimo à lista de empréstimos a realizar.
 				emprestimos.add(e);

@@ -116,7 +116,12 @@
 
 	<%-- PESQUISA --%>
 	<t:navigationMenuItem itemLabel="Pesquisa" id="pesquisa" icon="/img/icones/pesquisa_menu.gif">
-		<t:navigationMenuItem itemLabel="Consultar Projetos" actionListener="#{menuDiscente.redirecionar}" itemValue="/pesquisa/projetoPesquisa/buscarProjetos.do?dispatch=consulta&popular=true"/>
+		
+		<t:navigationMenuItem id="projetos" itemLabel="Projeto de Pesquisa">
+			<t:navigationMenuItem id="consultarProjetos" itemLabel="Consultar Projetos" actionListener="#{menuDiscente.redirecionar}" itemValue="/pesquisa/projetoPesquisa/buscarProjetos.do?dispatch=consulta&popular=true"/>
+			<t:navigationMenuItem id="meusProjetos" itemLabel="Projetos que Participo" action="#{membroProjeto.listarMeusProjetoPesquisa}" itemDisabled="false" />
+		</t:navigationMenuItem>
+		
 		<c:if test="${usuario.discenteAtivo.graduacao or usuario.discenteAtivo.tecnico}">
 			<t:navigationMenuItem itemLabel="Plano de Trabalho" split="true">
 				<t:navigationMenuItem itemLabel="Meus Planos de Trabalho" actionListener="#{menuDiscente.redirecionar}" itemValue="/sigaa/pesquisa/planoTrabalho/wizard.do?dispatch=listarPorDiscente"/>
@@ -138,6 +143,9 @@
 		<t:navigationMenuItem itemLabel="Congresso de Iniciação Científica">
 			<t:navigationMenuItem id="submeterResumoCongresso" itemLabel="Submeter resumo" actionListener="#{menuDiscente.redirecionar}" itemValue="/pesquisa/resumoCongresso.do?dispatch=popularInicioEnvio" rendered="#{(usuario.discenteAtivo.graduacao || usuario.discenteAtivo.tecnico)}"/>
 			<t:navigationMenuItem itemLabel="Meus resumos" actionListener="#{menuDiscente.redirecionar}" itemValue="/pesquisa/resumoCongresso.do?dispatch=listarResumosAutor"/>
+			<t:navigationMenuItem id="projPesCongrManinfestar" itemLabel="Manifestar Interesse em Avaliar Trabalhos" action="#{ interesseAvaliarBean.iniciar }" rendered="#{ interesseAvaliarBean.permissaoAcesso }" />			
+			<t:navigationMenuItem id="justificarAusencia" itemLabel="Justificar Ausência" action="#{justificativaCIC.preCadastrar}" rendered="#{justificativaCIC.permissaoAcesso}"/>
+			<t:navigationMenuItem id="projPesCongr_AvaliarRes" itemLabel="Avaliar Resumos" action="#{avaliacaoResumoBean.listarResumos}" split="true" rendered="#{ interesseAvaliarBean.permissaoAcesso }" />
 		</t:navigationMenuItem>
 	</t:navigationMenuItem>
 
@@ -255,6 +263,7 @@
 		<t:navigationMenuItem id="solicitacao" itemLabel="Solicitação de Bolsas">
 			<t:navigationMenuItem id="bolsa_auxilioAlimentacao" itemLabel="Solicitação de Bolsa Auxílio" action="#{ bolsaAuxilioMBean.iniciarSolicitacaoBolsaAuxilio }" />
 			<t:navigationMenuItem id="bolsa_acompanharAuxilios" itemLabel="Acompanhar Solicitação de Bolsa Auxílio" action="#{ bolsaAuxilioMBean.acompanharSituacaoBolsaAuxilio }" />
+			<t:navigationMenuItem id="bolsa_renovarAuxilio" itemLabel="Renovar Bolsa Auxílio" action="#{ renovacaoBolsaAuxilioMBean.preCadastrar }" />			
 		</t:navigationMenuItem>	
 			
 			<t:navigationMenuItem id="bolsa_planoDocenciaAssistida" itemLabel="Plano de Docência Assistida" action="#{ planoDocenciaAssistidaMBean.iniciar }" split="true"

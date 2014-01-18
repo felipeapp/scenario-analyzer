@@ -41,11 +41,15 @@ public class ProcessarVinculos extends ProcessarVinculoExecutor {
 		setNext(new ProcessarResponsavel()).
 		setNext(new ProcessarDocenteExterno()).
 		setNext(new ProcessarTutor()).
+		setNext(new ProcessarTutorIMD()).
 		setNext(new ProcessarCoordenacaoPolo()).
 		setNext(new ProcessarConcedente()).
 		setNext(new ProcessarSecretaria()).
-		setNext(new ProcessarFamiliar()).		
+		setNext(new ProcessarFamiliar()).
+		setNext(new ProcessarCoordenacaoGeralRede()).
+		setNext(new ProcessarCoordenadorUnidadeRede()).
 		setNext(new ProcessarGenerico());
+		
 	}
 
 	@Override

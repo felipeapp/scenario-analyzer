@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dominio.MovimentoCadastro;
 import br.ufrn.arq.erros.ArqException;
@@ -69,14 +70,17 @@ import br.ufrn.sigaa.ensino.dominio.TipoAtividade;
 import br.ufrn.sigaa.ensino.graduacao.jsf.BuscaDiscenteMBean;
 import br.ufrn.sigaa.ensino.graduacao.jsf.OperacaoDiscente;
 import br.ufrn.sigaa.ensino.graduacao.jsf.OperadorDiscente;
+import br.ufrn.sigaa.ensino.negocio.CalendarioAcademicoHelper;
+import br.ufrn.sigaa.estagio.dominio.ConcedenteEstagio;
+import br.ufrn.sigaa.estagio.dominio.ConvenioEstagio;
 import br.ufrn.sigaa.estagio.dominio.Estagiario;
 import br.ufrn.sigaa.estagio.dominio.HorarioEstagio;
 import br.ufrn.sigaa.estagio.dominio.InteresseOferta;
 import br.ufrn.sigaa.estagio.dominio.ParametrosEstagio;
+import br.ufrn.sigaa.estagio.dominio.StatusConvenioEstagio;
 import br.ufrn.sigaa.estagio.dominio.StatusEstagio;
 import br.ufrn.sigaa.estagio.dominio.TipoConvenio;
 import br.ufrn.sigaa.estagio.dominio.TipoEstagio;
-import br.ufrn.sigaa.estagio.jsf.ConvenioEstagioMBean.ComandoConvenioEstagio;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
@@ -87,8 +91,8 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
  * @author Arlindo Rodrigues
  *
  */
-@Component("estagioMBean") @Scope("request")
-public class EstagioMBean extends SigaaAbstractController<Estagiario> implements AutValidator, OperadorDiscente {
+@Component("estagioMBean") @Scope("session")
+public class EstagioMBean extends SigaaAbstractController<Estagiario> implements AutValidator, OperadorDiscente, SeletorConvenioEstagio {
 	
 	/** MBean de Busca de Estágio que auxilia no redirecionamento */
 	@Autowired
@@ -313,7 +317,8 @@ public class EstagioMBean extends SigaaAbstractController<Estagiario> implements
 		checkRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.GESTOR_CONVENIOS_ESTAGIO_PROPLAN, SigaaPapeis.COORDENADOR_ESTAGIOS);
 		initObj();
 		BuscaDiscenteMBean buscaDiscenteMBean = (BuscaDiscenteMBean) getMBean("buscaDiscenteGraduacao");		
-		buscaDiscenteMBean.setCodigoOperacao(OperacaoDiscente.CADASTRO_ESTAGIO_AVULSO);		
+		buscaDiscenteMBean.setCodigoOperacao(OperacaoDiscente.CADASTRO_ESTAGIO_AVULSO);
+		buscaDiscenteMBean.setNivelEnsinoEspecifico(NivelEnsino.GRADUACAO);
 		return buscaDiscenteMBean.popular();			
 	}
 
@@ -789,7 +794,7 @@ public class EstagioMBean extends SigaaAbstractController<Estagiario> implements
 	 */
 	public void verificaMatriculaAtiva() throws DAOException {
 		MatriculaComponenteDao dao = getDAO(MatriculaComponenteDao.class);
-		CalendarioAcademico cal = getCalendarioVigente();
+		CalendarioAcademico cal = CalendarioAcademicoHelper.getCalendario(discente);
 		int count = dao.countMatriculasByDiscente(discente, cal.getAno(), cal.getPeriodo(), SituacaoMatricula.MATRICULADO);
 		if (count == 0)
 			addMensagemErro("O discente não está matriculado em disciplina no ano-período atual.");
@@ -908,7 +913,7 @@ public class EstagioMBean extends SigaaAbstractController<Estagiario> implements
 			
 			if (!isEmpty(obj)){						
 				/*  Pega o código de segurança do comprovante para reexibir ao usuário */
-				codigoSeguranca = comprovante != null ? comprovante.getCodigoSeguranca() : null;				
+				codigoSeguranca = comprovante.getCodigoSeguranca();				
 				/* *************************************************************************************
 				 *   IMPORTANTE TEM QUE REDIRECIONAR PARA A PÁGINA DO RELATÓRIO CONFORME O SEU SUBTIPO
 				 * *************************************************************************************/
@@ -1057,7 +1062,8 @@ public class EstagioMBean extends SigaaAbstractController<Estagiario> implements
 		obj.setDiscente(discente);	
 		
 		convenioEstagioMBean.setEstagiario(obj);
-		return convenioEstagioMBean.iniciarConsulta(ComandoConvenioEstagio.CADASTRO_ESTAGIO_AVULSO);
+		Integer[] statusConvenioEstagio = { StatusConvenioEstagio.APROVADO};
+		return convenioEstagioMBean.iniciarSeletorEstagio(this, statusConvenioEstagio );
 	}
 	
 	/**
@@ -1162,6 +1168,29 @@ public class EstagioMBean extends SigaaAbstractController<Estagiario> implements
 
 	public boolean isPodeAlterarEmpresaEstagio() {
 		return podeAlterarEmpresaEstagio;
+	}
+
+	@Override
+	public ListaMensagens validaConvenioSelecionado(ConvenioEstagio convenioEstagio) {
+		ListaMensagens lista = new ListaMensagens();
+		if (!convenioEstagio.isAprovado())
+			lista.addErro("O convênio de estágio selecionado não está com status APROVADO.");
+		return lista;
+	}
+
+	@Override
+	public String selecionaConvenioEstagio(ConvenioEstagio convenioEstagio) throws ArqException {
+		ConcedenteEstagio concedente = getGenericDAO().refresh(convenioEstagio.getConcedente());
+		obj.setConcedente(concedente);
+		obj.setEmpresaEstagio(concedente.getPessoa());
+		return carregarCadastroAvulso();
+	}
+
+	@Override
+	public String seletorConvenioEstagioVoltar() {
+		BuscaDiscenteMBean buscaDiscenteMBean = (BuscaDiscenteMBean) getMBean("buscaDiscenteGraduacao");		
+		buscaDiscenteMBean.setCodigoOperacao(OperacaoDiscente.CADASTRO_ESTAGIO_AVULSO);		
+		return forward(buscaDiscenteMBean.getListPage());
 	}
 
 }

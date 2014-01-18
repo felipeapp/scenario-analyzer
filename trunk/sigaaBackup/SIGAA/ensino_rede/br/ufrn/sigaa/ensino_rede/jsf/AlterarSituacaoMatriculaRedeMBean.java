@@ -43,6 +43,7 @@ import br.ufrn.sigaa.ensino_rede.dominio.TurmaRede;
 
 /**
  * Managed bean para alteração da situação de matrículas de turmas do ensino em rede.
+ * Pensando originalmente para consolidação de turma, no entanto fácil de adaptar.
  *
  * @author Diego Jácome
  *
@@ -52,11 +53,11 @@ import br.ufrn.sigaa.ensino_rede.dominio.TurmaRede;
 public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<MatriculaComponenteRede> {
 
 	/** Atalho para a view do listar turmas. */
-	private static final String JSP_LISTAR_TURMAS = "/ensino_rede/modulo/alterar_situacao/listarTurmas.jsp";
+	private static final String JSP_LISTAR_TURMAS = "/ensino_rede/alterar_situacao/listarTurmas.jsp";
 	/** Atalho para a view de alterar situação das matrículas das turmas. */
-	private static final String JSP_ALTERAR_SITUACAO = "/ensino_rede/modulo/alterar_situacao/alterarSituacao.jsp";
+	private static final String JSP_ALTERAR_SITUACAO = "/ensino_rede/alterar_situacao/alterarSituacao.jsp";
 	/** Atalho para a view de confirmação da alteração da situação das matrículas das turmas. */
-	private static final String JSP_CONFIRMAR_ALTERACAO = "/ensino_rede/modulo/alterar_situacao/confirmar.jsp";
+	private static final String JSP_CONFIRMAR_ALTERACAO = "/ensino_rede/alterar_situacao/confirmar.jsp";
 	
 	/** Instituição de Ensino de onde as turmas irão ser buscadas */
 	private InstituicoesEnsino ies;
@@ -98,6 +99,9 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 		clear();
 	}
 	
+	/**
+	 * Limpa os dados do MBean 
+	 */
 	public void  clear() {
 		ies = new InstituicoesEnsino();
 		campus = new CampusIes();
@@ -109,8 +113,8 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Iniciar fluxo geral para alteração de status de matricula<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/listarTurmas.jsp</li>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/alterarSituacao.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/listarTurmas.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/alterarSituacao.jsp</li>
 	 * </ul>	 
 	 * @return
 	 * @throws SegurancaException 
@@ -152,7 +156,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Busca as turmas que serão consolidadas de acordo com os parâmetros de busca.<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/listarTurmas.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/listarTurmas.jsp</li>
 	 * </ul>	 
 	 * @return
 	 * @throws SegurancaException
@@ -163,20 +167,23 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 		
 		try {
 		
-		if (isEmpty(ano))
-			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Ano");
-		if (isEmpty(periodo))
-			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Período");
-		if (isEmpty(ies))
-			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Instituição");
 		if (isEmpty(campus))
 			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Campus");
+		if (isEmpty(periodo))
+			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Período");
+		if (isEmpty(ano))
+			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Ano");
+		if (isEmpty(ies))
+			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Instituição");
 		
 		if (hasErrors())
 			return null;
 		
+		TipoVinculoCoordenacaoGeralRede vinculo = (TipoVinculoCoordenacaoGeralRede) getUsuarioLogado().getVinculoAtivo().getTipoVinculo();
+		ProgramaRede p = vinculo.getCoordenacao().getProgramaRede();
+		
 		dao = getDAO(TurmaRedeDao.class);
-		turmas = (ArrayList<TurmaRede>) dao.findTurmasAbertasByCampusAnoPeriodo(campus.getId(), ano, periodo);
+		turmas = (ArrayList<TurmaRede>) dao.findTurmasAbertasByCampusAnoPeriodo(campus.getId(),p.getId(),ano, periodo);
 		
 		if (isEmpty(turmas)) {
 			addMensagemErro("Não foram encontradas turmas ABERTAS com esses parâmetros.");
@@ -195,7 +202,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Busca as matrículas que terão o status modificado.<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/listarTurmas.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/listarTurmas.jsp</li>
 	 * </ul>	 
 	 * @return
 	 * @throws SegurancaException 
@@ -237,7 +244,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Busca as matrículas que terão o status modificado.<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/alterarSituacao.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/alterarSituacao.jsp</li>
 	 * </ul>	 
 	 * @return
 	 * @throws SegurancaException
@@ -254,8 +261,10 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 		matriculasEscolhidas = new ArrayList<MatriculaComponenteRede>();
 		for(MatriculaComponenteRede m : matriculasRede){
 			if (m.isSelected()){
-				m.setSituacao(SituacaoMatricula.getSituacao(m.getNovaSituacaoMatricula().getId()));
-				m.setNovaSituacaoMatricula(SituacaoMatricula.getSituacao(m.getNovaSituacaoMatricula().getId()));
+				int idSituacao = m.getNovaSituacaoMatricula().getId();
+				String descricao = SituacaoMatricula.getSituacao(idSituacao).getDescricao();
+				m.setSituacao(new SituacaoMatricula(idSituacao,descricao));
+				m.setNovaSituacaoMatricula(new SituacaoMatricula(idSituacao,descricao));
 				matriculasEscolhidas.add(m);
 			}	
 		}
@@ -294,7 +303,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Altera as matrículas selecionadas.<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/confirmar.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/confirmar.jsp</li>
 	 * </ul>	 
 	 * @return
 	 * @throws ArqException 
@@ -333,7 +342,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Carrega o combo de campus de acordo com a instituição.<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/listarTurmas.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/listarTurmas.jsp</li>
 	 * </ul>	 
 	 * @return
 	 * @throws SegurancaException
@@ -349,7 +358,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Retorna a Lista de instituições do programa em rede<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/listarTurmas.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/listarTurmas.jsp</li>
 	 * </ul>	
 	 * @return
 	 * @throws DAOException
@@ -366,7 +375,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 			pDao = getDAO(ProgramaRedeDao.class);
 			List<InstituicoesEnsino> instituicoes = pDao.findInstituicoesByPrograma(p.getId());
 			
-			combo = toSelectItems(instituicoes,"id","nome");
+			combo = toSelectItems(instituicoes,"id","sigla");
 		} finally {
 			if (pDao != null)
 				pDao.close();
@@ -380,7 +389,7 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 	 * Retorna a Lista de Situações de Matrícula<br/><br/>
 	 * Método chamado pelas seguintes JSPs:
 	 * <ul>
-	 *   <li>/sigaa.war/ensino_rede/modulo/alterar_situacao/alterarSituacao.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/alterarSituacao.jsp</li>
 	 * </ul>	
 	 * @return
 	 * @throws DAOException
@@ -396,6 +405,23 @@ public class AlterarSituacaoMatriculaRedeMBean extends SigaaAbstractController<M
 
 	} 
 	
+	/**
+	 * Retorna para tela de seleção de turmas
+	 * <ul>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/alterarSituacao.jsp</li>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/confirmar.jsp</li>
+	 * </ul>	
+	 */
+	public String voltarListarTurmas () {
+		return forward(JSP_LISTAR_TURMAS);
+	}
+	
+	/**
+	 * Retorna para tela de alteraçoa de matrículas
+	 * <ul>
+	 *   <li>/sigaa.war/ensino_rede/alterar_situacao/confirmar.jsp</li>
+	 * </ul>	
+	 */
 	public String voltarAlterarSituacao () {
 		return forward(JSP_ALTERAR_SITUACAO);
 	}

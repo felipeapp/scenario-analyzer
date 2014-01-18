@@ -20,15 +20,15 @@
 						<ul>
 							<li> <h:commandLink value="Cadastrar" action="#{tutorOrientador.preCadastrar}" onclick="setAba('pessoas')"/> </li>
 							<li> <h:commandLink value="Listar/Alterar" action="#{tutorOrientador.listar}" onclick="setAba('pessoas')"/></li>							
-							<li> <a href="${ctx}/ead/TutorOrientador/logarComo.jsf?aba=pessoas">Logar como Tutor </a> </li>
-							<li> <a href="${ctx}/ead/TutorOrientador/logarComoDiscente.jsf?aba=pessoas">Logar como Discente </a> </li>						
+							<li> <a href="${ctx}/ead/TutorOrientador/logarComo.jsf?aba=pessoas">Logar como Tutor</a> </li>
+							<li> <a href="${ctx}/ead/TutorOrientador/logarComoDiscente.jsf?aba=pessoas">Logar como Discente</a> </li>						
 						</ul>
 					</li>
 					<li> Tutores à Distância
 						<ul>
 							<li> <h:commandLink value="Cadastrar" action="#{tutorDistancia.preCadastrar}" onclick="setAba('pessoas')"/> </li>
 							<li> <h:commandLink value="Listar/Alterar" action="#{tutorDistancia.listar}" onclick="setAba('pessoas')"/></li>							
-							<li> <a href="${ctx}/ead/TutorDistancia/logarComo.jsf?aba=pessoas">Logar como Tutor </a> </li>
+							<li> <a href="${ctx}/ead/TutorDistancia/logarComo.jsf?aba=pessoas">Logar como Tutor</a> </li>
 						</ul>
 					</li>
 					<li> Coordenadores de Polo
@@ -38,7 +38,7 @@
 							</li>
 							<li><a href="${ctx}/ead/CoordenacaoPolo/lista.jsf?aba=pessoas">Alterar/Remover</a></li>
 							<li><a href="${ctx}/ead/CoordenacaoPolo/lista.jsf?aba=pessoas">Cadastrar Usuário</a></li>
-							<li><a href="${ctx}/ead/CoordenacaoPolo/logarComo.jsf?aba=pessoas">Logar como Coord. Pólo </a> </li>
+							<li><a href="${ctx}/ead/CoordenacaoPolo/logarComo.jsf?aba=pessoas">Logar como Coord. Pólo</a> </li>
 						</ul>
 					</li>
 					<c:if test="${tutorOrientador.permiteTutoria}">

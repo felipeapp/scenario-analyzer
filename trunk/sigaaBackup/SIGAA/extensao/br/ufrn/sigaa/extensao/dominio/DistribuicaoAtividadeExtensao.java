@@ -11,7 +11,9 @@ package br.ufrn.sigaa.extensao.dominio;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import br.ufrn.sigaa.extensao.relatorio.dominio.RelatorioProjetoExtensao;
@@ -49,7 +51,7 @@ public class DistribuicaoAtividadeExtensao {
 	
 	/** Utilizado na distribuição automática. */
 	private AreaTematica areaTematica = new AreaTematica();
-	
+
 	/** Quantidade de avaliações por a serem distribuídas para cada projeto. */
 	private int numAvaliacoesPorProjeto;
 

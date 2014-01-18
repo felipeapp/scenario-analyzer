@@ -111,5 +111,11 @@ public class PostgreSQLFunctions implements SQLFunctions {
 	@Override
 	public String regexpSplitToTable(String campo, String delimitador) {
 		return " regexp_split_to_table(" + campo + ", '" + delimitador + "') ";
-	}	
+	}
+
+	@Override
+	public String gerarMecanismoPesquisaTextual(String nomeColuna) {
+		return " to_tsvector('portuguese', " + nomeColuna + ") @@ to_tsquery( ? ) ";
+	}
+	
 }

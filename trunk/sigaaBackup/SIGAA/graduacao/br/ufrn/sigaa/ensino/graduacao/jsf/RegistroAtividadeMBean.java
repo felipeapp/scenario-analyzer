@@ -1279,18 +1279,54 @@ public class RegistroAtividadeMBean extends SigaaAbstractController<MatriculaCom
 			//Atualiza o orientador e a carga horária
 			if( operacao.equals(OperacaoRegistroAtividade.ALTERACAO_GRADUACAO) || operacao.equals(OperacaoRegistroAtividade.ALTERACAO_VALIDACAO_LATO_SENSU) ){
 				if( !isEmpty(orientadorInterno) ){ 
-					registro.getOrientador().setOrientador( orientadorInterno );
-					registro.getOrientador().setOrientadorExterno( null );
+					if ( registro.getOrientador() != null ) {
+						registro.getOrientador().setOrientador( orientadorInterno );
+						registro.getOrientador().setOrientadorExterno( null );
+					} else {
+						registro.setOrientacoesAtividade(new HashSet<OrientacaoAtividade>());
+						OrientacaoAtividade oAtiv = new OrientacaoAtividade();
+						oAtiv.setOrientador(orientadorInterno);
+						oAtiv.setOrientadorExterno(null);
+						oAtiv.setRegistroAtividade(registro);
+						registro.getOrientacoesAtividade().add(oAtiv);
+					}
+					
 				}else if( !isEmpty(orientadorExterno) ){
-					registro.getOrientador().setOrientadorExterno( orientadorExterno );
-					registro.getOrientador().setOrientador( null );
-					idOrientador = null;
+					if ( registro.getOrientador() != null ) {
+						registro.getOrientador().setOrientadorExterno( orientadorExterno );
+						registro.getOrientador().setOrientador( null );
+						idOrientador = null;
+					} else {
+						registro.setOrientacoesAtividade(new HashSet<OrientacaoAtividade>());
+						OrientacaoAtividade oAtiv = new OrientacaoAtividade();
+						oAtiv.setOrientador(null);
+						oAtiv.setOrientadorExterno(orientadorExterno);
+						oAtiv.setRegistroAtividade(registro);
+						registro.getOrientacoesAtividade().add(oAtiv);
+						idOrientador = null;
+					}
 				}
 				
 				if( !isEmpty(coorientadorInterno) ){
+					if( registro.getCoOrientador() == null ){
+						OrientacaoAtividade oAtiv = new OrientacaoAtividade();
+						oAtiv.setOrientador(coorientadorInterno);
+						oAtiv.setOrientadorExterno(null);
+						oAtiv.setRegistroAtividade(registro);
+						oAtiv.setTipo(OrientacaoAtividade.COORIENTADOR);
+						registro.getOrientacoesAtividade().add(oAtiv);
+					}					
 					registro.getCoOrientador().setOrientador( coorientadorInterno );
 					registro.getCoOrientador().setOrientadorExterno( null );
-				}else if( !isEmpty(orientadorExterno) ){
+				}else if( !isEmpty(coorientadorExterno) ){
+					if( registro.getCoOrientador() == null ){
+						OrientacaoAtividade oAtiv = new OrientacaoAtividade();
+						oAtiv.setOrientador(null);
+						oAtiv.setOrientadorExterno(coorientadorExterno);
+						oAtiv.setRegistroAtividade(registro);
+						oAtiv.setTipo(OrientacaoAtividade.COORIENTADOR);
+						registro.getOrientacoesAtividade().add(oAtiv);
+					}					
 					registro.getCoOrientador().setOrientadorExterno( coorientadorExterno );
 					registro.getCoOrientador().setOrientador( null );
 					idCoOrientador = null;

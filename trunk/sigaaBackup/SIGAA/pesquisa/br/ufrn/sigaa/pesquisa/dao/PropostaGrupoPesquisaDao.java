@@ -257,7 +257,7 @@ public class PropostaGrupoPesquisaDao extends GenericSigaaDAO {
 					" WHERE mp.ativo = true" +
 					" AND (p.titulo ilike '"+ nome +"%' or (pp.cod_prefixo || pp.cod_numero || '-' || pp.cod_ano like '"+ nome +"%'))" +  
 					" AND mp.id_pessoa in " + UFRNUtils.gerarStringIn( membrosGrupoPesq ) +
-					" AND p.id_tipo_situacao_projeto =  " + TipoSituacaoProjeto.EM_ANDAMENTO +
+					" AND p.id_tipo_situacao_projeto in  " + UFRNUtils.gerarStringIn( TipoSituacaoProjeto.PESQ_GRUPO_VALIDO ) +
 					" GROUP BY p.titulo, pp.id_projeto_pesquisa, pp.cod_ano, pp.cod_prefixo, pp.cod_numero";
 
 			Query q = getSession().createSQLQuery(sql);

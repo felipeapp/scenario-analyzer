@@ -18,7 +18,9 @@ import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +43,7 @@ import org.springframework.jdbc.core.RowMapper;
 import br.ufrn.academico.dominio.StatusDiscente;
 import br.ufrn.arq.arquivos.EnvioArquivoHelper;
 import br.ufrn.arq.dao.DAOFactory;
+import br.ufrn.arq.dao.Database;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.util.CalendarUtils;
@@ -892,6 +895,7 @@ public class TurmaVirtualDao extends GenericSigaaDAO {
 	public List<AulaExtra> buscarAulasExtra(Turma turma) {
 		DetachedCriteria c = DetachedCriteria.forClass(AulaExtra.class);
 		c.add(eq("turma.id", turma.getId()));
+		c.add(eq("ativo", true));
 		c.add(Restrictions.ne("tipo", AulaExtra.ENSINO_INDIVIDUAL)).addOrder(asc("dataAula"));
 		
 		@SuppressWarnings("unchecked")
@@ -899,6 +903,22 @@ public class TurmaVirtualDao extends GenericSigaaDAO {
 		return lista;
 	}
 
+	/**
+	 * Retorna as aulas extras de determinada turma
+	 * @param turma
+	 * @return
+	 */
+	public List<AulaExtra> buscarTodasAulasExtras(Turma turma) {
+		DetachedCriteria c = DetachedCriteria.forClass(AulaExtra.class);
+		c.add(eq("turma.id", turma.getId()));
+		c.add(eq("ativo", true));
+		c.addOrder(asc("dataAula"));
+		
+		@SuppressWarnings("unchecked")
+		List<AulaExtra> lista = getHibernateTemplate().findByCriteria(c);
+		return lista;
+	}
+	
 	/**
 	 * Retorna as aulas extras de determinada turma e por data especificada
 	 * @param turma
@@ -908,6 +928,7 @@ public class TurmaVirtualDao extends GenericSigaaDAO {
 	public List<AulaExtra> buscarAulasExtra(Turma turma, Date dataSelecionada) {
 		DetachedCriteria c = DetachedCriteria.forClass(AulaExtra.class);
 		c.add(eq("turma.id", turma.getId()));
+		c.add(eq("ativo", true));
 		c.add(eq("dataAula", dataSelecionada));
 		c.add(Restrictions.ne("tipo", AulaExtra.ENSINO_INDIVIDUAL));
 		c.addOrder(asc("dataAula"));
@@ -1230,7 +1251,7 @@ public class TurmaVirtualDao extends GenericSigaaDAO {
 	 */
 	public List<AulaExtra> buscarAulasExtraSubTurmas(Turma turma) {
 		@SuppressWarnings("unchecked")
-		List<AulaExtra> lista = getHibernateTemplate().find("from AulaExtra a where a.turma.id in " + UFRNUtils.gerarStringIn(turma.getSubturmas()) + " and a.tipo <> "+AulaExtra.ENSINO_INDIVIDUAL+" order by dataAula asc");
+		List<AulaExtra> lista = getHibernateTemplate().find("from AulaExtra a where a.turma.id in " + UFRNUtils.gerarStringIn(turma.getSubturmas()) + " and a.ativo = trueValue()  and a.tipo <> "+AulaExtra.ENSINO_INDIVIDUAL+" order by dataAula asc");
 		return lista;
 	}
 
@@ -1831,5 +1852,51 @@ public class TurmaVirtualDao extends GenericSigaaDAO {
 		q.setMaxResults(1);
 		return (Turma) q.uniqueResult();
 		
+	}
+
+	/**
+	 * Retorna se o usuário possui acesso a caixa postal ou foi temporariamente bloqueado pela turma virtual.
+	 * 
+	 * @param idPessoa 
+	 */
+	public ArrayList<String> possuiAcessoCaixaPostal(int idUsuario) {
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	    String dataString = sdf.format(cal.getTime()); 
+	    sdf = new SimpleDateFormat("HH:mm");
+	    String horaString = sdf.format(cal.getTime()); 
+	    
+		String sql = "select c.codigo , cd.nome from comum.usuario u "+
+						"join comum.pessoa p on p.id_pessoa = u.id_pessoa "+
+						"left join discente d on d.id_pessoa = p.id_pessoa "+
+						"left join ensino.matricula_componente m on m.id_discente = d.id_discente "+
+						"left join ensino.turma t on t.id_turma = m.id_turma "+
+						"left join ensino.turma ta on ta.id_turma = t.id_turma_agrupadora "+
+						"left join ensino.componente_curricular c on c.id_disciplina = t.id_disciplina "+
+						"left join ensino.componente_curricular_detalhes cd on cd.id_componente_detalhes = c.id_detalhe "+
+						"left join ava.configuracoes_ava ca on ca.id_turma in (t.id_turma,ta.id_turma) "+
+						"where u.id_usuario = "+idUsuario+" and t.id_situacao_turma = 1 and ca.bloqueio_caixa_postal = true " +
+								"and ca.data_bloqueio_caixa_postal = '"+dataString+"' and '"+horaString+"' between ca.hora_inicio_bloqueio_caixa_postal and ca.hora_fim_bloqueio_caixa_postal" ;
+		
+		List<Map<String,Object>> res = getJdbcTemplate(Database.getInstance().getSigaaDs()).queryForList(sql);
+		
+		ArrayList<String> turmas = new ArrayList<String>();
+		
+		if (res != null){
+			for (Map<String,Object> r : res){
+				
+				String codigo = (String) r.get("codigo");
+				String nome = (String) r.get("nome");
+				String turma = codigo +" - "+nome;				
+				turmas.add(turma);
+			}
+		}
+		
+		return turmas;
 	}
 }

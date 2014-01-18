@@ -126,7 +126,7 @@ public class ConvenioEstagioDao extends GenericSigaaDAO {
 			hql.append(" and ce.tipoOfertaVaga in ").append(UFRNUtils.gerarStringIn(tipoOfertaVagas));
 		if (!isEmpty(numeroConvenio))
 			hql.append(" and ce.numeroConvenio = :numeroConvenio ");
-		hql.append(" order by ce.status.descricao desc, ce.concedente.pessoa.nome ");
+		hql.append(" order by ce.dataCadastro desc, ce.concedente.pessoa.nome ");
 		
 		Query q = getSession().createQuery(hql.toString());
 		
@@ -170,12 +170,12 @@ public class ConvenioEstagioDao extends GenericSigaaDAO {
 				c.getRegistroCadastro().getUsuario().setRamal((String) linha[a++]);
 				c.getRegistroCadastro().getUsuario().setNome((String) linha[a++]);				
 
-				linhaPessoa = a++;
+				linhaPessoa = a;
 				if(linha[linhaPessoa] != null)
 					c.getConcedente().setConcedenteEstagioPessoa(new ArrayList<ConcedenteEstagioPessoa>());
 				convenios.add(c);
 			} else {
-				linhaPessoa = 9;
+				linhaPessoa = 14;
 				c = convenios.get(convenios.indexOf(c));
 			}			
 			if(linha[linhaPessoa] != null){

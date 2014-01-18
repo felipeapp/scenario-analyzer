@@ -46,6 +46,20 @@
 						onkeypress="return(formatarMascara(this,event,'##/##/####'))" readonly="#{congressoIniciacaoCientifica.readOnly}"/>
 				</td>
 			</tr>
+			
+			
+			<tr>
+				<th class="obrigatorio">Período de Justificatia de Ausência:</th>
+				<td>
+					<t:inputCalendar renderAsPopup="true" renderPopupButtonAsImage="true" 
+						value="#{congressoIniciacaoCientifica.obj.inicioJustificativa}" popupDateFormat="dd/MM/yyyy" size="10" maxlength="10"
+						onkeypress="return(formatarMascara(this,event,'##/##/####'))" readonly="#{congressoIniciacaoCientifica.readOnly}"/>
+					 a 
+					<t:inputCalendar renderAsPopup="true" renderPopupButtonAsImage="true" 
+						value="#{congressoIniciacaoCientifica.obj.fimJustificativa}" popupDateFormat="dd/MM/yyyy" size="10" maxlength="10"
+						onkeypress="return(formatarMascara(this,event,'##/##/####'))" readonly="#{congressoIniciacaoCientifica.readOnly}"/>
+				</td>
+			</tr>
 						
 			<c:if test="${congressoIniciacaoCientifica.obj.id > 0}">
 				<tr>

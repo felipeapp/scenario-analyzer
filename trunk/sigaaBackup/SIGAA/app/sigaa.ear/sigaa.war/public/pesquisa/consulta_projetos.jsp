@@ -37,8 +37,6 @@
 </style>
 
 <f:view>
-	<h:messages showDetail="true"></h:messages>
-	<h:outputText value="#{consultaProjetos.create}"/>
 	<h:form id="formConsulta">
 
 		<table class="formulario" align="center" style="width: 80%">
@@ -131,8 +129,6 @@
 		</tfoot>
 		</table>
 
-	</h:form>
-
 <style>
 	table.listagem tr.ano td {
 		font-weight: bold;
@@ -158,7 +154,7 @@
 <div class="legenda">
 	<h:graphicImage url="/img/view.gif" />:&nbsp;Visualizar Projeto de Pesquisa
 </div>
-<h:form id="formConsultaProjeto">
+
 	<table class="listagem" style="width: 99%;">
 	<caption class="listagem">Lista de Projetos de Pesquisa Encontrados</caption>
 	<thead>
@@ -223,8 +219,8 @@
 		</tr>
 	</tfoot>
 	</table>
-</h:form>
 </c:if>
+</h:form>
 </f:view>
 <br>
 	<div style="width: 80%; text-align: center; margin: 0 auto;">

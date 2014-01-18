@@ -8,9 +8,18 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import br.ufrn.arq.seguranca.SigaaPapeis;
+import br.ufrn.arq.seguranca.SigaaSubsistemas;
 import br.ufrn.sigaa.arq.struts.SigaaAbstractAction;
 import br.ufrn.sigaa.dominio.Usuario;
+import br.ufrn.sigaa.ensino_rede.portal.jsf.PortalCoordenadorRedeMBean;
 
+/**
+ * 
+ * Action que controla a entrada no menu do ensino em rede.
+ * 
+ * @author Leonardo Campos
+ *
+ */
 public class EntrarEnsinoRedeAction extends SigaaAbstractAction {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -19,10 +28,17 @@ public class EntrarEnsinoRedeAction extends SigaaAbstractAction {
 		
 		Usuario u = (Usuario) getUsuarioLogado(request);
 		
-		if (u.getVinculoAtivo().getTipoVinculo().isCoordenadorGeralRede())
+		if (u.getVinculoAtivo().getTipoVinculo().isCoordenadorGeralRede()) {
+			setSubSistemaAtual(request, SigaaSubsistemas.ENSINO_REDE);
 			return mapping.findForward("modulo");
-		else if (u.getVinculoAtivo().getTipoVinculo().isCoordenadorUnidadeRede())
+		} else if (u.getVinculoAtivo().getTipoVinculo().isCoordenadorUnidadeRede()){
+			setSubSistemaAtual(request, SigaaSubsistemas.PORTAL_ENSINO_REDE);
+			PortalCoordenadorRedeMBean portal = getMBean("portalCoordenadorRedeBean", request, response);
+			if (portal != null)
+				portal.setTurmasAbertas(null);
+			
 			return mapping.findForward("portal");
+		}	
 		
 		return null;
 	}

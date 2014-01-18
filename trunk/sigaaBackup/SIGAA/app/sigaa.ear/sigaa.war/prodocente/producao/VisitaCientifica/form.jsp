@@ -170,7 +170,6 @@
 							disabled="#{visitaCientifica.readOnly}" style="width:308px;"
 							disabledClass="#{visitaCientifica.disableClass}">
 							<f:selectItems value="#{instituicoesEnsino.allCombo}" />
-							<f:selectItem itemValue="0" itemLabel="OUTRA" />
 							<a4j:support id="supportInst" onsubmit="javascript:mostrarOutrosInst();" event="onchange" actionListener="#{visitaCientifica.alterarStatusInst}" />							
 						</h:selectOneMenu>
 						<ufrn:help><i>Caso a instituição visitada não esteja cadastrado no sistema, marque esta opção.</i></ufrn:help></td>

@@ -225,7 +225,7 @@ table.formulario th {font-weight: bold;}
 			<ufrn:subSistema teste="tecnico">
 				<tr>
 					<th>Currículo:</th>
-					<td colspan="4">${discenteForm.discente.turmaEntradaTecnico.estruturaCurricularTecnica.descricaoResumida}</td>
+					<td colspan="4">${discenteForm.discente.estruturaCurricularTecnica.descricaoResumida}</td>
 				</tr>
 			</ufrn:subSistema>
 			<tr>

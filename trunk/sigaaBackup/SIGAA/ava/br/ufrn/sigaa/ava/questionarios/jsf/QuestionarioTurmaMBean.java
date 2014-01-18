@@ -1269,7 +1269,7 @@ public class QuestionarioTurmaMBean extends CadastroTurmaVirtual<QuestionarioTur
 		if (tBean.isDocente() || tBean.isPermissaoDocente()){
 			
 			if ( questionario.getPerguntas().size() == 1 && questionario.isFinalizado()){
-				mensagemErroPergunta ="É nescessário informar pelo menos uma pergunta para este questionário.";
+				mensagemErroPergunta ="É necessário informar pelo menos uma pergunta para este questionário.";
 				return;
 			}
 				
@@ -2143,7 +2143,7 @@ public class QuestionarioTurmaMBean extends CadastroTurmaVirtual<QuestionarioTur
 		tipos.add( new SelectItem( PerguntaQuestionarioTurma.UNICA_ESCOLHA, "ÚNICA ESCOLHA" ) );
 		tipos.add( new SelectItem( PerguntaQuestionarioTurma.MULTIPLA_ESCOLHA, "MÚLTIPLA ESCOLHA" ) );
 		tipos.add( new SelectItem( PerguntaQuestionarioTurma.DISSERTATIVA, "DISSERTATIVA" ) );
-		tipos.add( new SelectItem( PerguntaQuestionarioTurma.NUMERICA, "NÚMERICA" ) );
+		tipos.add( new SelectItem( PerguntaQuestionarioTurma.NUMERICA, "NUMÉRICA" ) );
 		tipos.add( new SelectItem( PerguntaQuestionarioTurma.VF, "VERDADEIRO OU FALSO" ) );
 		return tipos;
 	}
@@ -2215,6 +2215,18 @@ public class QuestionarioTurmaMBean extends CadastroTurmaVirtual<QuestionarioTur
 			questionario = resposta.getQuestionario();
 			
 			questionario.getFeedbacks().iterator();
+			
+			if (!questionario.isMisturarPerguntas()){
+				if (!isEmpty(resposta.getRespostas())){
+					Collections.sort(resposta.getRespostas(), new Comparator<RespostaPerguntaQuestionarioTurma>(){
+						public int compare(RespostaPerguntaQuestionarioTurma r1, RespostaPerguntaQuestionarioTurma r2) {
+							int retorno = 0;
+							retorno = r1.getPergunta().getOrdem() - r2.getPergunta().getOrdem();
+							return retorno;
+						}
+					});
+				}
+			}
 			
 			respostasModel = new ListDataModel(resposta.getRespostas());
 			

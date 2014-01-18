@@ -16,10 +16,7 @@
 		</li>
 	</ufrn:checkRole>
 	
-	<ufrn:checkRole	papeis="<%= new int[] { SigaaPapeis.GESTOR_IMPORTACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CONVOCACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CADASTRAMENTO_PROCESSO_SELETIVO_TECNICO } %>">
-		<li><h:commandLink action="#{convocacaoProcessoSeletivoTecnico.iniciarConvocacaoImportacao}" value="Convocar Candidatos" onclick="setAba('importacao')" id="concocacaoProcessoSeletivoTecnico_iniciar"/></li>
-		<li><h:commandLink action="#{cadastramentoDiscenteTecnico.iniciarEnvioEmail}" value="Enviar Email aos Candidatos" onclick="setAba('importacao')" id="cadastramentoDiscenteTecnico_iniciarEnvioEmail"/></li>
- 	</ufrn:checkRole>
+	
 	
 	<ufrn:checkRole	papeis="<%= new int[] { SigaaPapeis.GESTOR_IMPORTACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CONVOCACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CADASTRAMENTO_PROCESSO_SELETIVO_TECNICO } %>"> 	
 		<li>Cadastramento

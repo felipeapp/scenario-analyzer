@@ -12,6 +12,7 @@ import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.dominio.Unidade;
+import br.ufrn.sigaa.pesquisa.dominio.EditalPesquisa;
 import br.ufrn.sigaa.pesquisa.dominio.ProjetoApoioNovosPesquisadores;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 import br.ufrn.sigaa.projetos.dominio.DistribuicaoAvaliacao;
@@ -177,8 +178,8 @@ public class ProjetoApoioNovosPesquisadoresDao extends GenericSigaaDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public Collection<ProjetoApoioNovosPesquisadores> projetosParaAvaliar() throws DAOException {
-		
+	public Collection<ProjetoApoioNovosPesquisadores> projetosParaAvaliar(EditalPesquisa edital) throws DAOException {
+		 
 		Collection<ProjetoApoioNovosPesquisadores> result = new ArrayList<ProjetoApoioNovosPesquisadores>();
 		StringBuilder sql = new StringBuilder(" SELECT panp.id_projeto_apoio_novos_pesquisadores, p.titulo, tsp.id_tipo_situacao_projeto, " +
 					 " tsp.descricao, gp.codigo, pe.nome, u.sigla" +
@@ -189,10 +190,11 @@ public class ProjetoApoioNovosPesquisadoresDao extends GenericSigaaDAO {
 					 " JOIN rh.servidor s on s.id_servidor = panp.id_coordenador" +
 					 " JOIN comum.pessoa pe on pe.id_pessoa = s.id_pessoa" +
 					 " LEFT JOIN pesquisa.grupo_pesquisa gp on ( gp.id_grupo_pesquisa = panp.id_grupo_pesquisa  )" +
-					 " WHERE p.id_tipo_situacao_projeto in " + UFRNUtils.gerarStringIn(new int[]{TipoSituacaoProjeto.PROJETO_BASE_AGUARDANDO_AVALIACAO, TipoSituacaoProjeto.PROJETO_BASE_AVALIADO}) +
-					 " ORDER BY u.id_gestora");
+					 " WHERE p.id_tipo_situacao_projeto in " + UFRNUtils.gerarStringIn(new int[]{TipoSituacaoProjeto.PROJETO_BASE_AGUARDANDO_AVALIACAO, TipoSituacaoProjeto.PROJETO_BASE_AVALIADO}));
 		
-		
+		if(edital != null)
+			sql.append(" AND panp.id_edital_pesquisa = " + edital.getId());
+		sql.append(" ORDER BY u.id_gestora");
 		Query q = getSession().createSQLQuery(sql.toString());
 				
 		@SuppressWarnings("unchecked")

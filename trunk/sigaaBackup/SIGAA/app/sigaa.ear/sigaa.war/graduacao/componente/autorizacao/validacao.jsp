@@ -101,7 +101,7 @@ table.formulario th {font-weight: bold;}
 				</tr>
 			</c:if>
 			<tr>
-				<th valign="top">OBSERVAÇÕES:</th>
+				<th valign="top">Observações:</th>
 				<td>
 				<h:inputTextarea value="#{autorizacaoComponente.observacaoCadastro }" cols="60" rows="7" />
 				</td>

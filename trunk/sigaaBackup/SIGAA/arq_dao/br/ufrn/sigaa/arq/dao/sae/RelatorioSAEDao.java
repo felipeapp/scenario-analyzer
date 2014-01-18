@@ -9,13 +9,14 @@
 package br.ufrn.sigaa.arq.dao.sae;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.hibernate.Query;
 import org.springframework.jdbc.core.RowMapper;
@@ -48,8 +49,6 @@ import br.ufrn.sigaa.pessoa.dominio.Pessoa;
  *
  */
 public class RelatorioSAEDao extends GenericSigaaDAO {
-	/**Senha para se conectar com a base de dados.*/
-	private static final String  SENHA = "202427";
 
 	/**
 	 * Localiza os seguintes tipos de bolsa do SIPAC
@@ -254,21 +253,6 @@ public class RelatorioSAEDao extends GenericSigaaDAO {
 		
 	}
 	
-	/**
-	 * Método que abre a conexão com a base de dados.  
-	 * @return
-	 * @throws SQLException
-	 */
-    public static Connection getConexao() throws SQLException {    
-         try {    
-             Class.forName("org.postgresql.Driver");    
-             return DriverManager.getConnection("jdbc:postgresql://bdproducao1:5432/TEBD","desenvolvedor_jean", SENHA);    
-         }    
-         catch (ClassNotFoundException e) {    
-                 throw new SQLException(e.getMessage());    
-         }    
-    }   
-	
     /**
      * Método usado para buscar os dados para o relatório.
      * @return
@@ -276,7 +260,7 @@ public class RelatorioSAEDao extends GenericSigaaDAO {
      */
 	public Collection<String> relatorio() throws SQLException{
 		
-		Connection con = getConexao();
+		Connection con = getDataSource(Sistema.SIGAA).getConnection();
 		Statement stm = con.createStatement(); 
 		
 		String sql = "select distinct ba.id_bolsa_auxilio, d.matricula , p.nome, tipoBol.denominacao" +
@@ -301,5 +285,63 @@ public class RelatorioSAEDao extends GenericSigaaDAO {
 		
 		return null;
 	}
+	
+	/**
+	 * Retorna uma coleção com todos os tipos de bolsa encontradas no SIPAC.
+	 * 
+	 * @return
+	 */
+	public List<Long> findAllBolsistasPagamentesSipacRU() {
+		return getJdbcTemplate(Sistema.SIPAC).queryForList("select p.cpf_cnpj" +
+				" from comum.pessoa p" +
+				"  join restaurante.cartao_pagamento_pessoa cpp on (cpp.id_pessoa = p.id_pessoa and cpp.ativo = true and tipo_vinculo = 0)" +
+				"  join restaurante.cartao_pagamento cp on (cp.id_cartao_pagamento = cpp.id_cartao_pagamento and cp.situacao = 0)" +
+				" order by p.nome", Long.class);
+	}
+	
+	/**
+     * Método usado para buscar os dados para o relatório.
+     * 
+     * A = acima de 20 SM ou 12.440 ou mais
+     * B = de 10 a 20 SM ou de 6.220 a 12.440 reais
+     * C = 4 a 10 SM ou 2.488 a 6.220 reais
+     * D = 2 a 4 SM ou 1.244 a 2.488 reais
+     * E = até 2 SM ou até 1.244 reais
+     * 
+     * @return
+     * @throws SQLException
+     */
+	public Map<String, Integer> relatorioPagantesRU() throws SQLException{
+		Connection con = getDataSource(Sistema.SIGAA).getConnection();
+		Statement stm = con.createStatement(); 
+
+		double salario_minimo = ParametroHelper.getInstance().getParametroDouble(ConstantesParametro.SALARIO_MINIMO);
+		
+		String sql = "SELECT" +
+			" SUM(CASE WHEN (ssed.renda_familiar / ssed.quantidade_membros_familia) > " + 20 * salario_minimo + " THEN 1 ELSE 0 END  ) AS A," +
+			" SUM(CASE WHEN (ssed.renda_familiar / ssed.quantidade_membros_familia) > " + 10 * salario_minimo + " AND (ssed.renda_familiar / ssed.quantidade_membros_familia) <= " + 20 * salario_minimo + " THEN 1 ELSE 0 END) AS B," +
+			" SUM(CASE WHEN (ssed.renda_familiar / ssed.quantidade_membros_familia) > " + 4 * salario_minimo + " AND (ssed.renda_familiar / ssed.quantidade_membros_familia) <= " + 10 * salario_minimo + "  THEN 1 ELSE 0 END) AS C," +
+			" SUM(CASE WHEN (ssed.renda_familiar / ssed.quantidade_membros_familia) > " + 2 * salario_minimo + " AND (ssed.renda_familiar / ssed.quantidade_membros_familia) <= " + 4 * salario_minimo + "  THEN 1 ELSE 0 END) AS D," +
+			" SUM(CASE WHEN (ssed.renda_familiar / ssed.quantidade_membros_familia) >= 0   AND (ssed.renda_familiar / ssed.quantidade_membros_familia) <= " + 2 * salario_minimo + "  THEN 1 ELSE 0 END) AS E" +
+			" FROM sae.situacao_socio_economica_discente  ssed" +
+			" JOIN discente d USING (id_discente)" +
+			" JOIN comum.pessoa p USING (id_pessoa)" +
+			" WHERE p.cpf_cnpj IN " + UFRNUtils.gerarStringIn(findAllBolsistasPagamentesSipacRU());
+		
+        ResultSet rs = stm.executeQuery(sql);
+        ResultSetMetaData meta = rs.getMetaData();
+        int coluna = 1;
+        Map<String, Integer> result = new TreeMap();
+        while ( rs.next() ) {
+        	result.put( (meta.getColumnName(coluna)).toUpperCase(), rs.getInt(meta.getColumnName(coluna++)) );
+        	result.put( (meta.getColumnName(coluna)).toUpperCase(), rs.getInt(meta.getColumnName(coluna++)) );
+        	result.put( (meta.getColumnName(coluna)).toUpperCase(), rs.getInt(meta.getColumnName(coluna++)) );
+        	result.put( (meta.getColumnName(coluna)).toUpperCase(), rs.getInt(meta.getColumnName(coluna++)) );
+        	result.put( (meta.getColumnName(coluna)).toUpperCase(), rs.getInt(meta.getColumnName(coluna++)) );
+		}
+		
+		return result;
+	}	
+	
 	
 }

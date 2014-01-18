@@ -63,6 +63,10 @@ public class AvaliacaoApresentacaoResumo implements Validatable {
 	@Transient
 	private boolean selecionado;
 	
+	/** Atributo transiente usado na distribuição dos resumos */
+	@Column(name = "selecionado_apresentacao_oral")
+	private boolean selecionadoApresentacaoOral;
+
 	public AvaliacaoApresentacaoResumo() {
 	}
 
@@ -162,4 +166,13 @@ public class AvaliacaoApresentacaoResumo implements Validatable {
 	public boolean isAvaliado(){
 		return media != null && media > 0;
 	}
+
+	public boolean isSelecionadoApresentacaoOral() {
+		return selecionadoApresentacaoOral;
+	}
+
+	public void setSelecionadoApresentacaoOral(boolean selecionadoApresentacaoOral) {
+		this.selecionadoApresentacaoOral = selecionadoApresentacaoOral;
+	}
+
 }

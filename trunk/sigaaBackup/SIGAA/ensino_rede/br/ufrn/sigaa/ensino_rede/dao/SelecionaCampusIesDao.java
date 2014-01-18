@@ -1,7 +1,5 @@
 package br.ufrn.sigaa.ensino_rede.dao;
 
-import static br.ufrn.arq.util.ValidatorUtil.isNotEmpty;
-
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,19 +7,23 @@ import org.hibernate.Query;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.dominio.CampusIes;
+import br.ufrn.sigaa.dominio.InstituicoesEnsino;
 import br.ufrn.sigaa.ensino_rede.dominio.ProgramaRede;
+import br.ufrn.sigaa.ensino_rede.jsf.ParametrosSelecionaCampus;
+import br.ufrn.sigaa.ensino_rede.jsf.ValoresSelecionaCampus;
 
 public class SelecionaCampusIesDao extends GenericSigaaDAO {
 
-	public List<CampusIes> buscar(ProgramaRede programa, String siglaIes) throws DAOException {
+	@SuppressWarnings("unchecked")
+	public List<CampusIes> buscar(ProgramaRede programa, ParametrosSelecionaCampus param, ValoresSelecionaCampus valor) throws DAOException {
 		String hql = "select campus from DadosCursoRede d "
 				+ "	join d.programaRede programa "
 				+ "	join d.campus campus "
-				+ "	join campus.instituicao ies "
+				+ "	join fetch campus.instituicao ies "
 				+ " where programa.id = :programa ";
 		
-		if (isNotEmpty(siglaIes))
-			hql+= " and ies.sigla = :siglaIes";
+		if (valor != null && valor.getValorIes() > 0)
+			hql+= " and ies.id = :idIes";
 		
 		hql+= " order by ies.sigla, campus.sigla ";
 
@@ -30,10 +32,26 @@ public class SelecionaCampusIesDao extends GenericSigaaDAO {
 		
 		query.setParameter("programa", programa.getId());
 		
-		if (isNotEmpty(siglaIes))
-			query.setParameter("siglaIes", siglaIes);
+		if (valor != null && valor.getValorIes() > 0)
+			query.setParameter("idIes", valor.getValorIes());
 		
 		return query.list();
+	}
+	
+
+	@SuppressWarnings("unchecked")
+	public List<InstituicoesEnsino> findIesByPrograma(ProgramaRede programa) throws DAOException {
+		String hql = "select distinct ie from DadosCursoRede dados "
+				+ "	join dados.campus campus "
+				+ "	join campus.instituicao ie "
+				+ "	join dados.programaRede programa "
+				+ " where programa.id = :idPrograma "
+				+ " order by ie.sigla ";
+		
+		Query q = getSession().createQuery(hql);
+		q.setParameter("idPrograma", programa.getId());
+		
+		return q.list();
 	}
 	
 }

@@ -355,4 +355,18 @@ public class EditalPesquisaDao extends GenericSigaaDAO {
 		c.setFetchMode("cotas", FetchMode.JOIN);
 		return (EditalPesquisa) c.uniqueResult();
 	}
+	
+	/**
+	 * Retorna os IDs das unidades de lotação de servidores docentes dos Campi Regionais (CERES e FACISA).
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Integer> findIdsUnidadesCampiRegionais() throws DAOException {
+		return getSession()
+				.createSQLQuery(
+						"select distinct id_unidade " +
+						"from rh.servidor join comum.unidade using (id_unidade) " +
+						"where id_gestora = 1482 or id_unidade = 4890")
+				.list();
+	}
 }

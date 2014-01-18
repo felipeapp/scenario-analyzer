@@ -42,6 +42,7 @@ import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.seguranca.log.AtualizadoEm;
 import br.ufrn.arq.seguranca.log.CriadoEm;
 import br.ufrn.arq.seguranca.log.CriadoPor;
+import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.arq.util.HashCodeUtil;
 import br.ufrn.arq.util.ValidatorUtil;
@@ -400,7 +401,15 @@ public class GrupoPesquisa implements Validatable, ViewAtividadeBuilder {
 
 	@Transient
 	public float getQtdBase() {
-		return 10;
+		for (MembroGrupoPesquisa membro : getEquipesGrupoPesquisa()) {
+			if ( membro.getDataFim() == null )
+				membro.setDataFim(CalendarUtils.adicionaUmDia(new Date()));
+			if ( membro.isCoordenador() && membro.isAtivo() && 
+					CalendarUtils.isDentroPeriodo(membro.getDataInicio(), membro.getDataFim()) ) {
+				return CalendarUtils.calculaQuantidadeMesesEntreDatasIntervaloFechado(membro.getDataInicio(), membro.getDataFim());
+			}
+		}
+		return 0;
 	}
 
 	public String getStatusString(){

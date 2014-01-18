@@ -11,6 +11,7 @@ package br.ufrn.sigaa.arq.dao.monitoria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -27,6 +28,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.springframework.jdbc.core.RowMapper;
 
 import br.ufrn.arq.dao.Database;
 import br.ufrn.arq.erros.DAOException;
@@ -61,6 +63,7 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
 import br.ufrn.sigaa.projetos.dominio.Edital;
 import br.ufrn.sigaa.projetos.dominio.MembroComissao;
 import br.ufrn.sigaa.projetos.dominio.MembroProjeto;
+import br.ufrn.sigaa.projetos.dominio.Projeto;
 import br.ufrn.sigaa.projetos.dominio.TipoProjeto;
 import br.ufrn.sigaa.projetos.dominio.TipoSituacaoProjeto;
 
@@ -260,54 +263,52 @@ public class ProjetoMonitoriaDao extends GenericSigaaDAO {
 	 * @throws DAOException
 	 */
 	@SuppressWarnings("unchecked")
-	public Collection<ProjetoEnsino> findMeusProjetosMonitoria(
-			int idServidor, Boolean coordenador, Integer anoProjetoInicio, Integer anoProjetoFim) throws DAOException {
-
-		Collection<ProjetoEnsino> projetos = new ArrayList<ProjetoEnsino>();
-
-		try {
-			String projecao = " pm.id, pm.ativo, pm.tipoProjetoEnsino.id, pm.projeto.ativo, pm.projeto.id, pm.projeto.dataInicio, " +
-			"pm.projeto.ano, pm.projeto.dataFim, pm.projeto.titulo, pm.situacaoProjeto.id, pm.situacaoProjeto.descricao ";
+	public Collection<ProjetoEnsino> findMeusProjetosMonitoria(int idServidor, Integer anoProjetoInicio, 
+			Integer anoProjetoFim, int idTipoRelatorio) throws DAOException {
 			
-			StringBuffer hql = new StringBuffer(" select ");
-			hql.append(projecao);
-			hql.append(" from EquipeDocente ed join ed.projetoEnsino pm ");
-			hql.append(" where pm.tipoProjetoEnsino.id = :tipoProjeto ");
-			hql.append(" and ed.servidor.id = :idServidor and pm.projeto.ativo = trueValue() and ed.ativo = trueValue() ");		 
-			hql.append(" AND pm.projeto.tipoProjeto.id = :idTipoProjeto ");
+			String sql = "select p.ano, p.titulo" +
+					" from monitoria.equipe_docente ed" +
+					" join monitoria.projeto_monitoria pm using ( id_projeto_monitoria )" +
+					" join projetos.projeto p using (id_projeto)" +
+					" where id_servidor = " + idServidor +
+					" and ed.ativo = trueValue()" +
+					" and ed.excluido = falseValue()" +
+					" and p.ativo = trueValue()" +
+					" and p.ano >= " + anoProjetoInicio +
+					" and p.ano <= " + anoProjetoFim +
+					" and ed.coordenador = trueValue()" +
+					" and p.id_tipo_situacao_projeto in " + UFRNUtils.gerarStringIn(TipoSituacaoProjeto.MON_GRUPO_ATIVO) +
+					" and p.id_tipo_projeto = " + TipoProjeto.ENSINO +
+					
+					" except" +
+					
+					" select p.ano, p.titulo" +
+					" from monitoria.relatorio_projeto rp" +
+					" join monitoria.equipe_docente ed on ( rp.id_projeto_monitoria = ed.id_projeto_monitoria )" +
+					" join monitoria.projeto_monitoria pm on ( pm.id_projeto_monitoria = ed.id_projeto_monitoria)" +
+					" join projetos.projeto p using (id_projeto)" +
+					" where id_tipo_relatorio_monitoria = " + idTipoRelatorio +
+					" and id_status_relatorio = " + StatusAvaliacao.AVALIADO +
+					" and ed.id_servidor = " + idServidor +
+					" and p.ano >= " + anoProjetoInicio +
+					" and p.ano <= " + anoProjetoFim +
+					" and ed.coordenador = trueValue() " +
+					" and p.id_tipo_situacao_projeto in " + UFRNUtils.gerarStringIn(TipoSituacaoProjeto.MON_GRUPO_ATIVO) +
+					" and p.id_tipo_projeto = " + TipoProjeto.ENSINO +
+					" order by ano, titulo";
 
-
-			if ((coordenador != null) ) {
-				hql.append(" and (ed.coordenador = :coordenador)");
-			}
-
-			if (anoProjetoInicio != null && anoProjetoFim != null) {
-				hql.append(" and (pm.projeto.ano >= :anoProjetoInicio and pm.projeto.ano <= :anoProjetoFim)");
-			}
-
-			hql.append(" order by pm.projeto.ano desc, pm.id ");
-
-			Query q = getSession().createQuery(hql.toString());
-			q.setInteger("idServidor", idServidor);
-			q.setInteger("idTipoProjeto", TipoProjeto.ENSINO);
-			q.setInteger("tipoProjeto", TipoProjetoEnsino.PROJETO_DE_MONITORIA);
-
-			if (coordenador != null) {			    
-				q.setBoolean("coordenador", coordenador);
-			}
-
-			if (anoProjetoInicio != null && anoProjetoFim != null) {
-				q.setInteger("anoProjetoInicio", anoProjetoInicio);
-				q.setInteger("anoProjetoFim", anoProjetoFim);
-			}
-
-			projetos = HibernateUtils.parseTo(q.list(), projecao, ProjetoEnsino.class, "pm");
-
-		} catch (Exception e) {
-			throw new DAOException(e.getMessage(), e);
-		}
-
-		return projetos;
+			List<ProjetoEnsino> lista = getJdbcTemplate().query(sql.toString(), new Object[] {}, new RowMapper() {
+				public Object mapRow(ResultSet rs, int row) throws SQLException {
+					ProjetoEnsino projMonitoria = new ProjetoEnsino();
+					Projeto p = new Projeto();
+				    p.setAno(rs.getInt("ano"));
+				    p.setTitulo(rs.getString("titulo"));
+				    projMonitoria.setProjeto(p);
+					return projMonitoria;
+				}
+			});
+			
+			return lista;
 	}
 
 	
@@ -1691,7 +1692,7 @@ public class ProjetoMonitoriaDao extends GenericSigaaDAO {
 		}
 
 		if (idCurso != null) {
-			hql.append(" AND dm.discente.curso.id = :idCurso ");
+			hql.append(" AND dm.discente.discente.curso.id = :idCurso ");
 		}
 
 		if (ano != null) {

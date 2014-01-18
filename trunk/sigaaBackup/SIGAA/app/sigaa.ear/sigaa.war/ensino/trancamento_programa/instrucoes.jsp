@@ -27,7 +27,7 @@
 				II - Solicitado dentro do período de trancamento regular determinado no Calendário Acadêmico definido pela instituição;
 			</p>
 			<p style="font-weight:bold;">
-				III - Caso o discente tenha alguma pendência na bibliotaca, será necessário também sua quitação antes da confirmação do trancamento.
+				III - Caso o discente tenha alguma pendência na biblioteca, será necessário também sua quitação antes da confirmação do trancamento.
 			</p>
 			
 			<c:if test="${trancamentoPrograma.obj.discente.graduacao}">

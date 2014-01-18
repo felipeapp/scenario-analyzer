@@ -16,7 +16,7 @@
 		<table class="formulario" width="55%">
 			<caption class="formulario">Selecione o tipo do Componente Curricular</caption>
 			<tr>
-				<th class="required">Tipo do Componente:</th>
+				<th class="obrigatorio">Tipo do Componente:</th>
 				<td>
 					<c:if test="${componenteCurricular.escolheTipoComponente}">
 						<a4j:region>
@@ -36,7 +36,7 @@
 			</tr>
 			<c:if test="${componenteCurricular.obj.passivelTipoAtividade}">
 				<tr>
-					<th class="required">Tipo de ${componenteCurricular.obj.atividade ? 'Atividade' : 'Disciplina'}:</th>
+					<th class="obrigatorio">Tipo de ${componenteCurricular.obj.atividade ? 'Atividade' : 'Disciplina'}:</th>
 					<td>
 						<a4j:region>
 							<h:selectOneMenu
@@ -67,7 +67,7 @@
 				</tr>
 			</c:if>
 			<tr>
-				<th class="required">Modalidade de Educação:</th>
+				<th class="obrigatorio">Modalidade de Educação:</th>
 				<td>
 					<h:selectOneMenu
 						value="#{componenteCurricular.obj.modalidadeEducacao.id}" id="modalidadeEducacao" >

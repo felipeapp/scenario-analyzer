@@ -40,7 +40,7 @@
 						</th>
 					</tr>
 					<tr>
-						<th style="text-align: center;">Matricula</th>
+						<th style="text-align: center;">Matrícula</th>
 						<th style="text-align: left;">Nome</th>
 						<th style="text-align: center;">Ano-Período</th>
 						<th style="text-align: left;">Tipo</th>
@@ -71,7 +71,7 @@
 		</table>
 	</c:if>
 	<BR/>
-	<div align="center">Mobilidades Estudantis ativas: ${ fn:length(resultado) }</div>
+	<div align="center"><b>Mobilidades Estudantis ativas: ${ fn:length(resultado) }</b></div>
 </c:if>
 <br/>
 

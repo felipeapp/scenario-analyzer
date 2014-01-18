@@ -13,14 +13,16 @@
 		<tr>
 			<th class="obrigatorio">Ano Inicial:</th>
 			<td>
-				<h:inputText value="#{relatoriosLato.anoInicial}" id="ano" size="6" maxlength="4"  onkeyup="return formatarInteiro(this);"/>
+				<h:inputText value="#{relatoriosLato.anoInicial}" id="ano" size="6" maxlength="4" 
+					 converter="#{ intConverter }" onkeyup="return formatarInteiro(this);"/>
 			</td>
 		</tr>
 	
 		<tr>
 			<th class="obrigatorio">Ano Final:</th>
 			<td>
-				<h:inputText value="#{relatoriosLato.ano}" id="anoInicial" size="6" maxlength="4" onkeyup="return formatarInteiro(this);"/>
+				<h:inputText value="#{relatoriosLato.ano}" id="anoInicial" size="6" maxlength="4"  
+					 converter="#{ intConverter }" onkeyup="return formatarInteiro(this);"/>
 			</td>
 		</tr>
 	

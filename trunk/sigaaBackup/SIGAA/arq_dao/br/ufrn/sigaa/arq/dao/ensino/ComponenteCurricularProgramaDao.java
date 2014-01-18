@@ -1,5 +1,7 @@
 package br.ufrn.sigaa.arq.dao.ensino;
 
+import java.util.Collection;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
@@ -72,6 +74,28 @@ public class ComponenteCurricularProgramaDao extends GenericSigaaDAO {
 			Criteria c = getSession().createCriteria(ComponenteCurricular.class);
 			c.add( Expression.eq("id", componente));
 			return (ComponenteCurricular) c.uniqueResult();
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	/**
+	 * Retorna o componente curricular programa de acordo com o componente passado por parâmetro.  
+	 * @param componente
+	 * @return
+	 * @throws DAOException
+	 */
+	public Collection<ComponenteCurricularPrograma> findByComponente(ComponenteCurricular cc) throws DAOException {
+		try {
+			Criteria c = getSession().createCriteria(ComponenteCurricularPrograma.class);
+			c.add(Expression.eq("componenteCurricular", cc));
+			c.addOrder(Order.desc("ano"));
+			c.addOrder(Order.desc("periodo"));
+			c.setMaxResults(100);
+			
+			@SuppressWarnings("unchecked")
+			Collection<ComponenteCurricularPrograma> lista = c.list();
+			return lista;
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}

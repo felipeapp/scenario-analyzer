@@ -3,6 +3,10 @@
 <f:view>
 <h:messages showDetail="true"/>
 	<h2><ufrn:subSistema /> > Relatório Quantitativo de Monitores Por Projetos</h2>
+	
+	<c:set var="confirmm"
+		value="return confirm('Deseja cancelar a operação?');"
+		scope="application" />
 
 	<h:outputText value="#{comissaoMonitoria.create}"/>
 
@@ -63,7 +67,7 @@
 			<td>
 			<h:selectBooleanCheckbox value="#{comissaoMonitoria.checkBuscaTipoMonitor}"  id="selectBuscaTipoMonitor" />
 			</td>
-	    	<td> <label> Vínculo do Monitor </label> </td>
+	    	<td> <label> Vínculo do Monitor: </label> </td>
 	    	<td>
 
 	    	 <h:selectOneMenu value="#{comissaoMonitoria.idTipoMonitor}" style="width: 200px"  onchange="javascript:$('formBuscaProjeto:selectBuscaTipoMonitor').checked = true;">
@@ -87,7 +91,7 @@
 		<tr>
 			<td colspan="3">
 				<h:commandButton value="Buscar" action="#{ comissaoMonitoria.relatorioQuantitativoMonitores }"/>
-				<h:commandButton value="Cancelar" action="#{ comissaoMonitoria.cancelar }"/>
+				<h:commandButton value="Cancelar" onclick="#{confirmm}" action="#{ comissaoMonitoria.cancelar }"/>
 	    	</td>
 	    </tr>
 	</tfoot>

@@ -79,7 +79,7 @@ function mtel(v){
 				<tr>
 					<th class="obrigatorio">CPF/CNPJ:</th>
 					<td colspan="3">						
-						<h:inputText id="campocnpj" onkeypress="return formataCNPJ(this, event, null)"	value="#{convenioEstagioMBean.obj.concedente.pessoa.cpf_cnpj}" size="19" maxlength="18">
+						<h:inputText id="campocnpj" onkeypress="return formataCpfCnpj(this, event, null)"	value="#{convenioEstagioMBean.obj.concedente.pessoa.cpf_cnpj}" size="19" maxlength="18">
 							<f:converter converterId="convertCpf"/>
 							<f:param name="type" value="cnpj" />
 							<a4j:support actionListener="#{convenioEstagioMBean.buscarCNPJ}" event="onblur" reRender="nome, endCEP, tipoLogradouro, logradouro, endBairro,
@@ -198,18 +198,25 @@ function mtel(v){
 						Órgão de Expedição: <span class="obrigatorio">&nbsp;</span>
 						<h:inputText value="#{convenioEstagioMBean.concedenteEstagioPessoa.pessoa.identidade.orgaoExpedicao}"
 						 size="10" id="orgaoExpedicao" maxlength="20" disabled="#{!convenioEstagioMBean.podeAlterarNomeResponsavel}" />
+						  
+						UF: <span class="obrigatorio">&nbsp;</span>
+						 <h:selectOneMenu value="#{convenioEstagioMBean.concedenteEstagioPessoa.pessoa.identidade.unidadeFederativa.id}"
+							id="UFIdentidade" disabled="#{!convenioEstagioMBean.podeAlterarNomeResponsavel}">
+							<f:selectItem itemValue="-1" itemLabel="-- SELECIONE --" />
+							<f:selectItems value="#{unidadeFederativa.allCombo}" />
+						</h:selectOneMenu>
 					</td>
 				</tr>								
 				<tr>
 					<th class="obrigatorio">Cargo:</th>
 					<td colspan="3">
-						<h:inputText id="funcao" value="#{convenioEstagioMBean.concedenteEstagioPessoa.cargo}" onkeyup="CAPS(this);" size="60" maxlength="100" />
+						<h:inputText id="funcao" value="#{convenioEstagioMBean.concedenteEstagioPessoa.cargo}" onkeyup="CAPS(this);" size="80" maxlength="100" />
 					</td>
 				</tr>			
 				<tr>
 					<th>E-mail:</th>
 					<td colspan="3">
-						<h:inputText id="email" value="#{convenioEstagioMBean.concedenteEstagioPessoa.pessoa.email}" size="60" maxlength="100" />
+						<h:inputText id="email" value="#{convenioEstagioMBean.concedenteEstagioPessoa.pessoa.email}" size="80" maxlength="100" />
 					</td>
 				</tr>			
 			</a4j:region>																											

@@ -39,7 +39,8 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
  */
 public class SolicitacaoServicoDocumentoDAO extends GenericSigaaDAO {
 
-	
+	/** Quantidade máxima de resultado permitidos na buscas */
+	public static final int QTD_MAXIMA_RESULTADOS = 300;
 	
 	/**
 	 * Conta a quantidade de requisições abertas para o usuário, utilizado para impedir que o usuário realiza mais de uma solicitação por fez.
@@ -224,7 +225,7 @@ public class SolicitacaoServicoDocumentoDAO extends GenericSigaaDAO {
 		if(buscasApenasAtivas)
 			q.setBoolean("true", true);
 		
-		q.setMaxResults(101);
+		q.setMaxResults(QTD_MAXIMA_RESULTADOS);
 		
 		@SuppressWarnings("unchecked")
 		List<SolicitacaoCatalogacao> lista = new ArrayList<SolicitacaoCatalogacao>(HibernateUtils.parseTo(q.list(), projecao, SolicitacaoCatalogacao.class, "s"));
@@ -311,7 +312,7 @@ public class SolicitacaoServicoDocumentoDAO extends GenericSigaaDAO {
 		if(buscasApenasAtivas)
 			q.setBoolean("true", true);
 		
-		q.setMaxResults(301);
+		q.setMaxResults(QTD_MAXIMA_RESULTADOS);
 		
 		@SuppressWarnings("unchecked")
 		List<SolicitacaoNormalizacao> lista = new ArrayList<SolicitacaoNormalizacao>(HibernateUtils.parseTo(q.list(), projecao, SolicitacaoNormalizacao.class, "s"));

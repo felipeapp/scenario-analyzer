@@ -164,6 +164,8 @@ public class ProjetoApoioGrupoPesquisaMBean extends SigaaAbstractController<Proj
 			
 			recalculaTabelaOrcamentaria(obj.getProjeto().getOrcamento());
 			
+			obj.setGrupoPesquisa( dao.findByPrimaryKey(obj.getGrupoPesquisa().getId(), GrupoPesquisa.class) );
+			
 			if ( obj == null ) {
 				addMensagem(MensagensArquitetura.OBJETO_SELECIONADO_FOI_REMOVIDO);
 				return null;

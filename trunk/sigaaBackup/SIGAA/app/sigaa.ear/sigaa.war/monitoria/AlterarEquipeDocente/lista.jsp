@@ -56,19 +56,6 @@
 	</tfoot>
 	</table>
 
-
-
-	<br/>
-	<br/>
-
-
-	<div class="infoAltRem">
-	    <h:graphicImage value="/img/monitoria/businessman_view.png" style="overflow: visible;"/>: Visualizar Dados do Docente
-	    <h:graphicImage value="/img/monitoria/businessman_refresh.png" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText value=": Alterar Docente"	rendered="#{acesso.monitoria}"/><br/>
-	    <h:graphicImage value="/img/monitoria/businessman_delete.png" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText value=": Finalizar Docente"	rendered="#{acesso.monitoria}"/>	    
-	    <h:graphicImage value="/img/delete.gif" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText value=": Excluir Docente do Projeto"	rendered="#{acesso.monitoria}"/>	    	    
-	</div>
-
 	<br/>
 
 	<c:set var="orientadores" value="#{consultarEquipeDocente.orientadores}"/>
@@ -80,6 +67,12 @@
 
 	<c:if test="${not empty orientadores}">
 
+	<div class="infoAltRem">
+	    <h:graphicImage value="/img/monitoria/businessman_view.png" style="overflow: visible;"/>: Visualizar Dados do Docente
+	    <h:graphicImage value="/img/monitoria/businessman_refresh.png" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText value=": Alterar Docente"	rendered="#{acesso.monitoria}"/><br/>
+	    <h:graphicImage value="/img/monitoria/businessman_delete.png" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText value=": Finalizar Docente"	rendered="#{acesso.monitoria}"/>	    
+	    <h:graphicImage value="/img/delete.gif" style="overflow: visible;" rendered="#{acesso.monitoria}"/><h:outputText value=": Excluir Docente do Projeto"	rendered="#{acesso.monitoria}"/>	    	    
+	</div>
 
 	 <table class="listagem">
 	    <caption>Orientadores Encontrados (${ fn:length(orientadores) })</caption>

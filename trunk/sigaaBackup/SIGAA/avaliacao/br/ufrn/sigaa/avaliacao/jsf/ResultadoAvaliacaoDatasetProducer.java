@@ -71,7 +71,7 @@ public class ResultadoAvaliacaoDatasetProducer implements DatasetProducer,
 	//O SuppressWarnings foi colocado pois esse método é definido na interface de.laures.cewolf.DatasetProducer.produceDataset(java.util.Map). Ou seja, não dá para especificar o tipo dos mapas. 
 	@SuppressWarnings("rawtypes")
 	public Object produceDataset(Map params) throws DatasetProduceException {
-		Integer idServidor = (Integer) params.get("idServidor");
+		Integer idPessoa = (Integer) params.get("idPessoa");
 		String grupo = (String) params.get("grupo");
 		Integer idResultado = (Integer) params.get("idResultado");
 		Integer idTurma = (Integer) params.get("idTurma");
@@ -79,7 +79,7 @@ public class ResultadoAvaliacaoDatasetProducer implements DatasetProducer,
 		@SuppressWarnings("unchecked")
 		List<ResultadoAvaliacaoDocente> resultados = (List<ResultadoAvaliacaoDocente>) params.get("resultados");
 		if (evolucao != null && evolucao.booleanValue())
-			return datasetEvolucaoGeral(idServidor);
+			return datasetEvolucaoGeral(idPessoa);
 		else {
 			if (resultados == null) return null;
 			if (idResultado == null)
@@ -98,10 +98,9 @@ public class ResultadoAvaliacaoDatasetProducer implements DatasetProducer,
 	 * Produz o {@link Dataset} com as avaliações institucionais de um docente em um
 	 * ano-período para determinado {@link GrupoPerguntas}.
 	 * 
-	 * @param idServidor
-	 * @param ano
-	 * @param periodo
+	 * @param resultados
 	 * @param grupo
+	 * @param idTurma
 	 * @return
 	 * @throws DatasetProduceException
 	 */
@@ -190,17 +189,17 @@ public class ResultadoAvaliacaoDatasetProducer implements DatasetProducer,
 	/**
 	 * Produz o {@link Dataset} de evolução das médias por período.
 	 * 
-	 * @param idServidor
+	 * @param idPessoa
 	 * @return
 	 * @throws DatasetProduceException
 	 */
-	private Object datasetEvolucaoGeral(int idServidor)
+	private Object datasetEvolucaoGeral(int idPessoa)
 			throws DatasetProduceException {
 		AvaliacaoInstitucionalDao dao = new AvaliacaoInstitucionalDao();
 		perguntas = new HashMap<Integer, String>();
 		try {
 			DefaultCategoryDataset ds = new DefaultCategoryDataset();
-			Map<String, Double> mapa = dao.findEvolucaoMediaGeralAnoPeriodo(idServidor, true);
+			Map<String, Double> mapa = dao.findEvolucaoMediaGeralAnoPeriodo(idPessoa, true);
 			for (String anoPeriodo : mapa.keySet()) {
 				double valor = mapa.get(anoPeriodo);
 				ds.addValue(valor, "média", anoPeriodo);

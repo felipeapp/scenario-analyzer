@@ -113,16 +113,6 @@ table.menuRapido td {
 				valor="${ cal.fimCoordenacaoAnaliseMatricula }" /></td>
 			</tr>
 			<tr class="linhaImpar">
-				<td colspan="3"><strong>Período de Trancamento</strong></td>
-			</tr>
-			<tr class="linhaPar">
-			<td><ufrn:format type="data"
-				valor="${ cal.inicioTrancamentoTurma }" /></td>
-				<td> a  </td>
-			<td><ufrn:format type="data"
-				valor="${ cal.fimTrancamentoTurma }" /></td>
-			</tr>
-			<tr class="linhaImpar">
 				<td colspan="3"><strong>Re-Matricula</strong></td>
 			</tr>
 			<tr class="linhaPar">

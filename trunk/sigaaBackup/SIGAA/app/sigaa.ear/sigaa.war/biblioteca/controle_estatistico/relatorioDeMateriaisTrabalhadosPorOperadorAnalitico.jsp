@@ -12,6 +12,7 @@
 	<table class="tabelaRelatorioBorda" width="100%">
 		
 		<tr style="background-color: #DEDFE3">
+			<th style="text-align: right;"></th>
 			<th style="text-align: center;">Data do cadastro</th>
 			
 			<c:if test="${_abstractRelatorioBiblioteca.tipoDeAcervo == _abstractRelatorioBiblioteca.tipoAcervoMateriais}">
@@ -58,7 +59,7 @@
 				</tr>
 			</c:if>
 			
-			<c:if test="${ filtroBiblioteca != linha.descricaoBiblioteca}">
+			<c:if test="${ filtroBiblioteca != linha.descricaoBiblioteca && _abstractRelatorioBiblioteca.tipoDeAcervo == _abstractRelatorioBiblioteca.tipoAcervoMateriais}">
 				<c:set var="filtroBiblioteca" value="${linha.descricaoBiblioteca}"  scope="request"/>
 				<tr style="background-color: #EEEEEE; font-weight: bold; height: 30px;">
 					<td colspan="11">${linha.descricaoBiblioteca}</td>
@@ -66,6 +67,7 @@
 			</c:if>
 			
 			<tr>
+				<td style="text-align: right;"> ${status.index + 1} </td>
 				<td style="text-align: center;"> <ufrn:format type="data" valor="${linha.dataCriacao}"/> </td>
 				
 				<c:if test="${_abstractRelatorioBiblioteca.tipoDeAcervo == _abstractRelatorioBiblioteca.tipoAcervoMateriais}">
@@ -95,11 +97,11 @@
 
 	<p style="margin-top: 15px; margin-bottom: 15px;">
 		<c:if test="${_abstractRelatorioBiblioteca.tipoDeAcervo == _abstractRelatorioBiblioteca.tipoAcervoMateriais}">
-			&nbsp&nbsp&nbsp <strong>Observação:</strong> A listagem de materiais apresentada não considera os materiais removidos ou baixados do acervo.
+			&nbsp&nbsp&nbsp <strong>Observação:</strong> A listagem de materiais apresentada não considera os materiais que foram adicionados e depois removidos ou baixados do acervo.
 		</c:if>	
 		
 		<c:if test="${_abstractRelatorioBiblioteca.tipoDeAcervo == _abstractRelatorioBiblioteca.tipoAcervoTitulos}">
-			&nbsp&nbsp&nbsp <strong>Observação:</strong> A listagem de Títulos apresentada não considera os Títulos removidos do acervo.
+			&nbsp&nbsp&nbsp <strong>Observação:</strong> A listagem de Títulos apresentada não considera os Títulos que foram adicionados e depois removidos do acervo.
 		</c:if>	
 			
 	</p>

@@ -271,16 +271,16 @@ public class PerfilPessoaDAO {
 		int id = getComumTemplate().queryForInt("(select nextval('perfil_seq'))");
 		perfil.setId(id);
 		
-		String sql = "insert into comum.perfil_pessoa (id_perfil, descricao, formacao, areas, sala, endereco, telefone, id_servidor, id_discente, id_tutor, endereco_lattes, assinatura, ocultar_email) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		getComumTemplate().update(sql, new Object[] { perfil.getId(), perfil.getDescricao(), perfil.getFormacao(), perfil.getAreas(), perfil.getSala(), perfil.getEndereco(), perfil.getTelefone(), perfil.getIdServidor(), perfil.getIdDiscente(), perfil.getIdTutor(), perfil.getEnderecoLattes(), perfil.getAssinatura(), perfil.isOcultarEmail() });
+		String sql = "insert into comum.perfil_pessoa (id_perfil, descricao, formacao, areas, sala, endereco, telefone, id_servidor, id_discente, id_tutor, endereco_lattes, assinatura, ocultar_email, id_pessoa) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		getComumTemplate().update(sql, new Object[] { perfil.getId(), perfil.getDescricao(), perfil.getFormacao(), perfil.getAreas(), perfil.getSala(), perfil.getEndereco(), perfil.getTelefone(), perfil.getIdServidor(), perfil.getIdDiscente(), perfil.getIdTutor(), perfil.getEnderecoLattes(), perfil.getAssinatura(), perfil.isOcultarEmail(), perfil.getIdPessoa() });
 	}
 
 	/**
 	 * Atualiza um perfil
 	 */
 	public void update(PerfilPessoa perfil) {
-		String sql = "update comum.perfil_pessoa set assinatura=?, descricao=?, formacao=?, areas=?, sala=?, endereco=?, telefone=?, id_servidor=?, id_discente=?, id_tutor=?, endereco_lattes = ?, ocultar_email = ? where id_perfil=?";
-		getComumTemplate().update(sql, new Object[] { perfil.getAssinatura(), perfil.getDescricao(), perfil.getFormacao(), perfil.getAreas(), perfil.getSala(), perfil.getEndereco(), perfil.getTelefone(), perfil.getIdServidor(), perfil.getIdDiscente(), perfil.getIdTutor(), perfil.getEnderecoLattes(), perfil.isOcultarEmail(), perfil.getId() });
+		String sql = "update comum.perfil_pessoa set assinatura=?, descricao=?, formacao=?, areas=?, sala=?, endereco=?, telefone=?, id_servidor=?, id_discente=?, id_tutor=?, endereco_lattes = ?, ocultar_email = ?, id_pessoa = ? where id_perfil=?";
+		getComumTemplate().update(sql, new Object[] { perfil.getAssinatura(), perfil.getDescricao(), perfil.getFormacao(), perfil.getAreas(), perfil.getSala(), perfil.getEndereco(), perfil.getTelefone(), perfil.getIdServidor(), perfil.getIdDiscente(), perfil.getIdTutor(), perfil.getEnderecoLattes(), perfil.isOcultarEmail(), perfil.getIdPessoa(), perfil.getId() });
 	}
 
 	/**

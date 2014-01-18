@@ -73,8 +73,10 @@
 						<f:selectItems value="#{unidade.allDeptosProgramasEscolasOrgaoCombo}" />
 					</h:selectOneMenu>
 
+				</td>
+				<td>
 					<h:commandLink action="#{cursoLatoMBean.cadastrarUnidadeEnvolvida}" >
-						<h:graphicImage value="/img/adicionar.gif" style="overflow: visible;" title="Adicionar Unidade Envolvida"/>
+						<h:graphicImage value="/img/adicionar.gif" style="overflow: visible;" title="Adicionar"/>
 						<f:param name="id" value="#{cursoLatoMBean.obj.unidadeCursoLato.unidade.id}"/>
 					</h:commandLink>
 				</td>
@@ -88,9 +90,9 @@
 			   	    <c:forEach items="#{cursoLatoMBean.obj.unidadesCursoLato}" var="und" varStatus="status">
 		             <tr class="${status.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}">
 			   				 <td>${und.unidade.nome} - ${und.unidade.municipio.nome}</td>
-			   	   		<td>
+			   	   		<td width="8%">
 							<h:commandLink action="#{cursoLatoMBean.removerUnidadeEnvolvida}" onclick="#{confirmDelete}">
-								<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover Unidade Envolvida"/>
+								<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover"/>
 								<f:param name="id" value="#{und.unidade.id}"/>
 							</h:commandLink>
 						</td>
@@ -122,7 +124,7 @@
 						</h:selectOneMenu>
 					
 						<h:commandLink action="#{cursoLatoMBean.cadastrarPolos}" >
-							<h:graphicImage value="/img/adicionar.gif" style="overflow: visible;" title="Adicionar Pólo"/>
+							<h:graphicImage value="/img/adicionar.gif" style="overflow: visible;" title="Adicionar"/>
 							<f:param name="id" value="#{cursoLatoMBean.obj.poloCurso.polo.id}"/>
 						</h:commandLink>
 					</td>
@@ -132,14 +134,14 @@
 			   <tr>
 			   	<th></th>
 			   	<td colspan="2">
-			   	   <table class="formulario" width="100%" align="center">
+			   	   <table class="formulario" width="80%" align="left">
 			   	   <caption class="listagem">Lista dos Polos Cadastrados</caption>
 			   	    <c:forEach items="#{cursoLatoMBean.obj.polosCursos}" var="polos" varStatus="status">
 		             <tr class="${status.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}">
 			   				 <td>${polos.polo.cidade}</td>
-			   	   		<td>
+			   	   		<td width="8%">
 							<h:commandLink action="#{cursoLatoMBean.removerPolo}" onclick="#{confirmDelete}">
-								<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover Pólo"/>
+								<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover"/>
 								<f:param name="id" value="#{polos.polo.id}"/>
 							</h:commandLink>
 						</td>

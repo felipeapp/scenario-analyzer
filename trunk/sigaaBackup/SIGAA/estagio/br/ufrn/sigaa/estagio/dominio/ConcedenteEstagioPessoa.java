@@ -84,10 +84,12 @@ public class ConcedenteEstagioPessoa implements PersistDB, Validatable {
 		return HashCodeUtil.hashAll(id);
 	}	
 	
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -136,6 +138,7 @@ public class ConcedenteEstagioPessoa implements PersistDB, Validatable {
 		ValidatorUtil.validateRequired(pessoa.getNome(), "Nome do Responsável", lista);
 		ValidatorUtil.validateRequired(pessoa.getIdentidade().getNumero(), "RG do Responsável", lista);
 		ValidatorUtil.validateRequired(pessoa.getIdentidade().getOrgaoExpedicao(), "Orgão de Expedição", lista);
+		ValidatorUtil.validateRequired(pessoa.getIdentidade().getUnidadeFederativa(), "UF do RG do Responsável", lista);
 		ValidatorUtil.validateRequired(cargo, "Cargo", lista);
 		ValidatorUtil.validateEmail(pessoa.getEmail(), "Email", lista);	
 		

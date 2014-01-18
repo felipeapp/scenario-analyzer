@@ -168,17 +168,6 @@ public class AvaliacaoProjeto extends AbstractMovimento implements PersistDB{
 
 	@Transient
 	public String getStatusAvaliacao() {
-/*		String status = "INDEFINIDO";
-		if (dataDistribuicao != null) {
-			status = "PENDENTE";
-			if (dataAvaliacao != null) {
-				status = "AVALIADO";
-				if (justificativa != null) {
-					status = "NÃO AVALIADO (JUSTIFICADO)";
-				}
-			}
-		}
-		return status;*/
 		return getTiposSituacao().get(this.situacao);
 	}
 

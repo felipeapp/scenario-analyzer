@@ -8,6 +8,7 @@
  */
 package br.ufrn.sigaa.avaliacao.dominio;
 
+import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 import static br.ufrn.arq.util.ValidatorUtil.validateRequired;
 import static br.ufrn.arq.util.ValidatorUtil.validateRequiredId;
 
@@ -24,6 +25,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -75,9 +77,15 @@ public class FormularioAvaliacaoInstitucional implements Validatable, TipoAvalia
 	@Column(name = "instrucoes_gerais")
 	private String instrucoesGerais;
 	
+	/** Grupo de perguntas que definirão a média geral no resultado do processamento das médias e desvios padrões da Avaliação Institucional. */
+	@ManyToOne (fetch=FetchType.EAGER)
+	@JoinColumn(name = "id_grupo_media_geral")
+	private GrupoPerguntas grupoMediaGeral;
+	
 	/** Construtor padrão. */
 	public FormularioAvaliacaoInstitucional() {
 		grupoPerguntas = new ArrayList<GrupoPerguntas>();
+		grupoMediaGeral = new GrupoPerguntas();
 	}
 	
 	/** Construtor parametrizado. */
@@ -142,6 +150,18 @@ public class FormularioAvaliacaoInstitucional implements Validatable, TipoAvalia
 	public boolean isAvaliacaoDiscente() {
 		return tipoAvaliacao == TipoAvaliacaoInstitucional.AVALIACAO_DISCENTE_GRADUACAO;
 	}
+	/** Indica se o formulário será preenchido pelo discente.
+	 * @return
+	 */
+	public boolean isAvaliacaoTutorEad() {
+		return tipoAvaliacao == TipoAvaliacaoInstitucional.AVALIACAO_TUTOR_EAD;
+	}
+	/** Indica se o formulário será preenchido pelo discente.
+	 * @return
+	 */
+	public boolean isAvaliacaoDocente() {
+		return tipoAvaliacao == TipoAvaliacaoInstitucional.AVALIACAO_DOCENTE_GRADUACAO;
+	}
 	/** Retorna o título do formulário. 
 	 * @return
 	 */
@@ -163,6 +183,8 @@ public class FormularioAvaliacaoInstitucional implements Validatable, TipoAvalia
 		validateRequiredId(tipoAvaliacao, "Tipo de Avaliação", lista);
 		validateRequired(titulo, "Título", lista);
 		validateRequired(grupoPerguntas, "Grupo de Perguntas", lista);
+		if (!isEmpty(grupoPerguntas) && !grupoPerguntas.contains(grupoMediaGeral))
+			lista.addErro("O grupo de perguntas definido para o cálculo da média/desvio padrão geral da Avaliação Institucional não está definido no formulário");
 		return lista;
 	}
 	/** Retorna o grupo de perguntas a serem aplicadas. 
@@ -221,6 +243,7 @@ public class FormularioAvaliacaoInstitucional implements Validatable, TipoAvalia
 		case AVALIACAO_DISCENTE_GRADUACAO: return "DISCENTE DE GRADUAÇÃO";
 		case AVALIACAO_DOCENCIA_ASSISTIDA: return "DOCÊNCIA ASSISTIDA";
 		case AVALIACAO_DOCENTE_GRADUACAO: return "DOCENTE DE GRADUAÇÃO";
+		case AVALIACAO_TUTOR_EAD: return "TUTOR EAD";
 		default:
 			return null;
 		}
@@ -248,6 +271,14 @@ public class FormularioAvaliacaoInstitucional implements Validatable, TipoAvalia
 
 	public void setInstrucoesGerais(String instrucoesGerais) {
 		this.instrucoesGerais = instrucoesGerais;
+	}
+
+	public GrupoPerguntas getGrupoMediaGeral() {
+		return grupoMediaGeral;
+	}
+
+	public void setGrupoMediaGeral(GrupoPerguntas grupoMediaGeral) {
+		this.grupoMediaGeral = grupoMediaGeral;
 	}
 
 }

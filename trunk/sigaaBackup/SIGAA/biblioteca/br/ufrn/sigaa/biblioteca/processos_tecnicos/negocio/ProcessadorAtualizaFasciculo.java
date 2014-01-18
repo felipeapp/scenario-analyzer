@@ -119,7 +119,8 @@ public class ProcessadorAtualizaFasciculo extends AbstractProcessador{
 				
 				/* *********************************************************************************************************************************
 				 * Se o material está emprestado atualmente e o usuário está tentando alterar para uma situação diferente de empretado 
-				 * Pode ocorrer caso o usuário abra a tela de alterar o materail antes de realizar o empréstimos, e clicar em atualizar depois de realizar o empréstimo 
+				 * Pode ocorrer caso o usuário abra a tela de alterar o material antes de realizar o empréstimos, e clicar em atualizar depois de realizar o empréstimo 
+				 * Pode ocorrer o contrário, o usuário abre a tela de alterar o material antes de realizar a devolução, e clicar em atualizar depois que devolveu o empréstimos (ocorreu o primeiro caso em 16/10/2013 ) //
 				* **********************************************************************************************************************************/
 				
 				
@@ -131,8 +132,14 @@ public class ProcessadorAtualizaFasciculo extends AbstractProcessador{
 					SituacaoMaterialInformacional situacaoAtual =  situacaoDao.findSituacaoAtualMaterial(fasciculo.getId());
 					
 					if(situacaoAtual.isSituacaoEmprestado() && fasciculo.getSituacao().getId() != situacaoEmprestado.getId()){
-						lista.addErro(" A situação do fascículo não pode ser alterada, pois ele está "+situacaoEmprestado.getDescricao() );
+						throw new NegocioException(" A situação do fascículo não pode ser alterada, pois ele está "+situacaoEmprestado.getDescricao() );
 					}
+					
+					// Tentar alterar o material ao mesmo tempo que devolve //
+					if(  fasciculo.getSituacao().isSituacaoEmprestado() && ! situacaoAtual.isSituacaoEmprestado()){
+						throw new NegocioException(" A situação do fascículo não pode ser alterada para \""+fasciculo.getSituacao().getDescricao()+"\", pois ele está \""+situacaoAtual.getDescricao()+"\"" );
+					}
+					
 				
 				}
 				

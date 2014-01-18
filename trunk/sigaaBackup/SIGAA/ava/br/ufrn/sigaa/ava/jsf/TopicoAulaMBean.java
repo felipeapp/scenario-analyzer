@@ -419,7 +419,6 @@ public class TopicoAulaMBean extends CadastroTurmaVirtual<TopicoAula> {
 	
 				object = getGenericDAO().findByPrimaryKey(id, getClasse());
 			}
-			remocaoAulaExtra = false;
 			TopicoAula topico = object;
 			
 			registrarAcao(object.getDescricao(), EntidadeRegistroAva.TOPICO_AULA, AcaoAva.INICIAR_REMOCAO, object.getId());
@@ -445,15 +444,17 @@ public class TopicoAulaMBean extends CadastroTurmaVirtual<TopicoAula> {
 				registrarAcao(object.getDescricao(), EntidadeRegistroAva.TOPICO_AULA, AcaoAva.REMOVER, object.getId());
 
 			}	
-			else	
-				addMensagem(MensagensArquitetura.OBJETO_SELECIONADO_FOI_REMOVIDO);
-			
-			} catch (ArqException e) {
-				tratamentoErroPadrao(e);
-			} finally {
-				if ( dao != null )
-					dao.close();
+			else {	
+				if (!isRemocaoAulaExtra())
+					addMensagem(MensagensArquitetura.OBJETO_SELECIONADO_FOI_REMOVIDO);
 			}
+		} catch (ArqException e) {
+			tratamentoErroPadrao(e);
+		} finally {
+			if ( dao != null )
+				dao.close();
+			remocaoAulaExtra = false;
+		}
 		
 		return forward("/ava/" + getClasse().getSimpleName() + "/listar.jsf");
 	}
@@ -1258,7 +1259,7 @@ public class TopicoAulaMBean extends CadastroTurmaVirtual<TopicoAula> {
 		// Se a turma não tem subturmas, pega os seus horários e aulas extras
 		if (isEmpty(t.getSubturmas())){
 			horariosAulas = (List<HorarioTurma>) getGenericDAO().findByExactField(HorarioTurma.class, "turma.id", t.getId(), "asc", "dataInicio");
-			aulasExtra = (List<AulaExtra>) getGenericDAO().findByExactField(AulaExtra.class, "turma.id", t.getId(), "asc", "dataAula");
+			aulasExtra = getDAO(TurmaVirtualDao.class).buscarTodasAulasExtras(t);
 		} else {
 			// Caso contrário, pega os horários e aulas extras das subturmas.
 			List <Integer> ids = new ArrayList <Integer> ();

@@ -54,12 +54,14 @@ import br.ufrn.sigaa.arq.dao.vestibular.ConvocacaoProcessoSeletivoDao;
 import br.ufrn.sigaa.arq.dao.vestibular.DocumentosDiscentesConvocadosDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.dominio.CalendarioAcademico;
 import br.ufrn.sigaa.ensino.dao.PlanoMatriculaIngressantesDao;
 import br.ufrn.sigaa.ensino.dominio.PlanoMatriculaIngressantes;
 import br.ufrn.sigaa.ensino.dominio.SituacaoMatricula;
 import br.ufrn.sigaa.ensino.graduacao.dominio.DiscenteGraduacao;
 import br.ufrn.sigaa.ensino.graduacao.jsf.AtestadoMatriculaMBean;
 import br.ufrn.sigaa.ensino.jsf.PlanoMatriculaIngressantesMBean;
+import br.ufrn.sigaa.ensino.negocio.CalendarioAcademicoHelper;
 import br.ufrn.sigaa.jsf.DadosPessoaisMBean;
 import br.ufrn.sigaa.jsf.OperacaoDadosPessoais;
 import br.ufrn.sigaa.jsf.OperadorDadosPessoais;
@@ -157,6 +159,7 @@ public class CadastramentoDiscenteConvocadoMBean extends SigaaAbstractController
 	 * </ul>
 	 * @see br.ufrn.arq.web.jsf.AbstractControllerCadastro#buscar()
 	 */
+	@Override
 	public String buscar() throws HibernateException, DAOException, SegurancaException {
 		checkChangeRole();
 		validateRequired(convocacaoProcessoSeletivo.getProcessoSeletivo(), "Processo Seletivo", erros);
@@ -509,13 +512,31 @@ public class CadastramentoDiscenteConvocadoMBean extends SigaaAbstractController
 			if (obj.getDiscente().getStatus() == StatusDiscente.PRE_CADASTRADO) {
 				hs.put("comprovante", getReportSIGAA("comprovante_comparecimento_2012.jasper"));
 			} else {
-				hs.put("comprovante", getReportSIGAA("comprovante_2012.jasper"));
+				CalendarioAcademico cal = CalendarioAcademicoHelper
+						.getCalendarioExato(
+								obj.getDiscente().getAnoIngresso(),
+								obj.getDiscente().getPeriodoIngresso(), 
+								obj.getDiscente().getGestoraAcademica(),
+								obj.getDiscente().getNivel(), 
+								null, null, null, null);
+				if (isEmpty(cal)) {
+					addMensagemErro("Não há calendário acadêmico cadastrado para o ano-período "
+							+ obj.getDiscente().getAnoIngresso()+ "."+ obj.getDiscente().getPeriodoIngresso() + ".");
+					return null;
+				}
+				if (isEmpty(cal.getInicioValidacaoVinculoIngressante()) || isEmpty(cal.getFimValidacaoVinculoIngressante())) {
+					addMensagemErro("O período de validação do vínculo do discente não está definido no calendário acadêmico.");
+					return null;
+				}
+				hs.put("inicioValidacaoVinculo", cal.getInicioValidacaoVinculoIngressante());
+				hs.put("fimValidacaoVinculo", cal.getFimValidacaoVinculoIngressante());
+				hs.put("comprovante", getReportSIGAA("comprovante_2013.jasper"));
 			}
 			hs.put("discentesConvocados", discentesConvocados);
 			hs.put("processoSeletivo", ps.getNome());
 			hs.put("ano", new Integer(ps.getAnoEntrada()));
 			checkDiscenteMatriculadoComponente(obj.getDiscente());
-			hs.put("matriculado", new Boolean(matriculado));
+			hs.put("matriculado", new Boolean(true));
 			Collection<LinhaAuxiliar> linhas = new LinkedList<LinhaAuxiliar>();
 			for (LinhaImpressaoDocumentosConvocados linhaImpressao : discentesConvocados) {
 				LinhaAuxiliar linhaAux = new LinhaAuxiliar();

@@ -95,7 +95,7 @@ public class ProcessadorComunicarMaterialPerdido extends AbstractProcessador {
 			ps.add(novaProrrogacao);
 			
 			// Livra feriados, finais de semana e interrupções da biblioteca.
-			ps.addAll(CirculacaoUtil.geraProrrogacoesEmprestimo(e, null));
+			ps.addAll(CirculacaoUtil.geraProrrogacoesEmprestimo(e, e.getMaterial().getBiblioteca(), null));
 			
 			// Atualiza o prazo do empréstimo no banco.
 			dao.updateField(Emprestimo.class, e.getId(), "prazo", e.getPrazo());

@@ -30,6 +30,7 @@ import br.ufrn.sigaa.ava.dominio.Enquete;
 import br.ufrn.sigaa.ava.dominio.EntidadeRegistroAva;
 import br.ufrn.sigaa.ava.dominio.IndicacaoReferencia;
 import br.ufrn.sigaa.ava.dominio.NoticiaTurma;
+import br.ufrn.sigaa.ava.dominio.PermissaoAva;
 import br.ufrn.sigaa.ava.dominio.RotuloTurma;
 import br.ufrn.sigaa.ava.dominio.TopicoAula;
 import br.ufrn.sigaa.ava.negocio.RegistroAtividadeAvaHelper;
@@ -493,6 +494,8 @@ public abstract class CadastroTurmaVirtual<T extends DominioTurmaVirtual> extend
 			registrarAcao(((RotuloTurma) object).getDescricao(), EntidadeRegistroAva.ROTULO, acao, object.getId());
 		else if ( object instanceof ChatTurma )
 			registrarAcao(((ChatTurma) object).getDescricao(), EntidadeRegistroAva.CHAT, acao, object.getId());
+		else if ( object instanceof PermissaoAva )
+			registrarAcao(((PermissaoAva) object).getPessoa().getNome(), EntidadeRegistroAva.PERMISSAO_AVA, acao, object.getId());
 
 	}
 	
@@ -525,6 +528,9 @@ public abstract class CadastroTurmaVirtual<T extends DominioTurmaVirtual> extend
 			registrarAcao(((RotuloTurma) object).getDescricao(), EntidadeRegistroAva.ROTULO, acao, true, object.getId());
 		else if ( object instanceof ChatTurma )
 			registrarAcao(((ChatTurma) object).getDescricao(), EntidadeRegistroAva.CHAT, acao, true, object.getId());
+		else if ( object instanceof PermissaoAva )
+			registrarAcao(((PermissaoAva) object).getPessoa().getNome(), EntidadeRegistroAva.PERMISSAO_AVA, acao, true, object.getId());
+		
 	}
 	
 	/**
@@ -556,6 +562,8 @@ public abstract class CadastroTurmaVirtual<T extends DominioTurmaVirtual> extend
 			registrarAcao(((RotuloTurma) object).getDescricao(), EntidadeRegistroAva.ROTULO, acao, turmasSucesso, object.getId());
 		else if ( object instanceof ChatTurma )
 			registrarAcao(((ChatTurma) object).getDescricao(), EntidadeRegistroAva.CHAT, acao, turmasSucesso, object.getId());
+		else if ( object instanceof PermissaoAva )
+			registrarAcao(((PermissaoAva) object).getPessoa().getNome(), EntidadeRegistroAva.PERMISSAO_AVA, acao, turmasSucesso, object.getId());		
 	}
 	
 	/**

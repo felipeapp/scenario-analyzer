@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -22,6 +23,7 @@ import org.hibernate.annotations.Parameter;
 import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.negocio.validacao.Validatable;
+import br.ufrn.sigaa.ensino.metropoledigital.dominio.ReservaVagaGrupo;
 
 /** Classe que modela uma inscrição
  * 
@@ -64,6 +66,21 @@ public class InscricaoProcessoSeletivoTecnico implements PersistDB, Validatable 
 	@JoinColumn(name = "id_opcao", nullable = true)
 	private OpcaoPoloGrupo opcao;
 	
+	/** Indica se a inscrição pertence a um candidato que estudou em escola pública ou não */
+	@Column(name="escola_publica")
+	private Boolean escolaPublica;
+	
+	/** Indica se a inscrição pertence a um candidato possui baixa renda ou não */
+	@Column(name="baixa_renda")
+	private Boolean baixaRenda;
+	
+	/** Indica se a inscrição pertence a um candidato se autodeclarou na cota de negros, pardos e índios ou não */
+	private Boolean etnia;
+	
+	/** Indica qual o grupo de reserva de vagas a inscrição pertence*/
+	@Transient
+	private ReservaVagaGrupo grupo = new ReservaVagaGrupo();
+	
 	/** Construtor mínimo. */
 	public InscricaoProcessoSeletivoTecnico(int id) {
 		this();
@@ -74,6 +91,9 @@ public class InscricaoProcessoSeletivoTecnico implements PersistDB, Validatable 
 	public InscricaoProcessoSeletivoTecnico() {
 		this.processoSeletivo = new ProcessoSeletivoTecnico();
 		this.pessoa = new PessoaTecnico();
+		this.escolaPublica = null;
+		this.baixaRenda = null;
+		this.etnia = null;
 	}
 
 	/**
@@ -165,6 +185,38 @@ public class InscricaoProcessoSeletivoTecnico implements PersistDB, Validatable 
 
 	public void setReservaVagas(boolean reservaVagas) {
 		this.reservaVagas = reservaVagas;
+	}
+
+	public Boolean isEscolaPublica() {
+		return escolaPublica;
+	}
+
+	public void setEscolaPublica(Boolean escolaPublica) {
+		this.escolaPublica = escolaPublica;
+	}
+
+	public Boolean isBaixaRenda() {
+		return baixaRenda;
+	}
+
+	public void setBaixaRenda(Boolean baixaRenda) {
+		this.baixaRenda = baixaRenda;
+	}
+
+	public Boolean isEtnia() {
+		return etnia;
+	}
+
+	public void setEtnia(Boolean etnia) {
+		this.etnia = etnia;
+	}
+	
+	public ReservaVagaGrupo getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(ReservaVagaGrupo grupo) {
+		this.grupo = grupo;
 	}
 
 	@Override

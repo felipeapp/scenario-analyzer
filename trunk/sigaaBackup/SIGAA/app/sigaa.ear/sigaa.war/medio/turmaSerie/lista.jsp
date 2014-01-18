@@ -145,7 +145,7 @@
 										</h:commandLink>
 									</li>
 									</c:if>
-									<c:if test="${turmaSerie.coordenadorMedio}">
+									<c:if test="${turmaSerie.coordenadorMedio || acesso.pedagogico}">
 									<li id="btnNotasDiscente">
 										<h:commandLink styleClass="noborder" title="Notas dos alunos" action="#{relatorioConsolidacao.notasDiscente}" id="sltbtnNotasDiscente">
 											<f:param name="idTurma" value="#{linha.turma.id}" />
@@ -180,7 +180,7 @@
 										</h:commandLink>									
 									</li>
 									</c:if>
-									<c:if test="${turmaSerie.pemissaoMedio || acesso.pedagogico}">
+									<c:if test="${turmaSerie.pemissaoMedio}">
 									<li id="btnTurmaVirtual">
 										<h:commandLink styleClass="noborder" title="Visualizar Turma Virtual" action="#{turmaVirtual.entrar}" id="sltbtnTurmaVirtual">
 											<f:param name="idTurma" value="#{linha.turma.id}" />

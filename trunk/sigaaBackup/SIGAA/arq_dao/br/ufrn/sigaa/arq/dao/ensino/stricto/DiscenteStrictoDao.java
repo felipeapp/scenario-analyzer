@@ -500,7 +500,7 @@ public class DiscenteStrictoDao extends GenericSigaaDAO {
 		+"	inner join ensino.matricula_componente mc using(id_discente)	"
 		+"	left join stricto_sensu.renovacao_atividade_pos renov using(id_matricula_componente)	"
 		+"	inner join ensino.situacao_matricula sit using(id_situacao_matricula)	"
-		+"	left join ensino.movimentacao_aluno mov using(id_discente)	"
+		+"	left join ensino.movimentacao_aluno mov on (mov.id_discente = d.id_discente) "
 		+"	left join ensino.tipo_movimentacao_aluno tmov using(id_tipo_movimentacao_aluno)	"
 		+"	where d.nivel in "+ gerarStringIn(NivelEnsino.getNiveisStricto())     
 		+"	and (mc.ano = "+ano+" or renov.ano = "+ano+")	"

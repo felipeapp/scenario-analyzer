@@ -40,7 +40,7 @@
 					renderPopupButtonAsImage="true" size="10" maxlength="10"
 					onkeypress="return formataData(this,event)" 
 					readonly="#{avisoProcessoSeletivoVestibular.readOnly}"
-					disabled="#{readOnly}"
+					disabled="#{avisoProcessoSeletivoVestibular.readOnly}"
 					value="#{avisoProcessoSeletivoVestibular.dataPublicacao}" />
 					as
 					<h:inputText value="#{avisoProcessoSeletivoVestibular.horaPublicacao}" maxlength="5" size="5" id="hora"

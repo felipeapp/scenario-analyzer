@@ -113,9 +113,11 @@ public class AtestadoMatriculaMedioMBean extends SigaaAbstractController<Discent
 	public void verificaAcesso() throws SegurancaException {
 		if (getUsuarioLogado().getDiscenteAtivo() == null) {
 			if (SigaaSubsistemas.MEDIO.equals(getSubSistema())) {
-				checkRole(new int[] { SigaaPapeis.COORDENADOR_MEDIO,
+				checkRole(new int[] { 
+						SigaaPapeis.COORDENADOR_MEDIO,
 						SigaaPapeis.GESTOR_MEDIO,
-						SigaaPapeis.SECRETARIA_MEDIO });
+						SigaaPapeis.SECRETARIA_MEDIO,
+						SigaaPapeis.PEDAGOGICO_MEDIO});
 			}
 		}
 	}

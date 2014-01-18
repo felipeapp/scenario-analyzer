@@ -89,6 +89,17 @@
 				Certificado de Consultoria
 			</html:link>
 		</div>
+		<h3> Auditoria de Projetos e Planos </h3>
+		
+		<div class="item auditoria">
+	 		<html:link action="/pesquisa/planoTrabalho/consulta?dispatch=buscarConsultor&popular=true&aba=iniciacao">Auditar Plano</html:link>
+		</div>
+		
+		<div class="item auditoria">
+	 		<h:commandLink value="Auditar Projeto" actionListener="#{pesquisaMBean.redirecionar}">
+				<f:param name="url" value="/pesquisa/projetoPesquisa/buscarProjetos.do?dispatch=consulta&popular=true&consulta=true" />
+			</h:commandLink>
+		</div>
 
 	</div>
 	</h:form>

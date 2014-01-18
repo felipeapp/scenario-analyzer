@@ -8,6 +8,8 @@
  */
 package br.ufrn.sigaa.arq.dao.projetos;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -22,6 +24,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Projections;
+import org.springframework.jdbc.core.RowMapper;
 
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.util.HibernateUtils;
@@ -29,6 +32,7 @@ import br.ufrn.comum.dominio.Papel;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.monitoria.dominio.ProjetoEnsino;
+import br.ufrn.sigaa.monitoria.dominio.StatusAvaliacao;
 import br.ufrn.sigaa.monitoria.dominio.TipoAvaliacaoMonitoria;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
@@ -159,7 +163,8 @@ public class MembroComissaoDao extends GenericSigaaDAO {
 	@SuppressWarnings("unchecked")
 	public Collection<MembroComissao> findByComissao(Integer papel) throws DAOException {
 
-		String projecao = "mc.id, mc.servidor.id, mc.servidor.siape, mc.servidor.pessoa.id, mc.servidor.pessoa.nome, mc.servidor.unidade.id, mc.servidor.unidade.nome, mc.papel, mc.dataInicioMandato, mc.dataFimMandato ";
+		String projecao = "mc.id, mc.servidor.id, mc.servidor.siape, mc.servidor.pessoa.id, mc.servidor.pessoa.nome, " +
+				"mc.servidor.unidade.id, mc.servidor.unidade.nome, mc.papel, mc.dataInicioMandato, mc.dataFimMandato ";
 		String hqlQuery = "select " + projecao + " from MembroComissao mc " +
 				"where mc.dataDesligamento is null and mc.ativo = trueValue() ";
 		
@@ -321,7 +326,41 @@ public class MembroComissaoDao extends GenericSigaaDAO {
 			.list();
 	}
 	
+	public List<MembroComissao> findMembrosAvaliadores(int idEdital) {
+		StringBuilder sql = new StringBuilder(
+			" select mc.id_membro_comissao, mc.id_servidor, mc.id_papel, s.id_pessoa, p.nome, " +
+			"  (" +
+				" select count(*)" +
+				" from extensao.avaliacao_atividade ava" +
+				" join extensao.atividade a on ( ava.id_atividade_extensao = a.id_atividade )" +
+				" where a.id_edital = ?" +
+				" and ava.id_membro_comissao = mc.id_membro_comissao" +
+				" and id_status_avaliacao = ?" +
+				" and ava.ativo = trueValue()" +
+			"  ) as total" +
+			" from monitoria.membro_comissao mc" +
+			" join rh.servidor s on ( mc.id_servidor = s.id_servidor )" +
+			" join comum.pessoa p on ( s.id_pessoa = p.id_pessoa )" +
+			" where ativo = trueValue()" +
+			" and mc.data_fim_mandato >= now()" +
+			" and mc.data_inicio_mandato <= now()" +
+			" and mc.data_desligamento is null" +
+			" order by mc.id_papel, total");
+			
+		@SuppressWarnings("unchecked")
+		List<MembroComissao> lista = getJdbcTemplate().query(sql.toString(), new Object[] { idEdital, StatusAvaliacao.AGUARDANDO_AVALIACAO }, new RowMapper() {
+			public Object mapRow(ResultSet rs, int row) throws SQLException {
+				MembroComissao membro = new MembroComissao();
+				membro.setId(rs.getInt("id_membro_comissao"));
+				membro.setServidor(new Servidor(rs.getInt("id_servidor")));
+				membro.setPapel(rs.getInt("id_papel"));
+				membro.getServidor().setPessoa(new Pessoa(rs.getInt("id_Pessoa")));
+				membro.getServidor().getPessoa().setNome(rs.getString("nome"));
+				membro.setQntAvaliacoes(rs.getInt("total"));
+				return membro;
+			}
+		});
+		return lista;
+	}
+	
 }
-
-
-

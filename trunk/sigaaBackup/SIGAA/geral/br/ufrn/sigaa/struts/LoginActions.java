@@ -347,35 +347,4 @@ public class LoginActions extends SigaaAbstractAction {
 			return mapping.findForward(FALHA);
 		}
 	}
-	
-	/**
-	 * Indica se o aluno possui solicitação de matrícula
-	 * 
-	 * @param solDao
-	 * @param vinculoUsuario
-	 * @return
-	 * @throws ArqException 
-	 */
-	private boolean isAlunoPossuiSolicitacaoMatricula(Discente discente, HttpServletRequest req) throws ArqException {
-		SolicitacaoMatriculaDao matDao = getDAO(SolicitacaoMatriculaDao.class, req);
-		try {
-			int count = matDao.countByDiscenteAnoPeriodo(discente, 
-					discente.getAnoIngresso(), 
-					discente.getPeriodoIngresso(), 
-					SolicitacaoMatricula.CADASTRADA, 
-					SolicitacaoMatricula.ORIENTADO, 
-					SolicitacaoMatricula.SUBMETIDA,
-					SolicitacaoMatricula.VISTO_EXPIRADO,
-					SolicitacaoMatricula.SOLICITADA_COORDENADOR,
-					SolicitacaoMatricula.VISTA);
-			
-			if (count == 0)
-				return false;
-			
-			return true;			
-		} finally {
-			matDao.close();
-		}
-	}	
-	
 }

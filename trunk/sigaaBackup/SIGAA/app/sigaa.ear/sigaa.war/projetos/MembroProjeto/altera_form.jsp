@@ -93,7 +93,7 @@
 				<tr>
 					<td colspan="2">
 						<h:commandButton id="btn_alterar" value="#{membroProjeto.confirmButton}" action="#{membroProjeto.alterarMembroEquipe}"/>
-						<h:commandButton id="btn_cancelar" value="Cancelar" action="#{membroProjeto.cancelar}" onclick="#{confirm}"/>
+						<h:commandButton id="btn_cancelar" value="Cancelar" action="#{membroProjeto.voltarLista}" onclick="#{confirm}"/>
 					</td>
 				</tr>
 			</tfoot>

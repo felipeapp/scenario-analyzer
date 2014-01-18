@@ -61,6 +61,11 @@
 							<h:commandLink id="meusDadosPessoais" action="#{ alteracaoDadosDiscente.iniciarAcessoDiscente}" value="Meus Dados Pessoais"/>
 						</h:form>
 					</li>
+					<h:panelGroup rendered="#{portalDiscente.redeUfrnAtiva}">
+					<li>
+						<a href="${ctx}/entrarSistema.do?sistema=alumini&url=/redesocial/associar_perfil/associar.jsf" >Cadastre-se no Alumini</a>
+					</li>
+					</h:panelGroup>
 				</ul>
 				<div class="clear"> </div>
 			</div>

@@ -19,7 +19,11 @@ import java.util.List;
 import br.ufrn.arq.dao.DAOFactory;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
+import br.ufrn.arq.erros.SegurancaException;
+import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.arq.util.UFRNUtils;
+import br.ufrn.comum.dominio.UsuarioGeral;
 import br.ufrn.sigaa.arq.dao.biblioteca.BibliotecaDao;
 import br.ufrn.sigaa.arq.dao.biblioteca.EmprestimoDao;
 import br.ufrn.sigaa.arq.dao.biblioteca.InterrupcaoBibliotecaDao;
@@ -163,6 +167,7 @@ public class CirculacaoUtil {
 			if(dao != null) dao.close();
 		}
 	}
+	
 	
 	
 	
@@ -476,110 +481,145 @@ public class CirculacaoUtil {
 	 * por cair em um final de semana, caso a biblioteca não trabalhe no final de semana,
 	 * em um feriado ou interrupção da biblioteca.
 	 * 
-	 * @param novasInterrupcoes - Ao adicionar uma interrupção de biblioteca, ela ainda não está no banco, 
-	 *    então precisa ser adicionada manualmente à lista de interrupções da biblioteca. (Só utilizado no caso de uso de cadastrar de novas interrupções)
+	 * @param interrupcoesFuturasBiblioteca - As interrupções futuras da biblioteca, inclusive as que estão sendo criadas no momento. (Só é passado no caso de uso de criar interrupção, dos outros caso de uso vem nulo)
 	 * @param e
+	 * @param bibliotecaMaterial, a biblioteca do material - pode ser mesmo a biblioteca do material ou a biblioteca para o qual o material foi movimentado.
 	 * @return
 	 * @throws DAOException 
 	 */
-	public static List <ProrrogacaoEmprestimo> geraProrrogacoesEmprestimo (Emprestimo e, List <InterrupcaoBiblioteca> novasInterrupcoes) throws DAOException{
+	public static List <ProrrogacaoEmprestimo> geraProrrogacoesEmprestimo (Emprestimo e, Biblioteca bibliotecaMaterial, List <InterrupcaoBiblioteca> interrupcoesFuturasBiblioteca) throws DAOException{
 
 		Calendar c = Calendar.getInstance();
-
-		//TurmaVirtualDao tDao = null;
-		InterrupcaoBibliotecaDao iBDao = null;
-
+		
 		// As prorrogaçoes geradas para o empréstimo.
 		List <ProrrogacaoEmprestimo> prorrogacoes = new ArrayList <ProrrogacaoEmprestimo> ();
 
-		try {
-			//tDao = DAOFactory.getInstance().getDAO(TurmaVirtualDao.class);
-			iBDao = DAOFactory.getInstance().getDAO(InterrupcaoBibliotecaDao.class);
+		ProrrogacaoEmprestimo p = null;
 
-			ProrrogacaoEmprestimo p = null;
+		boolean verificarNovamente = false;
 
-			//List <Date> feriados = tDao.findFeriados();
-			List <InterrupcaoBiblioteca> interrupcoesBiblioteca = iBDao.findInterrupcoesAtivasFuturasByBiblioteca(e.getMaterial().getBiblioteca());
+		/*
+		 * Caso não seja passada a lista de interrupções futuras, busca do banco!
+		 * 
+		 * A maioria dos casos de uso só busca 1 vez, então não há problemas, o caso de uso de cadastro de prorrogações pode 
+		 * buscar 3.000 a 10.000 vezes então é passado por fora para diminuir a quantidade de buscas. capiche! 
+		 * 
+		 */
+		if(interrupcoesFuturasBiblioteca == null){ 
+			InterrupcaoBibliotecaDao interrupcaoDao = null;
+			try{
+				interrupcaoDao = DAOFactory.getInstance().getDAO(InterrupcaoBibliotecaDao.class);
+				interrupcoesFuturasBiblioteca = interrupcaoDao.findInterrupcoesAtivasFuturasByBiblioteca(bibliotecaMaterial);
+			}finally{
+				if (interrupcaoDao != null) interrupcaoDao.close();
+			}
+		}
+		
+		// Se ocorrerem alterações no prazo, deve checar todas as condições novamente.
+		do {
+			verificarNovamente = false;
+			// Primeiramente, checa se o prazo cai no final de semana.
+			c.setTime(e.getPrazo());
 
-			/* Só utilizado no caso de uso de cadastrar de novas interrupções */
-			if (novasInterrupcoes != null)
-				interrupcoesBiblioteca.addAll(novasInterrupcoes);
+			// Se for um sábado e a biblioteca não trabalhar no sábado,
+			if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY && !e.getMaterial().getBiblioteca().isFuncionaSabado()){
+				p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.FIM_DE_SEMANA, e.getPrazo());
+				p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAnterior()));
 
-			boolean alterado = false;
+				c.setTime(p.getDataAtual());
 
-			// Se ocorrerem alterações no prazo, deve checar todas as condições novamente.
-			do {
-				alterado = false;
-				// Primeiramente, checa se o prazo cai no final de semana.
-				c.setTime(e.getPrazo());
+				// Adiantou para o domingo... se a biblioteca não trabalhar no domingo,
+				if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && !e.getMaterial().getBiblioteca().isFuncionaDomingo())
+					p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAtual()));
 
-				// Se for um sábado e a biblioteca não trabalhar no sábado,
-				if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY && !e.getMaterial().getBiblioteca().isFuncionaSabado()){
-					p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.FIM_DE_SEMANA, e.getPrazo());
+				// Atualiza o prazo do empréstimo.
+				e.setPrazo(p.getDataAtual());
+
+				// É um domingo e a biblioteca não trabalha no domingo,
+			} else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && !e.getMaterial().getBiblioteca().isFuncionaDomingo()){
+				p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.FIM_DE_SEMANA, e.getPrazo());
+				p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAnterior()));
+				e.setPrazo(p.getDataAtual());
+			}
+
+			// Adiciona esta prorrogação à lista de prorrogações.
+			if (p != null)
+				prorrogacoes.add(p);
+
+			// Checa se o prazo cai em uma interrupção da biblioteca.
+
+			for (InterrupcaoBiblioteca i : interrupcoesFuturasBiblioteca)
+				if (i.getData().equals(CalendarUtils.descartarHoras(e.getPrazo()))){
+					p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.INTERRUPCAO_BIBLIOTECA, e.getPrazo());
 					p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAnterior()));
-
-					c.setTime(p.getDataAtual());
-
-					// Adiantou para o domingo... se a biblioteca não trabalhar no domingo,
-					if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && !e.getMaterial().getBiblioteca().isFuncionaDomingo())
-						p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAtual()));
-
-					// Atualiza o prazo do empréstimo.
 					e.setPrazo(p.getDataAtual());
 
-					// É um domingo e a biblioteca não trabalha no domingo,
-				} else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && !e.getMaterial().getBiblioteca().isFuncionaDomingo()){
-					p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.FIM_DE_SEMANA, e.getPrazo());
-					p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAnterior()));
-					e.setPrazo(p.getDataAtual());
-				}
-
-				// Adiciona esta prorrogação à lista de prorrogações.
-				if (p != null)
 					prorrogacoes.add(p);
 
-				//////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// A checagem dos feriados no SIPAC não funciona pois se o feriado for cadastrado depois de empréstimo 
-				// o empréstimo não vai ser prorrogado.
-				////////////////////////////////////////////////////////////////////////////////////////////////////////
-				
-//				// Checa se o prazo cai em um feriado.
-//
-//				for (Date f : feriados)
-//					if (f.equals(CalendarUtils.zeraTempoDaData(e.getPrazo()))){
-//						p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.FERIADO, e.getPrazo());
-//						p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAnterior()));
-//						e.setPrazo(p.getDataAtual());
-//
-//						prorrogacoes.add(p);
-//
-//						alterado = true;
-//					}
+					verificarNovamente = true;
+				}
 
-				// Checa se o prazo cai em uma interrupção da biblioteca.
-
-				for (InterrupcaoBiblioteca i : interrupcoesBiblioteca)
-					if (i.getData().equals(CalendarUtils.descartarHoras(e.getPrazo()))){
-						p = new ProrrogacaoEmprestimo(e, TipoProrrogacaoEmprestimo.INTERRUPCAO_BIBLIOTECA, e.getPrazo());
-						p.setDataAtual(CalendarUtils.adicionaUmDia(p.getDataAnterior()));
-						e.setPrazo(p.getDataAtual());
-
-						prorrogacoes.add(p);
-
-						alterado = true;
-					}
-
-			} while (alterado);
-
-		} finally {
-//			if (tDao != null)
-//				tDao.close();
-
-			if (iBDao != null)
-				iBDao.close();
-		}
+		} while (verificarNovamente);
 
 		return prorrogacoes;
+	}
+	
+	
+	
+	
+	/**
+	 * <p> Calcula o próximo dia útil para o qual os empréstimos podem ser prorrogados </p>
+	 * 
+	 * @param daFimAtual - A data atual que os novos empréstimos vão ficar
+	 * @param biblioteca - A para a qual a interrupção vai ser cadastrada
+	 * @return
+	 * @throws DAOException 
+	 */
+	public static Date calculaProximoDiaUtilInterrupcao(Date dataFimAtual, Biblioteca biblioteca, List <InterrupcaoBiblioteca> interrupcoesFuturasBiblioteca) throws DAOException{
+
+		Calendar c = Calendar.getInstance(); // a data atual do empréstimo
+		c.setTime(dataFimAtual);
+		
+		boolean verificarNovamente = false;
+
+		do {
+			
+			verificarNovamente = false;
+			
+			/* ***************************************************************
+			 *  Primeiramente, checa se o prazo atual cai no final de semana
+			 ****************************************************************** */
+		
+			// Se for um sábado e a biblioteca não trabalhar no sábado, adianta para o domingo....
+			if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY && ! biblioteca.isFuncionaSabado()){
+				
+				c.setTime( CalendarUtils.adicionaUmDia(c.getTime() ) );
+
+				// se a biblioteca não trabalhar no domingo, adianta para a segunda-feira
+				if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && !biblioteca.isFuncionaDomingo())
+					c.setTime( CalendarUtils.adicionaUmDia(c.getTime() ) );
+
+				// Se for diretamente um domingo e a biblioteca não trabalha no domingo, adianta para a segunda-feira
+			} else if (c.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY && ! biblioteca.isFuncionaDomingo()){
+				c.setTime( CalendarUtils.adicionaUmDia(c.getTime() ) );
+			}
+
+			/* ***************************************************************
+			 *  Em segundo lugar, checa se o prazo atual cai em alguma outra interrupção que já existe.
+			 ****************************************************************** */
+
+			for (InterrupcaoBiblioteca interrupcaoFutura : interrupcoesFuturasBiblioteca){
+				if ( interrupcaoFutura.getData().equals( CalendarUtils.descartarHoras(c.getTime())) ){
+					c.setTime( CalendarUtils.adicionaUmDia(c.getTime() ) );
+					verificarNovamente = true;  // se ocorrerem alterações no prazo devido uma interrupção futura, deve-se checar todas as condições novamente.
+				}
+			}
+			
+		} while (verificarNovamente); // fica nisso eternamente até chegar a uma data disponível
+
+	
+
+		return c.getTime(); // retorna a data disponível
 	}
 	
 	

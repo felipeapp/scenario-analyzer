@@ -14,6 +14,7 @@ import br.ufrn.arq.dominio.MovimentoCadastro;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.ArqListaComando;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.prodocente.dao.CVLattesDao;
 import br.ufrn.sigaa.prodocente.lattes.dominio.PessoaLattes;
@@ -70,6 +71,12 @@ public class PessoaLattesMBean extends SigaaAbstractController<PessoaLattes> {
 	 * @throws ArqException
 	 */
 	public String confirmar() throws NegocioException, ArqException {
+		
+		ValidatorUtil.validaInt(obj.getAnoReferencia(), "Ano de Referência", true, erros);
+		
+		if(hasErrors()){
+			return null;
+		}
 		
 		obj.setPessoa(getUsuarioLogado().getPessoa());
 		obj.setServidor(getServidorUsuario());

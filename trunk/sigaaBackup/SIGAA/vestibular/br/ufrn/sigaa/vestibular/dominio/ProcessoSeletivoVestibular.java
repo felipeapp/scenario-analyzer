@@ -41,6 +41,7 @@ import br.ufrn.arq.negocio.validacao.Validatable;
 import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.arq.util.ReflectionUtils;
 import br.ufrn.comum.gru.dominio.ConfiguracaoGRU;
+import br.ufrn.sigaa.dominio.ModalidadeEducacao;
 import br.ufrn.sigaa.ensino.dominio.FormaIngresso;
 import br.ufrn.sigaa.ensino.graduacao.negocio.vestibular.EstrategiaConvocacaoCandidatosVestibular;
 import br.ufrn.sigaa.questionario.dominio.Questionario;
@@ -50,6 +51,10 @@ import br.ufrn.sigaa.questionario.dominio.Questionario;
  * 
  * @author Édipo Elder F. de Melo
  * 
+ */
+/**
+ * @author Édipo Elder F. de Melo
+ *
  */
 @Entity
 @Table(name = "processo_seletivo", schema = "vestibular", uniqueConstraints = {})
@@ -183,6 +188,11 @@ public class ProcessoSeletivoVestibular implements PersistDB, Validatable {
 	@Column(name="item_edital_argumento_inclusao")
 	private String itemEditalArgumentoInclusao;
 	
+	/** Modalidade de Educaçaõ deste Processo Seletivo (Presencial, EAD, etc.) */
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "id_modalidade_educacao", nullable=false)
+	private ModalidadeEducacao modalidadeEducacao;
+	
 	/** Classe que implementa a interface {@link EstrategiaConvocacaoCandidatosVestibular} e será utilizada para a convocação de candidatos aprovados. */ 
 	@Column(name = "classe_estrategia_convocacao")
 	private String classeEstrategiaConvocacao;
@@ -190,12 +200,12 @@ public class ProcessoSeletivoVestibular implements PersistDB, Validatable {
 	/** Implementação a interface {@link EstrategiaConvocacaoCandidatosVestibular} definido em {@link #classeEstrategiaConvocacao}. */
 	@Transient
 	private EstrategiaConvocacaoCandidatosVestibular estrategiaConvocacao;
-		
 	
 	/** Construtor padrão. */
 	public ProcessoSeletivoVestibular() {
 		formaIngresso = new FormaIngresso();
 		questionario = new Questionario();
+		modalidadeEducacao = new ModalidadeEducacao();
 		opcaoBeneficioInclusao = false;
 	}
 	
@@ -413,6 +423,7 @@ public class ProcessoSeletivoVestibular implements PersistDB, Validatable {
 		validateRequired(getNome(), "Nome do Processo Seletivo", lista);
 		validateRequired(getSigla(), "Sigla/Nome Abreviado", lista);
 		validateRequired(formaIngresso, "Forma de Ingresso", lista);
+		validateRequired(modalidadeEducacao, "Modalidade de Educação", lista);
 		if (ano < 1900 || !(periodo == 1 || periodo == 2)) {
 			lista.addErro("Ano/período de aplicação inválido");
 		}
@@ -691,6 +702,9 @@ public class ProcessoSeletivoVestibular implements PersistDB, Validatable {
 		return configuracaoGRU;
 	}
 
+	/** Define a Configuração da GRU utilizada. 
+	 * @param configuracaoGRU
+	 */
 	public void setConfiguracaoGRU(ConfiguracaoGRU configuracaoGRU) {
 		if (configuracaoGRU != null)
 			this.idConfiguracaoGRU = configuracaoGRU.getId();
@@ -719,6 +733,14 @@ public class ProcessoSeletivoVestibular implements PersistDB, Validatable {
 
 	public void setItemEditalArgumentoInclusao(String itemEditalArgumentoInclusao) {
 		this.itemEditalArgumentoInclusao = itemEditalArgumentoInclusao;
+	}
+
+	public ModalidadeEducacao getModalidadeEducacao() {
+		return modalidadeEducacao;
+	}
+
+	public void setModalidadeEducacao(ModalidadeEducacao modalidadeEducacao) {
+		this.modalidadeEducacao = modalidadeEducacao;
 	}
 
 	public String getClasseEstrategiaConvocacao() {

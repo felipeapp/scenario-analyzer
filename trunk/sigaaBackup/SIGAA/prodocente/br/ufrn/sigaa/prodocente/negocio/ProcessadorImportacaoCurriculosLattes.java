@@ -125,7 +125,8 @@ public class ProcessadorImportacaoCurriculosLattes extends AbstractProcessador {
 					cmov.setCodMovimento(SigaaListaComando.IMPORTAR_CURRICULO_LATTES);
 					cmov.setUsuarioLogado(new UsuarioGeral(UsuarioGeral.TIMER_SISTEMA));
 					
-					cmov.setAnoReferencia(null);
+					cmov.setAnoReferencia(pl.getAnoReferencia());
+					cmov.setImportarProducoesMaisRecentes(true);
 					
 					ProcessadorImportacaoLattes proc = new ProcessadorImportacaoLattes();
 					proc.execute(cmov);

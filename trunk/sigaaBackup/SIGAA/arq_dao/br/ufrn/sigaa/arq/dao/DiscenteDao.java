@@ -32,8 +32,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -43,6 +43,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import org.hibernate.transform.Transformers;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -1162,6 +1163,215 @@ public class DiscenteDao extends GenericSigaaDAO {
 	 * 
 	 */
 	private static final long LIMITE_RESULTADOS_MAXIMO = 5000;
+
+	/** Realiza uma busca otimizada por discente
+	 * @param cpf
+	 * @param matricula
+	 * @param nome
+	 * @param nomeCurso
+	 * @param cursos
+	 * @param statusValidos
+	 * @param tiposValidos
+	 * @param unidade
+	 * @param nivel
+	 * @param limitarResultados
+	 * @return
+	 * @throws DAOException
+	 * @throws LimiteResultadosException
+	 */
+	@SuppressWarnings("unchecked")
+	public Collection<? extends DiscenteAdapter> findOtimizadoPaginado(Long cpf,
+			Long matricula, String nome, String nomeCurso,
+			Integer tipoNecessidadEspecial, Collection<Curso> cursos,
+			int[] statusValidos, int[] tiposValidos, int unidade, char nivel,
+			boolean limitarResultados, PagingInformation paging)
+			throws DAOException, LimiteResultadosException {
+
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		String sql = "";
+		String sql2 = "";
+		String sqlCount = " SELECT COUNT(d.id_discente) as total";
+		String ordenador = "";
+
+		try {
+			con = Database.getInstance().getSigaaConnection();
+
+			sql += "SELECT d.id_discente as ID_DISCENTE, d.matricula as matricula, d.status as STATUS, d.nivel as NIVEL, d.tipo as TIPO, p.nome as nome_discente, "
+					+ "d.ano_ingresso as ANO_INGRESSO, d.periodo_ingresso as PERIODO_INGRESSO, d.id_curso as ID_CURSO, c.nome as nome_curso, mun_curso.nome as nome_mun_curso, "
+					+ "mod.id_modalidade_educacao as MODALIDADE, conv.id_convenio_academico as CONVENIO, conv.descricao as descricao_convenio ";
+
+			if (nivel == NivelEnsino.GRADUACAO) {
+				sql += " , dg.id_matriz_curricular as ID_MATRIZ_CURRICULAR, "
+						+ "dg.id_polo as ID_POLO, municipio_polo.nome as nome_municipio_polo, "
+						+ "hab.id_habilitacao as ID_HABILITACAO, hab.nome as nome_habilitacao, "
+						+ "tur.id_turno as ID_TURNO, tur.sigla as sigla_turno, "
+						+ "grau.id_grau_academico as ID_GRAU_ACADEMICO, grau.descricao as descricao_grau_academico";
+			}
+			if (nivel == NivelEnsino.STRICTO) {
+				sql += " , tc.descricao as nome_tipo_stricto, u.nome as gestora_academica ";
+			}
+			sql2 += " FROM comum.pessoa p , discente d left join curso c on d.id_curso = c.id_curso "
+					+ " left join comum.municipio as mun_curso on mun_curso.id_municipio = c.id_municipio"
+					+ " left join comum.modalidade_educacao mod on c.id_modalidade_educacao = mod.id_modalidade_educacao"
+					+ " left join ensino.convenio_academico conv on c.id_convenio = conv.id_convenio_academico ";
+			if (nivel == NivelEnsino.GRADUACAO) {
+				sql2 += " left join graduacao.discente_graduacao dg on d.id_discente = dg.id_discente_graduacao "
+						+ "left join graduacao.matriz_curricular matriz on matriz.id_matriz_curricular = dg.id_matriz_curricular "
+						+ "left join graduacao.habilitacao hab on hab.id_habilitacao = matriz.id_habilitacao "
+						+ "left join ensino.turno tur on tur.id_turno = matriz.id_turno "
+						+ "left join ensino.grau_academico as grau on grau.id_grau_academico = matriz.id_grau_academico "
+						+ "left join ead.polo pol on pol.id_polo = dg.id_polo "
+						+ "left join comum.municipio municipio_polo on municipio_polo.id_municipio = pol.id_cidade ";
+			}
+			if (nivel == NivelEnsino.STRICTO) {
+				sql2 += " left join stricto_sensu.tipo_curso_stricto tc on c.id_tipo_curso_stricto = tc.id_tipo_curso_stricto ";
+			}
+			sql2 += ", discente d2 left join comum.unidade u on d2.id_gestora_academica = u.id_unidade "
+					+ "WHERE d.id_discente = d2.id_discente and d.id_pessoa = p.id_pessoa ";
+
+			if (nivel != '0' && nivel != 'S' && nivel != ' ') {
+				sql2 += " AND d.nivel = '" + nivel + "'";
+			} else if (nivel == 'S') {
+				sql2 += " AND d.nivel in ('S', 'E', 'D') ";
+			}
+			if (unidade > 0) {
+				sql2 += " AND d.id_gestora_academica = " + unidade;
+			}
+			if (matricula != null) {
+				sql2 += " AND d.matricula = " + matricula;
+			}
+			if (nome != null) {
+				sql2 += " AND "
+						+ UFRNUtils.convertUtf8UpperLatin9("p.nome_ascii")
+						+ " like '"
+						+ UFRNUtils.trataAspasSimples(StringUtils.toAscii(nome
+								.toUpperCase())) + "%'";
+			}
+			if (nomeCurso != null) {
+				sql2 += " AND "
+						+ UFRNUtils.convertUtf8UpperLatin9("c.nome_ascii")
+						+ "like '"
+						+ UFRNUtils.trataAspasSimples(StringUtils
+								.toAscii(nomeCurso.toUpperCase())) + "%'";
+			}
+			if (cpf != null) {
+				sql2 += " AND p.cpf_cnpj = " + cpf;
+			}
+			if (tipoNecessidadEspecial != null) {
+
+				if (tipoNecessidadEspecial.intValue() == 0) {
+					sql2 += " AND p.id_tipo_necessidade_especial in (SELECT tne.id_tipo_necessidade_especial "
+							+ "FROM comum.tipo_necessidade_especial tne) ";
+
+				} else {
+					sql2 += " and p.id_tipo_necessidade_especial = "
+							+ tipoNecessidadEspecial.intValue();
+				}
+			}
+			if (cursos != null && !cursos.isEmpty()) {
+				sql2 += " AND c.id_curso IN " + gerarStringIn(cursos);
+			}
+			if (statusValidos != null && statusValidos.length != 0) {
+				sql2 += " AND d.status IN " + gerarStringIn(statusValidos);
+			}
+			if (tiposValidos != null && tiposValidos.length != 0) {
+				sql2 += " AND d.tipo IN " + gerarStringIn(tiposValidos);
+			}
+			ordenador += " ORDER BY ";
+			if (nivel == NivelEnsino.GRADUACAO) {
+				ordenador += " d.id_curso, dg.id_matriz_curricular, municipio_polo.nome, dg.id_polo, p.nome_ascii ";
+			} else {
+				ordenador += " d.id_curso, c.nome, p.nome_ascii";
+			}
+			
+			Query q = getSession().createSQLQuery(sql+sql2+ordenador).setResultTransformer(new AliasToEntityMapResultTransformer());
+			
+			if (paging != null && q != null) {
+				paging.setTotalRegistros(q.list().size());
+				q.setFirstResult(paging.getPaginaAtual()
+						* paging.getTamanhoPagina());
+				q.setMaxResults(paging.getTamanhoPagina());
+			}
+			
+			List<Map<String,Object>> mapaResultado = q.list();
+
+			Collection<DiscenteAdapter> discentes = new ArrayList<DiscenteAdapter>();
+			for (int i=0; i < mapaResultado.size(); i++) {
+				DiscenteAdapter discente = null;
+				if (nivel == NivelEnsino.GRADUACAO) {
+					discente = new DiscenteGraduacao();
+				} else {
+					discente = new Discente();
+				}
+
+				discente.setId((Integer) (mapaResultado.get(i).get(("id_discente"))));
+				if (mapaResultado.get(i).get("matricula") != null)
+					discente.setMatricula(((BigInteger)mapaResultado.get(i).get("matricula")).longValue());
+				discente.setStatus((Short) mapaResultado.get(i).get("status"));
+				discente.setAnoIngresso((Integer) mapaResultado.get(i).get("ano_ingresso"));
+				discente.setPeriodoIngresso((Integer) mapaResultado.get(i).get("periodo_ingresso"));
+				discente.setStatus((Short) mapaResultado.get(i).get("status"));
+				discente.setNivel((Character) mapaResultado.get(i).get("nivel"));
+				discente.setTipo((Integer) mapaResultado.get(i).get("tipo"));
+				discente.getPessoa().setNome((String) mapaResultado.get(i).get("nome_discente"));
+
+				discente.setCurso(new Curso());
+				if( mapaResultado.get(i).get("id_curso") != null){
+					discente.getCurso().setId((Integer) mapaResultado.get(i).get("id_curso"));
+					discente.getCurso().setNome((String) mapaResultado.get(i).get("nome_curso"));
+					discente.getCurso().setMunicipio(new Municipio());
+					discente.getCurso().getMunicipio().setNome((String) mapaResultado.get(i).get("nome_mun_curso"));
+					discente.getCurso().setModalidadeEducacao(new ModalidadeEducacao((Integer) mapaResultado.get(i).get("modalidade")));
+					if ((String) mapaResultado.get(i).get("id_convenio_academico") != null){
+						discente.getCurso().setConvenio(new ConvenioAcademico((Integer) mapaResultado.get(i).get("convenio")));
+						discente.getCurso().getConvenio().setDescricao((String) mapaResultado.get(i).get("descricao_convenio"));
+					}	
+				}	
+				if (nivel == NivelEnsino.GRADUACAO) {
+					DiscenteGraduacao dg = (DiscenteGraduacao) discente;
+					dg.getDiscente().setId(dg.getId());
+					if (mapaResultado.get(i).get("id_polo") != null) {
+						dg.setPolo(new Polo((Integer) mapaResultado.get(i).get("id_polo")));
+						dg.getPolo().setCidade(new Municipio());
+						dg.getPolo().getCidade().setNome((String) mapaResultado.get(i).get("nome_municipio_polo"));
+					}
+					MatrizCurricular matriz = new MatrizCurricular((Integer) mapaResultado.get(i).get("id_matriz_curricular"));
+					
+					if ((Integer) mapaResultado.get(i).get("id_habilitacao") != null) {
+						matriz.setHabilitacao(new Habilitacao((Integer) mapaResultado.get(i).get("id_habilitacao")));
+						matriz.getHabilitacao().setNome((String) mapaResultado.get(i).get("nome_habilitacao"));
+					}
+					if ((Integer) mapaResultado.get(i).get("id_turno") != null) {
+						matriz.setTurno(new Turno((Integer) mapaResultado.get(i).get("id_turno")));
+						matriz.getTurno().setSigla((String) mapaResultado.get(i).get("sigla_turno"));
+					}
+					if ((Integer) mapaResultado.get(i).get("id_grau_academico") != null) {
+						matriz.setGrauAcademico(new GrauAcademico((Integer) mapaResultado.get(i).get("id_grau_academico")));
+						matriz.getGrauAcademico().setDescricao((String) mapaResultado.get(i).get("descricao_grau_academico"));
+					}
+					dg.setMatrizCurricular(matriz);
+				}
+				if (nivel == NivelEnsino.STRICTO) {
+					if( mapaResultado.get(i).get("id_curso") != null){
+						discente.getCurso().setTipoCursoStricto(new TipoCursoStricto());
+						discente.getCurso().getTipoCursoStricto().setDescricao((String) mapaResultado.get(i).get("nome_tipo_stricto"));
+					}	
+					discente.setGestoraAcademica(new Unidade());
+					discente.getGestoraAcademica().setNome((String) mapaResultado.get(i).get("gestora_academica"));
+				}
+				discentes.add(discente);
+			
+			}
+			return discentes;
+		} catch (LimiteResultadosException e) {
+			throw e;
+		} finally {
+			Database.getInstance().close(con);
+		}
+	}
 
 	/** Realiza uma busca otimizada por discente
 	 * @param cpf
@@ -2759,7 +2969,7 @@ public class DiscenteDao extends GenericSigaaDAO {
 		hql.append("SELECT d ");
 		hql.append("FROM DiscenteTecnico d join d.discente dd ");
 		hql.append("WHERE dd.status = :ativo ");
-		hql.append("and d.turmaEntradaTecnico.estruturaCurricularTecnica.id = :idEstrutura");
+		hql.append("and d.estruturaCurricularTecnica.id = :idEstrutura");
 		Query q = getSession().createQuery(hql.toString());
 		q.setInteger("ativo", StatusDiscente.ATIVO);
 		q.setInteger("idEstrutura", ect.getId());

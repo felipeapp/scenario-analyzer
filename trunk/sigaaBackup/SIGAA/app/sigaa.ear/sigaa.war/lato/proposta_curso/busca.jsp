@@ -1,6 +1,7 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho.jsp"%>
 <%@include file="/WEB-INF/jsp/include/ajax_tags.jsp"%>
-
+<link href="/sigaa/css/listagem_lato.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">var J = jQuery.noConflict();</script>
 <script>
 function checkTodos() {
 	if ($('form:checkTodos').checked) {
@@ -11,6 +12,12 @@ function checkTodos() {
 		$('form:checkAreaConhecimento').checked = false;
 	}
 }
+
+function exibirOpcoes(proposta){
+	var proposta = 'proposta'+ proposta;
+	$(proposta).toggle();
+}
+
 </script>
 <f:view>
 <a4j:keepAlive beanName="buscaCursoLatoMBean" />
@@ -22,7 +29,8 @@ function checkTodos() {
 
 				<tr>
 					<td><h:selectBooleanCheckbox value="#{buscaCursoLatoMBean.filtroAno}" id="checkAno" styleClass="noborder" 
-						onclick="if ($('form:checkAno').checked) $('form:checkTodos').checked = false;"/></td>
+						onclick="if ($('form:checkAno').checked) $('form:checkTodos').checked = false;"/>
+					</td>
 					<td>
 						<label for="checkAno" onclick="$('form:checkAno').checked = !$('form:checkAno').checked;
 							if ($('form:checkAno').checked) $('form:checkTodos').checked = false;">
@@ -33,8 +41,33 @@ function checkTodos() {
 					    <h:inputText value="#{buscaCursoLatoMBean.ano}" id="anoProposta" size="5" maxlength="4" 
 					    	 onkeyup="return formatarInteiro(this);" onfocus="$('form:checkAno').checked = true;"/>
 					</td>
-				</tr>		
-			
+				</tr>	
+	    		<tr>
+	    			<td><h:selectBooleanCheckbox value="#{buscaCursoLatoMBean.filtroPeriodo}" id="checkPeriodo" styleClass="noborder" 
+						onclick="if ($('form:checkPeriodo').checked) $('form:checkTodos').checked = false;"/>
+					</td>
+					<td>
+						<label for="checkPeriodo" onclick="$('form:checkPeriodo').checked = !$('form:checkPeriodo').checked;
+							if ($('form:checkPeriodo').checked) $('form:checkTodos').checked = false;">
+							Período do Curso:
+						</label>
+					</td>
+	    		
+	    			<td>
+				    	 <t:inputCalendar value="#{buscaCursoLatoMBean.dataInicio}" id="DataInicio" size="10" maxlength="10" 
+	   						onkeypress="return(formatarMascara(this,event,'##/##/####'))" popupDateFormat="dd/MM/yyyy" 
+	   						renderAsPopup="true" renderPopupButtonAsImage="true" onchange="$('form:checkPeriodo').checked = true;">
+	     						<f:converter converterId="convertData"/>
+						</t:inputCalendar> 
+					 até
+				    	 <t:inputCalendar value="#{buscaCursoLatoMBean.dataFim}" id="DataFim" size="10" maxlength="10" 
+    						onkeypress="return(formatarMascara(this,event,'##/##/####'))" popupDateFormat="dd/MM/yyyy" 
+    						renderAsPopup="true" renderPopupButtonAsImage="true" onchange="$('form:checkPeriodo').checked = true;">
+      						<f:converter converterId="convertData"/>
+						</t:inputCalendar> 
+					</td>
+			    	
+	    		</tr>
 				<tr>
 					<td><h:selectBooleanCheckbox value="#{buscaCursoLatoMBean.filtroCoordenador}" id="checkCoordenador" styleClass="noborder"
 						onclick="if ($('form:checkCoordenador').checked) $('form:checkTodos').checked = false;" /></td>
@@ -59,6 +92,23 @@ function checkTodos() {
 					</td>
 				</tr>
 
+				<tr>
+					<td><h:selectBooleanCheckbox value="#{buscaCursoLatoMBean.filtroCodigo}" id="checkCodigo" styleClass="noborder" 
+					onclick="if ($('form:checkCodigo').checked) $('form:checkTodos').checked = false;"/></td>
+					<td>
+						<label for="checkCodigo" onclick="$('form:checkCodigo').checked = !$('form:checkCodigo').checked;
+							if ($('form:checkCodigo').checked) $('form:checkTodos').checked = false;">
+							Código do Curso:
+						</label>
+					</td>
+					 <td>
+					 	<h:inputText id="codigoCurso" value="#{ buscaCursoLatoMBean.codigoCurso }" onfocus="$('form:checkCodigo').checked = true;" maxlength="12"/>  
+					 	<ufrn:help img="/img/ajuda.gif">
+	    	     			Informe o código do Curso Lato. Ex.: PC001-2013
+	    	     		</ufrn:help>
+					</td>
+				 </tr>
+				 
 				<tr>
 				<td><h:selectBooleanCheckbox value="#{buscaCursoLatoMBean.filtroCurso}" id="checkCurso" styleClass="noborder" 
 					onclick="if ($('form:checkCurso').checked) $('form:checkTodos').checked = false;"/></td>
@@ -107,7 +157,7 @@ function checkTodos() {
 						</h:selectOneMenu>
 					</td>
 				</tr>
-
+				
 				<tr>
 					<td><h:selectBooleanCheckbox value="#{buscaCursoLatoMBean.filtroTodos}" id="checkTodos" styleClass="noborder" 
 						onclick="checkTodos()" onchange="checkTodos()"/></td>
@@ -130,20 +180,14 @@ function checkTodos() {
 		<br />
 
 		<c:if test="${not empty buscaCursoLatoMBean.listaCursoLato}">
-			
-			  <div class="infoAltRem">
-			 	<h:graphicImage value="/img/alterar.gif" style="overflow: visible;"/>: Alterar dados da Proposta &nbsp;
-	    		<h:graphicImage value="/img/delete.gif" style="overflow: visible;"/>: Remover Proposta &nbsp;
-	    		<h:graphicImage value="/img/trocar.gif" style="overflow: visible;"/>: Alterar Status da Proposta &nbsp; <br />
-				<h:graphicImage value="/img/listar.gif" style="overflow: visible;"/>: Ver Histórico &nbsp;
-				<h:graphicImage value="/img/buscar.gif" style="overflow: visible;"/>: Visualizar Proposta &nbsp;	    	
-				<h:graphicImage value="/img/seta.gif" style="overflow: visible;"/>: Cadastrar novo Curso &nbsp;
-			  </div>
-
+		<div class="infoAltRem">
+				<h:graphicImage value="/img/biblioteca/emprestimos_ativos.png" style="overflow: visible;" />: Visualizar Menu
+		</div>
 				<table class="listagem" id="lista-turmas">
 		 		  <caption>Proposta Encontradas (${ fn:length(buscaCursoLatoMBean.listaCursoLato) })</caption>
 					<thead>
 						<tr>
+						<td>Código</td>
 						<td>Curso</td>
 						<td>Coordenador</td>
 						<td>Status</td>
@@ -153,48 +197,81 @@ function checkTodos() {
 						</tr>
 					</thead>
 					<c:forEach items="#{buscaCursoLatoMBean.listaCursoLato}" var="item" varStatus="s">
-						<tr class="${s.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}">
+						<tr class="${s.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}" >
+							<td style="text-align: center;" nowrap="nowrap">
+								<c:if test="${ item.codigoLatoCompleto == null }">
+									--
+								</c:if>
+								
+								<c:if test="${ item.codigoLatoCompleto != null }">
+									${ item.codigoLatoCompleto  }
+								</c:if>
+												
+							</td>
 							<td>${item.nomeCurso }</td>
 							<td>${item.coordenador }</td>
-							<td>${item.situacao}</td>
+							<td>${item.situacao.descricao}</td>
 							<td>${item.areaConhecimento}</td>
 							<td><ufrn:format valor="${item.dataInicio}" type="data" /></td>
-							<td width="10">
-								<h:commandLink action="#{cursoLatoMBean.carregaObject}" >
-									<h:graphicImage value="/img/alterar.gif" style="overflow: visible;" title="Alterar Dados da Proposta"/>
-									<f:param name="id" value="#{item.idCurso}"/>
-								</h:commandLink>
+							<td style="text-align: right; width: 5%">
+								<img src="${ctx}/img/biblioteca/emprestimos_ativos.png" 
+									onclick="exibirOpcoes(${item.idCurso});" style="cursor: pointer" title="Visualizar Menu"/>
 							</td>
-							<td width="10">
-								<h:commandLink action="#{buscaCursoLatoMBean.remocao}" onclick="#{confirmDelete}">
-									<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover Proposta"/>
-									<f:param name="id" value="#{item.idCurso}"/>
-								</h:commandLink>
-							</td>						
-							<td width="10">
-								<h:commandLink action="#{cursoLatoMBean.preAlteracaoSituacaoProposta}">
-									<h:graphicImage value="/img/trocar.gif" style="overflow: visible;" title="Alterar Status da Proposta"/>
-									<f:param name="id" value="#{item.idCurso}"/>
-								</h:commandLink>
-							</td>						
-							<td width="10">
-								<h:commandLink action="#{cursoLatoMBean.verHistorico}">
-									<h:graphicImage value="/img/listar.gif" style="overflow: visible;" title="Ver Histórico"/>
-									<f:param name="id" value="#{item.idCurso}"/>
-								</h:commandLink>
-							</td>
-							<td width="10">
-								<h:commandLink action="#{cursoLatoMBean.visualizar}" >
-									<h:graphicImage value="/img/buscar.gif" style="overflow: visible;" title="Visualizar Proposta"/>
-									<f:param name="id" value="#{item.idCurso}"/>
-								</h:commandLink>
-							</td>					
-							<td width="10">
-								<h:commandLink action="#{cursoLatoMBean.cadastrarCursoBaseadoEmCursoAntigo}" >
-									<h:graphicImage value="/img/seta.gif" style="overflow: visible;" alt="Cadastrar novo Curso"/>
-									<f:param name="id" value="#{item.idCurso}"/>
-								</h:commandLink>
-							</td>					
+							
+						</tr>
+						<tr id="proposta${ item.idCurso }" class="${s.index % 2 == 0 ? 'linhaPar' : 'linhaImpar'}" style="display: none">
+							<td colspan="6">
+								<table>
+									<ul class="listaOpcoes">
+										<li id="alterarProposta">
+											<h:commandLink action="#{cursoLatoMBean.carregaObject}" title="Alterar Dados da Proposta">
+												<f:param name="id" value="#{item.idCurso}"/>
+												Alterar Dados da Proposta
+											</h:commandLink>
+										</li>
+										<li id="removerProposta">
+											<h:commandLink action="#{buscaCursoLatoMBean.remocao}" onclick="#{confirmDelete}"title="Remover Proposta">
+												<f:param name="id" value="#{item.idCurso}"/>
+												Remover Proposta
+											</h:commandLink>
+										</li>
+										<li id="alterarStatus">
+											<h:commandLink action="#{cursoLatoMBean.preAlteracaoSituacaoProposta}" title="Alterar Status da Proposta">
+												<f:param name="id" value="#{item.idCurso}"/>
+												Alterar Status da Proposta
+											</h:commandLink>
+										</li>
+										<li id="verHistorico">
+											<h:commandLink action="#{cursoLatoMBean.verHistorico}" title="Ver Histórico">
+												<f:param name="id" value="#{item.idCurso}"/>
+												Ver Histórico
+											</h:commandLink>
+										</li>
+										<li id="visualizarProposta">
+											<h:commandLink action="#{cursoLatoMBean.visualizar}" title="Visualizar Proposta">
+												<f:param name="id" value="#{item.idCurso}"/>
+												Visualizar Proposta
+											</h:commandLink>
+										</li>
+										<li id="cadastrarCurso">
+											<h:commandLink action="#{cursoLatoMBean.cadastrarCursoBaseadoEmCursoAntigo}" title="Cadastrar Novo Curso" >
+												<f:param name="id" value="#{item.idCurso}"/>
+												Cadastrar Novo Curso
+											</h:commandLink>
+										</li>
+										<c:if test="${item.propostaAprovada}">
+											<li id="cadastrarTurmaEntrada">
+												<h:commandLink action="#{turmaEntrada.preCadastrarTurmaEntrada}" title="Cadastrar Turma de Entrada" >
+													<f:param name="id" value="#{item.idCurso}"/>
+													Cadastrar Turma de Entrada
+												</h:commandLink>
+											</li>
+										</c:if>
+										<t:navigationMenuItem itemLabel="Cadastrar Turmas de Entrada"  />
+										<li style="clear: both; float: none; background-image: none;"></li>
+									</ul>
+								</table>
+							</td>	
 						</tr>
 					</c:forEach>
 				</table>

@@ -47,34 +47,20 @@
 		</tr>
 		<tr>
 			<th class="required">Data da Banca:</th>
-			<td colspan="3">
-				<table width="100%">
-					<tr>
-					<td>
-						<t:inputCalendar value="#{banca.obj.data}" title="Data da Banca"
-					size="10" maxlength="10" readonly="#{banca.readOnly}" popupDateFormat="dd/MM/yyyy"
-					onkeypress="return(formatarMascara(this,event,'##/##/####'))"
-					renderAsPopup="true" renderPopupButtonAsImage="true" id="dataBanca">
-					<f:converter converterId="convertData"/> </t:inputCalendar>
-					</td>
-					<th class="required" nowrap="nowrap" >Ano de Referência:</th>
-					<td>
-						 <h:selectOneMenu id="anoReferencia" value="#{banca.obj.anoReferencia}">
-						  <f:selectItem itemValue="" itemLabel="--SELECIONE--" />
-						  <f:selectItems value="#{producao.anosCadastrarAnoReferencia}" />
-   						 </h:selectOneMenu>
-					</td>
-					<th class="required" nowrap="nowrap">Data da Publicação:</th>
-					<td>
-						<t:inputCalendar value="#{banca.obj.dataProducao}" size="10" maxlength="10" readonly="#{banca.readOnly}" 
-								popupDateFormat="dd/MM/yyyy" onkeypress="return(formatarMascara(this,event,'##/##/####'))"
-								renderAsPopup="true" renderPopupButtonAsImage="true" id="dataProducao" title="Data da Publicação">
-							<f:converter converterId="convertData"/> 
-						</t:inputCalendar>
-					</td>								
-					</tr>
-				</table>
-			 </td>
+			<td>
+				<t:inputCalendar value="#{banca.obj.data}" title="Data da Banca"
+			size="10" maxlength="10" readonly="#{banca.readOnly}" popupDateFormat="dd/MM/yyyy"
+			onkeypress="return(formatarMascara(this,event,'##/##/####'))"
+			renderAsPopup="true" renderPopupButtonAsImage="true" id="dataBanca">
+			<f:converter converterId="convertData"/> </t:inputCalendar>
+			</td>
+			<th class="required" nowrap="nowrap" >Ano de Referência:</th>
+			<td>
+				 <h:selectOneMenu id="anoReferencia" value="#{banca.obj.anoReferencia}">
+				  <f:selectItem itemValue="" itemLabel="--SELECIONE--" />
+				  <f:selectItems value="#{producao.anosCadastrarAnoReferencia}" />
+ 						 </h:selectOneMenu>
+			</td>
 		</tr>
 		<tr>
 			<th valign="top">Examinado(s):</th>
@@ -146,15 +132,14 @@
 		</tr>
 
 		<tr>
-			<th class="required">Departamento:</th>
+			<th>Departamento:</th>
 			<td colspan="3"><h:selectOneMenu value="#{banca.obj.departamento.id}" id="departamento"
 				disabled="#{banca.readOnly}" disabledClass="#{banca.disableClass}">
+				<f:selectItem itemLabel="-- SELECIONE --" itemValue="0"/>
 				<f:selectItems value="#{unidade.allDepartamentoUnidAcademicaCombo}" />
 			</h:selectOneMenu></td>
 		</tr>
-		<tr>
-
-		</tr>
+		
 		<tr>
 			<th valign="top">Informações complementares:</th>
 			<td colspan="3">

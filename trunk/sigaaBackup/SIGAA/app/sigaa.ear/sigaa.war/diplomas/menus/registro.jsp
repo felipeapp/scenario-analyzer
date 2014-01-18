@@ -40,18 +40,22 @@
 		<ufrn:checkRole papeis="<%= new int[] {	SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO, SigaaPapeis.GESTOR_DIPLOMAS_LATO} %>">
 			<li> <h:commandLink action="#{registroDiplomaColetivo.preCadastrar}" value="Registrar Diploma Coletivo (Turma de Colação)"  onclick="setAba('registro')"/> </li>
 		</ufrn:checkRole>
-		<li> <h:commandLink action="#{buscaRegistroDiploma.iniciarBusca}" value="Buscar por Registros de Diplomas"  onclick="setAba('registro')"/> </li>
-		<li> <h:commandLink action="#{registroDiplomaColetivo.iniciarBusca}" value="Buscar por Registros de Diplomas Coletivo"  onclick="setAba('registro')"/> </li>
 		<li> <h:commandLink action="#{buscaRegistroDiploma.iniciarEditarObservacao}" value="Editar Observação do Registro de Diploma"  onclick="setAba('registro')"/> </li>
 		<c:if test="${acesso.administradorDAE}">
 			<li> <h:commandLink action="#{buscaRegistroDiploma.iniciarRemover}" value="Remover um Registro de Diploma"  onclick="setAba('registro')" /> </li>
 		</c:if>
+		</ul>
+	</li>
+	<li> Busca por Registro de Diplomas
+		<ul>
+		<li> <h:commandLink action="#{buscaRegistroDiploma.iniciarBusca}" value="Buscar por Registros de Diplomas"  onclick="setAba('registro')"/> </li>
+		<li> <h:commandLink action="#{registroDiplomaColetivo.iniciarBusca}" value="Buscar por Registros de Diplomas Coletivo"  onclick="setAba('registro')"/> </li>
 		<!-- <li>  Registro de Diplomas Externos (Indiponível) </li> -->
 		</ul>
 	</li>
 	<li> Cadastro de Registro de Diplomas Antigos
 		<ul>
-		<li> <h:commandLink action="#{registroDiplomaIndividual.preCadastrarRegistroAntigo}" value="Registro de Diploma Antigo"  onclick="setAba('registro')"/> </li>
+		<li> <h:commandLink action="#{registroDiplomaAntigoMBean.preCadastrar}" value="Registro de Diploma Antigo"  onclick="setAba('registro')"/> </li>
 		</ul>
 	</li>
 	<li> Impressão de Diplomas
@@ -73,5 +77,10 @@
 		</ul>
 	</li>
 	</ufrn:checkRole>
-	
+	<li>Curso
+		<ul>
+		<li> <h:commandLink value="Cadastrar" action="#{cursoGrad.preCadastrar}" onclick="setAba('registro')"/></li>
+		<li> <a href="${ctx}/graduacao/curso/lista.jsf?aba=registro">Buscar/Alterar </a></li>
+		</ul>
+	</li>
 </ul>

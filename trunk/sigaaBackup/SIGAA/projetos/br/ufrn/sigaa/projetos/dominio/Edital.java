@@ -49,6 +49,10 @@ public class Edital implements Validatable {
 	public static final char MONITORIA 		= 'M';
 	/** Atributo utilizado como constante para PESQUISA */
 	public static final char PESQUISA 		= 'P';
+	/** Atributo utilizado como constante quando é um edital de pesquisa de apoio a novos pesquisadores */
+	public static final char PESQUISA_NOVOS_PESQUISADORES 		= 'N';
+	/** Atributo utilizado como constante quando é um edital de pesquisa de apoio a grupos de pesquisa */
+	public static final char PESQUISA_GRUPOS_PESQUISA 		= 'G';
 	/** Atributo utilizado como constante para EXTENSAO */
 	public static final char EXTENSAO 		= 'E';
 	/** Atributo utilizado como constante para INOVACAO */
@@ -204,6 +208,11 @@ public class Edital implements Validatable {
 	    return tipo == MONITORIA;
 	}
 
+	public boolean isMonitoriaOuPAMQEG() {
+	    return tipo == MONITORIA || tipo == MONITORIA_EOU_INOVACAO
+	    		|| tipo == AMBOS_MONITORIA_E_INOVACAO;
+	}
+	
 	public boolean isExtensao() {
 	    return tipo == EXTENSAO;
 	}

@@ -48,9 +48,6 @@ public class ProcessadorSelecionarTurmaEntradaTecnico extends AbstractProcessado
 			// Configura a turma de entrada
 			dao.updateField(DiscenteTecnico.class, d.getId(), "turmaEntradaTecnico.id", t.getId());
 			
-			// Garante que a estrutura curricular do discente está correta
-			if (d.getEstruturaCurricularTecnica() == null)
-				dao.updateField(DiscenteTecnico.class, d.getId(), "estruturaCurricularTecnica.id", t.getEstruturaCurricularTecnica().getId());
 		} finally {
 			if (dao != null)
 				dao.close();

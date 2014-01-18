@@ -58,7 +58,7 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	@JoinColumn(name = "id_docente_turma")
 	private DocenteTurma docenteTurma;
 	
-	/** Turma de docência assistida ao qual esta resposta se refere-se. */
+	/** Turma de docência assistida ao qual esta resposta se refere. */
 	@ManyToOne  (fetch=FetchType.EAGER) 
 	@JoinColumn(name = "id_turma_docencia_assistida")
 	private TurmaDocenciaAssistida turmaDocenciaAssistida;
@@ -88,6 +88,11 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	/** Desvio padrão geral das notas em todas as perguntas da Avaliação Institucional. */
 	@Column(name="desvio_padrao_geral")
 	private Double desvioPadraoGeral;
+	
+	/** Formulário de avaliação ao qual este resultado refere-se. */
+	@ManyToOne  (fetch=FetchType.EAGER) 
+	@JoinColumn(name = "id_formulario_avaliacao")
+	private FormularioAvaliacaoInstitucional formularioAvaliacaoInstitucional;
 
 	/** Construtor padrão. */
 	public ResultadoAvaliacaoDocente() {
@@ -104,6 +109,7 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	/** Retorna a chave primária. 
 	 * @see br.ufrn.arq.dominio.PersistDB#getId()
 	 */
+	@Override
 	public int getId() {
 		return id;
 	}
@@ -111,6 +117,7 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	/** Seta a chave primária. 
 	 * @see br.ufrn.arq.dominio.PersistDB#setId(int)
 	 */
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -231,7 +238,7 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof ResultadoAvaliacaoDocente && obj != null)
+		if (obj != null && obj instanceof ResultadoAvaliacaoDocente)
 			return this.id == ((ResultadoAvaliacaoDocente )obj).getId();
 		else return false;
 	}
@@ -239,6 +246,7 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	/** Compara se este o nome do docente da turma é maior, menor ou igual ao do resultado informado.
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
+	@Override
 	public int compareTo(ResultadoAvaliacaoDocente o) {
 		int comparacao = this.getDocenteTurma().getDocenteNome().compareTo(o.getDocenteTurma().getDocenteNome());
 		if (comparacao == 0)
@@ -293,5 +301,14 @@ public class ResultadoAvaliacaoDocente implements PersistDB, Comparable<Resultad
 	public void setTurmaDocenciaAssistida(
 			TurmaDocenciaAssistida turmaDocenciaAssistida) {
 		this.turmaDocenciaAssistida = turmaDocenciaAssistida;
+	}
+
+	public FormularioAvaliacaoInstitucional getFormularioAvaliacaoInstitucional() {
+		return formularioAvaliacaoInstitucional;
+	}
+
+	public void setFormularioAvaliacaoInstitucional(
+			FormularioAvaliacaoInstitucional formularioAvaliacaoInstitucional) {
+		this.formularioAvaliacaoInstitucional = formularioAvaliacaoInstitucional;
 	}
 }

@@ -51,6 +51,8 @@ import br.ufrn.sigaa.ensino.dominio.TipoMovimentacaoAluno;
 import br.ufrn.sigaa.ensino.dominio.Turno;
 import br.ufrn.sigaa.ensino.graduacao.dominio.Curriculo;
 import br.ufrn.sigaa.ensino.graduacao.dominio.MatrizCurricular;
+import br.ufrn.sigaa.ensino.medio.dominio.DiscenteMedio;
+import br.ufrn.sigaa.ensino.medio.jsf.HistoricoMedioMBean;
 import br.ufrn.sigaa.ensino.tecnico.dominio.EspecializacaoTurmaEntrada;
 import br.ufrn.sigaa.ensino.tecnico.dominio.TurmaEntradaTecnico;
 import br.ufrn.sigaa.ensino.util.ParametrosBusca;
@@ -109,6 +111,20 @@ public class BuscaAvancadaDiscenteMBean extends SigaaAbstractController<Discente
 	 */
 	public String iniciarCoordGraduacao() {
 		niveis = new char[] { NivelEnsino.GRADUACAO };
+		return iniciar();
+	}
+	
+	/**
+	 * Inicia a busca para graduação setando os parâmetros que são particulares deste nível.<br/>
+	 * Método chamado pela seguinte JSP:
+	 * <ul>
+	 * 	<li>/sigaa.war/graduacao/menu_coordenador.jsp</li>
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public String iniciarMedio() {
+		niveis = new char[] { NivelEnsino.MEDIO };
 		return iniciar();
 	}
 	
@@ -396,7 +412,13 @@ public class BuscaAvancadaDiscenteMBean extends SigaaAbstractController<Discente
 		if (id == null) throw new NegocioException("Nenhum discente foi selecionado");
 		
 		Discente discente = getGenericDAO().findByPrimaryKey(id, Discente.class);
-		
+		// caso seja ensino médio, redireciona para o controller responsável
+		if (discente.isMedio()) {
+			DiscenteMedio discenteMedio = getGenericDAO().findByPrimaryKey(id, DiscenteMedio.class);
+			HistoricoMedioMBean mBean = getMBean("historicoMedio");
+			mBean.setDiscente(discenteMedio);
+			return mBean.selecionaDiscente();
+		}
 		HistoricoMBean historico = new HistoricoMBean();
 		historico.setDiscente(discente);
 		return historico.selecionaDiscente();

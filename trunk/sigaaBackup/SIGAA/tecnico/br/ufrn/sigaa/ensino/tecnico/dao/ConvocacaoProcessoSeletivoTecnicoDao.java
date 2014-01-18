@@ -132,6 +132,22 @@ public class ConvocacaoProcessoSeletivoTecnicoDao extends GenericSigaaDAO {
 		
 	}
 	
+	
+	/**
+	 * Procurar convocações que fazem parte de um processo seletivo informado
+	 * @param idPS
+	 * @return
+	 * @throws DAOException
+	 */
+	public Collection<ConvocacaoProcessoSeletivoTecnico> findByIdProcessoSeletivo (int idPS) throws DAOException {
+		
+			Criteria c = getSession().createCriteria(ConvocacaoProcessoSeletivoTecnico.class);
+			c.add(Restrictions.eq("processoSeletivo.id", idPS));
+			c.addOrder(Order.asc("dataConvocacao"));
+			return c.list();
+		
+	}
+	
 	/**
 	 * Retorna um mapa com o id da matriz curricular e seu respectivo número de vagas ociosas.
 	 * @param processoSeletivo

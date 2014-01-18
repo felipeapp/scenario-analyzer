@@ -449,7 +449,7 @@ public class PlanoDocenciaAssistidaMBean extends SigaaAbstractController<PlanoDo
 		prepareMovimento(comando);
 		setOperacaoAtiva(SigaaListaComando.ALTERAR_PLANO_DOCENCIA_ASSISTIDA.getId());
 		
-		if (ValidatorUtil.isEmpty(obj.getComponenteCurricular()) && !obj.getComponenteCurricular().isAtividade())
+		if (ValidatorUtil.isNotEmpty(obj.getComponenteCurricular()) && !obj.getComponenteCurricular().isAtividade())
 			carregaTurmas();
 		
 		return redirectForm();		

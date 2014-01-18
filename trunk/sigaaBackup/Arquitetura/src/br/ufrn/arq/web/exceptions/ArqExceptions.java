@@ -26,6 +26,7 @@ import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.erros.RuntimeNegocioException;
 import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.erros.TokenNaoValidadoException;
+import br.ufrn.arq.seguranca.log.LogExcecao;
 import br.ufrn.arq.web.conversation.ConversationNotActiveException;
 import br.ufrn.comum.dominio.Papel;
 
@@ -54,8 +55,10 @@ public class ArqExceptions extends ExceptionChain {
 		}
 		
 		if (e != null && e instanceof ArqException && "Usuário não logado".equals(((ArqException) e).getMessage())) {
-			if(device == null)
+			if(device == null) {
+				LogExcecao.logarErroSessao(req, e);
 				res.sendRedirect("/sigaa/expirada.jsp");
+			}
 			
 			return ExceptionHandlerResult.STOP;
 		}

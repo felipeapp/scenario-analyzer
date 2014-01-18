@@ -44,6 +44,7 @@ import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.arq.util.CollectionUtils;
+import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.comum.dominio.Sistema;
@@ -479,6 +480,7 @@ public class TurmaValidator {
 	 * @param turmas
 	 * @return
 	 */
+	@Deprecated
 	public static String validarChoqueHorariosSala(Collection<Turma> turmas){
 
 		ArrayList<Turma> comChoques = new ArrayList<Turma>(0);
@@ -656,25 +658,10 @@ public class TurmaValidator {
 	 * @return
 	 */
 	public static boolean validaMesmaPessoaDocenteTurma(DocenteTurma dtA,DocenteTurma dtB){
-		if (
-			(!isEmpty(dtA.getDocente()) && 
-				//(Servidor x Servidor)
-			   (!isEmpty(dtB.getDocente()) && dtA.getDocente().getPessoa().equals(dtB.getDocente().getPessoa())) ||
-			   //(Servidor x DocenteExterno)
-				(!isEmpty(dtB.getDocenteExterno()) && dtA.getDocente().getPessoa().equals(dtB.getDocenteExterno().getPessoa())))
-		|| 
-		    (!isEmpty(dtA.getDocenteExterno()) &&
-			   //(DocenteExterno x servidor)
-				(!isEmpty(dtB.getDocente()) && dtA.getDocenteExterno().getPessoa().equals(dtB.getDocente().getPessoa())) ||
-			   //(DocenteExterno x DocenteExterno)
-				(!isEmpty(dtB.getDocenteExterno()) && dtA.getDocenteExterno().getPessoa().equals(dtB.getDocenteExterno().getPessoa())))
-			){
-			return true;
-		}else
-			return false;
+		return EqualsUtil.testEquals(dtA, dtB, "docente", "docenteExterno");
 	}
 	
-	/**
+	/**InteresseAvaliarMBean
 	 * Validação invocada no momento que um docente é inserido numa turma 
 	 * @param turma a turma a ser validada o docente inserido
 	 * @param docenteTurma o docente inserido
@@ -804,52 +791,6 @@ public class TurmaValidator {
 				lista.addErro("Docente com essa CH não pode ser adicionado. A CH total excede à CH da disciplina da turma.");
 			}
 		}
-	}
-	
-	/**
-	 * Valida a porcentagem carga horária do docente em relação a máxima permitida pela turma ou se a CH informada é maior que a da disciplina.
-	 * A validação é feita para docentes de diferentes níveis de ensino exceto graduação.
-	 * 
-	 * @param turma
-	 * @param docenteTurma
-	 * @param permiteCHCompartilhada
-	 * @param lista
-	 * @throws DAOException 
-	 */
-	public static void validaPorcentagemCHDocente(Turma turma, DocenteTurma docenteTurma, boolean permiteCHCompartilhada, ListaMensagens lista,
-			boolean novoDocente, Integer grupo) throws DAOException {
-		
-		if ( docenteTurma.getPorcentagemChDedicada() == null )
-			lista.addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Carga Horária");
-		if ( docenteTurma.getPorcentagemChDedicada() != null && docenteTurma.getPorcentagemChDedicada() > 100 )
-			lista.addMensagem(MensagensArquitetura.VALOR_MENOR_IGUAL_A, "Carga Horária", 100);
-		if ( docenteTurma.getPorcentagemChDedicada() != null && docenteTurma.getPorcentagemChDedicada() <= 0)
-			lista.addMensagem(MensagensArquitetura.VALOR_MAIOR_IGUAL_A, "Carga Horária", 1);
-		
-		boolean permiteGrupo = turma.getDisciplina().getNumMaxDocentes() > 1;
-		
-		// Só faz verificação de CH se não for EAD
-		// ou se o componente curricular estiver setado para não ser verificar a carga horária
-		if (!permiteCHCompartilhada && !turma.isDistancia()) {
-			// valida se a adição da CH desse docente excede a CH máxima da turma
-			int totalAteAgora = 0;
-			for(DocenteTurma dt : turma.getDocentesTurmas()) {
-				if (dt.getPorcentagemChDedicada() != null)
-					if (grupo != null && grupo > 0)
-						totalAteAgora += dt.getGrupoDocente().equals(grupo) ? dt.getPorcentagemChDedicada() : 0;
-					else
-						totalAteAgora += dt.getPorcentagemChDedicada();
-			}
-			if (docenteTurma.getPorcentagemChDedicada() != null && novoDocente) {
-				if (totalAteAgora + docenteTurma.getPorcentagemChDedicada() > 100) {
-					lista.addErro("O docente "+ docenteTurma.getDocenteNome() +" não pode ser adicionado com essa CH. A porcentagem da CH total"+(permiteGrupo?"do Grupo "+grupo:"")+" excede 100%.");
-				}
-			} else {
-				if (totalAteAgora > 100) {
-					lista.addErro("Docente "+ docenteTurma.getDocenteNome() +" não pode ser adicionado com essa CH. A porcentagem da CH total"+(permiteGrupo?"do Grupo "+grupo:"")+" excede 100%.");
-				}
-			}
-		} 
 	}
 	
 	/**

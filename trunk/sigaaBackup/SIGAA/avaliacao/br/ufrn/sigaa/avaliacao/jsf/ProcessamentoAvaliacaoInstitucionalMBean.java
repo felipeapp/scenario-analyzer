@@ -401,6 +401,7 @@ public class ProcessamentoAvaliacaoInstitucionalMBean extends SigaaAbstractContr
 		validateRequired(obj.getFormulario(), "Formulário de Avaliação Institucional", lista);
 		validateRequired(obj.getPeriodo(), "Período", lista);
 		validateMinValue(obj.getNumMinAvaliacoes(), ParametroHelper.getInstance().getParametroInt(ParametrosAvaliacaoInstitucional.NUM_MINIMO_AVALIACOES_PROCESSAMENTO_DOCENTE), "Nº Mínimo de Avaliações por Docente", lista);
+		validateRequired(obj.getFormulario(), "Formulário de Avaliação", lista);
 		return lista.isEmpty();
 	}
 

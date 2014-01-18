@@ -43,6 +43,7 @@ import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.rh.dominio.Categoria;
 import br.ufrn.sigaa.arq.dao.DiscenteDao;
 import br.ufrn.sigaa.arq.dao.PessoaDao;
+import br.ufrn.sigaa.arq.dao.extensao.AtividadeExtensaoDao;
 import br.ufrn.sigaa.arq.dao.projetos.FuncaoMembroDao;
 import br.ufrn.sigaa.arq.dao.projetos.MembroProjetoDao;
 import br.ufrn.sigaa.arq.dao.projetos.ProjetoAssociadoDao;
@@ -50,7 +51,9 @@ import br.ufrn.sigaa.arq.dao.rh.ServidorDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.PessoaMov;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.extensao.dominio.AtividadeExtensao;
 import br.ufrn.sigaa.extensao.dominio.ParticipanteExterno;
+import br.ufrn.sigaa.extensao.jsf.AtividadeExtensaoMBean;
 import br.ufrn.sigaa.extensao.jsf.helper.DesignacaoFuncaoProjetoHelper;
 import br.ufrn.sigaa.mensagens.MensagensExtensao;
 import br.ufrn.sigaa.negocio.PessoaValidator;
@@ -186,6 +189,11 @@ public class MembroProjetoMBean extends SigaaAbstractController<MembroProjeto> {
 			obj = getGenericDAO().findByPrimaryKey(idMembro, MembroProjeto.class);
 			ListaMensagens mensagens = new ListaMensagens();
 			MembroProjetoValidator.validaRemoverMembroProjeto(obj, mensagens);
+			 // somente gestores de extensão ou pesquisa podem remover coordenadores
+ 			if ((!isUserInRole(SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.GESTOR_PESQUISA)) && (obj.isCoordenador())) {
+ 				mensagens.addErro("Coordenador(a) não pode ser removido.");
+ 				mensagens.addErro("Toda ação de acadêmica deve conter pelo menos um(a) coordenador(a).");
+ 			}
 			if (mensagens.isEmpty()) {
 				prepareMovimento(SigaaListaComando.REMOVER_MEMBRO_PROJETO_BASE);
 				setOperacaoAtiva(SigaaListaComando.REMOVER_MEMBRO_PROJETO_BASE.getId());
@@ -290,11 +298,14 @@ public class MembroProjetoMBean extends SigaaAbstractController<MembroProjeto> {
 			// somente gestores de extensão ou pesquisa podem remover coordenadores
 			if ((!isUserInRole(SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.GESTOR_PESQUISA)) && (membroEquipe.isCoordenador())) {
 				mensagens.addErro("Coordenador(a) não pode ser removido.");
-				mensagens.addErro("Toda ação de acadêmica deve conter pelo menos um(a) coordenador(a).");
+				mensagens.addErro("Toda ação acadêmica deve conter pelo menos um(a) coordenador(a).");
 			}
 
 		} else {
 			MembroProjetoValidator.validaAlteracaoMembroExtensao(membroEquipe, getDAO(MembroProjetoDao.class), mensagens);
+			if(membroEquipe.getId() == membroEquipe.getProjeto().getCoordenador().getId() && !membroEquipe.isCoordenador()
+					&& (!isUserInRole(SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.GESTOR_PESQUISA)))
+				mensagens.addErro("Toda ação acadêmica deve conter pelo menos um(a) coordenador(a).");
 		}
 
 		if (!mensagens.isEmpty()) {
@@ -393,7 +404,23 @@ public class MembroProjetoMBean extends SigaaAbstractController<MembroProjeto> {
 			
 			// Salva no banco o membro
 			salvarMembroEquipe(membroEquipe);
-			recarregarMembrosEquipe();				
+			recarregarMembrosEquipe();
+			
+			if ( membroEquipe.getProjeto().getTipoProjeto().isExtensao() ) {
+				AtividadeExtensaoDao dao = getDAO(AtividadeExtensaoDao.class);
+				try {
+					AtividadeExtensao ativ = dao.findAcaoByProjeto(membroEquipe.getProjeto().getId());
+					AtividadeExtensaoMBean mBean = getMBean("atividadeExtensao");
+					getCurrentRequest().setAttribute("existeAcao", true);
+					mBean.setObj(ativ);
+					addMensagemWarning("É necessário cadastrar uma objetivo para o membro adicionado para que o mesmo apresente carga " +
+							" horária na emissão do certificado e/ou declaração.");
+					return mBean.iniciarCadastroAtividadeObjetivo();
+				} catch (Exception e) {
+					dao.close();
+				}
+			} 
+			
 			return forward(getParameter("lista_origem"));
 		} catch (Exception e) {
 			notifyError(e);
@@ -884,8 +911,12 @@ public class MembroProjetoMBean extends SigaaAbstractController<MembroProjeto> {
 	 * @return
 	 */
 	public String voltarLista() {
-		String listPage = super.getListPage();
-		return forward(listPage);
+		String listaOrigem = getParameter("lista_origem");
+		getCurrentRequest().setAttribute("listaOrigem",	getParameter("lista_origem"));
+		if(listaOrigem == null || listaOrigem.isEmpty()){
+			listaOrigem = super.getListPage();
+		}
+		return forward(listaOrigem);
 	}
 	
 	public Servidor getDocente() {
@@ -991,6 +1022,25 @@ public class MembroProjetoMBean extends SigaaAbstractController<MembroProjeto> {
 		membrosProjetos = getGenericDAO().findAtivosByExactField(MembroProjeto.class, "projeto.id", projeto.getId(), "pessoa", "asc");
 	}
 
+	/**
+	 * Lista todos os membros de equipes de extensão da ação selecionada.
+	 * 
+	 * @return
+	 * @throws DAOException
+	 * @throws SegurancaException
+	 */
+	public String listarMeusProjetoPesquisa() throws DAOException, SegurancaException {
+		MembroProjetoDao dao = null;
+		try {
+			dao = getDAO(MembroProjetoDao.class);
+			membrosProjetos = dao.findMembrosByPessoa(getUsuarioLogado().getPessoa().getId(), TipoProjeto.PESQUISA);
+		} finally {
+			if (dao!=null) dao.close();
+		}
+		
+		return forward("/projetos/MembroProjeto/projetos_que_participo.jsp"); 
+	}
+	
 	/**
 	 * Método utilizado para preparar a alteração compulsória do coordenador de uma proposta
 	 * de ação acadêmica associada.
@@ -1247,8 +1297,8 @@ public class MembroProjetoMBean extends SigaaAbstractController<MembroProjeto> {
 	 */
 	public List<Discente> autoCompleteNomeDiscente(Object event) throws DAOException{
 		String nome = event.toString();
-		if ( projeto.getTipoProjeto().getId() == TipoProjeto.PESQUISA && projeto.isInterno() )
-				return (List<Discente>) getDAO(DiscenteDao.class).findByNome(nome, 0, new char[]{ NivelEnsino.MESTRADO, NivelEnsino.DOUTORADO }, null, false, true, new PagingInformation());		 
+		if ( projeto.getTipoProjeto().getId() == TipoProjeto.PESQUISA && !projeto.isInterno() )
+				return (List<Discente>) getDAO(DiscenteDao.class).findByNome(nome, 0, new char[]{ NivelEnsino.MESTRADO, NivelEnsino.DOUTORADO, NivelEnsino.RESIDENCIA }, null, false, true, new PagingInformation());		 
 		return (List<Discente>) getDAO(DiscenteDao.class).findByNome(nome, 0, ' ', new PagingInformation());		 
 	}
 	

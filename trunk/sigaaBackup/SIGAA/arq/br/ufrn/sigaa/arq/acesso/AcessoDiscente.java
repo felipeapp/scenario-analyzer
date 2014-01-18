@@ -15,8 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.seguranca.SigaaSubsistemas;
 import br.ufrn.sigaa.arq.dao.graduacao.OrientacaoAcademicaDao;
+import br.ufrn.sigaa.arq.dao.sae.RenovacaoBolsaAuxilioDao;
+import br.ufrn.sigaa.assistencia.dao.AnoPeriodoReferenciaSAEDao;
+import br.ufrn.sigaa.assistencia.dominio.AnoPeriodoReferenciaSAE;
 import br.ufrn.sigaa.avaliacao.dominio.CalendarioAvaliacao;
 import br.ufrn.sigaa.avaliacao.negocio.AvaliacaoInstitucionalHelper;
+import br.ufrn.sigaa.dominio.CalendarioAcademico;
 import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.ead.dominio.TutorOrientador;
 import br.ufrn.sigaa.ead.negocio.EADHelper;
@@ -24,6 +28,7 @@ import br.ufrn.sigaa.ensino.dao.NotificacaoAcademicaDao;
 import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
 import br.ufrn.sigaa.ensino.graduacao.dominio.DiscenteGraduacao;
 import br.ufrn.sigaa.ensino.graduacao.dominio.OrientacaoAcademica;
+import br.ufrn.sigaa.ensino.negocio.CalendarioAcademicoHelper;
 import br.ufrn.sigaa.extensao.dao.QuestionarioProjetoExtensaoDao;
 
 /**
@@ -58,6 +63,8 @@ public class AcessoDiscente extends AcessoMenuExecutor {
 
 		QuestionarioProjetoExtensaoDao questDao = getDAO(QuestionarioProjetoExtensaoDao.class, req);
 		NotificacaoAcademicaDao notificacaoDao = getDAO(NotificacaoAcademicaDao.class, req);
+		RenovacaoBolsaAuxilioDao dao = getDAO(RenovacaoBolsaAuxilioDao.class, req);
+		AnoPeriodoReferenciaSAEDao anoPeriodoRefDao = getDAO(AnoPeriodoReferenciaSAEDao.class, req);
 		
 		try {
 			usuario.setNivelEnsino(usuario.getDiscenteAtivo().getNivel());
@@ -71,6 +78,13 @@ public class AcessoDiscente extends AcessoMenuExecutor {
 	
 			Boolean pendenteQuestionarioExtensao = questDao.haQuestionarioNaoRespondido(dados.getUsuario().getPessoa());
 			dados.setPendenteQuestionarioExtensao(pendenteQuestionarioExtensao);
+
+			CalendarioAcademico cal = CalendarioAcademicoHelper.getCalendario(dados.getUsuario());
+			AnoPeriodoReferenciaSAE anoPeriodoRef = anoPeriodoRefDao.anoPeriodoVigente();
+			Boolean totalBolsaPassivelRenovacao = dao.countAllBolsaPassivelRenovacao(
+					dados.getUsuario().getDiscente().getId(), anoPeriodoRef);
+			Boolean jaRespondido = dao.jaRespondido(dados.getUsuario().getDiscente(), anoPeriodoRef.getAno(), anoPeriodoRef.getPeriodo());
+			dados.setPendenteRenovacaoBolsaAuxilio( cal.isPeriodoMatriculaRegular() && totalBolsaPassivelRenovacao && !jaRespondido );
 
 			/** SETANDO TUTOR ORIENTADOR */
 			if (usuario.getDiscenteAtivo().getCurso() != null && usuario.getDiscenteAtivo().getCurso().isADistancia()) {

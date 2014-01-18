@@ -17,8 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.poi.hssf.record.CustomField;
-import org.apache.velocity.runtime.parser.node.GetExecutor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -177,7 +175,9 @@ public class BancaMBean	extends	AbstractControllerProdocente<Banca> {
 		if (!obj.getPais().isBrasil()) {
 			obj.setMunicipio(null);
 		}
-		
+		obj.setDataProducao(obj.getData());
+		if(obj.getDepartamento() != null && obj.getDepartamento().getId() == 0)
+			obj.setDepartamento(null);
 		super.beforeCadastrarAfterValidate();
 	}
 	
@@ -247,7 +247,6 @@ public class BancaMBean	extends	AbstractControllerProdocente<Banca> {
 		 obj.setDataCadastro(new Date());
 		 obj.getInstituicao().setNome(InstituicoesEnsino.NOME_UFRN);
 		 obj.getInstituicao().setId(InstituicoesEnsino.UFRN);
-		 obj.getDepartamento().setId(getUsuarioLogado().getServidorAtivo().getUnidade().getId());
 	 }
 
 	/**

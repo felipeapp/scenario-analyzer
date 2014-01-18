@@ -57,6 +57,12 @@ public class SituacaoBolsaAuxilio implements PersistDB {
 	 */
 	public static final int BOLSA_FINALIZADA = ParametroHelper.getInstance().getParametroInt(ConstantesParametro.BOLSA_FINALIZADA );
 	
+	/**
+	 * Bolsa solicitada Atualização
+	 */
+	public static final int BOLSA_SOLICITADA_RENOVACAO = ParametroHelper.getInstance().getParametroInt(ConstantesParametro.BOLSA_SOLICITADA_RENOVACAO );
+
+
 	/** Atributo identificador do objeto responsável pelo controle das possíveis situações de bolsa auxílio.*/
 	@Id
 	@GeneratedValue(generator="seqGenerator")

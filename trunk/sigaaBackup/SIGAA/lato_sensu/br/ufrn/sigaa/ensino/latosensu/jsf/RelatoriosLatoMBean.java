@@ -9,6 +9,7 @@
 package br.ufrn.sigaa.ensino.latosensu.jsf;
 
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
+import static br.ufrn.arq.util.ValidatorUtil.validateMinValue;
 import static br.ufrn.arq.util.ValidatorUtil.validateRequiredId;
 
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class RelatoriosLatoMBean extends SigaaAbstractController<Object> {
 	public final String REL_RELATORIO_ENTRADA_ANO = "/lato/relatorios/entradas_ano_sintetico.jsp";
 	/** JSP do relatório de alunos por curso. */ 
 	public final String REL_RELATORIO_ALUNO_CURSO = "/lato/relatorios/alunos_curso_sintetico.jsp";
+	/** JSP do relatório de alunos por curso detalhado. */ 
 	public final String REL_RELATORIO_ALUNO_CURSO_DET = "/lato/relatorios/alunos_curso_sintetico_detalhado.jsp";
 	/** JSP do relatório de cursos por centro. */
 	public final String REL_RELATORIO_CURSO_CENTRO = "/lato/relatorios/cursos_centro_sintetico.jsp";
@@ -131,6 +133,7 @@ public class RelatoriosLatoMBean extends SigaaAbstractController<Object> {
 	private Map<Unidade, LinhaRelatorioSinteticoCursosCentro> relatorioCursoCentro;
 	/** Lista com as datas de vencimentos das GRUs da mensalidade do curso. */
 	private List<String> dataVencimentos;
+	/** Dados do relatório sintético de alunos do curso. */
 	private LinhaRelatorioSinteticoAlunosCurso detalhesCursoLato;
 	
 	/**
@@ -377,15 +380,19 @@ public class RelatoriosLatoMBean extends SigaaAbstractController<Object> {
 	 */
 	public String gerarRelatorioAndamentoCursos() throws LimiteResultadosException {
 		CursoLatoDao dao = getDAO(CursoLatoDao.class);
-		
+		validateMinValue(anoInicial, 1900, "Ano Inicial", erros);
+		validateMinValue(ano, 1900, "Ano Final", erros);
+		if (anoInicial > 0 && ano > 0 && anoInicial > ano) 
+			addMensagemErro("O Ano Inicial não pode ser posterior ao Ano Final.");
+		if (hasErrors()) return null;
 		try {
-			cursosLato = dao.findAndamentoCursoLato(anoInicial, ano);
+			lista = dao.findAndamentoCursoLato(anoInicial, ano);
 		} catch (Exception e) {
 			addMensagemErro(e.getMessage());
 			return null;
 		}
 		
-		if ( cursosLato == null || cursosLato.isEmpty() ) {
+		if ( isEmpty(lista) ) {
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 			return null;
 		}
@@ -503,7 +510,11 @@ public class RelatoriosLatoMBean extends SigaaAbstractController<Object> {
 	
 	/**
 	 * Exibe os detalhes do curso
-	 * 
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 *	<ul>
+	 *		<li>sigaa.war/lato/relatorios/alunos_curso_sintetico.jsp</li>
+	 *	</ul>
 	 * @return
 	 * @throws DAOException
 	 */
@@ -521,6 +532,15 @@ public class RelatoriosLatoMBean extends SigaaAbstractController<Object> {
 		return forward(REL_RELATORIO_ALUNO_CURSO_DET);
 	}
 	
+	/** Exibe os detalhes do curso por centro.
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 *	<ul>
+	 *		<li>sigaa.war/lato/relatorios/cursos_centro_sintetico.jsp</li>
+	 *	</ul>
+	 * @return
+	 * @throws DAOException
+	 */
 	public String detalharCentroCursoSintetico() throws DAOException {
 		
 		Integer id = getParameterInt("id");

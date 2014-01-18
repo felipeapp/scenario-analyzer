@@ -24,6 +24,7 @@ import br.ufrn.sigaa.arq.dao.pesquisa.ResumoCongressoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
 import br.ufrn.sigaa.pesquisa.dominio.AutorResumoCongresso;
+import br.ufrn.sigaa.pesquisa.dominio.AvaliacaoResumo;
 import br.ufrn.sigaa.pesquisa.dominio.CongressoIniciacaoCientifica;
 import br.ufrn.sigaa.pesquisa.dominio.HistoricoResumoCongresso;
 import br.ufrn.sigaa.pesquisa.dominio.ResumoCongresso;
@@ -144,23 +145,51 @@ public class ProcessadorResumoCongresso extends AbstractProcessador {
 			
 			ResumoCongresso resumo = (ResumoCongresso) mov;
 			GenericDAO dao = getGenericDAO(mov);
-			dao.updateField(ResumoCongresso.class, resumo.getId(), "status", ResumoCongresso.SUBMETIDO);
-			dao.close();
+			try {
+				resumo.setStatus(ResumoCongresso.APROVADO);
+				dao.updateField(ResumoCongresso.class, resumo.getId(), "status", resumo.getStatus());
+				if ( resumo.getIdAvaliacao() != null && resumo.getIdAvaliacao() > 0 )
+					dao.updateField(AvaliacaoResumo.class, resumo.getIdAvaliacao(), "parecer", resumo.getCorrecao());
+				HistoricoResumoCongresso historico = gerarEntradaHistorico(resumo, mov);
+				dao.create(historico);
+			} finally {
+				dao.close();
+			}
 			
 		} else if (SigaaListaComando.RECUSAR_RESUMO_CONGRESSO_IC.equals(mov.getCodMovimento())) {
 			
 			ResumoCongresso resumo = (ResumoCongresso) mov;
 			GenericDAO dao = getGenericDAO(mov);
-			dao.updateField(ResumoCongresso.class, resumo.getId(), "status", ResumoCongresso.NAO_AUTORIZADO);
-			dao.close();
+			try {
+				resumo.setStatus(ResumoCongresso.NAO_AUTORIZADO);
+				dao.updateField(ResumoCongresso.class, resumo.getId(), "status", resumo.getStatus());
+				if ( resumo.getIdAvaliacao() != null && resumo.getIdAvaliacao() > 0 )
+					dao.updateField(AvaliacaoResumo.class, resumo.getIdAvaliacao(), "parecer", resumo.getCorrecao());
+				HistoricoResumoCongresso historico = gerarEntradaHistorico(resumo, mov);
+				dao.create(historico);
+			} finally {
+				dao.close();
+			}
 
 		} else if (SigaaListaComando.RECUSADO_NECESSITA_CORRECOES.equals(mov.getCodMovimento())) {
 		
 			ResumoCongresso resumo = (ResumoCongresso) mov;
 			GenericDAO dao = getGenericDAO(mov);
-			dao.updateFields(ResumoCongresso.class, resumo.getId(), new String[]{"status", "correcao"}, 
-					new Object[]{ResumoCongresso.RECUSADO_NECESSITA_CORRECOES, resumo.getCorrecao()});
-			dao.close();
+			try {
+				resumo.setStatus(ResumoCongresso.RECUSADO_NECESSITA_CORRECOES);
+				if ( resumo.getIdAvaliacao() != null && resumo.getIdAvaliacao() > 0 ) {
+					dao.updateField(ResumoCongresso.class, resumo.getId(), "status", resumo.getStatus());
+					dao.updateField(AvaliacaoResumo.class, resumo.getIdAvaliacao(), "parecer", resumo.getCorrecao());
+				} else {
+					dao.updateFields(ResumoCongresso.class, resumo.getId(), new String[]{"status", "correcao"}, 
+							new Object[]{resumo.getStatus(), resumo.getCorrecao()});
+				}
+				HistoricoResumoCongresso historico = gerarEntradaHistorico(resumo, mov);
+				dao.create(historico);
+			} finally {
+				dao.close();
+			}
+
 		}
 		
 		return mov;

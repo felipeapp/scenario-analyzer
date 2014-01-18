@@ -26,13 +26,22 @@ import br.ufrn.sigaa.dominio.InstituicoesEnsino;
  */
 public class ProgramaRedeDao extends GenericSigaaDAO  {
 
+	/**
+	 * Retorna as instituições associadas ao programa de ensino em rede. 
+	 *  
+	 * @param idPrograma
+	 * @return
+	 * @throws HibernateException
+	 * @throws DAOException
+	 */
 	@SuppressWarnings("unchecked")
 	public List<InstituicoesEnsino> findInstituicoesByPrograma ( int idPrograma ) throws HibernateException, DAOException{
 		
 		String hql = " select distinct i from DadosCursoRede d " +
 					 " join d.campus c " +
 					 " join c.instituicao i " +
-					 " where d.programaRede.id = " + idPrograma;
+					 " where d.programaRede.id = " + idPrograma+
+					 " order by i.sigla, i.nome ";
 		
 		Query q = getSession().createQuery(hql.toString());
 		List<InstituicoesEnsino> result = q.list();

@@ -31,7 +31,7 @@
 				<label onclick="buscarDiscentePor('buscaAjaxGraduacao')">Graduação</label>
 			</td>
 		</c:if>
-		<c:if test="${ not empty hideResidente }">
+		<c:if test="${ not empty showResidente }">
 			<td width="5%">
 				<input type="radio" name="nivelAjaxDiscente" onclick="buscarDiscentePor('buscaAjaxResidente')" value="R" id="buscaAjaxResidente" class="noborder">
 			</td>

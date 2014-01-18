@@ -62,4 +62,9 @@ public abstract class TipoVinculoAbstract implements TipoVinculo {
 		return false;
 	}
 	
+	@Override
+	public boolean isTutorIMD() {
+		return false;		
+	}
+	
 }

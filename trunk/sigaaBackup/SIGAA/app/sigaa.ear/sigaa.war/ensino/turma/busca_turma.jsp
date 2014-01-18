@@ -476,7 +476,7 @@
 				<li id="btnEnviarEmail">
 					<h:commandLink styleClass="noborder" title="Enviar Email" action="#{envioEmailTurma.selecionarTurma}" id="enviarEmail">
 						<f:param name="id" value="#{t.id}" />
-						Enviar Email
+						Enviar E-mail
 					</h:commandLink>
 				</li>
 			</sigaa:permissaoOperarTurma>

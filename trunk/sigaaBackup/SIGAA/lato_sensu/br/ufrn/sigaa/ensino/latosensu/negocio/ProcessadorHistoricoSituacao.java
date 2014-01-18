@@ -11,6 +11,7 @@ package br.ufrn.sigaa.ensino.latosensu.negocio;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.context.ApplicationContext;
 
@@ -67,9 +68,16 @@ public class ProcessadorHistoricoSituacao extends AbstractProcessador {
 		/*
 		 * Realiza criação do projeto de curso e concurso referente ao curso lato da proposta especificada.
 		 */
-		if(proposta.isSituacao(new int[]{SituacaoProposta.ACEITA}))
+		if(proposta.isSituacao(new int[]{SituacaoProposta.ACEITA})){
 			criarProjetoCursoConcurso((MovimentoCadastro) mov, proposta);
-
+			/*atualiza a data de inicio mandato dos coordenadores para que eles possam acessar o portal coordenação*/
+			@SuppressWarnings("unchecked")
+			Collection<CoordenacaoCurso>  coordenacaoAtual = (Collection<CoordenacaoCurso> )((MovimentoCadastro) mov).getObjAuxiliar();
+			for(CoordenacaoCurso coordenadorAtual:coordenacaoAtual){
+				if(coordenadorAtual != null && coordenadorAtual.getId() > 0 && coordenadorAtual.getDataInicioMandato().after(new Date()))
+					dao.updateField(CoordenacaoCurso.class, coordenadorAtual.getId(), "dataInicioMandato", new Date());
+			}
+		}
 		return historico;
 	}
 

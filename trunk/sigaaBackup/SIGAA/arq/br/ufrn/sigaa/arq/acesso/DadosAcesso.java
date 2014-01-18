@@ -34,7 +34,7 @@ public class DadosAcesso {
 	/** Constante textual para indicar que o acesso está negado. */
 	private final String classOff = "off";
 
-	/** Usuário referente à estes dados de acesso.*/
+	/** Usuário referente à estes dados de acesso. */
 	private final Usuario usuario;
 
 	/** Total de sistemas que o usuário tem acesso. */
@@ -46,120 +46,166 @@ public class DadosAcesso {
 	/** Armazena informaçãoes sobre os Módulos que tem acesso */
 	protected Set<DadosSubsistemaPrincipal> dadosSubsistemaPrincipal = new HashSet<DadosSubsistemaPrincipal>();
 
-	/** Atributo que identifica se o usuário tem a permissão para abrir chamados ou não */
+	/**
+	 * Atributo que identifica se o usuário tem a permissão para abrir chamados
+	 * ou não
+	 */
 	protected boolean abrirChamado;
-	
+
 	/** Indica se o usuário tem nível de acesso se administrador dos sistemas. */
 	protected boolean administradorSistema;
 
 	/** Indica se o usuário tem nível de acesso ao módulo de Ensino Médio. */
 	protected boolean medio;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Ensino Infantil. */
 	protected boolean infantil;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Ensino Técnico. */
 	protected boolean tecnico;
-	
-	/** Indica se o usuário tem nível de acesso ao módulo de Escolas Acadêmicas Especializadas. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso ao módulo de Escolas Acadêmicas
+	 * Especializadas.
+	 */
 	protected boolean formacaoComplementar;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Monitoria. */
 	protected boolean monitoria;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Pesquisa. */
 	protected boolean pesquisa;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Extensão. */
 	protected boolean extensao;
 
-	/** Indica se o usuário tem nível de acesso ao módulo de Ações Acadêmicas Associadas. */
+	/**
+	 * Indica se o usuário tem nível de acesso ao módulo de Ações Acadêmicas
+	 * Associadas.
+	 */
 	protected boolean acoesAssociadas;
 
 	/** Indica se o usuário tem nível de acesso ao módulo de Lato Sensu. */
 	protected boolean lato;
-	
+
 	/** Indica se o usuário tem nível de acesso ao portal do discente. */
 	protected boolean discente;
-	
-	/** Indica se o usuário tem nível de acesso ao portal do discente, como discente no nível médio. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso ao portal do discente, como
+	 * discente no nível médio.
+	 */
 	protected boolean discenteMedio;
-	
+
+	/** Indica se o usuário é discente do IMD */
+	protected boolean discenteIMD;
+
 	/** Indica se o usuário tem nível de acesso ao portal do docente. */
 	protected boolean docente;
-	
+
 	/** Indica se o usuário tem nível de acesso para o prodocente. */
 	protected boolean prodocente;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Graduação. */
 	protected boolean graduacao;
-	
+
 	/** Indica se o usuário tem nível de acesso ao módulo de Stricto Sensu. */
 	protected boolean stricto;
-	
+
 	/** Indica se o usuário tem nível de acesso ao SIPAC. */
 	protected boolean sipac;
-	
+
 	/** Indica se o usuário tem nível de acesso ao SIGRH. */
 	protected boolean sigrh;
-	
+
 	/** Indica se o usuário tem nível de acesso ao SIGPP. */
 	protected boolean sigpp;
-	
-	/** Indica se o usuário tem nível de acesso ao módulo de Ensino à Distância - EAD. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso ao módulo de Ensino à Distância -
+	 * EAD.
+	 */
 	protected boolean ead;
-	
-	/** Indica se o usuário tem nível de acesso ao módulo do Complexo Hospitalar. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso ao módulo do Complexo Hospitalar.
+	 */
 	protected boolean complexoHospitalar;
-	
+
 	/** Indica se o usuário tem nível de acesso de Gestor Complexo Hospitalar. */
 	protected boolean gestorComplexoHospitalar;
-	
+
 	/** Indica se o usuário tem nível de acesso de Gestor Residência Médica. */
 	protected boolean gestorResidenciaMedica;
 
-	/** Indica se o usuário tem nível de acesso às operações de Coordenação de um Programa de Residência Médica. */
+	/**
+	 * Indica se o usuário tem nível de acesso às operações de Coordenação de um
+	 * Programa de Residência Médica.
+	 */
 	protected boolean coordenadorResidenciaMedica;
 
 	/** Indica se o usuário é docente da UFRN. */
 	protected boolean docenteUFRN;
-	
-	/** Indica se o usuário tem nível de acesso se administrador dos Stricto Sensu. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso se administrador dos Stricto
+	 * Sensu.
+	 */
 	protected boolean administradorStricto;
-	
-	
+
 	/** Indica se o usuário tem nível de acesso de Gestor do PAP. */
 	protected boolean programaAtualizacaoPedagogica;
 
-	/** Indica se o usuário tem nível de acesso ao módulo de tradução de documentos. */
+	/**
+	 * Indica se o usuário tem nível de acesso ao módulo de tradução de
+	 * documentos.
+	 */
 	protected boolean relacoesInternacionais;
-	
+
 	// graduação
-	/** Indica se o usuário tem nível de acesso às operações de Coordenação Didático-Pedagógica - CDP. */
+	/**
+	 * Indica se o usuário tem nível de acesso às operações de Coordenação
+	 * Didático-Pedagógica - CDP.
+	 */
 	protected boolean cdp;
 
-	/** Indica se o usuário tem nível de acesso às operações de administrador Departamento de Administração Escolar - DAE. */
+	/**
+	 * Indica se o usuário tem nível de acesso às operações de administrador
+	 * Departamento de Administração Escolar - DAE.
+	 */
 	protected boolean administradorDAE;
 
-	/** Indica se o usuário tem nível de acesso às operações do Departamento de Administração Escolar - DAE. */
+	/**
+	 * Indica se o usuário tem nível de acesso às operações do Departamento de
+	 * Administração Escolar - DAE.
+	 */
 	protected boolean dae;
 
-	/** Indica se o usuário tem nível de acesso às operações da Secretaria de Assuntos Estudantis - SAE. */
+	/**
+	 * Indica se o usuário tem nível de acesso às operações da Secretaria de
+	 * Assuntos Estudantis - SAE.
+	 */
 	protected boolean sae;
-	
+
 	/** Indica se o usuário tem nível de acesso às operações da Ouvidoria. */
 	protected boolean ouvidoria;
 
-	/** Indica se o usuário tem nível de acesso às operações da PRÓ-REITORIA DE PÓS-GRADUAÇÃO - PPG. */
+	/**
+	 * Indica se o usuário tem nível de acesso às operações da PRÓ-REITORIA DE
+	 * PÓS-GRADUAÇÃO - PPG.
+	 */
 	protected boolean ppg;
-	
-	/** Indica se o usuário é um membros da Coordenação de Apoio Técnico-Pedagógico da Docência Assistida (CATP),
-	 * permitindo realizar operações de Planos de Docência Assistida - PPG. */
-	protected boolean membroApoioDocenciaAssistida;	
+
+	/**
+	 * Indica se o usuário é um membros da Coordenação de Apoio
+	 * Técnico-Pedagógico da Docência Assistida (CATP), permitindo realizar
+	 * operações de Planos de Docência Assistida - PPG.
+	 */
+	protected boolean membroApoioDocenciaAssistida;
 
 	/** Indica se o usuário tem nível de acesso às operações do Vestibular. */
 	protected boolean vestibular;
-	
+
 	/** Indica se o usuário tem nível de acesso às operações do Nee. */
 	protected boolean nee;
 
@@ -169,55 +215,82 @@ public class DadosAcesso {
 
 	/** Indica se o usuário tem nível de acesso de Chefe de Departamento. */
 	protected boolean chefeDepartamento;
-	
+
 	/** Indica se o usuário tem nível de acesso de Diretor de Centro. */
 	protected boolean diretorCentro;
-	
+
 	/** Indica se o usuário tem nível de acesso de Chefe de Unidade. */
 	protected boolean chefeUnidade;
 
-	/** Indica se o usuário tem nível de acesso coordenador de Pólo de Ensino à Distância - EAD. */
+	/**
+	 * Indica se o usuário tem nível de acesso coordenador de Pólo de Ensino à
+	 * Distância - EAD.
+	 */
 	protected boolean coordenadorPolo;
-	
-	/** Indica se o usuário tem nível de acesso tutor de Ensino à Distância - EAD. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso tutor de Ensino à Distância -
+	 * EAD.
+	 */
 	protected boolean tutorEad;
 
-	/** Indica se o usuário tem nível de acesso de Coordenador de Curso de Graduação. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Coordenador de Curso de
+	 * Graduação.
+	 */
 	protected boolean coordenadorCursoGrad;
-	
+
 	/** Indica se o usuário tem nível de acesso de Coordenador de Estágio. */
 	protected boolean coordenadorEstagio;
-	
-	/** Indica se o usuário tem nível de acesso de Coordenador de Curso de Ensino à Distância - EAD. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Coordenador de Curso de Ensino
+	 * à Distância - EAD.
+	 */
 	protected boolean cursoEad;
 
-	/** Coordenação geral de todos os cursos de probasica, quando o usuário tem o papel GESTOR_PROBASICA. */
+	/**
+	 * Coordenação geral de todos os cursos de probasica, quando o usuário tem o
+	 * papel GESTOR_PROBASICA.
+	 */
 	protected boolean coordenacaoProbasica;
 
-	/** Indica se o usuário tem nível de acesso de Secretário de Curso de Graduação. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Secretário de Curso de
+	 * Graduação.
+	 */
 	protected boolean secretarioGraduacao;
-	
+
 	/** Indica se o usuário tem nível de acesso de Secretário de Departamento. */
 	protected boolean secretarioDepartamento;
-	
+
 	/** Indica se o usuário tem nível de acesso de Secretário de Centro. */
 	protected boolean secretarioCentro;
-	
-	/** Indica se o usuário tem nível de acesso de Secretário de Curso de Lato Sensu. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Secretário de Curso de Lato
+	 * Sensu.
+	 */
 	protected boolean secretarioLato;
-	
+
 	/** Indica se o usuário tem nível de acesso de Secretário de Técnico. */
 	protected boolean secretarioTecnico;
-	
+
 	/** Indica se o usuário tem nível de acesso de Secretário de Médio. */
 	protected boolean secretarioMedio;
 
-	/** Indica se o usuário tem nível de acesso de Coordenador de Curso de Stricto Sensu. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Coordenador de Curso de
+	 * Stricto Sensu.
+	 */
 	protected boolean coordenadorCursoStricto;
 
-	/** Indica se o usuário tem nível de acesso de Coordenador de Curso de Lato Sensu. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Coordenador de Curso de Lato
+	 * Sensu.
+	 */
 	protected boolean coordenadorCursoLato;
-	
+
 	/** Indica se o usuário tem nível de acesso de Coordenador de Curso Técnico. */
 	protected boolean coordenadorCursoTecnico;
 
@@ -226,58 +299,90 @@ public class DadosAcesso {
 
 	/** Indica se o usuário tem nível de acesso de Coordenador de Monitoria. */
 	protected boolean coordenadorMonitoria;
-	
-	/** Indica se o usuário tem nível de acesso de Membro da Comissão de Monitoria. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Membro da Comissão de
+	 * Monitoria.
+	 */
 	protected boolean comissaoMonitoria;
-	
-	/** Indica se o usuário tem nível de acesso de Membro de Comissão Científica de Monitoria. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Membro de Comissão Científica
+	 * de Monitoria.
+	 */
 	protected boolean comissaoCientificaMonitoria;
-	
-	/** Indica se o usuário tem nível de acesso de Autoria de Projetos de Monitoria. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Autoria de Projetos de
+	 * Monitoria.
+	 */
 	protected boolean autorProjetoMonitoria;
-	
-	/** Indica se o usuário tem nível de acesso de Solicitante de Projeto de Ensino. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Solicitante de Projeto de
+	 * Ensino.
+	 */
 	protected boolean solicitanteProjetoEnsino;
 
 	/** Indica se o usuário tem nível de acesso de Comissão de Pesquisa. */
 	protected boolean comissaoPesquisa;
-	
+
 	/** Indica se o usuário tem nível de acesso de Comissão de Extensão. */
 	protected boolean comissaoExtensao;
 
-	/** Indica se o usuário tem nível de acesso de Comissão Integrada de Ensino, Pesquisa e Extensão. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Comissão Integrada de Ensino,
+	 * Pesquisa e Extensão.
+	 */
 	protected boolean comissaoIntegrada;
-	
+
 	/** Indica se o usuário tem nível de acesso de Paceiro de Extensão. */
 	protected boolean pareceristaExtensao;
-	
-	/** Indica se o usuário tem nível de acesso de Avaliador de Ações Acadêmicas Associadas. */
-	protected boolean avaliadorAcoesAssociadas;	
-	
-	/** Indica se o usuário tem nível de acesso de Presidente de Comitê  de Extensão. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Avaliador de Ações Acadêmicas
+	 * Associadas.
+	 */
+	protected boolean avaliadorAcoesAssociadas;
+
+	/**
+	 * Indica se o usuário tem nível de acesso de Presidente de Comitê de
+	 * Extensão.
+	 */
 	protected boolean presidenteComiteExtensao;
 
-	/** Indica se o usuário tem nível de acesso de Coordenador de Projeto de Extensão. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Coordenador de Projeto de
+	 * Extensão.
+	 */
 	protected boolean coordenadorExtensao;
 
-	/** Indica se o usuário tem nível de acesso de Coordenador de Projeto de Pesquisa. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Coordenador de Projeto de
+	 * Pesquisa.
+	 */
 	protected boolean coordPesquisa;
 
 	/** Indica se o usuário tem nível de acesso de Orientador Acadêmico. */
 	protected boolean orientadorAcademico;
-	
+
 	/** Indica se o usuário tem nível de acesso de Orientador de Stricto Sensu. */
 	protected boolean orientadorStricto;
-	
-	/** Indica se o usuário tem nível de acesso de CoOrientador de Stricto Sensu. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso de CoOrientador de Stricto Sensu.
+	 */
 	protected boolean coOrientadorStricto;
 
-	/** Indica se o usuário tem nível de acesso de Gestor de Unidade Especializada. */
+	/**
+	 * Indica se o usuário tem nível de acesso de Gestor de Unidade
+	 * Especializada.
+	 */
 	protected boolean unidadeEspecializada;
 
 	/** Indica se o usuário tem nível de acesso de Consulta à alunos. */
 	protected boolean consulta;
-	
+
 	/** Indica se o usuário tem nível de acesso ao Portal de Planejamento. */
 	protected boolean planejamento;
 
@@ -289,14 +394,17 @@ public class DadosAcesso {
 
 	/** Quantidade de orientações acadêmicas do orientador acadêmico. */
 	protected int orientacoesAcademicas;
-	
+
 	/** Quantidade de orientações do orientador stricto. */
 	protected int orientacoesStricto;
-	
+
 	/** Quantidade de orientações do orientador stricto. */
 	protected int coOrientacoesStricto;
 
-	/** Coleção de programas, quando um usuário é secretário de mais de um programa. */
+	/**
+	 * Coleção de programas, quando um usuário é secretário de mais de um
+	 * programa.
+	 */
 	protected Collection<Unidade> programas;
 
 	/** Indica que o usuário possui múltiplos vínculos. */
@@ -314,70 +422,120 @@ public class DadosAcesso {
 	/** Indica que o docente está apto para preencher a Avaliação Institucional. */
 	protected boolean docenteAptoAvaliacaoInstitucional;
 
-	/** Indica que o discente está apto para preencher a Avaliação Institucional. */
+	/**
+	 * Indica que o discente está apto para preencher a Avaliação Institucional.
+	 */
 	protected boolean discenteAptoAvaliacaoInstitucional;
 
-	/** Indica que o usuário tem permissão para usar o módulo da biblioteca. Setado no AcessoBiblioteca e lido na página itens_menu_principal.jsp */
-	protected boolean moduloBiblioteca; 
+	/**
+	 * Indica que o usuário tem permissão para usar o módulo da biblioteca.
+	 * Setado no AcessoBiblioteca e lido na página itens_menu_principal.jsp
+	 */
+	protected boolean moduloBiblioteca;
 
-	/** Indica que o usuário tem permissão para usar o módulo de registro de diplomas. */
+	/**
+	 * Indica que o usuário tem permissão para usar o módulo de registro de
+	 * diplomas.
+	 */
 	protected boolean moduloDiploma;
-	
-	/** Indica que o usuário tem permissão para usar o módulo de Convênios de Estágio. */
+
+	/**
+	 * Indica que o usuário tem permissão para usar o módulo de Convênios de
+	 * Estágio.
+	 */
 	protected boolean moduloConvenioEstagio;
-	
+
 	/** Indica que o usuário é gestor de espaço físico. */
 	protected boolean espacoFisico;
-	
-	/** Biblioteca ao qual o usuário é vinculado.
-	 * Ele so vai poder realizar algumas operações se pertencer a um biblioteca, e só pode pertencer a uma biblioteca.
+
+	/**
+	 * Biblioteca ao qual o usuário é vinculado. Ele so vai poder realizar
+	 * algumas operações se pertencer a um biblioteca, e só pode pertencer a uma
+	 * biblioteca.
 	 */
 	protected Biblioteca biblioteca;
-	
+
 	/** Indica se o usuário tem nível de acesso ao Portal da Avaliação. */
 	protected boolean avaliacao;
 
 	/** Indica se o usuário tem plano de reposição de aula Pendente. */
 	protected boolean pendentePlanoResposicao;
-	
-	/** Indica se o usuário tem nível de acesso às operações dos Ambientes Virtuais. */
+
+	/**
+	 * Indica se o usuário tem nível de acesso às operações dos Ambientes
+	 * Virtuais.
+	 */
 	protected boolean ambientesVirtuais;
-	
+
 	/** Indica se o usuário tem nível de acesso ao Portal de Relatórios. */
 	protected boolean relatorios;
-	
+
 	/** Indica se o usuário tem nível de acesso ao . */
 	protected boolean portalConcedenteEstagio;
-	
+
 	/** Indica se o usuário tem nível de acesso ao Portal do Familiar. */
-	protected boolean portalFamiliar;		
-	
+	protected boolean portalFamiliar;
+
 	/** Coleção de programas de residências médica que o coordenador coordena */
 	protected Collection<Unidade> residencias;
-	
+
 	/** Verifica se o modo acessibilidade está ativo */
 	protected Boolean acessibilidade;
-	
+
 	/** Indica se o usuário possui notificação acadêmica Pendente. */
 	protected boolean pendenteNotificacaoAcademica;
-	
-	/** Indica se o usuário está pendente quanto ao envio de relatórios parcial/final(EXTENSÃO)*/
+
+	/**
+	 * Indica se o usuário está pendente quanto ao envio de relatórios
+	 * parcial/final(EXTENSÃO)
+	 */
 	protected boolean pendenteRelatoriosExtensao = false;
-	
-	/** Indica se o usuário está pendente quanto ao envio de questionário de Extensão */
+
+	/**
+	 * Indica se o usuário está pendente quanto ao envio de questionário de
+	 * Extensão
+	 */
 	protected boolean pendenteQuestionarioExtensao = false;
 
-	/** Indica se o usuário tem somente permissao de acesso a Consultas no módulo de Ensino Médio ou no módulo de Ensino Técnico. */
+	/**
+	 * Indica se o usuário está pendente quanto ao envio de questionário de
+	 * Extensão
+	 */
+	protected boolean pendenteRenovacaoBolsaAuxilio = false;
+
+	/**
+	 * Indica se o usuário tem somente permissao de acesso a Consultas no módulo
+	 * de Ensino Médio ou no módulo de Ensino Técnico.
+	 */
 	protected boolean pedagogico;
+
+	/** Acesso ao módulo do IMD */
+	protected boolean metropoleDigital;
+
+	/** Acesso se o usuário é Tutor do IMD */
+	protected boolean tutorIMD;
 	
-	/** Construtor parametrizado.
+	/** Acesso se o usuário é um Coordenador de Pólo do IMD **/
+	protected boolean coordenadorPoloIMD;
+
+	/** Indica se o usuário tem acesso ao modulo de ensino em rede */
+	protected boolean moduloEnsinoRede;
+	
+	/** Indica se o usuário tem acesso ao portal de ensino em rede */
+	protected boolean portalEnsinoRede;
+	
+	/**
+	 * Construtor parametrizado.
+	 * 
 	 * @param usuario
 	 */
 	public DadosAcesso(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	/** Construtor parametrizado.
+	/**
+	 * Construtor parametrizado.
+	 * 
 	 * @param usuario
 	 * @param multiplosVinculos
 	 */
@@ -386,7 +544,10 @@ public class DadosAcesso {
 		this.multiplosVinculos = multiplosVinculos;
 	}
 
-	/** Retorna uma descrição textual indicando se a permissão está disponível (on) ou não (off).
+	/**
+	 * Retorna uma descrição textual indicando se a permissão está disponível
+	 * (on) ou não (off).
+	 * 
 	 * @param acesso
 	 * @return
 	 */
@@ -397,7 +558,7 @@ public class DadosAcesso {
 	public String getTecnicoClass() {
 		return getClass(tecnico || coordenadorCursoTecnico);
 	}
-	
+
 	public String getFormacaoComplementarClass() {
 		return getClass(formacaoComplementar);
 	}
@@ -413,26 +574,26 @@ public class DadosAcesso {
 	public String getSaeClass() {
 		return getClass(sae);
 	}
-	
+
 	public String getOuvidoriaClass() {
 		return getClass(ouvidoria);
 	}
-	
+
 	public String getAmbientesVirtuaisClass() {
 		return getClass(ambientesVirtuais);
 	}
-	
+
 	public String getRelatoriosClass() {
 		return getClass(relatorios);
 	}
-	
 
 	public String getMedioClass() {
 		return getClass(medio);
 	}
 
 	public String getStrictoClass() {
-		return getClass(stricto && (ppg || membroApoioDocenciaAssistida || consulta));
+		return getClass(stricto
+				&& (ppg || membroApoioDocenciaAssistida || consulta));
 	}
 
 	public String getProdocenteClass() {
@@ -458,11 +619,11 @@ public class DadosAcesso {
 	public String getExtensaoClass() {
 		return getClass(extensao);
 	}
-	
+
 	public String getAcoesAssociadasClass() {
 		return getClass(acoesAssociadas);
 	}
-	
+
 	public String getEspacoFisicoClass() {
 		return getClass(espacoFisico);
 	}
@@ -484,7 +645,8 @@ public class DadosAcesso {
 	}
 
 	public String getCoordenadorCursoGradClass() {
-		return getClass(coordenadorCursoGrad || secretarioGraduacao || coordenacaoProbasica || coordenadorEstagio);
+		return getClass(coordenadorCursoGrad || secretarioGraduacao
+				|| coordenacaoProbasica || coordenadorEstagio);
 	}
 
 	public String getCoordenadorCursoStrictoClass() {
@@ -514,7 +676,7 @@ public class DadosAcesso {
 	public String getAdministracaoClass() {
 		return getClass(administracao);
 	}
-	
+
 	public String getPapClass() {
 		return getClass(programaAtualizacaoPedagogica);
 	}
@@ -637,7 +799,8 @@ public class DadosAcesso {
 	}
 
 	/**
-	 * Seta o Docente e modifica o valor do sipac pra true desde que seja docente
+	 * Seta o Docente e modifica o valor do sipac pra true desde que seja
+	 * docente
 	 * 
 	 * @param docente
 	 */
@@ -744,11 +907,11 @@ public class DadosAcesso {
 	}
 
 	public boolean isOuvidoria() {
-	    return ouvidoria;
+		return ouvidoria;
 	}
 
 	public void setOuvidoria(boolean ouvidoria) {
-	    this.ouvidoria = ouvidoria;
+		this.ouvidoria = ouvidoria;
 	}
 
 	public boolean isPpg() {
@@ -766,7 +929,7 @@ public class DadosAcesso {
 	public void setVestibular(boolean vestibular) {
 		this.vestibular = vestibular;
 	}
-	
+
 	public boolean isNee() {
 		return nee;
 	}
@@ -794,11 +957,11 @@ public class DadosAcesso {
 	 */
 	public void setChefeDepartamento(boolean chefeDepartamento) {
 		this.chefeDepartamento = chefeDepartamento;
-		if ( chefeDepartamento ) {
+		if (chefeDepartamento) {
 			setChefeUnidade(true);
 		}
 	}
-	
+
 	public boolean isChefeUnidade() {
 		return chefeUnidade;
 	}
@@ -894,7 +1057,7 @@ public class DadosAcesso {
 	public void setSecretarioTecnico(boolean secretarioTecnico) {
 		this.secretarioTecnico = secretarioTecnico;
 	}
-	
+
 	public boolean isSecretarioMedio() {
 		return secretarioMedio;
 	}
@@ -1204,7 +1367,7 @@ public class DadosAcesso {
 	public boolean isAlgumUsuarioStricto() {
 		return coordenadorCursoStricto || secretariaPosGraduacao || ppg;
 	}
-	
+
 	public boolean isAlgumUsuarioLato() {
 		return coordenadorCursoLato || secretarioLato || lato;
 	}
@@ -1216,7 +1379,7 @@ public class DadosAcesso {
 	public String getVestibularClass() {
 		return getClass(vestibular);
 	}
-	
+
 	public String getNeeClass() {
 		return getClass(nee);
 	}
@@ -1225,26 +1388,26 @@ public class DadosAcesso {
 		return getClass(moduloBiblioteca);
 	}
 
-	public String getDiplomaClass(){
+	public String getDiplomaClass() {
 		return getClass(moduloDiploma);
 	}
-	
-	public String getConvenioEstagioClass(){
+
+	public String getConvenioEstagioClass() {
 		return getClass(moduloConvenioEstagio);
 	}
-	
-	public String getPortalConcedenteEstagioClass(){
+
+	public String getPortalConcedenteEstagioClass() {
 		return getClass(portalConcedenteEstagio);
 	}
-	
-	public String getPortalFamiliarClass(){
+
+	public String getPortalFamiliarClass() {
 		return getClass(portalFamiliar);
-	}	
-	
+	}
+
 	public String getRelacoesInternacionaisClass() {
 		return getClass(relacoesInternacionais);
 	}
-	
+
 	public boolean isEspacoFisico() {
 		return espacoFisico;
 	}
@@ -1268,7 +1431,7 @@ public class DadosAcesso {
 	public void setAvaliacao(boolean avaliacao) {
 		this.avaliacao = avaliacao;
 	}
-	
+
 	public String getAvaliacaoClass() {
 		return getClass(avaliacao);
 	}
@@ -1296,7 +1459,7 @@ public class DadosAcesso {
 	public void setComplexoHospitalar(boolean complexoHospitalar) {
 		this.complexoHospitalar = complexoHospitalar;
 	}
-	
+
 	public String getComplexoHospitalarClass() {
 		return getClass(complexoHospitalar);
 	}
@@ -1308,8 +1471,8 @@ public class DadosAcesso {
 	public void setAdministradorStricto(boolean administradorStricto) {
 		this.administradorStricto = administradorStricto;
 	}
-	
-	public boolean isAmbientesVirtuais () {
+
+	public boolean isAmbientesVirtuais() {
 		return ambientesVirtuais;
 	}
 
@@ -1318,11 +1481,11 @@ public class DadosAcesso {
 	}
 
 	public boolean isComissaoIntegrada() {
-	    return comissaoIntegrada;
+		return comissaoIntegrada;
 	}
 
 	public void setComissaoIntegrada(boolean comissaoIntegrada) {
-	    this.comissaoIntegrada = comissaoIntegrada;
+		this.comissaoIntegrada = comissaoIntegrada;
 	}
 
 	public boolean isRelatorios() {
@@ -1340,7 +1503,7 @@ public class DadosAcesso {
 	public void setGestorResidenciaMedica(boolean gestorResidenciaMedica) {
 		this.gestorResidenciaMedica = gestorResidenciaMedica;
 	}
-	
+
 	public boolean isGestorComplexoHospitalar() {
 		return gestorComplexoHospitalar;
 	}
@@ -1348,19 +1511,20 @@ public class DadosAcesso {
 	public void setGestorComplexoHospitalar(boolean gestorComplexoHospitalar) {
 		this.gestorComplexoHospitalar = gestorComplexoHospitalar;
 	}
-	
+
 	public boolean isCoordenadorResidenciaMedica() {
 		return coordenadorResidenciaMedica;
 	}
 
-	public void setCoordenadorResidenciaMedica(boolean coordenadorResidenciaMedica) {
+	public void setCoordenadorResidenciaMedica(
+			boolean coordenadorResidenciaMedica) {
 		this.coordenadorResidenciaMedica = coordenadorResidenciaMedica;
 	}
 
 	public boolean isCoordenadorCursoTecnico() {
 		return coordenadorCursoTecnico;
 	}
-	
+
 	public Collection<Unidade> getResidencias() {
 		return residencias;
 	}
@@ -1450,15 +1614,17 @@ public class DadosAcesso {
 		return membroApoioDocenciaAssistida;
 	}
 
-	public void setMembroApoioDocenciaAssistida(boolean membroApoioDocenciaAssistida) {
+	public void setMembroApoioDocenciaAssistida(
+			boolean membroApoioDocenciaAssistida) {
 		this.membroApoioDocenciaAssistida = membroApoioDocenciaAssistida;
-	}	
-	
+	}
+
 	public boolean isPendenteNotificacaoAcademica() {
 		return pendenteNotificacaoAcademica;
 	}
 
-	public void setPendenteNotificacaoAcademica(boolean pendenteNotificacaoAcademica) {
+	public void setPendenteNotificacaoAcademica(
+			boolean pendenteNotificacaoAcademica) {
 		this.pendenteNotificacaoAcademica = pendenteNotificacaoAcademica;
 	}
 
@@ -1469,9 +1635,9 @@ public class DadosAcesso {
 	public void setPendenteRelatoriosExtensao(boolean pendenteRelatoriosExtensao) {
 		this.pendenteRelatoriosExtensao = pendenteRelatoriosExtensao;
 	}
-	
+
 	/** Método utilizado para identificar docentes apenas do ensino médio. */
-	public boolean isNivelDocenteMedio(){
+	public boolean isNivelDocenteMedio() {
 		return nivelDocente.equals(String.valueOf(NivelEnsino.MEDIO));
 	}
 
@@ -1495,7 +1661,8 @@ public class DadosAcesso {
 		return pendenteQuestionarioExtensao;
 	}
 
-	public void setPendenteQuestionarioExtensao(boolean pendenteQuestionarioExtensao) {
+	public void setPendenteQuestionarioExtensao(
+			boolean pendenteQuestionarioExtensao) {
 		this.pendenteQuestionarioExtensao = pendenteQuestionarioExtensao;
 	}
 
@@ -1505,6 +1672,79 @@ public class DadosAcesso {
 
 	public void setCoordenadorEstagio(boolean coordenadorEstagio) {
 		this.coordenadorEstagio = coordenadorEstagio;
+	}
+
+	public boolean isMetropoleDigital() {
+		return metropoleDigital;
+	}
+
+	public void setMetropoleDigital(boolean metropoleDigital) {
+		this.metropoleDigital = metropoleDigital;
+	}
+
+	public boolean isDiscenteIMD() {
+		return discenteIMD;
+	}
+
+	public void setDiscenteIMD(boolean discenteIMD) {
+		this.discenteIMD = discenteIMD;
+	}
+
+	public boolean isTutorIMD() {
+		return tutorIMD;
+	}
+
+	public void setTutorIMD(boolean tutorIMD) {
+		this.tutorIMD = tutorIMD;
+	}
+
+	public boolean isCoordenadorPoloIMD() {
+		return coordenadorPoloIMD;
+	}
+
+	public void setCoordenadorPoloIMD(boolean coordenadorPoloIMD) {
+		this.coordenadorPoloIMD = coordenadorPoloIMD;
+	}
+
+	public String getMetropoleDigitalClass() {
+		return getClass(metropoleDigital);
+	}
+
+	public String getEnsinoRedeClass() {
+		return getClass(moduloEnsinoRede);
+	}
+
+	public String getPortalEnsinoRedeClass() {
+		return getClass(portalEnsinoRede);
+	}
+	
+	public String getTutorIMDClass() {
+		return getClass(tutorIMD);
+	}
+
+	public boolean isPendenteRenovacaoBolsaAuxilio() {
+		return pendenteRenovacaoBolsaAuxilio;
+	}
+
+	public void setPendenteRenovacaoBolsaAuxilio(
+			boolean pendenteRenovacaoBolsaAuxilio) {
+		this.pendenteRenovacaoBolsaAuxilio = pendenteRenovacaoBolsaAuxilio;
+	}
+	
+	public boolean isModuloEnsinoRede() {
+		return moduloEnsinoRede;
+	}
+
+	public void setModuloEnsinoRede(boolean moduloEnsinoRede) {
+		this.moduloEnsinoRede = moduloEnsinoRede;
+	}
+
+	public boolean isPortalEnsinoRede() {
+		return portalEnsinoRede;
+	}
+
+	public void setPortalEnsinoRede(boolean portalEnsinoRede) {
+		this.portalEnsinoRede = portalEnsinoRede;
 	}
 	
 }

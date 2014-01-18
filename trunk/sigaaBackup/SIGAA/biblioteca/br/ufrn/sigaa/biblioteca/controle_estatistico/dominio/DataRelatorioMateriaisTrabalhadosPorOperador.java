@@ -100,8 +100,13 @@ public class DataRelatorioMateriaisTrabalhadosPorOperador implements Comparable<
 	@Override
 	public int compareTo(DataRelatorioMateriaisTrabalhadosPorOperador other) {
 		
-		int resultado = this.descricaoBiblioteca.compareTo(other.descricaoBiblioteca);
+		int resultado = 0;
 		
+		// o de títulos não pode ordenar por biblioteca, porque título não tem biblioteca //
+		if(StringUtils.notEmpty(this.descricaoBiblioteca) &&  StringUtils.notEmpty(other.descricaoBiblioteca))
+			resultado = this.descricaoBiblioteca.compareTo(other.descricaoBiblioteca);
+		
+			
 		if(resultado != 0 ) // de bibliotecas diferêntes
 			return resultado;
 		

@@ -562,6 +562,7 @@ public class SigaaListaComando {
 	public static final Comando APROVAR_BANCA_POS = new Comando(110043, prefix + "ensino.stricto.negocio.ProcessadorBancaPos");
 	public static final Comando ALTERAR_SOLICITACAO_PUBLICACAO_TESE_DISSERTACAO = new Comando(110044, prefix + "ensino.stricto.negocio.ProcessadorPublicacaoTeseDissertacao");
 	public static final Comando CALCULAR_PRAZO_CONCLUSAO_DISCENTE_STRICTO_EM_LOTE = new Comando(110045, prefix + "ensino.stricto.negocio.ProcessadorCalculosDiscenteStricto");
+	public static final Comando CADASTRAR_RESPOSTAS_AUTO_AVALIACAO = new Comando(110046, prefix + "ensino.stricto.negocio.ProcessadorRespostasAutoAvaliacao");	
 
 	
 	
@@ -696,7 +697,7 @@ public class SigaaListaComando {
 	public static final Comando ORIENTADOR_VALIDAR_ATIVIDADE_MONITOR = new Comando(10026, prefix + "monitoria.negocio.ProcessadorAtividadeMonitor");
 	public static final Comando PROGRAD_VALIDAR_ATIVIDADE_MONITOR = new Comando(10027, prefix + "monitoria.negocio.ProcessadorAtividadeMonitor");
 	
-
+	public static final Comando ALTERAR_CALENDARIO_MONITORIA = new Comando(10053, prefix + "monitoria.negocio.ProcessadorCalendarioMonitoria");
 	public static final Comando CADASTRAR_ENVIO_FREQUENCIA = new Comando(10028, prefix + "monitoria.negocio.ProcessadorEnvioFrequencia");
 	public static final Comando AVALIAR_RELATORIO_PROJETO_MONITORIA = new Comando(10029, prefix + "monitoria.negocio.ProcessadorAvaliacaoRelatorioProjeto");
 	public static final Comando CADASTRAR_CALENDARIO_MONITORIA = new Comando(10030, prefix + "monitoria.negocio.ProcessadorCalendarioMonitoria");
@@ -814,6 +815,7 @@ public class SigaaListaComando {
 	public static final Comando AVALIAR_ATIVIDADE_EXTENSAO           = new Comando(20300, prefix + "extensao.negocio.ProcessadorAvaliarAtividade");
 	public static final Comando DISTRIBUIR_ATIVIDADE_EXTENSAO_MANUAL = new Comando(20301, prefix + "extensao.negocio.ProcessadorDistribuirExtensao");
 	public static final Comando DISTRIBUIR_ATIVIDADE_EXTENSAO_AUTO   = new Comando(20302, prefix + "extensao.negocio.ProcessadorDistribuirExtensao");
+	public static final Comando DISTRIBUIR_ATIVIDADE_EXTENSAO_AUTO_LINHA = new Comando(20305, prefix + "extensao.negocio.ProcessadorDistribuirExtensao");
 	public static final Comando REENVIAR_SENHA_PARTICIPANTE_EXTENSAO = new Comando(20303, prefix + "extensao.negocio.ProcessadorInscricaoParticipante");
 	public static final Comando CLASSIFICAR_ACOES_EXTENSAO           = new Comando(20304, prefix + "extensao.negocio.ProcessadorClassificarAcoesExtensao");
 
@@ -1370,12 +1372,50 @@ public class SigaaListaComando {
 	public static final Comando CADASTRAR_CONSTANTE_TRADUCAO = new Comando(29003, prefix + "ensino.internacionalizacao.negocio.ProcessadorConstanteTraducao");
 	public static final Comando ATUALIZAR_CONSTANTE_TRADUCAO = new Comando(29004, prefix + "ensino.internacionalizacao.negocio.ProcessadorConstanteTraducao");
 	
+	/** COMANDOS DO MÓDULO DO IMD */
+	public static final int LOGAR_COMO_TUTOR_IMD_COD = 31002;
+	public static final Comando LOGAR_COMO_TUTOR_IMD = new Comando(31002, prefix + "arq.negocio.LogonBean");
+	public static final Comando CRIACAO_REGISTROS_ACOMPANHAMENTO_DISCENTE = new Comando(31003, prefix + "ensino.metropoledigital.negocio.ProcessadorCriaRegistrosAcompanhamento");
+	public static final Comando CADASTRAR_PARAMETROS_ACADEMICOS_IMD = new Comando(31004, prefix + "ensino.metropoledigital.negocio.ProcessadorCadastroParametros");
+	public static final Comando CADASTRAR_NOTAS_DISCIPLINA = new Comando(31005, prefix + "ensino.metropoledigital.negocio.ProcessadorCadastroNotasDisciplina");
+	public static final Comando CADASTRAR_COORDENADOR_POLO_IMD = new Comando(31006, prefix + "ensino.metropoledigital.negocio.ProcessadorCadastroCoordenadorPoloIMD");
+	public static final Comando CONSOLIDACAO_PARCIAL_IMD = new Comando(31007, prefix + "ensino.metropoledigital.negocio.ProcessadorConsolidacaoParcial");
+	public static final Comando CADASTRAR_COORDENADOR_TUTOR_IMD = new Comando(31008, prefix + "ensino.metropoledigital.negocio.ProcessadorCadastroCoordenadorTutorIMD");
+	public static final Comando CADASTRAR_NOTAS_RECUPERACAO = new Comando(31009, prefix + "ensino.metropoledigital.negocio.ProcessadorCadastroNotasRecuperacao");
+	public static final Comando CONSOLIDACAO_FINAL_IMD = new Comando(31010, prefix + "ensino.metropoledigital.negocio.ProcessadorConsolidacaoFinal");	
+	public static final Comando CADASTRAR_NOTAS_AE = new Comando(31011, prefix + "ensino.metropoledigital.negocio.ProcessadorCadastroNotasAE");
+	public static final Comando CONVOCACAO_PROCESSO_SELETIVO_DISCENTE_TECNICO_IMD = new Comando(31012, prefix + "ensino.metropoledigital.negocio.ProcessadorConvocacaoProcessoSeletivoTecnicoIMD");
+	public static final Comando ALTERAR_DADOS_INSCRICAO_DISCENTE_CONVOCADO_IMD = new Comando(31013, prefix + "ensino.metropoledigital.negocio.ProcessadorAlterarDadosInscricaoDiscenteConvocadoIMD");
+	
+	
 	/** COMANDOS DO MÓDULO DE ENSINO EM REDE */
 	public static final Comando DADOS_ENSINO_REDE = new Comando(21001, prefix + "ensino_rede.negocio.ProcessadorDadosEnsinoRede");
 	public static final Comando ALTERAR_SITUACAO_MATRICULAS_REDE = new Comando(21002, prefix + "ensino_rede.negocio.ProcessadorAlterarSituacaoMatriculaRede");
-	public static final Comando CADASTRO_DOCENTE_REDE = new Comando(21003, prefix + "ensino_rede.academico.negocio.ProcessadorDocenteRede");
-
+	public static final Comando CADASTRAR_DOCENTE_REDE = new Comando(21003, prefix + "ensino_rede.academico.negocio.ProcessadorDocenteRede");
+	public static final Comando CADASTRO_TURMA_REDE = new Comando(21004, prefix + "ensino_rede.negocio.ProcessadorCadastroTurmaRede");
+	public static final Comando ALTERAR_DOCENTE_REDE = new Comando(21005, prefix + "ensino_rede.academico.negocio.ProcessadorDocenteRede");
+	public static final Comando ALTERAR_SITUACAO_DISCENTE = new Comando(21006, prefix + "ensino_rede.negocio.ProcessadorAlterarStatusDiscente");
+	public static final Comando CADASTRO_COORDENADOR_UNIDADE = new Comando(21007, prefix + "ensino_rede.negocio.ProcessadorCoordenadorUnidade");
+	public static final Comando ALTERAR_COORDENADOR_UNIDADE = new Comando(21008, prefix + "ensino_rede.negocio.ProcessadorCoordenadorUnidade");
+	public static final Comando SOLICITACAO_CADASTRO_DOCENTE_REDE = new Comando(21010, prefix + "ensino_rede.negocio.ProcessadorSolicitacaoDocenteRede");
+	public static final Comando SOLICITACAO_ALTERACAO_DOCENTE_REDE = new Comando(21011, prefix + "ensino_rede.negocio.ProcessadorSolicitacaoDocenteRede");
+	public static final Comando ALTERAR_TURMA_REDE = new Comando(21012, prefix + "ensino_rede.negocio.ProcessadorCadastroTurmaRede");
+	public static final Comando FECHAR_TURMA_REDE = new Comando(21013, prefix + "ensino_rede.negocio.ProcessadorCadastroTurmaRede");
+	public static final Comando CADASTRAR_DISCENTE_REDE = new Comando(21014, prefix + "ensino_rede.negocio.ProcessadorDiscenteAssociado");
+	public static final Comando ALTERAR_DISCENTE_REDE = new Comando(21015, prefix + "ensino_rede.negocio.ProcessadorDiscenteAssociado");
+	public static final Comando HOMOLOGAR_SOLICITACAO_DOCENTES_REDE = new Comando(21016, prefix + "ensino_rede.negocio.ProcessadorSolicitacaoDocenteRede");
+	public static final Comando INATIVAR_COORDENADOR_UNIDADE = new Comando(21017, prefix + "ensino_rede.negocio.ProcessadorCoordenadorUnidade");
+	public static final Comando TRANCAR_PROGRAMA_REDE = new Comando(21018, prefix + "ensino_rede.academico.negocio.ProcessadorTrancamentoProgramaRede");
+	public static final Comando RETORNAR_TRANCAMENTO_PROGRAMA_ENSINO_REDE = new Comando(21019, prefix + "ensino_rede.academico.negocio.ProcessadorRetornarTrancamentoProgramaRede");
+	public static final Comando ESTORNAR_MOVIMENTACAO = new Comando(21020, prefix + "ensino_rede.academico.negocio.ProcessadorEstornarMovimentacao");
+	public static final Comando CADASTRO_SECRETARIO_UNIDADE = new Comando(21021, prefix + "ensino_rede.negocio.ProcessadorCoordenadorUnidade");
 	
+
+	/** COMANDOS DO MÓDULO DE SINCRONIZACAO SUCUPIRA */
+	public static final Comando SINCRONIZA_DADOS_SUCUPIRA = new Comando(40001, prefix + "sucupira.negocio.ProcessadorSincronizacaoSucupira");
+	public static final Comando SINCRONIZA_AREA_PROGRAMA = new Comando(40002, prefix + "sucupira.negocio.ProcessadorSincronizacaoAreaConcentracao");
+	public static final Comando SINCRONIZA_LINHA_PESQUISA = new Comando(40003, prefix + "sucupira.negocio.ProcessadorSincronizacaoLinhaPesquisa");
+
 	/** Retorna um comando dado o código. */
 	public static Comando getComando(int codigo) {
 		Field[] campos = SigaaListaComando.class.getDeclaredFields();

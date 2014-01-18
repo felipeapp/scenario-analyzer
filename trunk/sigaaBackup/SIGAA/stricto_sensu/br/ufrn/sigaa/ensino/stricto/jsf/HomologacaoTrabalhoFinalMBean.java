@@ -265,6 +265,11 @@ public class HomologacaoTrabalhoFinalMBean extends SigaaAbstractController<Homol
 			return null;
 		}
 		
+		if (getDAO(MatriculaComponenteDao.class).countMatriculasByDiscente(discente, SituacaoMatricula.MATRICULADO) > 0){
+			addMensagemErro("Não é possível realizar a homologação, quando o aluno possuir componentes matriculados.");
+			return null;
+		}
+		
 		obj.setBanca(banca);
 
 		return forward("/stricto/homologacao_trabalho_final/info_defesa.jsp");

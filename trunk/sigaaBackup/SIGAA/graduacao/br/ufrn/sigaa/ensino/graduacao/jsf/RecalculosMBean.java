@@ -21,6 +21,7 @@ import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.academico.dominio.StatusDiscente;
 import br.ufrn.arq.dao.Database;
 import br.ufrn.arq.erros.ArqException;
@@ -36,6 +37,8 @@ import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.ensino.graduacao.dominio.Curriculo;
+import br.ufrn.sigaa.ensino.graduacao.dominio.FiltroDiscentesRecalculoGraduacao;
+import br.ufrn.sigaa.ensino.graduacao.dominio.FiltroDiscentesRecalculoStricto;
 import br.ufrn.sigaa.ensino.graduacao.dominio.MatrizCurricular;
 import br.ufrn.sigaa.ensino.graduacao.negocio.ListaDiscentesCalcular;
 import br.ufrn.sigaa.ensino.graduacao.negocio.ListaEstruturasCalcular;
@@ -51,11 +54,6 @@ import br.ufrn.sigaa.ensino.graduacao.negocio.RecalculoEstruturaCurricularThread
 @Component @Scope("session")
 public class RecalculosMBean extends SigaaAbstractController<Object> {
 
-	/**
-	 * Opção de calculo usado na graduação
-	 */
-	private String opcao;
-	
 	/** Se irá zerar as integralizações dos discentes antes de iniciar os cálculos */
 	private boolean zerarIntegralizacoes;
 
@@ -81,7 +79,9 @@ public class RecalculosMBean extends SigaaAbstractController<Object> {
 	private boolean ckeckRecalcularDiscente;
 	
 	private RecalculoDiscenteThread threads[];
+	private ListaDiscentesCalcular reCalculo = new ListaDiscentesCalcular();
 	
+	private char nivelEnsino = NivelEnsino.GRADUACAO;
 	
 	public String getSqlRestricao() {
 		return sqlRestricao;
@@ -201,12 +201,14 @@ public class RecalculosMBean extends SigaaAbstractController<Object> {
 			if (autorizado) {
 				threads = new RecalculoDiscenteThread[numThreads];
 				
-				// Cadastrar matrículas em espera
-				ListaDiscentesCalcular.carregarDiscentes(sqlRestricao);
-
+				if (NivelEnsino.isGraduacao(nivelEnsino))
+					reCalculo.carregarDiscentes(new FiltroDiscentesRecalculoGraduacao(sqlRestricao));
+				else
+					reCalculo.carregarDiscentes(new FiltroDiscentesRecalculoStricto(sqlRestricao));
+					
 				funcionando = true;
 				for (int a = 0; a < threads.length; a++) {
-					threads[a] = new RecalculoDiscenteThread(getUsuarioLogado(), opcao, zerarIntegralizacoes);
+					threads[a] = new RecalculoDiscenteThread(getUsuarioLogado(), zerarIntegralizacoes, reCalculo);
 					threads[a].start();
 				}
 				
@@ -330,11 +332,22 @@ public class RecalculosMBean extends SigaaAbstractController<Object> {
 	}
 	
 	public int getTotalDiscente() {
-		return ListaDiscentesCalcular.totalDiscentes;
+		return reCalculo.getTotalDiscentes();
 	}
 
 	public int getAtualDiscente() {
-		return ListaDiscentesCalcular.totalProcessados;
+		
+		if (funcionando) {
+			if (reCalculo.getTotalProcessados() < reCalculo.getTotalDiscentes())
+				return reCalculo.getTotalProcessados();
+			else {
+				funcionando = false;
+				return reCalculo.getTotalDiscentes() + 1;
+			} 
+		} else {
+			return 0;
+		}
+		
 	}
 
 	public int getStatus() {
@@ -425,14 +438,6 @@ public class RecalculosMBean extends SigaaAbstractController<Object> {
 		this.curriculosEncontrados = curriculosEncontrados;
 	}
 
-	public String getOpcao() {
-		return opcao;
-	}
-
-	public void setOpcao(String opcao) {
-		this.opcao = opcao;
-	}
-
 	public boolean isZerarIntegralizacoes() {
 		return zerarIntegralizacoes;
 	}
@@ -440,5 +445,13 @@ public class RecalculosMBean extends SigaaAbstractController<Object> {
 	public void setZerarIntegralizacoes(boolean zerarIntegralizacoes) {
 		this.zerarIntegralizacoes = zerarIntegralizacoes;
 	}
-	
+
+	public char getNivelEnsino() {
+		return nivelEnsino;
+	}
+
+	public void setNivelEnsino(char nivelEnsino) {
+		this.nivelEnsino = nivelEnsino;
+	}
+
 }

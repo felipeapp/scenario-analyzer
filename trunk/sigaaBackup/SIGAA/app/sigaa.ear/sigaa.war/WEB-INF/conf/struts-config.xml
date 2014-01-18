@@ -40,6 +40,8 @@
 		<forward name="menuBiblioteca"	 	path="/verMenuBiblioteca.do"/>
 		<forward name="menuVestibular" 		path="/verMenuVestibular.do"/>
 		<forward name="menuComplexoHospitalar" 		path="/verMenuComplexoHospitalar.do"/>
+		<forward name="menuMetropoleDigital"	 	path="/verMenuMetropoleDigital.do"/>
+		<forward name="menuEnsinoRede"	 			path="/verMenuEnsinoRede.do"/>
 
         <forward name="portalDocente" 		path="/verPortalDocente.do"/>
         <forward name="portalCoordenadorGraduacao" 		path="/verMenuGraduacao.do"/>
@@ -60,7 +62,7 @@
 		<forward name="menuAcoesAssociadas"	path="/verMenuAcoesAssociadas.do" />
 		<forward name="menuProgramaAtualizacaoPedagogica"	path="/verMenuProgramaAtualizacaoPedagogica.do" />
 		<forward name="menuRelacoesInternacionais"	path="/verMenuRelacoesInternacionais.do" />
-		
+	    <forward name="portalTutoriaIMD"	 		path="/verPortalTutoriaIMD.do"/>
 
 		<forward name="avaliacaoInstitucionalDocente"	 	path="/avaliacaoInstitucionalDocente.jsf" redirect="true"/>
 		<forward name="avaliacaoInstitucionalDiscente"	 	path="/avaliacaoInstitucionalDiscente.jsf" redirect="true"/>
@@ -96,6 +98,7 @@
 		</action>
 
 		<action path="/verMenuMedio" type="br.ufrn.sigaa.ensino.medio.struts.EntrarMedioAction">
+			<forward name="sucesso_coordenador" path="/medio/menu_coordenador_medio.jsf" />		
 			<forward name="sucesso" path="/medio/menu_medio.jsf" />
 		</action>
 
@@ -220,6 +223,7 @@
 
 		<action path="/verPortalTutor" type="br.ufrn.sigaa.struts.PortalTutorAction">
 			<forward name="sucesso" path="/portais/tutor/tutor.jsf" redirect="true" />
+			<forward name="sucesso_imd" path="/portais/tutor/tutor_imd.jsf" redirect="true" />
 		</action>
 		
 		<action path="/verPortalCoordPolo" type="br.ufrn.sigaa.struts.PortalCoordenadorPoloAction">
@@ -237,6 +241,20 @@
 		<action path="/verPortalRelatorios" type="br.ufrn.sigaa.struts.PortalRelatoriosAction">
 			<forward name="sucesso" path="/portais/relatorios/menu.jsf" redirect="true" />
 		</action>				
+
+		<action path="/verMenuEnsinoRede" type="br.ufrn.sigaa.ensino_rede.struts.EntrarEnsinoRedeAction">
+			<forward name="modulo" path="/ensino_rede/modulo/menu.jsf" redirect="true" />
+			<forward name="portal" path="/ensino_rede/portal/portal.jsf" redirect="true" />
+		</action>
+
+		<action path="/verMenuMetropoleDigital" type="br.ufrn.sigaa.ensino.metropoledigital.struts.EntrarMetropoleDigitalAction">
+			<forward name="sucesso" path="/metropole_digital/menus/menu_imd.jsf" redirect="true" />
+		</action>
+		
+		<action path="/verPortalTutoriaIMD" type="br.ufrn.sigaa.ensino.metropoledigital.struts.EntrarPortalTutoriaIMDAction">
+			<forward name="sucesso" path="/metropole_digital/principal.jsf" redirect="true" />
+		</action>				
+
 
 		<action path="/logar" type="br.ufrn.sigaa.struts.LoginActions" name="loginForm"
 					 input="/WEB-INF/jsp/include/login.jsp" parameter="dispatch" validate="true">

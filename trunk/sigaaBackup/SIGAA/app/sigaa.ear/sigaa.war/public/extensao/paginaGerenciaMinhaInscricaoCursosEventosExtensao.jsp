@@ -295,6 +295,16 @@ div.ignoreCss em, em strong {
 	           </tr>
 	           
            </c:if>
+           
+         
+			<c:if test="${gerenciaMeusCursosEventosExtensaoMBean.obj.participanteExtensao != null && ! gerenciaMeusCursosEventosExtensaoMBean.obj.participanteExtensao.ativo}">
+				<tr>
+					<td colspan="6" style="text-align: center; color: red;">
+						A participação referente a essa inscrição foi cancelada pelo coordenador
+					</td>
+				</tr>
+			</c:if>
+				
 			
 		</tbody>
 		
@@ -312,6 +322,8 @@ div.ignoreCss em, em strong {
 
 		<div class="menu-botoes" style="margin-top: 50px; margin-left: auto; margin-right: auto;" >
 			<ul class="menu-interno">
+				
+				
 				
 				<%-- Pode imprimir gru se a atividade tiver cobrança, se a inscrição não tiver cancelada e se o pagamento ainda não tiver sido confirmado --%>
 				<c:if test="${gerenciaMeusCursosEventosExtensaoMBean.obj.inscricaoAtividade.cobrancaTaxaMatricula
@@ -359,7 +371,7 @@ div.ignoreCss em, em strong {
 						</h:commandLink>	
 					</li>
 				</c:if>
-				
+					
 				
 				
 			</ul>

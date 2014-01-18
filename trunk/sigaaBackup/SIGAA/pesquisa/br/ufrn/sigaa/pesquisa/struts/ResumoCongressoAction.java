@@ -953,7 +953,7 @@ public class ResumoCongressoAction extends AbstractCrudAction {
 		Object obj = dao.findByPrimaryKey(id, getForm(form).getCommandClass());
 		req.setAttribute(ConstantesCadastro.ATRIBUTO_VISUALIZACAO, obj);
 		
-		if(getUsuarioLogado(req).isUserInRole(SigaaPapeis.GESTOR_PESQUISA)){
+		if(getUsuarioLogado(req).isUserInRole(SigaaPapeis.GESTOR_PESQUISA, SigaaPapeis.MEMBRO_COMITE_PESQUISA)){
 			req.setAttribute("avaliacao", dao.findByResumo(id));
 		}
 

@@ -19,6 +19,7 @@ import static br.ufrn.arq.util.ValidatorUtil.validateRequiredId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -84,6 +85,9 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 	 * É utilizado no caso em que este controller é invocado por outro para exibir o formulário. */
 	private String formVoltar;
 	
+	/** Hashcode do grupo que determina a média geral da avaliação. */
+	private int hashGrupoMediaGeral;
+	
 	/**
 	 * Construtor padrão.
 	 */
@@ -115,6 +119,8 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 					p.setAlternativas(null);
 			}
 		}
+		if (isEmpty(obj.getGrupoMediaGeral()))
+				obj.setGrupoMediaGeral(null);
 		MovimentoCadastro mov = new MovimentoCadastro();
 		mov.setObjMovimentado(obj);
 		if (obj.getId() == 0) {
@@ -179,6 +185,9 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 						p.setAlternativas(new ArrayList<AlternativaPergunta>());
 				}
 			}
+			// casos de formulários antigos sem o grupo de média de perguntas
+			if (obj.getGrupoMediaGeral() == null)
+				obj.setGrupoMediaGeral(new GrupoPerguntas());
 			setReadOnly(false);
 			setConfirmButton("Alterar");
 
@@ -312,6 +321,8 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 	 * @return
 	 */
 	public String formCadastro() {
+		if (obj.getGrupoMediaGeral() == null)
+			obj.setGrupoMediaGeral(new GrupoPerguntas());
 		return forward("/avaliacao/formulario_avaliacao/form.jsp");
 	}
 
@@ -331,6 +342,12 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 		for (GrupoPerguntas grupo : obj.getGrupoPerguntas()) {
 			validateMinValue(grupo.getPerguntas().size(), 1, "Nº de Perguntas no Grupo \"" + grupo.getTitulo() + "\"", erros);
 		}
+		if (hashGrupoMediaGeral == 0)
+			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Grupo de Perguntas que determina a média geral da Avaliação");
+		//seta o ID do grupo que determina a média (pelo hashcode)
+		for (GrupoPerguntas grupo : obj.getGrupoPerguntas())
+			if (hashGrupoMediaGeral == grupo.hashCode())
+				obj.setGrupoMediaGeral(grupo);
 		if (obj.getId() > 0 )
 			setConfirmButton("Alterar");
 		else 
@@ -379,14 +396,6 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 		}
 		addMensagem(MensagensArquitetura.OBJETO_SELECIONADO_FOI_REMOVIDO, "Grupo");
 		return redirectMesmaPagina();
-	}
-	
-	public String diminuiOrdem() {
-		return null;
-	}
-	
-	public String aumentaOrdem() {
-		return null;
 	}
 	
 	/** Adiciona uma pergunta ao formulário
@@ -614,6 +623,7 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 		lista.add(new SelectItem(TipoAvaliacaoInstitucional.AVALIACAO_DISCENTE_GRADUACAO, "Discente Graduação"));
 		lista.add(new SelectItem(TipoAvaliacaoInstitucional.AVALIACAO_DOCENCIA_ASSISTIDA, "Docência Assitida"));
 		lista.add(new SelectItem(TipoAvaliacaoInstitucional.AVALIACAO_DOCENTE_GRADUACAO, "Docente de Graduação"));
+		lista.add(new SelectItem(TipoAvaliacaoInstitucional.AVALIACAO_TUTOR_EAD, "Tutor de Ensino à Distância"));
 		return lista;
 	}
 
@@ -695,7 +705,22 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 		return lista;
 	}
 
-	/** Verifica se o usuário tem permisão para cadastrar/alterar.
+	/**
+	 * Retorna uma lista de selectitem de grupo de perguntas.
+	 * 
+	 * @return Grupo de perguntas para o discente.
+	 * @throws DAOException
+	 */
+	public List<SelectItem> getGrupoPerguntasCombo() throws DAOException {
+		List<SelectItem> lista = new LinkedList<SelectItem>();
+		for (GrupoPerguntas grupo : obj.getGrupoPerguntas())
+			// usa hashcode pq os grupos adicionados tem id == 0
+			lista.add(new SelectItem(grupo.hashCode(), grupo.getTitulo()));
+		return lista;
+	}
+	
+	/** Verifica se o usuário tem permisão para cadastrar/alterar.<br/>
+	 * Método não invocado por JSP's
 	 * @see br.ufrn.arq.web.jsf.AbstractControllerCadastro#checkChangeRole()
 	 */
 	@Override
@@ -741,6 +766,14 @@ public class CadastrarFormularioAvaliacaoInstitucionalMBean extends SigaaAbstrac
 
 	public void setAbaSelecionada(String abaSelecionada) {
 		this.abaSelecionada = abaSelecionada;
+	}
+
+	public int getHashGrupoMediaGeral() {
+		return hashGrupoMediaGeral;
+	}
+
+	public void setHashGrupoMediaGeral(int hashGrupoMediaGeral) {
+		this.hashGrupoMediaGeral = hashGrupoMediaGeral;
 	}
 
 }

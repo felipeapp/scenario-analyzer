@@ -202,12 +202,12 @@ public class AutorizacaoProjetoMonitoria implements Validatable, Cloneable {
 
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsUtil.testEquals(this, obj, "unidade.id");
+		return EqualsUtil.testEquals(this, obj, "projetoEnsino.id", "unidade.id");
 	}
 
 	@Override
 	public int hashCode() {
-		return HashCodeUtil.hashAll(unidade.getId());
+		return HashCodeUtil.hashAll(getProjetoEnsino().getId(), unidade.getId());
 	}
 	
 	public ListaMensagens validate() {

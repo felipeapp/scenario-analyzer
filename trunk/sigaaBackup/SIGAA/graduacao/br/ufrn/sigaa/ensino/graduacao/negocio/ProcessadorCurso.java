@@ -9,22 +9,18 @@
 package br.ufrn.sigaa.ensino.graduacao.negocio;
 
 import java.rmi.RemoteException;
-import java.util.Collection;
 
 import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.arquivos.EnvioArquivoHelper;
 import br.ufrn.arq.dominio.Movimento;
-import br.ufrn.arq.dominio.MovimentoCadastro;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.ProcessadorCadastro;
 import br.ufrn.sigaa.arq.dao.CursoDao;
-import br.ufrn.sigaa.arq.dao.CursoInstituicoesEnsinoDao;
 import br.ufrn.sigaa.arq.dao.InstituicoesEnsinoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.Curso;
-import br.ufrn.sigaa.dominio.CursoInstituicoesEnsino;
-import br.ufrn.sigaa.dominio.InstituicoesEnsino;
+import br.ufrn.sigaa.ensino_rede.dao.DadosCursoRedeDao;
 
 /**
  * Processador para regras do cadastro de curso de graduação e stricto sensu
@@ -38,7 +34,9 @@ public class ProcessadorCurso extends ProcessadorCadastro {
 	public Object execute(Movimento movimento) throws NegocioException, ArqException, RemoteException {
 		validate(movimento);
 		MovimentoCursoGraduacao mc = (MovimentoCursoGraduacao) movimento;
-
+		InstituicoesEnsinoDao iedao = getDAO(InstituicoesEnsinoDao.class,mc);
+		DadosCursoRedeDao cieDao = getDAO(DadosCursoRedeDao.class, mc);
+		
 		// Cadastro do arquivo do projeto político-pedagógico
 		if (mc.getArquivo() != null) {
 			try {
@@ -55,6 +53,10 @@ public class ProcessadorCurso extends ProcessadorCadastro {
 
 		if (mc.getCodMovimento().equals(SigaaListaComando.CADASTRAR_CURSO_GRADUACAO)) {
 			criar(mc);
+			// o curso foi cadastrado como ativo. caso esteja sendo cadastrado um curso inativo, atualizar o status do curso. 
+			if (mc.isCadastrarCursoInativo()) {
+				iedao.updateField(Curso.class, mc.getObjMovimentado().getId(), "ativo", false);
+			}
 		} else if (mc.getCodMovimento().equals(SigaaListaComando.ALTERAR_CURSO_GRADUACAO)) {
 			Curso c = (Curso) mc.getObjMovimentado();
 			if( c.getNivel() == NivelEnsino.GRADUACAO ){
@@ -64,13 +66,13 @@ public class ProcessadorCurso extends ProcessadorCadastro {
 		}
 		
 		/* Cadastro de Instituições de Ensino vinculadas ao curso de stricto sensu pertencente a redes de ensino dentre outras instituições.*/
-		InstituicoesEnsinoDao iedao = getDAO(InstituicoesEnsinoDao.class,mc);
-		CursoInstituicoesEnsinoDao cieDao = getDAO(CursoInstituicoesEnsinoDao.class, mc);
+		
+		/*
 		try {
 			Collection<InstituicoesEnsino> colInstEnsino = iedao.findByCurso(mc.getObjMovimentado().getId());
 			for( InstituicoesEnsino ie : mc.getInstituicoesEnsino() ){
 				
-				CursoInstituicoesEnsino cursoInstituicao = new CursoInstituicoesEnsino();
+				DadosCursoRede cursoInstituicao = new DadosCursoRede();
 				cursoInstituicao.setCurso((Curso) mc.getObjMovimentado());
 				cursoInstituicao.setInstituicaoEnsino(ie);
 				
@@ -78,8 +80,8 @@ public class ProcessadorCurso extends ProcessadorCadastro {
 					iedao.createNoFlush(cursoInstituicao);
 			}
 			
-			Collection<CursoInstituicoesEnsino> colCursoIe = cieDao.findByCurso(mc.getObjMovimentado().getId());
-			for (CursoInstituicoesEnsino cie : colCursoIe) {
+			Collection<DadosCursoRede> colCursoIe = cieDao.findByCurso(mc.getObjMovimentado().getId());
+			for (DadosCursoRede cie : colCursoIe) {
 				if(!mc.getInstituicoesEnsino().contains(cie.getInstituicaoEnsino()))
 					cieDao.remove(cie);
 				
@@ -88,7 +90,7 @@ public class ProcessadorCurso extends ProcessadorCadastro {
 			iedao.close();
 			cieDao.close();
 		}	
-		
+		*/
 		return mc.getObjMovimentado();
 	}
 
@@ -98,20 +100,20 @@ public class ProcessadorCurso extends ProcessadorCadastro {
 	 */
 	@Override
 	public void validate(Movimento mov) throws NegocioException, ArqException {
-		// verificando se não existe convênio
-		MovimentoCadastro mc = (MovimentoCadastro) mov;
-		Curso c = (Curso) mc.getObjMovimentado();
+		// verificando se não existe convênio e curso ativo com o mesmo nome
+		MovimentoCursoGraduacao mc = (MovimentoCursoGraduacao) mov;
+		Curso c = mc.getObjMovimentado();
 		CursoDao cdao = getDAO(CursoDao.class, mov);
 		try {
 			if (c.getNivel() == NivelEnsino.GRADUACAO) {
-				if (cdao.existeCursoGraduacao(c)){
-					throw new NegocioException("O curso não pode ser cadastrado.<br>" +
-					"Já existe um curso com mesmo nome, município e unidade-sede.");
+				if (!mc.isCadastrarCursoInativo() && c.isAtivo() && cdao.existeCursoGraduacao(c)){
+					throw new NegocioException("O curso não pode ser cadastrado. " +
+					"Já existe um curso ativo com mesmo nome, município e unidade-sede.");
 				}
 			} else if (NivelEnsino.isAlgumNivelStricto(c.getNivel())) {
 				if (cdao.existeCursoStricto(c)){
-					throw new NegocioException("O curso não pode ser cadastrado.<br>" +
-					"Já existe um curso com mesmo nome, município, unidade-sede e nível.");
+					throw new NegocioException("O curso não pode ser cadastrado. " +
+					"Já existe um curso ativo com mesmo nome, município, unidade-sede e nível.");
 				}
 			}
 		} finally {

@@ -46,7 +46,7 @@
 		<br/>
 		<div class="infoAltRem">
 			<h:graphicImage value="/img/view.gif" style="overflow: visible;" />: Visualizar Disciplina
-			<c:if test="${not acesso.pedagogico }">
+			<c:if test="${ disciplinaMedioMBean.podeAlterar }">
 				<h:graphicImage value="/img/alterar.gif" style="overflow: visible;" />: Alterar Disciplina
 				<h:graphicImage value="/img/delete.gif" style="overflow: visible;" />: Remover Disciplina
 			</c:if>
@@ -80,13 +80,13 @@
 						</td>
 						<c:if test="${not acesso.pedagogico }">
 						<td width="5px">
-							<h:commandLink action="#{disciplinaMedioMBean.alterar}" title="Alterar Disciplina">
+							<h:commandLink action="#{disciplinaMedioMBean.alterar}" title="Alterar Disciplina" rendered="#{ disciplinaMedioMBean.podeAlterar }">
 								<h:graphicImage value="/img/alterar.gif"/>
 								<f:setPropertyActionListener value="#{componente}" target="#{disciplinaMedioMBean.obj}"/>
 							</h:commandLink>						
 						</td>
 						<td width="5px">
-							<h:commandLink action="#{disciplinaMedioMBean.remove}" title="Remover Disciplina"  onclick="#{confirmDelete}">
+							<h:commandLink action="#{disciplinaMedioMBean.remove}" title="Remover Disciplina"  onclick="#{confirmDelete}" rendered="#{ disciplinaMedioMBean.podeAlterar }">
 								<h:graphicImage value="/img/delete.gif"/>
 								<f:setPropertyActionListener value="#{componente}" target="#{disciplinaMedioMBean.obj}"/>
 							</h:commandLink>						

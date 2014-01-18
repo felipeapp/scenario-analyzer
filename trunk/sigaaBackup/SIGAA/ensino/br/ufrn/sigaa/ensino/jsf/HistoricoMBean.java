@@ -324,7 +324,7 @@ public class HistoricoMBean extends SigaaAbstractController<DiscenteAdapter> imp
 		
 		//(GESTOR TECNICO) Permissão liberada para visualizar qualquer histórico do TECNICO. 
 		else if (getSubSistema().equals(SigaaSubsistemas.TECNICO)
-				&& (isUserInRole( new int[] {SigaaPapeis.GESTOR_TECNICO, SigaaPapeis.SECRETARIA_TECNICO, SigaaPapeis.COORDENADOR_TECNICO})))
+				&& (isUserInRole( new int[] {SigaaPapeis.GESTOR_TECNICO, SigaaPapeis.SECRETARIA_TECNICO, SigaaPapeis.COORDENADOR_TECNICO, SigaaPapeis.PEDAGOGICO_TECNICO})))
 			return true;
 		
 		//(GESTOR FORMAÇÃO COMPLEMENTAR) Permissão liberada para visualizar qualquer histórico do nível FORMAÇÃO COMPLEMENTAR. 

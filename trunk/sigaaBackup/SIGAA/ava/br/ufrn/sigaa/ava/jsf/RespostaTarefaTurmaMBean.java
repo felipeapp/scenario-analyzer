@@ -204,7 +204,7 @@ public class RespostaTarefaTurmaMBean extends SigaaAbstractController<RespostaTa
 				GrupoDiscentes g  = gDao.findGrupoDiscenteAtivosByDiscenteTurma(u.getDiscente().getId(), tBean.getTurma().getId());
 				GrupoDiscentesHelper.carregarAncestrais(g, tBean.getGrupos());
 				if ( g == null ){
-					addMensagemErro("É nescessário ter um grupo para responder esta tarefa! " +
+					addMensagemErro("É necessário ter um grupo para responder esta tarefa! " +
 							"Solicite ao docente da turma que crie um grupo para você ou o inclua em algum grupo já criado.");
 					return null;
 				}				

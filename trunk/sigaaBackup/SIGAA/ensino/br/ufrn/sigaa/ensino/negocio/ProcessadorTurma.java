@@ -165,7 +165,7 @@ public class ProcessadorTurma extends ProcessadorCadastro {
 		}
 		if (nivelEnsino != NivelEnsino.INFANTIL && nivelEnsino != NivelEnsino.LATO && nivelEnsino != NivelEnsino.MEDIO && !turma.isDistancia()) {
 
-			if (turma.getDisciplina().isDistancia() && nivelEnsino != NivelEnsino.GRADUACAO ){				
+			if ( nivelEnsino == NivelEnsino.GRADUACAO && turma.getDisciplina().isDistancia() ){				
 				erros.getMensagens().add(new MensagemAviso("O componente curricular (EAD) não é compatível com a modalidade de educação da turma (presencial)",TipoMensagemUFRN.ERROR));
 			}
 			if( mov.getCodMovimento().equals(SigaaListaComando.ALTERAR_TURMA) ){
@@ -225,7 +225,6 @@ public class ProcessadorTurma extends ProcessadorCadastro {
 
 	}
 	
-
 	/**
 	 * Persiste a turma
 	 * @param mov

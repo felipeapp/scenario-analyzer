@@ -23,6 +23,7 @@ import br.ufrn.arq.dao.DAOFactory;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.parametrizacao.RepositorioDadosInstitucionais;
 import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.arq.util.ValidatorUtil;
@@ -40,6 +41,7 @@ import br.ufrn.sigaa.monitoria.dominio.EquipeDocenteComponente;
 import br.ufrn.sigaa.monitoria.dominio.ProjetoEnsino;
 import br.ufrn.sigaa.monitoria.dominio.RelatorioProjetoMonitoria;
 import br.ufrn.sigaa.monitoria.dominio.TipoRelatorioMonitoria;
+import br.ufrn.sigaa.parametros.dominio.ParametrosMonitoria;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 import br.ufrn.sigaa.projetos.dominio.OrcamentoDetalhado;
 import br.ufrn.sigaa.projetos.dominio.TipoSituacaoProjeto;
@@ -300,73 +302,47 @@ public class ProjetoMonitoriaValidator {
 			// verificando se o docente tem relatórios PARCIAIS reprovados no
 			int anoRelatorioParcialInicio = edital == null ? CalendarUtils.getAno(docente.getProjetoEnsino().getProjeto().getDataInicio()) : edital.getAnoProjetoRelatorioParcialIncio();
 			int anoRelatorioParcialFim = edital == null ? CalendarUtils.getAno(docente.getProjetoEnsino().getProjeto().getDataFim()) : edital.getAnoProjetoRelatorioParcialFim();
-			Boolean coordenador = true; 
-
-			Collection<RelatorioProjetoMonitoria> relatoriosReprovados = new ArrayList<RelatorioProjetoMonitoria>();
-
-			relatoriosReprovados
-					.addAll(dao.findByRelatorioProjetosDocente(
-									docente.getServidor().getId(),
-									new Integer[] { TipoSituacaoProjeto.MON_NAO_RENOVADO_PELA_COMISSAO_MONITORIA },
-									anoRelatorioParcialInicio,
-									anoRelatorioParcialFim,
-									TipoRelatorioMonitoria.RELATORIO_PARCIAL, coordenador));
 
 			// verificando relatórios FINAIS reprovados
 			int anoRelatorioFinalInicio = edital == null ? CalendarUtils.getAno(docente.getProjetoEnsino().getProjeto().getDataFim()) : edital.getAnoProjetoRelatorioFinalIncio();
 			int anoRelatorioFinalFim = edital == null ? CalendarUtils.getAno(docente.getProjetoEnsino().getProjeto().getDataFim()) : edital.getAnoProjetoRelatorioFinalFim();
 
-			relatoriosReprovados
-					.addAll(dao.findByRelatorioProjetosDocente(
-									docente.getServidor().getId(),
-									new Integer[] { TipoSituacaoProjeto.MON_NAO_RENOVADO_PELA_COMISSAO_MONITORIA },
-									anoRelatorioFinalInicio,
-									anoRelatorioFinalFim,
-									TipoRelatorioMonitoria.RELATORIO_FINAL, coordenador));
-
-			// tem relatórios reprovados?
-			if (!relatoriosReprovados.isEmpty()) {
-				lista.addErro("Este Docente teve pelo menos um Relatório de Projeto de Monitoria reprovado pela "
-										+ "Pró-Reitoria de Graduação, portanto, não poderá participar de novos Projetos de Ensino por 2 anos!");
+			
+			//Só verifica se o parametro estiver ativo.
+			if ( ParametroHelper.getInstance().getParametroBoolean(ParametrosMonitoria.PUNICAO_RELATORIO_FINAL_REPROVADO) ) {
+				Collection<RelatorioProjetoMonitoria> relatoriosReprovados = new ArrayList<RelatorioProjetoMonitoria>();
+				relatoriosReprovados.addAll(dao.findByRelatorioProjetosDocente( docente.getServidor().getId(),
+							new Integer[] { TipoSituacaoProjeto.MON_NAO_RENOVADO_PELA_COMISSAO_MONITORIA },
+							anoRelatorioParcialInicio, anoRelatorioParcialFim, TipoRelatorioMonitoria.RELATORIO_PARCIAL, true));
+	
+				relatoriosReprovados.addAll(dao.findByRelatorioProjetosDocente(
+							docente.getServidor().getId(), new Integer[] { TipoSituacaoProjeto.MON_NAO_RENOVADO_PELA_COMISSAO_MONITORIA },
+							anoRelatorioFinalInicio, anoRelatorioFinalFim, TipoRelatorioMonitoria.RELATORIO_FINAL, true));
+	
+				// tem relatórios reprovados?
+				if (!relatoriosReprovados.isEmpty()) {
+					lista.addErro("Este Docente teve pelo menos um Relatório de Projeto de Monitoria reprovado pela Pró-Reitoria de Graduação.");
+				}
+				
 			}
 
 			// -----------------Verificando relatórios enviados---------------
-
-			// verificando se apresentou algum relatório PARCIAL
-			// todos os projetos onde o docente está ativo
+			// verificando se apresentou algum relatório PARCIAL todos os projetos onde o docente está ativo e coordena
 			Collection<ProjetoEnsino> projetosRelatorioParcialDocente = projetoMonitoriaDao.
-					findMeusProjetosMonitoria(docente.getServidor().getId(), coordenador, anoRelatorioParcialInicio, anoRelatorioParcialFim);
+					findMeusProjetosMonitoria(docente.getServidor().getId(), anoRelatorioParcialInicio, anoRelatorioParcialFim, 
+							TipoRelatorioMonitoria.RELATORIO_PARCIAL);
 
-			if ((projetosRelatorioParcialDocente != null)
-					&& (!projetosRelatorioParcialDocente.isEmpty())) {
-
-				for (ProjetoEnsino projetoEnsino : projetosRelatorioParcialDocente) {
-
-					// enviou relatórios parciais?
-					if ((projetoEnsino.getRelatoriosParciais() == null) || (projetoEnsino.getRelatoriosParciais().isEmpty())) {
-						lista.addMensagem(MensagensMonitoria.DOCENTE_PENDENTE_RELATORIO_PARCIAL, anoRelatorioParcialInicio,anoRelatorioParcialFim);
-						break;
-					}
-
-				}
+			if ( projetosRelatorioParcialDocente != null && !projetosRelatorioParcialDocente.isEmpty() ) {
+				lista.addMensagem(MensagensMonitoria.DOCENTE_PENDENTE_RELATORIO_PARCIAL, anoRelatorioParcialInicio,anoRelatorioParcialFim);
 			}
 
-			// verificando se apresentou algum relatório FINAL
-			// todos os projetos onde o docente está ativo
+			// verificando se apresentou algum relatório FINAL todos os projetos onde o docente está ativo e coordena
 			Collection<ProjetoEnsino> projetosRelatorioFinalDocente = projetoMonitoriaDao
-					.findMeusProjetosMonitoria(docente.getServidor().getId(), coordenador, anoRelatorioFinalInicio, anoRelatorioFinalFim);
+					.findMeusProjetosMonitoria(docente.getServidor().getId(), anoRelatorioFinalInicio, anoRelatorioFinalFim, 
+							TipoRelatorioMonitoria.RELATORIO_FINAL);
 
-			if ((projetosRelatorioFinalDocente != null)
-					&& (!projetosRelatorioFinalDocente.isEmpty())) {
-
-				for (ProjetoEnsino projetoEnsino : projetosRelatorioFinalDocente) {
-
-					// enviou relatórios finais?
-					if ((projetoEnsino.getRelatoriosFinais() == null) || (projetoEnsino.getRelatoriosFinais().isEmpty())) {
-						lista.addMensagem(MensagensMonitoria.DOCENTE_PENDENTE_RELATORIO_PARCIAL, anoRelatorioFinalInicio,anoRelatorioFinalFim);
-						break;
-					}
-				}
+			if ( projetosRelatorioFinalDocente != null && !projetosRelatorioFinalDocente.isEmpty() ) {
+				lista.addMensagem(MensagensMonitoria.DOCENTE_PENDENTE_RELATORIO_FINAL, anoRelatorioFinalInicio,anoRelatorioFinalFim);
 			}
 
 		} finally {

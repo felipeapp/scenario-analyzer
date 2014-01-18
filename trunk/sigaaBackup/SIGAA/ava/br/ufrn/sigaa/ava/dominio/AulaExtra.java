@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import br.ufrn.arq.dao.CampoAtivo;
 import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.arq.util.Formatador;
 import br.ufrn.arq.util.HashCodeUtil;
@@ -97,6 +98,10 @@ public class AulaExtra implements DominioTurmaVirtual {
 	 */	
 	@ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="criado_por")
 	private Usuario criadoPor;
+	
+	/** Identifica se a aula está ativa no sistema. */
+	@CampoAtivo
+	private boolean ativo = true;
 
 	public int getId() {
 		return id;
@@ -208,6 +213,14 @@ public class AulaExtra implements DominioTurmaVirtual {
 
 	public Date getDataAulaReposta() {
 		return dataAulaReposta;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
 	}
 	
 }

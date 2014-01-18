@@ -105,7 +105,9 @@ public class AcessoMenu extends AcessoMenuExecutor {
 		setNext(new AcessoAbrirChamado()).
 		setNext(new AcessoOuvidoria()).
 		setNext(new AcessoFamiliar()).
-		setNext(new AcessoRelacoesInternacionais());
+		setNext(new AcessoMetropoleDigital()).
+		setNext(new AcessoRelacoesInternacionais()).
+		setNext(new AcessoEnsinoRede());
 
 		// QUANDO ACRESCENTAR UM ACESSO MENU, INCREMENTAR O TOTAL DA LINHA ABAIXO
 		progress.incrementaTotal(34);

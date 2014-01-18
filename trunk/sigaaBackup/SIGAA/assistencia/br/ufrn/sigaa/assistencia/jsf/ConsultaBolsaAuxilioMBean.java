@@ -22,6 +22,7 @@ import br.ufrn.sigaa.arq.dao.sae.BolsaAuxilioDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.assistencia.dominio.BolsaAuxilio;
 import br.ufrn.sigaa.assistencia.dominio.ResidenciaUniversitaria;
+import br.ufrn.sigaa.assistencia.dominio.SituacaoBolsaAuxilio;
 import br.ufrn.sigaa.assistencia.dominio.TipoBolsaAuxilio;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
@@ -113,11 +114,11 @@ public class ConsultaBolsaAuxilioMBean extends SigaaAbstractController<DiscenteA
 		checkMunicipio = false;
 		checkSexo = false;
 		checkStatus = false;
-		deferimento = 1;
+		deferimento = SituacaoBolsaAuxilio.EM_ANALISE;
 		idResidencia = 1;
 		idMunicipio = 1;
 		idMunicipio = 1;
-		idTipoBolsaAuxilio = 1;
+		idTipoBolsaAuxilio = TipoBolsaAuxilio.RESIDENCIA_GRADUACAO;
 		ano = CalendarUtils.getAnoAtual();
 		periodo = getPeriodoAtual();
 		nivel = NivelEnsino.GRADUACAO;
@@ -125,6 +126,17 @@ public class ConsultaBolsaAuxilioMBean extends SigaaAbstractController<DiscenteA
 		sexo = PessoaGeral.SEXO_MASCULINO;
 		definirNivelEnsino();
 		definirStatusDiscente();
+	}
+	
+	public void clearResumido() throws DAOException {
+		if (!checkAnoPeriodo) {
+			ano = CalendarUtils.getAnoAtual();
+			periodo = getPeriodoAtual();
+		} 
+		if (!checkSexo)
+			sexo = PessoaGeral.SEXO_MASCULINO;
+		if (!checkDeferimento)
+			deferimento = SituacaoBolsaAuxilio.EM_ANALISE;
 	}
 	
 	public List<BolsaAuxilio> buscarBolsaAuxilio() throws Exception {
@@ -157,6 +169,9 @@ public class ConsultaBolsaAuxilioMBean extends SigaaAbstractController<DiscenteA
 		if (checkAnoPeriodo && (ano == null || periodo == null)) {
 			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Ano/Semestre");
 			paramsValido = false;
+		} else if (!checkAnoPeriodo) {
+			ano = 0;
+			periodo = 0;
 		}
 		if (checkNivel && nivel == '0') {
 			addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Nível");

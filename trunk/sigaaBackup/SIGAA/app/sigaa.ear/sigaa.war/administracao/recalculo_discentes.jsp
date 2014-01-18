@@ -7,16 +7,6 @@
 		<table class="formulario" width="80%">
 			<caption>Recalcular Discentes</caption>
 			<tr>
-				<th width="30%">Cálculos a realizar:</th>
-				<td>
-					<h:selectOneMenu id="opcaoCalculo" value="#{recalculosMBean.opcao}">
-						<f:selectItem itemValue="todos" itemLabel="Todos (tipos, totais, status, ira)" />
-						<f:selectItem itemValue="statusTipos" itemLabel="Status e Tipos de Integralização" />
-						<f:selectItem itemValue="consolidacao" itemLabel="Consolidação (totais, status, ira)" />
-					</h:selectOneMenu>
-				</td>
-			</tr>
-			<tr>
 				<th nowrap="nowrap">Zerar Integralizações:</th>
 				<td>
 					<h:selectOneRadio id="zerarIntegralizacoes" value="#{recalculosMBean.zerarIntegralizacoes}">
@@ -35,7 +25,16 @@
 				</ufrn:help>
 				:</th>
 				<td><h:inputTextarea value="#{ recalculosMBean.sqlRestricao }" rows="4" style="width: 95%;" /></td>
-			</tr>			
+			</tr>		
+			<tr>
+				<th>Nivel Ensino:</th>
+				<td>
+					<h:selectOneMenu id="nivelEnisno" value="#{recalculosMBean.nivelEnsino}">
+						<f:selectItem itemValue="G" itemLabel="Graduação" />
+						<f:selectItem itemValue="S" itemLabel="Stricto Sensu" />
+					</h:selectOneMenu>
+				</td>
+			</tr>				
 			<tr>
 				<th>Senha:</th>
 				<td><h:inputSecret value="#{ recalculosMBean.senha }" size="10" /> </td>

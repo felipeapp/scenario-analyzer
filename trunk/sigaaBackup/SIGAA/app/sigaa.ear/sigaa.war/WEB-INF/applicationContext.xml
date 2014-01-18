@@ -54,11 +54,13 @@
 	<context:component-scan base-package="br.ufrn.sigaa.prodocente.atividades.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.prodocente.producao.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.prodocente.relatorios.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.lattes"/>
 	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.relatorios.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.docenciaassistida.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.ensino.stricto.reuni.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.ensino.tecnico.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.defesa.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.vestibular.relatorios.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.vestibular.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.mobile.jsf"/>
@@ -78,8 +80,8 @@
 	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.circulacao.remoto"/>
 	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.controle_estatistico.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.informacao_referencia.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.biblioteca.publicacoes_academicas.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.relatorios"/>
-	<context:component-scan base-package="br.ufrn.sigaa.espacofisico.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.cv.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.sites.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.processamento.jsf"/>
@@ -90,18 +92,25 @@
     <context:component-scan base-package="br.ufrn.sigaa.pid.relatorios.jsf"/>
     <context:component-scan base-package="br.ufrn.sigaa.projetos.relatorios.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.migracao.biblioteca"/>
+	<context:component-scan base-package="br.ufrn.sigaa.rh.jsf"/>	
 	<context:component-scan base-package="br.ufrn.sigaa.agenda.jsf"/>
-	<context:component-scan base-package="br.ufrn.sigaa.prodocente.relatorios.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.prodocente.relatorios.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.estagio.jsf"/>
-	<context:component-scan base-package="br.ufrn.sigaa.nee.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.nee.jsf"/>
+	<context:component-scan base-package="br.ufrn.arq.banco.reversa.jsf"/>
 	<context:component-scan base-package="br.ufrn.sigaa.relatoriosgestao.jsf"/>
-	<context:component-scan base-package="br.ufrn.sigaa.twitter.jsf"/>	
-	<context:component-scan base-package="br.ufrn.sigaa.ouvidoria.jsf"/>	
-	<context:component-scan base-package="br.ufrn.sigaa.ensino.medio.jsf"/>	
-	<context:component-scan base-package="br.ufrn.sigaa.ensino.internacionalizacao.jsf"/>	
-	<context:component-scan base-package="br.ufrn.sigaa.ensino.metropoledigital.jsf"/>	
-	<context:component-scan base-package="br.ufrn.sigaa.gru.jsf"/>	
-	
+	<context:component-scan base-package="br.ufrn.sigaa.twitter.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ouvidoria.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.medio.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.internacionalizacao.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino.metropoledigital.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino_rede.academico.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino_rede.admin.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino_rede.portal.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.ensino_rede.relatorios.jsf"/>	
+	<context:component-scan base-package="br.ufrn.sigaa.ensino_rede.jsf"/>
+	<context:component-scan base-package="br.ufrn.sigaa.gru.jsf"/>
+
 	<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
         <property name="scopes">
             <map>
@@ -111,6 +120,5 @@
     </bean>
 
 	<bean id="verTelaAvisoLogonMBean" class="br.ufrn.comum.jsf.VerTelaAvisoLogonMBean" scope="session"/>
-	<bean id="identificacaoCartaoRuLocal" class="br.ufrn.sigaa.assistencia.remoto.IdentificacaoCartaoRu"/>
-	
+
 </beans>

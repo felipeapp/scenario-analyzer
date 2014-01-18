@@ -129,6 +129,9 @@ public class ResumoCongresso extends AbstractMovimento implements PersistDB, Val
 	/** Identificador da unidade agrupadora do resumo. Utilizado na distribuição de resumos para avaliação */
 	private Integer idUnidadeAgrupadora;
 	
+	/** Identificador da avaliação do Resumo */
+	private Integer idAvaliacao;
+	
 	@Transient
 	public boolean isSelecionado() {
 		return selecionado;
@@ -408,6 +411,12 @@ public class ResumoCongresso extends AbstractMovimento implements PersistDB, Val
 		return (status == APRESENTADO && (new Date()).after( congresso.getFim() ));
 	}
 
+	@Transient
+	public boolean isPassivelAvaliacao() {
+		return status == SUBMETIDO || status == CORRIGIDO 
+				|| status == AGUARDANDO_AUTORIZACAO || status == CORRIGIDO_AGUARDANDO_APROVACAO;
+	}
+
 	@Column(name = "numero_painel", unique = false, nullable = true, insertable = true, updatable = true)
 	public Integer getNumeroPainel() {
 		return numeroPainel;
@@ -453,4 +462,14 @@ public class ResumoCongresso extends AbstractMovimento implements PersistDB, Val
 		this.idUnidadeAgrupadora = idUnidadeAgrupadora;
 	}
 
+	@Transient
+	public Integer getIdAvaliacao() {
+		return idAvaliacao;
+	}
+
+	public void setIdAvaliacao(Integer idAvaliacao) {
+		this.idAvaliacao = idAvaliacao;
+	}
+
+	
 }

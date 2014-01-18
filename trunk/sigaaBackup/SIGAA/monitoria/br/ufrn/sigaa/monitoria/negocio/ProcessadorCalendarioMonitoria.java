@@ -1,7 +1,6 @@
 package br.ufrn.sigaa.monitoria.negocio;
 
 import java.rmi.RemoteException;
-import java.util.Collection;
 
 import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dominio.Movimento;
@@ -26,6 +25,8 @@ public class ProcessadorCalendarioMonitoria extends AbstractProcessador {
 		validate(mov);		
 		if( ((MovimentoCadastro)mov).getCodMovimento().equals(SigaaListaComando.CADASTRAR_CALENDARIO_MONITORIA)){
 				criarNovoCalendarioMonitoria((MovimentoCadastro)mov);
+		}else if(((MovimentoCadastro)mov).getCodMovimento().equals(SigaaListaComando.ALTERAR_CALENDARIO_MONITORIA)){
+			alterarCalendarioMonitoria((MovimentoCadastro)mov);
 		}
 		return null;
 	}
@@ -34,7 +35,7 @@ public class ProcessadorCalendarioMonitoria extends AbstractProcessador {
 	
 	
 	/**
-	 * Criar ou atualizar Calendário de Monitoria
+	 * Criar Calendário de Monitoria
 	 * 
 	 * @param mov
 	 * @return
@@ -46,18 +47,9 @@ public class ProcessadorCalendarioMonitoria extends AbstractProcessador {
 
 		try {
 			
-			CalendarioMonitoria novo = (CalendarioMonitoria) mov.getObjMovimentado();			
-			dao.detach(novo);	
-			Collection<CalendarioMonitoria>ativos = dao.findAllAtivos(CalendarioMonitoria.class, "id" );
-			if ((ativos != null) && (! ativos.isEmpty())){
-				CalendarioMonitoria antigo = ativos.iterator().next(); //pegando o primeiro e único ativo
-				antigo.setAtivo(false);
-				dao.update(antigo);
-			}
-
+			CalendarioMonitoria novo = (CalendarioMonitoria) mov.getObjMovimentado();
 			
 			//criando novo calendário
-			novo.setId(0);
 			novo.setAtivo(true);
 			novo.setRegistroEntrada(mov.getUsuarioLogado().getRegistroEntrada());
 			dao.create(novo);
@@ -69,6 +61,30 @@ public class ProcessadorCalendarioMonitoria extends AbstractProcessador {
 			dao.close();
 		}
 		
+	}
+	
+
+	/**
+	 * atualizar Calendário de Monitoria
+	 * 
+	 * @param mov
+	 * @return
+	 * @throws ArqException
+	 */
+	private void alterarCalendarioMonitoria(MovimentoCadastro mov) throws ArqException{
+
+		GenericDAO dao = getGenericDAO(mov);
+		try{
+			CalendarioMonitoria calendario = (CalendarioMonitoria) mov.getObjMovimentado();
+			calendario.setRegistroEntrada(mov.getUsuarioLogado().getRegistroEntrada());
+			dao.update(calendario);
+		}catch (DAOException e) {
+			e.printStackTrace();
+			throw new DAOException(e);					
+		}finally {
+			dao.close();
+					
+		}
 	}
 							
 	public void validate(Movimento mov) throws NegocioException, ArqException {

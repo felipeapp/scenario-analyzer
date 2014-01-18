@@ -247,19 +247,16 @@ public class ProcessadorDiscenteMonitoria extends AbstractProcessador {
 
 	    		//Recusou a vaga...
 	    	}else {
-	    		if(!(monitorResult.getTipoVinculo().getId() == TipoVinculoDiscenteMonitoria.NAO_REMUNERADO)){
-	    			monitorResult.setAtivo(true);
-	    			monitorResult.setDataInicio(null);
-	    			monitorResult.setDataFim(null);
-	    			monitorResult.setSituacaoDiscenteMonitoria(new SituacaoDiscenteMonitoria(SituacaoDiscenteMonitoria.CONVOCADO_MAS_REJEITOU_MONITORIA));
-
-	    			// inicializando orientações que ainda estão em aberto
-	    			for (Orientacao ori : monitorResult.getOrientacoes()) {
-	    				ori.setDataInicio(null);
-	    				ori.setDataFim(null);
-	    				dao.update(ori);
-	    			}
-	    		}
+    			monitorResult.setAtivo(true);
+    			monitorResult.setDataInicio(null);
+    			monitorResult.setDataFim(null);
+    			monitorResult.setSituacaoDiscenteMonitoria(new SituacaoDiscenteMonitoria(SituacaoDiscenteMonitoria.CONVOCADO_MAS_REJEITOU_MONITORIA));
+    			// inicializando orientações que ainda estão em aberto
+    			for (Orientacao ori : monitorResult.getOrientacoes()) {
+    				ori.setDataInicio(null);
+    				ori.setDataFim(null);
+    				dao.update(ori);
+    			}
 
 	    		// seta como convocado o monitor que rejeitou a vaga. (controla a ordem de chamada dos monitores convocados mais de 1 vez).
 	    		// convocando o próximo monitor melhor colocado. 		

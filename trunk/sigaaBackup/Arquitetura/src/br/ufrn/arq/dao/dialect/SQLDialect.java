@@ -94,4 +94,9 @@ public class SQLDialect {
 	public static String regexpSplitToTable(String campo, String delimitador){
 		return getInstance().regexpSplitToTable(campo, delimitador);
 	}
+	
+	public String gerarMecanismoPesquisaTextual(String nomeColuna) {
+		return getInstance().gerarMecanismoPesquisaTextual(nomeColuna);
+	}
+	
 }

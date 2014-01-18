@@ -211,4 +211,16 @@ public class CampusIes implements Validatable {
 		return lista;
 	}
 
+	@Transient
+	public String getDescricao() {
+		
+		StringBuilder str = new StringBuilder();
+		
+		if (instituicao != null)
+			str.append(instituicao.getSigla() + " - ");
+		str.append(getSigla());
+		
+		return  str.toString();
+	}
+	
 }

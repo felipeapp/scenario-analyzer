@@ -5,31 +5,30 @@
 	<h:messages showDetail="true"></h:messages>
 	<h2 class="title"><ufrn:subSistema /> &gt; Avaliadores do CIC</h2>
 
-	<center>
-			<h:form>
-			<div class="infoAltRem" style="text-align: left; width: 100%">
-				<h:graphicImage value="/img/adicionar.gif"style="overflow: visible;"/>
-	  			<h:commandLink value="Listar" action="#{avaliadorCIC.listar}"/>
-			</div>
-			</h:form>
-	</center>
-
 	<h:form id="form">
-		<h:inputHidden value="#{avaliadorCIC.confirmButton}" />
-		<h:inputHidden value="#{avaliadorCIC.obj.id}" />
-
 		<table class="formulario" width="100%">
 			<caption class="formulario">Dados do Avaliador</caption>
+			
 			<tr>
-				<th class="required">Congresso:</th>
+				<th class="obrigatorio">Tipo de Usuário:</th>
+				<td>
+					<h:selectOneRadio id="tipoUsuario" value="#{avaliadorCIC.obj.tipoUsuario}" >
+						<f:selectItems value="#{avaliadorCIC.comboStatusPessoa }" />
+						<a4j:support event="onclick" reRender="form" />
+					</h:selectOneRadio>
+				</td>
+			</tr>
+								
+			<tr>
+				<th class="obrigatorio">Congresso:</th>
 				<td>
 					<h:selectOneMenu id="congresso" value="#{avaliadorCIC.obj.congresso.id}" readonly="#{avaliadorCIC.readOnly}">
 						<f:selectItems value="#{avaliadorCIC.allCongressosCombo}" />
 					</h:selectOneMenu>
 				</td>
 			</tr>
-			<tr>
-				<th class="required">Docente: </th>
+			<t:htmlTag value="tr" rendered="#{avaliadorCIC.obj.usuarioDocente}" id="docenteAuto">
+				<th class="obrigatorio">Docente: </th>
 				<td>
 					<h:inputHidden id="idServidor" value="#{avaliadorCIC.obj.docente.id}"/>
 					<h:inputText id="nomeServidor" value="#{avaliadorCIC.obj.docente.pessoa.nome}" size="70" onkeyup="CAPS(this);" readonly="#{avaliadorCIC.readOnly}"/>
@@ -41,18 +40,34 @@
 					<img src="/sigaa/img/indicator.gif"  alt="Carregando..." title="Carregando..."/> 
 					</span>
 				</td>
-			</tr>
-			<tr>
-				<th class="required">Área de Conhecimento: </th>
+			</t:htmlTag>
+			
+			<t:htmlTag value="tr" rendered="#{ avaliadorCIC.obj.usuarioDiscente  }" id="discenteAuto">
+				<th class="obrigatorio">Discente:</th>
 				<td>
-					<h:selectOneMenu id="area" value="#{avaliadorCIC.obj.area.id}" readonly="#{avaliadorCIC.readOnly}">
+					<h:inputHidden id="idDiscente" value="#{ avaliadorCIC.obj.discente.id }"></h:inputHidden>
+					<h:inputText id="nomeDiscente" value="#{ avaliadorCIC.obj.discente.pessoa.nome}"	 onkeyup="CAPS(this);" size="70" />
+
+					<ajax:autocomplete source="form:nomeDiscente" target="form:idDiscente" baseUrl="/sigaa/ajaxDiscente"
+							className="autocomplete" indicator="indicatorDiscente" minimumCharacters="3" 
+							parameters="nivel=ufrn"	parser="new ResponseXmlToHtmlListParser()" />
+					<span id="indicatorDiscente" style="display: none;"> <img src="/sigaa/img/indicator.gif" /> </span>
+					<ufrn:help img="/img/ajuda.gif">Apenas os Discentes Ativos da ${ configSistema['siglaInstituicao'] } serão listados</ufrn:help>
+				</td>
+			</t:htmlTag>
+			
+			<tr>
+				<th>Área de Conhecimento: </th>
+				<td>
+					<h:selectOneMenu id="area" value="#{ avaliadorCIC.obj.area.id }" readonly="#{avaliadorCIC.readOnly}">
 						<f:selectItem itemLabel="-- SELECIONE --" itemValue="0"/>
 						<f:selectItems value="#{area.allGrandeAreas}"/>
 					</h:selectOneMenu>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"> 
+				<th class="obrigatorio">Tipo de Avaliador:</th>
+				<td align="left"> 
 					<h:selectBooleanCheckbox value="#{avaliadorCIC.obj.avaliadorResumo}" readonly="#{avaliadorCIC.readOnly}"/> 
 					Avaliador de Resumo
 					&nbsp;&nbsp;&nbsp;&nbsp;
@@ -65,7 +80,7 @@
 				<tr>
 					<td colspan="2"><h:commandButton value="#{avaliadorCIC.confirmButton}"
 						action="#{avaliadorCIC.cadastrar}" /> <h:commandButton value="Cancelar"
-						action="#{avaliadorCIC.cancelar}" onclick="#{confirm}"/></td>
+						action="#{avaliadorCIC.cancelarListar}" onclick="#{confirm}"/></td>
 				</tr>
 			</tfoot>
 		</table>

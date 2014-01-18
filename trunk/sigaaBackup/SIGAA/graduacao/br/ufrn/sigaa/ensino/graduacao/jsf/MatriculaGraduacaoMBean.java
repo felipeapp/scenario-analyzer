@@ -76,6 +76,7 @@ import br.ufrn.sigaa.arq.dao.graduacao.SolicitacaoMatriculaDao;
 import br.ufrn.sigaa.arq.expressao.ExpressaoUtil;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.assistencia.jsf.helper.RenovacaoBolsaHelper;
 import br.ufrn.sigaa.ava.dao.RegistroAtividadeDao;
 import br.ufrn.sigaa.avaliacao.dao.CalendarioAvaliacaoDao;
 import br.ufrn.sigaa.avaliacao.dominio.CalendarioAvaliacao;
@@ -1680,12 +1681,13 @@ public class MatriculaGraduacaoMBean extends SigaaAbstractController<MatriculaCo
 	 * @throws ArqException 
 	 */
 	public String telaInstrucoes() throws ArqException {
-		
-		
 		clear();
+
+		if ( isDiscenteLogado() )
+			RenovacaoBolsaHelper.verificarNecessidadeRenovacao(getUsuarioLogado().getDiscente(), erros);
+
 		validarInicioSolicitacaoMatricula();
 		
-
 		// Verifica se o coordenador do curso liberou alguma restrição para o aluno.
 		// por enquanto as únicas restrições sendo liberadas são limite máximo e mínimo de créditos por semestre.
 		permissaoExtrapolarCredito();
@@ -2514,6 +2516,7 @@ public class MatriculaGraduacaoMBean extends SigaaAbstractController<MatriculaCo
 
 		MatriculaComponenteDao matdao = getDAO(MatriculaComponenteDao.class);
 		DiscenteDao discenteDao = getDAO(DiscenteDao.class);
+		SolicitacaoMatriculaDao smDao = getDAO(SolicitacaoMatriculaDao.class);
 		CalendarioAcademicoDao calDao = null;
 		Collection<Turma> turmasAdicionadas = new ArrayList<Turma>();
 		try {
@@ -2585,6 +2588,11 @@ public class MatriculaGraduacaoMBean extends SigaaAbstractController<MatriculaCo
 			Collection<ComponenteCurricular> todosComponentes = getTodosComponentes(turmasSubmetidas);
 			Collection<ComponenteCurricular> componentesPagos = discenteDao.findComponentesCurricularesConcluidos(discente.getDiscente());
 			
+			ArrayList<Turma> turmasSemestreOutrosCursos = new ArrayList<Turma>(
+					matdao.findTurmasMatriculadasByDiscenteOutrosCursos(discente.getDiscente(),calendarioParaMatricula.getAno(), calendarioParaMatricula.getPeriodo()));
+			ArrayList<Turma> jaMatriculadasOutrosCursos = new ArrayList<Turma>(
+					smDao.findTurmasSolicitadasEmEsperaOutrosCursos(discente.getDiscente(),calendarioParaMatricula.getAno(), calendarioParaMatricula.getPeriodo()));
+
 
 			calDao = getDAO(CalendarioAcademicoDao.class);
 			for (int i = 0; i < tamanhoSelecao; i++) {
@@ -2617,6 +2625,8 @@ public class MatriculaGraduacaoMBean extends SigaaAbstractController<MatriculaCo
 				// coleção de turmas já matriculadas e selecionadas pra se matricular
 				ArrayList<Turma> turmasSemestreESubmetidas = new ArrayList<Turma>(getTurmasSemestre());
 				turmasSemestreESubmetidas.addAll(turmasSubmetidas);
+				turmasSemestreESubmetidas.addAll(turmasSemestreOutrosCursos);
+				turmasSemestreESubmetidas.addAll(jaMatriculadasOutrosCursos);
 				turmasSemestreESubmetidas.removeAll(turmasIndeferidas);
 				
 				RestricoesMatricula restricoesSemCoRequisito = new RestricoesMatricula();

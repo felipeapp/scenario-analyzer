@@ -36,6 +36,19 @@
         JAWR.loader.style('/bundles/css/sigaa_base.css', 'all');
      </script>
 	<jwr:style src="/bundles/css/sigaa.css" media="all" />
+
+	<style>
+		#painel-usuario #menu-usuario li.avaInst a{
+			background-image: url("/sigaa/img/index.png");
+			background-repeat: no-repeat;
+			background-position: 5px 2px;
+		}
+		#painel-usuario #menu-usuario li.userEdit a{
+			background-image: url("/sigaa/img/user_edit.png");
+			background-repeat: no-repeat;
+			background-position: 5px 2px;
+		}
+	</style>
 	
 </head>
 

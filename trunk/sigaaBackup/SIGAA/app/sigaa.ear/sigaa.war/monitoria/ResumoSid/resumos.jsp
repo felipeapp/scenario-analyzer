@@ -16,7 +16,9 @@
 		<font color="red">Atenção:</font><br/>
 		Os resumos só poderão ser alterados ou excluídos enquanto estiverem 
 		'AGUARDANDO DISTRIBUIÇÃO', 'AGUARDANDO AVALIAÇÃO' ou 'AVALIADO COM RESSALVAS'.<br/>
-		Não é permitida a submissão de mais de um resumo do projeto para um mesmo ano do seminário.
+		Cada resumo poderá ter até 3 bolsistas vinculados.
+		Para este projeto é permitido submeter no máximo  
+		<h:outputText value="#{resumoSid.qntMaximaResumoSid}" /> resumo(s).
 	</div>
 
 	<br/>
@@ -79,7 +81,7 @@
 					</h:commandLink>
 				</td>			
 				<td width="6%">
-							<c:if test="${acesso.coordenadorMonitoria}">
+							<c:if test="${acesso.coordenadorMonitoria || acesso.monitoria}">
 								
 									<c:if test="${(resumo.status.id == AGUARDANDO_DISTRIBUICAO) or (resumo.status.id == AVALIADO_COM_RESSALVAS) or (resumo.status.id == AVALIADO_SEM_RESSALVAS) or (resumo.status.id == AGUARDANDO_AVALIACAO) }">				
 										<h:commandLink  action="#{resumoSid.viewAvaliacoesProjeto}"  title="Visualizar Avaliações" styleClass="noborder" >

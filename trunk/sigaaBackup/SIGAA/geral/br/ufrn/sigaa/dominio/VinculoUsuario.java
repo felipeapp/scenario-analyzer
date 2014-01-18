@@ -16,26 +16,30 @@ import javax.servlet.http.HttpServletRequest;
 
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.comum.dominio.Responsavel;
 import br.ufrn.comum.dominio.UnidadeGeral;
 import br.ufrn.sigaa.arq.vinculo.processamento.ProcessarVinculos;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculo;
+import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoConcedenteEstagio;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoCoordenadorPolo;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoDiscente;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoDocenteExterno;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoFamiliar;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoGenerico;
-import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoConcedenteEstagio;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoResponsavel;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoSecretario;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoServidor;
 import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoTutor;
+import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoTutorIMD;
 import br.ufrn.sigaa.ead.dominio.CoordenacaoPolo;
 import br.ufrn.sigaa.ead.dominio.TutorOrientador;
 import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
 import br.ufrn.sigaa.ensino.dominio.SecretariaUnidade;
 import br.ufrn.sigaa.ensino.medio.dominio.UsuarioFamiliar;
+import br.ufrn.sigaa.ensino.metropoledigital.dominio.TutoriaIMD;
 import br.ufrn.sigaa.estagio.dominio.ConcedenteEstagioPessoa;
+import br.ufrn.sigaa.parametros.dominio.ParametrosTecnico;
 import br.ufrn.sigaa.pessoa.dominio.DocenteExterno;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
@@ -165,6 +169,19 @@ public class VinculoUsuario implements Serializable {
 		return null;
 	}
 	
+	
+	/**
+	 * Retorna o tutor IMD vinculado ao usuário.
+	 * 
+	 * @return Tutor EAD vinculado ao usuário.
+	 */
+	public TutoriaIMD getTutoriaIMD() {
+		if (tipoVinculo.isTutorIMD())
+			return ((TipoVinculoTutorIMD) tipoVinculo).getTutoria();
+
+		return null;
+	}
+	
 	/** 
 	 * Indica se o vínculo é de discente.
 	 * @return
@@ -213,6 +230,11 @@ public class VinculoUsuario implements Serializable {
 		return tipoVinculo.isTutor();
 	}
 
+	public boolean isVinculoTutorIMD() {
+		return tipoVinculo.isTutorIMD() && 
+				unidade.getId() == ParametroHelper.getInstance().getParametroInt(ParametrosTecnico.ID_UNIDADE_INSTITUTO_METROPOLE_DIGITAL);
+	}
+	
 	/** 
 	 * Indica se o vínculo é de coordenador de pólo. 
 	 * @return

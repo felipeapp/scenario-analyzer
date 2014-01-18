@@ -84,7 +84,7 @@
 							<c:set var="status" value="0" scope="request" />
 							
 							
-							<%-- Intereje sofre as inscrições de atividade 
+							<%-- Interaje sofre as inscrições de atividade 
 							  -- Para cada inscrição de atividade encontradas, interaje para imprirmir as inscrição de mini atividades  
 							  -- Achei mais fácil fazer assim do quer trazer ordenado da busca.
 							  --%>

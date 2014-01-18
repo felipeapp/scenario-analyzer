@@ -60,6 +60,7 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
 public class LogonBean extends AbstractProcessador {
 
 	/**
+	 * executa o login ou logoff
 	 * @see br.ufrn.arq.negocio.ProcessadorComando#execute(br.ufrn.arq.dominio.Movimento)
 	 */
 	public Object execute(Movimento mov) throws NegocioException, ArqException, RemoteException {
@@ -67,7 +68,8 @@ public class LogonBean extends AbstractProcessador {
 		UsuarioMov userMov = (UsuarioMov) mov;
 
 		if (userMov.getCodMovimento().getId() == ArqListaComando.LOGAR_COMO_COD ) {
-			int[] administradores = { SigaaPapeis.ADMINISTRADOR_SIGAA, SigaaPapeis.ADMINISTRADOR_DAE, SigaaPapeis.ADMINISTRADOR_STRICTO, SigaaPapeis.GESTOR_LATO };
+			int[] administradores = { SigaaPapeis.ADMINISTRADOR_SIGAA, SigaaPapeis.ADMINISTRADOR_DAE, SigaaPapeis.ADMINISTRADOR_STRICTO, 
+					SigaaPapeis.GESTOR_LATO ,SigaaPapeis.COORDENADOR_GERAL_REDE};
 			checkRole(administradores, mov);
 		}
 
@@ -251,6 +253,7 @@ public class LogonBean extends AbstractProcessador {
 			case ArqListaComando.LOGAR_COMO_COD:
 			case SigaaListaComando.LOGAR_COMO_TUTOR_COD:
 			case SigaaListaComando.LOGAR_COMO_COORD_POLO_COD:
+			case SigaaListaComando.LOGAR_COMO_TUTOR_IMD_COD:
 				validate(userMov);
 
 				Usuario usuarioLogado = (Usuario) userMov.getUsuarioLogado();
@@ -287,6 +290,7 @@ public class LogonBean extends AbstractProcessador {
 	}
 	
 	/**
+	 * Valida o movimento delogin
 	 * @see br.ufrn.arq.negocio.ProcessadorComando#validate(br.ufrn.arq.dominio.Movimento)
 	 */
 	public void validate(Movimento mov) throws NegocioException, ArqException {

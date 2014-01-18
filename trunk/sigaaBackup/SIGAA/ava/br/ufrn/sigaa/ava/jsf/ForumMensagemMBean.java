@@ -8,6 +8,7 @@
  */
 package br.ufrn.sigaa.ava.jsf;
 
+import static br.ufrn.arq.mensagens.MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO;
 import static br.ufrn.arq.util.ValidatorUtil.isAllEmpty;
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 
@@ -46,6 +47,7 @@ import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.CursoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaHelper;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
+import br.ufrn.sigaa.arq.vinculo.tipos.TipoVinculoCoordenacaoGeralRede;
 import br.ufrn.sigaa.ava.dao.ForumDao;
 import br.ufrn.sigaa.ava.dominio.AcaoAva;
 import br.ufrn.sigaa.ava.dominio.ConfiguracoesAva;
@@ -64,6 +66,8 @@ import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.ensino.jsf.HistoricoMBean;
 import br.ufrn.sigaa.ensino.latosensu.jsf.PortalCoordenadorLatoMBean;
+import br.ufrn.sigaa.ensino_rede.dominio.ProgramaRede;
+import br.ufrn.sigaa.ensino_rede.portal.jsf.PortalCoordenadorRedeMBean;
 import br.ufrn.sigaa.mensagens.MensagensPortalCoordenadorStricto;
 import br.ufrn.sigaa.mensagens.MensagensTurmaVirtual;
 import br.ufrn.sigaa.parametros.dominio.ParametrosPortalDocente;
@@ -103,6 +107,13 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 	private boolean eUmForumDeCurso;
 	/** variável utilizada para manter o título do forum do curso.*/
 	private String tituloCursoDiscutidoAtualmente;
+	
+	/** Listagem de fóruns do Programa.*/
+	private List<ForumMensagem> listaForunsPorPrograma;
+	/** Indica se o forum selecionado pertence a um Programa.*/
+	private boolean eUmForumDePrograma;
+	/** variável utilizada para manter o título do forum do programa.*/
+	private String tituloProgramaDiscutidoAtualmente;
 	
 	/** Fórum ao qual a mensagem pertence. */
 	private Forum forum;
@@ -152,7 +163,7 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 	 * 
 	 * @throws DAOException
 	 */
-	private void loadMensagensPaginadasForumCursos(int idMensagem)
+	private void loadMensagensPaginadasForum(int idMensagem)
 			throws DAOException {
 
 		ForumDao dao = getDAO(ForumDao.class);
@@ -160,9 +171,10 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 		mensagensPaginadas = dao.findMensagensByTopico(idMensagem, primeiroRegistro, quantRegistrosPagina);
 		setarMatriculasDiscentesPostaramMensagens();
 		
-		totalRegistros = dao.countMensagensForumCursos(idMensagem);
+		totalRegistros = dao.countMensagensForum(idMensagem);
 
 		listaForunsPorCurso = mensagensPaginadas;
+		listaForunsPorPrograma = mensagensPaginadas;
 		listagem = mensagensPaginadas;
 
 		paginaAtual = (totalRegistros / quantRegistrosPagina)
@@ -226,7 +238,7 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 	 * @throws DAOException
 	 */
 	private List<ForumMensagem> getMensagensPaginadas(int idMensagem) throws DAOException {
-		loadMensagensPaginadasForumCursos(idMensagem);
+		loadMensagensPaginadasForum(idMensagem);
 		return mensagensPaginadas;
 	}
 
@@ -239,7 +251,7 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 	private void page(int firstRow) throws DAOException {
 		cadastroTopico = false;
 		this.primeiroRegistro = firstRow;
-		loadMensagensPaginadasForumCursos(getIdForumMensagemSelecionado());
+		loadMensagensPaginadasForum(getIdForumMensagemSelecionado());
 	}
 
 	/**
@@ -409,7 +421,12 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 
 	public List<ForumMensagem> getListaForumMensagens()
 	{
-		return listaForunsPorCurso;
+		if (eUmForumDeCurso)
+			return listaForunsPorCurso;
+		else if (eUmForumDePrograma)
+			return listaForunsPorPrograma;
+		else
+			return listaForunsPorCurso;
 	}
 	/**
 	 * Retorna a lista de fóruns por curso
@@ -1005,12 +1022,10 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 			public boolean isSatisfiedBy(Object objeto) {
 				ForumMensagem ref = (ForumMensagem) objeto;
 				if (isEmpty(ref.getConteudo()))
-					notification
-							.addError("É obrigatório informar o conteúdo da mensagem!");
+					notification.addMensagem(CAMPO_OBRIGATORIO_NAO_INFORMADO, "Conteúdo");
 
 				if (isEmpty(ref.getTitulo()))
-					notification
-							.addError("É obrigatório informar o título da mensagem!");
+					notification.addMensagem(CAMPO_OBRIGATORIO_NAO_INFORMADO, "Título");
 
 				return !notification.hasMessages();
 			}
@@ -1075,6 +1090,11 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 		addMensagem(MensagensArquitetura.REMOCAO_EFETUADA_COM_SUCESSO, descricaoTipo );
 		
 		clearPaginacao();
+		
+		if (iseUmForumDePrograma()){
+			listaForunsPorPrograma = getMensagensPaginadas( getIdForumMensagemSelecionado() );
+			return mostrarForumMensagemPrograma();
+		}
 		listaForunsPorCurso = getMensagensPaginadas( getIdForumMensagemSelecionado() );
 		if ( !isAllEmpty( listaForunsPorCurso ) ) {
 			tituloCursoDiscutidoAtualmente = listaForunsPorCurso.get(0).getTitulo();
@@ -1147,36 +1167,40 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 	public String novoForumCurso() {
 		try {
 
-			object = new ForumMensagem();
-			object.setCurso(true);
-
 			if (isPortalCoordenadorStricto()) {
 				Unidade programa = (Unidade) getCurrentSession().getAttribute("programaAtual");
 				cursos = getDAO(CursoDao.class).findByPrograma(programa.getId());
 			}
-			
-			
-			int idForumSelecionado = getForumSelecionado();
-
-			try {
-
-				Forum f = getDAO(ForumDao.class).findByPrimaryKey(
-						idForumSelecionado, Forum.class);
-
-				object.setForum(f);
-				object.setTopico(object);
-
-			} catch (DAOException e) {
-				tratamentoErroPadrao(e);
-			}
-
-			prepareMovimento(SigaaListaComando.CADASTRAR_AVA);
-			setOperacaoAtiva(SigaaListaComando.CADASTRAR_AVA.getId());
-		
+			novoForum();		
+			object.setCurso(true);
 			return forward("/graduacao/" + getClasse().getSimpleName() + "/novo.jsp");
 		} catch (Exception e) {
 			throw new TurmaVirtualException(e);
 		}
+	}
+
+	/** Cadastra novo fórum.
+	 * @throws ArqException
+	 */
+	private void novoForum() throws ArqException {
+		object = new ForumMensagem();		
+		
+		int idForumSelecionado = getForumSelecionado();
+
+		try {
+
+			Forum f = getDAO(ForumDao.class).findByPrimaryKey(
+					idForumSelecionado, Forum.class);
+
+			object.setForum(f);
+			object.setTopico(object);
+
+		} catch (DAOException e) {
+			tratamentoErroPadrao(e);
+		}
+
+		prepareMovimento(SigaaListaComando.CADASTRAR_AVA);
+		setOperacaoAtiva(SigaaListaComando.CADASTRAR_AVA.getId());
 	}
 
 	/**
@@ -1303,7 +1327,7 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 				listaForunsPorCurso = getDAO(ForumDao.class).findMensagensByIdForumFiltro(f.getId(),filtro,getPaginacao());
 		}	
 	}
-
+	
 	/**
 	 * Busca todas as mensagens por programa.
 	 * 
@@ -1591,55 +1615,7 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 			for (Curso curso : cursosSelecionados) {
 				
 				Forum f = fDao.findForumMensagensByIDCurso(curso.getId() );
-				setForumSelecionado(f.getId());
-	
-				try {
-					prepareMovimento(SigaaListaComando.CADASTRAR_AVA);
-				} catch (ArqException e1) {
-					e1.printStackTrace();
-				}
-	
-				if (getParameterInt("idForumMensagem") == null) {
-					object.setForum(f);
-					object.setTopico(null);
-				} else {
-					ForumMensagem fm = fDao.findForumMensagensByID(getParameterInt("idX"));
-	
-					if (fm == null) {
-						object.setForum(f);
-						object.setTopico(object.getTopico());
-					} else {
-						object.setForum(f);
-						object.setTopico(fm.getTopico());
-	
-					}
-				}
-	
-				if (eUmForumDeCurso)
-					object.setCurso(true);
-				
-				
-	
-				if (arquivo != null)
-					anexarArquivoAoForum();
-	
-				object.setUltimaPostagem(new Date());
-				
-				Notification notification = new Notification();
-				if ( getUltimoComando().equals(SigaaListaComando.CADASTRAR_AVA) )
-					notification = executeForumCursos(SigaaListaComando.CADASTRAR_AVA, object, getEspecificacaoCadastroTopicos());
-				
-				if (notification.hasMessages()) {
-					sucesso = false;
-					notifyView(notification);
-					return null;
-				} else {
-					if (notificar) {
-						enviarEmailNotificacaoTodosAlunosForum(object, arquivo);
-					}
-					object = new ForumMensagem();
-					object = UFRNUtils.deepCopy(forumAtual);
-				}
+				sucesso = cadastrarMensagens(fDao, sucesso, forumAtual, f);
 			}
 			
 			if (sucesso)
@@ -1650,6 +1626,68 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 			if (fDao != null)
 				fDao.close();
 		}	
+	}
+
+	/** Cadastra a mensagem no fórum.
+	 * @param fDao
+	 * @param sucesso
+	 * @param forumAtual
+	 * @param f
+	 * @return
+	 * @throws DAOException
+	 */
+	private boolean cadastrarMensagens(ForumDao fDao, boolean sucesso,
+			ForumMensagem forumAtual, Forum f) throws DAOException {
+		setForumSelecionado(f.getId());
+
+		try {
+			prepareMovimento(SigaaListaComando.CADASTRAR_AVA);
+		} catch (ArqException e1) {
+			e1.printStackTrace();
+		}
+
+		if (getParameterInt("idForumMensagem") == null) {
+			object.setForum(f);
+			object.setTopico(null);
+		} else {
+			ForumMensagem fm = fDao.findForumMensagensByID(getParameterInt("idX"));
+
+			if (fm == null) {
+				object.setForum(f);
+				object.setTopico(object.getTopico());
+			} else {
+				object.setForum(f);
+				object.setTopico(fm.getTopico());
+
+			}
+		}
+
+		if (eUmForumDeCurso)
+			object.setCurso(true);
+		
+		
+
+		if (arquivo != null)
+			anexarArquivoAoForum();
+
+		object.setUltimaPostagem(new Date());
+		
+		Notification notification = new Notification();
+		if ( getUltimoComando().equals(SigaaListaComando.CADASTRAR_AVA) )
+			notification = executeForumCursos(SigaaListaComando.CADASTRAR_AVA, object, getEspecificacaoCadastroTopicos());
+		
+		if (notification.hasMessages()) {
+			sucesso = false;
+			notifyView(notification);
+			return sucesso;
+		} else {
+			if (notificar) {
+				enviarEmailNotificacaoTodosAlunosForum(object, arquivo);
+			}
+			object = new ForumMensagem();
+			object = UFRNUtils.deepCopy(forumAtual);
+		}
+		return sucesso;
 	}
 
 	/**
@@ -1871,6 +1909,328 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 		return coordenadorDoCurso;
 	}
 	
+	// MÉTODOS PARA ENSINO EM REDE
+	
+	/**
+	 * Retorna as mensagens do Fórum pra mostrar no portal coordenador de ensino em rede.<br/><br/>
+	 * 
+	 * Método chamado pelas seguintes JSPs:
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/portal/portal.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws DAOException
+	 */
+	public List<ForumMensagem> getForumMensagemCoordenacaoEnsinoRede() throws DAOException {
+		
+		if (getListaForunsPorPrograma() != null)
+			return getListaForunsPorPrograma();
+		
+		ProgramaRede programa = getProgramaRede();
+		buscarMensagensPorProgramaRede(programa);
+		
+		return getListaForunsPorPrograma();
+	}
+	
+	/**
+	 * Busca todas as mensagens de um determinado programa.<br/><br/>
+	 * Não invocado por JSP
+	 * 
+	 * @param programa
+	 * @throws DAOException
+	 */
+	public void buscarMensagensPorProgramaRede(ProgramaRede programa) throws DAOException {
+		if (programa != null) {
+			Forum f = getDAO(ForumDao.class).findForumMensagensByIDPrograma(programa.getId());
+			forum = f;
+			int numForunsPaginados = ParametroHelper.getInstance().getParametroInt(ParametrosPortalDocente.NUMERO_FORUNS_PAGINACAO_FORUNS_CURSO);
+			setTamanhoPagina(numForunsPaginados);
+			if (filtro == null || filtro.isEmpty())
+				listaForunsPorPrograma = (ArrayList<ForumMensagem>) getDAO(ForumDao.class).findListaMensagensForumByIDForum(f.getId(), getPaginacao());
+			else
+				listaForunsPorPrograma = getDAO(ForumDao.class).findMensagensByIdForumFiltro(f.getId(),filtro,getPaginacao());
+		}	
+	}
+	
+	/**
+	 * Mostra os fóruns e as mensagem que o programa dispõe.<br/><br/>
+	 * 
+	 * Método chamado pelas seguintes JSPs:
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/portal/portal.jsp</li>
+	 * 		<li>/sigaa.war/ensino_rede/forum_mensagem_rede/listar.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws ArqException 
+	 */
+	public String mostrarForumMensagemPrograma() throws ArqException {
+		
+		if(getUsuarioLogado().getDiscenteAtivo() != null)
+			usuarioAtivo = getUsuarioLogado().getDiscenteAtivo().isAtivo();
+		
+		object = new ForumMensagem();
+		int idForumMensagem = 0;
+		if (getParameterInt("idForumMensagem") != null) {
+			idForumMensagem = getParameterInt("idForumMensagem");
+			setIdForumMensagemSelecionado(idForumMensagem);
+		}
+		
+		clearPaginacao();
+		listaForunsPorPrograma = getMensagensPaginadas(getIdForumMensagemSelecionado());
+		eUmForumDePrograma = true;
+		
+		if (listaForunsPorPrograma.size() >= 1)
+			tituloProgramaDiscutidoAtualmente = listaForunsPorPrograma.get(0).getTitulo();
+
+		return forward("/ensino_rede/forum_mensagem_rede/mostrar.jsp");
+	}
+	
+	/**
+	 * Carrega as mensagens do fórum
+	 * @throws DAOException
+	 */
+	private void getMensagensPrograma() throws DAOException {
+		eUmForumDePrograma = true;
+
+		if (getParameterInt("id") != null) {
+			int id = getParameterInt("id");
+			setForumSelecionado(id);
+		}
+
+		ProgramaRede programa = getProgramaRede();
+		buscarMensagensPorProgramaRede(programa);
+	}
+	
+	/**
+	 * Remove um tópico com todas as suas mensagens.<br/><br/>
+	 * 
+	 * Método chamado pelas seguintes JSPs:
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/portal/portal.jsp</li>
+	 * </ul>
+	 * 
+	 * @throws DAOException
+	 */
+	public String removerMensagensPrograma() throws DAOException {
+		try {
+			getDAO(ForumDao.class).removerTopicosComFilhos(
+					getParameterInt("id"));
+			flash("O Tópico e todas as mensagens do mesmo foram removidas com sucesso.");
+		} catch (Exception e) {
+			addMensagem(MensagensArquitetura.REMOCAO_OBJETO_ASSOCIADO);
+			throw new DAOException(
+					"Existem registros associados ao que você está tentando remover");
+		}
+
+		return listarForunsPorPrograma();
+	}
+	
+	/**
+	 * Cadastra uma mensagem para o fórum que estiver aberto no momento .<br/><br/>
+	 *
+	 * Método chamado pela seguinte JSP: 
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/forum_mensagem_rede/novo.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws DAOException
+	 */
+	public String cadastrarMensagemForumProgramas() throws DAOException {
+		
+		if( !isOperacaoAtiva(SigaaListaComando.CADASTRAR_AVA.getId())  ){
+			addMensagem(MensagensArquitetura.PROCEDIMENTO_PROCESSADO_ANTERIORMENTE);
+			return null;
+		}
+		
+		validacaoTextArea();
+		eUmForumDeCurso = true;
+		ForumDao fDao = null;
+		
+		try {
+			fDao = getDAO(ForumDao.class);
+					
+			ProgramaRede programa = getProgramaRede();
+			
+			boolean sucesso = true;
+			ForumMensagem forumAtual = UFRNUtils.deepCopy(object);
+				
+			Forum f = fDao.findForumMensagensByIDPrograma(programa.getId() );
+			sucesso = cadastrarMensagens(fDao, sucesso, forumAtual, f);
+
+			if (sucesso) {
+				flash("Cadastrado com sucesso.");
+				removeOperacaoAtiva();
+				return listarForunsPorPrograma();
+			} else 
+				return null;
+		}finally {
+			if (fDao != null)
+				fDao.close();
+		}	
+	}
+	
+	/**
+	 * Cadastra novo fórum de programa.<br/><br/>
+	 * Método chamado pela seguinte JSP: 
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/forum_mensagem_rede/listar.jsp</li>
+	 * </ul>
+	 * @return
+	 */
+	public String novoForumPrograma() {
+		try {	
+			novoForum();		
+			return forward("/ensino_rede/forum_mensagem_rede/novo.jsp");
+		} catch (Exception e) {
+			throw new TurmaVirtualException(e);
+		}
+	}
+	
+	/**
+	 * Cadastra uma resposta de um Fórum de Programa.<br/><br/>
+	 * 
+	 * Método chamado pela seguinte JSP: 
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/forum_mensagem_rede/mostrar.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws DAOException 
+	 * @throws ArqException
+	 */
+	public String responderTopicoForumProgramas() throws DAOException {
+
+		try {
+			
+			ForumDao fDao = getDAO(ForumDao.class);
+			
+			ProgramaRede programa = getProgramaRede();
+						
+			if (programa == null) {
+				addMensagemErro("Programa não identificado");
+				return null;
+			}
+			
+			Forum f = fDao.findForumMensagensByIDPrograma(programa.getId());
+			setForumSelecionado(programa.getId());
+			ForumMensagem fm = new ForumMensagem();
+			
+			if (getParameterInt("idForumMensagem") == null) {
+				object.setForum(f);
+			} else {
+				
+				fm.setId(getParameterInt("idForumMensagem"));
+	
+				object.setForum(f);
+				object.setTopico(fm);
+			}
+	
+			prepareMovimento(SigaaListaComando.CADASTRAR_TOPICO_FORUM);
+			object.setCurso(false);
+			MovimentoCadastro movCad = new MovimentoCadastro();
+			movCad.setObjMovimentado(object);
+			movCad.setCodMovimento(SigaaListaComando.CADASTRAR_TOPICO_FORUM);
+
+			if (isEmpty(object.getConteudo())) {
+				addMensagemErro("Não é possível cadastrar mensagem que não possua conteúdo.");
+				return irParaForumPrograma();
+			}
+			
+			if ( fDao.existMensagensDuplicadaByForumUsuario(object.getTopico().getId(), getUsuarioLogado().getId(), object.getConteudo()) ) {
+				addMensagemErro("Não é possível cadastrar respostas duplicadas.");
+				return irParaForumPrograma();
+			}
+			execute(movCad);
+			
+		} catch (NegocioException e) {
+			return tratamentoErroPadrao(e);
+		} catch (ArqException e) {
+			tratamentoErroPadrao(e, "Não foi possível cadastrar sua resposta para esse Fórum.");
+			return forward("/ensino_rede/forum_mensagem_rede/listar.jsp");
+		}
+
+		addMensagem(MensagensArquitetura.OPERACAO_SUCESSO);
+
+		listaForunsPorPrograma = getMensagensPaginadas(getIdForumMensagemSelecionado());
+		if (listaForunsPorPrograma.size() >= 1)
+			tituloProgramaDiscutidoAtualmente = listaForunsPorPrograma.get(0).getTitulo();
+
+		object = new ForumMensagem();
+		pageLast();
+		return forward("/ensino_rede/forum_mensagem_rede/mostrar.jsp");
+	}
+	
+	/**
+	 * Lista todos os fóruns por programa.<br/><br/>
+	 * Não invocado por JSP
+	 * 
+	 * @return
+	 * @throws DAOException
+	 */
+	public String listarForunsPorPrograma() throws DAOException {
+		getMensagensPrograma();
+		return forward("/ensino_rede/forum_mensagem_rede/listar.jsp");
+	}
+	
+	/** 
+	 * Retorna o programa de ensino em rede do usuário
+	 */
+	private ProgramaRede getProgramaRede() {
+		ProgramaRede programa = null;
+		if ( getUsuarioLogado().getVinculoAtivo().getTipoVinculo() instanceof TipoVinculoCoordenacaoGeralRede ){
+			TipoVinculoCoordenacaoGeralRede vinculo = (TipoVinculoCoordenacaoGeralRede) getUsuarioLogado().getVinculoAtivo().getTipoVinculo();
+			programa = vinculo.getCoordenacao().getProgramaRede();
+		} else {
+			PortalCoordenadorRedeMBean mBean = getMBean("portalCoordenadorRedeBean");
+			programa = mBean.getProgramaRede();
+		}
+		return programa;
+	}
+	
+	/**
+	 * Direciona para a lista de mensagens de um tópico.
+	 * 
+	 * @throws ArqException
+	 */
+	private String irParaForumPrograma() throws ArqException {
+		listaForunsPorPrograma = getMensagensPaginadas(getIdForumMensagemSelecionado());
+		if (listaForunsPorCurso.size() >= 1)
+			tituloProgramaDiscutidoAtualmente = listaForunsPorPrograma.get(0).getTitulo();
+
+		object = new ForumMensagem();
+		pageLast();
+		return forward("/ensino_rede/forum_mensagem_rede/mostrar.jsp");
+	}
+	
+	/**
+	 * <p>
+	 * Verifica se o usuário logado está com o vínculo de gestor do programa escolhido na lista de fóruns.
+	 * </p>
+	 * <p>
+	 * É usado para habilitar/desabilitar a remoção de tópicos
+	 * </p>
+	 * JSP: /sigaa.war/graduacao/ForumMensagem/listar.jsp
+	 * @return
+	 */
+	public boolean isGestorDoProgramaEscolhido() {
+		
+		boolean coordenadorDoPrograma = false;
+
+		if ( getUsuarioLogado().getVinculoAtivo().getTipoVinculo() instanceof TipoVinculoCoordenacaoGeralRede )
+			coordenadorDoPrograma = true;
+		
+		return coordenadorDoPrograma;
+	}
+	
+	/**
+	 * Retorna o usuário logado.<br/><br/>
+	 * Não invocado por JSP
+	 * @return
+	 */
+	public int getIdUsuarioLogado() {
+		Usuario u = (Usuario) getCurrentSession().getAttribute("usuario");
+		return u.getId();
+	}
+	
 	public int getIdForumMensagemSelecionado() {
 		return idForumMensagemSelecionado;
 	}
@@ -1982,5 +2342,45 @@ public class ForumMensagemMBean extends CadastroTurmaVirtual<ForumMensagem> {
 
 	public void setDenuncia(DenunciaMensagem denuncia) {
 		this.denuncia = denuncia;
+	}
+	
+	public void setListaForunsPorPrograma(List<ForumMensagem> listaForunsPorPrograma) {
+		this.listaForunsPorPrograma = listaForunsPorPrograma;
+	}
+
+	/** Retorna uma coleção de mensagens de um fórum por programa.
+	 * @return
+	 * @throws DAOException
+	 */
+	public List<ForumMensagem> getListaForunsPorPrograma() throws DAOException {
+		if (getPaginacao().getPaginaAtual() != paginaAtual) {
+			getMensagensPrograma();
+			paginaAtual = getPaginacao().getPaginaAtual();
+		}
+		
+		return listaForunsPorPrograma;
+	}
+
+	/** Seta que o fórum é de um programa.
+	 * @param eUmForumDePrograma
+	 */
+	public void seteUmForumDePrograma(boolean eUmForumDePrograma) {
+		this.eUmForumDePrograma = eUmForumDePrograma;
+	}
+
+	/** Indica que o fórum é de um programa.
+	 * @return
+	 */
+	public boolean iseUmForumDePrograma() {
+		return eUmForumDePrograma;
+	}
+
+	public void setTituloProgramaDiscutidoAtualmente(
+			String tituloProgramaDiscutidoAtualmente) {
+		this.tituloProgramaDiscutidoAtualmente = tituloProgramaDiscutidoAtualmente;
+	}
+
+	public String getTituloProgramaDiscutidoAtualmente() {
+		return tituloProgramaDiscutidoAtualmente;
 	}
 }

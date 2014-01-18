@@ -23,7 +23,10 @@
 	
 					<tr>
 						<th><b>Avaliador:</b></th>
-						<td>${avaliacaoAtividade.obj.avaliadorAtividadeExtensao.servidor.nome}</td>							
+						<td>
+						    ${avaliacaoAtividade.obj.avaliadorAtividadeExtensao.servidor.nome}
+						    ${avaliacaoAtividade.obj.membroComissao.servidor.nome}
+						</td>
 					</tr>
 					
 					<tr>
@@ -88,6 +91,17 @@
 				<b>Justificativa:</b>	<br/>
 				<h:outputText value="#{avaliacaoAtividade.obj.justificativa}"/>
 			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="4" class="subFormulario">Confirmação de Senha</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<div align="center">
+					<%@include file="/WEB-INF/jsp/include/confirma_senha.jsp"%>
+				</div>
+			</td>	
 		</tr>
 		
 		<tfoot>

@@ -205,13 +205,11 @@ public class Banca extends Producao implements ViewAtividadeBuilder {
 		ValidatorUtil.validateRequired(getTitulo(),"Título", lista);
 		ValidatorUtil.validateRequired(getData(), "Data da Banca", lista);
 		ValidatorUtil.validateRequired(getAnoReferencia(), "Ano de Referência", lista);
-//		ValidatorUtil.validateRequiredId(getPais().getId(),"País", lista);
-		ValidatorUtil.validateRequired(getDepartamento(), "Departamento", lista);
 		ValidatorUtil.validateRequired(getArea(), "Área", lista);
 		ValidatorUtil.validateRequired(getSubArea(), "Sub-Área", lista);
-		ValidatorUtil.validateRequired(getPais(), "Pais", lista);
+		ValidatorUtil.validateRequired(getPais(), "País", lista);
 		ValidatorUtil.validateRequired(getInstituicao(), "Instituição", lista);
-		ValidatorUtil.validateRequired(getDataProducao(), "Data da Publicação", lista);
+		
 		
 		// Validar município somente para bancas no brasil
 		if (pais != null && pais.isBrasil()) {

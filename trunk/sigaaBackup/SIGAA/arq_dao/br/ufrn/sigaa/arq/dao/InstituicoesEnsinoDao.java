@@ -78,26 +78,5 @@ public class InstituicoesEnsinoDao extends GenericSigaaDAO {
 			throw new DAOException(e);
 		}
 	}
-		
-	/**
-	 * Retorna a coleção de Instituições de Ensino, que estejam relacionadas ao identificador do curso passado por parâmetro.
-	 * @param id
-	 * @return
-	 * @throws DAOException
-	 */
-	@SuppressWarnings("unchecked")
-	public Collection<InstituicoesEnsino> findByCurso(int id) throws DAOException {
-		try {
-			String hql = "select new InstituicoesEnsino(cie.instituicaoEnsino.id, cie.instituicaoEnsino.nome, cie.instituicaoEnsino.sigla) from CursoInstituicoesEnsino cie " +
-					"where cie.curso.id = :id ";
-			
-			Query q = getSession().createQuery(hql);
-			q.setInteger("id", id);
-			
-			return q.list();
-		} catch (Exception e) {
-			throw new DAOException(e);
-		}
-	}
 
 }

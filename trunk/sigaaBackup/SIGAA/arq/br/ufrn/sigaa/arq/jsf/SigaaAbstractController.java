@@ -505,6 +505,22 @@ public class SigaaAbstractController<T> extends AbstractControllerCadastro<T> {
 	}
 	
 	/**
+	 * Diz se o usuário encontra-se no portal de coordenação de curso de rede 
+	 * @return
+	 */
+	public boolean isPortalCoordenadorEnsinoRede(){
+		return SigaaSubsistemas.PORTAL_ENSINO_REDE.getId() == getSubSistema().getId();
+	}
+
+	/**
+	 * Diz se o usuário encontra-se no módulo de curso de rede 
+	 * @return
+	 */
+	public boolean isPortalEnsinoRede() {
+		return SigaaSubsistemas.ENSINO_REDE.getId() == getSubSistema().getId();
+	}
+	
+	/**
 	 * Diz se o usuário encontra-se no portal da PPG
 	 * @return
 	 */

@@ -68,7 +68,7 @@ function habilitarDetalhes(id) {
 						renderPopupButtonAsImage="true" size="10" maxlength="10"
 						onkeypress="return formataData(this,event)"
 						readonly="#{participacaoDiscenteEnade.readOnly}"
-						disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+						disabled="#{participacaoDiscenteEnade.readOnly}" popupDateFormat="dd/MM/yyyy"
 						value="#{participacaoDiscenteEnade.obj.dataProvaEnadeIngressante}" 
 						rendered="#{empty participacaoDiscenteEnade.calendarioEnade.dataProva}">
 						 <f:converter converterId="convertData"/>
@@ -111,7 +111,7 @@ function habilitarDetalhes(id) {
 						renderPopupButtonAsImage="true" size="10" maxlength="10"
 						onkeypress="return formataData(this,event)"
 						readonly="#{participacaoDiscenteEnade.readOnly}"
-						disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+						disabled="#{participacaoDiscenteEnade.readOnly}" popupDateFormat="dd/MM/yyyy"
 						value="#{participacaoDiscenteEnade.obj.dataProvaEnadeConcluinte}" >
 						 <f:converter converterId="convertData"/>
 					 </t:inputCalendar>

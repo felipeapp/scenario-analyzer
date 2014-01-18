@@ -218,7 +218,9 @@ public class ProcessadorAvaliarAtividade extends AbstractProcessador {
 	public void validate(Movimento mov) throws NegocioException, ArqException {
 		// Checando os papeis de usuários permitidos
 		int[] papeis = {SigaaPapeis.GESTOR_EXTENSAO, SigaaPapeis.MEMBRO_COMITE_EXTENSAO, 
-				SigaaPapeis.PARECERISTA_EXTENSAO, SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO}; 
+				SigaaPapeis.PARECERISTA_EXTENSAO, SigaaPapeis.PRESIDENTE_COMITE_EXTENSAO,
+				SigaaPapeis.MEMBRO_COMITE_INTEGRADO, SigaaPapeis.MEMBRO_COMITE_MONITORIA,
+				SigaaPapeis.MEMBRO_COMITE_PESQUISA, SigaaPapeis.MEMBRO_COMITE_CIENTIFICO_MONITORIA}; 
 		checkRole(papeis, mov);
 
 		ListaMensagens mensagens = new ListaMensagens();

@@ -17,11 +17,11 @@
 			<div id="registro" class="aba">
 			 	<%@include file="/diplomas/menus/registro.jsp"%>
 			</div>
-			<%-- <ufrn:checkRole papeis="<%= new int[] {	SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO} %>">
+			<ufrn:checkRole papeis="<%= new int[] {	SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO} %>">
 				<div id="revalidacao" class="aba">
 					<%@include file="/diplomas/menus/revalidacao.jsp"%>
 				</div>
-			</ufrn:checkRole> --%>
+			</ufrn:checkRole>
 	</div>
 
 <script>
@@ -30,16 +30,18 @@ var Abas = {
         var abas = new YAHOO.ext.TabPanel('operacoes-subsistema');
         <%-- Configuração das abas --%>
         abas.addTab('registro', "Registro/Impressão");
-        <%-- <ufrn:checkRole papeis="<%= new int[] {	SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO} %>">
+        <ufrn:checkRole papeis="<%= new int[] {	SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO} %>">
    	    	abas.addTab('revalidacao', "Revalidação");
-  	    </ufrn:checkRole> --%>
+  	    </ufrn:checkRole> 
 		<%-- Ativação das abas --%>
-	    <c:if test="${sessionScope.aba != null}">
-	    	abas.activate('${sessionScope.aba}');
-	    </c:if>
-	    <c:if test="${sessionScope.aba == null}">
-	    	abas.activate('registro');
-	    </c:if>
+		<c:choose>
+			<c:when test="${sessionScope.aba != null and (sessionScope.aba eq 'registro' or sessionScope.aba eq 'revalidacao')}">
+	    		abas.activate('${sessionScope.aba}');
+	    	</c:when>
+	    	<c:otherwise>
+	    		abas.activate('registro');
+	    	</c:otherwise>
+    	</c:choose>
     }
 };
 

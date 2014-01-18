@@ -13,17 +13,6 @@
 				<td width="20%"><label for="checkAno" onclick="$('form:checkAno').checked = !$('form:checkAno').checked;">Ano:</label></td>
 				<td><h:inputText size="10" maxlength="4" value="#{turmaEntradaTecnicoMBean.obj.anoReferencia}" onfocus="$('form:checkAno').checked = true;" onkeyup="return formatarInteiro(this);"/></td>
 			</tr>
-			<tr>
-				<td width="3%"><h:selectBooleanCheckbox value="#{turmaEntradaTecnicoMBean.filtroCurso}" id="checkCurso" styleClass="noborder"/> </td>
-				<td width="20%"><label for="checkCurso" onclick="$('form:checkCurso').checked = !$('form:checkCurso').checked;">Curso:</label></td>
-				<td colspan="5">
-					<h:selectOneMenu value="#{turmaEntradaTecnicoMBean.obj.estruturaCurricularTecnica.cursoTecnico.id}" id="curso" 
-					onchange="$('form:checkCurso').checked = true;">
-						<f:selectItem itemValue="0" itemLabel=" --- SELECIONE --- " />
-				 		<f:selectItems value="#{curso.allCursoNivelAtualCombo}" /> 
-					</h:selectOneMenu>
-				</td>
-			</tr>
 			<c:if test="${not turmaEntradaTecnicoMBean.portalEscolasEspecializadas}">
 			<tr>
 				<td width="3%"><h:selectBooleanCheckbox value="#{turmaEntradaTecnicoMBean.filtroEspecializacao}" id="checkEspecializacao" styleClass="noborder"/> </td>

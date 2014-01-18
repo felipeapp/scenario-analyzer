@@ -29,6 +29,7 @@ import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.erros.SegurancaException;
+import br.ufrn.arq.erros.UFRNException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
@@ -40,7 +41,6 @@ import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.arq.util.ValidadorCPFCNPJ;
 import br.ufrn.arq.util.ValidatorUtil;
-import br.ufrn.comum.dominio.SubSistema;
 import br.ufrn.comum.dominio.TipoNecessidadeEspecial;
 import br.ufrn.sigaa.arq.dao.MunicipioDao;
 import br.ufrn.sigaa.arq.dao.PessoaDao;
@@ -49,6 +49,7 @@ import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.PessoaMov;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.UnidadeFederativa;
+import br.ufrn.sigaa.ensino_rede.academico.jsf.CadastroDiscenteRedeMBean;
 import br.ufrn.sigaa.mensagens.MensagensGerais;
 import br.ufrn.sigaa.parametros.dominio.MensagensStrictoSensu;
 import br.ufrn.sigaa.parametros.dominio.ParametrosGraduacao;
@@ -453,6 +454,10 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 				return forward("/WEB-INF/jsp/ensino/discente/lista.jsp");
 			case OperacaoDadosPessoais.ALTERACAO_DADOS_DISCENTE :
 				return forward("/graduacao/busca_discente.jsp");
+			case OperacaoDadosPessoais.ALTERACAO_DADOS_DOCENTE_REDE :
+				return forward("/ensino_rede/docente_rede/lista.jsp");
+			case OperacaoDadosPessoais.ALTERAR_DADOS_DISCENTE_REDE:
+				return forward("/ensino_rede/discente/lista.jsp");
 			default :
 				return forward("/ead/pessoa/lista.jsp");
 		}
@@ -486,23 +491,20 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 	 */
 	public void submeterCPF(ActionEvent event) throws ArqException {
 		try {
-			if ( !obj.isInternacional() ) {
-				ListaMensagens erros = new ListaMensagens();
+			ListaMensagens erros = new ListaMensagens();
+			if (!obj.isInternacional())
 				ValidatorUtil.validateRequired(obj.getCpf_cnpj(), "CPF", erros);
-				if( obj.getCpf_cnpj() != null )
-					ValidatorUtil.validateCPF_CNPJ(obj.getCpf_cnpj(), "CPF", erros);
-				if (!erros.isEmpty()) {
-					erroCPF = "Por favor, informe um CPF válido";
-					return;
-				}
-				exibirPainel = false;
+			if ( obj.getCpf_cnpj() != null && obj.getCpf_cnpj() > 0 )
+				ValidatorUtil.validateCPF_CNPJ(obj.getCpf_cnpj(), "CPF", erros);
+			if (!erros.isEmpty()) {
+				erroCPF = "Por favor, informe um CPF válido";
+				return;
+			}
+			if ( obj.getCpf_cnpj() != null ) {
 				PessoaDao dao = getDAO(PessoaDao.class);
-	
 				Pessoa pessoa = dao.findByCpf(obj.getCpf_cnpj());
-	
 				if ( pessoa != null ) {
 					obj = dao.findCompleto( pessoa.getId() );
-	
 					if (codigoOperacao == OperacaoDadosPessoais.PESSOAS_EAD)
 						setSubmitButton("Atualizar Dados");
 					getCurrentRequest().setAttribute("msgPessoa", " ( Esse CPF já está associado a uma pessoa. ) ");
@@ -514,8 +516,8 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 				}
 			} else {
 				obj.setCpf_cnpj(null);
-				exibirPainel = false;
 			}
+			exibirPainel = false;
 			ordemBotoes = false;
 	
 			getCurrentSession().setAttribute(OperadorDadosPessoais.OPERACAO_ATIVA_SESSION, SigaaListaComando.CADASTRAR_DISCENTE.getId()+"");
@@ -720,12 +722,6 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 	 * @throws DAOException
 	 */
 	private void validarDados() throws DAOException {
-
-		ValidatorUtil.validateRequired(obj.getNome(), "Nome", erros);
-		ValidatorUtil.validateAbreviacao(obj.getNome(), "Nome", erros);
-		ValidatorUtil.validateRequired(obj.getNomeOficial(), "Nome Oficial", erros);
-		ValidatorUtil.validateAbreviacao(obj.getNomeOficial(), "Nome Oficial", erros);
-
 		// Validações de CPF
 		if ( deveValidarCpf() ) {
 			ValidatorUtil.validateRequired(obj.getCpf_cnpj(), "CPF", erros);
@@ -737,6 +733,11 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 					erros.addErro("Já existe outro cadastro com este CPF.");
 			}
 		}
+
+		ValidatorUtil.validateRequired(obj.getNome(), "Nome", erros);
+		ValidatorUtil.validateAbreviacao(obj.getNome(), "Nome", erros);
+		ValidatorUtil.validateRequired(obj.getNomeOficial(), "Nome Oficial", erros);
+		ValidatorUtil.validateAbreviacao(obj.getNomeOficial(), "Nome Oficial", erros);
 
 		if( obj.isInternacional() ) {
 			validateRequired(obj.getPassaporte(), "Passaporte", erros);
@@ -1083,7 +1084,8 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 		String nome = obj.getNome();
 		super.afterCadastrar();
 		initObj();
-		if( isUserInRole(SigaaPapeis.SECRETARIA_POS, SigaaPapeis.COORDENADOR_CURSO_STRICTO, SigaaPapeis.PPG, SigaaPapeis.GESTOR_INFANTIL) ) {
+		if( isUserInRole(SigaaPapeis.SECRETARIA_POS, SigaaPapeis.COORDENADOR_CURSO_STRICTO, SigaaPapeis.PPG, SigaaPapeis.GESTOR_INFANTIL, 
+				SigaaPapeis.COORDENADOR_GERAL_REDE, SigaaPapeis.COORDENADOR_UNIDADE_REDE) ) {
 			addMensagem(MensagensGerais.DADOS_PESSOAIS_ATUALIZADOS_SUCESSO, nome);
 			return cancelar();
 		}else if (comando.equals(SigaaListaComando.CADASTRAR_PESSOA)) {
@@ -1128,6 +1130,15 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 		initObj();
 		if (isLatoSensu() || isTecnico())			
 			return "/administracao/docente_externo/lista.jsf";
+		else if (isPortalCoordenadorEnsinoRede() || isPortalEnsinoRede()) {
+			CadastroDiscenteRedeMBean mBean = getMBean("cadastroDiscenteRedeMBean");
+			try {
+				return mBean.iniciarAtualizarDadosPessoais();
+			} catch (UFRNException e) {
+				e.printStackTrace();
+				notifyError(e);
+			}
+		}
 		return "/ead/pessoa/lista.jsp";
 	}
 
@@ -1353,7 +1364,8 @@ public class DadosPessoaisMBean extends SigaaAbstractController<Pessoa> implemen
 				SigaaPapeis.GESTOR_TECNICO, SigaaPapeis.DAE, SigaaPapeis.COORDENADOR_LATO, SigaaPapeis.BIBLIOTECA_ADMINISTRADOR_GERAL, 
 				SigaaPapeis.BIBLIOTECA_SETOR_CIRCULACAO_BIBLIOTECARIO, SigaaPapeis.GESTOR_NEE, SigaaPapeis.SECRETARIA_LATO,
 				SigaaPapeis.GESTOR_MEDIO, SigaaPapeis.COORDENADOR_MEDIO, SigaaPapeis.GESTOR_FORMACAO_COMPLEMENTAR, 
-				SigaaPapeis.SECRETARIA_RESIDENCIA, SigaaPapeis.COORDENADOR_TECNICO);
+				SigaaPapeis.SECRETARIA_RESIDENCIA, SigaaPapeis.COORDENADOR_TECNICO, SigaaPapeis.GESTOR_EXTENSAO,
+				SigaaPapeis.COORDENADOR_GERAL_REDE, SigaaPapeis.COORDENADOR_UNIDADE_REDE);
 	}
 	
 	/** Indica se o usuário pode alterar o nome no cadastro de dados pessoais.

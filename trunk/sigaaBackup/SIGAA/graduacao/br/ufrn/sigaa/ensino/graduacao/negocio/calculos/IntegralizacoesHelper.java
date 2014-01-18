@@ -372,7 +372,7 @@ public class IntegralizacoesHelper {
 										discente.incCrNaoAtividadeObrigInteg(cr);
 										discente.incChNaoAtividadeObrigInteg(ch);
 									}
-								} else if (TipoIntegralizacao.isOptativa(mat.getTipoIntegralizacao())){
+								} else if (!ccPendente.getObrigatoria()){
 									discente.incChOptativaIntegralizada(ch);
 								}
 								

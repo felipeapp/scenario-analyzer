@@ -16,7 +16,6 @@ import java.util.Date;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -77,9 +76,6 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 	/** Observação acerca do registro de diploma.*/
 	private ObservacaoRegistroDiploma observacao;
 	
-	/** Arquivo digitalizado do diploma do aluno (diplomas antigos). */
-	private UploadedFile diplomaDigitalizado;
-
 	/**
 	 * Inicia a operação de registro de diplomas.<br />
 	 * Método chamado pela(s) seguinte(s) JSP(s):
@@ -105,7 +101,6 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 	 * Método chamado pela(s) seguinte(s) JSP(s):
 	 * <ul>
 	 * <li>/sigaa.war/diplomas/registro_diplomas/registro_unico.jsp</li>
-	 * <li>/sigaa.war/diplomas/registro_diplomas/registro_antigo.jsp</li>
 	 * </ul>
 	 * 
 	 * @see br.ufrn.arq.web.jsf.AbstractControllerCadastro#cadastrar()
@@ -117,10 +112,8 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 		Integer operacaoAtiva = (Integer) getCurrentSession().getAttribute("operacaoAtiva");
 		boolean operacaoAlterar = operacaoAtiva != null && operacaoAtiva.equals(ArqListaComando.ALTERAR.getId());
 		if (livro.isLivroAntigo()) {
-			// registro de diploma anterior ao registro no SIGAA
-			obj.setFolha(this.folha);
-			// evita erro de lazyInitialization
-			obj.getLivroRegistroDiploma().isLivroAntigo();
+			addMensagemErro("Esta funcionalidade não pode ser utilizada para registrar diplomas antigos.");
+			return null;
 		} else {
 			// registro automático no SIGAA
 			livro = dao.findByPrimaryKey(livro.getId());
@@ -141,9 +134,6 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 		}
 		try {
 			MovimentoCadastro mov = new MovimentoCadastro();
-			if (this.diplomaDigitalizado != null) {
-				mov.setObjAuxiliar(diplomaDigitalizado);
-			}
 			if (operacaoAlterar) {
 				mov.setCodMovimento(ArqListaComando.ALTERAR);
 				mov.setObjMovimentado(obj);
@@ -164,8 +154,6 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 			getCurrentRequest().setAttribute("registro", obj);
 		} catch (NegocioException e) {
 			addMensagemErro(e.getMessage());
-			if (livro.isLivroAntigo())
-				addMensagemWarning("Atenção: selecione o arquivo do diploma para enviar novamente.");
 			return null;
 		}
 		return cancelar();
@@ -194,38 +182,27 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 		return forward("/diplomas/registro_diplomas/registro_unico.jsp");
 	}
 	
-	/** Link para o fomulário de registro de diploma antigo.
-	 * <br/>Método não invocado por JSP´s.
-	 * @return
-	 */
-	public String formRegistroAntigo() {
-		return forward("/diplomas/registro_diplomas/registro_antigo.jsp");
-	}
-	
 	/** Valida os dados da operação.
 	 * <br/>Método não invocado por JSP´s.
 	 * @see br.ufrn.arq.web.jsf.AbstractControllerCadastro#validacaoDados(java.util.Collection)
 	 */
 	@Override
 	public boolean validacaoDados(ListaMensagens mensagens) {
-		if (!livro.isLivroAntigo()) {
+		if (this.livro.isLivroAntigo()){
+			addMensagemErro("Esta funcionalidade não pode ser utilizada para registrar diplomas antigos.");
+		} else {
 			if (Sistema.isSipacAtivo() && Sistema.isProtocoloAtivo() && isEmpty(obj.getProcesso())) {
 				mensagens.addErro("Número do Processo: Campo obrigatório não informado");
 			} else if(!confirmaProcesso()) {
 				mensagens.addErro("Número do Processo não encontrado. Verifique se o número foi digitado corretamente ou se está cadastrado no Sistema de Protocolo");
 			}
-		}
-		// data de colação
-		ValidatorUtil.validateRequired(obj.getDataColacao(), "Data de Colação", mensagens);
-		// data de expedição
-		ValidatorUtil.validateRequired(obj.getDataExpedicao(), "Data de Expedição", mensagens);
-		// data de registro
-		ValidatorUtil.validateRequired(obj.getDataRegistro(), "Data de Registro", mensagens);
-		ValidatorUtil.validateRequiredId(this.livro.getId(), "Livro", mensagens);
-		if (this.livro.isLivroAntigo()){
-			ValidatorUtil.validateRequiredId(this.folha.getId(), "Folha", mensagens);
-			ValidatorUtil.validateRequiredId(obj.getId(), "Ordem na Folha", mensagens);
-			ValidatorUtil.validateMinValue(obj.getNumeroRegistro(), 1, "Número de Registro", mensagens);
+			// data de colação
+			ValidatorUtil.validateRequired(obj.getDataColacao(), "Data de Colação", mensagens);
+			// data de expedição
+			ValidatorUtil.validateRequired(obj.getDataExpedicao(), "Data de Expedição", mensagens);
+			// data de registro
+			ValidatorUtil.validateRequired(obj.getDataRegistro(), "Data de Registro", mensagens);
+			ValidatorUtil.validateRequiredId(this.livro.getId(), "Livro", mensagens);
 		}
 		return hasErrors();
 	}
@@ -234,9 +211,6 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 	 * @return
 	 */
 	private boolean confirmaProcesso() {
-		if (this.livro.isLivroAntigo()) {
-			return true;
-		} 
 		ImpressaoDiplomaMBean mBean = getMBean("impressaoDiploma");
 		return mBean.confirmaProcesso(obj.getProcesso());
 	}
@@ -285,7 +259,7 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 				// verifica se há livro aberto para o registro do diploma
 				LivroRegistroDiploma livro = livroDao.findByCurso(obj.getDiscente().getCurso().getId(), true, this.livro.isLivroAntigo());
 				if (livro == null) {
-					addMensagem(MensagensGraduacao.NAO_HA_LIVRO_ABERTO_PARA_REGISTRO_CURSO, obj.getDiscente().getCurso().getDescricao() + (this.livro.isLivroAntigo() ? " para registros antigos." : ""));
+					addMensagem(MensagensGraduacao.NAO_HA_LIVRO_ABERTO_PARA_REGISTRO_CURSO, obj.getDiscente().getCurso().getDescricao());
 					return null;
 				} 
 				this.livro = livro;
@@ -329,10 +303,12 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 		setOperacaoAtiva(ArqListaComando.CADASTRAR.getId());
 		prepareMovimento(ArqListaComando.CADASTRAR);
 		setConfirmButton("Cadastrar");
-		if (this.livro.isLivroAntigo())
-			return formRegistroAntigo();
-		else
+		if (this.livro.isLivroAntigo()) {
+			addMensagemErro("Esta funcionalidade não pode ser utilizada para registrar diplomas antigos.");
+			return null;
+		} else {
 			return formRegistroDiploma();
+		}
 	}
 	
 	/** Seta o discente que terá o diploma registrado.
@@ -341,24 +317,6 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 	 */
 	public void setDiscente(DiscenteAdapter discente) throws ArqException {
 		this.obj.setDiscente(discente.getDiscente());
-	}
-
-	/**
-	 * Inicia o registro de diploma antigo (anterior ao registro automático no
-	 * SIGAA).<br />
-	 * Método chamado pela(s) seguinte(s) JSP(s):
-	 * <ul>
-	 * <li>/sigaa.war/diplomas/menus/registro.jsp</li>
-	 * </ul>
-	 * 
-	 * @return
-	 * @throws ArqException
-	 * @throws NegocioException
-	 */
-	public String preCadastrarRegistroAntigo() throws ArqException, NegocioException {
-		String retorno = preCadastrar();
-		livro.setLivroAntigo(true);
-		return retorno;
 	}
 	
 	/** Retorna uma coleção de SelecItem de livros de acordo com o caso de uso.
@@ -474,17 +432,4 @@ public class RegistroDiplomaIndividualMBean extends	SigaaAbstractController<Regi
 		checkRole(SigaaPapeis.GESTOR_DIPLOMAS_GRADUACAO, SigaaPapeis.GESTOR_DIPLOMAS_LATO, SigaaPapeis.GESTOR_DIPLOMAS_STRICTO);
 	}
 
-	/** Retorna o arquivo digitalizado do diploma do aluno (diplomas antigos). 
-	 * @return
-	 */
-	public UploadedFile getDiplomaDigitalizado() {
-		return diplomaDigitalizado;
-	}
-
-	/** Seta o arquivo digitalizado do diploma do aluno (diplomas antigos).
-	 * @param diplomaDigitalizado
-	 */
-	public void setDiplomaDigitalizado(UploadedFile diplomaDigitalizado) {
-		this.diplomaDigitalizado = diplomaDigitalizado;
-	}
 }

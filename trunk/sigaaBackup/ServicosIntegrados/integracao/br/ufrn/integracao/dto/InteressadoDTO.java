@@ -16,6 +16,8 @@ import java.io.Serializable;
  */
 public class InteressadoDTO implements Serializable {
 	
+	private static final long serialVersionUID = -7182991453210130165L;
+
 	private Integer id;
 	
 	private String identificador;
@@ -33,6 +35,10 @@ public class InteressadoDTO implements Serializable {
 	private Integer idUnidade;
 	
 	private boolean ativo;
+	
+	private long cpfCnpj;
+	
+	private String siape;
 
 	public Integer getId() {
 		return id;
@@ -106,6 +112,22 @@ public class InteressadoDTO implements Serializable {
 		this.idUnidade = idUnidade;
 	}
 
+	public long getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(long cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public String getSiape() {
+		return siape;
+	}
+
+	public void setSiape(String siape) {
+		this.siape = siape;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,5 +152,4 @@ public class InteressadoDTO implements Serializable {
 			return false;
 		return true;
 	}
-	
 }

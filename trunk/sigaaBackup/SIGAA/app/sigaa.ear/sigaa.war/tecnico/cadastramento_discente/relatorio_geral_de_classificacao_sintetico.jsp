@@ -1,17 +1,23 @@
 <%@include file="/WEB-INF/jsp/include/cabecalho_impressao.jsp"%>
 <f:view>
-	<table>
-		<tr><th>Processo Seletivo:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoProcessoSeletivo}</strong></td></tr>
-		<tr><th>Polo / Grupo:</th><td><strong>${cadastramentoDiscenteTecnico.descricaoOpcao}</strong></td></tr>
-	</table>
-	
-	<table class="listagem" width="100%">
-		<caption>Relatório Geral de Classificacao</caption>
+
+	<div id="parametrosRelatorio">
+		<table >
+			<tr><th>Processo Seletivo:</th><td>${cadastramentoDiscenteTecnico.descricaoProcessoSeletivo}</td></tr>
+			<tr><th>Pólo / Grupo:</th><td>${cadastramentoDiscenteTecnico.descricaoOpcao}</td></tr>
+			<tr><th>Grupo de vagas:</th><td>${cadastramentoDiscenteTecnico.descricaoGrupo}</td></tr>
+			
+		</table>
+	</div>
+	<br />
+	<table class="tabelaRelatorioBorda" width="100%">
+		<caption>Relatório Geral de Classificação</caption>
 		<thead>
 			<tr style="border: 1px solid;"> 
-				<td style="text-align: left;">Polo / Grupo</td>
-				<td style="text-align: right;">Com Reserva de Vagas</td>
-				<td style="text-align: right;">Sem Reserva de Vagas</td>
+				<td style="text-align: left;">Pólo / Grupo</td>
+				<td style="text-align: right;">Grupo</td>
+				<td style="text-align: right;">Quantidade</td>
+				
 			</tr>		
 		</thead>
 		<tbody>

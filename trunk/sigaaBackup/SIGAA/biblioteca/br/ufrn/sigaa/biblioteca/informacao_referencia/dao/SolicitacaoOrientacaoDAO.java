@@ -35,6 +35,8 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
  */
 public class SolicitacaoOrientacaoDAO extends GenericSigaaDAO {
 
+	/** Quantidade máxima de resultado permitidos na buscas */
+	public static final int QTD_MAXIMA_RESULTADOS = 300;
 	
 	/**
 	 * Conta a quantidade de requisições abertas para o usuário, utilizado para impedir que o usuário realiza mais de uma solicitação por fez.
@@ -168,7 +170,7 @@ public class SolicitacaoOrientacaoDAO extends GenericSigaaDAO {
 		if(buscasApenasAtivas)
 			q.setBoolean("true", true);
 		
-		q.setMaxResults(301);
+		q.setMaxResults(QTD_MAXIMA_RESULTADOS);
 		
 		List<SolicitacaoOrientacao> lista = new ArrayList<SolicitacaoOrientacao>(HibernateUtils.parseTo(q.list(), projecao, SolicitacaoOrientacao.class, "s"));
 		return lista;

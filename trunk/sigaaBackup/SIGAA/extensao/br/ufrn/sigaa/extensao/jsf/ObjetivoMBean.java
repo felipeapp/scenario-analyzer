@@ -323,26 +323,39 @@ public class ObjetivoMBean extends SigaaAbstractController<Objetivo> {
 	}
 	
 	public String submeterObjetivos() throws NegocioException, ArqException {
-	    ValidatorUtil.validateEmptyCollection("É necessário informar pelo menos um Objetivo.", 
-	    		AtividadeExtensaoHelper.getAtividadeMBean().getObjetivos(), erros);
+		validate();
+	    if (hasErrors())
+			return null;
+		atualizarCargaHoraria();
+	    return AtividadeExtensaoHelper.getAtividadeMBean().proximoPasso(); 
+	}
 
+	public String alterarObjetivos() throws ArqException, NegocioException {
+		validate();
+	    if (hasErrors())
+			return null;
+		atualizarCargaHoraria();
+		addMensagem(MensagensArquitetura.ALTERADO_COM_SUCESSO, "Objetivos");
+		return cancelar();
+	}
+
+	private void validate() throws DAOException {
+		ValidatorUtil.validateEmptyCollection("É necessário informar pelo menos um Objetivo.", 
+	    		AtividadeExtensaoHelper.getAtividadeMBean().getObjetivos(), erros);
 	    AtividadeExtensaoValidator.validaEquipeExecutora(
 	    		AtividadeExtensaoHelper.getAtividadeMBean().getMembrosEquipe(), 
 	    		AtividadeExtensaoHelper.getAtividadeMBean().getObjetivos(), erros);
-	    
-	    if (hasErrors())
-			return null;
-	    
+	}
+	
+	private void atualizarCargaHoraria() throws DAOException, ArqException, NegocioException {
+	    prepareMovimento(SigaaListaComando.ALTERAR_CH_OBJETIVO);
 		MovimentoCadastro mov = new MovimentoCadastro();
 		obj.setAtividadeExtensao( AtividadeExtensaoHelper.getAtividadeMBean().getObj() );
 		mov.setObjMovimentado(obj);
 		mov.setCodMovimento(SigaaListaComando.ALTERAR_CH_OBJETIVO);
-		prepareMovimento(SigaaListaComando.ALTERAR_CH_OBJETIVO);
 		execute(mov, getCurrentRequest());
-	    
-	    return AtividadeExtensaoHelper.getAtividadeMBean().proximoPasso(); 
 	}
-	
+
 	public String cadastrarObjetivo() {
 		obj = new Objetivo();
 		this.obj.setAtividadesPrincipais(new ArrayList<ObjetivoAtividades>());
@@ -350,8 +363,12 @@ public class ObjetivoMBean extends SigaaAbstractController<Objetivo> {
 	}
 
 	public String voltarObjetivo() {
-		AtividadeExtensaoHelper.getAtividadeMBean().getObj().setObjetivo(null);
-		return forward(ConstantesNavegacao.OBJETIVOS_ESPERADOS_EXTENSAO);
+		if ( AtividadeExtensaoHelper.getAtividadeMBean().getObj().isAprovadoEmExecucao() ) {
+			return forward(ConstantesNavegacao.ALTERACAO_OBJETIVOS_ESPERADOS);
+		} else {
+			AtividadeExtensaoHelper.getAtividadeMBean().getObj().setObjetivo(null);
+			return forward(ConstantesNavegacao.OBJETIVOS_ESPERADOS_EXTENSAO);
+		}
 	}
 
 	public ObjetivoAtividades getObjetivoAtividades() {

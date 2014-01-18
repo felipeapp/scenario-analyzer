@@ -278,6 +278,11 @@ public class GerenciaMeusCursosEventosExtensaoMBean extends SigaaAbstractControl
 				participanteSelecionado = dao.findInformacoesParticipanteSubAtividade(participanteSelecionado.getId());
 			}
 			
+			if(participanteSelecionado == null){
+				addMensagemErro("A sua participação nesse evento foi cancelada.");
+				return null;
+			}
+			
 		} finally {
 			if(dao != null) dao.close();
 		}	

@@ -74,7 +74,6 @@ public class TurmaEntradaTecnicoMBean extends SigaaAbstractController<TurmaEntra
 		if (obj.getEspecializacao() != null && obj.getEspecializacao().getId() == 0) 
 			obj.setEspecializacao(null);
 		obj.setUnidade(getUsuarioLogado().getVinculoAtivo().getUnidade());
-		obj.setEstruturaCurricularTecnica(getGenericDAO().refresh(obj.getEstruturaCurricularTecnica()));
 		return super.cadastrar();
 	}
 
@@ -123,10 +122,9 @@ public class TurmaEntradaTecnicoMBean extends SigaaAbstractController<TurmaEntra
 		try {
 			int id = getParameterInt("id", 0);
 			setObj(dao.findByPrimaryKey(id, TurmaEntradaTecnico.class));
-			obj.setEstruturaCurricularTecnica(dao.findByPrimaryKey(obj.getEstruturaCurricularTecnica().getId(), EstruturaCurricularTecnica.class));
 			if (obj != null) {
 				EstruturaCurricularTecnicoMBean mBean = new EstruturaCurricularTecnicoMBean();
-				listaEstCurricularTecnico = mBean.alterarCurriculoCurso(obj.getEstruturaCurricularTecnica().getCursoTecnico().getId());
+				listaEstCurricularTecnico = mBean.alterarCurriculoCurso(obj.getCursoTecnico().getId());
 			}
 			if (obj.getEspecializacao() == null) 
 				obj.setEspecializacao(new EspecializacaoTurmaEntrada());
@@ -158,7 +156,7 @@ public class TurmaEntradaTecnicoMBean extends SigaaAbstractController<TurmaEntra
 			
 			if (filtroAno && obj.getAnoReferencia() == null)
 				erros.addErro("Ano: campo não informado");
-			if (filtroCurso && obj.getEstruturaCurricularTecnica().getCursoTecnico().getId() == 0)
+			if (filtroCurso && obj.getCursoTecnico().getId() == 0)
 				erros.addErro("Curso: campo não informado");
 			if (filtroEspecializacao && obj.getEspecializacao().getId() == 0)
 				erros.addErro("Especialização: campo não informado");
@@ -169,7 +167,7 @@ public class TurmaEntradaTecnicoMBean extends SigaaAbstractController<TurmaEntra
 			if (filtroAno) 
 				ano = obj.getAnoReferencia();
 			if (filtroCurso) 
-				curso = obj.getEstruturaCurricularTecnica().getCursoTecnico().getId();
+				curso = obj.getCursoTecnico().getId();
 			if (filtroEspecializacao) 
 				especializacao = obj.getEspecializacao().getId();
 			

@@ -7,6 +7,8 @@
  */
 package br.ufrn.sigaa.ensino.graduacao.jsf;
 
+import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,8 @@ public class NotificaParticipantesCursoMBean extends AbstractControllerNotificac
 	private static final int NOTIFICA_DOCENTES = 3;
 	
 	/**
-	 * Inicializa os Objetos 
+	 * Inicializa os Objetos.
+	 * <br/> Método não invocado por JSP's 
 	 */
 	@Override
 	public void clear() {
@@ -79,7 +82,7 @@ public class NotificaParticipantesCursoMBean extends AbstractControllerNotificac
 	 */	
 	@Override
 	public int[] getPapeis() {
-		return new int[] {SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO};
+		return new int[] {SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO, SigaaPapeis.COORDENADOR_LATO, SigaaPapeis.SECRETARIA_LATO};
 	}	
 
 	/**
@@ -99,6 +102,8 @@ public class NotificaParticipantesCursoMBean extends AbstractControllerNotificac
 		try {
 			if (tipoNotificacao != NOTIFICA_DOCENTES){
 				List<UsuarioGeral> discentes = dao.findUsuarioDiscentesByCurso(getCursoAtualCoordenacao().getId());
+				if (isEmpty(discentes))
+					addMensagemErro("Não discentes ativos para o curso atual.");
 				for (UsuarioGeral u : discentes){
 					Destinatario d = new Destinatario(u.getNome(), u.getEmail());
 					d.setIdusuario(u.getId());
@@ -108,7 +113,9 @@ public class NotificaParticipantesCursoMBean extends AbstractControllerNotificac
 			
 			if (tipoNotificacao != NOTIFICA_DISCENTES){
 				List<UsuarioGeral> usuariosDocentes = dao.findUsuariosDocentesByCursoPeriodo(getCursoAtualCoordenacao().getId(), 
-						getCalendarioVigente().getAno(), getCalendarioVigente().getPeriodo());				
+						getCalendarioVigente().getAno(), getCalendarioVigente().getPeriodo());	
+				if (isEmpty(usuariosDocentes))
+					addMensagemErro("Não há turmas com docentes para o ano período atual.");
 				for (UsuarioGeral u : usuariosDocentes){
 					Destinatario d = new Destinatario(u.getNome(), u.getEmail());
 					d.setIdusuario(u.getId());

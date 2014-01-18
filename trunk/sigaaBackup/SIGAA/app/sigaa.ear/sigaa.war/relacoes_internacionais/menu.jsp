@@ -99,6 +99,15 @@
 							<li> <h:commandLink	action="#{ declaracaoVinculo.buscarDiscente }"	value="Emitir Declaração de Vínculo/Cadastro" onclick="setAba('documentos')"/> </li>
 						</ul>
 					</li>
+					<li> Relatórios
+						<ul>
+							<li>
+								<h:commandLink id="report_alunosComMobilidadeEstudantil" action="#{relatorioDiscente.carregarSelecaoRelatorio}"  onclick="setAba('documentos')" value="Relatório de Mobilidade Estudantil">
+									<f:param value="seleciona_prazo_mobilidade_estudantil.jsf" name="relatorio"/>
+								</h:commandLink>		
+							</li>
+						</ul>
+					</li>
 					<li> Alunos
 						<ul>
 							<li> 

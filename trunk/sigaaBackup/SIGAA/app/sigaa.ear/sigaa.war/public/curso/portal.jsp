@@ -37,12 +37,16 @@
           	</strong>
           </span>
           <div class="informacoes">
-              <p>Telefone: 
+              <p><h:outputText value="#{idioma.telefoneRamal}: " /> 
               	<span class="cor">
               	<h:outputText value="#{portalPublicoCurso.coordenador.telefoneContato1}" rendered="#{not empty portalPublicoCurso.coordenador.telefoneContato1}" />
               	<h:outputText value="/#{portalPublicoCurso.coordenador.ramalTelefone1}" 
               			rendered="#{not empty portalPublicoCurso.coordenador.telefoneContato1 && not empty portalPublicoCurso.coordenador.ramalTelefone1}" />
-			    <h:outputText value="#{idioma.vazio}" rendered="#{empty portalPublicoCurso.coordenador.telefoneContato1}" />
+            	<h:outputText value=" | " rendered="#{not empty portalPublicoCurso.coordenador.telefoneContato1 && not empty portalPublicoCurso.coordenador.telefoneContato2}"/>
+            	<h:outputText value="#{portalPublicoCurso.coordenador.telefoneContato2}" rendered="#{not empty portalPublicoCurso.coordenador.telefoneContato2}" />
+              	<h:outputText value="/#{portalPublicoCurso.coordenador.ramalTelefone2}" 
+              			rendered="#{not empty portalPublicoCurso.coordenador.telefoneContato1 && not empty portalPublicoCurso.coordenador.ramalTelefone2}" />
+			    <h:outputText value="#{idioma.vazio}" rendered="#{empty portalPublicoCurso.coordenador.telefoneContato1 and portalPublicoCurso.coordenador.telefoneContato2}" />
               	</span>
               </p>
               <p>E-mail: 

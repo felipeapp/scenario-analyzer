@@ -108,7 +108,7 @@ public class PerguntaQuestionario implements Validatable, Cloneable{
 	@Column(name="gabarito_dissertativa")
 	private String gabaritoDissertativa;
 
-	/** Resposta Númerica da pergunta */
+	/** Resposta Numérica da pergunta */
 	@Column(name="gabarito_numerica")
 	private Float gabaritoNumerica;
 

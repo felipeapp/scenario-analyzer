@@ -33,6 +33,7 @@ import br.ufrn.sigaa.dominio.Usuario;
 import br.ufrn.sigaa.ensino.latosensu.dominio.CorpoDocenteCursoLato;
 import br.ufrn.sigaa.ensino.latosensu.dominio.CursoLato;
 import br.ufrn.sigaa.ensino.latosensu.dominio.ParametrosPropostaCursoLato;
+import br.ufrn.sigaa.ensino.latosensu.dominio.SituacaoProposta;
 import br.ufrn.sigaa.ensino.latosensu.dominio.TipoCursoLato;
 import br.ufrn.sigaa.ensino.latosensu.relatorios.LinhaComponenteCursoLato;
 
@@ -156,7 +157,7 @@ public class CursoLatoValidator {
 				ValidatorUtil.validaOrdemTemporalDatas(curso.getCoordenador().getDataInicioMandato(), 
 						curso.getCoordenador().getDataFimMandato(), false, "Data de Inicio Mandato do Coordenador", lista);
 	
-			if (curso.getDataInicio().after(curso.getCoordenador().getDataInicioMandato())) 
+			if (curso.getPropostaCurso().getSituacaoProposta().getId() != SituacaoProposta.ACEITA && curso.getDataInicio().after(curso.getCoordenador().getDataInicioMandato())) 
 				lista.addMensagem(MensagensArquitetura.DATA_POSTERIOR_A, "Data de Inicio do Mandato do Coordenador", CalendarUtils.format(curso.getDataInicio(), "dd/MM/yyyy"));
 			
 			if (curso.getDataInicio().after(curso.getCoordenador().getDataFimMandato())) 
@@ -172,7 +173,7 @@ public class CursoLatoValidator {
 				ValidatorUtil.validaOrdemTemporalDatas(curso.getViceCoordenador().getDataInicioMandato(), 
 						curso.getViceCoordenador().getDataFimMandato(), false, "Data de Inicio do Mandato do Vice-Coordenador", lista);
 			
-			if (curso.getDataInicio().after(curso.getViceCoordenador().getDataInicioMandato())) 
+			if (curso.getPropostaCurso().getSituacaoProposta().getId() != SituacaoProposta.ACEITA && curso.getDataInicio().after(curso.getViceCoordenador().getDataInicioMandato())) 
 				lista.addMensagem(MensagensArquitetura.DATA_POSTERIOR_A, "Data de Inicio do Mandato do Vice-Coordenador", CalendarUtils.format(curso.getDataInicio(), "dd/MM/yyyy"));
 			
 			if (curso.getDataInicio().after(curso.getViceCoordenador().getDataFimMandato())) 

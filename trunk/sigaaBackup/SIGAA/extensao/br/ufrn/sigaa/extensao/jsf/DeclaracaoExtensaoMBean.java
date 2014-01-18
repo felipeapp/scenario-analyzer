@@ -144,6 +144,11 @@ public class DeclaracaoExtensaoMBean extends SigaaAbstractController<Participant
 				// os dados já vem preenchidos pelo método exibir !!!
 			}
 			
+			if(participante == null){
+				addMensagemErro("Sua participação no evento foi cancelada.");
+				return null;
+			}
+			
 			if(isEmissaoByCoordenador != null && isEmissaoByCoordenador == true){
 				participante.verificaEmissaoDeclaracaoCoordenador();
 			}else{
@@ -168,8 +173,9 @@ public class DeclaracaoExtensaoMBean extends SigaaAbstractController<Participant
 			addMensagens(ne.getListaMensagens());
 			return null;
 		} catch (Exception e) {
+			addMensagemErro("Erro ao tentar emitir a declaração do participante: \""+e.getCause()+"\" contacte o suporte.");
 			notifyError(e);
-			addMensagemErro("Erro ao tentar emitir a declaração do participante.");
+			e.printStackTrace();
 			return null;
 		}finally{
 			if(dao != null) dao.close();
@@ -233,8 +239,9 @@ public class DeclaracaoExtensaoMBean extends SigaaAbstractController<Participant
 			addMensagens(ne.getListaMensagens());
 			return null;
 		} catch (Exception e) {
+			addMensagemErro("Erro ao tentar emitir a declaração do participante: \""+e.getCause()+"\" contacte o suporte.");
 			notifyError(e);
-			addMensagemErro("Erro ao tentar emitir a declaração do participante.");
+			e.printStackTrace();
 			return null;
 		}finally{
 			if(dao != null) dao.close();
@@ -314,15 +321,23 @@ public class DeclaracaoExtensaoMBean extends SigaaAbstractController<Participant
 		dadosEmissao.setUnidadeAtividade( isParticipacaoAtividade ? participante.getAtividadeExtensao().getUnidade().getNome() : participante.getSubAtividade().getAtividade().getUnidade().getNome() );	
 		
 		String cargaHorariaSeCursoEvento = "";
+		String cargaHorariaTotal="";
     	if (iscursoOuEvento ) {
     		int ch = participante.getChCertificadoDeclaracao();
     		if(ch > 0 )
-    			cargaHorariaSeCursoEvento = ", cumprinto até o momento uma carga horária de " + participante.getChCertificadoDeclaracao() + " hora(s)"; 
+    			cargaHorariaSeCursoEvento = ",  com " + participante.getChCertificadoDeclaracao() + " hora(s) de atividades desenvolvidas";
+    		
+    		int chTotal = participante.getChTotalCertificadoDeclaracao();
+    		if(chTotal > 0 ){
+    			cargaHorariaTotal=", com carga horária total de " + chTotal + " hora(s)";
+    		}
+    		
     	}
 		
+    	dadosEmissao.setCargoHorariaTotal(cargaHorariaTotal);
     	dadosEmissao.setCargaHorariaSeCursoEvento(cargaHorariaSeCursoEvento);
     	dadosEmissao.setTipoParticipacao( participante.getTipoParticipacao().getDescricao() );
-    	
+    	   	
 		String dataInicioFormatada = null;
     	
 		if(isParticipacaoAtividade){
@@ -444,12 +459,16 @@ public class DeclaracaoExtensaoMBean extends SigaaAbstractController<Participant
 					+ dados.getTipoAtividade()
 					+ " "+dados.getTituloAtividade().toUpperCase()+ "" 
 					+  ", que ocorrerá no período de "+ dados.getDataInicioFormatada()+ " a "+ dados.getDataFimFormatada()	
-					+ dados.getCargaHorariaSeCursoEvento() + ", promovida pelo(a) "
-					+ dados.getUnidadeAtividade()
+					+ ( StringUtils.notEmpty(dados.getCargoHorariaTotal()) ? dados.getCargoHorariaTotal() : "")  + ", promovida pelo(a) "
+					+ dados.getUnidadeAtividade()+ ","
 					+ " na função de "+ dados.getTipoParticipacao();
 			
+			if( StringUtils.isNotEmpty( dados.getCargaHorariaSeCursoEvento() ) ){
+				textoDeclaracao += dados.getCargaHorariaSeCursoEvento(); 
+			}
+			
 			if(StringUtils.notEmpty(dados.getHorasAtividadeDesenvolvida())){
-				textoDeclaracao += ", com "+dados.getHorasAtividadeDesenvolvida()+ " hora(s) semanais de atividades desenvolvidas ";
+				textoDeclaracao += ", com "+dados.getHorasAtividadeDesenvolvida()+ " hora(s) semanais de atividades desenvolvidas";
 			}
 			
 			textoDeclaracao += ".";	
@@ -713,6 +732,7 @@ class DadosEmissaoDeclaracao{
 	private String tipoAtividade;
 	private String unidadeAtividade;
 	private String tipoParticipante;
+	private String cargoHorariaTotal;
 	private String cargaHorariaSeCursoEvento;
 	private String tipoParticipacao;
 	private String horasAtividadeDesenvolvida;
@@ -794,6 +814,14 @@ class DadosEmissaoDeclaracao{
 	}
 	public void setDataFimFormatada(String dataFimFormatada) {
 		this.dataFimFormatada = dataFimFormatada;
+	}
+
+	public String getCargoHorariaTotal() {
+		return cargoHorariaTotal;
+	}
+
+	public void setCargoHorariaTotal(String cargoHorariaTotal) {
+		this.cargoHorariaTotal = cargoHorariaTotal;
 	}
 	
 	

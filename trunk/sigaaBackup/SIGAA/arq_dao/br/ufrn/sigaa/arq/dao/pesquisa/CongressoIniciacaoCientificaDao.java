@@ -18,13 +18,19 @@ import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import br.ufrn.arq.dao.dialect.SQLDialect;
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.GenericSigaaDAO;
 import br.ufrn.sigaa.arq.dominio.SeqAno;
 import br.ufrn.sigaa.dominio.AreaConhecimentoCnpq;
+import br.ufrn.sigaa.dominio.Usuario;
+import br.ufrn.sigaa.ensino.dominio.DiscenteAdapter;
 import br.ufrn.sigaa.pesquisa.dominio.AvaliadorCIC;
 import br.ufrn.sigaa.pesquisa.dominio.CongressoIniciacaoCientifica;
+import br.ufrn.sigaa.pesquisa.dominio.JustificativaAusenciaCIC;
 import br.ufrn.sigaa.pesquisa.dominio.OrganizacaoPaineisCIC;
+import br.ufrn.sigaa.pessoa.dominio.Discente;
 import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 import br.ufrn.sigaa.pessoa.dominio.Servidor;
 
@@ -50,6 +56,26 @@ public class CongressoIniciacaoCientificaDao extends GenericSigaaDAO {
         } catch (Exception e) {
             throw new DAOException(e.getMessage(), e);
         }
+	}
+	
+	public CongressoIniciacaoCientifica findUltimoCongresso() throws DAOException{
+		try{
+			Criteria c = getSession().createCriteria(CongressoIniciacaoCientifica.class);
+			c.addOrder(Order.desc("inicio"));
+			c.setMaxResults(1);			
+			return  (CongressoIniciacaoCientifica) c.uniqueResult();
+		}catch(Exception e){
+			throw new DAOException(e.getMessage(), e);
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<JustificativaAusenciaCIC> findAusenteByUltimo() throws DAOException{
+		CongressoIniciacaoCientifica congresso = findUltimoCongresso();
+		Criteria c = getSession().createCriteria(JustificativaAusenciaCIC.class);
+		c.add(Expression.eq("CIC.id", congresso.getId()));
+		return c.list();
 	}
 	
 	/**
@@ -88,12 +114,22 @@ public class CongressoIniciacaoCientificaDao extends GenericSigaaDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public boolean isAvaliador(CongressoIniciacaoCientifica congresso, Servidor docente, AreaConhecimentoCnpq area) throws DAOException {
+	public boolean isAvaliador(CongressoIniciacaoCientifica congresso, Servidor docente ,DiscenteAdapter discente, AreaConhecimentoCnpq area) throws DAOException {
 		Criteria c = getSession().createCriteria(AvaliadorCIC.class);
 		c.add(Expression.eq("congresso", congresso));
-		c.add(Expression.eq("docente", docente));
-		c.add(Expression.eq("area", area));
-		return c.list().isEmpty();
+		
+		if(  ValidatorUtil.isNotEmpty(  docente ) ){
+			c.add(Expression.eq("docente", docente));
+		}	
+		
+		if(  ValidatorUtil.isNotEmpty(  discente ) ){
+			c.add(Expression.eq("discente.id", discente.getId()));
+		}
+		
+		if( ValidatorUtil.isNotEmpty(  area  ) ){
+			c.add(Expression.eq("area", area));
+		}	
+		return !c.list().isEmpty();
 	}
 	
 	/**
@@ -102,18 +138,32 @@ public class CongressoIniciacaoCientificaDao extends GenericSigaaDAO {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	public Collection<AvaliadorCIC> findByCongresso(CongressoIniciacaoCientifica congresso, Boolean avaliadorResumo, Boolean avaliadorApresentacao, AreaConhecimentoCnpq area) throws DAOException {
+	public Collection<AvaliadorCIC> findByCongresso(CongressoIniciacaoCientifica congresso, Boolean avaliadorResumo, Boolean avaliadorApresentacao, AreaConhecimentoCnpq area, boolean buscaDiscente, boolean buscaDocente) throws DAOException {
 		StringBuilder hql = new StringBuilder();
-		hql.append("select a.id, a.avaliadorResumo, a.avaliadorApresentacao, a.docente.pessoa.nome, a.area.nome, a.presenca ");
-		hql.append(" from AvaliadorCIC a ");
+		hql.append("select a.id, a.avaliadorResumo, a.avaliadorApresentacao, a.presenca , pessoaDocente.nome, pessoaDiscente.nome , area.nome ");
+		hql.append(" FROM AvaliadorCIC a ");
+		hql.append(" LEFT JOIN a.docente docente ");
+		hql.append(" LEFT JOIN docente.pessoa pessoaDocente ");
+		hql.append(" LEFT JOIN a.area area");
+		hql.append(" LEFT JOIN a.discente discente ");
+		hql.append(" LEFT JOIN discente.pessoa pessoaDiscente  ");
 		hql.append(" where a.congresso.id = " + congresso.getId());
-		if(avaliadorResumo != null)
-			hql.append(" and a.avaliadorResumo = " + avaliadorResumo);
-		if(avaliadorApresentacao != null)
-			hql.append(" and a.avaliadorApresentacao = " + avaliadorApresentacao);
+		if(avaliadorResumo != null && avaliadorResumo )
+			hql.append(" and a.avaliadorResumo = " + SQLDialect.TRUE);
+		if(avaliadorApresentacao != null && avaliadorApresentacao )
+			hql.append(" and a.avaliadorApresentacao = " + SQLDialect.TRUE);
 		if(area != null)
 			hql.append(" and a.area.id = " + area.getId());
-		hql.append(" order by a.area.nome, a.docente.pessoa.nome");
+		
+		if( buscaDiscente ){
+			hql.append(" AND discente is not null " );
+		}
+		
+		if( buscaDocente ){
+			hql.append(" AND docente is not null " );
+		}
+		
+		hql.append(" order by area.nome, pessoaDiscente.nome, pessoaDocente.nome");
 		
 		List lista = getSession().createQuery(hql.toString()).list();
 		
@@ -127,22 +177,60 @@ public class CongressoIniciacaoCientificaDao extends GenericSigaaDAO {
 			avaliador.setId((Integer) colunas[col++]);
 			avaliador.setAvaliadorResumo((Boolean) colunas[col] == null ? false : (Boolean) colunas[col++]);
 			avaliador.setAvaliadorApresentacao((Boolean) colunas[col] == null ? false : (Boolean) colunas[col++]);
-			
-			Pessoa pessoa = new Pessoa();
-			pessoa.setNome((String) colunas[col++]);
-			Servidor docente = new Servidor();
-			docente.setPessoa(pessoa);
-			avaliador.setDocente(docente);
-			
-			AreaConhecimentoCnpq areaConhecimento = new AreaConhecimentoCnpq();
-			areaConhecimento.setNome((String) colunas[col++]);
-			avaliador.setArea(areaConhecimento);
-			
 			avaliador.setPresenca((Boolean) colunas[col++]);
 			
+			Pessoa pessoa = new Pessoa();
+			if( colunas[col]!= null ){
+				pessoa.setNome((String) colunas[col++]);
+				Servidor docente = new Servidor();
+				docente.setPessoa(pessoa);
+				avaliador.setDocente(docente);
+			}else{
+				col++;
+			}	
+			
+			if( colunas[col]!= null ){
+				pessoa.setNome((String) colunas[col++]);
+				DiscenteAdapter discente = new Discente();
+				discente.setPessoa(pessoa);
+				avaliador.setDiscente(discente);
+			}else{
+				col++;
+			}	
+			
+			if(colunas[col]!=null ){
+				AreaConhecimentoCnpq areaConhecimento = new AreaConhecimentoCnpq();
+				areaConhecimento.setNome((String) colunas[col++]);
+				avaliador.setArea(areaConhecimento);
+			}
+						
 			result.add(avaliador);
 		}
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Collection<JustificativaAusenciaCIC> findAusentesByCongressoAtivo(Integer tipo) throws DAOException{
+		CongressoIniciacaoCientifica congresso = findAtivo();
+		if(congresso == null)
+			return null;
+		Criteria c = getSession().createCriteria(JustificativaAusenciaCIC.class);
+		c.add(Expression.eq("CIC.id", congresso.getId()));
+		if(tipo != 0)
+			c.add(Expression.eq("tipo",tipo));
+		
+//		c.addOrder(Order.asc("pessoa.nome"));
+		return c.list();
+	}
+	
+	/** Realiza uma busca de usuário sobre as justificativas de ausencia do congresso ativo**/ 
+	
+	@SuppressWarnings("unchecked")
+	public Collection<JustificativaAusenciaCIC> findAusenciaByCongressoAtivo(Usuario usuario )throws DAOException{
+		CongressoIniciacaoCientifica congresso = findAtivo();
+		Criteria c = getSession().createCriteria(JustificativaAusenciaCIC.class);
+		c.add(Expression.eq("CIC.id", congresso.getId()));
+		c.add(Expression.eq("cadastrado_por.id", usuario.getId()));
+		return c.list();
+	}
 }

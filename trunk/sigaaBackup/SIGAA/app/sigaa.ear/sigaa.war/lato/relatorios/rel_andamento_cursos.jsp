@@ -1,4 +1,4 @@
-<%@include file="/WEB-INF/jsp/include/cabecalho_impressao.jsp"%>
+<%@include file="/WEB-INF/jsp/include/cabecalho_impressao_paisagem.jsp"%>
 
 <style>
 	tr.curso td {border-bottom: 1px solid #555;  }
@@ -28,20 +28,30 @@
 	
 	
 		<tr class="header">
-			<td style="text-align: left;">Curso</td>
-			<td style="text-align: center;">Data Início</td>
-			<td style="text-align: center;">Data Fim</td>
-			<td style="text-align: right;">Andamento</td> 	
+			<td style="text-align: left;" rowspan="2">Curso</td>
+			<td style="text-align: center;" colspan="2">Período do Curso</td>
+			<td style="text-align: center;" colspan="3">Disciplinas</td>
+			<td style="text-align: right;" rowspan="2">Discentes<br/>Ativos</td> 	 	
+		</tr>
+		<tr class="header">
+			<td style="text-align: center;">Início</td>
+			<td style="text-align: center;">Fim</td>
+			<td style="text-align: right;">Propostas</td>
+			<td style="text-align: right;">Concluídas</td>
+			<td style="text-align: right;">(%)</td>
 		</tr>
 
-	<c:forEach items="#{relatoriosLato.cursosLato}" var="linha" varStatus="loop">
+	<c:forEach items="#{relatoriosLato.lista}" var="linha" varStatus="loop">
 		
 		<tr  class="componentes">
 
 			<td style="text-align: left;"> ${ linha.nome } </td>
-			<td style="text-align: center;"> <ufrn:format type="data" valor="${ linha.dataInicio }"/> </td>
-			<td style="text-align: center;"> <ufrn:format type="data" valor="${ linha.dataFim }"/> </td>
-			<td style="text-align: right;"> <ufrn:format type="valorint" valor="${ linha.andamento }"/>% </td>
+			<td style="text-align: center;"> <ufrn:format type="data" valor="${ linha.data_inicio }"/> </td>
+			<td style="text-align: center;"> <ufrn:format type="data" valor="${ linha.data_fim }"/> </td>
+			<td style="text-align: right;">	${ linha.total_componentes } </td>
+			<td style="text-align: right;">	${ linha.total_turmas } </td>
+			<td style="text-align: right;"> <ufrn:format type="valor" valor="${ linha.andamento }"/>% </td>
+			<td style="text-align: right;">${ linha.discentes_ativos }</td> 
 		</tr>
 
 	</c:forEach>

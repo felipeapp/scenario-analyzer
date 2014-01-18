@@ -27,6 +27,7 @@ import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
+import br.ufrn.arq.util.CalendarUtils;
 import br.ufrn.comum.dominio.Sistema;
 import br.ufrn.comum.gru.dominio.ConfiguracaoGRU;
 import br.ufrn.sigaa.arq.dao.ead.PoloCursoDao;
@@ -99,6 +100,11 @@ public class ProcessadorCursoLato extends AbstractProcessador {
 				if (!erros.isEmpty()) 
 					return null;
 				
+				//Inserir código do curso.
+				curso.setPrefixo("PC");
+				curso.setNumero( daoLato.findNextSequenciaCursoLato( CalendarUtils.getAnoAtual() ) );
+				curso.setAno(  CalendarUtils.getAnoAtual() );
+							
 				curso.setTipoOfertaCurso(null);
 				PropostaCursoLato proposta = curso.getPropostaCurso();
 				if(proposta.getUsuario() == null)

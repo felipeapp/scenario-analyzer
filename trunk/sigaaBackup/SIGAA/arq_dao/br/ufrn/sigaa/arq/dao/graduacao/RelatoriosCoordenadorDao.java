@@ -510,6 +510,11 @@ public class RelatoriosCoordenadorDao extends GenericSigaaDAO {
 				"	FROM \n" +
 				"		public.discente d \n" +
 				"	INNER JOIN graduacao.discente_graduacao dg ON dg.id_discente_graduacao = d.id_discente \n"+
+				// é obrigatória do currículo
+				"	INNER JOIN graduacao.curriculo cu ON d.id_curriculo = cu.id_curriculo \n"+
+				"	INNER JOIN graduacao.curriculo_componente cuc ON cu.id_curriculo = cuc.id_curriculo"+
+				"              and cuc.id_componente_curricular = " + componenteCurricular.getId() + 
+				"              and cuc.obrigatoria \n" +
 				"	LEFT JOIN ensino.matricula_componente mc ON mc.id_discente = d.id_discente \n"+
 				"	WHERE \n" ;
 		
@@ -667,6 +672,7 @@ public class RelatoriosCoordenadorDao extends GenericSigaaDAO {
 		
 		String projecao = 
 						"dg.id, " +
+						"dg.discente.id, " +
 						"dg.discente.matricula, " +
 						"dg.discente.pessoa.nome, " +
 						"dg.discente.status, " +

@@ -270,8 +270,10 @@ public class ProcessadorPropostaGrupoPesquisa extends AbstractProcessador {
 		encontrado : for (MembroGrupoPesquisa membro : grupoPesquisa.getEquipesGrupoPesquisaCol()) {
 			if ( 
 				 (
-					(!membro.getPessoa().isInternacional() && membro.getPessoa().getCpf_cnpj().equals( membroGrupo.getPessoa().getCpf_cnpj() )) 
-					|| (membro.getPessoa().isInternacional() && membro.getPessoa().getPassaporte().equals(membroGrupo.getPessoa().getPassaporte())) 
+					( !membro.getPessoa().isInternacional() && membro.getPessoa().getCpf_cnpj() != null && membroGrupo.getPessoa().getCpf_cnpj() != null
+						  && membro.getPessoa().getCpf_cnpj().equals( membroGrupo.getPessoa().getCpf_cnpj()) ) || 
+					( membro.getPessoa().isInternacional() && membro.getPessoa().getPassaporte() != null && membroGrupo.getPessoa().getPassaporte() != null 
+						  && membro.getPessoa().getPassaporte().equals(membroGrupo.getPessoa().getPassaporte()) ) 
 				 ) 
 				 && membro.getSenhaConfirmacao().equals(membroGrupo.getSenhaConfirmacao()) ) {
 				dao.updateFields(MembroGrupoPesquisa.class, membro.getId(), new String [] {"assinado", "dataAssinatura"},

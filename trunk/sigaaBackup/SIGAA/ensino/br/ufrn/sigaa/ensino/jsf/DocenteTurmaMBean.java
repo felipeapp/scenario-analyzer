@@ -170,11 +170,6 @@ public class DocenteTurmaMBean extends SigaaAbstractController<Turma> {
 		modelDocentesTurmas = new ListDataModel(listaDocenteturma);
 		popularGrupoDocentes(listaDocenteturma);
 		
-		if (obj.isGraduacao()){
-			for (DocenteTurma d : listaDocenteturma)
-				d.calculaPorcentagemByChDedicadaChComponente(obj.getChTotalTurma());
-		}
-		
 		return formDocente();
 	}
 	
@@ -225,12 +220,8 @@ public class DocenteTurmaMBean extends SigaaAbstractController<Turma> {
 		if (params != null)
 			permiteCHCompartilhada = params.isPermiteChCompartilhada();
 		
-		if (obj.isGraduacao()) {
-			dtModificado.calculaChDedicadaByPorcentagemChComponente(obj.getChTotalTurma());
-			// Primeira validação em cima da porcentagem da ch.
-			TurmaValidator.validaPorcentagemCHDocente(obj, dtModificado, permiteCHCompartilhada, lista, false, grupo);
-		} else //verificando se a gestora ou o componente permiti CH compartilhada 
-			permiteCHCompartilhada = permiteCHCompartilhada || obj.getDisciplina().getDetalhes().isPermiteChCompartilhada();		
+		if (!obj.isGraduacao())
+			permiteCHCompartilhada = permiteCHCompartilhada || obj.getDisciplina().getDetalhes().isPermiteChCompartilhada();			
 		
 		TurmaValidator.validaCHDocenteTurma(obj, dtModificado, permiteCHCompartilhada, lista, false, null, grupo);
 		
@@ -516,14 +507,8 @@ public class DocenteTurmaMBean extends SigaaAbstractController<Turma> {
 			if (isTurmaEad()) {
 				docenteTurma.setChDedicadaPeriodo(0);
 			} // Turmas de graduação cadastram a porcentagem da CH. 
-			else if (obj.isGraduacao()) {
-				
-				docenteTurma.calculaChDedicadaByPorcentagemChComponente(obj.getChTotalTurma());
-				// Primeira validação em cima da porcentagem da ch.
-				TurmaValidator.validaPorcentagemCHDocente(obj, docenteTurma, permiteCHCompartilhada, mensagens, true, docenteTurma.getGrupoDocente());				
-				if (docenteTurma.getChDedicadaPeriodo() == null)
-					addMensagemErro("Não foi possível calcular o valor real da carga horária dedicada ao período.");	
-			
+			else if (obj.isGraduacao() && docenteTurma.getChDedicadaPeriodo() == null) {
+				addMensagemErro("Não foi possível calcular o valor real da carga horária dedicada ao período.");	
 			} else if( docenteTurma.getChDedicadaPeriodo() == null || docenteTurma.getChDedicadaPeriodo() <= 0 )				
 				addMensagem(MensagensArquitetura.CAMPO_OBRIGATORIO_NAO_INFORMADO, "Carga Horária");	
 			
@@ -753,7 +738,7 @@ public class DocenteTurmaMBean extends SigaaAbstractController<Turma> {
 		
 		DocenteTurma dtModificado = (DocenteTurma) modelDocentesTurmas.getRowData();
 
-		if (!obj.isGraduacao() && (dtModificado.getChDedicadaPeriodo() == null || dtModificado.getChDedicadaPeriodo() <= 0))
+		if (dtModificado.getChDedicadaPeriodo() == null || dtModificado.getChDedicadaPeriodo() <= 0)
 			return;
 		
 		ParametrosGestoraAcademica params = getParametrosAcademicos();
@@ -761,15 +746,10 @@ public class DocenteTurmaMBean extends SigaaAbstractController<Turma> {
 		if (params != null)
 			permiteCHCompartilhada = params.isPermiteChCompartilhada();
 		
-		if (obj.isGraduacao()) {
-			dtModificado.calculaChDedicadaByPorcentagemChComponente(obj.getChTotalTurma());
-			// Primeira validação em cima da porcentagem da ch.
-			TurmaValidator.validaPorcentagemCHDocente(obj, dtModificado, permiteCHCompartilhada, lista, false, null);
-		}
 		//verificando se a gestora ou o componente permiti CH compartilhada 
 		if (!obj.isGraduacao())
 			permiteCHCompartilhada = permiteCHCompartilhada || obj.getDisciplina().getDetalhes().isPermiteChCompartilhada();		
-		
+
 		TurmaValidator.validaCHDocenteTurma(obj, dtModificado, permiteCHCompartilhada, lista, false, null, null);
 		
 		if (!lista.isEmpty()) {

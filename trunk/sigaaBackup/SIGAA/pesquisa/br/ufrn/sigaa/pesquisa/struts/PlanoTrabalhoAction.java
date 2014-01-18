@@ -93,6 +93,8 @@ public class PlanoTrabalhoAction extends AbstractWizardAction {
 	public static final String	CRONOGRAMA		= "cronograma";
 	/** Constante da view do resumo */
 	public static final String	RESUMO			= "resumo";
+	/** Constante da view do resumo */
+	public static final String	RESUMO_CONSULTOR = "resumoConsultor";
 	/** Constante da view da lista / consulta */
 	public static final String	LISTA_CONSULTA	= "listaConsulta";
 
@@ -245,7 +247,6 @@ public class PlanoTrabalhoAction extends AbstractWizardAction {
 		
 		if (servidor != null || (docenteExterno != null && docenteExterno.size() > 0)) {
 			Collection<ProjetoPesquisa> findParaSolicitacaoCota = projetoDao.findParaSolicitacaoCota(servidor, docenteExterno, edital);
-			removerPlanoExcluidos(findParaSolicitacaoCota);
 			if(!ValidatorUtil.isEmpty(findParaSolicitacaoCota))
 				req.setAttribute("lista", findParaSolicitacaoCota);
 			else {
@@ -271,22 +272,6 @@ public class PlanoTrabalhoAction extends AbstractWizardAction {
 		return mapping.findForward("escolhaProjeto");
 	}
 	
-	private void removerPlanoExcluidos(Collection<ProjetoPesquisa> findParaSolicitacaoCota) {
-		if ( findParaSolicitacaoCota != null ) {
-			for (ProjetoPesquisa projetoPesquisa : findParaSolicitacaoCota) {
-				if ( projetoPesquisa.getPlanosTrabalho() != null && !projetoPesquisa.getPlanosTrabalho().isEmpty() ) {
-					for (PlanoTrabalho planoTrabalho : projetoPesquisa.getPlanosTrabalho()) {
-						if (planoTrabalho.getStatus() == TipoStatusPlanoTrabalho.EXCLUIDO) {
-							projetoPesquisa.getPlanosTrabalho().remove(planoTrabalho);
-						}
-					}
-				}
-				
-			}
-			
-		}
-	}
-
 	/**
 	 * Preenche os dados para iniciar o caso de uso a partir do Portal Docente,
 	 * quando um professor deseja cadastrar um plano de trabalho voluntário.
@@ -1106,8 +1091,6 @@ public class PlanoTrabalhoAction extends AbstractWizardAction {
 	 */
 	public ActionForward buscar(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse res) throws Exception {
 
-		checkRole(SigaaPapeis.GESTOR_PESQUISA, req);
-
 		PlanoTrabalhoForm pForm = (PlanoTrabalhoForm) form;
 		PlanoTrabalhoDao dao = getDAO(PlanoTrabalhoDao.class, req);
 		pForm.setConfirm(false);
@@ -1230,6 +1213,12 @@ public class PlanoTrabalhoAction extends AbstractWizardAction {
 		return mapping.findForward("relatorio");
 	}
 
+	public ActionForward buscarConsultor(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse res) throws Exception {
+		buscar(mapping, form, req, res);
+		setSubSistemaAtual(req, getSubSistemaCorrente(req));
+		return mapping.findForward(RESUMO_CONSULTOR);
+	}
+	
 	/**
 	 * Serve pra visualizar o plano de trabalho escolhido
 	 * <br>

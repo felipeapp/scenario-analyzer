@@ -82,7 +82,6 @@ public class ParametrosAvaliacaoInstitucionalMBean extends SigaaAbstractControll
 		init();
 		this.avaliacaoDocente = ParametroHelper.getInstance().getParametroBoolean(ParametrosAvaliacaoInstitucional.AVALIACAO_DOCENTE_ATIVA);
 		this.comentariosLiberados = ParametroHelper.getInstance().getParametroBoolean(ParametrosAvaliacaoInstitucional.INCLUIR_COMENTARIOS_RELATORIO_ANALITICO);
-		this.idGrupo = ParametroHelper.getInstance().getParametroInt(ParametrosAvaliacaoInstitucional.ID_GRUPO_PERGUNTAS_MEDIA_GERAL_RESULTADO_AVALIACAO);
 		return formParametrosGerais();
 	}
 	
@@ -144,16 +143,13 @@ public class ParametrosAvaliacaoInstitucionalMBean extends SigaaAbstractControll
 		ParametroDao dao = getDAO(ParametroDao.class);
 		Parametro avaliacaoDocente = dao.findByPrimaryKey(ParametrosAvaliacaoInstitucional.AVALIACAO_DOCENTE_ATIVA);
 		Parametro comentariosLiberados = dao.findByPrimaryKey(ParametrosAvaliacaoInstitucional.INCLUIR_COMENTARIOS_RELATORIO_ANALITICO);
-		Parametro grupo = dao.findByPrimaryKey(ParametrosAvaliacaoInstitucional.ID_GRUPO_PERGUNTAS_MEDIA_GERAL_RESULTADO_AVALIACAO);
 		// valores
 		avaliacaoDocente.setValor(String.valueOf(this.avaliacaoDocente));
 		comentariosLiberados.setValor(String.valueOf(this.comentariosLiberados));
-		grupo.setValor(String.valueOf(idGrupo));
 		// lista de parâmetros a persistir
 		listaParametros = new ArrayList<Parametro>();
 		listaParametros.add(avaliacaoDocente);
 		listaParametros.add(comentariosLiberados);
-		listaParametros.add(grupo);
 		return cadastrar();
 	}
 	

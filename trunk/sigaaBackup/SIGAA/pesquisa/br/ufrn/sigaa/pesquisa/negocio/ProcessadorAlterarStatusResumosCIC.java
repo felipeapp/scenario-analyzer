@@ -63,7 +63,7 @@ public class ProcessadorAlterarStatusResumosCIC extends AbstractProcessador {
 	 */
 	@SuppressWarnings("unchecked")
 	public void validate(Movimento mov) throws NegocioException, ArqException {
-		checkRole(SigaaPapeis.GESTOR_PESQUISA, mov);
+		checkRole(new int[]{SigaaPapeis.GESTOR_PESQUISA, SigaaPapeis.MEMBRO_COMITE_PESQUISA}, mov);
 		ResumoCongresso resumoCongresso = ((MovimentoCadastro) mov).getObjMovimentado();
 		List<ResumoCongresso> lista = (List<ResumoCongresso>) ((MovimentoCadastro) mov).getColObjMovimentado();
 		ListaMensagens erros = new ListaMensagens();

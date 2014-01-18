@@ -338,7 +338,7 @@ public class AulaExtraMBean extends CadastroTurmaVirtual<AulaExtra> {
 	
 	@Override
 	public String listar() {
-		prepare(SigaaListaComando.REMOVER_AVA);
+		prepare(SigaaListaComando.INATIVAR_AVA);
 		return forward("/ava/" + getClasse().getSimpleName() + "/listar.jsp");
 	}
 	

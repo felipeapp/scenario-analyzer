@@ -57,8 +57,8 @@ import br.ufrn.sigaa.monitoria.dominio.ParticipacaoSid;
 import br.ufrn.sigaa.monitoria.dominio.ProjetoEnsino;
 import br.ufrn.sigaa.monitoria.dominio.ResumoSid;
 import br.ufrn.sigaa.monitoria.dominio.StatusAvaliacao;
-import br.ufrn.sigaa.monitoria.dominio.StatusRelatorio;
 import br.ufrn.sigaa.monitoria.dominio.TipoAvaliacaoMonitoria;
+import br.ufrn.sigaa.monitoria.negocio.CalendarioMonitoriaHelper;
 import br.ufrn.sigaa.monitoria.negocio.ParticipacaoSidMov;
 import br.ufrn.sigaa.parametros.dominio.ParametrosGraduacao;
 import br.ufrn.sigaa.parametros.dominio.ParametrosMonitoria;
@@ -73,23 +73,35 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
 */
 @Component("resumoSid") @Scope("session")
 public class ResumoSidMBean extends SigaaAbstractController<ResumoSid> {
-
-	private Collection<ResumoSid> resumos;
-	private String  tituloProjeto = null; 
-	private boolean checkBuscaAno =  false;
-	private boolean checkBuscaAnoSid =  false;
-	private boolean checkBuscaProjeto =  false;
-	private boolean checkBuscaServidor = false;
-
-	private ProjetoEnsino buscaProjetoEnsino = new ProjetoEnsino();
-	private Integer buscaAnoProjeto = CalendarUtils.getAnoAtual();
-	private Integer buscaAnoSid = CalendarUtils.getAnoAtual();
-	private Servidor buscaServidor =  new Servidor();
-
-	private AvaliacaoMonitoria avaliacaoMonitoria  = new AvaliacaoMonitoria();
-	private Collection<ParticipacaoSid> participacoes;
-	private String urlAfterSearch = null;
 	
+	/**Resumo das atividades do projeto para o seminário de iniciação à docência*/
+	private Collection<ResumoSid> resumos;
+	/** Título do projeto */
+	private String  tituloProjeto = null; 
+	/** Indica se filtra a busca por ano do projeto. */
+	private boolean checkBuscaAno =  false;
+	/** Indica se filtra a busca por ano do seminário de iniciação à docência. */
+	private boolean checkBuscaAnoSid =  false;
+	/** Indica se filtra a busca pelo titulo do projeto. */
+	private boolean checkBuscaProjeto =  false;
+	/** Indica se filtra a busca pelo id do servidor. */
+	private boolean checkBuscaServidor = false;
+	/**Guarda o projeto de ensino selecionado na busca*/
+	private ProjetoEnsino buscaProjetoEnsino = new ProjetoEnsino();
+	/**Parametro: ano do projeto usado na busca do resumo*/
+	private Integer buscaAnoProjeto = CalendarUtils.getAnoAtual();
+	/**Parametro: ano do seminario usado na busca do resumo*/
+	private Integer buscaAnoSid = CalendarUtils.getAnoAtual();
+	/**Parametro:id do servidor usado na busca do resumo*/
+	private Servidor buscaServidor =  new Servidor();
+	/**classe é utilizada para avaliar um projeto ou um resumo SID */
+	private AvaliacaoMonitoria avaliacaoMonitoria  = new AvaliacaoMonitoria();
+	/**lista de participações de discente de monitoria em resumo do SID */
+	private Collection<ParticipacaoSid> participacoes;
+	/**Define o caminho da proxima jsp*/
+	private String urlAfterSearch = null;
+	/**Quantidade maxima de resumo sid por ano de um determinao projeto*/
+	private int qntMaximaResumoSid;
 	
 	public ResumoSidMBean() {
 		obj = new ResumoSid();		
@@ -136,7 +148,7 @@ public class ResumoSidMBean extends SigaaAbstractController<ResumoSid> {
 	 * @throws ArqException
 	 */
 	public String listarResumosProjeto() throws ArqException{
-	    checkDocenteRole();		
+	    checkDocenteRole();
 	    prepareMovimento(SigaaListaComando.CADASTRAR_RESUMO_SID);
 
 	    ResumoSidDao dao =  getDAO(ResumoSidDao.class);	
@@ -144,10 +156,25 @@ public class ResumoSidMBean extends SigaaAbstractController<ResumoSid> {
 	    buscaProjetoEnsino = dao.findByPrimaryKey(idProjeto, ProjetoEnsino.class);		
 	    resumos = dao.findByProjeto(buscaProjetoEnsino);
 
+	    //é possivel enviar a quantidade maxima resumo de seminário de iniciação à docência por projeto por ano para atender todos bolsistas	    
+	    
+	    int maximoBolsistasSid = ParametroHelper.getInstance().getParametroInt(ParametrosMonitoria.NUMERO_MAXIMO_BOLSISTAS_MONITORIA);
+	    qntMaximaResumoSid = (int) Math.round(((double)( buscaProjetoEnsino.getBolsasSolicitadas() ) / maximoBolsistasSid)+0.5d);
+	    
 	    return forward(ConstantesNavegacaoMonitoria.CADASTRARRESUMO_RESUMOS);		
 	}
 
-	
+	/**
+	 * Checa se o usuário é docente
+	 * 
+	 * @throws SegurancaException
+	 */
+	@Override
+	public void checkDocenteRole() throws SegurancaException {
+		if ( !isUserInRole(SigaaPapeis.GESTOR_MONITORIA) )
+			super.checkDocenteRole();
+	}
+
 	/**
 	 * Carrega o resumo seminário de iniciação à docência para a exibição
 	 * <br />
@@ -281,67 +308,64 @@ public class ResumoSidMBean extends SigaaAbstractController<ResumoSid> {
 		if (buscaProjetoEnsino != null){
 		    CalendarioMonitoria calendario = getDAO(ProjetoMonitoriaDao.class).findCalendarioByAnoAtivo(CalendarUtils.getAnoAtual()); 
 
-		    if ((calendario == null) || (! calendario.isAtivo())){
-			addMensagem(MensagensMonitoria.PERIODO_ENVIO_RESUMOS_NAO_DEFINIDO);
-			return null;				
+		    if ((calendario == null) || (!calendario.isAtivo())){
+		    	addMensagem(MensagensMonitoria.PERIODO_ENVIO_RESUMOS_NAO_DEFINIDO);
+		    	return null;				
 		    }
 
-		    if (calendario.getAnoProjetoResumoSid() != buscaProjetoEnsino.getAno()){									
-			addMensagem(MensagensMonitoria.SUBMISSAO_RESUMO_FORA_DO_PRAZO, calendario.getAnoProjetoResumoSid());
-			return null;									
-		    }else{			
+		    if ( !CalendarioMonitoriaHelper.isPeriodoSubmissaoSID(buscaProjetoEnsino) ) {									
+		    	addMensagem(MensagensMonitoria.SUBMISSAO_RESUMO_FORA_DO_PRAZO);
+		    	return null;									
+		    
+		    } else {			
 
-			//verifica se tá no período do recebimento do resumo
-			if (calendario.isEnvioResumoSidEmAberto()){					
-
-			    //só pode enviar um resumo de seminário de iniciação à docência por projeto por ano
-			    ResumoSidDao dao = getDAO(ResumoSidDao.class);														
-			    ResumoSid resumoNoBanco = dao.findByProjetoAnoSid(buscaProjetoEnsino.getId(), CalendarUtils.getAnoAtual());
-			    
-			    if (ValidatorUtil.isEmpty(resumoNoBanco)) {
-				
-				//criando novo resumo para o projeto
-				obj = new ResumoSid();
-				obj.setAnoSid(CalendarUtils.getAnoAtual());
-				prepareMovimento(SigaaListaComando.CADASTRAR_RESUMO_SID);
-				obj.setDataEnvio(new Date());
-
-				//inclui resumos para os monitores do projeto
-				buscaProjetoEnsino = dao.findByPrimaryKey(buscaProjetoEnsino.getId(), ProjetoEnsino.class);
-
-				for (DiscenteMonitoria dm : buscaProjetoEnsino.getDiscentesMonitoria()) {
-				    //lista somente os discentes que realmente estão/foram na monitores...
-				    if ((dm.isAssumiuMonitoria() || dm.isFinalizado()) 
-					    && (dm.isVinculoBolsista() || dm.isVinculoNaoRemunerado())) {
-
-					ParticipacaoSid ps = new ParticipacaoSid();
-					ps.setResumoSid(obj);
-					ps.setParticipou(true);
-					ps.setDiscenteMonitoria(dm);
-					obj.getParticipacoesSid().add(ps);
+				//verifica se tá no período do recebimento do resumo
+				if (calendario.isEnvioResumoSidEmAberto()){
+	
+					ResumoSidDao dao = getDAO(ResumoSidDao.class);														
+					Collection<ResumoSid> resumosCadastrados = dao.findByProjetoAnoSid(buscaProjetoEnsino.getId(), CalendarUtils.getAnoAtual());
+					buscaProjetoEnsino = dao.findByPrimaryKey(buscaProjetoEnsino.getId(), ProjetoEnsino.class);
+					
+				    if ( resumosCadastrados.size() < qntMaximaResumoSid ) {
+					
+						//criando novo resumo para o projeto
+						obj = new ResumoSid();
+						obj.setAnoSid(CalendarUtils.getAnoAtual());
+						prepareMovimento(SigaaListaComando.CADASTRAR_RESUMO_SID);
+						obj.setDataEnvio(new Date());
+		
+						for (DiscenteMonitoria dm : buscaProjetoEnsino.getDiscentesMonitoria()) {
+						    //lista somente os discentes que realmente estão/foram na monitores...
+						    if ((dm.isAssumiuMonitoria() || dm.isFinalizado()) 
+							    && (dm.isVinculoBolsista() || dm.isVinculoNaoRemunerado())) {
+		
+							ParticipacaoSid ps = new ParticipacaoSid();
+							ps.setResumoSid(obj);
+							ps.setParticipou(true);
+							ps.setDiscenteMonitoria(dm);
+							obj.getParticipacoesSid().add(ps);
+						    }
+						}
+		
+						// seta a escolha do projeto da lista no obj (resumoSid)
+						obj.setProjetoEnsino(buscaProjetoEnsino);
+	
+				    } else {
+				    	addMensagemErro("O número máximo de submissões do resumo SID já foi atingido.");
+				    	return null;
 				    }
+				    
+				    setConfirmButton("Confirmar");
+				    return forward(getFormPage());
+	
+				} else {
+					
+				    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");											
+				    addMensagem(MensagensMonitoria.PERIODO_SUBMISSAO_RESUMOS_DE_ACORDO_COM_O_ANO, 
+					    calendario.getAnoProjetoResumoSid(),sdf.format(calendario.getInicioEnvioResumoSid()),
+					    sdf.format(calendario.getFimEnvioResumoSid()));
+				    return null;
 				}
-
-				// seta a escolha do projeto da lista no obj (resumoSid)
-				obj.setProjetoEnsino(buscaProjetoEnsino);
-
-			    }else {
-			    	if (resumoNoBanco.getStatus().getId() == StatusRelatorio.AVALIADO) {
-			    		addMensagemErro("Já existe um Resumo do SID enviado e avaliado para este projeto.");
-			    		return null;
-			    	}
-			    	obj = resumoNoBanco;
-			    }
-			    setConfirmButton("Confirmar");
-			    return forward(getFormPage());
-
-			}else{
-			    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");											
-			    addMensagem(MensagensMonitoria.PERIODO_SUBMISSAO_RESUMOS_DE_ACORDO_COM_O_ANO, 
-				    calendario.getAnoProjetoResumoSid(),sdf.format(calendario.getInicioEnvioResumoSid()),
-				    sdf.format(calendario.getFimEnvioResumoSid()));
-			    return null;
-			}
 		    }
 
 		}else{
@@ -378,7 +402,7 @@ public class ResumoSidMBean extends SigaaAbstractController<ResumoSid> {
 
 		//testa se esse projeto é do ano q tá autorizado! 
 		if (calendario.getAnoProjetoResumoSid() != buscaProjetoEnsino.getAno()){
-		    addMensagem(MensagensMonitoria.SUBMISSAO_RESUMO_FORA_DO_PRAZO, calendario.getAnoProjetoResumoSid());
+		    addMensagem(MensagensMonitoria.SUBMISSAO_RESUMO_FORA_DO_PRAZO);
 		    return null;
 		}else{		
 		    //verifica se tá no período do recebimento(edição) dos resumos
@@ -898,5 +922,13 @@ public class ResumoSidMBean extends SigaaAbstractController<ResumoSid> {
 
 	public void setTituloProjeto(String tituloProjeto) {
 		this.tituloProjeto = tituloProjeto;
+	}
+
+	public int getQntMaximaResumoSid() {
+		return qntMaximaResumoSid;
+	}
+
+	public void setQntMaximaResumoSid(int qntMaximaResumoSid) {
+		this.qntMaximaResumoSid = qntMaximaResumoSid;
 	}
 }

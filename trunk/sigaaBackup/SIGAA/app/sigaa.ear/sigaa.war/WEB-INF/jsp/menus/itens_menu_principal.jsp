@@ -116,6 +116,15 @@
 				${acesso.relacoesInternacionais && acesso.acessibilidade ? '*Relações Internacionais' : 'Relações Internacionais'}
 			</ufrn:link> 
 		 </li>
+		 <li class="metropole_digital ${acesso.metropoleDigitalClass}">
+			<ufrn:link action="verMenuMetropoleDigital" disabled="${!acesso.metropoleDigital}">
+				${(acesso.metropoleDigital)  && acesso.acessibilidade ?  '*Instituto Metrópole Digital' : 'Instituto Metrópole Digital'}</ufrn:link>
+		</li>
+	
+		<li class="ensino_rede ${acesso.ensinoRedeClass}">
+			<ufrn:link action="verMenuEnsinoRede" disabled="${!acesso.moduloEnsinoRede}">
+				${(acesso.moduloEnsinoRede)  && acesso.acessibilidade ?  '*Ensino em Rede' : 'Ensino em Rede'}</ufrn:link>
+		</li>
 		
 		 <br clear="all"/>
 	</ul>
@@ -182,7 +191,11 @@
 		<li class="tutor ${acesso.coordenadorPoloClass}"> <ufrn:link action="verPortalCoordPolo" disabled="${!acesso.coordenadorPolo}"> 
 				${acesso.coordenadorPolo && acesso.acessibilidade ? '*Portal Coord. Pólo' : 'Portal Coord. Pólo'}  </ufrn:link> </li>
 		<li class="tutor ${acesso.tutorClass}"> <ufrn:link action="verPortalTutor" disabled="${!acesso.tutorEad}"> 
-				${acesso.tutorEad && acesso.acessibilidade ? '*Portal do Tutor' : 'Portal do Tutor'} </ufrn:link> </li> 
+				${acesso.tutorEad && acesso.acessibilidade ? '*Portal do Tutor' : 'Portal do Tutor'} </ufrn:link> </li>
+		
+		<li class="tutor ${acesso.tutorIMDClass}"> <ufrn:link action="verPortalTutoriaIMD" disabled="${!acesso.tutorIMD}"> 
+				${acesso.tutorIMD && acesso.acessibilidade ? '*Portal do Tutor do IMD' : 'Portal do Tutor do IMD'} </ufrn:link> </li> 
+		 
 		<li class="portal_reitor ${acesso.cpdiClass}"> <ufrn:link action="verPortalCPDI" disabled="${!acesso.cpdi}">
 				${acesso.cpdi && acesso.acessibilidade ? '*CPDI' : 'CPDI'} </ufrn:link></li>
 		<li class="portal_reitor ${acesso.planejamentoClass}"> <ufrn:link action="verPortalPlanejamento" disabled="${!acesso.planejamento}">
@@ -191,6 +204,10 @@
 				${acesso.relatorios && acesso.acessibilidade ? '*Relatórios de Gestão' : 'Relatórios de Gestão'}</ufrn:link> </li>		
 		<li class="portal_concedente_estagio ${acesso.portalConcedenteEstagioClass}"> <ufrn:link action="verPortalConcedenteEstagio" disabled="${!acesso.portalConcedenteEstagio}">
 				${acesso.portalConcedenteEstagio && acesso.acessibilidade ? '*Portal do Concedente de Estágio' : 'Portal do Concedente de Estágio'}</ufrn:link> </li>
+		<li class="portal_rede ${acesso.portalEnsinoRedeClass}"> <ufrn:link action="verMenuEnsinoRede"
+			disabled="${!acesso.portalEnsinoRede && !acesso.portalEnsinoRede}"> 
+			${(acesso.portalEnsinoRede) && acesso.acessibilidade ? '*Portal Coord. <br/> Stricto Sensu' : 'Portal Coord. <br/> Ensino Rede'}</ufrn:link></li>
+				
 		<li class="portal_familiar ${acesso.portalFamiliarClass}"> <ufrn:link action="verPortalFamiliar" disabled="${!acesso.portalFamiliar}">
 				${acesso.portalFamiliar && acesso.acessibilidade ? '*Portal do Familiar' : 'Portal do Familiar'}</ufrn:link> </li>				
 	</ul>

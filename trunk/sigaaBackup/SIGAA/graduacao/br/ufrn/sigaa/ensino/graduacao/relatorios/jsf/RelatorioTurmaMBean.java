@@ -29,6 +29,7 @@ import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.seguranca.SigaaSubsistemas;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.CursoDao;
 import br.ufrn.sigaa.arq.dao.UnidadeDao;
 import br.ufrn.sigaa.arq.dao.graduacao.AbstractRelatorioSqlDao;
@@ -161,13 +162,13 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 			else {
 				departamento = getUsuarioLogado().getVinculoAtivo().getUnidade();								
 			}
-
 			setFiltroDepartamento(true); //tem que setar como true, para o DAO pesquisar pelo departamento
 			setFiltroReservaCurso(true);
 			setFiltroAnoPeriodo(true);
 		} else if (isUserInRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO)) {
 			campos.habilitarCoordenacao();
-			curso = getCursoAtualCoordenacao();			
+			if( !isEmpty( getCursoAtualCoordenacao() ) )
+				curso = getCursoAtualCoordenacao();			
 			if (getUsuarioLogado().getVinculoAtivo().getDiscente() != null){
 				ServidorDao dao = getDAO(ServidorDao.class);
 				long cpfPessoa = getUsuarioLogado().getVinculoAtivo().getDiscente().getPessoa().getCpf_cnpj();
@@ -254,11 +255,15 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 		}
 		
 		carregarTituloRelatorio();
-		Unidade unidade;
+		Unidade unidade = new Unidade();
 		RelatorioTurmaSqlDao dao = getDAO(RelatorioTurmaSqlDao.class);
 		UnidadeDao uDao = null;
 		GenericDAO situacaoTurmaDao = null;
 
+		if(!isPossuiFiltroSelecionado()){
+			addMensagem(MensagensArquitetura.SELECIONE_OPCAO_BUSCA);
+			return null;
+		}
 		try {
 			if(filtros.get(AbstractRelatorioSqlDao.DEPARTAMENTO)) {
 				if (departamento.getId() != 0) {
@@ -276,9 +281,7 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 					addMensagemErro("Selecione um Centro Válido");
 					return null;
 				}
-			} else {
-				unidade = new Unidade();
-			}
+			} 
 	
 			if(!filtros.get(AbstractRelatorioSqlDao.ANO_PERIODO)){
 				ano=0;
@@ -290,8 +293,14 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 				if(situacaoTurma.getId()!=0 && situacaoTurma !=null)
 					situacaoTurma = situacaoTurmaDao.findByPrimaryKey(situacaoTurma.getId(), SituacaoTurma.class);
 			}
-			
+			if(hasErrors())
+				return null;
 			listaTurma = dao.findListaTurma(ano, periodo,unidade,curso,situacaoTurma,filtros);
+			
+			if(isEmpty(listaTurma)){
+				addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
+				return null;
+			}
 		} finally {
 			dao.close();
 			if(situacaoTurmaDao != null)
@@ -306,7 +315,8 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 
 	/**
 	 * Método que repassa pra view o resultado do Relatório Turmas por quantidade de docentes <br/>
-	 * JSP: Não invocado por JSP
+	 * Chamado por:
+	 * sigaa.war/graduacao/relatorios/turma/seleciona_docente.jsp
 	 * 
 	 * @return
 	 * @throws DAOException
@@ -445,7 +455,7 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 			nivel = NivelEnsino.STRICTO;
 			departamento = getProgramaStricto();
 //			return gerarRelatorioOcupacaoVagas();
-		}else if ( isUserInRole( SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO ) ){
+		}else if ( isUserInRole( SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO ) && !isEmpty(getCursoAtualCoordenacao()) ){
 			curso = getCursoAtualCoordenacao();
 //			return gerarRelatorioOcupacaoVagas();
 		}
@@ -767,6 +777,7 @@ public class RelatorioTurmaMBean extends AbstractRelatorioGraduacaoMBean {
 			addMensagem(MensagensArquitetura.CONTEUDO_INVALIDO, "Ano-Período");
 			return iniciarRelatorioSolicitacaoTurmaCurso();
 		}
+		
 		RelatorioTurmaSqlDao dao = getDAO(RelatorioTurmaSqlDao.class);
 		listaTurma = dao.relatorioCursoTurma(ano, periodo, filtroMatriculados);
 		

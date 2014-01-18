@@ -102,6 +102,13 @@ public interface TipoVinculo extends Serializable {
 	 */
 	public boolean isTutor();
 	
+	
+	/**
+	 * Indica se é tutor do IMD
+	 * @return
+	 */
+	public boolean isTutorIMD();
+	
 	/**
 	 * Indica se é Coordeandor de Polo
 	 * 

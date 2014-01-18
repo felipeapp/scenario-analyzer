@@ -69,20 +69,19 @@ public class NotificaParticipantesCursoDao extends GenericSigaaDAO {
 	 * @return
 	 */
 	public List<UsuarioGeral> findUsuariosDocentesByCursoPeriodo(int idCurso, int ano, int periodo){
-		String sql = 
-			"select distinct p.id_pessoa, p.nome, p.email, u.id_usuario "
-			+" from rh.servidor s  "
-			+" join comum.pessoa p using(id_pessoa) "  
-			+" join ensino.docente_turma dt on (dt.id_docente =  s.id_servidor) "  			
-			+" join ensino.turma t using(id_turma) "  
-			+" left join comum.usuario u using (id_pessoa) "
-			+" where t.ano = ? and t.periodo = ? "
-			+" and exists ( select mc.id_curso "  
-			+"	from graduacao.reserva_curso rc "  
-			+"	join graduacao.matriz_curricular mc using(id_matriz_curricular) "  
-			+"	where rc.id_turma = t.id_turma "  
-			+"	and mc.id_curso = ? ) "  
-			+" order by p.nome; ";		
+		String sql = "select distinct p.id_pessoa, p.nome, p.email, u.id_usuario "
+				+ " from ensino.turma t"
+				+ " join ensino.docente_turma dt using (id_turma)"
+				+ " left join ensino.docente_externo de using (id_docente_externo)"
+				+ " join rh.servidor s on (dt.id_docente = s.id_servidor or de.id_servidor = s.id_servidor)"
+				+ " join comum.pessoa p on (p.id_pessoa = s.id_pessoa or p.id_pessoa = de.id_pessoa)"
+				+ " left join comum.usuario u on (p.id_pessoa = u.id_pessoa) "
+				+ " where t.ano = ? and t.periodo = ? "
+				+ " and exists ( select mc.id_curso "
+				+ "	from graduacao.reserva_curso rc "
+				+ "	join graduacao.matriz_curricular mc using(id_matriz_curricular) "
+				+ "	where rc.id_turma = t.id_turma "
+				+ "	and mc.id_curso = ? ) " + " order by p.nome";		
 		
 		@SuppressWarnings("unchecked")
 		List<Map<String,Object>> listagem = getJdbcTemplate().queryForList(sql, new Object[] {ano, periodo, idCurso});

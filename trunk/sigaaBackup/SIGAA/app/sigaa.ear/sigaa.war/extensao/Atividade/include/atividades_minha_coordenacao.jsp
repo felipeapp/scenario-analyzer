@@ -7,7 +7,7 @@
 				
 				
 				<table class="listagem" id="lista-turmas">
-					<caption>Lista das Ações de Extensão das quais Coordeno (${ fn:length(atividadeExtensao.atividadesMembroCoordena) })</caption>
+					<caption>Lista das Ações de Extensão que Coordeno (${ fn:length(atividadeExtensao.atividadesMembroCoordena) })</caption>
 					<thead>
 						<tr>
 							<th>Código</th>
@@ -135,6 +135,16 @@
 										</li>
 									</a4j:region>
 									
+									<a4j:region rendered="#{ atividade.aprovadoEmExecucao }">
+										<li id="objetivos">
+											<h:commandLink id="objetivos" title="Alterar Atividade/Objetivos" 
+												action="#{ atividadeExtensao.iniciarCadastroAtividadeObjetivo }">
+													<f:param name="id" value="#{ atividade.id }"/>
+			    									Alterar Atividade/Objetivos
+											</h:commandLink>
+										</li>
+									</a4j:region>
+
 									<li style="clear: both; float: none; background-image: none;"></li>
 									
 								</ul>

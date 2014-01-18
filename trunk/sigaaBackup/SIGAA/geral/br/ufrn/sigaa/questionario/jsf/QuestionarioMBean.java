@@ -113,7 +113,7 @@ public class QuestionarioMBean extends SigaaAbstractController<Questionario> {
 		tipos.add( new SelectItem( PerguntaQuestionario.UNICA_ESCOLHA_ALTERNATIVA_PESO, "ÚNICA ESCOLHA COM PESO NA ALTERNATIVA" ) );		
 		tipos.add( new SelectItem( PerguntaQuestionario.MULTIPLA_ESCOLHA, "MÚLTIPLA ESCOLHA" ) );
 		tipos.add( new SelectItem( PerguntaQuestionario.DISSERTATIVA, "DISSERTATIVA" ) );
-		tipos.add( new SelectItem( PerguntaQuestionario.NUMERICA, "NÚMERICA" ) );
+		tipos.add( new SelectItem( PerguntaQuestionario.NUMERICA, "NUMÉRICA" ) );
 		tipos.add( new SelectItem( PerguntaQuestionario.VF, "VERDADEIRO OU FALSO" ) );
 		tipos.add( new SelectItem( PerguntaQuestionario.ARQUIVO, "ARQUIVO" ) );
 		return tipos;
@@ -336,6 +336,36 @@ public class QuestionarioMBean extends SigaaAbstractController<Questionario> {
 			iniciarQuestionarioEstagio();
 		return listar();
 	}
+	
+	/** Inicia a gerência de questionários utilizados na Auto Avaliação do Stricto Sensu.
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>/sigaa.war/stricto/menus/cadastro.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws ArqException
+	 */
+	public String gerenciarQuestionarioAutoAvaliacaoStricto() throws ArqException {
+		checkRole(SigaaPapeis.ADMINISTRADOR_STRICTO);
+		tipoGerenciado = getGenericDAO().findByPrimaryKey(TipoQuestionario.AUTO_AVALIACAO_STRICTO_SENSU, TipoQuestionario.class);
+		return gerenciarComum();
+	}
+	
+	/** Inicia a gerência de questionários utilizados na Auto Avaliação do Stricto Sensu.
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>/sigaa.war/stricto/menus/cadastro.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws ArqException
+	 */
+	public String gerenciarQuestionarioAutoAvaliacaoLato() throws ArqException {
+		checkRole(SigaaPapeis.ADMINISTRADOR_STRICTO, SigaaPapeis.GESTOR_LATO);
+		tipoGerenciado = getGenericDAO().findByPrimaryKey(TipoQuestionario.AUTO_AVALIACAO_LATO_SENSU, TipoQuestionario.class);
+		return gerenciarComum();
+	}
 
 	/**
 	 * Inicia o questionário de estágio.
@@ -459,7 +489,13 @@ public class QuestionarioMBean extends SigaaAbstractController<Questionario> {
 			} else if ( tipoGerenciado.isAcaoExtensao() ) {
 				checkRole(SigaaPapeis.GESTOR_EXTENSAO);
 				questionarios = questionarioDao.findByTipo(tipoGerenciado.getId());
-			} 			
+			} else if ( tipoGerenciado.isAutoAvaliacaoStrictoSensu() ) {
+				checkRole(SigaaPapeis.ADMINISTRADOR_STRICTO);
+				questionarios = questionarioDao.findByTipo(tipoGerenciado.getId());
+			} else if ( tipoGerenciado.isAutoAvaliacaoLatoSensu() ) {
+				checkRole(SigaaPapeis.GESTOR_LATO);
+				questionarios = questionarioDao.findByTipo(tipoGerenciado.getId());
+			}
 		}
 		
 		return questionarios;
@@ -724,6 +760,27 @@ public class QuestionarioMBean extends SigaaAbstractController<Questionario> {
 		return telaPergunta();
 	}
 
+	/**
+	 * Redireciona o usuário para o resumo do questionário. 
+	 * <br>
+	 * Método chamado pela(s) seguinte(s) JSP(s):
+	 * <ul>
+	 * <li>JSP: /sigaa.war/geral/questionario/pergunta.jsp</li>
+	 * </ul>
+	 * 
+	 * @param evt
+	 */
+	@Override
+	public String cancelar() {
+		try {
+			return gerenciarComum();
+		} catch (ArqException e) {
+			notifyError(e);
+			addMensagemErroPadrao();
+		}
+		return null;
+	}
+	
 	/**
 	 * Redireciona o usuário para o resumo do questionário. 
 	 * <br>

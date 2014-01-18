@@ -9,7 +9,7 @@
 </style>
 
 <f:view>
-	<h2><ufrn:subSistema /> > Relatório Quantitativo de Monitores Por Projetos do Centro</h2>
+	<!--  <h2><ufrn:subSistema /> > Relatório Quantitativo de Monitores Por Projetos do Centro</h2>-->
 
 	<c:set var="projetos" value="${comissaoMonitoria.projetos}"/>
 

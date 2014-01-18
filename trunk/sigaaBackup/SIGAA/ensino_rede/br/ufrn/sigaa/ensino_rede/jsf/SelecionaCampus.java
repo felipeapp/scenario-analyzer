@@ -1,6 +1,7 @@
 package br.ufrn.sigaa.ensino_rede.jsf;
 
 import br.ufrn.arq.erros.ArqException;
+import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.sigaa.dominio.CampusIes;
 
 public interface SelecionaCampus {
@@ -13,10 +14,11 @@ public interface SelecionaCampus {
 	public void setCampus(CampusIes campus) throws ArqException;
 
 	/**
-	 * Método a ser chamado após a seleção do discente
+	 * Método a ser chamado após a seleção do campus
 	 *
 	 * @return
+	 * @throws NegocioException 
 	 */
-	public String selecionaCampus() throws ArqException;
+	public String selecionaCampus() throws ArqException, NegocioException;
 
 }

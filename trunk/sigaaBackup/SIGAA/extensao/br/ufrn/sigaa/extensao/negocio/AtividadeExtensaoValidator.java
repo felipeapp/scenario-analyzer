@@ -64,7 +64,7 @@ public class AtividadeExtensaoValidator {
 	 * @throws DAOException
 	 */
 	public static void validaDadosGerais(AtividadeExtensao atividade, ListaMensagens lista, boolean gestorExtensao) throws DAOException {
-
+		EditalDao dao = new EditalDao();
 		if (atividade == null || ValidatorUtil.isEmpty(atividade.getTipoAtividadeExtensao())) {
 			lista.addErro("Tipo de Ação de Extensão não informado, reinicie o cadastro ou edição da proposta.");
 		} else {
@@ -139,6 +139,8 @@ public class AtividadeExtensaoValidator {
 					if ( atividade.isFinancProex() ) {
 						validateRequiredId(atividade.getEditalExtensao().getId(), "Edital de Extensão", lista);
 						validateRequired(atividade.getBolsasSolicitadas(), "Nº Bolsas Solicitadas", lista);
+						if(!isEmpty(atividade.getEditalExtensao()) && !isEmpty(dao.findLinhasAtuacaoByEditalExtensao(atividade.getEditalExtensao().getId())))
+							validateRequiredId(atividade.getLinhaAtuacao().getId(), "Linha de Atuação", lista);
 					} 
 				}
 				

@@ -99,8 +99,7 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[(Integer.parseInt($P{countTotal}) > 0) 
 ? $R{componente} 
-: $R{semComponenteObgPendete} 
-]]></textFieldExpression>
+: $R{semComponenteObgPendete}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -147,7 +146,7 @@
 						</reportElement>
 					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="Verdana" size="7"/>
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="7" isBold="true"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{disciplina}]]></textFieldExpression>
 				</textField>
@@ -223,7 +222,7 @@
 						isPrintWhenDetailOverflows="true">
 							<printWhenExpression><![CDATA[Boolean.valueOf(Integer.parseInt($P{countTotal})>0)]]></printWhenExpression>
 						</reportElement>
-					<box topBorder="Thin" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000"/>
+					<box topBorder="Thin" topBorderColor="#000000" topPadding="1" leftBorder="None" leftBorderColor="#000000" leftPadding="2" rightBorder="Thin" rightBorderColor="#000000" bottomBorder="Thin" bottomBorderColor="#000000" bottomPadding="1"/>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="Verdana" size="7"/>
 					</textElement>

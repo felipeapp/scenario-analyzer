@@ -135,7 +135,7 @@
 				</a4j:region>
 
 				<tr>
-					<th  class="required">Área Temática de Extensão:</th>
+					<th  class="obrigatorio">Área Temática de Extensão:</th>
 					<td>
 						<h:selectOneMenu id="areaTematicaPrincipal"	
 							value="#{atividadeExtensao.obj.areaTematicaPrincipal.id}"	
@@ -506,15 +506,26 @@
 										<tr>
 											<th class="obrigatorio">Edital de Extensão:</th>
 											<td>
-												<h:selectOneMenu id="editalFaex" value="#{atividadeExtensao.obj.editalExtensao.id}">
+												<h:selectOneMenu id="editalFaex" value="#{atividadeExtensao.obj.editalExtensao.id}" valueChangeListener="#{atividadeExtensao.carregarEditalExtensao}">
 													<f:selectItem itemValue="0" itemLabel=" -- SELECIONE --" />
 													<f:selectItems value="#{atividadeExtensao.editaisCombo}" />
+													<a4j:support reRender="form" event="onchange" />
 												</h:selectOneMenu> 
 												<c:if test="${ atividadeExtensao.obj.registro }">
 													<ufrn:help img="/img/ajuda.gif">Nos casos de Ações para registro, somente editais já finalizados são exibidos.</ufrn:help>
 												</c:if></td>
 										</tr>
-		
+										<a4j:region rendered="#{ not empty atividadeExtensao.linhasCombo }" id="linhasAtuacao">
+											<tr>
+												<th class="obrigatorio">Linha de Atuação:</th>
+												<td>
+													<h:selectOneMenu id="linhaAtuacao" value="#{atividadeExtensao.obj.linhaAtuacao.id}">
+														<f:selectItem itemValue="0" itemLabel=" -- SELECIONE --" />
+														<f:selectItems value="#{atividadeExtensao.linhasCombo}" />
+													</h:selectOneMenu> 
+												</td>
+											</tr>
+										</a4j:region>
 										<tr>
 											<th class="obrigatorio">Nº Bolsas Solicitadas:</th>
 											<td>

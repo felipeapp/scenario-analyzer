@@ -277,6 +277,8 @@ public class DocenteExterno implements Validatable, Docente {
 	 */
 	@Transient
 	public String getNome() {
+		if (!isEmpty(servidor))
+			return servidor.getPessoa().getNome();
 		return pessoa.getNome();
 	}
 
@@ -319,7 +321,7 @@ public class DocenteExterno implements Validatable, Docente {
 		else
 			sb.append(instituicao.getNome());
 		
-		if (isAllNotEmpty(unidade,unidade.getSigla()))
+		if (unidade!=null && unidade.getSigla()!=null)
 			sb.append("/" + unidade.getSigla());
 		
 		return sb.toString();

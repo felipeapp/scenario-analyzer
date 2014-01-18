@@ -57,7 +57,7 @@ public class NoticiaPortalAcademicoDAO extends GenericSharedDBDao {
 	 */
 	public Collection<NoticiaPortal> findPublicadasByLocalizacao(String portal) {
 		String sql = "select id, titulo, descricao, destaque, data_cadastro, id_arquivo, publicada from comum.noticia_portal "
-				+ " where  ativo = trueValue() and " + portal + " = trueValue() and publicada = trueValue() and id_curso is null and id_programa is null "
+				+ " where  ativo = trueValue() and " + portal + " = trueValue() and publicada = trueValue() and id_curso is null and id_programa is null and id_dados_curso_rede is null "
 				+ " and (expirar_em is null or expirar_em >= ? ) order by data_cadastro desc";
 
 		return getJdbcTemplate(Database.getInstance().getComumDs()).query(sql, 
@@ -93,6 +93,30 @@ public class NoticiaPortalAcademicoDAO extends GenericSharedDBDao {
 				}
 			}
 		);
+	}
+	
+	/**
+	 * Busca as notícias publicadas por um programa em rede para um curso e campus específico (representado pelo id_dados_curso_rede).
+	 * 
+	 * @param idDadosCursoRede
+	 * @param qtd
+	 * @return
+	 */
+	public Collection<NoticiaPortal> findPublicadasByProgramaRede(Integer idDadosCursoRede, int qtd) {
+		String sql = "select id, titulo, descricao, destaque, data_cadastro from comum.noticia_portal "
+				+ "where ativo = trueValue() and " + LocalizacaoNoticiaPortal.PORTAL_PROGRAMA_REDE + " = trueValue() and publicada = trueValue() and id_dados_curso_rede = ?"
+				+ " and (expirar_em is null or expirar_em >= ? ) order by data_cadastro desc " + BDUtils.limit(qtd);
+		
+		return getJdbcTemplate(Database.getInstance().getComumDs()).query(sql, 
+				new Object[] { idDadosCursoRede, DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH)}, 
+				new RowMapper() {
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				NoticiaPortal noticia = new NoticiaPortal(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4));
+				noticia.setCriadoEm( rs.getDate(5) );
+				return noticia;
+			}
+		}
+				);
 	}	
 	
 	/**

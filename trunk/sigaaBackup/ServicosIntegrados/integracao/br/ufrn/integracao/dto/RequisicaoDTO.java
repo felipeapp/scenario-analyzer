@@ -20,6 +20,8 @@ public class RequisicaoDTO implements Serializable {
 
 	/** Identificador da requisição. */
 	private int id;
+	/** Identificador do prestador. */
+	private int idPrestador;
 	/** Número da requisição. */
 	private int numero;
 	/** Ano da requisição. */
@@ -35,9 +37,9 @@ public class RequisicaoDTO implements Serializable {
 	public boolean equals(Object obj) {
 		if(obj == null)
 			return false;
-		
+		//A mesma requisição pode ter mais de um prestador, por isso a necessidade de se comparar o prestador.
 		if(obj instanceof RequisicaoDTO)
-			return ((RequisicaoDTO) obj).getId() == id;
+			return ((RequisicaoDTO) obj).getId() == id && ((RequisicaoDTO) obj).getIdPrestador() == idPrestador;
 		
 		return false;
 	}
@@ -96,6 +98,14 @@ public class RequisicaoDTO implements Serializable {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public void setIdPrestador(int idPrestador) {
+		this.idPrestador = idPrestador;
+	}
+
+	public int getIdPrestador() {
+		return idPrestador;
 	}
 
 }

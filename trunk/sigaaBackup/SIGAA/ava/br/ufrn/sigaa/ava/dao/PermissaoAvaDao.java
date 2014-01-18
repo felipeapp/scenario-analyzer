@@ -32,6 +32,34 @@ import br.ufrn.sigaa.pessoa.dominio.Pessoa;
 public class PermissaoAvaDao extends GenericSigaaDAO {
 
 	/**
+	 * Verifica se uma pessoa possui permissão numa determinada turma.  
+	 * @param pessoa
+	 * @param turma
+	 * @return
+	 * @throws DAOException
+	 */
+	public boolean possuiPermissaoTurma(Pessoa pessoa, Turma turma) throws DAOException {
+		try {
+			
+			String sql = " select p.id from ava.permissao_ava p " +
+						 " where p.id_pessoa = "+pessoa.getId()+" and p.id_turma = " + turma.getId();			
+			
+			Query  q = getSession().createSQLQuery(sql);
+			
+			q.setMaxResults(1);
+			Object result = q.uniqueResult();
+
+			if (result != null)
+				return true;
+			else
+				return false;
+			
+		} catch (Exception e) {
+			throw new DAOException(e);
+		}
+	}
+	
+	/**
 	 * Retorna as turmas que estão habilitadas para determinada pessoa, utilizada no Portal do Docente e Discente   
 	 * @param pessoa
 	 * @return

@@ -9,9 +9,6 @@ package br.ufrn.sigaa.dominio;
 
 // Generated 13/09/2006 08:49:22 by Hibernate Tools 3.1.0.beta5
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -74,9 +70,6 @@ public class InstituicoesEnsino implements Validatable {
 	/** País da instituição, se for uma instituição estrangeira o pais NÃO deve ser Brasil */
 	private Pais pais; // Pais
 	
-	/** Associação de curso a instituições de ensino. */
-	private Set<CursoInstituicoesEnsino> cursoInstituicoesEnsino = new HashSet<CursoInstituicoesEnsino>(0);
-
 	// Constructors
 
 	public InstituicoesEnsino() {
@@ -217,13 +210,4 @@ public class InstituicoesEnsino implements Validatable {
 	    return nome + " - " + sigla;
 	}
 
-	@OneToMany(cascade = {}, fetch = FetchType.EAGER, mappedBy = "instituicaoEnsino")
-	public Set<CursoInstituicoesEnsino> getCursoInstituicoesEnsino() {
-		return cursoInstituicoesEnsino;
-	}
-
-	public void setCursoInstituicoesEnsino(
-			Set<CursoInstituicoesEnsino> cursoInstituicoesEnsino) {
-		this.cursoInstituicoesEnsino = cursoInstituicoesEnsino;
-	}
 }

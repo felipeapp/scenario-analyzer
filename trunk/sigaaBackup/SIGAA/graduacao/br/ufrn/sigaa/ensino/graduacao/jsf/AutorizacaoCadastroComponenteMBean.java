@@ -30,7 +30,6 @@ import br.ufrn.arq.negocio.validacao.TipoMensagemUFRN;
 import br.ufrn.arq.seguranca.SigaaPapeis;
 import br.ufrn.arq.util.StringUtils;
 import br.ufrn.sigaa.arq.dao.ensino.ComponenteCurricularDao;
-import br.ufrn.sigaa.arq.dao.ensino.CoordenacaoCursoDao;
 import br.ufrn.sigaa.arq.dao.ensino.SecretariaUnidadeDao;
 import br.ufrn.sigaa.arq.expressao.ExpressaoUtil;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
@@ -40,7 +39,6 @@ import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.ead.jsf.OperacoesCoordenadorGeralEadMBean;
 import br.ufrn.sigaa.ensino.dominio.AlteracaoAtivacaoComponente;
 import br.ufrn.sigaa.ensino.dominio.ComponenteCurricular;
-import br.ufrn.sigaa.ensino.dominio.CoordenacaoCurso;
 import br.ufrn.sigaa.ensino.dominio.SecretariaUnidade;
 import br.ufrn.sigaa.ensino.negocio.dominio.ComponenteCurricularMov;
 
@@ -194,7 +192,8 @@ public class AutorizacaoCadastroComponenteMBean extends
 		populateObj(true);
 		ComponenteCurricularDao dao = getDAO(ComponenteCurricularDao.class);
 		obj = dao.refresh(obj);
-
+		observacaoCadastro = "";
+		
 		try {
 			ExpressaoUtil.buildExpressaoFromDB(obj, dao, false);
 		} catch (ArqException e) {
@@ -322,9 +321,11 @@ public class AutorizacaoCadastroComponenteMBean extends
 
 		ComponenteCurricularDao dao = getDAO(ComponenteCurricularDao.class);
 		try {
-			if (isUserInRole(SigaaPapeis.CHEFE_DEPARTAMENTO,
-					SigaaPapeis.SECRETARIA_DEPARTAMENTO))
-				componentes = dao.findByStatus(nome, codigo, getNivelEnsino(),
+			if (isUserInRole(SigaaPapeis.CHEFE_DEPARTAMENTO, SigaaPapeis.SECRETARIA_DEPARTAMENTO))
+				if ( isPortalPpg() )
+					componentes = dao.findByStatus(nome, codigo, getNivelEnsino(), 0, statusInativo);
+				else	
+					componentes = dao.findByStatus(nome, codigo, getNivelEnsino(),
 						getUsuarioLogado().getVinculoAtivo().getUnidade().getId(), statusInativo);
 			else if (isUserInRole(SigaaPapeis.SECRETARIA_POS,
 					SigaaPapeis.COORDENADOR_CURSO_STRICTO, SigaaPapeis.PPG))
@@ -340,11 +341,8 @@ public class AutorizacaoCadastroComponenteMBean extends
 						NivelEnsino.GRADUACAO, unidadeCoordenacao ,
 						null);
 			} else if (isUserInRole(SigaaPapeis.COORDENADOR_CURSO)) {
-				CoordenacaoCursoDao ccdao = getDAO(CoordenacaoCursoDao.class);
-				CoordenacaoCurso coordenacao = ccdao.findUltimaByServidorCurso(
-						getServidorUsuario(), getCursoAtualCoordenacao());
 				componentes = dao.findAtividadesByStatus(nome, codigo,
-						NivelEnsino.GRADUACAO, coordenacao.getUnidade(),
+						NivelEnsino.GRADUACAO, getCursoAtualCoordenacao().getUnidadeCoordenacao(),
 						statusInativo);
 			} else if (isUserInRole(SigaaPapeis.SECRETARIA_COORDENACAO)) {
 				SecretariaUnidadeDao suDao = getDAO(SecretariaUnidadeDao.class);
@@ -367,6 +365,8 @@ public class AutorizacaoCadastroComponenteMBean extends
 			componentes = null;
 			return null;
 		}
+		if (isEmpty(componentes))
+			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		getCurrentRequest().setAttribute("busca", Boolean.TRUE);
 
 		return null;
@@ -380,7 +380,7 @@ public class AutorizacaoCadastroComponenteMBean extends
 	 * @throws ArqException
 	 */
 	private String autorizarCadastro(Comando comando) throws ArqException {
-		checkRole(SigaaPapeis.CDP, SigaaPapeis.SECRETARIA_POS);
+		checkRole(SigaaPapeis.CDP, SigaaPapeis.SECRETARIA_POS, SigaaPapeis.PPG);
 		ComponenteCurricularDao dao = getDAO(ComponenteCurricularDao.class);
 		if (obj.getId() == 0)
 			throw new ArqException(ConstantesErro.SOLICITACAO_JA_PROCESSADA, "");
@@ -483,7 +483,7 @@ public class AutorizacaoCadastroComponenteMBean extends
 	 * @return
 	 */
 	public boolean isRoleCDP() {
-		return isUserInRole(SigaaPapeis.CDP);
+		return isUserInRole(SigaaPapeis.CDP, SigaaPapeis.PPG);
 	}
 
 	/** Retorna a lista de componentes encontrados na busca.

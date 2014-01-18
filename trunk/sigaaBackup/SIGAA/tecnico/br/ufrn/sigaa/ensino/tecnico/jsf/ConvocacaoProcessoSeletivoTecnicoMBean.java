@@ -76,21 +76,29 @@ public class ConvocacaoProcessoSeletivoTecnicoMBean extends SigaaAbstractControl
 
 	/** Constante com o endereço da view do formulário. */
 	private static final String JSP_FORM = "/tecnico/convocacao/form_convocacao.jsp";
+	
 	/** Constante com o endereço da view do resumo. */
 	private static final String JSP_RESUMO = "/tecnico/convocacao/resumo_convocacao.jsp";
+	
 	/** Constante com o endereço da view da importação dos dados do vestibular. */
 	private static final String JSP_CONVOCACAO_IMPORTACAO_VESTIBULAR = "/tecnico/convocacao/form_convocacao_importacao.jsp";
 	
+	/** ID do curso do IMD*/
 	public static final int idCursoIMD = 88353771;
 	
 	/** Lista de novas convocações de candidatos. */
 	private List<ConvocacaoProcessoSeletivoDiscenteTecnico> convocacoes;
+	
 	/** Lista de cancelamentos de convocações anteriores gerados por reconvocações de candidatos. */
 	private List<CancelamentoConvocacaoTecnico> cancelamentos;
+	
 	/** Lista de processos seletivos para o usuário escolher em qual será importado os dados. */
 	private List<SelectItem> processosCombo;
 
+	/** Quantidade de vagas ociosas com reserva */
 	private int vagasOciosasComReserva;
+	
+	/** Quantidade de vagas ociosas sem reserva */
 	private int vagasOciosasSemReserva;
 
 	/** Mapa contendo o ID de cada convocação de aprovados para preenchimento de vagas. */

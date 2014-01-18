@@ -72,11 +72,14 @@ public class ConstantesNavegacao {
 	/** Página que permite ao docente informar dados específicos da ação curso ou evento que está sendo cadastrada. */
 	public static final String CURSO_EVENTO					= "/extensao/Atividade/curso_evento.jsp";
 	/** Página que permite ao docente informar dados específicos da ação curso ou evento que está sendo cadastrada. */
-	public static final String SUB_ATIVIDADES					= "/extensao/Atividade/sub_atividades.jsp";
+	public static final String SUB_ATIVIDADES				 = "/extensao/Atividade/sub_atividades.jsp";
 	/** Página que permite ao docente informar dados específicos da ação produto que está sendo cadastrada. */
-	public static final String PRODUTO						= "/extensao/Atividade/produto.jsp";
+	public static final String PRODUTO						 = "/extensao/Atividade/produto.jsp";
 	/** Página que permite ao docente visualizar dados do participante da ação. */
-	public static final String VIEW_PARTICIPANTES						= "/extensao/Atividade/view_participantes.jsp";
+	public static final String VIEW_PARTICIPANTES			 = "/extensao/Atividade/view_participantes.jsp";
+	/** Página que permite ao docente informar os objetivos a ação que está sendo cadastrada. */
+	public static final String ALTERACAO_OBJETIVOS_ESPERADOS = "/extensao/Atividade/alterar_objetivos_esperados.jsp";
+	
 
 	/** Sequência de passos necessários para o cadastro de uma ação de extensão. Utilizado na execução do wizard do cadastro. */
 	public static final Map<String, String> PASSOS_ATIVIDADES_EXTENSAO = new HashMap<String, String>() ;
@@ -345,7 +348,9 @@ public class ConstantesNavegacao {
 
 	/** DISTRIBUIR COMITE ATIVIDADE EXTENSÃO */
 	public static final String DISTRIBUICAOCOMITE_FORM 											= "/extensao/DistribuicaoComiteExtensao/form.jsp";
+	public static final String DISTRIBUICAOCOMITE_FORM_AUTO										= "/extensao/DistribuicaoComiteExtensao/form_auto.jsp";
 	public static final String DISTRIBUICAOCOMITE_LISTA 										= "/extensao/DistribuicaoComiteExtensao/lista.jsp";
+	public static final String DISTRIBUICAOCOMITE_LISTA_AUTO									= "/extensao/DistribuicaoComiteExtensao/lista_auto.jsp";
 	public static final String DISTRIBUICAOCOMITE_LISTA_ATIVIDADES_VINCULADAS					= "/extensao/DistribuicaoComiteExtensao/lista_atividades_vinculadas.jsp";
 
 	/** SOLICITAR RECONSIDERACAO DE AVALIAÇÃO */

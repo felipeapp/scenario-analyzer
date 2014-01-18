@@ -42,7 +42,6 @@ import br.ufrn.arq.negocio.validacao.TipoMensagemUFRN;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
 import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.arq.util.ValidatorUtil;
-import br.ufrn.rh.dominio.Cargo;
 import br.ufrn.sigaa.arq.dao.ensino.DocenteTurmaDao;
 import br.ufrn.sigaa.arq.dao.ensino.OrientacaoAtividadeDao;
 import br.ufrn.sigaa.arq.dao.graduacao.OrientacaoAcademicaDao;
@@ -61,6 +60,7 @@ import br.ufrn.sigaa.ensino.dominio.OrientacaoAtividade;
 import br.ufrn.sigaa.ensino.dominio.SituacaoMatricula;
 import br.ufrn.sigaa.ensino.dominio.Turma;
 import br.ufrn.sigaa.ensino.graduacao.dominio.OrientacaoAcademica;
+import br.ufrn.sigaa.ensino.negocio.ParametrosGestoraAcademicaHelper;
 import br.ufrn.sigaa.mensagens.MensagensGerais;
 import br.ufrn.sigaa.parametros.dominio.ParametrosGerais;
 import br.ufrn.sigaa.parametros.dominio.ParametrosPortalDocente;
@@ -345,7 +345,7 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 		Collections.sort(allPIDDocente, new Comparator<PlanoIndividualDocente>() {
 			@Override
 			public int compare(PlanoIndividualDocente o1, PlanoIndividualDocente o2) {
-				return o2.getAno() * 10 + o2.getPeriodo() - o1.getAno() * 10 + o1.getPeriodo();
+				return (o2.getAno() * 10 + o2.getPeriodo()) - (o1.getAno() * 10 + o1.getPeriodo());
 			}
 		});
 	}
@@ -360,13 +360,14 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 	 * @return
 	 */
 	public boolean getVerificarExibicaoLinkPID() {
-		if ( !getUsuarioLogado().getVinculoAtivo().isVinculoDocenteExterno() && (
-				getUsuarioLogado().getVinculoAtivo().getServidor().getCargo().getId() == Cargo.PROFESSOR_DO_MAGISTERIO_SUPERIOR ||
-				getUsuarioLogado().getVinculoAtivo().getServidor().getCargo().getId() == Cargo.DOCENTE_SUPERIOR_EFETIVO ||
-				getUsuarioLogado().getVinculoAtivo().getServidor().getCargo().getId() == Cargo.DOCENTE_SUPERIOR_SUBSTITUTO ))
-				
-			return true;
-		else 
+		if (!getUsuarioLogado().getVinculoAtivo().isVinculoDocenteExterno()) {
+			int[] array = ParametroHelper.getInstance().getParametroIntArray(ParametrosGerais.IDS_CARGOS_ACESSO_PID);
+			for (int i = 0; i < array.length; i++) {
+				if(getUsuarioLogado().getVinculoAtivo().getServidor().getCargo().getId() == array[i])
+					return true;
+			}
+			return false;
+		} else 
 			return false;
 	}
 
@@ -903,6 +904,8 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 	 * @throws DAOException
 	 */
 	private void popularCHOrientacao(boolean chefeDepartamento) throws DAOException {
+		ParametrosGestoraAcademica paramGrad = ParametrosGestoraAcademicaHelper.getParametrosNivelEnsino(NivelEnsino.GRADUACAO);
+		ParametrosGestoraAcademica paramStr = ParametrosGestoraAcademicaHelper.getParametrosNivelEnsino(NivelEnsino.STRICTO);
 
 			PlanoIndividualDocenteDao planoOriDocenteDao = getDAO(PlanoIndividualDocenteDao.class);
 			
@@ -924,6 +927,7 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 				chOrientacao.setPlanoIndividualDocente(obj);
 				chOrientacao.setTipoOrientacao(tipoOrientacao);
 				chOrientacao.setChDedicada(chDedicada);
+				chOrientacao.calcularChSemanal(paramGrad.getHorasCreditosEstagio());
 				if (chDedicada > 0 ){
 					listaCHOrientacaoGraduacao.add(chOrientacao);
 				} else {
@@ -939,7 +943,7 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 				chOrientacao.setDiscente(orientacaoAcademica.getDiscente());
 				chOrientacao.setPlanoIndividualDocente(obj);
 				chOrientacao.setTipoOrientacao(tipoOrientacao);
-				
+				chOrientacao.calcularChSemanal(paramGrad.getHorasCreditosEstagio());
 				listaCHOrientacaoPosGraduacao.add(chOrientacao);
 			}
 			
@@ -957,10 +961,13 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 					listaCHOrientacaoGraduacao.clear();
 					listaCHOrientacaoPosGraduacao.clear();
 					for (CargaHorariaOrientacao it : obj.getChOrientacao()) {
-						if (it.getTipoOrientacao().isGraduacao())
+						if (it.getTipoOrientacao().isGraduacao()){
+							it.calcularChSemanal(paramGrad.getHorasCreditosEstagio());
 							listaCHOrientacaoGraduacao.add(it);
-						else
+						}else{
+							it.calcularChSemanal(paramStr.getHorasCreditosEstagio());
 							listaCHOrientacaoPosGraduacao.add(it);
+						}						
 					}
 				}
 				else
@@ -1548,10 +1555,11 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 	 */
 	public void calcularTotalCargaHorariaEnsino(ActionEvent arg0) throws HibernateException, DAOException {
 		Double chTotalDisciplinas = 0.0;
-		ParametrosGestoraAcademica param = getParametrosAcademicos();
+		ParametrosGestoraAcademica paramGrad = ParametrosGestoraAcademicaHelper.getParametrosNivelEnsino(NivelEnsino.GRADUACAO);
+//		ParametrosGestoraAcademica paramStr = ParametrosGestoraAcademicaHelper.getParametrosNivelEnsino(NivelEnsino.STRICTO);
 		
 		for (DocenteTurma chDocenteTurma : listaDocenteTurma) {
-			PIDUtils.calcularChDedicadaSemana(chDocenteTurma, param.getHorasCreditosAula(), param.getHorasCreditosEstagio());
+			PIDUtils.calcularChDedicadaSemana(chDocenteTurma, paramGrad.getHorasCreditosAula(), paramGrad.getHorasCreditosEstagio());
 			if (chDocenteTurma != null) {
 				if (chDocenteTurma.getTurma() != null) {
 					if (!chDocenteTurma.isChResidenciaSemTurma())
@@ -1564,6 +1572,7 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 		
 		// atividades orientadas
 		for (CargaHorariaOrientacao chOrientacao : listaCHOrientacaoGraduacao) {
+			chOrientacao.calcularChSemanal(paramGrad.getHorasCreditosEstagio());
 			chTotalDisciplinas += chOrientacao.getChDedicadaSemanal();
 		}
 		
@@ -1877,7 +1886,7 @@ public class CargaHorariaPIDMBean extends SigaaAbstractController<PlanoIndividua
 	public String visualizarPID() throws ArqException, NegocioException {
 		setReadOnly(true);
 		// mesmo que o usuário seja chefe departamento e também docente, está exibindo o PID como docente
-		configurarVisualizacaoPID(false); 
+		configurarVisualizacaoPID(false);
 		return forward("/pid/view.jsf");
 	}
 	

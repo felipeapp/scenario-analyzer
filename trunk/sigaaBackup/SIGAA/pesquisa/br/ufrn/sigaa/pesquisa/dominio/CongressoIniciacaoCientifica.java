@@ -58,6 +58,26 @@ public class CongressoIniciacaoCientifica implements Validatable{
 	private Date fim;
 	/** Verifica se o congresso está ativo na base de dados*/
 	private boolean ativo;
+	/** Data de início de justificativa de ausência  no congresso **/
+	private Date inicioJustificativa;
+	/** Data final de justificativa de ausência  no congresso **/
+	private Date fimJustificativa;
+
+	public Date getInicioJustificativa() {
+		return inicioJustificativa;
+	}
+
+	public void setInicioJustificativa(Date inicioJustificativa) {
+		this.inicioJustificativa = inicioJustificativa;
+	}
+
+	public Date getFimJustificativa() {
+		return fimJustificativa;
+	}
+
+	public void setFimJustificativa(Date fimJustificativa) {
+		this.fimJustificativa = fimJustificativa;
+	}
 
 	private int sequenciaResumos;
 
@@ -197,6 +217,8 @@ public class CongressoIniciacaoCientifica implements Validatable{
 		ValidatorUtil.validateRequired(inicio, "Início Período", lista);
 		ValidatorUtil.validateRequired(fim, "Fim Período", lista);
 		ValidatorUtil.validateRequired(ano, "Ano", lista);
+		ValidatorUtil.validateRequired(fimJustificativa, "Fim Período Justificativa", lista);
+		ValidatorUtil.validateRequired(inicioJustificativa, "Início Período Justificativa", lista);
 
 		if ( !isEmpty(inicio) || !isEmpty(fim) )
 			ValidatorUtil.validaOrdemTemporalDatas(inicio, fim, false, "Período", lista);

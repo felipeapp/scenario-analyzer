@@ -7,7 +7,7 @@
 		<li> <h:commandLink action="#{ componenteCurricular.popularBuscaGeral }" value="Componentes Curriculares" onclick="setAba('consultas')"/> </li>
 		<li> <h:commandLink action="#{ cursoGrad.listar }" value="Cursos" onclick="setAba('consultas')"/> </li>		
 		<li> <h:commandLink value="Estruturas Curriculares" action="#{curriculo.preListar}" onclick="setAba('consultas')" id="consultaEstruturaCurricular"/> </li>
-		<li> <a	href="${ctx}/administracao/cadastro/GrauAcademico/lista.jsf?aba=consultas">Graus Acadêmicos </a></li>
+		<li> <a	href="${ctx}/administracao/cadastro/GrauAcademico/lista.jsf?aba=consultas">Graus Acadêmicos</a></li>
 		<li> <h:commandLink action="#{ habilitacaoGrad.listar }" value="Habilitações" onclick="setAba('consultas')"/> </li>
 		<li> <h:commandLink action="#{ matrizCurricular.listar }" value="Matrizes Curriculares" onclick="setAba('consultas')"/> </li>		
 		<li> <a	href="${ctx}/administracao/cadastro/ModalidadeEducacao/lista.jsf?aba=consultas">Modalidades de Educação</a></li>

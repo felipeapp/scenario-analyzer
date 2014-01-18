@@ -3,9 +3,18 @@
 			 <th width="30%">Nome:</th>
 			 <td colspan="3"><h:outputText value="#{cursoLatoMBean.obj.nome}"/></td> 
 			</tr>
+		  
+		 
+		 <c:if test="${ not empty cursoLatoMBean.obj.codigoLatoCompleto }">
+			<tr>	
+			 	<th>Código:</th>
+			 	<td colspan="3"><h:outputText value="#{cursoLatoMBean.obj.codigoLatoCompleto }"/></td>
+			</tr> 
+		 </c:if>
+		  			
 			<tr>
 	 		 <th>Unidade Responsável:</th>
-			 <td colspan="3"><h:outputText value="#{cursoLatoMBean.obj.unidade.nome}"/></td>
+		  <td colspan="3"><h:outputText value="#{cursoLatoMBean.obj.nome}"/></td> 
 			</tr>
 			<c:if test="${not empty cursoLatoMBean.obj.unidadesCursoLato}"> 
 			   <tr>

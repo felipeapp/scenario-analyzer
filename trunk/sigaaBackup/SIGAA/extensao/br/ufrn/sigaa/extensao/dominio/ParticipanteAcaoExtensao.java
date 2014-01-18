@@ -209,7 +209,7 @@ public class ParticipanteAcaoExtensao implements Validatable, Comparable<Partici
 	
 	
 	/** <p>Informa se o Participante esta ativo no sistema.</p>
-	 *  <p>Um participante é removido do sistema, quando por exemplo o coordenador aprovou a sua inscrição e ele depois cancela a inscrição.</p>
+	 *  <p>Um participante é removido do sistema, quando por exemplo, o coordenador aprovou a sua inscrição e ele depois cancela a inscrição.</p>
 	 *  
 	 *  <p>Participante removidos não aparecem na listagem para o coordendor, não entram em nenhuma contagem para a atividade.</p>
 	 *  
@@ -221,8 +221,10 @@ public class ParticipanteAcaoExtensao implements Validatable, Comparable<Partici
 	/** Atributo utilizado para informar se o participante está ou não selecionado */
 	@Transient
 	private boolean selecionado;
-	
 
+	/** Descreve o tipo da atividade ou sub-atividade de extensão. */
+	@Transient
+	private String descricaoTipoAtividade;
 	
 	
 	/** CPF do participante */
@@ -426,6 +428,19 @@ public class ParticipanteAcaoExtensao implements Validatable, Comparable<Partici
 		 return 0;
 	 }
 
+	 /**
+	  * Retorna a carga horária total da atividade.
+	  * Não invocada por JSP.
+	  * @return
+	  */
+	 public Integer getChTotalCertificadoDeclaracao(){
+		 if ((atividadeExtensao != null) && (atividadeExtensao.getCursoEventoExtensao() != null)) {
+			 return new Double(atividadeExtensao.getCursoEventoExtensao().getCargaHoraria() ).intValue();
+		 } else if( ! ValidatorUtil.isEmpty(getSubAtividade()) ) {
+			 return new Double(getSubAtividade().getCargaHoraria()).intValue();
+		 }
+		 return 0;
+	 }
 
 	 //// Metodos para serem chamados na interface gráfica para habilitar ou desabilitar alguma coisa ////
 	 
@@ -669,7 +684,7 @@ public class ParticipanteAcaoExtensao implements Validatable, Comparable<Partici
 	 }
 	 
 	 
-	 
+	 /**retorna uma expressao no formato (codigo daação)-(titulo da ação)*/
 	 @Transient
 	 public String getCodigoTitulo() {
 		if ( !ValidatorUtil.isEmpty(subAtividade) )
@@ -799,6 +814,14 @@ public class ParticipanteAcaoExtensao implements Validatable, Comparable<Partici
 
 	public void setRegistroUltimaAtualizacao(RegistroEntrada registroUltimaAtualizacao) {
 		this.registroUltimaAtualizacao = registroUltimaAtualizacao;
+	}
+
+	public String getDescricaoTipoAtividade() {
+		return descricaoTipoAtividade;
+	}
+
+	public void setDescricaoTipoAtividade(String descricaoTipoAtividade) {
+		this.descricaoTipoAtividade = descricaoTipoAtividade;
 	}
 	
 	

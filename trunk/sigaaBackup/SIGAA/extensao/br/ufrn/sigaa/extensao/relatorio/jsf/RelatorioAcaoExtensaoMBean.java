@@ -34,6 +34,7 @@ import br.ufrn.sigaa.arq.dao.extensao.AtividadeExtensaoDao;
 import br.ufrn.sigaa.arq.dao.extensao.ParticipanteAcaoExtensaoDao;
 import br.ufrn.sigaa.arq.dao.extensao.PlanoTrabalhoExtensaoDao;
 import br.ufrn.sigaa.arq.dao.extensao.RelatorioAcaoExtensaoDao;
+import br.ufrn.sigaa.arq.dao.projetos.MembroProjetoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.extensao.dao.AndamentoObjetivoDao;
@@ -754,10 +755,11 @@ public class RelatorioAcaoExtensaoMBean extends SigaaAbstractController<Relatori
 	public <T extends RelatorioAcaoExtensao> void carregarObjetivos( AtividadeExtensao atividade, Date dateLimite, T relatorio ) throws ArqException {
 		AndamentoObjetivoDao dao = getDAO(AndamentoObjetivoDao.class);
 		ParticipanteAcaoExtensaoDao participantesDao = getDAO(ParticipanteAcaoExtensaoDao.class);
+		MembroProjetoDao membroDao = getDAO(MembroProjetoDao.class);
 		try {
 			prepareMovimento(SigaaListaComando.ENVIAR_RELATORIO_PROJETO_EXTENSAO);
 			relatorio.setAtividade(atividade);
-			relatorio.getAtividade().setMembrosEquipe(dao.findByExactField(MembroProjeto.class, "projeto.id", atividade.getProjeto().getId()));
+			relatorio.getAtividade().setMembrosEquipe(membroDao.findByProjeto(atividade.getProjeto().getId(), true));
 			relatorio.getAtividade().setOrcamentosDetalhados(dao.findByExactField(OrcamentoDetalhado.class, "projeto.id", atividade.getProjeto().getId()));		
 			relatorio.getAtividade().setParticipantes(participantesDao.findByAcao(obj.getAtividade().getId()));
 			relatorio.setDataCadastro(new Date());
@@ -790,6 +792,7 @@ public class RelatorioAcaoExtensaoMBean extends SigaaAbstractController<Relatori
 		} finally {
 			dao.close();
 			participantesDao.close();
+			membroDao.close();
 		}
 	}
 	

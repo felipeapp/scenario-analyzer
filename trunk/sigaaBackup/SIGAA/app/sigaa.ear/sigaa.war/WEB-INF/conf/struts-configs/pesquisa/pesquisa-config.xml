@@ -94,6 +94,7 @@
 		<action path="/pesquisa/planoTrabalho/consulta" type="br.ufrn.sigaa.pesquisa.struts.PlanoTrabalhoAction" name="formPlanoTrabalho"
 				parameter="dispatch" scope="request">
 			<forward name="relatorio" 				path="/WEB-INF/jsp/pesquisa/PlanoTrabalho/relatorio.jsp"/>
+			<forward name="resumoConsultor"	 		path="/WEB-INF/jsp/pesquisa/PlanoTrabalho/relatorio_consultor.jsp" />			
 		</action>
 
 		<!-- Distribuir Projetos para Avaliação -->

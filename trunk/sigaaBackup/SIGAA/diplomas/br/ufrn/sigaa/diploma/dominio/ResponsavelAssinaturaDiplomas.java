@@ -134,6 +134,11 @@ public class ResponsavelAssinaturaDiplomas implements Validatable {
 		generoResponsavelCertificadosLatoSensu = Pessoa.SEXO_FEMININO;
 		generoReitor = Pessoa.SEXO_FEMININO;
 	}
+	
+	public ResponsavelAssinaturaDiplomas(int id) {
+		this();
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

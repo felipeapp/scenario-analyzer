@@ -289,9 +289,8 @@ public class DiscenteProjetoDao extends GenericSigaaDAO {
 		try {
 
 			String projecao = "dp.id, dp.situacaoDiscenteProjeto.id, dp.situacaoDiscenteProjeto.descricao, dp.tipoVinculo.id, dp.tipoVinculo.descricao, " +
-					"dp.planoTrabalhoProjeto.id, dp.planoTrabalhoProjeto.ativo, " +
-					"dp.projeto.id, dp.projeto.titulo, dp.projeto.ano, " +
-					"dp.dataInicio, dp.dataFim, dp.ativo ";
+					"dp.planoTrabalhoProjeto.id, dp.planoTrabalhoProjeto.ativo, dp.projeto.id, dp.projeto.titulo, dp.projeto.ano, " +
+					"dp.projeto.situacaoProjeto.id, dp.dataInicio, dp.dataFim, dp.ativo ";
 			
 			String hql ="SELECT " + projecao +
 						" FROM DiscenteProjeto dp" +

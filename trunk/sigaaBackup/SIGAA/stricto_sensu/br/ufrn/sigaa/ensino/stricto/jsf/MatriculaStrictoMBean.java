@@ -131,6 +131,7 @@ public class MatriculaStrictoMBean extends SigaaAbstractController<SolicitacaoMa
 		} else {
 			this.discente = (DiscenteStricto) discente;
 		}
+		calendarioMatricula = CalendarioAcademicoHelper.getCalendario( this.discente );
 
 		/* Regras de obrigatoriedade: <br/>
 		 * RESOLUÇÃO No 028/2010-CONSAD, de 16 de setembro de 2010

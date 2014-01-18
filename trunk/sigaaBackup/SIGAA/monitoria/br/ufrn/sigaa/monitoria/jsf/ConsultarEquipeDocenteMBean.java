@@ -14,7 +14,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.ufrn.arq.erros.DAOException;
+import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.util.CalendarUtils;
+import br.ufrn.arq.util.ValidatorUtil;
 import br.ufrn.sigaa.arq.dao.monitoria.EquipeDocenteDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
 import br.ufrn.sigaa.monitoria.dominio.EquipeDocente;
@@ -30,8 +32,7 @@ import br.ufrn.sigaa.pessoa.dominio.Servidor;
  *
  * @author Ilueny
  */
-@Component("consultarEquipeDocente")
-@Scope("request")
+@Component("consultarEquipeDocente")@Scope("session")
 public class ConsultarEquipeDocenteMBean extends SigaaAbstractController<EquipeDocente> {
 
 
@@ -59,8 +60,33 @@ public class ConsultarEquipeDocenteMBean extends SigaaAbstractController<EquipeD
 	public ConsultarEquipeDocenteMBean() {
 		obj = new EquipeDocente();
 		anoReferencia = CalendarUtils.getAnoAtual();
+		clear();
 	}
 
+	/**Inicializa os parametro do controller.
+	 *
+	 * Não invocado por JSP
+	 */
+	private void clear(){
+		orientadores = new ArrayList<EquipeDocente>();
+		servidor = new Servidor();
+		tituloProjeto = null;
+		checkBuscaProjeto = false;
+		checkBuscaOrientador= false;
+	}
+	
+	/**
+	 *
+	 * Inicializa os parametros da busca e redirecionapara tela da lista.
+	 *
+	 * sigaa.war/monitoria/index.jsp
+	 *
+	 */
+	public String iniciar(){
+		clear();
+		return forward( ConstantesNavegacaoMonitoria.ALTERAREQUIPEDOCENTE_LISTA );
+	}
+	
 	/**
 	 *
 	 * Localiza projeto na tela de situação do projeto
@@ -73,11 +99,27 @@ public class ConsultarEquipeDocenteMBean extends SigaaAbstractController<EquipeD
 		if (orientadores != null) {
 		    orientadores.clear();
 		}
-
-		try {
-		    String tituloProj = checkBuscaProjeto ? getTituloProjeto() : null;
-		    Integer idOrientador =  checkBuscaOrientador ? servidor.getId() : null;
-		    Integer anoProjeto = checkBuscaAno ? anoReferencia : null;
+	    String tituloProj = null;
+	    Integer idOrientador = null;
+	    Integer anoProjeto = null;
+	    if(checkBuscaProjeto){
+	    	ValidatorUtil.validateRequired(tituloProjeto, "Título do Projeto", erros);
+	    	tituloProj = tituloProjeto;
+	    }
+	    if(checkBuscaOrientador){
+	    	ValidatorUtil.validateRequiredId(servidor.getId(), "Nome do Docente", erros);
+	    	idOrientador = servidor.getId();
+	    }
+	    if(checkBuscaAno){
+	    	ValidatorUtil.validateRequired(anoReferencia, "Ano", erros);
+	    	anoProjeto = anoReferencia;
+	    }
+	    if(!checkBuscaProjeto && !checkBuscaOrientador && !checkBuscaAno)
+	    	addMensagem(MensagensArquitetura.SELECIONE_OPCAO_BUSCA);
+	    if(hasErrors())
+	    	return;
+	    try {
+		    
 		    EquipeDocenteDao dao  = getDAO( EquipeDocenteDao.class );
 		    orientadores = dao.filter(tituloProj, idOrientador, anoProjeto);
 		} catch (DAOException e) {

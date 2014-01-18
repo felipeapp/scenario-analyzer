@@ -18,9 +18,6 @@ import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.ProcessadorCadastro;
-import br.ufrn.arq.negocio.validacao.ListaMensagens;
-import br.ufrn.arq.negocio.validacao.MensagemAviso;
-import br.ufrn.arq.negocio.validacao.TipoMensagemUFRN;
 import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.UFRNUtils;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
@@ -114,8 +111,7 @@ public class ProcessadorModuloTecnico extends ProcessadorCadastro {
 
 		ModuloMov modMov = (ModuloMov) mov;
 		Modulo modulo = (Modulo) modMov.getObjMovimentado();
-		ListaMensagens erros = new ListaMensagens();
-
+		
 		/*
 		 * valida CH com as disciplinas adicionadas. não pode ser maior que a CH
 		 * do modulo
@@ -125,12 +121,10 @@ public class ProcessadorModuloTecnico extends ProcessadorCadastro {
 			chTotal += disc.getChAula() + disc.getChEstagio() + disc.getChLaboratorio();
 		}
 		if (chTotal > modulo.getCargaHoraria()) {
-			erros.addMensagem(new MensagemAviso("A soma das cargas horárias das disciplinas adicionadas "
-					+ "é maior que a carga horária máxima do módulo.", TipoMensagemUFRN.ERROR));
+			throw new NegocioException("A soma das cargas horárias das disciplinas adicionadas "
+					+ "é maior que a carga horária máxima do módulo.");
 		}
 
-
-		checkValidation(erros);
 
 	}
 

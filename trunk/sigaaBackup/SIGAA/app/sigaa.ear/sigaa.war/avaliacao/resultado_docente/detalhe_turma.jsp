@@ -26,12 +26,13 @@
 			<c:forEach items="#{portalResultadoAvaliacao.listaResultados}" var="abaItem" varStatus="status">
 				<rich:tab  
 					action="#{portalResultadoAvaliacao.exibeResumo}"
-					label="#{abaItem.anoPeriodo}" id="aba" 
-					name="#{abaItem.anoPeriodo}">
-					<f:param id="idDocente" name="idServidor" value="#{abaItem.id_servidor}"/>
+					label="#{abaItem.rotuloAba}" id="aba" 
+					name="#{abaItem.rotuloAba}">
+					<f:param id="idDocente" name="idPessoa" value="#{abaItem.id_pessoa}"/>
 					<f:param id="ano" name="ano" value="#{abaItem.ano}"/>
 					<f:param id="periodo" name="periodo" value="#{abaItem.periodo}"/>
-					<c:if test="${portalResultadoAvaliacao.abaSelecionada == abaItem.anoPeriodo}">
+					<f:param id="idFormulario" name="idFormulario" value="#{abaItem.id_formulario_avaliacao}"/>
+					<c:if test="${portalResultadoAvaliacao.abaSelecionada == abaItem.rotuloAba}">
 						<t:panelGrid id="avaliacaoContentPanel" columns="2" columnClasses="columnClasses, columnClasses">
 							<t:panelGroup>
 								<rich:tabPanel id="graphsTabbedPanel" switchType="client">
@@ -53,7 +54,7 @@
 													<cewolf:data> 
 														<cewolf:producer id="dados"> 
 															<cewolf:param name="resultados" value="${portalResultadoAvaliacao.resultadosDocentes}"/>
-															<cewolf:param name="idServidor" value="${ portalResultadoAvaliacao.servidor.id }"/>
+															<cewolf:param name="idPessoa" value="${ portalResultadoAvaliacao.pessoa.id }"/>
 															<cewolf:param name="grupo" value="${grupo.titulo}"/>
 															<cewolf:param name="idResultado" value="${ portalResultadoAvaliacao.idResultado }"/>
 														</cewolf:producer>
@@ -124,9 +125,10 @@
 															</c:if>
 															<c:if test="${linha.id == portalResultadoAvaliacao.idResultado}">
 																<h:commandLink action="#{portalResultadoAvaliacao.exibeResumo}">
-																	<f:param id="idDocenteResumo" name="idServidor" value="#{abaItem.id_servidor}"/>
+																	<f:param id="idDocenteResumo" name="idPessoa" value="#{abaItem.id_pessoa}"/>
 																	<f:param id="anoResumo" name="ano" value="#{abaItem.ano}"/>
 																	<f:param id="periodoResumo" name="periodo" value="#{abaItem.periodo}"/>
+																	<f:param id="idFormularioResumo" name="idFormulario" value="#{abaItem.id_formulario_avaliacao}"/>
 																	<h:graphicImage  value="/img/biblioteca/cima.gif" style="overflow: visible;" />
 																</h:commandLink>
 															</c:if>	

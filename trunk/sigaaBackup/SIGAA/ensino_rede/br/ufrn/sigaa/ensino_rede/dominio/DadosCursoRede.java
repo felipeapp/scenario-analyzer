@@ -62,6 +62,9 @@ public class DadosCursoRede implements PersistDB  {
 	 * Construtor padrão. 
 	 */
 	public DadosCursoRede() {
+		curso = new CursoAssociado();
+		campus = new CampusIes();
+		programaRede = new ProgramaRede();
 	}
 	
 	public int getId() {

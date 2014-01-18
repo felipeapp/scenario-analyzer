@@ -65,7 +65,7 @@ public class EnvioEmailTurmaMBean extends ControllerTurmaVirtual {
 	public String selecionarTurma() throws ArqException, NegocioException {
 		checkRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO, SigaaPapeis.DAE, SigaaPapeis.ADMINISTRADOR_DAE, 
 					SigaaPapeis.PPG, SigaaPapeis.COORDENADOR_CURSO_STRICTO, SigaaPapeis.SECRETARIA_POS, 
-					SigaaPapeis.CHEFE_DEPARTAMENTO, SigaaPapeis.GESTOR_TECNICO);
+					SigaaPapeis.CHEFE_DEPARTAMENTO, SigaaPapeis.GESTOR_TECNICO, SigaaPapeis.COORDENADOR_TECNICO);
 
 		turma.setId( getParameterInt("id", 0) );
 		

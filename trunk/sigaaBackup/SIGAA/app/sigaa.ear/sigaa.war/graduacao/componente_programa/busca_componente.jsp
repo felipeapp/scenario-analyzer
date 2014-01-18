@@ -97,6 +97,7 @@
 		<div class="infoAltRem">
 			<h:graphicImage value="/img/adicionar.gif" style="overflow: visible;"/>: Cadastrar Programa
 		    <h:graphicImage url="/img/alterar.gif" style="overflow: visible;"/>: Alterar Programa Existente
+			<h:graphicImage url="/img/report.png" style="overflow: visible;"/>: Histórico Programa Existente
 		    <h:graphicImage url="/img/buscar.gif" style="overflow: visible;"/>: Visualizar Programa Existente
 		</div>
 		<br />
@@ -107,6 +108,7 @@
 					<td>Período</td>
 					<td style="text-align: right;">Código</td>
 					<td>Nome</td>
+					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -120,7 +122,7 @@
 					<c:choose>
 					<c:when test="${cc.programa.ano == programaComponente.calendarioVigente.ano and cc.programa.periodo == programaComponente.calendarioVigente.periodo}">
 						<td width="1%" align="center">
-							<h:commandLink styleClass="noborder" title="Alterar Programa Existente"
+							<h:commandLink styleClass="noborder" title="Alterar Programa"
 									action="#{programaComponente.selecionaComponente}" id="alterar">
 								<f:param name="id" value="#{cc.id}" />
 								<f:param name="operacao" value="alteracao" />
@@ -128,7 +130,15 @@
 							</h:commandLink>
 						</td>
 						<td width="1%" align="center">
-							<h:commandLink styleClass="noborder" title=" Visualizar Programa Existente"
+							<h:commandLink styleClass="noborder" title="Visualizar Histórico"
+									action="#{programaComponente.historicoPrograma}" id="historico">
+								<f:param name="id" value="#{cc.id}" />
+								<f:param name="operacao" value="historico" />
+								<h:graphicImage url="/img/report.png" />
+							</h:commandLink>
+						</td>
+						<td width="1%" align="center">
+							<h:commandLink styleClass="noborder" title=" Visualizar Dados do Programa"
 									action="#{programaComponente.gerarRelatorioPrograma}" id="visualizar">
 								<f:param name="idComponente" value="#{cc.id}" />
 								<f:param name="visualizar" value="visualizar" />
@@ -144,6 +154,14 @@
 								<f:param name="id" value="#{cc.id}" />
 								<h:graphicImage url="/img/adicionar.gif" />
 								<f:param name="operacao" value="cadastro" />
+							</h:commandLink>
+						</td>
+						<td width="1%" align="center">
+							<h:commandLink styleClass="noborder" title="Visualizar Histórico"
+									action="#{programaComponente.historicoPrograma}" id="historico2">
+								<f:param name="id" value="#{cc.id}" />
+								<f:param name="operacao" value="historico" />
+								<h:graphicImage url="/img/report.png" />
 							</h:commandLink>
 						</td>
 						<td></td>

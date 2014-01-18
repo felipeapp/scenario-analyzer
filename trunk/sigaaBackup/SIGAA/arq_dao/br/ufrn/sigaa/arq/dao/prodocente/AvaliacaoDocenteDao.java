@@ -696,7 +696,7 @@ public class AvaliacaoDocenteDao extends GenericSigaaDAO {
 	public Collection<TeseOrientada> findOrientacoesPosMestradoConcluidoDocente(
             Servidor docente, int anoVigencia, Integer validade) throws DAOException {
     	   try {
-    		   String sqlQuery = "select tese.periodo_inicio, tese.data_publicacao, p.nome, tese.orientando," +
+    		   String sqlQuery = "select tese.periodo_inicio, tese.data_publicacao, coalesce(p.nome, tese.orientando) as nome," +
     		   		" ( select count(*) from prodocente.tese_orientada join discente using ( id_discente )" +
     		   		" where id_discente is not null and id_discente = d.id_discente and id_curso = d.id_curso " +
     		   		" and (ativo is null or ativo=trueValue())) as total" +
@@ -704,7 +704,7 @@ public class AvaliacaoDocenteDao extends GenericSigaaDAO {
     		   		" left join discente d on ( tese.id_discente = d.id_discente )" +
     		   		" left join comum.pessoa p on ( p.id_pessoa = d.id_pessoa )" +
     		   		" left join rh.servidor s on ( tese.id_servidor = s.id_servidor )" +
-    		   		" where d.id_pessoa=p.id_pessoa and getidpessoa(:idDocente)=s.id_pessoa";
+    		   		" where getidpessoa(:idDocente) = s.id_pessoa";
     		   
     		   		if ( validade != null && validade > 0 )
     	        		sqlQuery += " and extract(year from tese.data_publicacao) >= :anoInicial and extract(year from tese.data_publicacao) <= :anoFinal";
@@ -732,17 +732,10 @@ public class AvaliacaoDocenteDao extends GenericSigaaDAO {
 					TeseOrientada linha = new TeseOrientada();
 					linha.setPeriodoInicio((Date) d[col++]);
 					linha.setDataPublicacao((Date) d[col++]);
-					if ( !isEmpty( d[col] ) ) {
-						linha.setOrientandoDiscente(new Discente());
-						linha.getOrientandoDiscente().setPessoa(new Pessoa());
-						linha.getOrientandoDiscente().getPessoa().setNome((String) d[col++]);
-					} else {
-						linha.setOrientando((String) d[++col]);
-						linha.setOrientandoDiscente(null);
-					}
-	
-					linha.setTotalOrientadores(((BigInteger) d[++col]).intValue());
-					
+					linha.setOrientandoDiscente(new Discente());
+					linha.getOrientandoDiscente().setPessoa(new Pessoa());
+					linha.getOrientandoDiscente().getPessoa().setNome((String) d[col++]);
+					linha.setTotalOrientadores(((BigInteger) d[col++]).intValue());
 					result.add(linha);
 				}
 	      	}

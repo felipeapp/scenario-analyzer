@@ -17,7 +17,7 @@
 <div id="menu-pri">
 	<ul>
 		<c:if test="${not empty portalPublicoDepartamento.detalhesSite.url}">
-			<li><a href="${portalPublicoDepartamento.detalhesSite.url}" class="oficial" target="_blank">Página Oficial</a></li>
+			<li><a href="${portalPublicoDepartamento.urlOficial}" class="oficial" target="_blank">Página Oficial</a></li>
 		</c:if>
 		<li><a href="${ctx}/public/departamento/portal.jsf?id=${portalPublicoDepartamento.unidade.id}" class="apresentacao">Apresentação</a></li>
 		<li><a href="${ctx}/public/departamento/administrativo.jsf?id=${portalPublicoDepartamento.unidade.id}" class="adm">Corpo Administrativo</a></li>

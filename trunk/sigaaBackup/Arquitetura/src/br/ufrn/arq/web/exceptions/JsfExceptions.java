@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ajax4jsf.resource.ResourceNotFoundException;
 
+import br.ufrn.arq.seguranca.log.LogExcecao;
+
 
 /**
  * Classe para tratar as exceções causadas pelo java server faces.
@@ -62,6 +64,7 @@ public class JsfExceptions extends ExceptionChain {
 		 */
 		if ((e != null && e instanceof ViewExpiredException) || (e != null && e.getCause() != null && e.getCause() instanceof ViewExpiredException)) {
 			if(device == null) {
+				LogExcecao.logarErroSessao(req, e);
 				req.getSession().setAttribute("alertErro", "A sua sess\\343o expirou ou voc\\352 utilizou o bot\\343o voltar do navegador, o que n\\343o \\351 recomendado. Por favor, reinicie o processo utilizando os links oferecidos pelo sistema.");
 				redirectSubSistema(req, res);
 			}

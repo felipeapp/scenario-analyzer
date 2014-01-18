@@ -22,8 +22,8 @@
 
 
 <h:panelGroup id="ajaxErros">
-	<h:dataTable  value="#{atividadeExtensao.avisosAjax}" var="msg" rendered="#{not empty atividadeExtensao.avisosAjax}">
-		<t:column><h:outputText value="<div id='painel-erros' style='position: relative; padding-bottom: 10px;'><ul class='erros'><li>#{msg.mensagem}</li></ul></div>" escape="false"/></t:column>
+	<h:dataTable  value="#{atividadeExtensao.avisosAjax}" var="msg" rendered="#{not empty atividadeExtensao.avisosAjax}" width="100%">
+		<t:column><h:outputText value="<div id='painel-erros' style='position: relative; padding-bottom: 15px;'><ul class='erros'><li>#{msg.mensagem}</li></ul></div>" escape="false"/></t:column>
 	</h:dataTable>
 </h:panelGroup>
 

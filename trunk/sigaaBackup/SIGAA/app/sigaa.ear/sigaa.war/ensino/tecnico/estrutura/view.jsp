@@ -102,6 +102,7 @@
 			   <tr>
 					<td colspan="6">
 						<h:commandButton value="<< Voltar" action="#{estruturaCurricularTecnicoMBean.listar}" id="listar" rendered="#{estruturaCurricularTecnicoMBean.tecnico}"/>
+						<h:commandButton value="Cancelar" action="#{estruturaCurricularTecnicoMBean.cancelar}" onclick="#{confirm}" id="cancelar" />
 					</td>
 			   </tr>
 			</tfoot>

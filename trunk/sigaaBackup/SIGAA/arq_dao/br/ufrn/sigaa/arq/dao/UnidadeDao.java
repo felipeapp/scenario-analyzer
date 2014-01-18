@@ -25,6 +25,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -286,6 +287,21 @@ public class UnidadeDao extends GenericSigaaDAO {
 			throw new DAOException(e);
 
 		}
+	}
+	
+	/**
+	 * Retorna o identificador de uma unidade de acordo com 
+	 * o parâmetro código 
+	 * 
+	 * @param codigo
+	 * @return
+	 * @throws DAOException
+	 */
+	public Integer findIdByCodigo(long codigo) throws DAOException {
+		return (Integer) getCriteria(Unidade.class)
+				.setProjection( Property.forName("id") )
+				.add(Restrictions.eq("codigo", codigo))
+				.uniqueResult();
 	}
 
 	/**

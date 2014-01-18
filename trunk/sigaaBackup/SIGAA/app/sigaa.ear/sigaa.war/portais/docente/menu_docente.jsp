@@ -218,6 +218,7 @@
 	 			<t:navigationMenuItem id="chefRel_TurConsolida" itemLabel="Relatório de Turmas Consolidadas" rendered="#{acesso.chefeDepartamento}" action="#{relatoriosCoordenador.relatorioTurmasConsolidadasDepartamento}" itemDisabled="false"/>
 	 			<t:navigationMenuItem id="chefRel_OcupVagas" itemLabel="Relatório de Ocupação de Vagas de Turmas" rendered="#{acesso.chefeDepartamento}" action="#{relatorioTurma.iniciarRelatorioOcupacaoVagas}"/>
 	 			<t:navigationMenuItem id="chefRel_TurDocente" itemLabel="Relatório de Turmas por Docente" rendered="#{acesso.chefeDepartamento}" action="#{relatoriosDepartamentoCpdi.iniciarTurmasDepartamentoDocente}"/>
+                <t:navigationMenuItem id="chefRel_Tur_Dis_Matriculado" itemLabel=" Relatório de Turmas com Discentes Matriculados" rendered="#{acesso.chefeDepartamento}" action="#{relatorioTurmaDiscentes.inicio}"/>	 			
 	 			<t:navigationMenuItem id="chefRel_AluIngressante" itemLabel="Lista Alunos Ingressantes" rendered="#{acesso.chefeDepartamento}" actionListener="#{menuDocente.redirecionar}" itemValue="/graduacao/relatorios/discente/seleciona_ingressantes.jsf" split="true"/>
 	            <t:navigationMenuItem id="chefRel_AlunosPendentesComponenteCurricular" itemLabel="Alunos Pendentes de Componente Curricular" action="#{ relatorioAlunosPendentesDeComponente.iniciar }" />
 				<t:navigationMenuItem id="chefRel_AlunosAptosACursarDeterminadoComponenteCurricular" itemLabel="Alunos Aptos a Cursar Determinado Componente Curricular" action="#{ relatorioAlunosPendentesDeComponente.iniciarAptos }" />
@@ -350,6 +351,8 @@
 				<t:navigationMenuItem id="projPesCongr_AvaliarRes" itemLabel="Avaliar Resumos" action="#{avaliacaoResumoBean.listarResumos}" split="true" />
 				<t:navigationMenuItem id="projPesCongr_AvaliarApres" itemLabel="Avaliar Apresentações de Trabalhos" action="#{avaliacaoApresentacaoResumoBean.listarResumosAvaliador}" />
 				<t:navigationMenuItem id="projPesCongr_AutorizarRes" itemLabel="Autorizar Resumos" action="#{autorizacaoResumo.listarResumos}" />
+				<t:navigationMenuItem id="projPesCongr_Maninfestar" itemLabel="Manifestar Interesse em Avaliar Trabalhos" action="#{ interesseAvaliarBean.iniciar }"  rendered="#{ interesseAvaliarBean.permissaoAcesso }"/>
+				<t:navigationMenuItem id="justificarAusencia" itemLabel="Justificar Ausência" action="#{justificativaCIC.preCadastrar}" rendered="#{justificativaCIC.permissaoAcesso}"/>				
 			</t:navigationMenuItem>
 			
 			<t:navigationMenuItem id="certificadosDeclaracoes" itemLabel="Certificados e Declarações">
@@ -448,6 +451,7 @@
 				<t:navigationMenuItem id="certificadoAvaliador" itemLabel="Meus Certificados como Avaliador" action="#{declaracaoAvaliadorMBean.listarAvaliacoes}" itemDisabled="false"/>
 			 </t:navigationMenuItem>
 			 <t:navigationMenuItem id="gerParticipantes" itemLabel="Gerenciar Membros do Projeto" action="#{membroProjeto.gerenciarMembrosProjetoAssociados}" itemDisabled="false" />
+			 <t:navigationMenuItem id="avaliarProposta" itemLabel="Avaliar Proposta" itemValue="/extensao/AvaliacaoAtividade/lista_avaliacoes.jsf" actionListener="#{menuDocente.redirecionar}"/>			 
        </t:navigationMenuItem>           
         
       <%-- REQUISIÇÕES/PROJETOS (SIPAC) --%>

@@ -109,9 +109,9 @@ public class InteresseOfertaMBean extends SigaaAbstractController<InteresseOfert
 				addMensagemErro("Somente alunos ativos podem se candicadar a vagas de Estágio.");
 				return null;
 			}
-			boolean ofertadaAoCurso = false;
+			boolean ofertadaAoCurso = isEmpty(ofertaEstagio.getCursosOfertados()) ? true : false;
 			for (Curso curso : ofertaEstagio.getCursosOfertados())
-				if (curso.getId() != discente.getCurso().getId()) {
+				if (curso.getId() == discente.getCurso().getId()) {
 					ofertadaAoCurso = true; break;
 				}
 			if (!ofertadaAoCurso) {

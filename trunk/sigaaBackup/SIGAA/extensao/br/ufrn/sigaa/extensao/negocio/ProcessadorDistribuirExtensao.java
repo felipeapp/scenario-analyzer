@@ -53,9 +53,68 @@ public class ProcessadorDistribuirExtensao extends AbstractProcessador {
 
 		} else if (mov.getCodMovimento().equals(SigaaListaComando.DISTRIBUIR_ATIVIDADE_EXTENSAO_AUTO)) {
 			distribuirAutomatico((CadastroExtensaoMov) mov);
+		} else if (mov.getCodMovimento().equals(SigaaListaComando.DISTRIBUIR_ATIVIDADE_EXTENSAO_AUTO_LINHA)) {
+			distribuirAutomaticoLinha((CadastroExtensaoMov) mov);
 		}
-
+		
 		return null;
+	}
+
+	/**
+	 * Distribuição automática, para os projetos ligados as linhas de pesquisa em especpífico.
+	 */
+	private void distribuirAutomaticoLinha(CadastroExtensaoMov mov) throws DAOException {
+		OrcamentoDao dao = getDAO(OrcamentoDao.class, mov);
+		UsuarioDao uDao = getDAO(UsuarioDao.class, mov);
+		MembroComissaoDao membroComissaoDao = getDAO(MembroComissaoDao.class, mov);
+		
+		DistribuicaoAtividadeExtensao dist = mov.getDistribuicaoExtensao();
+		Integer idEdital = (Integer) mov.getObjAuxiliar();
+		List<AtividadeExtensao> atividades = dist.getAtividades();
+
+		try {
+			/** Criando lista de avaliadores disponíveis */
+			mov.getDistribuicaoExtensao().getMembrosComitePossiveis().addAll(membroComissaoDao.findMembrosAvaliadores(idEdital));
+
+			/** Cria a avaliaçao para a ação de extensão. */
+			for (AtividadeExtensao atv : atividades) {
+				
+				//Distribui até o máximo de avaliações
+				for (int i=1; i <= dist.getNumAvaliacoesPorProjeto(); i++) {
+					adicionarAvaliadorAutoLinha(atv, mov);
+				}
+
+				/**  @negocio: Ações pendentes de avaliação devem permanecer com a situação de 'aguardando avaliação' até que a avaliação do presidente seja realizada.	 */
+				atv.setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.EXTENSAO_AGUARDANDO_AVALIACAO));
+				atv.setAtivo(true);
+				dao.updateField(AtividadeExtensao.class, atv.getId(), "situacaoProjeto.id", atv.getSituacaoProjeto().getId());
+				ProjetoHelper.sincronizarSituacaoComProjetoBase(dao, atv);
+				
+				//Grava o histórico da situação do projeto
+				HistoricoSituacaoProjeto historico = new HistoricoSituacaoProjeto();
+				historico.setSituacaoProjeto(atv.getSituacaoProjeto());
+				historico.setData(new Date());
+				historico.setRegistroEntrada(mov.getRegistroEntrada());
+				historico.setProjeto(atv.getProjeto());
+				dao.create(historico);
+			}
+			
+			List<AvaliacaoAtividade> avaliacoesCriadas = salvarAvaliacoes(dao, atividades);
+
+			/** @negocio: O avaliador recebe uma notificação de que tem ações disponíveis aguardando o seu parecer. */
+			for (AvaliacaoAtividade av1 : avaliacoesCriadas) {
+				av1.getAvaliador().setPrimeiroUsuario(uDao.findPrimeiroUsuarioByPessoa(av1.getAvaliador().getPessoa().getId()));
+				EnvioMensagemHelper.notificaAvaliadoresAssociados(av1.getAtividade().getProjeto(), EnvioMensagemHelper.PROJETO_EXTENSAO, av1.getAvaliador());
+			}
+			
+		} catch (DAOException e) {
+			throw new DAOException(e);
+			
+		} finally {
+			dao.close();
+			uDao.close();
+			membroComissaoDao.close();
+		}		
 	}
 
 	/**
@@ -283,6 +342,70 @@ public class ProcessadorDistribuirExtensao extends AbstractProcessador {
 	}
 
 	/**
+	 * Cria uma avaliação, com as características passadas no Movimento, para a atividade informada.
+	 *  
+	 * @param atv
+	 * @param mov
+	 */
+	private void adicionarAvaliadorAutoLinha(AtividadeExtensao atv, CadastroExtensaoMov mov) {
+		MembroComissao avaliadorComissao = null;
+		DistribuicaoAtividadeExtensao dist = mov.getDistribuicaoExtensao();
+
+		String[] comissoes = atv.getLinhaAtuacao().getExpressaoMembrosComissao().split(","); 
+		int avaliacao = 0;
+		for (int i = 0; i < comissoes.length; i++) {
+			avaliacao = 0;
+			do {
+				avaliadorComissao = getMembroComissaoAvaliacoesAutoLinha(
+						Integer.parseInt(comissoes[i]), dist, atv, avaliacao);
+				avaliacao++;
+			} while (!ValidatorUtil.isNotEmpty(avaliadorComissao));
+
+			AvaliacaoAtividade aval = new AvaliacaoAtividade();
+			aval.setAtividade(atv);
+			aval.setDataDistribuicao(new Date());
+			aval.setStatusAvaliacao(new StatusAvaliacao(StatusAvaliacao.AGUARDANDO_AVALIACAO));
+			aval.setTipoAvaliacao(new TipoAvaliacao(dist.getTipoAvaliacao().getId()));
+			aval.setRegistroEntradaDistribuicao(mov.getUsuarioLogado().getRegistroEntrada());
+			aval.setMembroComissao(avaliadorComissao);
+			atv.getAvaliacoes().add(aval);
+			
+			avaliadorComissao.setQntAvaliacoes(avaliadorComissao.getQntAvaliacoes()+1);
+		}
+
+	}
+	
+	private MembroComissao getMembroComissaoAvaliacoesAutoLinha(int comissao, 
+				DistribuicaoAtividadeExtensao dist, AtividadeExtensao atv, int avaliacao) {
+		for (MembroComissao membroComissao : dist.getMembrosComitePossiveis()) {
+			if ( avaliacao == membroComissao.getQntAvaliacoes() && comissao == membroComissao.getPapel() 
+					&& membroPassivelSelecao(atv, membroComissao) ) {
+				dist.getMembrosComitePossiveis().remove(membroComissao);
+				dist.getMembrosComitePossiveis().add(membroComissao);
+				return membroComissao;
+			}
+		}
+		return null;
+	}
+
+	private boolean membroPassivelSelecao(AtividadeExtensao atv, MembroComissao membroComissao) {
+		//Verificando se este membro já está avaliando esta ação.
+		for (AvaliacaoAtividade ava : atv.getAvaliacoes()) {
+			if (ValidatorUtil.isNotEmpty(ava.getAvaliador()) && 
+					membroComissao.getServidor().getPessoa().getId() == ava.getAvaliador().getPessoa().getId()) {
+				return false;
+			}
+		}
+		
+		// Verificando se este membro faz parte da equipe do projeto, se fizer, não pode avaliá-lo.
+		if ( atv.getProjeto().isPertenceEquipe(membroComissao.getServidor().getPessoa().getId())) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	/**
 	 * Retorna o próximo membro da comissão de extensão compatível com a ação.
 	 * 
 	 * @param atv
@@ -380,9 +503,6 @@ public class ProcessadorDistribuirExtensao extends AbstractProcessador {
 			dao.close();
 		}
 	}
-
-	
-	
 
 	/**
 	 * Verifica se as distribuições podem ser realizadas.

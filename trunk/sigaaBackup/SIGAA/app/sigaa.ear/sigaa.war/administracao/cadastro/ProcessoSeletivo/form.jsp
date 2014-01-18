@@ -234,7 +234,7 @@ div#msgAddProcessos{
 							renderPopupButtonAsImage="true" size="10" maxlength="10"
 							onkeypress="return formataData(this,event)"
 							readonly="#{processoSeletivoVestibular.readOnly}"
-							disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+							disabled="#{processoSeletivoVestibular.readOnly}" popupDateFormat="dd/MM/yyyy"
 							value="#{processoSeletivo.obj.editalProcessoSeletivo.dataVencimentoBoleto}"/>
 					</td>
 				</tr>

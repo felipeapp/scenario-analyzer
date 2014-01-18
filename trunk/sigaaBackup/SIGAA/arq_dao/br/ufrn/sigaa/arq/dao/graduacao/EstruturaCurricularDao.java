@@ -731,7 +731,7 @@ public class EstruturaCurricularDao extends GenericSigaaDAO {
 		String hql = "SELECT SUM(cc.componente.detalhes.chAula) as ch_teorico, "
 				+ " SUM(cc.componente.detalhes.chLaboratorio + cc.componente.detalhes.chEstagio + cc.componente.detalhes.chEad) as ch_pratica, "
 				+ " SUM(cc.componente.detalhes.crAula) as cr_teorico, "
-				+ " SUM(cc.componente.detalhes.crLaboratorio + cc.componente.detalhes.crEstagio) as cr_pratico "
+				+ " SUM(cc.componente.detalhes.crLaboratorio + cc.componente.detalhes.crEstagio + cc.componente.detalhes.crEad) as cr_pratico "
 				+ " FROM CurriculoComponente cc "
 				+ " WHERE cc.curriculo.id = :idCurriculo "
 				+ " AND cc.obrigatoria = trueValue() ";

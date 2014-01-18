@@ -16,8 +16,9 @@
             <li><h:commandLink action="#{atividadeExtensao.preLocalizar}"	value="Consultar ações" onclick="setAba('extensao')" /></li>
 			<li><a href="${ctx}/extensao/DiscenteExtensao/busca_discente.jsf?aba=extensao">Localizar Discentes de Extensão</a></li>
             <li><h:commandLink action="#{avaliacaoAtividade.iniciarConsultarAvaliacoesAtividade}" value="Consultar Andamento das Avaliações" onclick="setAba('extensao')" /></li>
-            <li><h:commandLink action="#{autorizacaoDepartamento.autorizacaoChefe}" value="Autorizar Propostas de Ações" onclick="setAba('extensao')" /></li>
-            <li><h:commandLink action="#{autorizacaoDepartamento.autorizacaoRelatorioChefe}" value="Autorizar Relatórios Parciais e Finais" onclick="setAba('extensao')" /></li>
+         <!--  Pedido de remoção destes links comentados, na Tarefa 116844 - Remover Casos de Uso
+         <li><h:commandLink action="#{autorizacaoDepartamento.autorizacaoChefe}" value="Autorizar Propostas de Ações" onclick="setAba('extensao')" /></li>
+            <li><h:commandLink action="#{autorizacaoDepartamento.autorizacaoRelatorioChefe}" value="Autorizar Relatórios Parciais e Finais" onclick="setAba('extensao')" /></li> -->   
 		</ul>
 		
 	</li>

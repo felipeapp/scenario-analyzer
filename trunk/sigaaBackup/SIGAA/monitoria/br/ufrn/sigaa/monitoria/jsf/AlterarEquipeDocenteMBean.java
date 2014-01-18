@@ -59,7 +59,7 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 
 	
 	/**
-	 * Confirma a alteração do docente
+	 * Confirma a alteração(Finalizar, Salvar, Excluir) de um docente membro do projeto.
 	 * <br />
 	 * Método chamado pela(s) seguinte(s) JSP(s):
 	 * <ul>
@@ -82,10 +82,17 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 			
 	}
 	
-	
+	@Override
+	public String cancelar(){
+		if(obj.getId() > 0){
+			this.obj = new EquipeDocente();
+			return forward( ConstantesNavegacaoMonitoria.ALTERAREQUIPEDOCENTE_LISTA );
+		}
+		return super.cancelar();
+	}
 	
 	/**
-	 * Preparando movimento para excluir docente
+	 * Prepara movimento de exclusão, e carrega os dados de um docente para uma possível exclusão deste.
 	 *  <br />
 	 * Método chamado pela(s) seguinte(s) JSP(s):
 	 *   <ul>
@@ -114,7 +121,7 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 	
 	
 	/**
-	 * Método para excluir docente.
+	 * Responsável pela exclusão do docente do Projeto.
 	  <br />
 	 * Método chamado pela(s) seguinte(s) JSP(s):
 	 *   <ul>
@@ -126,6 +133,21 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 	 */
 	public String excluirEquipeDocente() throws DAOException, SegurancaException{
 		checkRole( SigaaPapeis.GESTOR_MONITORIA );
+		EquipeDocenteDao dao = getDAO(EquipeDocenteDao.class);
+		Collection<Orientacao> ors = dao.findByOrientacoesAtivas(obj.getId());
+		
+		if (obj.isCoordenador()){
+			addMensagemErro("Realize a operação de troca de coordenador do projeto e só depois exclua este docente.");	
+			addMensagemErro("Só podem ser excluídos os docentes que NÃO são Coordenadores de projeto.");
+			addMensagemErro("Docente selecionado é Coordenador(a) de projeto.");	
+			return null;
+		}
+		if (!ValidatorUtil.isEmpty(ors)){
+			addMensagemErro("Realize a operação de finalizar orientação, no menu de monitores, e só depois exclua este docente.");			
+			addMensagemErro("Só podem ser excluídos os docentes que NÃO possuam orientações ativas.");
+			addMensagemErro("Docente selecionado possui orientações ativas.");			
+			return null;
+		}
 		
 		try {
 				MovimentoCadastro mov = new MovimentoCadastro();
@@ -144,7 +166,8 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 		}		
 		
 		obj = new EquipeDocente();
-		
+		ConsultarEquipeDocenteMBean mBean = getMBean("consultarEquipeDocente");
+		mBean.localizar();
 		return forward( ConstantesNavegacaoMonitoria.ALTERAREQUIPEDOCENTE_LISTA );
 
 	}
@@ -182,7 +205,7 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 
 	
 	/**
-	 * Remove (DESATIVA) o discente selecionado
+	 * Remove (DESATIVA) o Docente selecionado do Projeto.
 	 *  <br />
 	 * Método chamado pela(s) seguinte(s) JSP(s):
 	 *   <ul>
@@ -199,22 +222,21 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 		if (obj.getId() == 0) {
 			addMensagemErro("Não há Docente selecionado!");
 			return null;
-		}
-		else if (obj.getDataSaidaProjeto() == null) {
+		}else if (obj.getDataSaidaProjeto() == null) {
 			addMensagemErro("Data de Saída do projeto deve ser informada.");
 			return null;
 		}else if (obj.isCoordenador()){
 		
-			addMensagemErro("Docente selecionado é Coordenador(a) de projeto.");			
-			addMensagemErro("Só podem ser finalizados os docentes que NÃO são Coordenadores de projeto.");
 			addMensagemErro("Realize a operação de troca de coordenador do projeto e só depois finalize este docente.");			
+			addMensagemErro("Só podem ser finalizados os docentes que NÃO são Coordenadores de projeto.");
+			addMensagemErro("Docente selecionado é Coordenador(a) de projeto.");			
 			return null;
 		
 		}else if (!ValidatorUtil.isEmpty(ors)){
 			
-			addMensagemErro("Docente selecionado possui orientações ativas.");			
-			addMensagemErro("Só podem ser finalizados os docentes que NÃO possuam orientações ativas.");
 			addMensagemErro("Realize a operação de finalizar orientação, no menu de monitores, e só depois finalize este docente.");			
+			addMensagemErro("Só podem ser finalizados os docentes que NÃO possuam orientações ativas.");
+			addMensagemErro("Docente selecionado possui orientações ativas.");			
 			return null;
 			
 		}else {
@@ -222,11 +244,11 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 		    mov.setObjMovimentado( obj );
 		    mov.setCodMovimento( SigaaListaComando.FINALIZAR_EQUIPEDOCENTE );
 		    try {
-			execute(mov);
-			addMensagem(MensagensArquitetura.OPERACAO_SUCESSO);				
+				execute(mov);
+				addMensagem(MensagensArquitetura.OPERACAO_SUCESSO);				
 		    } catch (NegocioException e) {
-			addMensagens(e.getListaMensagens());
-			return forward( getFormPage() );
+		    	addMensagens(e.getListaMensagens());
+		    	return forward( getFormPage() );
 		    }
 		    return forward(getListPage());
 		}
@@ -305,7 +327,7 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 	
 	
 	/**
-	 * Permite selecionar de novo docente, a qualquer tempo, no projeto de
+	 * Permite selecionar um novo docente, a qualquer tempo, no projeto de
 	 * monitoria pelos membros da prograd, utilizado pra manutenção
 	 * <br />
 	 * Método chamado pela(s) seguinte(s) JSP(s):
@@ -474,7 +496,7 @@ public class AlterarEquipeDocenteMBean extends SigaaAbstractController<EquipeDoc
 			addMensagens(e.getListaMensagens());
 			return null;				
 		} catch (Exception e) {
-			notifyError(e);
+			tratamentoErroPadrao(e, e.getMessage());
 			return null;
 		}
 	}

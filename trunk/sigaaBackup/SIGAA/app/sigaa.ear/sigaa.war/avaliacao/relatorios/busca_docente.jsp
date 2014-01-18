@@ -97,6 +97,8 @@
 			<td>Departamento</td>
 			<td align="center" width="5%">Ano</td>
 			<td align="center" width="5%">Período</td>
+			<td align="center" width="5%">EaD</td>
+			<td align="right" width="5%">Turmas</td>
 			<td width="5%"></td>
 		</thead>
 		<caption>Resultados Encontrados (${fn:length(relatorioAvaliacaoMBean.listaDocentes)})</caption>
@@ -115,12 +117,19 @@
 					<td align="center">
 						<h:outputText value="#{linha.periodo}" />
 					</td>
+					<td align="center">
+						<ufrn:format type="simnao" valor="${linha.ead}" />
+					</td>
+					<td align="right">
+						<h:outputText value="#{linha.qtd_turmas}" />
+					</td>
 					<td align="right" width="5%">
 						<h:commandLink action="#{relatorioAvaliacaoMBean.viewResultadoDocente}" title="Visualizar Resultado do Docente" id="viewLink">
 							<h:graphicImage url="/img/view.gif" />
-							<f:param id="idDocente" name="idServidor" value="#{linha.id_servidor}"/>
+							<f:param id="idDocente" name="idServidor" value="#{linha.id_pessoa}"/>
 							<f:param id="ano" name="ano" value="#{linha.ano}"/>
 							<f:param id="periodo" name="periodo" value="#{linha.periodo}"/>
+							<f:param id="idFormulario" name="idFormulario" value="#{linha.id_formulario_avaliacao}"/>
 						</h:commandLink>
 					</td>
 				</tr>

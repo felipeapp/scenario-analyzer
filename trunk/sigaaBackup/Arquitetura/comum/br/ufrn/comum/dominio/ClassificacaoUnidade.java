@@ -28,6 +28,7 @@ public class ClassificacaoUnidade  implements PersistDB{
 	public static final int ORGAO_SUPLEMENTAR = 1;
 	public static final int COMPLEXO_HOSPITALAR = 2;
 	public static final int ACADEMICA = 3;
+	public static final int ADMINISTRATIVA = 4;
 	
 	/** Identificador */
 	@Id

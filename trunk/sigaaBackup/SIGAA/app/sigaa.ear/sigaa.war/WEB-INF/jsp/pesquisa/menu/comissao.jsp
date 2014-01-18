@@ -17,5 +17,17 @@
 		<ul>
 		<li> <h:commandLink action="#{producao.verRelatorioCotas}" value="Relatório para Concessão de Cotas de Pesquisa"/> </li>
 		</ul>
+	</li>
+	<li> Congresso de Iniciação Científica
+		<ul>
+		<li> <h:commandLink id="comissaoAlterarResCIC" action="#{alterarStatusResumos.iniciarMudancaStatus}" value="Alterar Status de Resumos CIC"/> </li>
+		<li> <h:commandLink id="listaResumosCIC" action="#{autorizacaoResumo.listarResumosComissao}" value="Avaliar Resumos" onclick="setAba('iniciacao');"/> </li> 
+		</ul>
+	</li>
+	<li> Projetos de Apoio à Pesquisa
+		<ul>
+			<li><h:commandLink action="#{buscaProjetoApoioGruposPesquisaMBean.iniciar}" value="Grupos de Pesquisa" onclick="setAba('projetos')"/></li>
+			<li><h:commandLink action="#{buscaProjetoApoioNovosPesquisadoresMBean.iniciar}" value="Novos Pesquisadores" onclick="setAba('projetos')"/></li>								
+		</ul>
 	</li>	
 </ul>

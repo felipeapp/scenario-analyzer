@@ -2,9 +2,12 @@
 <%@include file="/WEB-INF/jsp/include/ajax_tags.jsp"%>
 <f:view>
 <a4j:keepAlive beanName="moduloMBean"/>
-<h2> <ufrn:subSistema /> > Cadastro de Módulo</h2>
+<h2> <ufrn:subSistema /> > ${moduloMBean.descricaoOperacao} Módulo</h2>
 	
 <h:form id="form">
+	<div class="infoAltRem">
+		<html:img page="/img/adicionar.gif" style="overflow: visible;"/>: Adicionar Disciplina
+	</div>
 	<table class="formulario" style="width: 90%">
 	  <caption>Informações do Módulo</caption>
 		<h:inputHidden value="#{moduloMBean.obj.id}" />
@@ -12,7 +15,7 @@
 			<tr>
 				<th width="25%" class="obrigatorio">Descrição:</th>
 				<td><h:inputText value="#{moduloMBean.obj.descricao}" size="70" maxlength="50" onkeyup="CAPS(this)"
-				disabled="#{moduloMBean.editar}"/></td>
+				disabled="#{moduloMBean.bloquearEdicao}"/></td>
 			</tr>
 			<tr>
 				<th class="obrigatorio">Carga Horária Total:</th>
@@ -45,6 +48,9 @@
 	</table>
 	
 	<br /><br />
+	<div class="infoAltRem">
+		<html:img page="/img/delete.gif" style="overflow: visible;"/>: Remover
+	</div>
 		<table class="formulario" width="90%">
 			<caption>Disciplinas já cadastradas para o Módulo</caption>
 				<thead>
@@ -62,7 +68,7 @@
 							<td>${linha.disciplina.detalhes.codigo} - ${linha.disciplina.detalhes.nome}</td>
 							<td style="text-align: right;">${linha.disciplina.detalhes.chTotal}</td>
 							<td width="5%" align="right">
-								<h:commandLink action="#{moduloMBean.removerDisciplina}" >
+								<h:commandLink action="#{moduloMBean.removerDisciplina}" onclick="if (!confirm(\"Tem certeza que deseja remover esta disciplina?\")) return false;" >
 									<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover" />
 									<f:param name="id" value="#{linha.disciplina.id}"/>
 								</h:commandLink>

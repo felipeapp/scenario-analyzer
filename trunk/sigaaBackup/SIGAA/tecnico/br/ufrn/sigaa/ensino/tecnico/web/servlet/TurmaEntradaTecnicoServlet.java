@@ -75,14 +75,14 @@ public class TurmaEntradaTecnicoServlet extends SigaaAjaxServlet {
 
 		TurmaEntradaTecnicoDao dao = new TurmaEntradaTecnicoDao();
 		try {
-			String param = request.getParameter("curriculoId");
+			String param = request.getParameter("cursoId");
 			AjaxXmlBuilder ajaxXmlBuilder = new AjaxXmlBuilder();
             if (param == null || param.trim().equals("")) {
 					return ajaxXmlBuilder.addItems(new ArrayList<Object>(),	"descricao", "id").toString();
 			}
 			int id = Integer.parseInt(param);
 			// busca todas as turmas de entrada do currículo passado por parâmetro
-			List<TurmaEntradaTecnico> turmasEntrada = (List<TurmaEntradaTecnico>) dao.findByCurriculo(id);
+			List<TurmaEntradaTecnico> turmasEntrada = (List<TurmaEntradaTecnico>) dao.findByCurso(id);
 			Collections.sort(turmasEntrada);
 			ajaxXmlBuilder.addItem("-- SELECIONE --", "0");
 			return ajaxXmlBuilder.addItems(turmasEntrada, "descricao", "id").toString();

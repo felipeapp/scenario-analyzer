@@ -158,7 +158,6 @@ public class LivroRegistroDiplomasMBean extends SigaaAbstractController<LivroReg
 		obj.setNivel((Character) evt.getNewValue());
 		return forward("/diplomas/livro_registro_diploma/form.jsp");
 	}
-		
 	
 	/**
 	 * Inicia o processo de cadastro de um livro.<br />
@@ -217,12 +216,15 @@ public class LivroRegistroDiplomasMBean extends SigaaAbstractController<LivroReg
 		int idCurso = Integer.parseInt(id);
 		Curso curso = getGenericDAO().findByPrimaryKey(idCurso, Curso.class);
 		// verifica se há registro de diploma de algum aluno do curso a ser removido
-		for (FolhaRegistroDiploma folha : obj.getFolhas()){
-			for (RegistroDiploma registro : folha.getRegistros())
-				if (registro.getDiscente() != null && registro.getDiscente().getCurso().getId() == curso.getId()) {
-					addMensagemErro("Não foi possível remover o curso "+curso.getDescricao()+": existe um ou mais diplomas de alunos do mesmo registrado no livro.");
-					return null;
+		if (obj.getFolhas() != null) {
+			for (FolhaRegistroDiploma folha : obj.getFolhas()){
+				for (RegistroDiploma registro : folha.getRegistros()) {
+					if (registro != null && registro.getDiscente() != null && registro.getDiscente().getCurso().getId() == curso.getId()) {
+						addMensagemErro("Não foi possível remover o curso "+curso.getDescricao()+": existe um ou mais diplomas de alunos do mesmo registrado no livro.");
+						return null;
+					}
 				}
+			}
 		}
 		obj.getCursosRegistrados().remove(curso);
 		return forward(getFormPage());

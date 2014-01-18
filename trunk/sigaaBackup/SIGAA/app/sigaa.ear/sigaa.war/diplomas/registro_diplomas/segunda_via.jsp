@@ -106,9 +106,9 @@
 		</td>
 	</tr>
 	<tr>
-		<th><h:outputText value="#{responsavelAssinaturaDiplomasBean.responsaveisAtual.descricaoFuncaoReitor}"/>:</th>
+		<th><h:outputText value="#{registro.assinaturaDiploma.descricaoFuncaoReitor}"/>:</th>
 		<td>
-			<h:outputText value="#{responsavelAssinaturaDiplomasBean.responsaveisAtual.nomeReitor}"/>
+			<h:outputText value="#{registro.assinaturaDiploma.nomeReitor}"/>
 		</td>
 		<th valign="top">Estabelecimento:</th>
 		<td>
@@ -120,13 +120,13 @@
 			<c:when test="${ impressaoDiploma.latoSensu }">
 				<th>Assinatura no Verso:</th>
 				<td>
-					<h:outputText value="#{responsavelAssinaturaDiplomasBean.responsaveisAtual.nomeResponsavelCertificadosLatoSensu}"/>
+					<h:outputText value="#{registro.assinaturaDiploma.nomeResponsavelCertificadosLatoSensu}"/>
 				</td>
 			</c:when>
 			<c:otherwise>
-				<th><h:outputText value="#{responsavelAssinaturaDiplomasBean.responsaveisAtual.descricaoFuncaoDiretorUnidadeDiplomas}"/>:</th>
+				<th><h:outputText value="#{registro.assinaturaDiploma.descricaoFuncaoDiretorUnidadeDiplomas}"/>:</th>
 				<td>
-					<h:outputText value="#{responsavelAssinaturaDiplomasBean.responsaveisAtual.nomeDiretorUnidadeDiplomas}"/>
+					<h:outputText value="#{registro.assinaturaDiploma.nomeDiretorUnidadeDiplomas}"/>
 				</td>
 			</c:otherwise>
 		</c:choose>

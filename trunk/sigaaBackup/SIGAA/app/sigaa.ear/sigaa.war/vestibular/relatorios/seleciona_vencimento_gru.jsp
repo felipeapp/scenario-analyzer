@@ -118,7 +118,7 @@
 						<t:inputCalendar id="dataVencimento" renderAsPopup="true"
 							renderPopupButtonAsImage="true" size="10" maxlength="10"
 							onkeypress="return formataData(this,event)"
-							disabled="#{readOnly}" popupDateFormat="dd/MM/yyyy"
+							disabled="#{relatoriosVestibular.readOnly}" popupDateFormat="dd/MM/yyyy"
 							value="#{relatoriosVestibular.dataVencimentoGRU}" />  
 					</td>
 				</tr>

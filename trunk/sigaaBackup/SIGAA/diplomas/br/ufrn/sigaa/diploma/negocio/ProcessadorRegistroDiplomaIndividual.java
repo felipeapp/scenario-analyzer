@@ -22,7 +22,9 @@ import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.negocio.AbstractProcessador;
 import br.ufrn.arq.parametrizacao.ParametroHelper;
+import br.ufrn.comum.dominio.Sistema;
 import br.ufrn.integracao.siged.dto.ArquivoDocumento;
+import br.ufrn.integracao.siged.service.IntegracaoSigedService;
 import br.ufrn.sigaa.arq.dao.ensino.CoordenacaoCursoDao;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.diploma.dao.RegistroDiplomaDao;
@@ -30,9 +32,9 @@ import br.ufrn.sigaa.diploma.dao.ResponsavelAssinaturaDiplomasDao;
 import br.ufrn.sigaa.diploma.dominio.AlteracaoRegistroDiploma;
 import br.ufrn.sigaa.diploma.dominio.ObservacaoRegistroDiploma;
 import br.ufrn.sigaa.diploma.dominio.RegistroDiploma;
+import br.ufrn.sigaa.ensino.dominio.CargoAcademico;
 import br.ufrn.sigaa.ensino.dominio.CoordenacaoCurso;
 import br.ufrn.sigaa.parametros.dominio.ParametrosGraduacao;
-import br.ufrn.siged.integracao.SigedFacade;
 
 /** Processador responsável por operações de registro de diploma individual.
  * @author Édipo Elder F. Melo
@@ -91,9 +93,9 @@ public class ProcessadorRegistroDiplomaIndividual extends AbstractProcessador {
 			registro.setLivre(false);
 			// registro de entrada
 			registro.setRegistroEntrada(mov.getUsuarioLogado().getRegistroEntrada());
-			// Assinaturas no diploma
-			registro.setAssinaturaDiploma(assinaturaDao.findAtivo(registro.getDiscente().getNivel()));
 			if (!registro.getLivroRegistroDiploma().isLivroAntigo()) {
+				// Assinaturas no diploma 
+				registro.setAssinaturaDiploma(assinaturaDao.findAtivo(registro.getDiscente().getNivel()));
 				// Se o registro do diploma não for antigo, seta o número.
 				int numeroRegistro = registroDao.requisitaNumeroRegistro(registro.getLivroRegistroDiploma().isRegistroExterno(), registro.getLivroRegistroDiploma().getNivel());
 				registro.setNumeroRegistro(numeroRegistro);
@@ -113,9 +115,23 @@ public class ProcessadorRegistroDiplomaIndividual extends AbstractProcessador {
 				// atualiza o livro
 				registroDao.createOrUpdate(registro.getFolha());
 			}
-			// seta o coordenador do curso
-			CoordenacaoCurso coordenador = coordenacaoDao.findAtivoByData(registro.getDataColacao(), registro.getDiscente().getCurso());
-			registro.setCoordenadorCurso(coordenador);
+			// seta o coordenador do curso, caso não seja registro antigo
+			if (!registro.getLivroRegistroDiploma().isLivroAntigo()) {
+				CoordenacaoCurso coordenador = coordenacaoDao.findAtivoByData(registro.getDataColacao(), registro.getDiscente().getCurso());
+				// caso não haja coordenação ativa, pega o último coordenador
+				if (coordenador == null) {
+					Collection<CoordenacaoCurso> coordenadores = coordenacaoDao.findByCurso(
+							registro.getDiscente().getCurso().getId(), 0, 
+							registro.getDiscente().getCurso().getNivel(), null,
+							CargoAcademico.COORDENACAO);
+					if (!isEmpty(coordenadores))
+						coordenador = coordenadores.iterator().next(); 
+				}
+				registro.setCoordenadorCurso(coordenador);
+			}
+			// se registro antigo e a lista de assinaturas é nova, persiste a lista de assinaturas
+			if (registro.getLivroRegistroDiploma().isLivroAntigo() && registro.getAssinaturaDiploma().getId() == 0)
+				registroDao.create(registro.getAssinaturaDiploma());
 			// persiste o registro
 			registroDao.createOrUpdate(registro);
 			// persite as observações
@@ -125,9 +141,18 @@ public class ProcessadorRegistroDiplomaIndividual extends AbstractProcessador {
 			// se há diploma digitalizado anexado, cadastra-o no SIGED
 			UploadedFile uploadedFile = (UploadedFile) ((MovimentoCadastro) mov).getObjAuxiliar();
 			if (uploadedFile != null) {
-				SigedFacade siged = getBean("sigedFacade", mov);
+				
+				if (!Sistema.isSigedAtivo())
+					throw new NegocioException("Não foi possível enviar o diploma para o SIGED, pois o mesmo não encontra-se ativo.");
+				
 				ArquivoDocumento arquivo = new ArquivoDocumento(uploadedFile);
-				DiplomaHelper.inserirDiplomaSIGED(arquivo, registro, mov.getUsuarioLogado(), siged);
+				IntegracaoSigedService siged = getBean("integracaoSigedInvoker", mov);			
+				try {
+					DiplomaHelper.inserirDiplomaSIGED(arquivo, registro, mov.getUsuarioLogado(), siged);
+				} catch (Exception e) {					
+					throw new NegocioException("Não foi possível enviar o diploma para o SIGED.");
+				}
+				
 			}
 			
 			return registro;

@@ -10,7 +10,6 @@ package br.ufrn.sigaa.dominio;
 
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -48,7 +47,6 @@ import br.ufrn.arq.util.EqualsUtil;
 import br.ufrn.arq.util.HashCodeUtil;
 import br.ufrn.arq.util.StringUtils;
 import br.ufrn.arq.util.ValidatorUtil;
-import br.ufrn.sigaa.ead.dominio.MetodologiaAvaliacao;
 import br.ufrn.sigaa.ensino.dominio.AreaSesu;
 import br.ufrn.sigaa.ensino.dominio.ComponenteCurricular;
 import br.ufrn.sigaa.ensino.dominio.ConvenioAcademico;
@@ -60,6 +58,7 @@ import br.ufrn.sigaa.ensino.dominio.TipoOfertaDisciplina;
 import br.ufrn.sigaa.ensino.graduacao.dominio.MatrizCurricular;
 import br.ufrn.sigaa.ensino.stricto.dominio.OrganizacaoAdministrativa;
 import br.ufrn.sigaa.ensino.stricto.dominio.TipoCursoStricto;
+import br.ufrn.sigaa.ensino_rede.dominio.DadosCursoRede;
 import br.ufrn.sigaa.parametros.dominio.ParametrosGraduacao;
 import br.ufrn.sigaa.pessoa.dominio.Municipio;
 import br.ufrn.sigaa.vestibular.dominio.AreaConhecimentoVestibular;
@@ -244,13 +243,15 @@ public class Curso implements Validatable, Comparable<Curso> {
 	private boolean rede = false;
 	
 	/** Associação de curso a instituições de ensino. */
-	private List<CursoInstituicoesEnsino> cursoInstituicoesEnsino;
+	private List<DadosCursoRede> cursoInstituicoesEnsino;
 
 	/** Caso o curso não tenha concluintes, calcular média de MCs dos alunos dessa unidade, para cálculo do MCN */
 	private Unidade unidadeReferenciaMcn;
 
 	/** Indica se uma pessoa pode ter mais de um vínculo ativo de aluno nesse curso simultaneamente */
 	private boolean permiteAlunosVariosVinculos = false;
+	
+//	private MetodologiaAvaliacao metodologiaEad;
 	
 	/**
 	 * Atributo TRANSIENT que guarda a coordenação ativa atual.
@@ -374,7 +375,12 @@ public class Curso implements Validatable, Comparable<Curso> {
 	public String getNome() {
 		return this.nome;
 	}
-
+	
+	
+	/**
+	 * Método utilizado para setar o nome do curso
+	 * @param nome
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 		setNomeAscii(nome);
@@ -408,7 +414,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.nivel = nivel;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_municipio")
 	public Municipio getMunicipio() {
 		return municipio;
@@ -428,7 +434,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		return HashCodeUtil.hashAll(id);
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_modalidade_educacao")
 	public ModalidadeEducacao getModalidadeEducacao() {
 		return modalidadeEducacao;
@@ -438,7 +444,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.modalidadeEducacao = modalidadeEducacao;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_natureza_curso")
 	public NaturezaCurso getNaturezaCurso() {
 		return naturezaCurso;
@@ -448,7 +454,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.naturezaCurso = naturezaCurso;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_convenio")
 	public ConvenioAcademico getConvenio() {
 		return convenio;
@@ -544,7 +550,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 	public boolean isPresencial() {
 		return modalidadeEducacao != null && modalidadeEducacao.isPresencial();
 	}
-
+	
 	/**
 	 * Método utilizado para verificar se o curso tem convenio estabelecido do tipo PRO-BÁSICA
 	 * @return
@@ -568,7 +574,6 @@ public class Curso implements Validatable, Comparable<Curso> {
 		}
 		return false;
 	}
-	
 	/**
 	 * Método responsável por retornar o nome do curso de Stricto concatenado o nível de ensino do mesmo.
 	 * @return
@@ -593,7 +598,6 @@ public class Curso implements Validatable, Comparable<Curso> {
 			return nome;
 	}
 	
-	
 	/**
 	 * Método responsável por retornar o nome do curso no formato simples, apenas o nome e sem derivações.
 	 */
@@ -615,27 +619,21 @@ public class Curso implements Validatable, Comparable<Curso> {
 		if (municipio != null && municipio.getNome() != null) {
 			descricao.append(" - " + municipio.getNome());
 		}
+	
 		if (isADistancia()) {
 			descricao.append(" - EAD");
 		}
 		if (convenio != null && convenio.getDescricao() != null) {
 			descricao.append(" - " + convenio.getDescricao());
-		}		
+		}
 		return descricao.toString().trim().equals("null") ? "" : descricao.toString();
 	}
 
-	/**
-	 * @return the idArquivo
-	 */
 	@Column(name = "id_arquivo")
 	public Integer getIdArquivo() {
 		return idArquivo;
 	}
 
-	/**
-	 * @param idArquivo
-	 *            the idArquivo to set
-	 */
 	public void setIdArquivo(Integer idArquivo) {
 		this.idArquivo = idArquivo;
 	}
@@ -659,25 +657,18 @@ public class Curso implements Validatable, Comparable<Curso> {
 				+ (getMunicipio() != null ? " - "
 						+ getMunicipio().getNome().toUpperCase() : "")
 				+ " - " + getNivelDescricao();
-	}	
+	}
 	
 	@Transient
 	public String getNivelDescricao() {
 		return NivelEnsino.getDescricao(nivel);
 	}
 		
-	/**
-	 * @return the selecionado
-	 */
 	@Transient
 	public boolean isSelecionado() {
 		return selecionado;
 	}
 
-	/**
-	 * @param selecionado
-	 *            the selecionado to set
-	 */
 	public void setSelecionado(boolean selecionado) {
 		this.selecionado = selecionado;
 	}
@@ -701,7 +692,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.codProgramaCAPES = codProgramaCAPES;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_tipo_curso_stricto")
 	public TipoCursoStricto getTipoCursoStricto() {
 		return tipoCursoStricto;
@@ -906,11 +897,14 @@ public class Curso implements Validatable, Comparable<Curso> {
 	@Transient
 	public boolean isMedio() {
 		return NivelEnsino.MEDIO == getNivel();
-	}	
-	
+	}
+
+	/**
+	 * Método responsável pela comparação de curso utilizando os atributos descricao e municipio.
+	 */
 	public int compareTo(Curso c) {
 		return new CompareToBuilder()
-			.append(this.getNome(), c.getNome())
+			.append(this.getDescricao(), c.getDescricao())
 			.append(this.getMunicipio(), c.getMunicipio())
 			.toComparison();
 	}
@@ -1018,7 +1012,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.avaliacaoCurso = avaliacaoCurso;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_area_sesu")
 	public AreaSesu getAreaSesu() {
 		return areaSesu;
@@ -1028,7 +1022,7 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.areaSesu = areaSesu;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_tipo_ciclo_formacao")
 	public TipoCicloFormacao getTipoCicloFormacao() {
 		return tipoCicloFormacao;
@@ -1066,12 +1060,12 @@ public class Curso implements Validatable, Comparable<Curso> {
 	}
 
 	@OneToMany(cascade = {}, mappedBy = "curso")
-	public List<CursoInstituicoesEnsino> getCursoInstituicoesEnsino() {
+	public List<DadosCursoRede> getCursoInstituicoesEnsino() {
 		return cursoInstituicoesEnsino;
 	}
 
 	public void setCursoInstituicoesEnsino(
-			List<CursoInstituicoesEnsino> cursoInstituicoesEnsino) {
+			List<DadosCursoRede> cursoInstituicoesEnsino) {
 		this.cursoInstituicoesEnsino = cursoInstituicoesEnsino;
 	}
 
@@ -1084,7 +1078,6 @@ public class Curso implements Validatable, Comparable<Curso> {
 		this.unidadeReferenciaMcn = unidadeReferenciaMcn;
 	}
 
-
 	@Column(name = "permitealunosvariosvinculos", unique = false, nullable = true, insertable = true, updatable = true)
 	public boolean isPermiteAlunosVariosVinculos() {
 		return permiteAlunosVariosVinculos;
@@ -1093,4 +1086,15 @@ public class Curso implements Validatable, Comparable<Curso> {
 	public void setPermiteAlunosVariosVinculos(boolean permiteAlunosVariosVinculos) {
 		this.permiteAlunosVariosVinculos = permiteAlunosVariosVinculos;
 	}
+
+//	@Transient
+//	public MetodologiaAvaliacao getMetodologiaEad() {
+//		return metodologiaEad;
+//	}
+//
+//	public void setMetodologiaEad(MetodologiaAvaliacao metodologiaEad) {
+//		this.metodologiaEad = metodologiaEad;
+//	}
+
+	
 }

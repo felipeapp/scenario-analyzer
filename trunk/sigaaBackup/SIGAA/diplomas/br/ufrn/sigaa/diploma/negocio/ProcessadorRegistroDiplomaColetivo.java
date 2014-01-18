@@ -8,6 +8,8 @@
  */
 package br.ufrn.sigaa.diploma.negocio;
 
+import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
+
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,6 +27,7 @@ import br.ufrn.sigaa.diploma.dao.ResponsavelAssinaturaDiplomasDao;
 import br.ufrn.sigaa.diploma.dominio.RegistroDiploma;
 import br.ufrn.sigaa.diploma.dominio.RegistroDiplomaColetivo;
 import br.ufrn.sigaa.diploma.dominio.ResponsavelAssinaturaDiplomas;
+import br.ufrn.sigaa.ensino.dominio.CargoAcademico;
 import br.ufrn.sigaa.ensino.dominio.CoordenacaoCurso;
 import br.ufrn.sigaa.mensagens.MensagensGraduacao;
 import br.ufrn.sigaa.pessoa.dominio.Discente;
@@ -54,6 +57,15 @@ public class ProcessadorRegistroDiplomaColetivo extends AbstractProcessador {
 				CoordenacaoCurso coordenador = mapaCoordenacao.get(registro.getDiscente().getCurso().getId());
 				if (coordenador == null) {
 					coordenador = coordenacaoDao.findAtivoByData(registro.getDataColacao(), registro.getDiscente().getCurso());
+					// caso não haja coordenação ativa, pega o último coordenador
+					if (coordenador == null) {
+						Collection<CoordenacaoCurso> coordenadores = coordenacaoDao.findByCurso(
+									registro.getDiscente().getCurso().getId(), 0, 
+									registro.getDiscente().getCurso().getNivel(), null,
+									CargoAcademico.COORDENACAO);
+						if (!isEmpty(coordenadores))
+							coordenador = coordenadores.iterator().next(); 
+					}
 					mapaCoordenacao.put(registro.getDiscente().getCurso().getId(), coordenador);
 				}
 				registro.setCoordenadorCurso(coordenador);

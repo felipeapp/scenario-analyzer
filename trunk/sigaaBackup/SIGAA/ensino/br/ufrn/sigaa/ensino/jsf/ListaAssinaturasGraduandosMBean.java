@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.model.SelectItem;
@@ -23,10 +22,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.ufrn.academico.dominio.NivelEnsino;
-import br.ufrn.arq.dominio.MovimentoCadastro;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
-import br.ufrn.arq.erros.NegocioException;
 import br.ufrn.arq.erros.SegurancaException;
 import br.ufrn.arq.mensagens.MensagensArquitetura;
 import br.ufrn.arq.negocio.validacao.ListaMensagens;
@@ -36,10 +33,12 @@ import br.ufrn.sigaa.arq.dao.CursoDao;
 import br.ufrn.sigaa.arq.dao.ead.PoloDao;
 import br.ufrn.sigaa.arq.dao.graduacao.DiscenteGraduacaoDao;
 import br.ufrn.sigaa.arq.jsf.SigaaAbstractController;
-import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.ead.dominio.Polo;
 import br.ufrn.sigaa.ensino.graduacao.dominio.DiscenteGraduacao;
+import br.ufrn.sigaa.ensino.graduacao.dominio.FiltroDiscentesColacaoGrau;
+import br.ufrn.sigaa.ensino.graduacao.negocio.ListaDiscentesCalcular;
+import br.ufrn.sigaa.ensino.graduacao.negocio.RecalculoDiscenteThread;
 
 /** 
  * Controller responsável por gerar a lista de assinaturas para colação de grau. 
@@ -68,17 +67,16 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 	private boolean disable;
 	/** Polo do curso de EAD para o qual a lista de discentes será gerada. */
 	private Polo polo;
-	/** Quantidade de discentes que tiveram o histórico recalculado. */
-	private int quantidadeProcessado;
-	/** Discentes que terão o histórico recalculado. */
-	private List<DiscenteGraduacao> discentes;
 	/** Discentes que não estão aptos a colar grau e o motivo. */
 	private Map<DiscenteGraduacao, String> inaptos;
 	/** Registra a hora inicial do recálculo dos históricos. */ 
 	private Date inicioProcessamento;
 	/** Lista de SelectITens de polos EAD. */
 	private Collection<SelectItem> listaPolo;
-	
+
+	private RecalculoDiscenteThread[] threads;
+	private int numThreads;
+	private ListaDiscentesCalcular reCalculoDiscente = new ListaDiscentesCalcular();
 	
 	/** Construtor padrão. */
 	public ListaAssinaturasGraduandosMBean() {
@@ -102,6 +100,20 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 			return null;
 		
 		return forward( "/graduacao/relatorios/lista_concluintes/lista_assinatura_colacao.jsf" );
+	}
+	
+	private void invocarThreads() {
+		numThreads = 2;
+		
+		threads = new RecalculoDiscenteThread[numThreads];
+		
+		reCalculoDiscente.carregarDiscentes(new FiltroDiscentesColacaoGrau(obj));
+
+		for (int a = 0; a < threads.length; a++) {
+			System.out.println("statando thread: " + a);
+			threads[a] = new RecalculoDiscenteThread(getUsuarioLogado(), true, reCalculoDiscente);
+			threads[a].start();
+		}
 	}
 	
 	/** Realiza uma busca por discentes graduandos.<br>
@@ -133,32 +145,25 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 		periodoFerias = periodo + 2;
 		int anoPeriodoFerias = new Integer(anoFerias + "" + periodoFerias);
 		
-		discentes = (List<DiscenteGraduacao>) dao.findIdsByCursoParaRecalculo(obj.getId());
 		inaptos = new LinkedHashMap<DiscenteGraduacao, String>();
 		etapaProcessamento = EtapaProcessamento.CALCULANDO_HISTORICO;
-		quantidadeProcessado = 0;
 		inicioProcessamento = new Date();
 		try {
-			for( DiscenteGraduacao dg : discentes){
-				prepareMovimento(SigaaListaComando.CALCULAR_INTEGRALIZACOES_DISCENTE );
-				MovimentoCadastro movimento = new MovimentoCadastro();
-				movimento.setCodMovimento(SigaaListaComando.CALCULAR_INTEGRALIZACOES_DISCENTE);
-				movimento.setObjAuxiliar(new Object[] { true, true });
-				movimento.setObjMovimentado(dg);
-				execute(movimento);
-				quantidadeProcessado++;
+			invocarThreads();
+			
+			while(reCalculoDiscente.getTotalProcessados() < reCalculoDiscente.getTotalDiscentes()) {
+				System.out.println(reCalculoDiscente.getTotalProcessados());
+				Thread.sleep(5000);
 			}
-		} catch (NegocioException e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			notifyError(e);
-			addMensagens(e.getListaMensagens());
-			quantidadeProcessado = -1;
-			discentes = null;
 			setDisable(false);
 			etapaProcessamento = EtapaProcessamento.INICIAL;
 			redirectMesmaPagina();
 		}
-		etapaProcessamento = EtapaProcessamento.BUSCANDO_DISCENTES;
+
 		// Se não for curso à distância, não utilizar o pólo
 		if (!obj.isADistancia())
 			polo.setId(0);
@@ -177,9 +182,6 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 		if (isEmpty(graduandos)) {
 			addMensagem(MensagensArquitetura.BUSCA_SEM_RESULTADOS);
 		}
-		discentes = new ArrayList<DiscenteGraduacao>();
-		quantidadeProcessado = -1;
-		discentes = null;
 		setDisable(false);
 	}
 
@@ -196,7 +198,6 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 			return cancelar();
 		}
 		etapaProcessamento = EtapaProcessamento.INICIAL;
-		quantidadeProcessado = -1;
 		setDisable(false);
 		return forward("/graduacao/relatorios/lista_concluintes/lista_assinatura_colacao.jsp");
 	}
@@ -282,8 +283,6 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 		graduandos = new ArrayList<DiscenteGraduacao>();
 		obj = new Curso();
 		polo = new Polo();
-		discentes = null;
-		quantidadeProcessado = -1;
 		inicioProcessamento = null;
 		listaCurso = null;
 		etapaProcessamento = EtapaProcessamento.INICIAL;
@@ -371,8 +370,8 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 		} else if (etapaProcessamento.equals(EtapaProcessamento.BUSCANDO_DISCENTES)) {
 			percentual = 100;
 		} else if (etapaProcessamento.equals(EtapaProcessamento.CALCULANDO_HISTORICO)) {
-			if (quantidadeProcessado == 0 || discentes.size() == 0) percentual = 1;
-			else percentual = 100 * (quantidadeProcessado + 1) / discentes.size();
+			if (reCalculoDiscente.getTotalProcessados() == 0 || reCalculoDiscente.getTotalDiscentes() == 0) percentual = 1;
+			else percentual = 100 * (reCalculoDiscente.getTotalProcessados() + 1) / reCalculoDiscente.getTotalDiscentes();
 		}
 		return percentual;
 	}
@@ -383,16 +382,16 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 	public String getMensagemProgresso() {
 		if (etapaProcessamento.equals(EtapaProcessamento.BUSCANDO_DISCENTES)) {
 			return "Buscando possíveis concluintes. Por favor, aguarde...";
-		} else if (discentes != null && quantidadeProcessado < discentes.size()) {
-			if (quantidadeProcessado == 0) return "Estimando o tempo para o término do cálculo de históricos...";
+		} else if (reCalculoDiscente.getTotalProcessados() < reCalculoDiscente.getTotalDiscentes()) {
+			if (reCalculoDiscente.getTotalProcessados() == 0) return "Estimando o tempo para o término do cálculo de históricos...";
 			String estimativaRestante = getEstimativaTempoRestante();
 
 			StringBuilder msg = new StringBuilder("Calculando o histórico ")
-			.append(discentes.get(quantidadeProcessado).getMatricula())
+//			.append(discentes.get(ListaDiscentesCalcular.totalProcessados).getMatricula())
 			.append(" (")
-			.append(quantidadeProcessado + 1)
+			.append(reCalculoDiscente.getTotalProcessados())
 			.append(" de ")
-			.append(discentes.size())
+			.append(reCalculoDiscente.getTotalDiscentes())
 			.append("). Tempo estimado para conclusão: ")
 			.append(estimativaRestante);
 			return msg.toString();
@@ -406,8 +405,8 @@ public class ListaAssinaturasGraduandosMBean extends SigaaAbstractController<Cur
 	private String getEstimativaTempoRestante() {
 		Date agora = new Date();
 		long decorrido = agora.getTime() - inicioProcessamento.getTime();
-		long media = decorrido / quantidadeProcessado;
-		long previsao = discentes.size() * media + inicioProcessamento.getTime(); 
+		long media = decorrido / reCalculoDiscente.getTotalProcessados();
+		long previsao = reCalculoDiscente.getTotalDiscentes() * media + inicioProcessamento.getTime(); 
 		long restante = (previsao - agora.getTime()) / 1000;
 		int horas = (int) (restante / 60 / 60);
 		restante = (restante - horas * 60 * 60);

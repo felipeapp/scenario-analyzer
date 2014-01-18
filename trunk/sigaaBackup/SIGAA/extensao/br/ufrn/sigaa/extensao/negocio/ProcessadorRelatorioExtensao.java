@@ -226,7 +226,7 @@ public class ProcessadorRelatorioExtensao extends AbstractProcessador {
 			} else {
 				if ( relatorio.getAndamento() != null ) {
 					for (AndamentoAtividade andamento : relatorio.getAndamento()) {
-						if (andamento != null) {
+						if (andamento != null && ValidatorUtil.isNotEmpty(andamento.getAtividade())) {
 							dao.createOrUpdate(andamento);
 							if ( andamento.getAtividade().getObjetivo().getObservacaoExecucao() != null &&
 									!andamento.getAtividade().getObjetivo().getObservacaoExecucao().equals("")) {

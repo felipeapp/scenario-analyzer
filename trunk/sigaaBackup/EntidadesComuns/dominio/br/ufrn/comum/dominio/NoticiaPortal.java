@@ -701,8 +701,8 @@ public class NoticiaPortal implements Validatable {
 	public String getDescricaoFormatada() {
 		if(descricaoFormatada == null){
 			descricaoFormatada = StringUtils.stripHtmlTagsAndHtmlName(getDescricao());
-			if(descricaoFormatada.length() > 120){
-				descricaoFormatada = descricaoFormatada.substring(0, 110) + "...";
+			if(descricaoFormatada.length() > 115){
+				descricaoFormatada = descricaoFormatada.substring(0, 105) + "...";
 			}
 		}
 		return descricaoFormatada;

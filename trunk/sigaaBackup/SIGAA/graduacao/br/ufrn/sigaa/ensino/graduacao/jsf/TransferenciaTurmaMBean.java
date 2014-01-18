@@ -251,7 +251,22 @@ public class TransferenciaTurmaMBean extends SigaaAbstractController<Object> imp
 	 * @return
 	 */
 	public boolean isUnidadeRestrita() {
-		return isUserInRole(SigaaPapeis.GESTOR_TURMAS_UNIDADE);
+		return !isUserInRole(SigaaPapeis.DAE, SigaaPapeis.ADMINISTRADOR_DAE) && isUserInRole(SigaaPapeis.GESTOR_TURMAS_UNIDADE);
+	}
+	
+	/**
+	 * Indica se o usuário pode selecionar a unidade e componente curricular para efetuar a busca
+	 * <br />
+	 * Método chamado pela(s) JSP(s):
+	 * <ul>
+	 * 	<li>/sigaa.war/graduacao/transferencia_turma/turma_origem.jsp</li> 
+	 * </ul>
+	 * 
+	 * @return
+	 */
+	public boolean isDesabilitaSelecionarUnidade() {
+		return !isUserInRole(SigaaPapeis.DAE, SigaaPapeis.ADMINISTRADOR_DAE) && isUserInRole(SigaaPapeis.GESTOR_TURMAS_UNIDADE)
+				&& (getAcessoMenu().isChefeDepartamento() || getAcessoMenu().isSecretarioDepartamento());
 	}
 	
 	/**

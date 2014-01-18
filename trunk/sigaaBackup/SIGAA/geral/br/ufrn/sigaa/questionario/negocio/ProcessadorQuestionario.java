@@ -9,6 +9,9 @@ package br.ufrn.sigaa.questionario.negocio;
 
 import static br.ufrn.arq.util.ValidatorUtil.isEmpty;
 import static br.ufrn.arq.util.ValidatorUtil.validateEmptyCollection;
+
+import java.util.Collection;
+
 import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.dominio.Movimento;
 import br.ufrn.arq.erros.DAOException;
@@ -118,27 +121,37 @@ public class ProcessadorQuestionario extends AbstractProcessador {
 		
 		/* Verifica se o questionário está associado a um processo seletivo
 		 com inscrições abertas e que já possui inscritos */
-		if(questionario.getId()>0){
-			int qtdInscritos = getDAO(InscricaoSelecaoDao.class, mov).findQtdInscritosByQuestionario(questionario.getId());
-			if(qtdInscritos>0)
-				erros.addErro("Não é possível alterar/remover um questionário que " +
-					"esteja associado a um processo seletivo aberto com inscrições cadastradas.");
-			
-			QuestionarioDao iaDao = null;
-			try{
-				iaDao = getDAO(QuestionarioDao.class, mov);
+		QuestionarioDao iaDao = null;
+		try{
+			iaDao = getDAO(QuestionarioDao.class, mov);
+			if(questionario.getId()>0){
+				int qtdInscritos = getDAO(InscricaoSelecaoDao.class, mov).findQtdInscritosByQuestionario(questionario.getId());
+				if(qtdInscritos>0)
+					erros.addErro("Não é possível alterar/remover um questionário que " +
+							"esteja associado a um processo seletivo aberto com inscrições cadastradas.");
+				
 				int qtdInscritosAtividades = iaDao.findQtdInscritosByQuestionario(questionario.getId());
 				if(qtdInscritosAtividades>0)
 					erros.addErro("Não é possível alterar/remover um questionário que " +
 						"esteja associado a uma inscrição de atividade aberta e com inscrições cadastradas.");
-			}finally{
-				if(iaDao != null) iaDao.close();
 			}
-		}
-		
-		if ( (mov.getCodMovimento() == SigaaListaComando.REMOVER_QUESTIONARIO) && 
-			getDAO(QuestionarioDao.class, mov).questionarioJaRespondido(questionario.getId()) ) {
-			erros.addErro("Não é possível remover o questionário, pois já existe respostas cadastradas.");
+			if (!questionario.isRelatorioEstagio() && (mov.getCodMovimento() == SigaaListaComando.REMOVER_QUESTIONARIO) && 
+					iaDao.questionarioJaRespondido(questionario.getId()) ) {
+				erros.addErro("Não é possível remover o questionário, pois já existe respostas cadastradas.");
+			}
+			// valida questionário do mesmo tipo e título
+			String fields[] = {"titulo", "ativo"};
+			Object values[] = {questionario.getTitulo(), true};
+			Collection<Questionario> lista = iaDao.findByExactField(Questionario.class, fields, values);
+			if (!isEmpty(lista)) {
+				for (Questionario questionarioDB : lista)
+					if (questionarioDB.getId() != questionario.getId()
+							&& questionarioDB.getTitulo().equals(questionario.getTitulo())
+							&& questionarioDB.getTipo().getId() == questionario.getTipo().getId())
+						erros.addErro("Já existe outro questionário cadastrado com o mesmo título.");
+			}
+		}finally{
+			if(iaDao != null) iaDao.close();
 		}
 		
 		checkValidation(erros);

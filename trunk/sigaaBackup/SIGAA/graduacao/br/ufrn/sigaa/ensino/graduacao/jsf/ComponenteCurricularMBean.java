@@ -1729,11 +1729,17 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 			executeWithoutClosingSession(mov, getCurrentRequest());
 			idComponente = obj.getId();
 			
+
+			String responsavelConfirmacaoComponente = isPortalCoordenadorStricto() ? 
+					RepositorioDadosInstitucionais.get("siglaUnidadeGestoraPosGraduacao") : RepositorioDadosInstitucionais.get("siglaCDP");  
+					; 
+			
+			
 			if (comando.equals(SigaaListaComando.CADASTRAR_COMPONENTE_CURRICULAR)) {
 				if (isSolicitacaoCadastroComponente()) {
 					addMessage(
 							"O cadastro de Componente Curricular foi solicitado com sucesso!<br>"
-									+ "Aguarde a confirmação de cadastro da "+RepositorioDadosInstitucionais.get("siglaCDP")+".",
+							+ "Aguarde a confirmação de cadastro da "+ responsavelConfirmacaoComponente +".",
 							TipoMensagemUFRN.INFORMATION);
 					redirectJSF(JSP_POSCADASTRO);
 				} else {
@@ -1745,7 +1751,7 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 				if (isSolicitacaoCadastroComponente())
 					addMessage(
 							"A alteração dos dados de Componente Curricular foi solicitado com sucesso!<br>"
-									+ "Aguarde a confirmação de cadastro da "+RepositorioDadosInstitucionais.get("siglaCDP")+".",
+							+ "Aguarde a confirmação de cadastro da "+ responsavelConfirmacaoComponente +".",
 							TipoMensagemUFRN.INFORMATION);
 				else
 					addMessage("Componente Curricular alterado com sucesso!",
@@ -1758,11 +1764,12 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 				componentes.remove(cc);
 				componentes.add(obj);
 				
-				initObj();
-				modoOperador = false;
-				selecionaNivelEnsino = false;
-				removeOperacaoAtiva();
-				if ( super.isTecnico() || super.isFormacaoComplementar() )
+				if ( super.isPortalPpg() && obj.isAguardandoConfirmacao() ) {
+					AutorizacaoCadastroComponenteMBean mBean = getMBean("autorizacaoComponente");
+					return mBean.iniciar();
+				}
+				
+				if ( super.isTecnico() || super.isFormacaoComplementar() || super.isPortalPpg() )
 					returnBusca();
 				return getListPage();
 					
@@ -1781,6 +1788,11 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 			addMensagemErro(e.getMessage());
 			e.printStackTrace();
 			return null;
+		} finally {
+			initObj();
+			modoOperador = false;
+			selecionaNivelEnsino = false;
+			removeOperacaoAtiva();
 		}
 		
 		removeOperacaoAtiva();
@@ -2149,28 +2161,8 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 	 */
 	@Override
 	public String preCadastrar() throws ArqException, NegocioException {
-		verificarPermissaoCadastro();
-		initObj();
-		//Seta o nível de ensino.
-		getPopularNivel();
-		setOperacaoAtiva(SigaaListaComando.CADASTRAR_COMPONENTE_CURRICULAR.getId());
-		prepareMovimento(SigaaListaComando.CADASTRAR_COMPONENTE_CURRICULAR);
-		setReadOnly(false);
-		setConfirmButton("Cadastrar");
-//		  se o usuário for coordenador, o tipo de componente solicitado só pode
-//		  ser ATIVIDADE
 		Unidade unidade = new Unidade();
-		if (isUserInRole(SigaaPapeis.CHEFE_DEPARTAMENTO,
-				SigaaPapeis.SECRETARIA_DEPARTAMENTO)
-				&& (isPortalDocente() || isPortalGraduacao())) {
-			unidade = getUsuarioLogado().getVinculoAtivo().getUnidade();
-			unidade = getGenericDAO().refresh(unidade);
-			if (!(unidade.isUnidadeAcademica() || unidade.isUnidadeAcademicaEspecializada())) {
-				addMensagemErro("Não é permitido criar componentes curriculares para unidades que não são acadêmicas.");
-				return null;
-			}
-		}
-		
+		initObj();
 		if ((isUserInRole(SigaaPapeis.COORDENADOR_CURSO,
 				SigaaPapeis.SECRETARIA_COORDENACAO) && 
 				getSubSistema().equals( SigaaSubsistemas.PORTAL_COORDENADOR ))
@@ -2183,6 +2175,46 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 			TipoComponenteCurricular tipoComponente = getGenericDAO().findByPrimaryKey(TipoComponenteCurricular.ATIVIDADE, TipoComponenteCurricular.class);
 			obj.setTipoComponente(tipoComponente);
 			unidade = getGenericDAO().refresh(getCursoAtualCoordenacao()).getUnidadeCoordenacao();
+		}
+
+		return iniciarCadastro(unidade);
+	}
+
+	/**
+	 * Inicia a operação de cadastro de componente curriculares.<br/><br/>
+	 * 
+	 * Método chamado pelas seguintes JSPs:
+	 * <ul>
+	 * 
+	 * </ul>
+	 * @throws NegocioException 
+	 */
+	public String preCadastrarStricto() throws ArqException, NegocioException {
+		initObj();
+		obj.setTipoComponente(new TipoComponenteCurricular());
+		return iniciarCadastro(getProgramaStricto());
+	}
+	
+	private String iniciarCadastro(Unidade unidade) throws SegurancaException,
+			NegocioException, ArqException, DAOException {		
+		verificarPermissaoCadastro();
+		//Seta o nível de ensino.
+		getPopularNivel();
+		setOperacaoAtiva(SigaaListaComando.CADASTRAR_COMPONENTE_CURRICULAR.getId());
+		prepareMovimento(SigaaListaComando.CADASTRAR_COMPONENTE_CURRICULAR);
+		setReadOnly(false);
+		setConfirmButton("Cadastrar");
+//		  se o usuário for coordenador, o tipo de componente solicitado só pode
+//		  ser ATIVIDADE
+		if (isUserInRole(SigaaPapeis.CHEFE_DEPARTAMENTO,
+				SigaaPapeis.SECRETARIA_DEPARTAMENTO)
+				&& (isPortalDocente() || isPortalGraduacao())) {
+			unidade = getUsuarioLogado().getVinculoAtivo().getUnidade();
+			unidade = getGenericDAO().refresh(unidade);
+			if (!(unidade.isUnidadeAcademica() || unidade.isUnidadeAcademicaEspecializada())) {
+				addMensagemErro("Não é permitido criar componentes curriculares para unidades que não são acadêmicas.");
+				return null;
+			}
 		}
 		
 		if( (isUserInRole(SigaaPapeis.GESTOR_TECNICO) && getSubSistema().equals(SigaaSubsistemas.TECNICO))
@@ -3514,8 +3546,13 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 	 * <li>/sigaa.war/graduacao/componente/tipo_componente.jsp</li>
 	 * </ul>
 	 */
-	public String formBusca() {
-		return forward(JSP_LISTA);
+	public String formBusca() throws DAOException {
+		if ( super.isPortalPpg() && obj.isAguardandoConfirmacao() ) {
+			AutorizacaoCadastroComponenteMBean mBean = getMBean("autorizacaoComponente");
+			return mBean.iniciar();
+		} else {
+			return forward(JSP_LISTA);
+		}
 	}
 	
 	/** 
@@ -3990,7 +4027,8 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 	public boolean isSolicitacaoCadastroComponente() {
 		return ( isUserInRole(SigaaPapeis.CHEFE_DEPARTAMENTO) && isPortalDocente() )
 			|| ( isUserInRole(SigaaPapeis.SECRETARIA_DEPARTAMENTO) && isPortalGraduacao() )
-			|| ( isUserInRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO) && isPortalCoordenadorGraduacao() );
+			|| ( isPortalCoordenadorGraduacao() && isUserInRole(SigaaPapeis.COORDENADOR_CURSO, SigaaPapeis.SECRETARIA_COORDENACAO) )
+			|| ( isPortalCoordenadorStricto() && isUserInRole(SigaaPapeis.COORDENADOR_CURSO_STRICTO, SigaaPapeis.SECRETARIA_COORDENACAO) );
 	}
 	
 	/**
@@ -4124,6 +4162,11 @@ public class ComponenteCurricularMBean extends	SigaaAbstractController<Component
 	}
 	
 	
+	public boolean isPermiteAlterarNome() {
+		return ( obj.isGraduacao() && !isUserInRole(SigaaPapeis.ADMINISTRADOR_DAE) && isReadOnly() ) || 
+				 ( isPortalCoordenadorStricto() && !isUserInRole(SigaaPapeis.PPG) && !isCoordenadorOpcaoCadastrarComponenteCurricular()
+						 && !isSolicitacaoCadastroComponente() );
+	}	
 	
 	/**
 	 * Método responsável por validar a alteração da forma de participação do componente, 

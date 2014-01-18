@@ -48,9 +48,8 @@
 
 	<ufrn:checkRole
 		papeis="<%=new int[] { SigaaPapeis.PEDAGOGICO_TECNICO }%>">
-		<div id="consultas" class="aba">
-			<%@include file="/WEB-INF/jsp/ensino/tecnico/menu/consultas.jsp"%>
-		</div>
+		<div id="pedagogico" class="aba"><%@include file="/WEB-INF/jsp/ensino/tecnico/menu/pedagogico.jsp"%></div>
+		<div id="relatorios" class="aba"><%@include file="/WEB-INF/jsp/ensino/tecnico/menu/relatorios.jsp"%></div>
 	</ufrn:checkRole>
 
 	<ufrn:checkRole	papeis="<%= new int[] { SigaaPapeis.GESTOR_IMPORTACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CONVOCACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CADASTRAMENTO_PROCESSO_SELETIVO_TECNICO } %>">
@@ -97,8 +96,9 @@ var Abas = function() {
 		    </ufrn:checkRole>
 		    
 		    <ufrn:checkRole	papeis="<%= new int[] { SigaaPapeis.PEDAGOGICO_TECNICO } %>">
-				abas.addTab('consultas', "Consultas");
-				abas.activate('consultas');
+			    abas.addTab('pedagogico', "Acompanhamento Pedagógico")
+				abas.addTab('relatorios', "Relatórios")
+				abas.activate('pedagogico');
 		    </ufrn:checkRole>
 			
 			<ufrn:checkRole	papeis="<%= new int[] { SigaaPapeis.GESTOR_IMPORTACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CONVOCACAO_PROCESSO_SELETIVO_TECNICO, SigaaPapeis.GESTOR_CADASTRAMENTO_PROCESSO_SELETIVO_TECNICO } %>">

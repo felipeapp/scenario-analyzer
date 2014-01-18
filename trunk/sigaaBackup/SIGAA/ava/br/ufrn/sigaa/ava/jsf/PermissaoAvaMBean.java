@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.arq.dao.GenericDAO;
 import br.ufrn.arq.erros.ArqException;
 import br.ufrn.arq.erros.DAOException;
 import br.ufrn.sigaa.arq.negocio.SigaaListaComando;
@@ -150,8 +151,11 @@ public class PermissaoAvaMBean extends CadastroTurmaVirtual<PermissaoAva> implem
 	public String cadastrar() throws ArqException {
 		
 		TurmaVirtualMBean tBean = getMBean("turmaVirtual");	
+		object.setPessoa(getGenericDAO().findByPrimaryKey(object.getPessoa().getId(), Pessoa.class));
+		
 		if (tBean.isDocente())
 				return super.cadastrar();
+		
 		return null;
 		
 	}
@@ -163,7 +167,6 @@ public class PermissaoAvaMBean extends CadastroTurmaVirtual<PermissaoAva> implem
 	 */
 	@Override
 	public String remover() {
-		
 		TurmaVirtualMBean tBean = getMBean("turmaVirtual");	
 		if (tBean.isDocente())
 				return super.remover();
@@ -193,30 +196,42 @@ public class PermissaoAvaMBean extends CadastroTurmaVirtual<PermissaoAva> implem
 	@Override
 	public String atualizar() {
 		
-		TurmaVirtualMBean tBean = getMBean("turmaVirtual");
-		if (tBean.isDocente() ) {
+		GenericDAO dao = null;
+		
+		try {
 			
-			registrarAcao(AcaoAva.INICIAR_ALTERACAO);
+			TurmaVirtualMBean tBean = getMBean("turmaVirtual");
+			dao = getGenericDAO();
 			
-			object.setTurma(turma());
-			antesPersistir();
-			
-			Specification specification = getEspecificacaoAtualizacao();
-			if (specification == null || specification instanceof NullSpecification ) 
-				specification = getEspecificacaoCadastro();
-			
-			Notification notification = execute(SigaaListaComando.ATUALIZAR_AVA, object, specification);
-			
-			if (notification.hasMessages()) {
-				prepare(SigaaListaComando.ATUALIZAR_AVA);
-				return notifyView(notification);
+			if (tBean.isDocente() ) {
+				
+				object.setPessoa(dao.findByPrimaryKey(object.getPessoa().getId(), Pessoa.class));
+				object.setTurma(turma());
+				antesPersistir();
+				
+				Specification specification = getEspecificacaoAtualizacao();
+				if (specification == null || specification instanceof NullSpecification ) 
+					specification = getEspecificacaoCadastro();
+				
+				registrarAcao(AcaoAva.INICIAR_ALTERACAO);
+				Notification notification = execute(SigaaListaComando.ATUALIZAR_AVA, object, specification);
+				
+				if (notification.hasMessages()) {
+					prepare(SigaaListaComando.ATUALIZAR_AVA);
+					return notifyView(notification);
+				}
+		
+				registrarAcao(AcaoAva.ALTERAR);
+				listagem = null;
+				flash(" Permissão atualizada com sucesso.");
+				aposPersistir();
+				return forward("/ava/PermissaoAva/listar.jsp");
 			}
-	
-			registrarAcao(AcaoAva.ALTERAR);
-			listagem = null;
-			flash(" Permissão atualizada com sucesso.");
-			aposPersistir();
-			return forward("/ava/PermissaoAva/listar.jsp");
+		} catch (DAOException e) {
+			tratamentoErroPadrao(e);
+		} finally {
+			if (dao != null)
+				dao.close();
 		}
 		return null;
 	}

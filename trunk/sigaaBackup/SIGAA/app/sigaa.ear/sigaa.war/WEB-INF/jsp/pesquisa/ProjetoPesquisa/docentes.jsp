@@ -57,11 +57,8 @@
 								<c:set var="idAjax" value="membroProjeto.discente.id"/>
 								<c:set var="nomeAjax" value="membroProjeto.discente.pessoa.nome"/>
 								<c:set var="opcoesNivel" value="true"/>
-								<c:set var="hideResidente" value="true"/>
+								<c:set var="showResidente" value="true"/>
 								<c:set var="ignorarUnidade" value="sim"/>
-								<c:if test="${projetoPesquisaForm.obj.interno}">
-									<c:set var="hideGraduacao" value="true"/>
-								</c:if>
 
 								<%@include file="/WEB-INF/jsp/include/ajax/discente.jsp" %>
 							</td>
@@ -338,7 +335,9 @@ window.onload = function() {
 };
 
 function discenteOnFocus() {
-	if( !$('buscaAjaxGraduacao').checked && !$('buscaAjaxMestrado').checked && !$('buscaAjaxDoutorado').checked )
+	if( $('buscaAjaxResidente').checked )
+		marcaCheckBox('buscaAjaxResidente');
+	else if( !$('buscaAjaxGraduacao').checked && !$('buscaAjaxMestrado').checked && !$('buscaAjaxDoutorado').checked )
 		marcaCheckBox('buscaAjaxMestrado');
 }
 

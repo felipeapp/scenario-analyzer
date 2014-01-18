@@ -44,6 +44,7 @@ import br.ufrn.sigaa.extensao.dominio.AvaliadorAtividadeExtensao;
 import br.ufrn.sigaa.extensao.dominio.CursoEventoExtensao;
 import br.ufrn.sigaa.extensao.dominio.DiscenteExtensao;
 import br.ufrn.sigaa.extensao.dominio.EditalExtensao;
+import br.ufrn.sigaa.extensao.dominio.EditalExtensaoLinhaAtuacao;
 import br.ufrn.sigaa.extensao.dominio.OrcamentoConsolidado;
 import br.ufrn.sigaa.extensao.dominio.StatusInscricaoParticipante;
 import br.ufrn.sigaa.extensao.dominio.SubAtividadeExtensao;
@@ -1391,15 +1392,8 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 			// A busca pode ser feita por mais de uma SituacaoAtividade ao mesmo
 			// tempo, exemplo: 103, 105, 110
 			if (idSituacaoAtividade.length > 0) {
-				// Colocando os IDSituacao entre vírgula para usar na cláusula
-				// SQL IN()
-				String situacoes = "";
-				for (Integer idSituacao : idSituacaoAtividade)
-					situacoes += idSituacao + ",";
-				// Retirando a última vírgula
-				situacoes = situacoes.substring(0, situacoes.length() - 1);
-				hqlFiltros.append(" AND atv.situacaoProjeto.id IN ("
-						+ situacoes + ") ");
+				hqlFiltros.append(" AND atv.situacaoProjeto.id IN "+ gerarStringIn(idSituacaoAtividade));
+				hqlFiltros.append(" AND p.ativo = trueValue() AND atv.ativo = trueValue()");
 			}
 			// ---//
 
@@ -1815,7 +1809,8 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 							+ " atv.situacaoProjeto.id, atv.situacaoProjeto.descricao, "
 							+ " atv.tipoAtividadeExtensao.id, atv.tipoAtividadeExtensao.descricao, "
 							+ " atv.areaTematicaPrincipal.id, atv.areaTematicaPrincipal.descricao, "
-							+ " ava.id, ava.tipoAvaliacao.id, ava.statusAvaliacao.id, ava.ativo, avld.id, s1.id, ps1.id, mc.id, s2.id, ps2.id "
+							+ " atv.linhaAtuacao.expressaoMembrosComissao, ava.id, ava.tipoAvaliacao.id, ava.statusAvaliacao.id, "
+							+ " ava.ativo, avld.id, s1.id, ps1.id, mc.id, s2.id, ps2.id "
 							+ "FROM AtividadeExtensao atv " 
 							+ " LEFT JOIN atv.avaliacoes as ava "
 							+ " LEFT JOIN ava.avaliadorAtividadeExtensao as avld "
@@ -1970,13 +1965,18 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 					area.setDescricao((String) colunas[col++]);
 					at.setAreaTematicaPrincipal(area);
 
+					
+					EditalExtensaoLinhaAtuacao linhaAtuacao = new EditalExtensaoLinhaAtuacao();
+					linhaAtuacao.setExpressaoMembrosComissao((String) colunas[col++]);
+					at.setLinhaAtuacao(linhaAtuacao);
+					
 					result.add(at);
 
 				}
 
 				// avaliação não repete nas linhas retornadas, várias avaliações
 				// para a mesma ação
-				col = 25;
+				col = 26;
 				if (colunas[col] != null) {
 					AvaliacaoAtividade ava = new AvaliacaoAtividade();
 					ava.setId((Integer) colunas[col++]);
@@ -1988,14 +1988,14 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 					ava.setStatusAvaliacao(st);
 					ava.setAtivo((Boolean) colunas[col++]);
 
-					col = 29;
+					col = 30;
 					if (colunas[col] != null){
 						ava.setAvaliadorAtividadeExtensao(new AvaliadorAtividadeExtensao((Integer) colunas[col++]));
 						ava.getAvaliadorAtividadeExtensao().setServidor(new Servidor((Integer) colunas[col++]));
 						ava.getAvaliadorAtividadeExtensao().getServidor().setPessoa(new Pessoa((Integer) colunas[col++]));
 					}
 					
-					col = 32;
+					col = 33;
 					if (colunas[col] != null){
 						ava.setMembroComissao(new MembroComissao((Integer) colunas[col++]));
 						ava.getMembroComissao().setServidor(new Servidor((Integer) colunas[col++]));
@@ -3859,8 +3859,8 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 	 * @throws DAOException
 	 */
 	public Collection<AtividadeExtensao> findAguardandoAvaliacaoFinal(String titulo, Integer ano, Integer idEdital, Boolean financiamentoInterno,
-		Boolean financiamentoExterno, Boolean autoFinanciamento, Boolean convenioFunpec, Integer idArea) throws DAOException {
-
+		Boolean financiamentoExterno, Boolean autoFinanciamento, Boolean convenioFunpec, Integer idArea, Boolean AguardandoAvaliacaoFinal) throws DAOException {
+			
 	    try {
 
 		StringBuilder hqlConsulta = new StringBuilder();
@@ -3873,11 +3873,11 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 			+ " ava.id, ava.tipoAvaliacao.id, ava.statusAvaliacao.id, ava.ativo "
 			+ " FROM AtividadeExtensao atv " 
 			+ "  LEFT JOIN atv.editalExtensao as edital "
-			+ "  JOIN atv.avaliacoes as ava "
-			+ "  JOIN atv.projeto p ");
+			+ "  LEFT JOIN atv.avaliacoes as ava "
+			+ "       JOIN atv.projeto p ");
 
-		hqlConsulta.append(" WHERE atv.ativo = trueValue() AND (atv.situacaoProjeto.id = :idSituacaoAguardandoAvaliacao)");
-		hqlConsulta.append(" AND (ava.statusAvaliacao.id = :idAvaliacaoRealizada)");
+		hqlConsulta.append(" WHERE atv.ativo = trueValue()");
+		
 
 		if (titulo != null) {
 		    hqlConsulta.append(" AND "
@@ -3886,8 +3886,9 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 		}
 
 		if ((ano != null) && (ano != 0)) {
+	   		 
 		    hqlConsulta.append(" AND p.ano = :ano");
-		}
+	}
 
 
 		if ((idEdital != null) && (idEdital != 0)) {
@@ -3913,16 +3914,33 @@ public class AtividadeExtensaoDao extends GenericSigaaDAO {
 		if (convenioFunpec != null) {
 		    hqlConsulta.append(" AND atv.convenioFunpec = :convenioFunpec");
 		}
-
+		
+		
+		
+       if((AguardandoAvaliacaoFinal!= null) && ( AguardandoAvaliacaoFinal == true)){
+			
+			hqlConsulta
+					.append(" AND atv.situacaoProjeto.id = :idSituacaoAguardandoAvaliacao");
+	 
+	    }
+       
 		hqlConsulta.append(" ORDER BY p.ano DESC, p.titulo ");
 
 		// Criando consulta
 		Query queryConsulta = getSession().createQuery(hqlConsulta.toString());
 
-		// Populando os valores dos filtros			
-		queryConsulta.setInteger("idAvaliacaoRealizada", StatusAvaliacao.AVALIADO);
-		queryConsulta.setInteger("idSituacaoAguardandoAvaliacao", TipoSituacaoProjeto.EXTENSAO_AGUARDANDO_AVALIACAO);
-
+		// Populando os valores dos filtro	aguardando avaliação
+		
+		if(AguardandoAvaliacaoFinal!= null && AguardandoAvaliacaoFinal == true){
+			
+			queryConsulta.setInteger("idSituacaoAguardandoAvaliacao", TipoSituacaoProjeto.EXTENSAO_AGUARDANDO_AVALIACAO);
+			
+		
+		}
+		
+		
+		
+		
 
 		if (titulo != null) {
 		    queryConsulta.setString("titulo", "%" + titulo.toUpperCase() + "%");

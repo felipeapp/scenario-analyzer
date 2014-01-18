@@ -136,5 +136,12 @@ public interface SQLFunctions {
 	 * @return
 	 */
 	public String regexpSplitToTable(String campo, String delimitador);
+
+	/**
+	 * Realiza pesquisa textual.
+	 * @param nomeColuna
+	 * @return
+	 */
+	public String gerarMecanismoPesquisaTextual(String nomeColuna);
 	
 }

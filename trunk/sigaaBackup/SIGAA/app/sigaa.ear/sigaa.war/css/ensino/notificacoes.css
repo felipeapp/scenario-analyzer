@@ -43,8 +43,9 @@ div.intro div.left { float: left; }
 div.intro div.right { margin-left: 185px; float: right; }
 div.intro div.below { float:left; clear: left; }
 
-
 div.botao,
+div.botao_cadastro,
+div.botao_dados,
 div.botao_depois {
 	position: relative;
 	margin: 0 auto 20px 15px;
@@ -59,6 +60,18 @@ div.botao a {
 	background: transparent url('/shared/img/questionario/ok-btn.jpg') no-repeat left top;
 }
 
+div.botao_cadastro a {
+	position: relative;
+	display: block;
+	background: transparent url('/shared/img/menu/monitoria/administracao.gif') no-repeat left top;
+}
+
+div.botao_dados a {
+	position: relative;
+	display: block;
+	background: transparent url('/shared/img/icones/menu_sipac/autorizacao.gif') no-repeat left top;
+}
+
 div.botao_depois a {
 	position: relative;
 	display: block;
@@ -71,6 +84,8 @@ div.botao_depois a:hover {
 }
 
 div.botao a span,
+div.botao_cadastro a span,
+div.botao_dados a span,
 div.botao_depois a span {
 	position: relative;
 	display: block;

@@ -10,18 +10,18 @@
 			<tr>
 				<td width="3%"><h:selectBooleanCheckbox value="#{moduloMBean.filtroCodigo}" id="checkCodigo" styleClass="noborder"/> </td>
 				<td width="20%"><label for="checkCodigo" onclick="$('form:checkCodigo').checked = !$('form:checkCodigo').checked;">Código:</label></td>
-				<td><h:inputText size="10" value="#{moduloMBean.obj.codigo}" onfocus="$('form:checkCodigo').checked = true;" onkeyup="CAPS(this)"/></td>
+				<td><h:inputText size="10" value="#{moduloMBean.codigo}" onfocus="$('form:checkCodigo').checked = true;" onkeyup="CAPS(this)"/></td>
 			</tr>
 			<tr>
 				<td width="3%"><h:selectBooleanCheckbox value="#{moduloMBean.filtroNome}" id="checkNome" styleClass="noborder"/> </td>
 				<td width="20%"><label for="checkNome" onclick="$('form:checkNome').checked = !$('form:checkNome').checked;">Nome:</label></td>
-				<td><h:inputText size="40" value="#{moduloMBean.obj.descricao}" onfocus="$('form:checkNome').checked = true;" onkeyup="CAPS(this)"/></td>
+				<td><h:inputText size="40" value="#{moduloMBean.descricao}" onfocus="$('form:checkNome').checked = true;" onkeyup="CAPS(this)"/></td>
 			</tr>
 			<tr>
 				<td width="3%"><h:selectBooleanCheckbox value="#{moduloMBean.filtroCurso}" id="checkCurso" styleClass="noborder"/> </td>
 				<td width="20%"><label for="checkCurso" onclick="$('form:checkCurso').checked = !$('form:checkCurso').checked;">Curso:</label></td>
 				<td>
-					<h:selectOneMenu value="#{moduloMBean.modulodisciplina.disciplina.id}" onchange="$('form:checkCurso').checked = true;">
+					<h:selectOneMenu value="#{moduloMBean.idCurso}" onchange="$('form:checkCurso').checked = true;">
 						<f:selectItem itemValue="0" itemLabel=" --- SELECIONE --- " />
 						<f:selectItems value="#{curso.allCursoNivelAtualCombo}"/>
 					</h:selectOneMenu>
@@ -78,7 +78,7 @@
 						</h:commandLink>
 					</td>
 					<td width="2%" align="right">
-						<h:commandLink action="#{moduloMBean.remover}" >
+						<h:commandLink action="#{moduloMBean.remover}" onclick="if (!confirm(\"Tem certeza que deseja remover este módulo?\")) return false;">
 							<h:graphicImage value="/img/delete.gif" style="overflow: visible;" title="Remover Módulo" />
 							<f:param name="id" value="#{linha.id}"/>
 						</h:commandLink>

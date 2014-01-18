@@ -155,9 +155,10 @@ public class ProcessadorAtividadeExtensao extends AbstractProcessador {
      */
     private void executarAtividadeExtensao(CadastroExtensaoMov mov) throws NegocioException, ArqException, RemoteException {
 	AtividadeExtensaoDao dao = getDAO(AtividadeExtensaoDao.class, mov);
+	MembroProjetoDao memDao = getDAO(MembroProjetoDao.class, mov);
 	try{
 	    AtividadeExtensao atividade = dao.findByPrimaryKey(mov.getAtividade().getId(), AtividadeExtensao.class);
-	    atividade.setMembrosEquipe(dao.findByExactField(MembroProjeto.class, "projeto.id", atividade.getProjeto().getId()));
+	    atividade.setMembrosEquipe(memDao.findMembroProjetoAtivoByProjetoPesquisa(atividade.getProjeto().getId(), false));
 	    atividade.setSituacaoProjeto(new TipoSituacaoProjeto(TipoSituacaoProjeto.PROJETO_BASE_COORDENACAO_ACEITOU_EXECUCAO));
 	    dao.initialize(atividade.getSituacaoProjeto());
 	    atividade.getProjeto().setSituacaoProjeto(atividade.getSituacaoProjeto());
@@ -188,6 +189,7 @@ public class ProcessadorAtividadeExtensao extends AbstractProcessador {
 	    ProjetoHelper.gravarHistoricoSituacaoProjeto(atividade.getSituacaoProjeto().getId(), atividade.getProjeto().getId(), mov.getUsuarioLogado().getRegistroEntrada());
 	}finally{
 	    dao.close();
+	    memDao.close();
 	}
     }
 
@@ -440,11 +442,11 @@ public class ProcessadorAtividadeExtensao extends AbstractProcessador {
      * @throws NegocioException 
      */
     private void remover(CadastroExtensaoMov mov) throws DAOException, NegocioException {
-	GenericDAO dao = getGenericDAO(mov);		
+    	MembroProjetoDao dao = getDAO(MembroProjetoDao.class,mov);		
 	try {
 	    // Definir a situação da atividade para REMOVIDO
 	    AtividadeExtensao atividade = dao.findByPrimaryKey(mov.getAtividade().getId(), AtividadeExtensao.class);
-	    atividade.setMembrosEquipe(dao.findByExactField(MembroProjeto.class, "projeto.id", atividade.getProjeto().getId()));
+	    atividade.setMembrosEquipe(dao.findMembroProjetoAtivoByProjetoPesquisa(atividade.getProjeto().getId(), false));
 	    atividade.setPlanosTrabalho(dao.findByExactField(PlanoTrabalhoExtensao.class, "atividade.id", atividade.getId()));
 	    atividade.setAutorizacoesDepartamentos(dao.findByExactField(AutorizacaoDepartamento.class, "atividade.id", atividade.getId()));
 	    atividade.setInscricoesSelecao(dao.findByExactField(InscricaoSelecaoExtensao.class, "atividade.id", atividade.getId()));

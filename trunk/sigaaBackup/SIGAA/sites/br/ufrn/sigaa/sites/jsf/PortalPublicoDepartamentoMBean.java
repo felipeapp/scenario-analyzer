@@ -274,7 +274,7 @@ public class PortalPublicoDepartamentoMBean extends AbstractControllerPortalPubl
 		if(!isEmpty(getUnidade()) && isEmpty(extensoes))
 			extensoes = getDAO(AtividadeExtensaoDao.class).filter(null, null, null, null, null, null, null, null,
 					null, idSituacaoAtividade, getUnidade().getId(), null, null, null, null, null, null, null, null, null, null, null, null,
-					false, null, null, null,null, null, isExtensao());
+					false, null, null, null,null, null, false);
 		
 		return extensoes;
 	}

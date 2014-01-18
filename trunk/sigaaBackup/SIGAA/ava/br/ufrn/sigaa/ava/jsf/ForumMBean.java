@@ -17,6 +17,7 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.academico.dominio.NivelEnsino;
 import br.ufrn.arq.dominio.Comando;
 import br.ufrn.arq.dominio.PersistDB;
 import br.ufrn.arq.erros.ArqException;
@@ -37,6 +38,8 @@ import br.ufrn.sigaa.ava.validacao.TurmaVirtualException;
 import br.ufrn.sigaa.dominio.Curso;
 import br.ufrn.sigaa.dominio.Unidade;
 import br.ufrn.sigaa.dominio.Usuario;
+import br.ufrn.sigaa.ensino_rede.dominio.ProgramaRede;
+import br.ufrn.sigaa.ensino_rede.portal.jsf.PortalCoordenadorRedeMBean;
 
 /**
  * Managed-Bean para gerenciamento de Fóruns de Turma Virtual(AVA) e também Fóruns de Curso.
@@ -51,6 +54,11 @@ public class ForumMBean extends CadastroTurmaVirtual<Forum> {
 	private boolean eUmForumDeCurso;
 	/** Lista dos fóruns de um curso. */
 	private List<Forum> listaForunsPorCurso = new ArrayList<Forum>();
+	
+	/** Verifica se o fórum é de um curso. */
+	private boolean eUmForumDePrograma;
+	/** Lista dos fóruns de um curso. */
+	private List<Forum> listaForunsPorPrograma = new ArrayList<Forum>();
 	
 	/**
 	* Redireciona o usuário para a página de acordo com seu papel.
@@ -156,7 +164,7 @@ public class ForumMBean extends CadastroTurmaVirtual<Forum> {
 			
 			object.setNivel(curso.getNivel());
 			object.setIdCursoCoordenador(curso.getId());
-			cadastrarForumCursos(SigaaListaComando.CADASTRAR_AVA, object, getEspecificacaoCadastro());
+			cadastrarForum(SigaaListaComando.CADASTRAR_AVA, object, getEspecificacaoCadastro());
 		}
 	}
 
@@ -179,7 +187,7 @@ public class ForumMBean extends CadastroTurmaVirtual<Forum> {
 	 * @param specification
 	 * @return
 	 */
-	private Notification cadastrarForumCursos(Comando comando, PersistDB object, Specification specification) {
+	private Notification cadastrarForum(Comando comando, PersistDB object, Specification specification) {
 		try {
 
 			MovimentoCadastroAva mov = new MovimentoCadastroAva();
@@ -353,6 +361,103 @@ public class ForumMBean extends CadastroTurmaVirtual<Forum> {
 		getGenericDAO().detach(object);
 	}
 	
+	// MÉTODOS PARA O FÓRUM DO PROGRAMA
+	
+	/**
+	 * Lista os fóruns de um programa.<br/><br/>
+	 * 
+	 * Método chamado pelas seguintes JSPs:
+	 * <ul>
+	 * 		<li>sigaa.war/ensino_rede/portal/portal.jsp</li>
+	 * </ul>
+	 * @return
+	 * @throws DAOException
+	 */
+	public String listarForunsPrograma() throws DAOException {
+		seteUmForumDePrograma(true);
+
+		ProgramaRede programa = null;
+		
+		Integer idPrograma = getParameterInt("id_programa");
+		
+		if (idPrograma == null) {
+		
+			PortalCoordenadorRedeMBean mBean = getMBean("portalCoordenadorRedeBean");
+			programa = mBean.getProgramaRede();
+			
+		} 
+		
+		if (programa == null) { 
+			addMensagemWarning("Desculpe. Mas o senhor(a) não pode acessar o Fórum do Programa.");
+			return null;
+		}
+
+		listaForunsPorPrograma = getDAO(ForumDao.class).findForunsDeProgramaByIDPrograma( programa.getId() );
+		ForumMensagemMBean fm = (ForumMensagemMBean)getMBean("forumMensagem");
+		fm.setFiltro(null);
+		if (listaForunsPorPrograma.size() == 0) {
+			criarForumPrograma(programa);
+		}
+		return fm.listarForunsPorPrograma(); 
+	}
+	
+	/**
+	 * Caso o fórum não exista, ele é criado na primeira vez que algum usuário do programa
+	 * tente postar alguma mensagem.
+	 * 
+	 * @param idCurso
+	 * @throws DAOException
+	 */
+	private void criarForumPrograma( ProgramaRede programa) throws DAOException {
+		
+ 		object = new Forum();
+		object.setPrograma(true);
+		
+		Usuario u = (Usuario) getCurrentSession().getAttribute("usuario");
+		object.setUsuario(u);
+		object.setProgramaRede(programa);
+		object.setDescricao("FÓRUM DO PROGRAMA " + programa.getDescricao());
+		object.setTitulo("FÓRUM DO PROGRAMA " + programa.getDescricao());
+		object.setAtivo(true);
+		object.setTipo(Short.parseShort("1"));
+		object.setTopicos(false);
+		object.setNivel(NivelEnsino.STRICTO);
+		
+		prepare(SigaaListaComando.CADASTRAR_AVA);
+		cadastrarForum(SigaaListaComando.CADASTRAR_AVA, object, getEspecificacaoCadastro());
+
+	}
+	
+	/**
+	* Redireciona o usuário para a página de acordo com seu papel.
+	* <br />
+	* Método chamado pela(s) seguinte(s) JSP(s):
+	* <ul>
+	 * 		<li>/sigaa.war/ensino_rede/forum_mensagem_rede/listar.jsp</li>
+	* </ul>
+	*
+	* @throws SegurancaException
+	* @throws DAOException
+	*/	
+	public String cancelarForumPrograma() {
+		
+		String url = null;
+		
+		getPaginacao().setPaginaAtual(0);
+		
+		// Se não for nenhum tipo de coordenador ou secretário, então é discente.
+		if (isUserInRole(SigaaPapeis.COORDENADOR_GERAL_REDE)) 
+			url = "/ensino_rede/modulo/menu.jsp";
+		else 
+			url = "/ensino_rede/portal/portal.jsp";
+		
+		return forward(url);
+		
+	}
+	
+	/** Indica que se o usuário é um discente ativo 
+	 * @return
+	 */
 	public boolean isUsuarioAtivo(){
 	if(getUsuarioLogado().getDiscenteAtivo() != null)
 		return getUsuarioLogado().getDiscenteAtivo().isAtivo();
@@ -366,5 +471,27 @@ public class ForumMBean extends CadastroTurmaVirtual<Forum> {
 
 	public void setListaForunsPorCurso(List<Forum> listaForunsPorCurso) {
 		this.listaForunsPorCurso = listaForunsPorCurso;
+	}
+
+	public void setListaForunsPorPrograma(List<Forum> listaForunsPorPrograma) {
+		this.listaForunsPorPrograma = listaForunsPorPrograma;
+	}
+
+	public List<Forum> getListaForunsPorPrograma() {
+		return listaForunsPorPrograma;
+	}
+
+	/** Seta se o fórum é de um curso. 
+	 * @param eUmForumDePrograma
+	 */
+	public void seteUmForumDePrograma(boolean eUmForumDePrograma) {
+		this.eUmForumDePrograma = eUmForumDePrograma;
+	}
+
+	/** Indica se o fórum é de um curso.
+	 * @return
+	 */
+	public boolean iseUmForumDePrograma() {
+		return eUmForumDePrograma;
 	}
 }
