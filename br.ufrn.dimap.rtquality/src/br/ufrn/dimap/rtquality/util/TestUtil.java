@@ -27,13 +27,8 @@ public class TestUtil {
 			FileUtil.saveTextToFile(resultName, saveFileDirectory, "testCoverageMappingName", "txt");
 			FileUtil.saveTextToFile(resultFolder, saveFileDirectory, "resultFolder", "txt");
 			FileUtil.saveTextToFile(projectName, saveFileDirectory, "projectName", "txt");
-			FileUtil.saveTextToFile("0",saveFileDirectory, "lastTest", "txt");
-			String testClassesArray[] = testClasses.toArray(new String[0]);
-			for(int i=0;i<testClasses.size();i++) {
+			for(String testClassName : testClasses) {
 				try {
-					if(i == testClasses.size()-1)
-						FileUtil.saveTextToFile("1",saveFileDirectory, "lastTest", "txt");
-					String testClassName = testClassesArray[i]; 
 					Class<?> testClass = classLoader.loadClass(testClassName);
 					Runner r = new BlockJUnit4ClassRunner(testClass);
 					JUnitCore c = new JUnitCore();

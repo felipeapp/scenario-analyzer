@@ -11,18 +11,15 @@ public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String type;
+	private TaskType type;
 	private List<Revision> revisions;
 	private Revision oldRevision;
 	private Revision currentRevision;
 	private Set<String> modifiedMethods;
+	private Float inclusion;
+	private Float precision;
 	
-	public static final String VERIFICACAO = "VERIFICACAO";
-	public static final String ERRO = "ERRO";
-	public static final String APRIMORAMENTO = "APRIMORAMENTO";
-	public static final String ERRONEGOCIOVALIDACAO = "ERRONEGOCIOVALIDACAO";
-	
-	public Task(Integer id, String type, List<Revision> revisions) {
+	public Task(Integer id, TaskType type, List<Revision> revisions) {
 		this.id = id;
 		this.type = type;
 		this.revisions = revisions;
@@ -55,11 +52,11 @@ public class Task implements Serializable {
 		this.revisions = revisions;
 	}
 
-	public String getType() {
+	public TaskType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(TaskType type) {
 		this.type = type;
 	}
 
@@ -85,6 +82,22 @@ public class Task implements Serializable {
 
 	public void setModifiedMethods(Set<String> modifiedMethods) {
 		this.modifiedMethods = modifiedMethods;
+	}
+
+	public Float getInclusion() {
+		return inclusion;
+	}
+
+	public void setInclusion(Float inclusion) {
+		this.inclusion = inclusion;
+	}
+
+	public Float getPrecision() {
+		return precision;
+	}
+
+	public void setPrecision(Float precision) {
+		this.precision = precision;
 	}
 
 	@Override
