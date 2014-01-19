@@ -121,7 +121,6 @@ public aspect TestTracker {
 		Member member = getMember(signature);
 		loadTestCoverageMappingInstanceFromFile(member);
 		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-		TestCoverageMapping tcm = TestCoverageMapping.getInstance();
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
 			if(isTestClassMember(member) || isManagedBeanMember(member)){
@@ -183,7 +182,7 @@ public aspect TestTracker {
 		TestCoverageMapping.getInstance().setName(testCoverageMappingName);
 		TestCoverageMapping.getInstance().save(); //TODO: Ap√≥s executar todos os testes e os depois os testes selecionados verificar se ambos n√£o ser√£o acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma fun√ß√£o clear para o TestCoverageMapping.
 		String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-		FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
+		FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 	}
 	
 //	// Intercepta lanÁamentos de exceÁıes
