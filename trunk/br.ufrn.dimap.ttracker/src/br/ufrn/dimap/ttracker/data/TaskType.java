@@ -1,6 +1,8 @@
 package br.ufrn.dimap.ttracker.data;
 
-public enum TaskType {
+import java.io.Serializable;
+
+public enum TaskType implements Serializable {
 	VERIFICACAO("VERIFICACAO"),ERRO("ERRO"),APRIMORAMENTO("APRIMORAMENTO"),ERRONEGOCIOVALIDACAO("ERRONEGOCIOVALIDACAO");
 	
 	private String name;
