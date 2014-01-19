@@ -63,16 +63,24 @@ public class FileUtil {
 	
 	public static String loadTextFromFile(File file){
 		String content = null;
+		FileReader reader = null;
 		try {
-			FileReader reader = new FileReader(file);
+			reader = new FileReader(file);
 			char[] chars = new char[(int) file.length()];
 			reader.read(chars);
 			content = new String(chars);
-			reader.close();
+			return content;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if(reader != null)
+					reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		return content;
 	}
 
 	public static String getProjectFolderByResource(Class<?> aClass) {
