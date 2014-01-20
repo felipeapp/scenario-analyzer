@@ -11,7 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Member;
 import java.net.URL;
+
+import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 
 public class FileUtil {
 	
@@ -143,6 +146,25 @@ public class FileUtil {
 			return br.readLine();
 		} catch (IOException e) {
 			return "AllTests";
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	public static Integer getTestCoverageMappingRevisionByResource(Class<?> aClass) {
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(getBuildFolderByResource(aClass)+"/revision.txt"));
+			return Integer.valueOf(br.readLine());
+		} catch (IOException e) {
+			return 0;
+		} catch(NumberFormatException nfe) {
+			return 0;
 		} finally {
 			try {
 				if (br != null)

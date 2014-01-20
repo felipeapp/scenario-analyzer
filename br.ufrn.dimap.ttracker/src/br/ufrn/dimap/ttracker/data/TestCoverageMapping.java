@@ -23,8 +23,7 @@ public class TestCoverageMapping implements Serializable {
 	private static TestCoverageMapping instance = new TestCoverageMapping();
 
 	private String name;
-	private Revision currentRevision;
-	private Revision oldRevision;
+	private Integer currentRevision;
 	private Map<String, MethodData> methodPool;
 	private Map<MethodState, Map<String, MethodData>> methodStatePool;
 	private Map<Long, TestCoverage> testCoverageBuilding;
@@ -34,6 +33,7 @@ public class TestCoverageMapping implements Serializable {
 
 	private TestCoverageMapping() {
 		this.name = "TestCoverageMapping";
+		this.currentRevision = 0;
 		this.methodPool = new HashMap<String, MethodData>();
 		this.methodStatePool = new HashMap<MethodState, Map<String, MethodData>>(4);
 		this.methodStatePool.put(new MethodState(true, true), new HashMap<String, MethodData>());
@@ -215,7 +215,7 @@ public class TestCoverageMapping implements Serializable {
 
 	public String printAllTestsCoverage() {
 		Integer numberOfCoveredMethods = methodStatePool.get(new MethodState(false, true)).keySet().size()+methodStatePool.get(new MethodState(true, true)).keySet().size();
-		String all = "Revision: "+(currentRevision != null ? String.valueOf(currentRevision.getId()) : "?")+"\n"+"Number of Methods: "+methodPool.size()+"\n"+"Methods Covered by Tests: "+Integer.valueOf((numberOfCoveredMethods*100)/methodPool.size()).toString()+"%\n";
+		String all = "Revision: "+(currentRevision != 0 ? currentRevision.toString() : "?")+"\n"+"Number of Methods: "+methodPool.size()+"\n"+"Methods Covered by Tests: "+Integer.valueOf((numberOfCoveredMethods*100)/methodPool.size()).toString()+"%\n";
 		all += "\n================================= Printing All =================================\n\n";
 		for (TestCoverage testCoverage : testCoverages) {
 			all += testCoverage.getPrint()+"\n";
@@ -296,19 +296,12 @@ public class TestCoverageMapping implements Serializable {
 		this.testCoverageBuilding = testCoverageBuilding;
 	}
 
-	public Revision getCurrentRevision() {
+	public Integer getCurrentRevision() {
 		return currentRevision;
 	}
 
-	public void setCurrentRevision(Revision currentRevision) {
-		if (currentRevision.getId() > this.currentRevision.getId()) {
-			this.oldRevision = this.currentRevision;
-			this.currentRevision = currentRevision;
-		}
-	}
-
-	public Revision getOldRevision() {
-		return oldRevision;
+	public void setCurrentRevision(Integer currentRevision) {
+		this.currentRevision = currentRevision;
 	}
 
 	public String getFileDirectory() {
