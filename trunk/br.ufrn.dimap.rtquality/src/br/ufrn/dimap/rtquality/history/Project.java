@@ -8,7 +8,8 @@ import org.eclipse.core.resources.IProject;
 import br.ufrn.dimap.ttracker.data.Task;
 
 public class Project implements Serializable {
-
+	private static final long serialVersionUID = 1L;
+	
 	private String path;
 	private String name;
 	private IProject iProject;
