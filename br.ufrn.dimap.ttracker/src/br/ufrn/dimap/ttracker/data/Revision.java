@@ -12,7 +12,7 @@ public class Revision implements Serializable, Comparable<Revision> {
 	private Set<Task> currentTasks;
 	private Set<String> modifiedMethods;
 	private Set<String> UndoModifiedMethods;
-	private Boolean doAndUndoDone;
+	private boolean doAndUndoDone;
 	private Float inclusion;
 	private Float precision;
 	private Float MC;
@@ -25,6 +25,7 @@ public class Revision implements Serializable, Comparable<Revision> {
 		this.oldId = id>1 ? id-1 : 1;
 		this.oldTasks = oldTasks;
 		this.currentTasks = currentTasks;
+		this.doAndUndoDone = false;
 	}
 
 	public Integer getId() {
@@ -123,11 +124,11 @@ public class Revision implements Serializable, Comparable<Revision> {
 		UndoModifiedMethods = undoModifiedMethods;
 	}
 
-	public Boolean getDoAndUndoDone() {
+	public boolean isDoAndUndoDone() {
 		return doAndUndoDone;
 	}
 
-	public void setDoAndUndoDone(Boolean doAndUndoDone) {
+	public void setDoAndUndoDone(boolean doAndUndoDone) {
 		this.doAndUndoDone = doAndUndoDone;
 	}
 
