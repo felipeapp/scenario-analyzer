@@ -19,25 +19,14 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public class TestUtil {
 
-	public static void executeTests(ClassLoader classLoader, Set<String> testClasses, String resultFolder, String resultName, String projectName) {
+	public static void executeTests(ClassLoader classLoader, Set<String> testClasses) throws InitializationError, ClassNotFoundException {
 		Iterator<String> iterator = testClasses.iterator();
 		if(iterator.hasNext()) {
-			String saveFileDirectory = getSaveFileDirectory(classLoader, iterator.next());
-			//TODO: Reunir todas essas informações em texto e criar um objeto, persistí-lo para recuperar no TestTracker de uma só vez
-			FileUtil.saveTextToFile(resultName, saveFileDirectory, "testCoverageMappingName", "txt");
-			FileUtil.saveTextToFile(resultFolder, saveFileDirectory, "resultFolder", "txt");
-			FileUtil.saveTextToFile(projectName, saveFileDirectory, "projectName", "txt");
 			for(String testClassName : testClasses) {
-				try {
-					Class<?> testClass = classLoader.loadClass(testClassName);
-					Runner r = new BlockJUnit4ClassRunner(testClass);
-					JUnitCore c = new JUnitCore();
-					c.run(Request.runner(r));
-				} catch (InitializationError e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
+				Class<?> testClass = classLoader.loadClass(testClassName);
+				Runner r = new BlockJUnit4ClassRunner(testClass);
+				JUnitCore c = new JUnitCore();
+				c.run(Request.runner(r));
 			}
 		}
 	}

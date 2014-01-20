@@ -57,14 +57,6 @@ public class TestTrackerDiffUniGenerator extends QDiffSequenceGenerator implemen
 				String line = printLine(sourceLines.getLine(j), encoding);
 				print("        <br.ufrn.dimap.rtquality.history.UpdatedLine>", output);
 				print(getEOL(), output);
-				print("          "+(new XStream()).toXML(new Date()), output);
-				print(getEOL(), output);
-				print("          <revision>0</revision>", output);
-				print(getEOL(), output);
-				print("          <author></author>", output);
-				print(getEOL(), output);
-				print("          <line>"+line.getBytes(encoding)+"</line>", output);
-				print(getEOL(), output);
 				print("          <lineNumber>-"+(j+1)+"</lineNumber>", output);
 				print(getEOL(), output);
 				print("        </br.ufrn.dimap.rtquality.history.UpdatedLine>", output);
@@ -73,14 +65,6 @@ public class TestTrackerDiffUniGenerator extends QDiffSequenceGenerator implemen
 			for (int j = block.getRightFrom(); j <= block.getRightTo(); j++) {
 				String line = printLine(targetLines.getLine(j), encoding);
 				print("        <br.ufrn.dimap.rtquality.history.UpdatedLine>", output);
-				print(getEOL(), output);
-				print("          "+(new XStream()).toXML(new Date()), output);
-				print(getEOL(), output);
-				print("          <revision>"+"0"+"</revision>", output);
-				print(getEOL(), output);
-				print("          <author>"+""+"</author>", output);
-				print(getEOL(), output);
-				print("          <line>"+line.getBytes(encoding)+"</line>", output);
 				print(getEOL(), output);
 				print("          <lineNumber>+"+(-diffSize+j+1)+"</lineNumber>", output);
 				print(getEOL(), output);

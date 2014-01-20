@@ -13,10 +13,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -82,7 +85,7 @@ public class History {
 		repository.setAuthenticationManager(authManager);
 	}
 	
-    public Set<String> getChangedMethodsSignatures(String projectPath, Integer oldRevision, Integer currentRevision) {
+    public Set<String> getChangedMethodsSignatures(String projectPath, Integer oldRevision, Integer currentRevision) throws SVNException, IOException {
     	Collection<UpdatedMethod> updatedMethods = getChangedMethods(projectPath,oldRevision,currentRevision);
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
     	for (UpdatedMethod m : updatedMethods)
@@ -90,59 +93,56 @@ public class History {
     	return changedMethodsSignatures;
     }
 	
-    public Set<String> getChangedMethodsSignaturesFromProjects(List<Project> projects, Integer oldRevision, Integer currentRevision) {
+    public Set<String> getChangedMethodsSignaturesFromProjects(List<Project> projects, Integer oldRevision, Integer currentRevision) throws SVNException, IOException {
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
     	for(Project project : projects) {
-    		if(project.getProjectPath().equals("/SharedResources"))
-    			continue;
-    		for(String changedMethodSignature : getChangedMethodsSignatures(project.getProjectPath(), oldRevision, currentRevision))
-    			changedMethodsSignatures.add(project.getProjectName()+"."+changedMethodSignature);
+    		for(String changedMethodSignature : getChangedMethodsSignatures(project.getPath(), oldRevision, currentRevision))
+    			changedMethodsSignatures.add(project.getName()+"."+changedMethodSignature);
     	}
     	return changedMethodsSignatures;
     }
     
-    public void checkoutProjects(Integer revision) throws SVNException, CoreException, IOException { //TODO: O checkout e o update tem muitas partes em comum, tentar juntar em um único método
+    public void checkouOrUpdateProjects(Integer revision) throws SVNException, CoreException, IOException {
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
-		for(Project project : sVNConfig.getProjects()) {
-			String tempDir = iWorkspace.getRoot().getLocation().toString()+project.getProjectName();
-			File file = new File(tempDir);
+		Map<Project,File> projectFile = new HashMap<Project,File>(sVNConfig.getProjects().size());
+    	for(Project project : sVNConfig.getProjects()) { //TODO: estes projetos possuem informações que serão perdidas caso a execução seja interrompida, salvar esta informação
+    		project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
+			File file = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
 			if(!file.exists()) {
 				file.mkdir();
-				sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getProjectPath()),
+				sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
 						file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
+				project.setRevision(revision);
 			}
-			project.setIProject(iWorkspace.getRoot().getProject(project.getProjectName()));
-		}
+			else if(!project.getRevision().equals(revision))
+				projectFile.put(project,file);
+    	}
+    	if(!projectFile.isEmpty()){
+    		sVNUpdateClient.doUpdate(projectFile.values().toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
+    		for(Project project : projectFile.keySet())
+    			project.setRevision(revision); //TODO: Verificar se ao setar a Revision do project do Map, se o project do sVNConfig também foi setado (deveria)
+    	}
 		importConfigureRefreshBuild();
     }
     
-    public void updateProjects(Integer revision) throws SVNException, CoreException, IOException {
-    	SVNClientManager client = SVNClientManager.newInstance();
-		client.setAuthenticationManager(repository.getAuthenticationManager());
-		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
-		List<File> names = new ArrayList<File>(sVNConfig.getProjects().size());
-		for(Project project : sVNConfig.getProjects()) {
-			String tempDir = iWorkspace.getRoot().getLocation().toString()+project.getProjectName();
-			names.add(new File(tempDir));
-		}
-		sVNUpdateClient.doUpdate(names.toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
-		importConfigureRefreshBuild();
-    }
-
 	private void importConfigureRefreshBuild() throws CoreException, IOException {
 		for(Project project : sVNConfig.getProjects()) {
+			if(project.getBuildedRevision().equals(project.getRevision()))
+				continue;
 			importProject(project);
 			if(project.isAspectJNature())
 				configureAspectJ(project.getIProject());
-			else if(project.getProjectName().equals("/LIBS")) { //TODO: Código específico para o SIGAA
+			else if(project.getName().equals("/LIBS")) { //TODO: Código específico para o SIGAA
 				changeLib(project, "aspectjrt*.jar", "aspectjrt.jar");
 				changeLib(project, "aspectjweaver*.jar", "aspectjweaver.jar");
 			}
 			project.getIProject().refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
 			buildingProject(project.getIProject());
+			project.setBuildedRevision(project.getRevision());
 		}
+		FileUtil.saveObjectToFile(sVNConfig.getProjects(), iWorkspace.getRoot().getLocation().toString()+"/config", "Projects", "obj");
 	}
 
 	private void changeLib(Project project, String oldLib, String newLib) { //TODO: Código específico para o SIGAA
@@ -356,7 +356,7 @@ public class History {
     	return file;
     }
 
-	private Collection<UpdatedMethod> getChangedMethods(String projectPath, Integer startRevision, Integer endRevision) {
+	private Collection<UpdatedMethod> getChangedMethods(String projectPath, Integer startRevision, Integer endRevision) throws SVNException, IOException {
 		Collection<UpdatedMethod> updatedMethods = new ArrayList<UpdatedMethod>();
 		SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
@@ -379,14 +379,16 @@ public class History {
 			ProjectUpdates projectUpdates = (ProjectUpdates) getObjectFromXML(xmlFile);
 			xmlFile.delete();
 			updatedMethods = projectUpdates.getUpdatedMethods(startRevision, endRevision);
-		} catch (SVNException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (IOException e2){
-			e2.printStackTrace();
+			return updatedMethods;
+		} finally {
+			try {
+				File tempFolder = new File("temp");
+				if(tempFolder != null && tempFolder.isDirectory())
+					FileUtils.deleteDirectory(tempFolder);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		return updatedMethods;
 	}
 
 	/**
