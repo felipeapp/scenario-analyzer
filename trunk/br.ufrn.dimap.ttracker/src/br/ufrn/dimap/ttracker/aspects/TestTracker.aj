@@ -120,6 +120,7 @@ public aspect TestTracker {
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
 		loadTestCoverageMappingInstanceFromFile(member);
+		TestCoverageMapping.getInstance().setCurrentRevision(FileUtil.getTestCoverageMappingRevisionByResource(member.getDeclaringClass()));
 		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
