@@ -375,8 +375,11 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
     public void displayFileDiff(String path, File file1, File file2,
             String rev1, String rev2, String mimeType1, String mimeType2, OutputStream result) throws SVNException {
         path = getDisplayPath(path);
-        if(!path.endsWith(".java"))
+        System.out.println("\tArquivo: "+path);
+        if(!path.endsWith(".java")) {
+        	System.out.println("\t\tPulando");
         	return;
+        }
         // if anchor1 is the same as anchor2 just use path.        
         // if anchor1 differs from anchor2 =>
         // condence anchors (get common root and remainings).
@@ -807,10 +810,10 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
 //			if(content.endsWith("\r\n"))
 //				content = content.substring(0, content.length()-"\r\n".length());
 			reader.close();
+			return content.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
+			return "";
 		}
-		return content.toString();
 	}
     
     protected void displayHeader(OutputStream os, String path, File file1, File file2, String rev1, String rev2) throws IOException {

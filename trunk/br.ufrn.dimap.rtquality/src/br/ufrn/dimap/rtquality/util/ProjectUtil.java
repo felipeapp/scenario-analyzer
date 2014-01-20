@@ -71,7 +71,7 @@ public class ProjectUtil {
 	public static List<IProject> getIProjects(SVNConfig sVNConfig, Integer revision) {
 		List<IProject> iProjects = new ArrayList<IProject>(sVNConfig.getProjects().size());
 		for(Project project : sVNConfig.getProjects()) {
-			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getProjectPath().substring(1));
+			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getPath().substring(1));
 			iProjects.add(iProject);
 		}
 		return iProjects;
@@ -80,7 +80,7 @@ public class ProjectUtil {
 	public static List<IProject> getIProject(SVNConfig sVNConfig) {
 		List<IProject> iProjects = new ArrayList<IProject>(sVNConfig.getProjects().size());
 		for(Project project : sVNConfig.getProjects()) {
-			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getProjectPath().substring(1));
+			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getPath().substring(1));
 			iProjects.add(iProject);
 		}
 		return iProjects;
@@ -226,7 +226,7 @@ public class ProjectUtil {
 								for(int i=0;i<splittedParameters.length;i+=2) {
 									signature += splittedParameters[i] + ",";
 								}
-								signature = project.getProjectName()+"."+signature.substring(0,signature.length()-1) + ")";
+								signature = project.getName()+"."+signature.substring(0,signature.length()-1) + ")";
 								testCoverageMapping.findOrCreateMethodData(signature);
 							}
 						}
@@ -242,6 +242,14 @@ public class ProjectUtil {
 			e.printStackTrace();
 		}
 		return null;
-	} 
+	}
+
+	public static void saveUtilInformations(String saveFileDirectory, String workspaceLocation, Integer revisionId, String projectName) {
+//TODO: Reunir todas essas informações em texto e criar um objeto, persistí-lo para recuperar no TestTracker de uma só vez
+		FileUtil.saveTextToFile("TCM_"+revisionId, saveFileDirectory, "testCoverageMappingName", "txt");
+		FileUtil.saveTextToFile(workspaceLocation+"/result", saveFileDirectory, "resultFolder", "txt");
+		FileUtil.saveTextToFile(projectName, saveFileDirectory, "projectName", "txt");
+		FileUtil.saveTextToFile(revisionId.toString(), saveFileDirectory, "revision", "txt");
+	}
 
 }
