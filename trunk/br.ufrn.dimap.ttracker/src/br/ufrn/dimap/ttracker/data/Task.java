@@ -18,7 +18,7 @@ public class Task implements Serializable {
 	private Set<String> modifiedMethods;
 	private Float inclusion;
 	private Float precision;
-	private Boolean doAndUndoDone;
+	private boolean doAndUndoDone;
 	
 	public Task(Integer id, TaskType type, List<Revision> revisions) {
 		this.id = id;
@@ -35,6 +35,7 @@ public class Task implements Serializable {
 		this.currentRevision = revisions.get(revisions.size()-1);
 		if(currentRevision.getCurrentTasks() != null)
 			currentRevision.setCurrentTasks(currentTasks);
+		this.doAndUndoDone = false;
 	}
 
 	public Integer getId() {
@@ -101,11 +102,11 @@ public class Task implements Serializable {
 		this.precision = precision;
 	}
 
-	public Boolean getDoAndUndoDone() {
+	public boolean isDoAndUndoDone() {
 		return doAndUndoDone;
 	}
 
-	public void setDoAndUndoDone(Boolean doAndUndoDone) {
+	public void setDoAndUndoDone(boolean doAndUndoDone) {
 		this.doAndUndoDone = doAndUndoDone;
 	}
 
