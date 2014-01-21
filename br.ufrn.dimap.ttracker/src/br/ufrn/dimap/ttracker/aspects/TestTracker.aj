@@ -164,7 +164,6 @@ public aspect TestTracker {
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
 		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-		TestCoverageMapping tcm2 = TestCoverageMapping.getInstance();
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage != null){
 			TestData testData = testCoverage.getTestData();
@@ -173,6 +172,9 @@ public aspect TestTracker {
 			testData.getSignature().equals(projectName+"."+signature.toString())){
 				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
 				saveTestCoverageMapping(member);
+				String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+				String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+				FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 			}
 		}
 	}
@@ -182,8 +184,6 @@ public aspect TestTracker {
 		String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
 		TestCoverageMapping.getInstance().setName(testCoverageMappingName);
 		TestCoverageMapping.getInstance().save(); //TODO: Ap√≥s executar todos os testes e os depois os testes selecionados verificar se ambos n√£o ser√£o acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma fun√ß√£o clear para o TestCoverageMapping.
-		String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-		FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 	}
 	
 //	// Intercepta lanÁamentos de exceÁıes
