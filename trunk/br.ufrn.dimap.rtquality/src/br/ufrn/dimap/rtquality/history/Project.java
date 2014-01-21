@@ -16,8 +16,7 @@ public class Project implements Serializable {
 	private boolean aspectJNature;
 	private boolean executeTests;
 	private Set<String> packagesToTest;
-	private Integer revision;
-	private Integer buildedRevision;
+	private ProjectRevisionInformations projectRevisionInformations;
 
 	public Project(String projectPath, String projectName, IProject iProject, boolean aspectJNature) {
 		this.path = projectPath;
@@ -26,21 +25,19 @@ public class Project implements Serializable {
 		this.aspectJNature = aspectJNature;
 		this.executeTests = false;
 		this.packagesToTest = null;
-		this.revision = 0;
-		this.buildedRevision = 0;
+		this.projectRevisionInformations = new ProjectRevisionInformations();
 	}
 
 	public Project(String projectPath, String projectName, IProject iProject, boolean aspectJNature, Set<String> packagesToTest) throws Exception {
 		this.path = projectPath;
 		this.name = projectName;
-		this.revision = 0;
 		this.iProject = iProject;
 		this.aspectJNature = aspectJNature;
 		if(packagesToTest == null || packagesToTest.isEmpty())
 			throw new Exception("The packagesToTest can not be null neither empty.");
 		this.executeTests = true;
 		this.packagesToTest = packagesToTest;
-		this.buildedRevision = 0;
+		this.projectRevisionInformations = new ProjectRevisionInformations();
 	}
 
 	public String getPath() {
@@ -87,20 +84,13 @@ public class Project implements Serializable {
 		return packagesToTest;
 	}
 
-	public Integer getRevision() {
-		return revision;
+	public ProjectRevisionInformations getProjectRevisionInformations() {
+		return projectRevisionInformations;
 	}
 
-	public void setRevision(Integer projectRevisionId) {
-		this.revision = projectRevisionId;
-	}
-
-	public Integer getBuildedRevision() {
-		return buildedRevision;
-	}
-
-	public void setBuildedRevision(Integer buildedRevision) {
-		this.buildedRevision = buildedRevision;
+	public void setProjectRevisionInformations(
+			ProjectRevisionInformations projectRevisionInformations) {
+		this.projectRevisionInformations = projectRevisionInformations;
 	}
 
 	@Override
