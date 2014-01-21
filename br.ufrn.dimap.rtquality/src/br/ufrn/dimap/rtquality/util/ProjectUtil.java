@@ -70,7 +70,8 @@ public class ProjectUtil {
 	
 	public static List<IProject> getIProjects(SVNConfig sVNConfig, Integer revision) {
 		List<IProject> iProjects = new ArrayList<IProject>(sVNConfig.getProjects().size());
-		for(Project project : sVNConfig.getProjects()) {
+		for(int i=1;i<=sVNConfig.getProjects().size();i++) {
+    		Project project = sVNConfig.getProjects().get(i);
 			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getPath().substring(1));
 			iProjects.add(iProject);
 		}
@@ -79,7 +80,8 @@ public class ProjectUtil {
 	
 	public static List<IProject> getIProject(SVNConfig sVNConfig) {
 		List<IProject> iProjects = new ArrayList<IProject>(sVNConfig.getProjects().size());
-		for(Project project : sVNConfig.getProjects()) {
+		for(int i=1;i<=sVNConfig.getProjects().size();i++) {
+    		Project project = sVNConfig.getProjects().get(i);
 			IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project.getPath().substring(1));
 			iProjects.add(iProject);
 		}
@@ -246,7 +248,7 @@ public class ProjectUtil {
 
 	public static void saveUtilInformations(String saveFileDirectory, String workspaceLocation, Integer revisionId, String projectName) {
 //TODO: Reunir todas essas informações em texto e criar um objeto, persistí-lo para recuperar no TestTracker de uma só vez
-		FileUtil.saveTextToFile("TCM_"+revisionId, saveFileDirectory, "testCoverageMappingName", "txt");
+		FileUtil.saveTextToFile("TCM_"+revisionId.toString(), saveFileDirectory, "testCoverageMappingName", "txt");
 		FileUtil.saveTextToFile(workspaceLocation+"/result", saveFileDirectory, "resultFolder", "txt");
 		FileUtil.saveTextToFile(projectName, saveFileDirectory, "projectName", "txt");
 		FileUtil.saveTextToFile(revisionId.toString(), saveFileDirectory, "revision", "txt");

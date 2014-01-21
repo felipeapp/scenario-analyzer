@@ -12,9 +12,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.resources.IProject;
@@ -44,6 +47,7 @@ import com.thoughtworks.xstream.XStream;
 
 import br.ufrn.dimap.rtquality.history.History;
 import br.ufrn.dimap.rtquality.history.Project;
+import br.ufrn.dimap.rtquality.history.ProjectRevisionInformations;
 import br.ufrn.dimap.rtquality.history.SVNConfig;
 import br.ufrn.dimap.rtquality.regressiontest.DiffRegressionTest;
 import br.ufrn.dimap.rtquality.regressiontest.RegressionTestTechnique;
@@ -167,15 +171,15 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			return;
 		}
 		
-		List<Project> projects = loadProjects(iWorkspace.getRoot().getLocation().toString()+"/config");
+		Map<Integer,Project> projects = loadProjects(iWorkspace.getRoot().getLocation().toString()+"/config");
 		
 		String URL = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/URL.txt"));
 		String usuario = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/usuario.txt"));
 		String senha = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/senha.txt"));
 		SVNConfig sVNConfig = new SVNConfig(URL, projects, usuario, senha);
 		
-		List<Project> projects2 = new ArrayList<Project>(); //TODO: verificar o forCheckout pois ele não pode mais ser nulo aqui
-		projects2.add(new Project("/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false));
+		Map<Integer,Project> projects2 = new HashMap<Integer,Project>(); //TODO: verificar o forCheckout pois ele não pode mais ser nulo aqui
+		projects2.put(1, new Project("/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false));
 		String URL2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/URL2.txt"));
 		String usuario2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/usuario2.txt"));
 		String senha2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/senha2.txt"));
@@ -184,7 +188,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		RegressionTestTechnique regressionTestTechnique = new DiffRegressionTest();
 		
 		List<Project> projectForExecuteAllTests = new ArrayList<Project>();
-		for(Project project : projects) {
+		for(int i=1;i<=projects.size();i++) {
+			Project project = projects.get(i);
 			if(project.isAspectJNature())
 				projectForExecuteAllTests.add(project);
 		}
@@ -210,8 +215,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 					}
 					System.out.println("Analisando revisão: "+revision.getId().toString());
 					try {
-						Set<String> A = history.getChangedMethodsSignaturesFromProjects(projects, revision.getOldId(), revision.getId());
-						Set<String> B = history.getChangedMethodsSignaturesFromProjects(projects, task.getOldRevision().getId(), revision.getId());
+						Set<String> A = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), revision.getOldId(), revision.getId());
+						Set<String> B = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), task.getOldRevision().getId(), revision.getId());
 						Set<String> C = MathUtil.intersection(A,B);
 						Set<String> D = new HashSet<String>(A);
 						D.removeAll(C);
@@ -511,33 +516,37 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		}
 	}
 
-	private List<Project> loadProjects(String location) throws Exception {
-		List<Project> projects = null;
-		try {
-			Object obj = FileUtil.loadObjectFromFile(location, "Projects", "obj");
-			if(obj != null && obj instanceof ArrayList<?>) {
-				projects = (List<Project>) obj;
-				if(projects != null)
-					return projects;
-			}
-			return loadProjectsManually();
-		} catch(ClassCastException cce) {
-			return loadProjectsManually();
-		}
+	private Map<Integer,Project> loadProjects(String location) throws Exception {
+		Map<Integer,Project> projects = loadProjectsManually();
+//		Map<String,ProjectRevisionInformations> projectRevisionInformations = null;
+//		try {
+//			Object obj = FileUtil.loadObjectFromFile(location, "Projects", "obj");
+//			if(obj != null && obj instanceof HashMap<?,?>) {
+//				projectRevisionInformations = (HashMap<String,ProjectRevisionInformations>) obj;
+//				if(projectRevisionInformations != null) {
+//					for(Project project : projects)
+//						project.setProjectRevisionInformations(projectRevisionInformations.get(project.getPath()));
+//				}
+//			}
+//			return projects;
+//		} catch(ClassCastException cce) {
+//			return projects;
+//		}
+		return projects;
 	}
 
-	private List<Project> loadProjectsManually() throws Exception {
-		List<Project> projects = new ArrayList<Project>(); //TODO: verificar o forCheckout pois ele não pode mais ser nulo aqui
-		projects.add(new Project("/LIBS", "/LIBS", null, false));
-		projects.add(new Project("/Arquitetura", "/01_Arquitetura", null, false));
-		projects.add(new Project("/ServicosIntegrados", "/03_ServicosIntegrados", null, false));
-		projects.add(new Project("/EntidadesComuns", "/02_EntidadesComuns", null, false));
-		projects.add(new Project("/SharedResources", "/04_SharedResources", null, false));
-		projects.add(new Project("/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false));
-		projects.add(new Project("/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
+	private Map<Integer,Project> loadProjectsManually() throws Exception {
+		Map<Integer,Project> projects = new HashMap<Integer,Project>();
+		projects.put(1, new Project("/LIBS", "/LIBS", null, false));
+		projects.put(2, new Project("/Arquitetura", "/01_Arquitetura", null, false));
+		projects.put(3, new Project("/ServicosIntegrados", "/03_ServicosIntegrados", null, false));
+		projects.put(4, new Project("/EntidadesComuns", "/02_EntidadesComuns", null, false));
+		projects.put(5, new Project("/SharedResources", "/04_SharedResources", null, false));
+		projects.put(6, new Project("/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false));
+		projects.put(7, new Project("/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
 		Set<String> packagesToTest = new HashSet<String>(1);
 		packagesToTest.add("/SIGAA/biblioteca");
-		projects.add(new Project("/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
+		projects.put(8, new Project("/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
 		return projects;
 	}
 

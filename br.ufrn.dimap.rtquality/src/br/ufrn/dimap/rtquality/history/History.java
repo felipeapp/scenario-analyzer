@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -50,6 +51,7 @@ import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNDiffClient;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNUpdateClient;
+import org.tmatesoft.svn.core.wc.SVNWCClient;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.dimap.rtquality.plugin.Activator;
@@ -93,7 +95,7 @@ public class History {
     	return changedMethodsSignatures;
     }
 	
-    public Set<String> getChangedMethodsSignaturesFromProjects(List<Project> projects, Integer oldRevision, Integer currentRevision) throws SVNException, IOException {
+    public Set<String> getChangedMethodsSignaturesFromProjects(Set<Project> projects, Integer oldRevision, Integer currentRevision) throws SVNException, IOException {
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
     	for(Project project : projects) {
     		for(String changedMethodSignature : getChangedMethodsSignatures(project.getPath(), oldRevision, currentRevision))
@@ -106,30 +108,36 @@ public class History {
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
+		SVNWCClient sVNWCClient = client.getWCClient();
 		Map<Project,File> projectFile = new HashMap<Project,File>(sVNConfig.getProjects().size());
-    	for(Project project : sVNConfig.getProjects()) { //TODO: estes projetos possuem informações que serão perdidas caso a execução seja interrompida, salvar esta informação
+    	for(int i=1;i<=sVNConfig.getProjects().size();i++) { //TODO: estes projetos possuem informações que serão perdidas caso a execução seja interrompida, salvar esta informação
+    		Project project = sVNConfig.getProjects().get(i);
     		project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
 			File file = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
 			if(!file.exists()) {
 				file.mkdir();
 				sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
 						file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
-				project.setRevision(revision);
+				project.getProjectRevisionInformations().setRevision(revision);
 			}
-			else if(!project.getRevision().equals(revision))
+			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
 				projectFile.put(project,file);
+				sVNWCClient.doCleanup(file);
+			}
     	}
     	if(!projectFile.isEmpty()){
     		sVNUpdateClient.doUpdate(projectFile.values().toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
     		for(Project project : projectFile.keySet())
-    			project.setRevision(revision); //TODO: Verificar se ao setar a Revision do project do Map, se o project do sVNConfig também foi setado (deveria)
+    			project.getProjectRevisionInformations().setRevision(revision);
     	}
 		importConfigureRefreshBuild();
     }
     
 	private void importConfigureRefreshBuild() throws CoreException, IOException {
-		for(Project project : sVNConfig.getProjects()) {
-			if(project.getBuildedRevision().equals(project.getRevision()))
+//		Map<String,ProjectRevisionInformations> projectRevisionInformations = new HashMap<String,ProjectRevisionInformations>();
+		for(int i=1;i<=sVNConfig.getProjects().size();i++) {
+    		Project project = sVNConfig.getProjects().get(i);
+			if(project.getProjectRevisionInformations().getRevisionBuilded().equals(project.getProjectRevisionInformations().getRevision()))
 				continue;
 			importProject(project);
 			if(project.isAspectJNature())
@@ -140,9 +148,10 @@ public class History {
 			}
 			project.getIProject().refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
 			buildingProject(project.getIProject());
-			project.setBuildedRevision(project.getRevision());
+			project.getProjectRevisionInformations().setRevisionBuilded(project.getProjectRevisionInformations().getRevision());
+//			projectRevisionInformations.put(project.getPath(), project.getProjectRevisionInformations());
 		}
-		FileUtil.saveObjectToFile(sVNConfig.getProjects(), iWorkspace.getRoot().getLocation().toString()+"/config", "Projects", "obj");
+//		FileUtil.saveObjectToFile(projectRevisionInformations, iWorkspace.getRoot().getLocation().toString()+"/config", "Projects", "obj");
 	}
 
 	private void changeLib(Project project, String oldLib, String newLib) { //TODO: Código específico para o SIGAA

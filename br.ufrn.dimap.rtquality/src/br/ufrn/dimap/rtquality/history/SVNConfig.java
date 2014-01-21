@@ -1,14 +1,16 @@
 package br.ufrn.dimap.rtquality.history;
 
 import java.util.List;
+import java.util.Map;
+import java.util.SortedSet;
 
 public class SVNConfig {
 	private String svnUrl;
-	private List<Project> projects;
+	private Map<Integer,Project> projects;
 	private String userName;
 	private String password;
 	
-	public SVNConfig(String svnUrl, List<Project> projects, String userName, String password) throws Exception {
+	public SVNConfig(String svnUrl, Map<Integer,Project> projects, String userName, String password) throws Exception {
 		this.svnUrl = svnUrl;
 		this.projects = projects;
 		this.userName = userName;
@@ -23,11 +25,11 @@ public class SVNConfig {
 		this.svnUrl = svnUrl;
 	}
 
-	public List<Project> getProjects() {
+	public Map<Integer,Project> getProjects() {
 		return projects;
 	}
 
-	public void setProjects(List<Project> projects) {
+	public void setProjects(Map<Integer,Project> projects) {
 		this.projects = projects;
 	}
 
