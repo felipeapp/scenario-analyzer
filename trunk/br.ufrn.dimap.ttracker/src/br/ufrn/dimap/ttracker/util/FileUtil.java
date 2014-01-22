@@ -22,30 +22,64 @@ public class FileUtil {
 		File dir = new File(fileDirectory);
 		if(!dir.exists())
 			dir.mkdir();
+		FileOutputStream fileOutputStream = null;
+		ObjectOutputStream objectOutputStream = null;
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(fileDirectory+"/"+fileName+"."+extension);
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			fileOutputStream = new FileOutputStream(fileDirectory+"/"+fileName+"."+extension);
+			objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(obj);
-			objectOutputStream.close();
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		} catch (IOException ioe){
 			ioe.printStackTrace();
+		} finally {
+			if(objectOutputStream != null) {
+				try {
+					objectOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(fileOutputStream != null) {
+				try {
+					fileOutputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
 	public static Object loadObjectFromFile(String fileDirectory, String fileName, String extension) {
+		File file = new File(fileDirectory+"/"+fileName+"."+extension);
+		if(!file.exists())
+			return null;
+		FileInputStream fileInputStream = null;
+		ObjectInputStream objectInputStream = null;
 		try {
-			File file = new File(fileDirectory+"/"+fileName+"."+extension);
-			if(!file.exists())
-				return null;
-			FileInputStream fileInputStream = new FileInputStream(file);
-			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			fileInputStream = new FileInputStream(file);
+			objectInputStream = new ObjectInputStream(fileInputStream);
 			Object object = objectInputStream.readObject();
 			objectInputStream.close();
+			fileInputStream.close();
 			return object;
 		} catch(Exception e) {
 			return null;
+		} finally {
+			if(fileInputStream != null) {
+				try {
+					fileInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(objectInputStream != null) {
+				try {
+					objectInputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -54,13 +88,31 @@ public class FileUtil {
 		File dir = new File(fileDirectory);
 		if (!dir.exists())
 			dir.mkdirs();
+		FileWriter fw = null;
+		BufferedWriter bw = null;
 		try {
-			FileWriter fw = new FileWriter(fileDirectory+"/"+fileName+"."+extension);
-			BufferedWriter bw = new BufferedWriter(fw);
+			fw = new FileWriter(fileDirectory+"/"+fileName+"."+extension);
+			bw = new BufferedWriter(fw);
 			bw.write(text);
 			bw.close();
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			if(bw != null) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if(fw != null) {
+				try {
+					fw.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -77,11 +129,12 @@ public class FileUtil {
 			e.printStackTrace();
 			return null;
 		} finally {
-			try {
-				if(reader != null)
-					reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if(reader != null) {
+				try {
+						reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -95,11 +148,12 @@ public class FileUtil {
 			e.printStackTrace();
 			return "C:/";
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -113,11 +167,12 @@ public class FileUtil {
 			e.printStackTrace();
 			return false;
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -130,11 +185,12 @@ public class FileUtil {
 		} catch (IOException e) {
 			return -1;
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -147,11 +203,12 @@ public class FileUtil {
 		} catch (IOException e) {
 			return "AllTests";
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -166,11 +223,12 @@ public class FileUtil {
 		} catch(NumberFormatException nfe) {
 			return 0;
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -183,11 +241,12 @@ public class FileUtil {
 		} catch (IOException e) {
 			return "D:/result";
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}
@@ -200,11 +259,12 @@ public class FileUtil {
 		} catch (IOException e) {
 			return "UnknowProjectName";
 		} finally {
-			try {
-				if (br != null)
+			if (br != null) {
+				try {
 					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 	}

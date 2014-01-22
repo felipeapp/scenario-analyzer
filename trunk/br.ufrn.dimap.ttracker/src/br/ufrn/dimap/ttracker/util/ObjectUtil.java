@@ -7,11 +7,21 @@ import java.io.ObjectOutputStream;
 public class ObjectUtil {
 
 	public static Object isSerializable(Object object) {
+		ByteArrayOutputStream bAOS = null;
 		try {
-			new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(object);
+			bAOS = new ByteArrayOutputStream();
+			new ObjectOutputStream(bAOS).writeObject(object);
 			return object;
 		} catch (IOException e) {
 			return object.toString();
+		} finally {
+			if(bAOS != null) {
+				try {
+					bAOS.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
