@@ -1,1 +1,0 @@
-<div style="margin: auto; width: 100%; text-align: center;"><span class="obrigatorio">&nbsp;</span> Campos de preenchimento obrigatório.</div>
