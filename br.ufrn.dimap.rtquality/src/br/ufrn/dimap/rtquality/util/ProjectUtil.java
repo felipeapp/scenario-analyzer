@@ -185,16 +185,11 @@ public class ProjectUtil {
 		return false;
 	}
 	
-	public static TestCoverageMapping getTestCoverageMapping(IProject iProject, String testCoverageMappingName) {
+	public static TestCoverageMapping getTestCoverageMapping(String tcmPath, String testCoverageMappingName) {
 		try{
-			String testClass = ProjectUtil.getAClass(iProject);
-			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-			String loadFileDirectory = TestUtil.getSaveFileDirectory(iProjectClassLoader, testClass);
-			return (TestCoverageMapping) FileUtil.loadObjectFromFile(loadFileDirectory, testCoverageMappingName, "tcm");
+			return (TestCoverageMapping) FileUtil.loadObjectFromFile(tcmPath, testCoverageMappingName, "tcm");
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
-		} catch (JavaModelException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}

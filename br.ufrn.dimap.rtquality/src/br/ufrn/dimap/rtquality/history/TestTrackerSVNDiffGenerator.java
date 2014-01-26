@@ -286,11 +286,11 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         diff = new SVNProperties(diff);
         try {
-            bos.write(getEOL());
+//            bos.write(getEOL());
 //            bos.write(("Property changes on: " + (useLocalFileSeparatorChar() ? path.replace('/', File.separatorChar) : path)).getBytes(getEncoding()));
-            bos.write(getEOL());
+//            bos.write(getEOL());
 //            bos.write(PROPERTIES_SEPARATOR.getBytes(getEncoding()));
-            bos.write(getEOL());
+//            bos.write(getEOL());
             for (Iterator<?> changedPropNames = diff.nameSet().iterator(); changedPropNames.hasNext();) {
                 String name = (String) changedPropNames.next();
                 SVNPropertyValue originalValue = baseProps != null ? baseProps.getSVNPropertyValue(name) : null;
@@ -305,24 +305,24 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
                     headerFormat = "Modified: ";
                 }
                 
-                bos.write((headerFormat + name).getBytes(getEncoding()));
-                bos.write(getEOL());
+//                bos.write((headerFormat + name).getBytes(getEncoding()));
+//                bos.write(getEOL());
                 if (SVNProperty.MERGE_INFO.equals(name)) {
                     displayMergeInfoDiff(bos, originalValue == null ? null : originalValue.getString(), newValue == null ? null : newValue.getString());
                     continue;
                 }
                 if (originalValue != null) {
-                    bos.write("   - ".getBytes(getEncoding()));
-                    bos.write(getPropertyAsBytes(originalValue, getEncoding()));
-                    bos.write(getEOL());
+//                    bos.write("   - ".getBytes(getEncoding()));
+//                    bos.write(getPropertyAsBytes(originalValue, getEncoding()));
+//                    bos.write(getEOL());
                 }
                 if (newValue != null) {
-                    bos.write("   + ".getBytes(getEncoding()));
-                    bos.write(getPropertyAsBytes(newValue, getEncoding()));
-                    bos.write(getEOL());
+//                    bos.write("   + ".getBytes(getEncoding()));
+//                    bos.write(getPropertyAsBytes(newValue, getEncoding()));
+//                    bos.write(getEOL());
                 } 
             }
-            bos.write(getEOL());
+//            bos.write(getEOL());
         } catch (IOException e) {
             SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, e.getLocalizedMessage());
             SVNErrorManager.error(err, e, SVNLogType.DEFAULT);
@@ -590,6 +590,7 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
             TestTrackerDiffUniGenerator generator = new TestTrackerDiffUniGenerator(properties, header);
             Writer writer = new OutputStreamWriter(result, getEncoding());
             QDiffManager.generateTextDiff(is1, is2, getEncoding(), writer, generator);
+            writer.flush();
             writer.write(getFooter());
             writer.flush();
         } catch (IOException e) {
@@ -769,31 +770,31 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
     }
 
     protected void displayBinary(OutputStream os, String mimeType1, String mimeType2) throws IOException {
-        os.write("Cannot display: file marked as a binary type.".getBytes(getEncoding()));
-        os.write(getEOL());
+//        os.write("Cannot display: file marked as a binary type.".getBytes(getEncoding()));
+//        os.write(getEOL());
         if (SVNProperty.isBinaryMimeType(mimeType1)
                 && !SVNProperty.isBinaryMimeType(mimeType2)) {
-            os.write("svn:mime-type = ".getBytes(getEncoding()));
-            os.write(mimeType1.getBytes(getEncoding()));
-            os.write(getEOL());
+//            os.write("svn:mime-type = ".getBytes(getEncoding()));
+//            os.write(mimeType1.getBytes(getEncoding()));
+//            os.write(getEOL());
         } else if (!SVNProperty.isBinaryMimeType(mimeType1)
                 && SVNProperty.isBinaryMimeType(mimeType2)) {
-            os.write("svn:mime-type = ".getBytes(getEncoding()));
-            os.write(mimeType2.getBytes(getEncoding()));
-            os.write(getEOL());
+//            os.write("svn:mime-type = ".getBytes(getEncoding()));
+//            os.write(mimeType2.getBytes(getEncoding()));
+//            os.write(getEOL());
         } else if (SVNProperty.isBinaryMimeType(mimeType1)
                 && SVNProperty.isBinaryMimeType(mimeType2)) {
             if (mimeType1.equals(mimeType2)) {
-                os.write("svn:mime-type = ".getBytes(getEncoding()));
-                os.write(mimeType2.getBytes(getEncoding()));
-                os.write(getEOL());
+//                os.write("svn:mime-type = ".getBytes(getEncoding()));
+//                os.write(mimeType2.getBytes(getEncoding()));
+//                os.write(getEOL());
             } else {
-                os.write("svn:mime-type = (".getBytes(getEncoding()));
-                os.write(mimeType1.getBytes(getEncoding()));
-                os.write(", ".getBytes(getEncoding()));
-                os.write(mimeType2.getBytes(getEncoding()));
-                os.write(")".getBytes(getEncoding()));
-                os.write(getEOL());
+//                os.write("svn:mime-type = (".getBytes(getEncoding()));
+//                os.write(mimeType1.getBytes(getEncoding()));
+//                os.write(", ".getBytes(getEncoding()));
+//                os.write(mimeType2.getBytes(getEncoding()));
+//                os.write(")".getBytes(getEncoding()));
+//                os.write(getEOL());
             }
         }
     }
@@ -802,17 +803,25 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
 		if(file == null)
 			return "";
 		StringBuilder content = null;
+		FileReader reader = null;
 		try {
-			FileReader reader = new FileReader(file);
+			reader = new FileReader(file);
 			char[] chars = new char[(int) file.length()];
 			reader.read(chars);
 			content = new StringBuilder(new String(chars));
 //			if(content.endsWith("\r\n"))
 //				content = content.substring(0, content.length()-"\r\n".length());
-			reader.close();
 			return content.toString();
 		} catch (IOException e) {
 			return "";
+		} finally {
+			if(reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
     
@@ -843,12 +852,30 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
 
 	protected String getFooter() throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		bos.write("      </changedLines>".getBytes(getEncoding()));
-		bos.write(getEOL());
-		bos.write("    </br.ufrn.dimap.rtquality.history.ClassUpdates>".getBytes(getEncoding()));
-		bos.write(getEOL());
-		bos.close();
-		return bos.toString(getEncoding());
+		try{
+			String fileDirectory = (new File("")).getAbsolutePath();
+			File file = new File(fileDirectory+"/ProjectUpdates.xml");
+			String value = FileUtil.loadTextFromFile(file);
+			if(value != null) {
+				int start = value.lastIndexOf("</");
+				int end = value.lastIndexOf(">")+1;
+				if(start > -1 && end > -1 && !value.substring(start, end).equals("</br.ufrn.dimap.rtquality.history.ClassUpdates>")) {
+					bos.write("      </changedLines>".getBytes(getEncoding()));
+					bos.write(getEOL());
+					bos.write("    </br.ufrn.dimap.rtquality.history.ClassUpdates>".getBytes(getEncoding()));
+					bos.write(getEOL());
+					return bos.toString(getEncoding());
+				}
+			}
+			bos.write("".getBytes(getEncoding()));
+			return bos.toString(getEncoding());
+		} catch (Exception e) {
+			bos.write("".getBytes(getEncoding()));
+			return bos.toString(getEncoding());
+		} finally {
+			if(bos != null)
+				bos.close();
+		}
 	}
     
     protected boolean isHeaderForced(File file1, File file2) {
@@ -881,17 +908,17 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
         for (Iterator<?> paths = deleted.keySet().iterator(); paths.hasNext();) {
             String path = (String) paths.next();
             SVNMergeRangeList rangeList = (SVNMergeRangeList) deleted.get(path);
-            baos.write(("   Reverse-merged " + path + ":r").getBytes(getEncoding())); 
-            baos.write(rangeList.toString().getBytes(getEncoding()));
-            baos.write(getEOL());
+//            baos.write(("   Reverse-merged " + path + ":r").getBytes(getEncoding())); 
+//            baos.write(rangeList.toString().getBytes(getEncoding()));
+//            baos.write(getEOL());
         }
         
         for (Iterator<?> paths = added.keySet().iterator(); paths.hasNext();) {
             String path = (String) paths.next();
             SVNMergeRangeList rangeList = (SVNMergeRangeList) added.get(path);
-            baos.write(("   Merged " + path + ":r").getBytes(getEncoding())); 
-            baos.write(rangeList.toString().getBytes(getEncoding()));
-            baos.write(getEOL());
+//            baos.write(("   Merged " + path + ":r").getBytes(getEncoding())); 
+//            baos.write(rangeList.toString().getBytes(getEncoding()));
+//            baos.write(getEOL());
         }
     }
     

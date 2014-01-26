@@ -8,7 +8,6 @@ import java.util.Set;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Request;
 import org.junit.runner.Runner;
-import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 
 import br.ufrn.dimap.ttracker.data.MethodData;
@@ -19,14 +18,21 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public class TestUtil {
 
-	public static void executeTests(ClassLoader classLoader, Set<String> testClasses) throws InitializationError, ClassNotFoundException {
+	public static void executeTests(ClassLoader classLoader, Set<String> testClasses) {
 		Iterator<String> iterator = testClasses.iterator();
 		if(iterator.hasNext()) {
 			for(String testClassName : testClasses) {
-				Class<?> testClass = classLoader.loadClass(testClassName);
-				Runner r = new BlockJUnit4ClassRunner(testClass);
-				JUnitCore c = new JUnitCore();
-				c.run(Request.runner(r));
+				try{
+					Class<?> testClass = classLoader.loadClass(testClassName);
+					Runner r = new WicketJUnitRunner(testClass); //TODO: Renomear e organizar esta implementação
+					JUnitCore c = new JUnitCore();
+					c.run(Request.runner(r));
+				} catch(InitializationError ie) {
+					System.out.println("Nome da classe: "+testClassName);
+					ie.printStackTrace();
+				} catch(ClassNotFoundException cnfe) {
+					cnfe.printStackTrace();
+				}
 			}
 		}
 	}
@@ -62,7 +68,7 @@ public class TestUtil {
 
 	public static void metricMeansurement2(Set<TestCoverage> techniqueTestSelection, Set<TestCoverage> idealTestSelection, Set<TestCoverage> allValidTests, Revision revision){
 		revision.setInclusion(getInclusionMeasure(techniqueTestSelection, idealTestSelection)*100);
-		revision.setPrecision(getPrecisionMeasure(techniqueTestSelection, idealTestSelection, allValidTests)*100);
+//		revision.setPrecision(getPrecisionMeasure(techniqueTestSelection, idealTestSelection, allValidTests)*100);
 	}
 	
 	public static void printRevision(Revision revision) {
@@ -82,17 +88,12 @@ public class TestUtil {
 		return (new Float(intersection.size()))/(new Float(idealTestSelection.size()));
 	}
 
-	public static Float getPrecisionMeasure(Set<TestCoverage> techniqueTestSelection, Set<TestCoverage> idealTestSelection, Set<TestCoverage> allValidTests){
-		Set<TestCoverage> inverseTechniqueTestSelection = new HashSet<TestCoverage>(allValidTests);
-		inverseTechniqueTestSelection.removeAll(techniqueTestSelection);
-		
-		Set<TestCoverage> inverseIdealTestSelection = new HashSet<TestCoverage>(allValidTests);
-		inverseIdealTestSelection.removeAll(idealTestSelection);
-		if(inverseIdealTestSelection.size() == 0)
+	public static Float getPrecisionMeasure(Set<TestCoverage> techniqueTestExclusion, Set<TestCoverage> idealTestExclusion){
+		if(idealTestExclusion.size() == 0)
 			return new Float(1);
 		
-		Set<TestCoverage> intersection = TestCoverage.intersection(inverseTechniqueTestSelection, inverseIdealTestSelection);
-		return (new Float(intersection.size()))/(new Float(inverseIdealTestSelection.size()));
+		Set<TestCoverage> intersection = TestCoverage.intersection(techniqueTestExclusion, idealTestExclusion);
+		return (new Float(intersection.size()))/(new Float(idealTestExclusion.size()));
 	}
 	
 }

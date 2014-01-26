@@ -20,9 +20,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
+import org.eclipse.core.internal.resources.mapping.ResourceChangeDescriptionFactory;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.mapping.IResourceChangeDescriptionFactory;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -41,6 +44,7 @@ import org.junit.runner.Runner;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.wc.SVNRevision;
 
 import com.sun.corba.se.impl.orbutil.DenseIntMapImpl;
 import com.thoughtworks.xstream.XStream;
@@ -224,7 +228,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 						revision.setUndoModifiedMethods(D);
 						revision.setDoAndUndoDone(true);
 					} catch (SVNException svne) {
-						System.out.println("Conexão Perdida...");
+						svne.printStackTrace();
+						System.out.println("Conexão Perdida... ou Revisão muito antiga, e o arquivo/projeto ainda nem existe...");
 						revision.setDoAndUndoDone(false);
 						return;
 					} catch (IOException ioe) {
@@ -264,74 +269,107 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			 */
 			History history2 = new History(sVNConfig2, iWorkspace);
 //TODO: Essa revisão deve ser alterada quando seu código for atualizado
-			history2.checkouOrUpdateProjects(290);
+			history2.checkouOrUpdateProjects(295);
 			for(Revision revision : revisionForCheckout) {
-				history.checkouOrUpdateProjects(revision.getId());
-				
-				Project aProject = projectForExecuteAllTests.get(0);
-				Class<?> aClass = ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
-				ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass), iWorkspace.getRoot().getLocation().toString(), revision.getId(), aProject.getName());
-				if(automatic) {
-					for(Project project : projectForExecuteAllTests) {
-						if(!project.isExecuteTests())
-							continue;
-						IProject iProject = project.getIProject();
-						ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-						if(!(new File(iWorkspace.getRoot().getLocation().toString()+"/result/TCM_"+revision.getId())).exists()){
-							try {
-								TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
-							} catch(InitializationError ie) {
-//TODO: Verificar se este erro ocorre com testes mal-formados, de tal forma que não há o que fazer. Já notei que este erro pode acontecer por passar um nome errado da classe, e a classe não ser encontrada... Errado, a exceção lançada deste caso deveria ser ClassNotFoundException. Vamos ver o nome do teste passado.
-								(new File(iWorkspace.getRoot().getLocation().toString()+"/result/TCM_"+revision.getId())).delete();
-								ie.printStackTrace();
-							} catch(ClassNotFoundException cnfe) {
-								(new File(iWorkspace.getRoot().getLocation().toString()+"/result/TCM_"+revision.getId())).delete();
-								cnfe.printStackTrace();
-							}
-						}
+				String resultPath = iWorkspace.getRoot().getLocation().toString()+"/result";
+				if(!(new File(resultPath+"/TCM_"+revision.getId()+".tcm")).exists()) {
+					history.checkouOrUpdateProjects(revision.getId());
+					Project aProject = projectForExecuteAllTests.get(0);
+					Class<?> aClass = ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
+					ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass), iWorkspace.getRoot().getLocation().toString(), revision.getId(), aProject.getName());
+					if(automatic) {
+						for(Project project : projectForExecuteAllTests) {
+							if(!project.isExecuteTests())
+								continue;
+							IProject iProject = project.getIProject();
+							ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
+							TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
 //TODO: Verificar se os TCMs não estão sendo acumulados, se sim, algum procedimento deve zerar a instância do TCM utilizado para cada 
-						ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
+							ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
+						}
+					}
+					else {
+						Runtime.getRuntime().exec("D:/UFRN/Test_Quality/servers/SIGAA_2/bin/run.bat");
+						System.out.println("Aguarde o JBoss e execute os testes manuais antes de continuar...");
+						System.out.println("Testes finalizados...");
+						for(Project project : projectForExecuteAllTests) {
+							ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
+						}
 					}
 				}
 				else {
-					Runtime.getRuntime().exec("D:/UFRN/Test_Quality/servers/SIGAA_2/bin/run.bat");
-					System.out.println("Aguarde o JBoss e execute os testes manuais antes de continuar...");
-					System.out.println("Testes finalizados...");
-					for(Project project : projectForExecuteAllTests) {
-						ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
+					for(int i=1;i<=sVNConfig.getProjects().size();i++) {
+			    		Project project = sVNConfig.getProjects().get(i);
+			    		project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
 					}
 				}
 				
 				for(Project project : projectForExecuteAllTests) {
 					for(Task task : revision.getOldTasks()) {
-						// Pythia - a regression test selection tool based on textual differencing
-						regressionTestTechnique.setName("Pythia");
-						regressionTestTechnique.setRevision(revision);
-						regressionTestTechnique.setIProject(project.getIProject());
-						TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(project.getIProject(), "TCM_"+revision.getId());
-						Object configurations[] = { TCM };
-						regressionTestTechnique.setConfiguration(configurations);
-						//TODO: cada técnica de teste de regressão deve implementar sua própria técnica de obtenção dos métodos modificados
-						regressionTestTechnique.setModifiedMethods(task.getModifiedMethods()); //TODO: Verificar se o TCM que está dentro do DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o mesmo), este objeto não deve ser salvo pois prejudicaria a construção do MethodState de outras versões
-						Set<TestCoverage> allOldTests = TCM.getTestCoverages(); 
-						Set<TestCoverage> techniqueSelection = regressionTestTechnique.executeRegression();
-						Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
-						techniqueExclusion.removeAll(techniqueSelection);
-						FileUtil.saveObjectToFile(allOldTests, iWorkspace.getRoot().getLocation().toString()+"/result", "AllOldTests_"+task.getId(), "slc");
-						FileUtil.saveObjectToFile(techniqueSelection, iWorkspace.getRoot().getLocation().toString()+"/result", "RTSSelection_"+regressionTestTechnique.getName()+"_"+task.getId(), "slc");
-						FileUtil.saveObjectToFile(techniqueExclusion, iWorkspace.getRoot().getLocation().toString()+"/result", "RTSExclusion_"+regressionTestTechnique.getName()+"_"+task.getId(), "slc");
+						String allOldTestsResultName = "AllOldTests_"+task.getId();
+						String selectionResultName = "RTSSelection_"+regressionTestTechnique.getName()+"_"+task.getId();
+						String exclusionResultName = "RTSExclusion_"+regressionTestTechnique.getName()+"_"+task.getId();
+						if(!(new File(resultPath+"/"+selectionResultName+".slc")).exists() || !(new File(resultPath+"/"+exclusionResultName+".slc")).exists() || !(new File(resultPath+"/"+allOldTestsResultName+".slc")).exists()) {
+							// Pythia - a regression test selection tool based on textual differencing
+							regressionTestTechnique.setName("Pythia");
+							regressionTestTechnique.setRevision(revision);
+							regressionTestTechnique.setIProject(project.getIProject());
+							TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_"+revision.getId());
+							Object configurations[] = { TCM };
+							regressionTestTechnique.setConfiguration(configurations);
+							//TODO: cada técnica de teste de regressão deve implementar sua própria técnica de obtenção dos métodos modificados
+							regressionTestTechnique.setModifiedMethods(task.getModifiedMethods()); //TODO: Verificar se o TCM que está dentro do DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o mesmo), este objeto não deve ser salvo pois prejudicaria a construção do MethodState de outras versões
+							Set<TestCoverage> allOldTests = TCM.getTestCoverages(); 
+							Set<TestCoverage> techniqueSelection = regressionTestTechnique.executeRegression();
+							Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
+							techniqueExclusion.removeAll(techniqueSelection);
+							FileUtil.saveObjectToFile(allOldTests, iWorkspace.getRoot().getLocation().toString()+"/result", allOldTestsResultName, "slc");
+							FileUtil.saveObjectToFile(techniqueSelection, iWorkspace.getRoot().getLocation().toString()+"/result", selectionResultName, "slc");
+							FileUtil.saveObjectToFile(techniqueExclusion, iWorkspace.getRoot().getLocation().toString()+"/result", exclusionResultName, "slc");
+						}
 					}
 					for(Task task : revision.getCurrentTasks()) { //TODO: Para que tecnicas que utilizam a currente funcionem terei que colocar a execução dela aqui
-						Set<String> modifiedMethods = task.getModifiedMethods();
-						TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(project.getIProject(), "TCM_"+revision.getId());
-						TCM.setModifiedMethods(modifiedMethods);
-						Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
-						Set<TestCoverage> perfectExclusion = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"/result", "AllOldTests_"+task.getId(), "slc");
-						Set<TestCoverage> perfectSelection = MathUtil.intersection(perfectExclusion, toolSelection);
-						perfectExclusion.removeAll(perfectSelection);
-						FileUtil.saveObjectToFile(perfectSelection, iWorkspace.getRoot().getLocation().toString()+"/result", "PerfectSelection_"+task.getId(), "slc");
-						FileUtil.saveObjectToFile(perfectExclusion, iWorkspace.getRoot().getLocation().toString()+"/result", "PerfectExclusion_"+task.getId(), "slc");
+						String allOldTestsResultName = "AllOldTests_"+task.getId();
+						String selectionResultName = "PerfectSelection_"+task.getId();
+						String exclusionResultName = "PerfectExclusion_"+task.getId();
+						if(!(new File(resultPath+"/"+selectionResultName+".slc")).exists() || !(new File(resultPath+"/"+exclusionResultName+".slc")).exists()) {
+							Set<String> modifiedMethods = task.getModifiedMethods();
+							TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_"+revision.getId());
+							TCM.setModifiedMethods(modifiedMethods);
+							Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
+							Set<TestCoverage> allOldTests = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"/result", allOldTestsResultName, "slc");
+							Set<TestCoverage> perfectExclusion = new HashSet<TestCoverage>(allOldTests);
+							Set<TestCoverage> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
+							perfectExclusion.removeAll(perfectSelection);
+							FileUtil.saveObjectToFile(perfectSelection, iWorkspace.getRoot().getLocation().toString()+"/result", selectionResultName, "slc");
+							FileUtil.saveObjectToFile(perfectExclusion, iWorkspace.getRoot().getLocation().toString()+"/result", exclusionResultName, "slc");
+						}
 					}
+				}
+				File currentRevisionFile = new File(iWorkspace.getRoot().getLocation().toString()+"/config/currentRevision.txt");
+				String currentRevision = FileUtil.loadTextFromFile(currentRevisionFile);
+				if(currentRevision == null || currentRevision.equals(revision.getId().toString())) {
+					for(int i=sVNConfig.getProjects().size();i>=1;i--) {
+						Project project = sVNConfig.getProjects().get(i);
+						IProject iProject = project.getIProject();
+						if(iProject.exists()) {
+							if(iProject.isOpen()) {
+								iProject.build(IncrementalProjectBuilder.CLEAN_BUILD, new SysOutProgressMonitor());
+								iProject.close(new SysOutProgressMonitor());
+							}
+							iProject.delete(true, new SysOutProgressMonitor());
+						}
+						File projectFile = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
+						if(projectFile.exists()) {
+							try {
+								FileUtils.deleteDirectory(projectFile);
+							} catch (IOException ioe) {
+								ioe.printStackTrace();
+							}
+						}
+					}
+					if(currentRevisionFile != null && currentRevisionFile.exists())
+						currentRevisionFile.delete();
 				}
 				//TODO: cada revisão pode conter novos testes ou excluídos testes da revisão anterior, ao calcular as métricas tem de levar em consideração apenas o que já existia
 			}
@@ -346,8 +384,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				Set<TestCoverage> techniqueExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "RTSExclusion_"+task.getId());
 				Set<TestCoverage> perfectSelection = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "PerfectSelection_"+task.getId());
 				Set<TestCoverage> perfectExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "PerfectExclusion_"+task.getId());
-				task.setInclusion(new Float(MathUtil.intersection(techniqueSelection,perfectSelection).size())/new Float(perfectSelection.size()));
-				task.setPrecision(new Float(MathUtil.intersection(techniqueExclusion,perfectExclusion).size())/new Float(perfectExclusion.size()));
+				task.setInclusion(TestUtil.getInclusionMeasure(techniqueSelection, perfectSelection)*100);
+				task.setPrecision(TestUtil.getPrecisionMeasure(techniqueExclusion, perfectExclusion)*100);
 				TaskTypeSet taskTypeSet = taskTypes.get(task.getType());
 				taskTypeSet.setInclusion(taskTypeSet.getInclusion()+task.getInclusion());
 				taskTypeSet.setPrecision(taskTypeSet.getPrecision()+task.getPrecision());
@@ -358,159 +396,13 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				taskTypeSet.setInclusion(taskTypeSet.getInclusion()/new Float(taskTypeSet.getTasks().size()));
 				taskTypeSet.setPrecision(taskTypeSet.getPrecision()/new Float(taskTypeSet.getTasks().size()));
 			}
+			System.out.println();
 			
-			/*
-			 ** Cada revision do forCheckout deve possuir uma lista com as tarefas na qual ela é oldRevision e uma lista com as tarefas nas quais ela é currentRevision
-			 ** Loop para cada task
-			 	 ** Obter o conjunto das modificações e salvar na estrutura da task (Lembrar da lógica de capturar cada modificação de cada revisão e gerar um conjunto consistente)
-		 	 ** End Loop
-		 	 ** Loop para cada Project em projects
-		 	 	 ** Identificar quais projetos devem ter seus testes executados
-	 	 	 ** End Loop
-			 ** Loop para cada revisão em forCheckout
-			 	 ** Fazer o checkout dos projetos nesta revisão ou o update, caso a revisão não seja a primeira 
-			 	 ** Executar todos os testes nesta revisão para os projetos identificados 
-				 ** Salvar o TestCoverageMapping em arquivos com o número da revisão (TCM_revisionId)
-			 	 ** Loop Para cada task cuja revision seja oldRevision
-					 ** Pegar o conjunto de modificações da task 
-					 ** Executar a RTS passando as modificações (RTS baseadas em oldRevision)
-					 	* A RTS deve ser responsável por obter seu proprio conjunto de modificações, já levando em consideração quais métodos são inválidos 
-				 	 ** Salvar uma relação contendo todos os testes existentes (AllTestsOld_taskId.slc)
-					 ** Salvar o resultado da técnica com o número da task (RTSNome_taskId.slc)
-				 ** End Loop
-				 * Loop Para cada task cuja revision seja currentRevision
-				 	 ** Pegar o conjunto de modificações da task
-				 	 * Executar a ferramenta para achar a solução perfeita
-				 	 * Salvar uma relação contendo todos os testes existentes (AllTestsCurrent_taskId.slc)
-				 	 * Salvar o resultado perfeito com o número da task (Perfect_taskId)
-			 	 * End Loop
-			 * End Loop
-			 * Loop Para cada task
-			 	 * Calcular as métricas carregando os arquivos RTSNome_taskId e Perfect_taskId
-		 	 * End Loop
-		 	 * Onde entra a atualização dos AllMethods? 
-		 	 * -----------------------------------------------------------------------------------------
-		 	 * Baixar primeira revisão
-			 * Para cada tarefa
-			 	 * Carregar o TestCoverageMapping do arquivo para a oldRevision e currentRevision da tarefa
-				 * Obter modificações até a última revisão da tarefa
-				 * Atualizar a estrutura do TestCoverageMapping carregado (não atualizar o arquivo)
-				 * Obter a solução ideal a partir da currentRevision
-				 * Executar técnicas de RTS tanto as que utilizam a oldRevision quanto as que utilizam a currentRevision
-				 * Calcular as métricas
-				 * Salvar o TestCoverageMapping com a informação da revisão dele no nome do arquivo (Diretório results)
-				 * Fazer Update
-			 * Loop End
-			 */
-//		/*
-//		 * coletar as revisÃµes de cada task chamar passo1 passando todas as
-//		 * revisÃµes
-//		 */
-//		Map<Revision,Set<Task>> forExecuteAllTests = new HashMap<Revision,Set<Task>>();
-//		Set<Revision> forRegression = new HashSet<Revision>();
-//		for (Task task : tasks) {
-//			forRegression.add(task.getOldRevision());
-//			if(forExecuteAllTests.containsKey(task.getOldRevision()))
-//				forExecuteAllTests.get(task.getOldRevision()).add(task);
-//			else {
-//				Set<Task> revisionTasks = new HashSet<Task>();
-//				revisionTasks.add(task);
-//				forExecuteAllTests.put(task.getOldRevision(), revisionTasks);
-//			}
-//			if(forExecuteAllTests.containsKey(task.getCurrentRevision()))
-//				forExecuteAllTests.get(task.getCurrentRevision()).add(task);
-//			else {
-//				Set<Task> revisionTasks = new HashSet<Task>();
-//				revisionTasks.add(task);
-//				forExecuteAllTests.put(task.getCurrentRevision(), revisionTasks);
-//			}
-//		}
-			
-			
-			
-			
-			
-			
-//			
-//			Integer index = 0;
-//			History history = new History(sVNConfig, ResourcesPlugin.getWorkspace());
-//			history.checkoutProjects(revisionForCheckout.get(index).getId());
-//			do {
-//				if(index > 0)
-//					history.updateProjects(revisionForCheckout.get(index).getId());
-//				
-//				//Executar todos os testes nesta revisão
-//				IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject("SIGAA");
-//				ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-//				TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, "/SIGAA/biblioteca"), "AllTests_"+revisionForCheckout.get(index).getId());
-//				ProjectUtil.setAllUncoveredMethods(iProject, "AllTests_"+revisionForCheckout.get(index).getId());
-//				
-//				//Obter modificações até a última versão da tarefa a qual está revisão pertence como "inicial"!!!
-//				//Executar técnicas que utilizam esta revisão como a inicial (Só acontece quando existir uma tarefa que tenha esta revisão como "inicial"
-//				//Salvar o TestCoverageMapping com a informação da revisão dele no nome do arquivo (Diretório results)
-//				//Fazer Update
-//				index++;
-//			} while(index < revisionForCheckout.size()-1);
-//			
-//			
-//			
-//			
-			
-//			for (Revision revision : forCheckoutAndExecuteAllTests) {
-//				for(IProject iProject : ProjectUtil.getIProjects(sVNConfig, revision.getId())) {
-//					ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-//					TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject), "AllTests");
-//					ProjectUtil.setAllUncoveredMethods(iProject, "AllTests");
-//				}
-//			}
-//			for (Revision revision : forRegression) {
-//				try {
-//					//IntersecÃ§Ã£o entre TestCoverageMappings
-//					IProject newIProject = ProjectUtil.getIProject(sVNConfig, revision.getId());
-//					TestCoverageMapping newTestCoverageMapping = ProjectUtil.getTestCoverageMapping(newIProject, "AllTests");
-//					IProject oldIProject = ProjectUtil.getIProject(sVNConfig, revision.getOldId());
-//					TestCoverageMapping oldTestCoverageMapping = ProjectUtil.getTestCoverageMapping(oldIProject, "AllTests");
-//					TestCoverageMapping.intersection(oldTestCoverageMapping, newTestCoverageMapping);
-//					//IntersecÃ§Ã£o entre ModifiedMethods
-//					Set<String> modifiedMethods = history.getChangedMethodsSignatures(revision.getOldId(), revision.getId());
-//					Set<String> oldValidModifiedMethods = oldTestCoverageMapping.getValidModifiedMethods(modifiedMethods);
-//					Set<String> newValidModifiedMethods = newTestCoverageMapping.getValidModifiedMethods(modifiedMethods);
-//					Set<String> validModifiedMethods = MathUtil.intersection(oldValidModifiedMethods, newValidModifiedMethods);
-//					
-//					// Pythia - a regression test selection tool based on textual differencing
-//					regressionTestTechnique.setRevision(revision);
-//					regressionTestTechnique.setIProject(newIProject);
-//					Object configurations[] = { oldTestCoverageMapping };
-//					regressionTestTechnique.setConfiguration(configurations);
-//					//TODO: cada tÃ©cnica de teste de regressÃ£o deve implementar sua prÃ³pria tÃ©cnica de obtenÃ§Ã£o dos mÃ©todos modificados
-//					regressionTestTechnique.setModifiedMethods(validModifiedMethods);
-//					Set<TestCoverage> allTestsOldProject = oldTestCoverageMapping.getTestCoverages(); 
-//					Set<TestCoverage> techniqueTestSelection = regressionTestTechnique.executeRegression();
-//					Map<MethodState, Map<String, MethodData>> techniqueMetricsTable = regressionTestTechnique.getMethodStatePool();
-//					
-//					// SeleÃ§Ã£o Ideal
-//					//TODO: segundo Gregg Rothermel a identificaÃ§Ã£o das modificaÃ§Ãµes devem ser obtidas a partir
-//					//da identificaÃ§Ã£o de diferenÃ§as nas pilhas de execuÃ§Ã£o e nÃ£o pelo text diff
-//					newTestCoverageMapping.setModifiedMethods(validModifiedMethods);
-//					Set<TestCoverage> allTestsNewProject = newTestCoverageMapping.getTestCoverages();
-//					Set<TestCoverage> allValidTests = TestCoverage.intersection(allTestsOldProject, allTestsNewProject);
-//					Set<TestCoverage> idealTestSelection = newTestCoverageMapping.getModifiedChangedTestsCoverage();
-//					techniqueTestSelection = TestCoverage.intersection(techniqueTestSelection, allValidTests);
-//					idealTestSelection = TestCoverage.intersection(idealTestSelection, allValidTests);
-//					Map<MethodState, Map<String, MethodData>> idealMetricsTable = newTestCoverageMapping.getMethodStatePool();
-//					
-//					// CÃ¡lculo das MÃ©tricas
-//					TestUtil.metricMeansurement(techniqueMetricsTable, idealMetricsTable, revision);
-//					TestUtil.metricMeansurement2(techniqueTestSelection, idealTestSelection, allValidTests, revision);
-//					TestUtil.printRevision(revision);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
 		} catch (SVNException e1) {
 			e1.printStackTrace();
 		} catch (CoreException e) {
 			e.printStackTrace();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -617,6 +509,12 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 					}
 					task.setCurrentRevision(currentRevision);
 				}
+			}
+			for(Revision revision : allRevisionsMap.values()) {
+				if(revision.getOldTasks() == null)
+					revision.setOldTasks(new HashSet<Task>(0));
+				if(revision.getCurrentTasks() == null)
+					revision.setCurrentTasks(new HashSet<Task>(0));
 			}
 			revisionForCheckout.addAll(allRevisionsMap.values());
 			Collections.sort(revisionForCheckout);
