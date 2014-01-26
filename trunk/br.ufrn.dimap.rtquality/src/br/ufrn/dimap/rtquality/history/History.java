@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +41,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.SVNLogEntry;
+import org.tmatesoft.svn.core.SVNNodeKind;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
@@ -108,28 +111,42 @@ public class History {
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
-		SVNWCClient sVNWCClient = client.getWCClient();
-		Map<Project,File> projectFile = new HashMap<Project,File>(sVNConfig.getProjects().size());
-    	for(int i=1;i<=sVNConfig.getProjects().size();i++) { //TODO: estes projetos possuem informações que serão perdidas caso a execução seja interrompida, salvar esta informação
+//		Map<Project,File> projectFile = new HashMap<Project,File>(sVNConfig.getProjects().size());
+    	for(int i=1;i<=sVNConfig.getProjects().size();i++) {
     		Project project = sVNConfig.getProjects().get(i);
     		project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
+			IProject iProject = project.getIProject();
+			if(iProject.exists()) {
+				if(iProject.isOpen()) {
+					iProject.build(IncrementalProjectBuilder.CLEAN_BUILD, new SysOutProgressMonitor());
+					iProject.close(new SysOutProgressMonitor());
+				}
+				iProject.delete(true, new SysOutProgressMonitor());
+			}
 			File file = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
-			if(!file.exists()) {
-				file.mkdir();
-				sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
-						file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
-				project.getProjectRevisionInformations().setRevision(revision);
+			if(file.exists()) {
+				try {
+					FileUtils.deleteDirectory(file);
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
-			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
-				projectFile.put(project,file);
-				sVNWCClient.doCleanup(file);
-			}
+			file.mkdir();
+			sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
+					file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
+			client.dispose();
+			FileUtil.saveTextToFile(revision.toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
+			project.getProjectRevisionInformations().setRevision(revision);
+//			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
+//				projectFile.put(project,file);
+////				sVNWCClient.doCleanup(file);
+//			}
     	}
-    	if(!projectFile.isEmpty()){
-    		sVNUpdateClient.doUpdate(projectFile.values().toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
-    		for(Project project : projectFile.keySet())
-    			project.getProjectRevisionInformations().setRevision(revision);
-    	}
+//    	if(!projectFile.isEmpty()){
+//    		sVNUpdateClient.doUpdate(projectFile.values().toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
+//    		for(Project project : projectFile.keySet())
+//    			project.getProjectRevisionInformations().setRevision(revision);
+//    	}
 		importConfigureRefreshBuild();
     }
     
@@ -137,8 +154,8 @@ public class History {
 //		Map<String,ProjectRevisionInformations> projectRevisionInformations = new HashMap<String,ProjectRevisionInformations>();
 		for(int i=1;i<=sVNConfig.getProjects().size();i++) {
     		Project project = sVNConfig.getProjects().get(i);
-			if(project.getProjectRevisionInformations().getRevisionBuilded().equals(project.getProjectRevisionInformations().getRevision()))
-				continue;
+//			if(project.getProjectRevisionInformations().getRevisionBuilded().equals(project.getProjectRevisionInformations().getRevision()))
+//				continue;
 			importProject(project);
 			if(project.isAspectJNature())
 				configureAspectJ(project.getIProject());
@@ -176,26 +193,37 @@ public class History {
 		SysOutProgressMonitor.out.println("Eclipse project builded");
 	}
     
-    private void importProject(Project project) throws CoreException, IOException {
+    private void importProject(Project project) throws CoreException {
     	final IProject iProject = project.getIProject();
     	SysOutProgressMonitor.out.println("Importing eclipse project: " + iProject.getName());
-    	InputStream inputStream = new FileInputStream(iWorkspace.getRoot().getLocation().toString()+"/"+iProject.getName()+"/.project");
-    	final IProjectDescription iProjectDescription = iWorkspace.loadProjectDescription(inputStream);
-    	
-    	
-    	iWorkspace.run(new IWorkspaceRunnable() {
-    		@Override
-    		public void run(IProgressMonitor monitor) throws CoreException {
-    			// create project as java project
-    			if ( !iProject.exists()) {
-    				iProjectDescription.setLocation(null);
-    				iProject.create(iProjectDescription, monitor);
-    				iProject.open(IResource.NONE, monitor);
-    			}
+    	InputStream inputStream = null;
+    	try {
+			inputStream = new FileInputStream(iWorkspace.getRoot().getLocation().toString()+"/"+iProject.getName()+"/.project");
+			final IProjectDescription iProjectDescription = iWorkspace.loadProjectDescription(inputStream);
+			iWorkspace.run(new IWorkspaceRunnable() {
+				@Override
+				public void run(IProgressMonitor monitor) throws CoreException {
+					// create project as java project
+					if ( !iProject.exists()) {
+						iProjectDescription.setLocation(null);
+						iProject.create(iProjectDescription, monitor);
+						iProject.open(IResource.NONE, monitor);
+					}
+				}
+			}, iWorkspace.getRoot(), IWorkspace.AVOID_UPDATE, new SysOutProgressMonitor());
+			SysOutProgressMonitor.out.println("Eclipse project imported");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+    		if(inputStream != null) {
+    			try {
+					inputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
     		}
-    	}, iWorkspace.getRoot(), IWorkspace.AVOID_UPDATE, new SysOutProgressMonitor());
+    	}
     	
-    	SysOutProgressMonitor.out.println("Eclipse project imported");
     }
     
     private void configureAspectJ(IProject iProject) throws CoreException, IOException {
@@ -309,49 +337,77 @@ public class History {
 	 * @param aspectjweaver
 	 */
 	private void copyFile(IProject iProject, String relativePath) {
+		InputStream in = null;
+		OutputStream out = null;
 		try{
     	    File f1 = new File(findResolveURL(relativePath));
     	    File f2 = new File(iProject.getLocation().toString()+"/lib");
     	    File f3 = new File(iProject.getLocation().toString()+relativePath);
     		if(!f2.exists())
     			f2.mkdir();
-    		InputStream in = new FileInputStream(f1);
-    		OutputStream out = new FileOutputStream(f3);
+    		in = new FileInputStream(f1);
+    		out = new FileOutputStream(f3);
     		byte[] buf = new byte[1024];
     		int len;
     		while ((len = in.read(buf)) > 0){
     			out.write(buf, 0, len);
     		}
-    		in.close();
-    		out.close();
-    	}
-    	catch(FileNotFoundException ex){
+    	} catch(FileNotFoundException ex){
     		ex.printStackTrace();
-    	}
-    	catch(IOException e){
+    	} catch(IOException e){
     		e.printStackTrace();
+    	} finally {
+    		if(in != null) {
+    			try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+			if(out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
     	}
 	}
 	
 	private void copyFile(IProject iProject, String origem, String destino) {
+		InputStream in = null;
+		OutputStream out = null;
 		try{
     	    File f1 = new File(findResolveURL(origem));
     	    File f2 = new File(iProject.getLocation().toString()+destino);
-    		InputStream in = new FileInputStream(f1);
-    		OutputStream out = new FileOutputStream(f2);
+    		in = new FileInputStream(f1);
+    		out = new FileOutputStream(f2);
     		byte[] buf = new byte[1024];
     		int len;
     		while ((len = in.read(buf)) > 0){
     			out.write(buf, 0, len);
     		}
-    		in.close();
-    		out.close();
     	}
     	catch(FileNotFoundException ex){
     		ex.printStackTrace();
     	}
     	catch(IOException e){
     		e.printStackTrace();
+    	} finally {
+    		if(in != null) {
+    			try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+			if(out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
     	}
 	}
 
@@ -372,22 +428,27 @@ public class History {
 		SVNDiffClient diffClient = client.getDiffClient();
 		TestTrackerSVNDiffGenerator testTrackerSVNDiffGenerator = new TestTrackerSVNDiffGenerator();
 		diffClient.setDiffGenerator(testTrackerSVNDiffGenerator);
+		FileOutputStream fOS = null;
 		try {
-			File xmlFile = new File("ProjectUpdates.xml");
-			FileOutputStream fOS = new FileOutputStream(xmlFile);
-			startProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
-			diffClient.doDiff(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
-					SVNRevision.create(startRevision),
-					SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
-			        SVNRevision.create(endRevision),
-			        SVNDepth.INFINITY,
-			        true,
-			        fOS);
-			finishProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
-			fOS.close();
-			ProjectUpdates projectUpdates = (ProjectUpdates) getObjectFromXML(xmlFile);
-			xmlFile.delete();
-			updatedMethods = projectUpdates.getUpdatedMethods(startRevision, endRevision);
+			String paths[] = {"/trunk"+projectPath};
+			SVNNodeKind endNode = repository.checkPath("/trunk"+projectPath, endRevision);
+			SVNNodeKind startNode = repository.checkPath("/trunk"+projectPath, startRevision);
+	    	if(!endNode.equals(SVNNodeKind.NONE) && !startNode.equals(SVNNodeKind.NONE)) {
+				File xmlFile = new File("ProjectUpdates.xml");
+				fOS = new FileOutputStream(xmlFile);
+				startProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
+				diffClient.doDiff(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
+						SVNRevision.create(startRevision),
+						SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
+				        SVNRevision.create(endRevision),
+				        SVNDepth.INFINITY,
+				        true,
+				        fOS);
+				finishProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
+				ProjectUpdates projectUpdates = (ProjectUpdates) getObjectFromXML(xmlFile);
+				xmlFile.delete();
+				updatedMethods = projectUpdates.getUpdatedMethods(startRevision, endRevision);
+	    	}
 			return updatedMethods;
 		} finally {
 			try {
@@ -396,6 +457,13 @@ public class History {
 					FileUtils.deleteDirectory(tempFolder);
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+			if(fOS != null) {
+				try {
+					fOS.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -455,6 +523,10 @@ public class History {
 
 	public void setsVNConfig(SVNConfig sVNConfig) {
 		this.sVNConfig = sVNConfig;
+	}
+
+	public SVNRepository getRepository() {
+		return repository;
 	}
 
 	public IWorkspace getiWorkspace() {
