@@ -10,16 +10,26 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
+
+import javax.lang.model.type.TypeKind;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -40,6 +50,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.tmatesoft.svn.core.SVNDepth;
+import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNNodeKind;
@@ -64,6 +75,7 @@ import br.ufrn.dimap.rtquality.util.TestUtil;
 import br.ufrn.dimap.ttracker.data.CoveredMethod;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.Task;
+import br.ufrn.dimap.ttracker.data.TaskType;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 import com.thoughtworks.xstream.XStream;
@@ -76,6 +88,8 @@ public class History {
 	private static final String LIBRARY = "1";
 	private static final String CONTAINER = "2";
 	private static final String PROJECT = "3";
+	
+	private static final String FINALIZADA = "FINALIZADA";
 	
 	public History(SVNConfig sVNConfig, IWorkspace iWorkspace) throws SVNException{
 		this.sVNConfig = sVNConfig;
@@ -106,8 +120,202 @@ public class History {
     	}
     	return changedMethodsSignatures;
     }
+	
+    public void generateTasksXML() {
+    	File xmlFile = new File(iWorkspace.getRoot().getLocation().toString()+"/config/Tasks.xml");
+    	if(!xmlFile.exists()) {
+			try {
+				Integer startRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.11.24", -1).getRevision()));
+				Integer endRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.12.18", -1).getRevision()));
+				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", startRevision, endRevision);
+				Set<Task> tasks = new HashSet<Task>();
+				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext();) {
+					SVNLogEntry svnLogEntry = iterator.next();
+					Integer taskId = Integer.valueOf(String.valueOf(getTaskNumberFromLogMessage(svnLogEntry.getMessage())));
+					if(taskId > 0)
+						tasks.add(new Task(taskId));
+				}
+				populateTasksById(tasks);
+				String print = "";
+				for(Task task : tasks)
+					print += task.print();
+				FileUtil.saveTextToFile(print, iWorkspace.getRoot().getLocation().toString()+"/config", "TaskPrint", "txt");
+				Map<String,List<Task>> tasksCount = new HashMap<String,List<Task>>();
+				for(Task task : tasks) {
+					if(task.getType().equals(TaskType.OTHER)) {
+						if(tasksCount.containsKey(task.getOtherType()))
+							tasksCount.get(task.getOtherType()).add(task);
+						else {
+							List<Task> newTasks = new ArrayList<Task>(1);
+							newTasks.add(task);
+							tasksCount.put(task.getOtherType(),newTasks);
+						}
+					}
+					else {
+						if(tasksCount.containsKey(task.getType().getName()))
+							tasksCount.get(task.getType().getName()).add(task);
+						else {
+							List<Task> newTasks = new ArrayList<Task>(1);
+							newTasks.add(task);
+							tasksCount.put(task.getType().getName(),newTasks);
+						}
+					}
+				}
+				Map<Integer,List<String>> ordem = new HashMap<Integer,List<String>>();
+				for(String key : tasksCount.keySet()) {
+					if(tasksCount.get(key).size() >= 7) {
+						if(ordem.containsKey(tasksCount.get(key).size()))
+							ordem.get(tasksCount.get(key).size()).add(key);
+						else {
+							List<String> keys = new ArrayList<String>(1);
+							keys.add(key);
+							ordem.put(tasksCount.get(key).size(), keys);
+						}
+					}
+				}
+				List<Integer> ordenada = new ArrayList<Integer>(ordem.keySet());
+				Collections.sort(ordenada);
+				System.out.println("Tipos das Tarefas x Quantidade de Tarefas");
+				List<Task> finalTasksSelection = new ArrayList<Task>();
+				for(int i=ordenada.size()-1; i>=0; i--) {
+					Integer qtd = ordenada.get(i);
+					for(String key : ordem.get(qtd))
+						finalTasksSelection.addAll(tasksCount.get(key));
+					for(String key : ordem.get(qtd))
+						System.out.println(key+" x "+qtd);
+				}
+				XStream xstream = new XStream();
+				String xmlText = xstream.toXML(finalTasksSelection);
+				FileUtil.saveTextToFile(xmlText, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "xml");
+			} catch (SVNException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
     
-    public void checkouOrUpdateProjects(Integer revision) throws SVNException, CoreException, IOException {
+	public void populateTasksById(Set<Task> tasks) {
+		if(tasks != null) {
+			Set<Task> tasksToRemove = new HashSet<Task>();
+			Connection connection = null;
+			ResultSet rs = null;
+			PreparedStatement stmt = null;
+			ResultSet rs2 = null;
+			PreparedStatement stmt2 = null;
+			try {
+				if (connection == null) {
+					connection = DriverManager.getConnection(
+							"jdbc:postgresql://localhost:5432/sistemas_comum_3_11_24",
+							"postgres", "1234");
+				}
+				for(Task task : tasks) {
+					stmt = connection.prepareStatement(
+							"SELECT tipo_tarefa.denominacao tipo, status_tarefa.denominacao status "+
+							"FROM iproject.tarefa "+
+							"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
+							"INNER JOIN iproject.status_tarefa ON tarefa.id_status = status_tarefa.id "+
+							"WHERE tarefa.numtarefa = ?");
+					stmt.setLong(1, task.getId());
+					rs = stmt.executeQuery();
+					if(rs.next()) {
+						if(!rs.getString("status").equals(FINALIZADA)) {
+							tasksToRemove.add(task);
+							continue;
+						}
+						task.setType(TaskType.getTaskTypeByName(rs.getString("tipo")));
+						if(task.getType().equals(TaskType.OTHER))
+							task.setOtherType(rs.getString("tipo"));
+					
+						stmt2 = connection.prepareStatement(
+								"SELECT substring(log_tarefa.log, '[Revisão|revisão|Revisao|revisao]+[:| ]*([0-9]+)') revisao "+
+								"FROM iproject.log_tarefa "+
+								"INNER JOIN iproject.tarefa ON log_tarefa.id_tarefa = tarefa.id_tarefa "+
+								"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
+								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '[Revisão|revisão|Revisao|revisao]+[:| ]*([0-9]+)'");
+						stmt2.setLong(1, task.getId());
+						rs2 = stmt2.executeQuery();
+						while (rs2.next()) {
+							Integer revisionId = Integer.valueOf(String.valueOf(rs2.getLong("revisao")));
+							task.getRevisions().add(new Revision(revisionId));
+						}
+					}
+					else
+						tasksToRemove.add(task);
+				}
+				tasks.removeAll(tasksToRemove);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(stmt != null) {
+					try {
+						stmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(rs2 != null) {
+					try {
+						rs2.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(stmt2 != null) {
+					try {
+						stmt2.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(connection != null) {
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+    
+    public static long getTaskNumberFromLogMessage(String logMessage) {
+		Scanner in = new Scanner(logMessage);
+		
+		String task_word = in.next();
+		String task_value = in.next().replaceAll("[^0-9]", "");
+
+		in.close();
+		
+		long task_number;
+		
+		if (task_word.equalsIgnoreCase("commit")) {
+			System.out.println("Task word commit was found! Setting task number to -2!");
+			task_number = -2;
+		}
+		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) {
+			System.out.println("Task word was found! [" + task_word + "] Setting task number to " + task_value + "!");
+			task_number = Long.parseLong(task_value);
+		}
+		else if (task_word.matches("#[0-9]+")) {
+			task_value = task_word.replaceAll("#", "");
+			System.out.println("Task word is task value! [" + task_word + "] Setting task number to " + task_value + "!");
+			task_number = Long.parseLong(task_value);
+		}
+		else {
+			System.out.println("Task word unknown [" + task_word + "]!\n" + logMessage);
+			task_number = -1;
+		}
+		
+		return task_number;
+	}
+    
+    public void checkouOrUpdateProjects(Integer revision) throws SVNException, CoreException, IOException { //TODO: utilizar Long para a revisão e não Integer
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
@@ -131,16 +339,27 @@ public class History {
 					ioe.printStackTrace();
 				}
 			}
-			file.mkdir();
-			sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
-					file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
-			client.dispose();
-			FileUtil.saveTextToFile(revision.toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
-			project.getProjectRevisionInformations().setRevision(revision);
-//			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
-//				projectFile.put(project,file);
-////				sVNWCClient.doCleanup(file);
-//			}
+			SVNNodeKind node = repository.checkPath("/trunk"+project.getPath(), revision);
+			Integer newRevision = 0;
+	    	if(node.equals(SVNNodeKind.NONE)) {
+	    		LinkedList<SVNLogEntry> entries = getSVNLogEntries("/trunk"+project.getPath(), 0, revision);
+	    		if(!entries.isEmpty())
+	    			newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
+	    		if(newRevision != 0)
+	    			revision = newRevision;
+	    	}
+	    	if(!node.equals(SVNNodeKind.NONE) || newRevision != 0) {
+	    		file.mkdir();
+	    		sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
+	    				file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
+	    		client.dispose();
+	    		FileUtil.saveTextToFile(revision.toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
+	    		project.getProjectRevisionInformations().setRevision(revision);
+	    		//			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
+	    		//				projectFile.put(project,file);
+	    		////				sVNWCClient.doCleanup(file);
+	    		//			}
+	    	}
     	}
 //    	if(!projectFile.isEmpty()){
 //    		sVNUpdateClient.doUpdate(projectFile.values().toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
@@ -149,6 +368,16 @@ public class History {
 //    	}
 		importConfigureRefreshBuild();
     }
+
+	@SuppressWarnings("unchecked")
+	private LinkedList<SVNLogEntry> getSVNLogEntries(String path, Integer startRevision, Integer endRevision) {
+		try {
+			String paths[] = {path};
+			return (LinkedList<SVNLogEntry>) repository.log(paths, null, startRevision, endRevision, false, true);
+		} catch (SVNException e) {
+			return new LinkedList<SVNLogEntry>();
+		}
+	}
     
 	private void importConfigureRefreshBuild() throws CoreException, IOException {
 //		Map<String,ProjectRevisionInformations> projectRevisionInformations = new HashMap<String,ProjectRevisionInformations>();
@@ -171,7 +400,7 @@ public class History {
 //		FileUtil.saveObjectToFile(projectRevisionInformations, iWorkspace.getRoot().getLocation().toString()+"/config", "Projects", "obj");
 	}
 
-	private void changeLib(Project project, String oldLib, String newLib) { //TODO: Código específico para o SIGAA
+	private void changeLib(Project project, String oldLib, String newLib) { //TODO: Código específico para o SIGAA, torná-lo mais genérico
 		File destino = new File(project.getIProject().getLocation().toString()+"/app/libs.jar");
 		FileFilter fileFilter = new WildcardFileFilter(oldLib);
 		File[] filesDestino = destino.listFiles(fileFilter);
