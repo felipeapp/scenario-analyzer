@@ -1,6 +1,7 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Revision implements Serializable, Comparable<Revision> {
@@ -19,6 +20,14 @@ public class Revision implements Serializable, Comparable<Revision> {
 	private Float MnC;
 	private Float nMC;
 	private Float nMnC;
+	
+	public Revision(Integer id) {
+		this.id = id;
+		this.oldId = id>1 ? id-1 : 1;
+		this.oldTasks = new HashSet<Task>(0);
+		this.currentTasks = new HashSet<Task>(0);
+		this.doAndUndoDone = false;
+	}
 	
 	public Revision(Integer id,Set<Task> oldTasks, Set<Task> currentTasks) {
 		this.id = id;

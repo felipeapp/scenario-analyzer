@@ -1,6 +1,7 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ public class Task implements Serializable {
 	
 	private Integer id;
 	private TaskType type;
+	private String otherType;
 	private List<Revision> revisions;
 	private Revision oldRevision;
 	private Revision currentRevision;
@@ -19,11 +21,29 @@ public class Task implements Serializable {
 	private Float inclusion;
 	private Float precision;
 	private boolean doAndUndoDone;
+
+	public Task(Integer id) {
+		this.id = id;
+		this.type = null;
+		this.otherType = null;
+		this.revisions = new ArrayList<Revision>();
+		this.oldRevision = null;
+		this.currentRevision = null;
+		this.modifiedMethods = new HashSet<String>();
+		this.inclusion = null;
+		this.precision = null;
+		this.doAndUndoDone = false;
+	}
 	
 	public Task(Integer id, TaskType type, List<Revision> revisions) {
 		this.id = id;
 		this.type = type;
 		this.revisions = revisions;
+		organizeRevisions();
+		this.doAndUndoDone = false;
+	}
+	
+	public void organizeRevisions() {
 		Collections.sort(this.revisions);
 		
 		Set<Task> oldTasks = new HashSet<Task>(1);
@@ -35,7 +55,6 @@ public class Task implements Serializable {
 		this.currentRevision = revisions.get(revisions.size()-1);
 		if(currentRevision.getCurrentTasks() != null)
 			currentRevision.setCurrentTasks(currentTasks);
-		this.doAndUndoDone = false;
 	}
 
 	public Integer getId() {
@@ -60,6 +79,14 @@ public class Task implements Serializable {
 
 	public void setType(TaskType type) {
 		this.type = type;
+	}
+
+	public String getOtherType() {
+		return otherType;
+	}
+
+	public void setOtherType(String otherType) {
+		this.otherType = otherType;
 	}
 
 	public Revision getOldRevision() {
@@ -138,5 +165,17 @@ public class Task implements Serializable {
 	public int compareTo(Task other) {
         return getId().compareTo(other.getId());
     }
+	
+	public String print() {
+		String print = "Task Number: "+this.id+"\n";
+		if(!this.type.equals(TaskType.OTHER))
+			print += "Task Type: "+this.type.getName()+"\n";
+		else
+			print += "*Task Type: "+this.otherType+"\n";
+		for(Revision revision : this.revisions) {
+			print += "\tRevision Number: "+revision.getId()+"\n";
+		}
+		return print;
+	}
 
 }

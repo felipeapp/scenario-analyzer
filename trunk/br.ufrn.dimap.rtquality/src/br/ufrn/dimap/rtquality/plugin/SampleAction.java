@@ -168,13 +168,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			e.printStackTrace();
 		}
 		
-		List<Revision> revisionForCheckout = new ArrayList<Revision>();
-		List<Task> tasks = loadTasks(revisionForCheckout, iWorkspace.getRoot().getLocation().toString()+"/config");
-		if(tasks == null) {
-			System.out.println("Nenhuma informação sobre as tarefas foram encontradas...");
-			return;
-		}
-		
 		Map<Integer,Project> projects = loadProjects(iWorkspace.getRoot().getLocation().toString()+"/config");
 		
 		String URL = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/URL.txt"));
@@ -207,6 +200,13 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		
 		try {
 			History history = new History(sVNConfig, iWorkspace);
+			history.generateTasksXML();
+			List<Revision> revisionForCheckout = new ArrayList<Revision>();
+			List<Task> tasks = loadTasks(revisionForCheckout, iWorkspace.getRoot().getLocation().toString()+"/config");
+			if(tasks == null) {
+				System.out.println("Nenhuma informação sobre as tarefas foram encontradas...");
+				return;
+			}
 			for(Task task : tasks) {
 				if(task.isDoAndUndoDone()) {
 					System.out.println("A tarefa "+task.getId().toString()+" já foi analisada...");
@@ -267,6 +267,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			 * Faz a união das modificações atual-anterior para obter o conjunto total das modificações que não foram desfeitas
 			 *  
 			 */
+			
 			History history2 = new History(sVNConfig2, iWorkspace);
 //TODO: Essa revisão deve ser alterada quando seu código for atualizado
 			history2.checkouOrUpdateProjects(295);
@@ -441,13 +442,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		projects.put(8, new Project("/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
 		return projects;
 	}
-
-	private Set<TestCoverage> getTestCoverageSet(String folder, String name) {
-		Object obj = FileUtil.loadObjectFromFile(folder, name, "slc");
-		if(obj != null && obj instanceof Set<?>)
-			return (Set<TestCoverage>) FileUtil.loadObjectFromFile(folder, name, "slc");
-		return new HashSet<TestCoverage>(0);
-	}
 	
 	private List<Task> loadTasks(List<Revision> revisionForCheckout, String location) {
 		List<Task> tasks = null;
@@ -521,6 +515,13 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			return tasks;
 		}
 		return null;
+	}
+
+	private Set<TestCoverage> getTestCoverageSet(String folder, String name) {
+		Object obj = FileUtil.loadObjectFromFile(folder, name, "slc");
+		if(obj != null && obj instanceof Set<?>)
+			return (Set<TestCoverage>) FileUtil.loadObjectFromFile(folder, name, "slc");
+		return new HashSet<TestCoverage>(0);
 	}
 
 	private Collection<String> getSourceFolders(IProject iProject) throws JavaModelException {
