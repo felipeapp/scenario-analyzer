@@ -30,7 +30,11 @@ public class MethodLimitBuilder {
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		
 		final CompilationUnit cu = (CompilationUnit) parser.createAST(null);
-		pack = cu.getPackage().getName().getFullyQualifiedName()+".";
+		try {
+			pack = cu.getPackage().getName().getFullyQualifiedName()+".";
+		} catch(Exception e) {
+			System.out.println("\t\t\t\tClasse mal formada. Ignorada...");
+		}
 		cu.accept(new ASTVisitor() {
 			public boolean visit(TypeDeclaration node) { //TODO: Verificar se quando mais de uma classe é modificada se o pack está recebendo o nome correto de cada classe, sem misturá-los
 				pack += (node.getName()+".");

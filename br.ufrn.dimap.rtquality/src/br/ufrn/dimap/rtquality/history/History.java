@@ -131,69 +131,94 @@ public class History {
 				Set<Task> tasks = new HashSet<Task>();
 				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext();) {
 					SVNLogEntry svnLogEntry = iterator.next();
+					Long revision = svnLogEntry.getRevision();
 					Integer taskId = Integer.valueOf(String.valueOf(getTaskNumberFromLogMessage(svnLogEntry.getMessage())));
 					if(taskId > 0)
 						tasks.add(new Task(taskId));
 				}
-				populateTasksById(tasks);
-				String print = "";
-				for(Task task : tasks)
-					print += task.print();
-				FileUtil.saveTextToFile(print, iWorkspace.getRoot().getLocation().toString()+"/config", "TaskPrint", "txt");
-				Map<String,List<Task>> tasksCount = new HashMap<String,List<Task>>();
-				for(Task task : tasks) {
-					if(task.getType().equals(TaskType.OTHER)) {
-						if(tasksCount.containsKey(task.getOtherType()))
-							tasksCount.get(task.getOtherType()).add(task);
-						else {
-							List<Task> newTasks = new ArrayList<Task>(1);
-							newTasks.add(task);
-							tasksCount.put(task.getOtherType(),newTasks);
-						}
-					}
-					else {
-						if(tasksCount.containsKey(task.getType().getName()))
-							tasksCount.get(task.getType().getName()).add(task);
-						else {
-							List<Task> newTasks = new ArrayList<Task>(1);
-							newTasks.add(task);
-							tasksCount.put(task.getType().getName(),newTasks);
-						}
-					}
-				}
-				Map<Integer,List<String>> ordem = new HashMap<Integer,List<String>>();
-				for(String key : tasksCount.keySet()) {
-					if(tasksCount.get(key).size() >= 7) {
-						if(ordem.containsKey(tasksCount.get(key).size()))
-							ordem.get(tasksCount.get(key).size()).add(key);
-						else {
-							List<String> keys = new ArrayList<String>(1);
-							keys.add(key);
-							ordem.put(tasksCount.get(key).size(), keys);
-						}
-					}
-				}
-				List<Integer> ordenada = new ArrayList<Integer>(ordem.keySet());
-				Collections.sort(ordenada);
-				System.out.println("Tipos das Tarefas x Quantidade de Tarefas");
-				List<Task> finalTasksSelection = new ArrayList<Task>();
-				for(int i=ordenada.size()-1; i>=0; i--) {
-					Integer qtd = ordenada.get(i);
-					for(String key : ordem.get(qtd))
-						finalTasksSelection.addAll(tasksCount.get(key));
-					for(String key : ordem.get(qtd))
-						System.out.println(key+" x "+qtd);
-				}
-				XStream xstream = new XStream();
-				String xmlText = xstream.toXML(finalTasksSelection);
-				FileUtil.saveTextToFile(xmlText, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "xml");
+				populateTasksById(tasks, startRevision, endRevision);
+				groupEliminateSortSaveTasks(new ArrayList<Task>(tasks));
 			} catch (SVNException e) {
 				e.printStackTrace();
 			}
     	}
     }
+
+	public void groupEliminateSortSaveTasks(List<Task> tasks) {
+		Map<String, List<Task>> taskTypeGroups = groupByType(tasks);
+		Map<Integer, List<String>> sizeTaskTypeGroups = eliminateByMinSize(taskTypeGroups);
+		List<Integer> ordenada = sortByAmount(sizeTaskTypeGroups);
+		saveRemainingTasks(taskTypeGroups, sizeTaskTypeGroups, ordenada);
+	}
+
+	private Map<String, List<Task>> groupByType(List<Task> tasks) {
+		Map<String,List<Task>> taskTypeGroups = new HashMap<String,List<Task>>();
+		for(Task task : tasks) {
+			if(task.getType().equals(TaskType.OTHER)) {
+				if(taskTypeGroups.containsKey(task.getOtherType()))
+					taskTypeGroups.get(task.getOtherType()).add(task);
+				else {
+					List<Task> newTasks = new ArrayList<Task>(1);
+					newTasks.add(task);
+					taskTypeGroups.put(task.getOtherType(),newTasks);
+				}
+			}
+			else {
+				if(taskTypeGroups.containsKey(task.getType().getName()))
+					taskTypeGroups.get(task.getType().getName()).add(task);
+				else {
+					List<Task> newTasks = new ArrayList<Task>(1);
+					newTasks.add(task);
+					taskTypeGroups.put(task.getType().getName(),newTasks);
+				}
+			}
+		}
+		return taskTypeGroups;
+	}
+
+	private Map<Integer, List<String>> eliminateByMinSize(
+			Map<String, List<Task>> taskTypeGroups) {
+		Map<Integer,List<String>> sizeTaskTypeGroups = new HashMap<Integer,List<String>>();
+		for(String taskType : taskTypeGroups.keySet()) {
+			if(taskTypeGroups.get(taskType).size() >= 7) {
+				if(sizeTaskTypeGroups.containsKey(taskTypeGroups.get(taskType).size()))
+					sizeTaskTypeGroups.get(taskTypeGroups.get(taskType).size()).add(taskType);
+				else {
+					List<String> keys = new ArrayList<String>(1);
+					keys.add(taskType);
+					sizeTaskTypeGroups.put(taskTypeGroups.get(taskType).size(), keys);
+				}
+			}
+		}
+		return sizeTaskTypeGroups;
+	}
+
+	private List<Integer> sortByAmount(
+			Map<Integer, List<String>> sizeTaskTypeGroups) {
+		List<Integer> ordenada = new ArrayList<Integer>(sizeTaskTypeGroups.keySet());
+		Collections.sort(ordenada);
+		return ordenada;
+	}
+
+	private void saveRemainingTasks(Map<String, List<Task>> taskTypeGroups,
+			Map<Integer, List<String>> sizeTaskTypeGroups,
+			List<Integer> ordenada) {
+		List<Task> finalTasksSelection = new ArrayList<Task>();
+		String print = "Tipos das Tarefas x Quantidade de Tarefas\n";
+		for(int i=ordenada.size()-1; i>=0; i--) {
+			Integer qtd = ordenada.get(i);
+			for(String taskType : sizeTaskTypeGroups.get(qtd)) {
+				finalTasksSelection.addAll(taskTypeGroups.get(taskType)); //Popula lista final ordenada pela quantidade
+				print += "\t"+taskType+" x "+qtd+"\n";
+			}
+		}
+		FileUtil.saveTextToFile(print, iWorkspace.getRoot().getLocation().toString()+"/config", "TaskPrint", "txt");
+		XStream xstream = new XStream();
+		String xmlText = xstream.toXML(finalTasksSelection);
+		FileUtil.saveTextToFile(xmlText, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "xml");
+	}
     
-	public void populateTasksById(Set<Task> tasks) {
+	public void populateTasksById(Set<Task> tasks, Integer startRevision, Integer endRevision) {
 		if(tasks != null) {
 			Set<Task> tasksToRemove = new HashSet<Task>();
 			Connection connection = null;
@@ -226,17 +251,24 @@ public class History {
 							task.setOtherType(rs.getString("tipo"));
 					
 						stmt2 = connection.prepareStatement(
-								"SELECT substring(log_tarefa.log, '[Revisão|revisão|Revisao|revisao]+[:| ]*([0-9]+)') revisao "+
+								"SELECT DISTINCT tarefa.numtarefa, substring(log_tarefa.log from '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)') revisao "+
 								"FROM iproject.log_tarefa "+
 								"INNER JOIN iproject.tarefa ON log_tarefa.id_tarefa = tarefa.id_tarefa "+
 								"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
-								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '[Revisão|revisão|Revisao|revisao]+[:| ]*([0-9]+)'");
+								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)' ORDER BY revisao");
 						stmt2.setLong(1, task.getId());
 						rs2 = stmt2.executeQuery();
 						while (rs2.next()) {
 							Integer revisionId = Integer.valueOf(String.valueOf(rs2.getLong("revisao")));
-							task.getRevisions().add(new Revision(revisionId));
+							if(revisionId >= startRevision && revisionId <= endRevision)
+								task.getRevisions().add(new Revision(revisionId));
+							else {
+								tasksToRemove.add(task);
+								break;
+							}
 						}
+						if(tasksToRemove.contains(task))
+							continue;
 					}
 					else
 						tasksToRemove.add(task);
@@ -294,23 +326,16 @@ public class History {
 		
 		long task_number;
 		
-		if (task_word.equalsIgnoreCase("commit")) {
-			System.out.println("Task word commit was found! Setting task number to -2!");
+		if (task_word.equalsIgnoreCase("commit"))
 			task_number = -2;
-		}
-		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) {
-			System.out.println("Task word was found! [" + task_word + "] Setting task number to " + task_value + "!");
+		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) 
 			task_number = Long.parseLong(task_value);
-		}
 		else if (task_word.matches("#[0-9]+")) {
 			task_value = task_word.replaceAll("#", "");
-			System.out.println("Task word is task value! [" + task_word + "] Setting task number to " + task_value + "!");
 			task_number = Long.parseLong(task_value);
 		}
-		else {
-			System.out.println("Task word unknown [" + task_word + "]!\n" + logMessage);
+		else
 			task_number = -1;
-		}
 		
 		return task_number;
 	}
@@ -339,10 +364,10 @@ public class History {
 					ioe.printStackTrace();
 				}
 			}
-			SVNNodeKind node = repository.checkPath("/trunk"+project.getPath(), revision);
+			SVNNodeKind node = repository.checkPath(project.getPath(), revision);
 			Integer newRevision = 0;
 	    	if(node.equals(SVNNodeKind.NONE)) {
-	    		LinkedList<SVNLogEntry> entries = getSVNLogEntries("/trunk"+project.getPath(), 0, revision);
+	    		LinkedList<SVNLogEntry> entries = getSVNLogEntries(project.getPath(), 0, revision);
 	    		if(!entries.isEmpty())
 	    			newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
 	    		if(newRevision != 0)
@@ -659,24 +684,36 @@ public class History {
 		diffClient.setDiffGenerator(testTrackerSVNDiffGenerator);
 		FileOutputStream fOS = null;
 		try {
-			String paths[] = {"/trunk"+projectPath};
-			SVNNodeKind endNode = repository.checkPath("/trunk"+projectPath, endRevision);
-			SVNNodeKind startNode = repository.checkPath("/trunk"+projectPath, startRevision);
-	    	if(!endNode.equals(SVNNodeKind.NONE) && !startNode.equals(SVNNodeKind.NONE)) {
-				File xmlFile = new File("ProjectUpdates.xml");
-				fOS = new FileOutputStream(xmlFile);
-				startProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
-				diffClient.doDiff(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
-						SVNRevision.create(startRevision),
-						SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
-				        SVNRevision.create(endRevision),
-				        SVNDepth.INFINITY,
-				        true,
-				        fOS);
-				finishProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
-				ProjectUpdates projectUpdates = (ProjectUpdates) getObjectFromXML(xmlFile);
-				xmlFile.delete();
-				updatedMethods = projectUpdates.getUpdatedMethods(startRevision, endRevision);
+			String paths[] = {projectPath};
+			SVNNodeKind endNode = repository.checkPath(projectPath, endRevision);
+			SVNNodeKind startNode = repository.checkPath(projectPath, startRevision);
+	    	if(!endNode.equals(SVNNodeKind.NONE)) {
+	    		if(startNode.equals(SVNNodeKind.NONE)) {
+	    			Integer newRevision = 0;
+	    			LinkedList<SVNLogEntry> entries = getSVNLogEntries(projectPath, 0, endRevision-1); //TODO: este método funciona com uma endRevision Inválida?
+	    			if(!entries.isEmpty())
+	    				newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
+	    			if(newRevision != 0) {
+	    				startRevision = newRevision;
+	    				startNode = repository.checkPath(projectPath, startRevision);
+	    			}
+	    		}
+	    		if(!startNode.equals(SVNNodeKind.NONE)) {
+					File xmlFile = new File("ProjectUpdates.xml");
+					fOS = new FileOutputStream(xmlFile);
+					startProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
+					diffClient.doDiff(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
+							SVNRevision.create(startRevision),
+							SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+projectPath),
+					        SVNRevision.create(endRevision),
+					        SVNDepth.INFINITY,
+					        true,
+					        fOS);
+					finishProjectUpdatesXML(testTrackerSVNDiffGenerator, fOS);
+					ProjectUpdates projectUpdates = (ProjectUpdates) getObjectFromXML(xmlFile);
+					xmlFile.delete();
+					updatedMethods = projectUpdates.getUpdatedMethods(startRevision, endRevision);
+	    		}
 	    	}
 			return updatedMethods;
 		} finally {

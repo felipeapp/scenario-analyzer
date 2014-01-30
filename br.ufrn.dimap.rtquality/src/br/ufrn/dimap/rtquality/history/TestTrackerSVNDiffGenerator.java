@@ -375,9 +375,9 @@ public class TestTrackerSVNDiffGenerator implements ISVNDiffGenerator {
     public void displayFileDiff(String path, File file1, File file2,
             String rev1, String rev2, String mimeType1, String mimeType2, OutputStream result) throws SVNException {
         path = getDisplayPath(path);
-        System.out.println("\tArquivo: "+path);
+        System.out.println("\t\t\t"+path);
         if(!path.endsWith(".java")) {
-        	System.out.println("\t\tPulando");
+        	System.out.println("\t\t\t\tEste arquivo não é Java. Ignorado...");
         	return;
         }
         // if anchor1 is the same as anchor2 just use path.        
