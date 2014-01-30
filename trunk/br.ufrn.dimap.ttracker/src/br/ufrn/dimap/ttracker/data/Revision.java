@@ -23,7 +23,6 @@ public class Revision implements Serializable, Comparable<Revision> {
 	
 	public Revision(Integer id) {
 		this.id = id;
-		this.oldId = id>1 ? id-1 : 1;
 		this.oldTasks = new HashSet<Task>(0);
 		this.currentTasks = new HashSet<Task>(0);
 		this.doAndUndoDone = false;

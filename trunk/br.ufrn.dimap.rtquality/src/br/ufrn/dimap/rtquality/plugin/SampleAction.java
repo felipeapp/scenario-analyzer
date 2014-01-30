@@ -153,7 +153,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	}
 
 	public void estudoEmpirico() throws Exception {
-		Boolean automatic = true;
+		Boolean automatic = false;
 		
 		//Limpando os resultados da última execução
 		IWorkspace iWorkspace = ResourcesPlugin.getWorkspace();
@@ -176,7 +176,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		SVNConfig sVNConfig = new SVNConfig(URL, projects, usuario, senha);
 		
 		Map<Integer,Project> projects2 = new HashMap<Integer,Project>(); //TODO: verificar o forCheckout pois ele não pode mais ser nulo aqui
-		projects2.put(1, new Project("/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false));
+		projects2.put(1, new Project("/trunk/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false));
 		String URL2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/URL2.txt"));
 		String usuario2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/usuario2.txt"));
 		String senha2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/senha2.txt"));
@@ -207,23 +207,36 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				System.out.println("Nenhuma informação sobre as tarefas foram encontradas...");
 				return;
 			}
+			List<Task> tasksToRemove = new ArrayList<Task>();
 			for(Task task : tasks) {
 				if(task.isDoAndUndoDone()) {
 					System.out.println("A tarefa "+task.getId().toString()+" já foi analisada...");
 					continue;
 				}
+				System.out.println("Analisando tarefa: "+task.getId().toString());
 				for(Revision revision : task.getRevisions()) {
 					if(revision.isDoAndUndoDone()) {
-						System.out.println("A revisão "+revision.getId().toString()+" já foi analisada...");
+						System.out.println("\tA revisão "+revision.getId()+" já foi analisada...");
 						continue;
 					}
-					System.out.println("Analisando revisão: "+revision.getId().toString());
+					System.out.println("\tAnalisando revisão: "+revision.getId());
 					try {
+						System.out.println("\t\tDiff entre as revisões: "+revision.getOldId()+" e "+revision.getId());
 						Set<String> A = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), revision.getOldId(), revision.getId());
-						Set<String> B = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), task.getOldRevision().getId(), revision.getId());
-						Set<String> C = MathUtil.intersection(A,B);
-						Set<String> D = new HashSet<String>(A);
-						D.removeAll(C);
+						Set<String> B = new HashSet<String>(0);
+						Set<String> C = new HashSet<String>(0);
+						Set<String> D = new HashSet<String>(0);
+						if(!A.isEmpty()) {
+							if(!revision.getOldId().equals(task.getOldRevision().getId())) {
+								System.out.println("\t\tDiff entre as revisões: "+task.getOldRevision().getId()+" e "+revision.getId());
+								B = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), task.getOldRevision().getId(), revision.getId());
+								C = MathUtil.intersection(A,B);
+								D = new HashSet<String>(A);
+								D.removeAll(C);
+							}
+							else
+								C = new HashSet<String>(A);
+						}
 						revision.setModifiedMethods(C);
 						revision.setUndoModifiedMethods(D);
 						revision.setDoAndUndoDone(true);
@@ -249,10 +262,15 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 					revision.getModifiedMethods().removeAll(Undo);
 					allModifiedMethods.addAll(revision.getModifiedMethods());
 				}
+				if(allModifiedMethods.isEmpty())
+					tasksToRemove.add(task);
 				task.setModifiedMethods(allModifiedMethods);
 				task.setDoAndUndoDone(true);
 				FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "obj");
 			}
+			tasks.removeAll(tasksToRemove); //TODO: Verificar se alguma tarefa foi removida e recalcular as quantidades de tarefas por tipo
+			history.groupEliminateSortSaveTasks(tasks);
+			FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "obj");
 			/*
 			 * Loop para cada revisão
 			 * 	Obtenho todas as modificações da revisão atual para a anterior (Rx-Rx-1)
@@ -377,9 +395,10 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			
 			Map<TaskType,TaskTypeSet> taskTypes = new HashMap<TaskType,TaskTypeSet>(4);
 			taskTypes.put(TaskType.APRIMORAMENTO, new TaskTypeSet(TaskType.APRIMORAMENTO));
-			taskTypes.put(TaskType.ERRO, new TaskTypeSet(TaskType.ERRO));
+			taskTypes.put(TaskType.ERROEXECUCAO, new TaskTypeSet(TaskType.ERROEXECUCAO));
 			taskTypes.put(TaskType.ERRONEGOCIOVALIDACAO, new TaskTypeSet(TaskType.ERRONEGOCIOVALIDACAO));
 			taskTypes.put(TaskType.VERIFICACAO, new TaskTypeSet(TaskType.VERIFICACAO));
+			taskTypes.put(TaskType.ERROPADRONVISUALIZACAO, new TaskTypeSet(TaskType.ERROPADRONVISUALIZACAO));
 			for(Task task : tasks) {
 				Set<TestCoverage> techniqueSelection = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "RTSSelection_"+task.getId());
 				Set<TestCoverage> techniqueExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "RTSExclusion_"+task.getId());
@@ -430,16 +449,16 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 
 	private Map<Integer,Project> loadProjectsManually() throws Exception {
 		Map<Integer,Project> projects = new HashMap<Integer,Project>();
-		projects.put(1, new Project("/LIBS", "/LIBS", null, false));
-		projects.put(2, new Project("/Arquitetura", "/01_Arquitetura", null, false));
-		projects.put(3, new Project("/ServicosIntegrados", "/03_ServicosIntegrados", null, false));
-		projects.put(4, new Project("/EntidadesComuns", "/02_EntidadesComuns", null, false));
-		projects.put(5, new Project("/SharedResources", "/04_SharedResources", null, false));
-		projects.put(6, new Project("/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false));
-		projects.put(7, new Project("/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
+		projects.put(1, new Project("/trunk/LIBS", "/LIBS", null, false));
+		projects.put(2, new Project("/trunk/Arquitetura", "/01_Arquitetura", null, false));
+		projects.put(3, new Project("/trunk/ServicosIntegrados", "/03_ServicosIntegrados", null, false));
+		projects.put(4, new Project("/trunk/EntidadesComuns", "/02_EntidadesComuns", null, false));
+		projects.put(5, new Project("/trunk/SharedResources", "/04_SharedResources", null, false));
+		projects.put(6, new Project("/trunk/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false));
+		projects.put(7, new Project("/trunk/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
 		Set<String> packagesToTest = new HashSet<String>(1);
 		packagesToTest.add("/SIGAA/biblioteca");
-		projects.put(8, new Project("/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
+		projects.put(8, new Project("/trunk/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
 		return projects;
 	}
 	
