@@ -288,7 +288,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			
 			History history2 = new History(sVNConfig2, iWorkspace);
 //TODO: Essa revisão deve ser alterada quando seu código for atualizado
-			history2.checkouOrUpdateProjects(295);
+			history2.checkouOrUpdateProjects(299);
 			for(Revision revision : revisionForCheckout) {
 				String resultPath = iWorkspace.getRoot().getLocation().toString()+"/result";
 				if(!(new File(resultPath+"/TCM_"+revision.getId()+".tcm")).exists()) {
