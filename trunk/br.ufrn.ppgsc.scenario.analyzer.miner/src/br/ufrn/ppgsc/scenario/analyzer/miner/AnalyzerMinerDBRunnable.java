@@ -180,7 +180,59 @@ public final class AnalyzerMinerDBRunnable {
 		persistFile("# Métodos que falharam apenas na evolução", "failed_methods_only_v2", failed_methods_only_v2, 0);
 		persistFile("# Métodos que falharam em ambas as versões", "failed_methods_both", failed_methods_both, 0);
 		
+		/* TODO: Depois organizar esse método juntamente com o restante da implementação
+		 * e filtrar os métodos lendo do arquivo de degradados e alterados para que não seja
+		 * preciso criar o vetor members manualmente
+		 */
+		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation");
+		
 		return strdate;
+	}
+
+	private void persistFile(String message, String partial_name) throws FileNotFoundException {
+		
+		/* TODO: Depois organizar esse método juntamente com o restante da implementação
+		 * e filtrar os métodos lendo do arquivo de degradados e alterados para que não seja
+		 * preciso criar o vetor members manualmente
+		 */
+		
+		String[] members = {
+				"br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRenovaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)",
+				"br.ufrn.arq.dao.GenericDAOImpl.getSession()",
+				"br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRealizaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)",
+				"br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List)",
+				"br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)",
+				"br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)",
+				"br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String)",
+				"br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String)",
+				"br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object)",
+				"br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object,boolean)",
+				"br.ufrn.sigaa.dominio.Curso.setNome(java.lang.String)",
+				"br.ufrn.sigaa.dominio.Curso.getDescricao()"
+		};
+		
+		System.out.println("persistFile: " + message);
+		
+		PrintWriter pw = new PrintWriter(new FileOutputStream(
+				"miner.log/" + system_id + "_" + partial_name + "_" + strdate + ".log", true));
+		
+		pw.println(message);
+		pw.println(members.length);
+		
+		for (String sig : members) {
+			System.out.println("Retrieving impacted members and scenarios from " + sig);
+			
+			Set<String> nodes = database_v2.getImpactedNodes(sig);
+			List<String> scenarios = database_v2.getScenariosByMember(sig);
+			
+			pw.println(sig + ":" + nodes.size());
+			pw.println(scenarios.size());
+			
+			for (String s : scenarios)
+				pw.println(s);
+		}
+		
+		pw.close();
 	}
 
 }

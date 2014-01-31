@@ -78,16 +78,23 @@ public final class AnalyzerMinerRepositoryRunnable {
 		return message;
 	}
 	
-	private void persistFile(String message, String partial_name,
+	private void persistFile(String message, String partial_name, Set<Long> task_numbers,
 			Map<String, Collection<UpdatedMethod>> map_path_upmethod,
 			Map<String, Integer> counter_task_types,
-			Map<String, Integer> filtrated_counter_task_types) throws FileNotFoundException {
+			Map<String, Integer> filtrated_counter_task_types,
+			Map<String, Collection<UpdatedMethod>> task_members,
+			Map<String, Collection<UpdatedMethod>> filtrated_task_members) throws FileNotFoundException {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 				"miner.log/" + system_id + "_" + partial_name + "_" + strdate + ".log", false));
 		
 		pw.println(message);
+		
+		for (Long tnumber : task_numbers)
+			pw.print(tnumber + " ");
+		pw.println();
+		
 		pw.println(map_path_upmethod.size());
 		
 		for (String path: map_path_upmethod.keySet()) {
@@ -135,6 +142,28 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String type : filtrated_counter_task_types.keySet())
 			pw.println(type + ":" + filtrated_counter_task_types.get(type));
 		
+		pw.println(task_members.size());
+
+		for (String type : task_members.keySet()) {
+			Collection<UpdatedMethod> list = task_members.get(type);
+
+			pw.println(type);
+			pw.println(list.size());
+			for (UpdatedMethod up : list)
+				pw.println(up.getMethodLimit().getSignature());
+		}
+
+		pw.println(filtrated_task_members.size());
+
+		for (String type : filtrated_task_members.keySet()) {
+			Collection<UpdatedMethod> list = filtrated_task_members.get(type);
+
+			pw.println(type);
+			pw.println(list.size());
+			for (UpdatedMethod up : list)
+				pw.println(up.getMethodLimit().getSignature());
+		}
+		
 		pw.close();
 	}
 	
@@ -168,16 +197,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + " ["
 					+ repository_paths.size() + ", " + message + "]");
 			
-			Map<String, Collection<UpdatedMethod>> map_path_upmethod;
+			Map<String, Collection<UpdatedMethod>> map_path_upmethod = null;
 			
-			if (signatures.isEmpty()) {
-				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
-			}
-			else {
+			if (!signatures.isEmpty()) {
 				map_path_upmethod = UpdatedMethodsMinerUtil.getUpdatedMethodsFromRepository(
 						url, user, password,
 						repository_paths, old_workcopy_paths, new_workcopy_paths);
 			}
+			
+			if (map_path_upmethod == null)
+				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
 			// Os que foram modificados e estão dentro do critério (degradados, por exemplo)
 			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
@@ -208,6 +237,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
 			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
 			 */
+			Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(map_path_upmethod);
 			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
 			
 			/*
@@ -215,11 +245,25 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 * por exemplo, quantas vezes o tipo de tarefa aparece para métodos com desempenho
 			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
 			 */
+			Map<String, Collection<UpdatedMethod>> filtrated_task_members = getTaskMembers(filtrated_path_upmethod);
 			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);
 			
 			// Persistir em arquivo os dados coletados
-			persistFile(message, "svn_" + partial_names.get(i++), filtrated_path_upmethod, counter_task_types, filtrated_counter_task_types);
+			persistFile(message, "svn_" + partial_names.get(i++), getTaskNumbers(filtrated_path_upmethod), filtrated_path_upmethod,
+					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
 		}
+	}
+	
+	private Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Set<Long> task_numbers = new HashSet<Long>();
+
+		for (String path : map_path_methods.keySet())
+			for (UpdatedMethod method : map_path_methods.get(path))
+				for (UpdatedLine line : method.getUpdatedLines())
+					for (IProjectTask task : line.getTasks())
+						task_numbers.add(task.getNumber());
+
+		return task_numbers;
 	}
 	
 	private Map<String, Integer> counterTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
@@ -253,6 +297,46 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 
 		return counter_task_types;
+	}
+	
+	private Map<String, Collection<UpdatedMethod>> getTaskMembers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Map<String, Collection<UpdatedMethod>> task_members = new HashMap<String, Collection<UpdatedMethod>>();
+		
+		Set<Long> counted_tasks = new HashSet<Long>();
+		Set<String> counted_members = new HashSet<String>();
+
+		for (String path : map_path_methods.keySet()) {
+
+			for (UpdatedMethod method : map_path_methods.get(path)) {
+
+				for (UpdatedLine line : method.getUpdatedLines()) {
+
+					for (IProjectTask task : line.getTasks()) {
+
+						if (task.getId() != -1 && !(counted_tasks.contains(task.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
+							Collection<UpdatedMethod> list = task_members.get(task.getTypeName());
+
+							if (list == null) {
+								list = new ArrayList<UpdatedMethod>();
+								list.add(method);
+								task_members.put(task.getTypeName(), list);
+							}
+							else {
+								task_members.get(task.getTypeName()).add(method);
+							}
+							
+							counted_tasks.add(task.getId());
+							counted_members.add(method.getMethodLimit().getSignature());
+						}
+
+					}
+
+				}
+
+			}
+		}
+
+		return task_members;
 	}
 	
 	private boolean matchesName(String method_name, List<String> method_signatures) {

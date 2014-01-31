@@ -8,7 +8,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.AnalyzerMinerRunnable.MinerType;
 public class SIGAAMain {
 
 	public static void main(String[] args) throws IOException {
-		AnalyzerMinerRunnable.startAnalyzerMiner(new PathTransformerSIGAA(), MinerType.Both);
+		AnalyzerMinerRunnable.startAnalyzerMiner(new PathTransformerSIGAA(), MinerType.MinerDB);
 	}
 
 }
