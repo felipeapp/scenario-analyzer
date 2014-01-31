@@ -125,19 +125,31 @@ public class History {
     	File xmlFile = new File(iWorkspace.getRoot().getLocation().toString()+"/config/Tasks.xml");
     	if(!xmlFile.exists()) {
 			try {
-				Integer startRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.11.24", -1).getRevision()));
+				Integer startRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.11.24", -1).getRevision()))+1; //+1 pois a revisão inicial-1 não deve ser menor que a primeira versão válida
 				Integer endRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.12.18", -1).getRevision()));
 				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", startRevision, endRevision);
-				Set<Task> tasks = new HashSet<Task>();
+				List<Task> tasks = new ArrayList<Task>();
 				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext();) {
 					SVNLogEntry svnLogEntry = iterator.next();
-					Long revision = svnLogEntry.getRevision();
+					Revision revision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
 					Integer taskId = Integer.valueOf(String.valueOf(getTaskNumberFromLogMessage(svnLogEntry.getMessage())));
-					if(taskId > 0)
-						tasks.add(new Task(taskId));
+					if(taskId > 0) {
+						Task task = new Task(taskId);
+						if(tasks.contains(task)) {
+							if(!tasks.get(tasks.indexOf(task)).getRevisions().contains(revision)) {
+								Set<Revision> revisionsWithOutCopies = new HashSet<Revision>(tasks.get(tasks.indexOf(task)).getRevisions());
+								revisionsWithOutCopies.add(revision);
+								tasks.get(tasks.indexOf(task)).setRevisions(new ArrayList<Revision>(revisionsWithOutCopies));
+							}
+						}
+						else {
+							task.getRevisions().add(revision);
+							tasks.add(task);
+						}
+					}
 				}
 				populateTasksById(tasks, startRevision, endRevision);
-				groupEliminateSortSaveTasks(new ArrayList<Task>(tasks));
+				groupEliminateSortSaveTasks(tasks);
 			} catch (SVNException e) {
 				e.printStackTrace();
 			}
@@ -218,14 +230,14 @@ public class History {
 		FileUtil.saveTextToFile(xmlText, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "xml");
 	}
     
-	public void populateTasksById(Set<Task> tasks, Integer startRevision, Integer endRevision) {
+	public void populateTasksById(List<Task> tasks, Integer startRevision, Integer endRevision) {
 		if(tasks != null) {
 			Set<Task> tasksToRemove = new HashSet<Task>();
 			Connection connection = null;
 			ResultSet rs = null;
 			PreparedStatement stmt = null;
-			ResultSet rs2 = null;
-			PreparedStatement stmt2 = null;
+//			ResultSet rs2 = null;
+//			PreparedStatement stmt2 = null;
 			try {
 				if (connection == null) {
 					connection = DriverManager.getConnection(
@@ -250,23 +262,23 @@ public class History {
 						if(task.getType().equals(TaskType.OTHER))
 							task.setOtherType(rs.getString("tipo"));
 					
-						stmt2 = connection.prepareStatement(
-								"SELECT DISTINCT tarefa.numtarefa, substring(log_tarefa.log from '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)') revisao "+
-								"FROM iproject.log_tarefa "+
-								"INNER JOIN iproject.tarefa ON log_tarefa.id_tarefa = tarefa.id_tarefa "+
-								"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
-								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)' ORDER BY revisao");
-						stmt2.setLong(1, task.getId());
-						rs2 = stmt2.executeQuery();
-						while (rs2.next()) {
-							Integer revisionId = Integer.valueOf(String.valueOf(rs2.getLong("revisao")));
-							if(revisionId >= startRevision && revisionId <= endRevision)
-								task.getRevisions().add(new Revision(revisionId));
-							else {
-								tasksToRemove.add(task);
-								break;
-							}
-						}
+//						stmt2 = connection.prepareStatement(
+//								"SELECT DISTINCT tarefa.numtarefa, substring(log_tarefa.log from '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)') revisao "+
+//								"FROM iproject.log_tarefa "+
+//								"INNER JOIN iproject.tarefa ON log_tarefa.id_tarefa = tarefa.id_tarefa "+
+//								"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
+//								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)' ORDER BY revisao");
+//						stmt2.setLong(1, task.getId());
+//						rs2 = stmt2.executeQuery();
+//						while (rs2.next()) {
+//							Integer revisionId = Integer.valueOf(String.valueOf(rs2.getLong("revisao")));
+//							if(revisionId >= startRevision && revisionId <= endRevision)
+//								task.getRevisions().add(new Revision(revisionId));
+//							else {
+//								tasksToRemove.add(task);
+//								break;
+//							}
+//						}
 						if(tasksToRemove.contains(task))
 							continue;
 					}
@@ -291,20 +303,20 @@ public class History {
 						e.printStackTrace();
 					}
 				}
-				if(rs2 != null) {
-					try {
-						rs2.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				if(stmt2 != null) {
-					try {
-						stmt2.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
+//				if(rs2 != null) {
+//					try {
+//						rs2.close();
+//					} catch (SQLException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//				if(stmt2 != null) {
+//					try {
+//						stmt2.close();
+//					} catch (SQLException e) {
+//						e.printStackTrace();
+//					}
+//				}
 				if(connection != null) {
 					try {
 						connection.close();
@@ -356,35 +368,39 @@ public class History {
 				}
 				iProject.delete(true, new SysOutProgressMonitor());
 			}
-			File file = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
-			if(file.exists()) {
-				try {
-					FileUtils.deleteDirectory(file);
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
+			if(project.isForCheckout()) {
+				File file = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
+				if(file.exists()) {
+					try {
+						FileUtils.deleteDirectory(file);
+					} catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
 				}
+				SVNNodeKind node = repository.checkPath(project.getPath(), revision);
+				Integer newRevision = 0;
+		    	if(node.equals(SVNNodeKind.NONE)) {
+		    		LinkedList<SVNLogEntry> entries = getSVNLogEntries(project.getPath(), 0, revision);
+		    		if(!entries.isEmpty())
+		    			newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
+		    		if(newRevision != 0)
+		    			revision = newRevision;
+		    	}
+		    	if(!node.equals(SVNNodeKind.NONE) || newRevision != 0) {
+		    		file.mkdir();
+		    		sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
+		    				file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
+		    		client.dispose();
+		    		FileUtil.saveTextToFile(revision.toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
+		    		project.getProjectRevisionInformations().setRevision(revision);
+		    		//			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
+		    		//				projectFile.put(project,file);
+		    		////				sVNWCClient.doCleanup(file);
+		    		//			}
+		    	}
 			}
-			SVNNodeKind node = repository.checkPath(project.getPath(), revision);
-			Integer newRevision = 0;
-	    	if(node.equals(SVNNodeKind.NONE)) {
-	    		LinkedList<SVNLogEntry> entries = getSVNLogEntries(project.getPath(), 0, revision);
-	    		if(!entries.isEmpty())
-	    			newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
-	    		if(newRevision != 0)
-	    			revision = newRevision;
-	    	}
-	    	if(!node.equals(SVNNodeKind.NONE) || newRevision != 0) {
-	    		file.mkdir();
-	    		sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
-	    				file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
-	    		client.dispose();
-	    		FileUtil.saveTextToFile(revision.toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
-	    		project.getProjectRevisionInformations().setRevision(revision);
-	    		//			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
-	    		//				projectFile.put(project,file);
-	    		////				sVNWCClient.doCleanup(file);
-	    		//			}
-	    	}
+//			else
+//				copyFile(project.getPath(), project.getName());
     	}
 //    	if(!projectFile.isEmpty()){
 //    		sVNUpdateClient.doUpdate(projectFile.values().toArray(new File[0]), SVNRevision.create(revision), SVNDepth.INFINITY, true, true);
@@ -537,7 +553,7 @@ public class History {
 	/**
 	 * @throws IOException
 	 */
-	private String findResolveURL(String relativePath) throws IOException {
+	public static String findResolveURL(String relativePath) throws IOException {
 		URL url = FileLocator.find(Activator.getDefault().getBundle(), new Path(relativePath), null);
     	url = FileLocator.resolve(url);
     	return url.getPath();
@@ -634,6 +650,43 @@ public class History {
 		try{
     	    File f1 = new File(findResolveURL(origem));
     	    File f2 = new File(iProject.getLocation().toString()+destino);
+    		in = new FileInputStream(f1);
+    		out = new FileOutputStream(f2);
+    		byte[] buf = new byte[1024];
+    		int len;
+    		while ((len = in.read(buf)) > 0){
+    			out.write(buf, 0, len);
+    		}
+    	}
+    	catch(FileNotFoundException ex){
+    		ex.printStackTrace();
+    	}
+    	catch(IOException e){
+    		e.printStackTrace();
+    	} finally {
+    		if(in != null) {
+    			try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+			if(out != null) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+    	}
+	}
+	
+	private void copyFile(String origem, String destino) {
+		InputStream in = null;
+		OutputStream out = null;
+		try{
+    	    File f1 = new File(origem);
+    	    File f2 = new File(iWorkspace.getRoot().getLocation().toString()+destino);
     		in = new FileInputStream(f1);
     		out = new FileOutputStream(f2);
     		byte[] buf = new byte[1024];

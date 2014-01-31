@@ -175,13 +175,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		String senha = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/senha.txt"));
 		SVNConfig sVNConfig = new SVNConfig(URL, projects, usuario, senha);
 		
-		Map<Integer,Project> projects2 = new HashMap<Integer,Project>(); //TODO: verificar o forCheckout pois ele não pode mais ser nulo aqui
-		projects2.put(1, new Project("/trunk/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false));
-		String URL2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/URL2.txt"));
-		String usuario2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/usuario2.txt"));
-		String senha2 = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/senha2.txt"));
-		SVNConfig sVNConfig2 = new SVNConfig(URL2, projects2, usuario2, senha2);
-		
 		RegressionTestTechnique regressionTestTechnique = new DiffRegressionTest();
 		
 		List<Project> projectForExecuteAllTests = new ArrayList<Project>();
@@ -286,9 +279,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			 *  
 			 */
 			
-			History history2 = new History(sVNConfig2, iWorkspace);
-//TODO: Essa revisão deve ser alterada quando seu código for atualizado
-			history2.checkouOrUpdateProjects(299);
 			for(Revision revision : revisionForCheckout) {
 				String resultPath = iWorkspace.getRoot().getLocation().toString()+"/result";
 				if(!(new File(resultPath+"/TCM_"+revision.getId()+".tcm")).exists()) {
@@ -308,7 +298,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 						}
 					}
 					else {
-						Runtime.getRuntime().exec("D:/UFRN/Test_Quality/servers/SIGAA_2/bin/run.bat");
+						Runtime.getRuntime().exec("D:/Joao/servers/SIGAA/bin/run.bat");
 						System.out.println("Aguarde o JBoss e execute os testes manuais antes de continuar...");
 						System.out.println("Testes finalizados...");
 						for(Project project : projectForExecuteAllTests) {
@@ -449,19 +439,19 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 
 	private Map<Integer,Project> loadProjectsManually() throws Exception {
 		Map<Integer,Project> projects = new HashMap<Integer,Project>();
-		projects.put(1, new Project("/trunk/LIBS", "/LIBS", null, false));
-		projects.put(2, new Project("/trunk/Arquitetura", "/01_Arquitetura", null, false));
-		projects.put(3, new Project("/trunk/ServicosIntegrados", "/03_ServicosIntegrados", null, false));
-		projects.put(4, new Project("/trunk/EntidadesComuns", "/02_EntidadesComuns", null, false));
-		projects.put(5, new Project("/trunk/SharedResources", "/04_SharedResources", null, false));
-		projects.put(6, new Project("/trunk/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false));
-		projects.put(7, new Project("/trunk/SIGAAMobile/implementacao/codigo/SIGAAMobileObjects", "/SIGAAMobileObjects", null, false));
+		projects.put(1, new Project("/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false, false));
+		projects.put(2, new Project("/LIBS", "/LIBS", null, false, false));
+		projects.put(3, new Project("/branches/producao/Arquitetura", "/01_Arquitetura", null, false, true));
+		projects.put(4, new Project("/branches/producao/ServicosIntegrados", "/03_ServicosIntegrados", null, false, true));
+		projects.put(5, new Project("/branches/producao/EntidadesComuns", "/02_EntidadesComuns", null, false, true));
+		projects.put(6, new Project("/04_SharedResources", "/04_SharedResources", null, false, false));
+		projects.put(7, new Project("/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false, false));
 		Set<String> packagesToTest = new HashSet<String>(1);
 		packagesToTest.add("/SIGAA/biblioteca");
-		projects.put(8, new Project("/trunk/SIGAA", "/SIGAA", null, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
+		projects.put(8, new Project("/branches/producao/SIGAA", "/SIGAA", null, true, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
 		return projects;
 	}
-	
+
 	private List<Task> loadTasks(List<Revision> revisionForCheckout, String location) {
 		List<Task> tasks = null;
 		Object obj = FileUtil.loadObjectFromFile(location, "Tasks", "obj");

@@ -15,20 +15,22 @@ public class Project implements Serializable {
 	private IProject iProject;
 	private boolean aspectJNature;
 	private boolean executeTests;
+	private boolean forCheckout;
 	private Set<String> packagesToTest;
 	private ProjectRevisionInformations projectRevisionInformations;
 
-	public Project(String projectPath, String projectName, IProject iProject, boolean aspectJNature) {
+	public Project(String projectPath, String projectName, IProject iProject, boolean aspectJNature, boolean forCheckout) {
 		this.path = projectPath;
 		this.name = projectName;
 		this.iProject = iProject;
 		this.aspectJNature = aspectJNature;
 		this.executeTests = false;
+		this.forCheckout = forCheckout;
 		this.packagesToTest = null;
 		this.projectRevisionInformations = new ProjectRevisionInformations();
 	}
 
-	public Project(String projectPath, String projectName, IProject iProject, boolean aspectJNature, Set<String> packagesToTest) throws Exception {
+	public Project(String projectPath, String projectName, IProject iProject, boolean aspectJNature, boolean forCheckout, Set<String> packagesToTest) throws Exception {
 		this.path = projectPath;
 		this.name = projectName;
 		this.iProject = iProject;
@@ -36,6 +38,7 @@ public class Project implements Serializable {
 		if(packagesToTest == null || packagesToTest.isEmpty())
 			throw new Exception("The packagesToTest can not be null neither empty.");
 		this.executeTests = true;
+		this.forCheckout = forCheckout;
 		this.packagesToTest = packagesToTest;
 		this.projectRevisionInformations = new ProjectRevisionInformations();
 	}
@@ -78,6 +81,14 @@ public class Project implements Serializable {
 
 	public void setExecuteTests(boolean executeTests) {
 		this.executeTests = executeTests;
+	}
+
+	public boolean isForCheckout() {
+		return forCheckout;
+	}
+
+	public void setForCheckout(boolean forCheckout) {
+		this.forCheckout = forCheckout;
 	}
 
 	public Set<String> getPackagesToTest() {
