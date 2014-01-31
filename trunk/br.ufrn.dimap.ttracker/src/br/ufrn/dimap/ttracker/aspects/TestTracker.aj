@@ -29,6 +29,14 @@ public aspect TestTracker {
 	private pointcut teste() :
 		cflow(
 			(
+				within(
+					@javax.context.RequestScoped* * ||
+					@javax.context.ApplicationScoped* * ||
+					@javax.context.ConversationScoped* * ||
+					@javax.context.SessionScoped* * ||
+					@javax.annotation.ManagedBean* * ||
+					@org.springframework.context.annotation.Scope* *
+				) ||
 				execution(* TestCase+.*()) ||
 				@annotation(Test)
 			) &&
