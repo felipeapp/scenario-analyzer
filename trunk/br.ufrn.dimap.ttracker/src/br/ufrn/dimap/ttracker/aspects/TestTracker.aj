@@ -1,13 +1,11 @@
 package br.ufrn.dimap.ttracker.aspects;
 
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashSet;
-import java.util.Map;
 
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -29,14 +27,7 @@ public aspect TestTracker {
 	private pointcut teste() :
 		cflow(
 			(
-				within(
-					@javax.context.RequestScoped* * ||
-					@javax.context.ApplicationScoped* * ||
-					@javax.context.ConversationScoped* * ||
-					@javax.context.SessionScoped* * ||
-					@javax.annotation.ManagedBean* * ||
-					@org.springframework.context.annotation.Scope* *
-				) ||
+				within(@org.springframework.context.annotation.Scope* *) ||
 				execution(* TestCase+.*()) ||
 				@annotation(Test)
 			) &&
@@ -186,6 +177,7 @@ public aspect TestTracker {
 			}
 		}
 	}
+	
 	private void saveTestCoverageMapping(Member member) {
 		String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 		TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
@@ -366,7 +358,7 @@ public aspect TestTracker {
 			String packageClass = annotation.annotationType().getName();
 			if(packageClass.equals("javax.context.SessionScoped") || packageClass.equals("javax.context.ApplicationScoped") ||
 			packageClass.equals("javax.context.ConversationScoped") || packageClass.equals("javax.context.RequestScoped") ||
-			packageClass.equals("javax.annotation.ManagedBean")){
+			packageClass.equals("javax.annotation.ManagedBean") || packageClass.equals("org.springframework.context.annotation.Scope")){
 				managedBean = true;
 				break;
 			}
