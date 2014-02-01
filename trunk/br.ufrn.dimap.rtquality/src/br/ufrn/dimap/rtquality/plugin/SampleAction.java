@@ -102,56 +102,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		}
 	}
 	
-	public enum Dependence implements Serializable {
-		ARQ("arq","Arquitetura"), COMUM("comum","EntidadesComuns"), DTO("dto","ServicosIntegrados"), LIBS("libs", "LIBS"), SERVICOS_BIBLIOTECA("servicos_biblioteca", "SharedResources"), SIGAA_MOBILE_OBJECTS("sigaa_mobile_objects", "Arquitetura"), SharedResources("shared_resources", "SharedResources");		
-		private String version;
-		private String jarName;
-		private String name;
-
-		Dependence(String jarName, String name) {
-			this.jarName = jarName;
-			this.name = name;
-		}
-		
-		public String getVersion() {
-			return version;
-		}
-
-		public void setVersion(String version) {
-			this.version = version;
-		}
-
-		public String getJarName() {
-			return jarName;
-		}
-
-		public String getName() {
-			return name;
-		}
-		
-	}
-	
-	public void estudoEmpirico2() {
-		String sistema = "SIGAA";
-		String versoes[] = {"3.11.24","3.12.18"};
-		String URL = "http://desenvolvimento.info.ufrn.br/projetos/tags";
-		String usuario = "joaoguedes";
-		String senha = "v0c3m35m0";
-		String pastaDdependencias = "dependencias";
-		
-		for(String versao : versoes) {
-			String URLCompleta = URL+"/"+sistema+" "+versao;
-			String URLDependencias = URLCompleta+"/"+pastaDdependencias;
-			String dependencies[] = {};
-			for(String dependencie : dependencies) {
-				int start = dependencie.lastIndexOf("-");
-				int end = dependencie.lastIndexOf(".");
-				String dependencieVersion = dependencie.substring(start, end);
-				String dependencieName = dependencie.substring(0, start-1);
-			}
-		}
-	}
-
 	public void estudoEmpirico() throws Exception {
 		Boolean automatic = false;
 		
@@ -299,7 +249,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 					}
 					else {
 						Runtime.getRuntime().exec("D:/Joao/servers/SIGAA/bin/run.bat");
-						System.out.println("Aguarde o JBoss e execute os testes manuais antes de continuar...");
+						MessageDialog.openInformation(window.getShell(), "Fase dos Testes", "Inicialize o JBoss e execute os testes manuais antes de continuar...");
 						System.out.println("Testes finalizados...");
 						for(Project project : projectForExecuteAllTests) {
 							ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
@@ -368,12 +318,14 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 							}
 							iProject.delete(true, new SysOutProgressMonitor());
 						}
-						File projectFile = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
-						if(projectFile.exists()) {
-							try {
-								FileUtils.deleteDirectory(projectFile);
-							} catch (IOException ioe) {
-								ioe.printStackTrace();
+						if(project.isForCheckout()) {
+							File projectFile = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
+							if(projectFile.exists()) {
+								try {
+									FileUtils.deleteDirectory(projectFile);
+								} catch (IOException ioe) {
+									ioe.printStackTrace();
+								}
 							}
 						}
 					}
