@@ -358,8 +358,8 @@ public aspect TestTracker {
 		boolean managedBean = false;
 		for(Annotation annotation : anotations){
 			String annotationString = annotation.toString();
-			if(annotationString.startsWith("@org.springframework.context.annotation.Scope(") && (annotationString.matches("value=request") ||
-					annotationString.matches("value=session"))) {
+			if(annotationString.startsWith("@org.springframework.context.annotation.Scope(") && (annotationString.contains("value=request") ||
+					annotationString.contains("value=session"))) {
 				managedBean = true;
 				break;
 			}
