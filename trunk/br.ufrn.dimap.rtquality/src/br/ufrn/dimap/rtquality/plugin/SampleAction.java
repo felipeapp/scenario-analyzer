@@ -244,23 +244,21 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 							ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
 							TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
 //TODO: Verificar se os TCMs não estão sendo acumulados, se sim, algum procedimento deve zerar a instância do TCM utilizado para cada 
-							ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
 						}
 					}
 					else {
-						Runtime.getRuntime().exec("D:/Joao/servers/SIGAA/bin/run.bat");
-						MessageDialog.openInformation(window.getShell(), "Fase dos Testes", "Inicialize o JBoss e execute os testes manuais antes de continuar...");
-						System.out.println("Testes finalizados...");
-						for(Project project : projectForExecuteAllTests) {
-							ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
-						}
+						MessageDialog.openInformation(window.getShell(), "Fase de Testes", "1º) Inicialize o JBoss (Comando do cmd.exe: 'D:/Joao/servers/SIGAA/bin/run.bat') e;\n2º) Execute os testes manualmente;\n3º) Execute novamente o estudo empírico para continuar.");
+						return;
 					}
 				}
 				else {
+					System.out.println("Testes finalizados...");
 					for(int i=1;i<=sVNConfig.getProjects().size();i++) {
-			    		Project project = sVNConfig.getProjects().get(i);
-			    		project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
+						Project project = sVNConfig.getProjects().get(i);
+						project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
 					}
+					for(Project project : projectForExecuteAllTests)
+						ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
 				}
 				
 				for(Project project : projectForExecuteAllTests) {
