@@ -8,12 +8,12 @@ import java.lang.reflect.Modifier;
 import java.util.LinkedHashSet;
 
 import junit.framework.TestCase;
-import org.junit.Test;
-import org.springframework.context.annotation.Scope;
 
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.junit.Test;
+import org.springframework.context.annotation.Scope;
 
 import br.ufrn.dimap.ttracker.data.TestCoverage;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
@@ -24,9 +24,9 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 public aspect TestTracker {
 	private static final Integer NOTFOUND = -1;
 	
-	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
+	private pointcut exclusion() : within(br.ufrn.sigaa.biblioteca..*) && !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
 	private pointcut teste() :
-		cflow(
+		cflow(	
 			(
 				within(@Scope("request") *) ||
 				within(@Scope("session") *) ||
@@ -43,79 +43,15 @@ public aspect TestTracker {
 			execution(*.new(..))
 		) &&
 		exclusion();
-	
-	private pointcut beforeExecutions() :
-		cflow(
-			(
-				within(
-					@javax.context.RequestScoped* * ||
-					@javax.context.ApplicationScoped* * ||
-					@javax.context.ConversationScoped* * ||
-					@javax.context.SessionScoped* * ||
-					@javax.annotation.ManagedBean* *
-				) ||
-				execution(* TestCase+.*())
-			)&&	
-			(
-				execution(* *(..)) ||
-				execution(*.new(..))
-			)
-		) &&
+	private pointcut teste2() :
 		(
-			execution(* *(..)) ||
-			execution(*.new(..))
+			within(@Scope("request") *) ||
+			within(@Scope("session") *) ||
+			execution(* TestCase+.*()) ||
+			@annotation(Test)
 		) &&
 		exclusion();
 	
-	private pointcut afterExecutions() :
-		(
-			within(
-				@javax.context.SessionScoped* * ||
-				@javax.context.RequestScoped* * ||
-				@javax.context.ApplicationScoped* * ||
-				@javax.context.ConversationScoped* * ||
-				@javax.annotation.ManagedBean* *
-			) ||
-			execution(* TestCase+.*())
-		) &&
-		execution(public * *(..)) &&
-		!(
-			execution(*.new(..)) ||
-			execution(* set*(..)) ||
-			execution(* get*(..)) ||
-			execution(* is*(..))
-		) &&
-		exclusion();
-	
-	private pointcut afterOthers() : //Este after é capaz de capturar tudo que o before é capaz, só que após a execução (excluindo construtures, sets, gets e iss)
-		cflow(
-			(
-				within(
-					@javax.context.RequestScoped* * ||
-					@javax.context.ApplicationScoped* * ||
-					@javax.context.ConversationScoped* * ||
-					@javax.context.SessionScoped* * ||
-					@javax.annotation.ManagedBean* *
-				) ||
-				execution(* TestCase+.*())
-			)&&	
-			(
-				execution(* *(..)) ||
-				execution(*.new(..))
-			)
-		) &&
-		(
-			execution(* *(..)) ||
-			execution(*.new(..))
-		) &&
-		!(
-			execution(*.new(..)) ||
-			execution(* set*(..)) ||
-			execution(* get*(..)) ||
-			execution(* is*(..))
-		) &&
-		exclusion();
-		
 	before() : teste() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
@@ -132,8 +68,10 @@ public aspect TestTracker {
 					testData.setSignature(projectName+"."+signature.toString()); //retorno pacote classe método parâmetros
 					testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
 					testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
+					testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 				}
-				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+				else
+					testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
 				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
 			}
 		}
@@ -143,24 +81,31 @@ public aspect TestTracker {
 				testData.setSignature(projectName+"."+signature.toString());
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
+				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 			}
-			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+			else
+				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
 		}
 		saveTestCoverageMapping(member);
 	}
 
-	after() returning(Object theReturn) : teste() {
+	after() returning(Object theReturn) : teste2() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
-		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-		if(testCoverage != null)
-			testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
-		saveTestCoverageMapping(member);
+		if(isTestClassMember(member) || isManagedBeanMember(member)){
+			if(isTestMethod(member) || isActionMethod(member)) {
+				TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+				if(testCoverage != null) {
+					String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+					testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
+					saveTestCoverageMapping(member);
+				}
+			}
+		}
 	}
 	
-	after() : teste() {
+	after() : teste2() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
@@ -188,109 +133,6 @@ public aspect TestTracker {
 		TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
 	}
 	
-//	// Intercepta lan�amentos de exce��es
-//	after() throwing(Throwable t) : teste()  {
-//		Long threadId = Thread.currentThread().getId();
-//		Signature signature = thisJoinPoint.getSignature();
-//		Member member = getMember(signature);
-//		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-//		TestCoverageMapping tcm2 = TestCoverageMapping.getInstance();
-//		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-//		if(testCoverage != null){
-//			TestData testData = testCoverage.getTestData();
-//			if(((!testData.isManual() && isTestClassMember(member)) ||
-//			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
-//			testData.getSignature().equals(projectName+"."+signature.toString())){
-//				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-//				Integer testCount = TestCoverageMapping.getInstance().getTestCount();
-//				Integer testClassesSize = FileUtil.getTestClassesSizeByResource(member.getDeclaringClass());
-//				testCoverage.print();
-//				if(testClassesSize.equals(NOTFOUND) || testClassesSize.equals(testCount)){
-//					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
-//					TestCoverageMapping.getInstance().setFileDirectory(resultFolder);
-//					String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
-//					TestCoverageMapping.getInstance().setName(testCoverageMappingName);
-//					TestCoverageMapping.getInstance().save(); //TODO: Após executar todos os testes e os depois os testes selecionados verificar se ambos não serão acumulados no mesmo TestCoverageMapping, se sim, desenvolver uma função clear para o TestCoverageMapping.
-//					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-//					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt");
-//				}
-//			}
-//		}
-//	}
-	
-//	// Intercepta capturas de exce��es
-//	before(Throwable t) : handler(Throwable+) && args(t) && teste() {
-//		System.out.println("before catch exception");
-//	}
-	
-//	before() : beforeExecutions() {
-//		Long threadId = Thread.currentThread().getId();
-//		Signature signature = thisJoinPoint.getSignature();
-//		Member member = getMember(signature);
-//		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-//		if(testCoverage == null || !testCoverage.isStart()){
-//			if(canCreateNewTestCoverage(testCoverage,member,thisJoinPoint.getArgs().length))
-//				testCoverage = new TestCoverage();
-//			if(isTestMethod(member)){
-//				testCoverage.setTestMethod(isTestMethod(member));
-//				testCoverage.setSignature(signature.toString());
-//			}
-//			else if(isManagedBeanMethod(member)){
-//				if(isActionMethod(member)){
-//					testCoverage.addCoveredMethod(signature.toString());
-//					testCoverage.setStart(true);
-//					if(thisJoinPoint.getArgs().length > 0){
-//						Method method = (Method) member;
-//						Class<?> classes[] = method.getParameterTypes();
-//						Object parameters[] = thisJoinPoint.getArgs();
-//						for(int i=0;i<thisJoinPoint.getArgs().length;i++)
-//							testCoverage.getInputs().add(new Input(classes[i], getParameterName(method,i), parameters[i]));
-//					}
-//				}
-//				else if(isPublicSetMethod(member) && thisJoinPoint.getArgs().length == 1){
-//					Object parameters[] = thisJoinPoint.getArgs();
-//					Method method = (Method) member;
-//					Class<?> classes[] = method.getParameterTypes();
-//					testCoverage.getInputs().add(new Input(classes[0], getParameterName(member), parameters[0]));
-//				}
-//			}
-//			if(testCoverage != null)
-//				TestCoverageMapping.getInstance().getTestsCoverageBuilding().put(threadId, testCoverage);
-//		}
-//		else{
-//			testCoverage.addCoveredMethod(signature.toString());
-//		}
-//	}
-//	
-//	after() : beforeExecutions() {
-//		Long threadId = Thread.currentThread().getId();
-//		Signature signature = thisJoinPoint.getSignature();
-//		Member member = getMember(signature);
-//		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-//	}
-//	
-//	after() : afterExecutions() {
-//		Long threadId = Thread.currentThread().getId();
-//		Signature signature = thisJoinPoint.getSignature();
-//		Member member = getMember(signature);
-//		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-//		if(testCoverage != null){
-//			if(testCoverage.isTestMethod()){
-//				if(isTestMethod(member) && testCoverage.getSignature().equals(signature.toString())){
-//					TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-//					printTestCoverage(testCoverage);
-//				}
-//			}
-//			else if(isManagedBeanMethod(member) && isActionMethod(member)) {
-//				Iterator<MethodData> iterator = testCoverage.getCoveredMethods().iterator();
-//				if(iterator.hasNext() && iterator.next().getSignature().equals(signature.toString())){
-//					TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-//					printTestCoverage(testCoverage);
-//				}
-//			}
-//		}
-//	}
-	
 	private void loadTestCoverageMappingInstanceFromFile(Member member) {
 		try{
 			String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
@@ -306,7 +148,7 @@ public aspect TestTracker {
 	private LinkedHashSet<Variable> getInputs(Member member, Object[] args){
 		Class<?>[] types = getParameterTypes(member);
 		String name = member.getDeclaringClass().getName()+"."+member.getName()+"."+"arg";
-		LinkedHashSet<Variable> inputs = new LinkedHashSet<Variable>();
+		LinkedHashSet<Variable> inputs = new LinkedHashSet<Variable>(args.length);
 		if(types.length == args.length){
 			for(int i=0;i<args.length;i++)
 				inputs.add(new Variable(types[i].getName(),name+i,args[i]));

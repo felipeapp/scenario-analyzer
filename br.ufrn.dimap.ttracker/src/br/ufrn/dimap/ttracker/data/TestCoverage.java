@@ -23,13 +23,13 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	
 	private Integer idTest; //TODO: Verificar se os IDs estão coerentes ou se estão sendo repetidos ou gerados de forma desordenada. Se sim descobrir o por quê e corrigir o problema.
 	private TestData testData;
-	private LinkedHashSet<CoveredMethod> coveredMethods;
+	private Set<CoveredMethod> coveredMethods;
 	private Date date;
 	
 	public TestCoverage() {
 		this.idTest = TestCoverageMapping.getInstance().getNextId();
 		this.testData = new TestData();
-		this.coveredMethods = new LinkedHashSet<CoveredMethod>();
+		this.coveredMethods = new HashSet<CoveredMethod>();
 		this.date = new Date();
 	}
 	
@@ -86,7 +86,7 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		}
 	}
 	
-	public LinkedHashSet<CoveredMethod> getCoveredMethods() {
+	public Set<CoveredMethod> getCoveredMethods() {
 		return coveredMethods;
 	}
 
