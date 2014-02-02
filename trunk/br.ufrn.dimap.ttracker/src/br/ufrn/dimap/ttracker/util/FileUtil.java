@@ -270,6 +270,8 @@ public class FileUtil {
 	}
 	
 	public static String getBuildFolderByResource(Class<?> aClass) {
+		if(aClass == null || aClass.getResource("") == null)
+			System.out.println("Aqui!");
 		String buildFolder = aClass.getResource("").toString();
 		return buildFolder.substring(buildFolder.indexOf("/")+1,(buildFolder.length()-aClass.getPackage().getName().length()-2));
 	}
