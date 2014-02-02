@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.springframework.context.annotation.Scope;
 
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
@@ -27,7 +28,8 @@ public aspect TestTracker {
 	private pointcut teste() :
 		cflow(
 			(
-				within(@org.springframework.context.annotation.Scope* *) ||
+				within(@Scope("request") *) ||
+				within(@Scope("session") *) ||
 				execution(* TestCase+.*()) ||
 				@annotation(Test)
 			) &&
@@ -146,7 +148,7 @@ public aspect TestTracker {
 		}
 		saveTestCoverageMapping(member);
 	}
-	
+
 	after() returning(Object theReturn) : teste() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
@@ -355,10 +357,9 @@ public aspect TestTracker {
 		Annotation anotations[] = member.getDeclaringClass().getAnnotations();
 		boolean managedBean = false;
 		for(Annotation annotation : anotations){
-			String packageClass = annotation.annotationType().getName();
-			if(packageClass.equals("javax.context.SessionScoped") || packageClass.equals("javax.context.ApplicationScoped") ||
-			packageClass.equals("javax.context.ConversationScoped") || packageClass.equals("javax.context.RequestScoped") ||
-			packageClass.equals("javax.annotation.ManagedBean") || packageClass.equals("org.springframework.context.annotation.Scope")){
+			String annotationString = annotation.toString();
+			if(annotationString.equals("@org.springframework.context.annotation.Scope(value=request)") ||
+					annotationString.equals("@org.springframework.context.annotation.Scope(value=session)")) {
 				managedBean = true;
 				break;
 			}
