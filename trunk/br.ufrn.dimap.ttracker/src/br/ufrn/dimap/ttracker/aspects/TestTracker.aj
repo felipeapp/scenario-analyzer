@@ -64,32 +64,21 @@ public aspect TestTracker {
 		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
-			if(isTestClassMember(member) || isManagedBeanMember(member)){
+			if((isTestClassMember(member) && isTestMethod(member)) || (isManagedBeanMember(member) && isActionMethod(member))){
 				testCoverage = new TestCoverage();
-				if(isTestMethod(member) || isActionMethod(member)) {
-					TestData testData = testCoverage.getTestData();
-					testData.setSignature(projectName+"."+signature.toString()); //retorno pacote classe método parâmetros
-					testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
-					testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
-					testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
-				}
-				else
-					testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
-				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
-			}
-		}
-		else{
-			TestData testData = testCoverage.getTestData();
-			if(testData.getSignature().isEmpty() && (isTestMethod(member) || isActionMethod(member))) {
-				testData.setSignature(projectName+"."+signature.toString());
-				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
+				TestData testData = testCoverage.getTestData();
+				testData.setSignature(projectName+"."+signature.toString()); //retorno pacote classe método parâmetros
+				testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
+				saveTestCoverageMapping(member);
 			}
-			else
-				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
 		}
-		saveTestCoverageMapping(member);
+		else {
+			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
+			saveTestCoverageMapping(member);
+		}
 	}
 
 	after() returning(Object theReturn) : teste2() {
