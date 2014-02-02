@@ -13,7 +13,6 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.Test;
-import org.springframework.context.annotation.Scope;
 
 import br.ufrn.dimap.ttracker.data.TestCoverage;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
@@ -29,8 +28,7 @@ public aspect TestTracker {
 		cflow(
 			within(br.ufrn.sigaa.biblioteca..*) &&
 			(
-				within(@Scope("request") *) ||
-				within(@Scope("session") *) ||
+				within(@org.springframework.context.annotation.Scope* *) ||
 				execution(* TestCase+.*()) ||
 				@annotation(Test)
 			) &&
@@ -47,8 +45,7 @@ public aspect TestTracker {
 	private pointcut teste2() :
 		within(br.ufrn.sigaa.biblioteca..*) &&
 		(
-			within(@Scope("request") *) ||
-			within(@Scope("session") *) ||
+			within(@org.springframework.context.annotation.Scope* *) ||
 			execution(* TestCase+.*()) ||
 			@annotation(Test)
 		) &&
