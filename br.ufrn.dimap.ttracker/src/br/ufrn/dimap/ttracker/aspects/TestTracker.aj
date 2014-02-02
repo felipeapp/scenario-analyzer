@@ -24,9 +24,10 @@ import br.ufrn.dimap.ttracker.util.FileUtil;
 public aspect TestTracker {
 	private static final Integer NOTFOUND = -1;
 	
-	private pointcut exclusion() : within(br.ufrn.sigaa.biblioteca..*) && !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
+	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
 	private pointcut teste() :
-		cflow(	
+		cflow(
+			within(br.ufrn.sigaa.biblioteca..*) &&
 			(
 				within(@Scope("request") *) ||
 				within(@Scope("session") *) ||
@@ -44,11 +45,16 @@ public aspect TestTracker {
 		) &&
 		exclusion();
 	private pointcut teste2() :
+		within(br.ufrn.sigaa.biblioteca..*) &&
 		(
 			within(@Scope("request") *) ||
 			within(@Scope("session") *) ||
 			execution(* TestCase+.*()) ||
 			@annotation(Test)
+		) &&
+		(
+			execution(* *(..)) ||
+			execution(*.new(..))
 		) &&
 		exclusion();
 	
@@ -93,13 +99,15 @@ public aspect TestTracker {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
-		if(isTestClassMember(member) || isManagedBeanMember(member)){
-			if(isTestMethod(member) || isActionMethod(member)) {
-				TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-				if(testCoverage != null) {
-					String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-					testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
-					saveTestCoverageMapping(member);
+		if(member != null) {
+			if(isTestClassMember(member) || isManagedBeanMember(member)){
+				if(isTestMethod(member) || isActionMethod(member)) {
+					TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+					if(testCoverage != null) {
+						String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+						testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
+						saveTestCoverageMapping(member);
+					}
 				}
 			}
 		}
@@ -109,18 +117,20 @@ public aspect TestTracker {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
-		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-		if(testCoverage != null){
-			TestData testData = testCoverage.getTestData();
-			if(((!testData.isManual() && isTestClassMember(member)) ||
-			(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
-			testData.getSignature().equals(projectName+"."+signature.toString())){
-				TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-				saveTestCoverageMapping(member);
-				String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-				String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
-				FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
+		if(member != null) {
+			String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+			TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+			if(testCoverage != null){
+				TestData testData = testCoverage.getTestData();
+				if(((!testData.isManual() && isTestClassMember(member)) ||
+				(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
+				testData.getSignature().equals(projectName+"."+signature.toString())){
+					TestCoverageMapping.getInstance().finishTestCoverage(threadId);
+					saveTestCoverageMapping(member);
+					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
+				}
 			}
 		}
 	}
