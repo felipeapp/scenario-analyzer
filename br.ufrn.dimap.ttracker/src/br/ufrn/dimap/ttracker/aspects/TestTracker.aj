@@ -124,9 +124,8 @@ public aspect TestTracker {
 					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 					try {
-						AudioClip clip = Applet.newAudioClip(new URL("file:///D:/Joao/workspaces/SIGAALast/br.ufrn.dimap.ttracker/sounds/buzzer.wav"));
-						clip.play();//toca só uma vez
-						
+						AudioClip clip = Applet.newAudioClip(new URL("file:///D:/Joao/workspaces/SIGAALast/br.ufrn.dimap.ttracker/sounds/beep-06.wav"));
+						clip.play();
 						clip.stop();
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
