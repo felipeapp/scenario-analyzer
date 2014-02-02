@@ -1,10 +1,14 @@
 package br.ufrn.dimap.ttracker.aspects;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedHashSet;
 
 import junit.framework.TestCase;
@@ -13,6 +17,7 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.Test;
+import org.springframework.context.annotation.Scope;
 
 import br.ufrn.dimap.ttracker.data.TestCoverage;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
@@ -24,11 +29,12 @@ public aspect TestTracker {
 	private static final Integer NOTFOUND = -1;
 	
 	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
-	private pointcut teste() :
+	private pointcut beforePointcut() :
 		cflow(
 			within(br.ufrn.sigaa.biblioteca..*) &&
 			(
-				within(@org.springframework.context.annotation.Scope* *) ||
+				within(@Scope("request") *) ||
+				within(@Scope("session") *) ||
 				execution(* TestCase+.*()) ||
 				@annotation(Test)
 			) &&
@@ -42,10 +48,11 @@ public aspect TestTracker {
 			execution(*.new(..))
 		) &&
 		exclusion();
-	private pointcut teste2() :
+	private pointcut afterPointcut() :
 		within(br.ufrn.sigaa.biblioteca..*) &&
 		(
-			within(@org.springframework.context.annotation.Scope* *) ||
+			within(@Scope("request") *) ||
+			within(@Scope("session") *) ||
 			execution(* TestCase+.*()) ||
 			@annotation(Test)
 		) &&
@@ -55,7 +62,7 @@ public aspect TestTracker {
 		) &&
 		exclusion();
 	
-	before() : teste() {
+	before() : beforePointcut() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
@@ -81,7 +88,7 @@ public aspect TestTracker {
 		}
 	}
 
-	after() returning(Object theReturn) : teste2() {
+	after() returning(Object theReturn) : afterPointcut() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
@@ -99,7 +106,7 @@ public aspect TestTracker {
 		}
 	}
 	
-	after() : teste2() {
+	after() : afterPointcut() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
@@ -116,6 +123,14 @@ public aspect TestTracker {
 					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
 					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
+					try {
+						AudioClip clip = Applet.newAudioClip(new URL("file:///D:/Joao/workspaces/SIGAALast/br.ufrn.dimap.ttracker/sounds/buzzer.wav"));
+						clip.play();//toca só uma vez
+						
+						clip.stop();
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} 
 				}
 			}
 		}
@@ -206,7 +221,7 @@ public aspect TestTracker {
 	}
 	
 	private boolean isActionMethod(Member member){
-		return isPublic(member) && !isSetOrGetOrIs(member) && !(member instanceof Constructor);
+		return !isSetOrGetOrIs(member) && !(member instanceof Constructor);
 	}
 	
 	private boolean isPublic(Member member){
