@@ -254,10 +254,14 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		for (Task task : tasks) {
 			if (tasksCount.get(task.getType()) < 7) {
 				tasksCount.put(task.getType(), tasksCount.get(task.getType()) + 1);
-				checkoutExecuteDelete(isAutomatic, true, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task, task.getOldRevision(),
+				Integer retorno = checkoutExecuteDelete(isAutomatic, true, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task, task.getOldRevision(),
 						regressionTestTechnique);
-				checkoutExecuteDelete(isAutomatic, false, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task, task.getCurrentRevision(),
+				if(retorno.equals(1))
+					return;
+				retorno = checkoutExecuteDelete(isAutomatic, false, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task, task.getCurrentRevision(),
 						regressionTestTechnique);
+				if(retorno.equals(1))
+					return;
 				calculateMetricsAndAverages(iWorkspace.getRoot().getLocation().toString(), taskTypes, task);
 			}
 			finalizeAverages(taskTypes);
@@ -284,7 +288,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		taskTypeSet.getTasks().add(task);
 	}
 
-	private void checkoutExecuteDelete(Boolean isAutomatic, Boolean oldTaskRevision, IWorkspace iWorkspace, List<Project> projectForExecuteAllTests,
+	private Integer checkoutExecuteDelete(Boolean isAutomatic, Boolean oldTaskRevision, IWorkspace iWorkspace, List<Project> projectForExecuteAllTests,
 			History history, SVNConfig sVNConfig, Task task, Revision revision, RegressionTestTechnique regressionTestTechnique) throws SVNException,
 			CoreException, IOException, ClassNotFoundException, JavaModelException, Exception {
 		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
@@ -307,24 +311,15 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 						.openInformation(
 								window.getShell(),
 								"Fase de Testes",
-								"1º) Inicialize o JBoss (Comando do cmd.exe: 'D:/Joao/servers/SIGAA/bin/run.bat') e;\n2º) Execute os testes manualmente;\n3º) Execute novamente o estudo empírico para continuar.");
-				return;
+								"1º) Inicialize o servidor JBoss;\n2º) Execute os testes manualmente e;\n3º) Execute novamente o estudo empírico para continuar.");
+				return 1;
 			}
 		} else {
 			System.out.println("Testes finalizados...");
 			for (int i = 1; i <= sVNConfig.getProjects().size(); i++) {
 				Project project = sVNConfig.getProjects().get(i);
-				project.setIProject(iWorkspace.getRoot().getProject(project.getName())); // O
-																							// projeto
-																							// não
-																							// precisa
-																							// existir
-																							// no
-																							// workspace
-																							// para
-																							// setar
-																							// esta
-																							// informação.
+				project.setIProject(iWorkspace.getRoot().getProject(project.getName()));
+				// O projeto não precisa existir no workspace para setar esta informação 
 			}
 			for (Project project : projectForExecuteAllTests)
 				ProjectUtil.setAllUncoveredMethods(project, "TCM_" + revision.getId());
@@ -382,6 +377,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		// TODO: cada revisão pode conter novos testes ou excluídos testes da
 		// revisão anterior, ao calcular as métricas tem de levar em
 		// consideração apenas o que já existia
+		return 0;
 	}
 
 	private void deleteProjectsFromCheckout(SVNConfig sVNConfig, Revision revision, String iWorkspaceFolder) throws CoreException {
