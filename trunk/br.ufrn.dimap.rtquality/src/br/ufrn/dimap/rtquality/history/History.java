@@ -355,7 +355,7 @@ public class History {
 		return task_number;
 	}
     
-    public void checkouOrUpdateProjects(Integer revision) throws SVNException, CoreException, IOException { //TODO: utilizar Long para a revisão e não Integer
+    public Integer checkouOrUpdateProjects(Integer revision) throws SVNException, CoreException, IOException { //TODO: utilizar Long para a revisão e não Integer
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
@@ -410,7 +410,7 @@ public class History {
 //    		for(Project project : projectFile.keySet())
 //    			project.getProjectRevisionInformations().setRevision(revision);
 //    	}
-		importConfigureRefreshBuild();
+		return importConfigureRefreshBuild();
     }
 
 	@SuppressWarnings("unchecked")
@@ -423,7 +423,7 @@ public class History {
 		}
 	}
     
-	private void importConfigureRefreshBuild() throws CoreException, IOException {
+	private Integer importConfigureRefreshBuild() throws CoreException, IOException {
 //		Map<String,ProjectRevisionInformations> projectRevisionInformations = new HashMap<String,ProjectRevisionInformations>();
 		for(int i=1;i<=sVNConfig.getProjects().size();i++) {
     		Project project = sVNConfig.getProjects().get(i);
@@ -437,10 +437,13 @@ public class History {
 				changeLib(project, "aspectjweaver*.jar", "aspectjweaver.jar");
 			}
 			project.getIProject().refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
-			buildingProject(project.getIProject());
+			Integer retorno = buildingProject(project.getIProject());
 			project.getProjectRevisionInformations().setRevisionBuilded(project.getProjectRevisionInformations().getRevision());
+			if(retorno.equals(-1))
+				return -1;
 //			projectRevisionInformations.put(project.getPath(), project.getProjectRevisionInformations());
 		}
+		return 0;
 //		FileUtil.saveObjectToFile(projectRevisionInformations, iWorkspace.getRoot().getLocation().toString()+"/config", "Projects", "obj");
 	}
 
@@ -455,15 +458,18 @@ public class History {
 		}
 	}
 
-	private void buildingProject(IProject iProject) throws CoreException {
+	private Integer buildingProject(IProject iProject) throws CoreException {
 		SysOutProgressMonitor.out.println("Building eclipse project: " + iProject.getName());
 		iProject.build(IncrementalProjectBuilder.FULL_BUILD, new SysOutProgressMonitor());
 		IMarker[] problems = iProject.findMarkers(IMarker.PROBLEM, true, IResource.DEPTH_INFINITE);
 		for(IMarker iMarker : problems){
-			if(iMarker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO) == IMarker.SEVERITY_ERROR)
+			if(iMarker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO) == IMarker.SEVERITY_ERROR) {
 				System.out.println(iMarker.getAttribute(IMarker.SEVERITY, IMarker.SEVERITY_INFO));
+				return -1;
+			}
 		}
 		SysOutProgressMonitor.out.println("Eclipse project builded");
+		return 0;
 	}
     
     private void importProject(Project project) throws CoreException {
