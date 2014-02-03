@@ -253,19 +253,24 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 
 		for (Task task : tasks) {
 			if (tasksCount.get(task.getType()) < 7) {
-				tasksCount.put(task.getType(), tasksCount.get(task.getType()) + 1);
 				Integer retorno = checkoutExecuteDelete(isAutomatic, true, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task,
 						task.getOldRevision(), regressionTestTechnique);
 				if (retorno.equals(1))
 					return;
+				else if(retorno.equals(-1))
+					continue;
 				retorno = checkoutExecuteDelete(isAutomatic, false, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task,
 						task.getCurrentRevision(), regressionTestTechnique);
 				if (retorno.equals(1))
 					return;
+				else if(retorno.equals(-1))
+					continue;
 				calculateMetricsAndAverages(iWorkspace.getRoot().getLocation().toString(), taskTypes, task);
+				tasksCount.put(task.getType(), tasksCount.get(task.getType()) + 1);
 			}
-			finalizeAverages(taskTypes);
 		}
+		finalizeAverages(taskTypes);
+		System.out.println("Fim da execução do estudo empírito.");
 	}
 
 	private void finalizeAverages(Map<TaskType, TaskTypeSet> taskTypes) {
@@ -295,7 +300,9 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
 		String resultPath = iWorkspaceFolder + "/result";
 		if (!(new File(resultPath + "/TCM_" + revision.getId() + ".tcm")).exists()) {
-			history.checkouOrUpdateProjects(revision.getId());
+			Integer retorno = history.checkouOrUpdateProjects(revision.getId());
+			if(retorno.equals(-1))
+				return -1;
 			Project aProject = projectForExecuteAllTests.get(0);
 			Class<?> aClass = ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
 			ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass), iWorkspaceFolder, revision.getId(), aProject.getName());
