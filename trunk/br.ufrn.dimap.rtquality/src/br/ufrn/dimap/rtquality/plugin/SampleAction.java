@@ -101,294 +101,343 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void estudoEmpirico() throws Exception {
-		Boolean automatic = false;
-		
-		//Limpando os resultados da última execução
-		IWorkspace iWorkspace = ResourcesPlugin.getWorkspace();
-		try {
-			File tempFolder = new File("temp");
-			if(tempFolder != null && tempFolder.isDirectory())
-				FileUtils.deleteDirectory(tempFolder); //TODO: Deletar o ProjectsUpdates.xml (Quando?)
-			File projectsUpdates = new File("ProjectsUpdates.xml");
-			if(projectsUpdates.exists())
-				projectsUpdates.delete();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		Map<Integer,Project> projects = loadProjects(iWorkspace.getRoot().getLocation().toString()+"/config");
-		
-		String URL = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/URL.txt"));
-		String usuario = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/usuario.txt"));
-		String senha = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/config/senha.txt"));
-		SVNConfig sVNConfig = new SVNConfig(URL, projects, usuario, senha);
-		
+		cleanOldFiles();
+		Boolean isAutomatic = false;
 		RegressionTestTechnique regressionTestTechnique = new DiffRegressionTest();
-		
-		List<Project> projectForExecuteAllTests = new ArrayList<Project>();
-		for(int i=1;i<=projects.size();i++) {
-			Project project = projects.get(i);
-			if(project.isAspectJNature())
-				projectForExecuteAllTests.add(project);
-		}
-		
-		/*
-		 * Os métodos modificados
-		 * A=R4-R0
-		 * B=(R1-R0)+(R2-R1)+(R4-R3)
-		 * C=intersecção(A,B)
-		 */
-		
+		IWorkspace iWorkspace = ResourcesPlugin.getWorkspace();
+		Map<Integer, Project> projects = loadProjectsManually();
+		List<Project> projectsForExecuteAllTests = getProjectsForExecuteAllTests(projects);
 		try {
+			SVNConfig sVNConfig = loadSVNConfig(iWorkspace, projects);
 			History history = new History(sVNConfig, iWorkspace);
-			history.generateTasksXML();
-			List<Revision> revisionForCheckout = new ArrayList<Revision>();
-			List<Task> tasks = loadTasks(revisionForCheckout, iWorkspace.getRoot().getLocation().toString()+"/config");
-			if(tasks == null) {
-				System.out.println("Nenhuma informação sobre as tarefas foram encontradas...");
+			List<Task> tasks = obtainTasksModifiedMethods(iWorkspace, projects, history);
+			if (tasks == null)
 				return;
-			}
-			List<Task> tasksToRemove = new ArrayList<Task>();
-			for(Task task : tasks) {
-				if(task.isDoAndUndoDone()) {
-					System.out.println("A tarefa "+task.getId().toString()+" já foi analisada...");
-					continue;
-				}
-				System.out.println("Analisando tarefa: "+task.getId().toString());
-				for(Revision revision : task.getRevisions()) {
-					if(revision.isDoAndUndoDone()) {
-						System.out.println("\tA revisão "+revision.getId()+" já foi analisada...");
-						continue;
-					}
-					System.out.println("\tAnalisando revisão: "+revision.getId());
-					try {
-						System.out.println("\t\tDiff entre as revisões: "+revision.getOldId()+" e "+revision.getId());
-						Set<String> A = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), revision.getOldId(), revision.getId());
-						Set<String> B = new HashSet<String>(0);
-						Set<String> C = new HashSet<String>(0);
-						Set<String> D = new HashSet<String>(0);
-						if(!A.isEmpty()) {
-							if(!revision.getOldId().equals(task.getOldRevision().getId())) {
-								System.out.println("\t\tDiff entre as revisões: "+task.getOldRevision().getId()+" e "+revision.getId());
-								B = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), task.getOldRevision().getId(), revision.getId());
-								C = MathUtil.intersection(A,B);
-								D = new HashSet<String>(A);
-								D.removeAll(C);
-							}
-							else
-								C = new HashSet<String>(A);
-						}
-						revision.setModifiedMethods(C);
-						revision.setUndoModifiedMethods(D);
-						revision.setDoAndUndoDone(true);
-					} catch (SVNException svne) {
-						svne.printStackTrace();
-						System.out.println("Conexão Perdida... ou Revisão muito antiga, e o arquivo/projeto ainda nem existe...");
-						revision.setDoAndUndoDone(false);
-						return;
-					} catch (IOException ioe) {
-						System.out.println("Problemas ao acessar arquivos...");
-						revision.setDoAndUndoDone(false);
-						return;
-					} finally {
-						if(revision.isDoAndUndoDone())
-							FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "obj");
-					}
-				}
-				Set<String> Undo = new HashSet<String>();
-				Set<String> allModifiedMethods = new HashSet<String>();
-				for(int index=task.getRevisions().size()-1;index>=0;index--) {
-					Revision revision = task.getRevisions().get(index);
-					Undo.addAll(revision.getUndoModifiedMethods());
-					revision.getModifiedMethods().removeAll(Undo);
-					allModifiedMethods.addAll(revision.getModifiedMethods());
-				}
-				if(allModifiedMethods.isEmpty())
-					tasksToRemove.add(task);
-				task.setModifiedMethods(allModifiedMethods);
-				task.setDoAndUndoDone(true);
-				FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "obj");
-			}
-			tasks.removeAll(tasksToRemove); //TODO: Verificar se alguma tarefa foi removida e recalcular as quantidades de tarefas por tipo
-			history.groupEliminateSortSaveTasks(tasks);
-			FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "obj");
-			/*
-			 * Loop para cada revisão
-			 * 	Obtenho todas as modificações da revisão atual para a anterior (Rx-Rx-1)
-			 * 	Obtenho todas as modificações da revisão atual para a inicial (Rx-R0)
-			 *  Obtenho o conjunto das modificações desfeitas pela revisão Ex = (Rx-Rx-1)-((Rx-Rx-1)I(Rx-R0))
-			 * End Loop
-			 * Variavel E = {}
-			 * Loop para cada revisão (da maior para a menor)
-			 * 	Faz a união entre E com Ex salvando em E
-			 * 	Faz a intersecção entre atual-anterior e E e salvando em atual-anterior
-			 * End Loop
-			 * Faz a união das modificações atual-anterior para obter o conjunto total das modificações que não foram desfeitas
-			 *  
-			 */
-			
-			for(Revision revision : revisionForCheckout) {
-				String resultPath = iWorkspace.getRoot().getLocation().toString()+"/result";
-				if(!(new File(resultPath+"/TCM_"+revision.getId()+".tcm")).exists()) {
-					history.checkouOrUpdateProjects(revision.getId());
-					Project aProject = projectForExecuteAllTests.get(0);
-					Class<?> aClass = ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
-					ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass), iWorkspace.getRoot().getLocation().toString(), revision.getId(), aProject.getName());
-					if(automatic) {
-						for(Project project : projectForExecuteAllTests) {
-							if(!project.isExecuteTests())
-								continue;
-							IProject iProject = project.getIProject();
-							ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-							TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
-//TODO: Verificar se os TCMs não estão sendo acumulados, se sim, algum procedimento deve zerar a instância do TCM utilizado para cada 
-						}
-					}
-					else {
-						MessageDialog.openInformation(window.getShell(), "Fase de Testes", "1º) Inicialize o JBoss (Comando do cmd.exe: 'D:/Joao/servers/SIGAA/bin/run.bat') e;\n2º) Execute os testes manualmente;\n3º) Execute novamente o estudo empírico para continuar.");
-						return;
-					}
-				}
-				else {
-					System.out.println("Testes finalizados...");
-					for(int i=1;i<=sVNConfig.getProjects().size();i++) {
-						Project project = sVNConfig.getProjects().get(i);
-						project.setIProject(iWorkspace.getRoot().getProject(project.getName())); //O projeto não precisa existir no workspace para setar esta informação.
-					}
-					for(Project project : projectForExecuteAllTests)
-						ProjectUtil.setAllUncoveredMethods(project, "TCM_"+revision.getId());
-				}
-				
-				for(Project project : projectForExecuteAllTests) {
-					for(Task task : revision.getOldTasks()) {
-						String allOldTestsResultName = "AllOldTests_"+task.getId();
-						String selectionResultName = "RTSSelection_"+regressionTestTechnique.getName()+"_"+task.getId();
-						String exclusionResultName = "RTSExclusion_"+regressionTestTechnique.getName()+"_"+task.getId();
-						if(!(new File(resultPath+"/"+selectionResultName+".slc")).exists() || !(new File(resultPath+"/"+exclusionResultName+".slc")).exists() || !(new File(resultPath+"/"+allOldTestsResultName+".slc")).exists()) {
-							// Pythia - a regression test selection tool based on textual differencing
-							regressionTestTechnique.setName("Pythia");
-							regressionTestTechnique.setRevision(revision);
-							regressionTestTechnique.setIProject(project.getIProject());
-							TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_"+revision.getId());
-							Object configurations[] = { TCM };
-							regressionTestTechnique.setConfiguration(configurations);
-							//TODO: cada técnica de teste de regressão deve implementar sua própria técnica de obtenção dos métodos modificados
-							regressionTestTechnique.setModifiedMethods(task.getModifiedMethods()); //TODO: Verificar se o TCM que está dentro do DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o mesmo), este objeto não deve ser salvo pois prejudicaria a construção do MethodState de outras versões
-							Set<TestCoverage> allOldTests = TCM.getTestCoverages(); 
-							Set<TestCoverage> techniqueSelection = regressionTestTechnique.executeRegression();
-							Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
-							techniqueExclusion.removeAll(techniqueSelection);
-							FileUtil.saveObjectToFile(allOldTests, iWorkspace.getRoot().getLocation().toString()+"/result", allOldTestsResultName, "slc");
-							FileUtil.saveObjectToFile(techniqueSelection, iWorkspace.getRoot().getLocation().toString()+"/result", selectionResultName, "slc");
-							FileUtil.saveObjectToFile(techniqueExclusion, iWorkspace.getRoot().getLocation().toString()+"/result", exclusionResultName, "slc");
-						}
-					}
-					for(Task task : revision.getCurrentTasks()) { //TODO: Para que tecnicas que utilizam a currente funcionem terei que colocar a execução dela aqui
-						String allOldTestsResultName = "AllOldTests_"+task.getId();
-						String selectionResultName = "PerfectSelection_"+task.getId();
-						String exclusionResultName = "PerfectExclusion_"+task.getId();
-						if(!(new File(resultPath+"/"+selectionResultName+".slc")).exists() || !(new File(resultPath+"/"+exclusionResultName+".slc")).exists()) {
-							Set<String> modifiedMethods = task.getModifiedMethods();
-							TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_"+revision.getId());
-							TCM.setModifiedMethods(modifiedMethods);
-							Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
-							Set<TestCoverage> allOldTests = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspace.getRoot().getLocation().toString()+"/result", allOldTestsResultName, "slc");
-							Set<TestCoverage> perfectExclusion = new HashSet<TestCoverage>(allOldTests);
-							Set<TestCoverage> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
-							perfectExclusion.removeAll(perfectSelection);
-							FileUtil.saveObjectToFile(perfectSelection, iWorkspace.getRoot().getLocation().toString()+"/result", selectionResultName, "slc");
-							FileUtil.saveObjectToFile(perfectExclusion, iWorkspace.getRoot().getLocation().toString()+"/result", exclusionResultName, "slc");
-						}
-					}
-				}
-				File currentRevisionFile = new File(iWorkspace.getRoot().getLocation().toString()+"/config/currentRevision.txt");
-				String currentRevision = FileUtil.loadTextFromFile(currentRevisionFile);
-				if(currentRevision == null || currentRevision.equals(revision.getId().toString())) {
-					for(int i=sVNConfig.getProjects().size();i>=1;i--) {
-						Project project = sVNConfig.getProjects().get(i);
-						IProject iProject = project.getIProject();
-						if(iProject.exists()) {
-							if(iProject.isOpen()) {
-								iProject.build(IncrementalProjectBuilder.CLEAN_BUILD, new SysOutProgressMonitor());
-								iProject.close(new SysOutProgressMonitor());
-							}
-							iProject.delete(true, new SysOutProgressMonitor());
-						}
-						if(project.isForCheckout()) {
-							File projectFile = new File(iWorkspace.getRoot().getLocation().toString()+project.getName());
-							if(projectFile.exists()) {
-								try {
-									FileUtils.deleteDirectory(projectFile);
-								} catch (IOException ioe) {
-									ioe.printStackTrace();
-								}
-							}
-						}
-					}
-					if(currentRevisionFile != null && currentRevisionFile.exists())
-						currentRevisionFile.delete();
-				}
-				//TODO: cada revisão pode conter novos testes ou excluídos testes da revisão anterior, ao calcular as métricas tem de levar em consideração apenas o que já existia
-			}
-			
-			Map<TaskType,TaskTypeSet> taskTypes = new HashMap<TaskType,TaskTypeSet>(4);
-			taskTypes.put(TaskType.APRIMORAMENTO, new TaskTypeSet(TaskType.APRIMORAMENTO));
-			taskTypes.put(TaskType.ERROEXECUCAO, new TaskTypeSet(TaskType.ERROEXECUCAO));
-			taskTypes.put(TaskType.ERRONEGOCIOVALIDACAO, new TaskTypeSet(TaskType.ERRONEGOCIOVALIDACAO));
-			taskTypes.put(TaskType.VERIFICACAO, new TaskTypeSet(TaskType.VERIFICACAO));
-			taskTypes.put(TaskType.ERROPADRONVISUALIZACAO, new TaskTypeSet(TaskType.ERROPADRONVISUALIZACAO));
-			for(Task task : tasks) {
-				Set<TestCoverage> techniqueSelection = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "RTSSelection_"+task.getId());
-				Set<TestCoverage> techniqueExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "RTSExclusion_"+task.getId());
-				Set<TestCoverage> perfectSelection = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "PerfectSelection_"+task.getId());
-				Set<TestCoverage> perfectExclusion = getTestCoverageSet(iWorkspace.getRoot().getLocation().toString()+"/result", "PerfectExclusion_"+task.getId());
-				task.setInclusion(TestUtil.getInclusionMeasure(techniqueSelection, perfectSelection)*100);
-				task.setPrecision(TestUtil.getPrecisionMeasure(techniqueExclusion, perfectExclusion)*100);
-				TaskTypeSet taskTypeSet = taskTypes.get(task.getType());
-				taskTypeSet.setInclusion(taskTypeSet.getInclusion()+task.getInclusion());
-				taskTypeSet.setPrecision(taskTypeSet.getPrecision()+task.getPrecision());
-				taskTypeSet.getTasks().add(task);
-			}
-			
-			for(TaskTypeSet taskTypeSet : taskTypes.values()) {
-				taskTypeSet.setInclusion(taskTypeSet.getInclusion()/new Float(taskTypeSet.getTasks().size()));
-				taskTypeSet.setPrecision(taskTypeSet.getPrecision()/new Float(taskTypeSet.getTasks().size()));
-			}
-			System.out.println();
-			
+			tasksRevisionsExecution(isAutomatic, iWorkspace, sVNConfig, regressionTestTechnique, projectsForExecuteAllTests, history, tasks);
 		} catch (SVNException e1) {
 			e1.printStackTrace();
 		} catch (CoreException e) {
 			e.printStackTrace();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private Map<Integer,Project> loadProjects(String location) throws Exception {
-		Map<Integer,Project> projects = loadProjectsManually();
-//		Map<String,ProjectRevisionInformations> projectRevisionInformations = null;
-//		try {
-//			Object obj = FileUtil.loadObjectFromFile(location, "Projects", "obj");
-//			if(obj != null && obj instanceof HashMap<?,?>) {
-//				projectRevisionInformations = (HashMap<String,ProjectRevisionInformations>) obj;
-//				if(projectRevisionInformations != null) {
-//					for(Project project : projects)
-//						project.setProjectRevisionInformations(projectRevisionInformations.get(project.getPath()));
-//				}
-//			}
-//			return projects;
-//		} catch(ClassCastException cce) {
-//			return projects;
-//		}
+	private SVNConfig loadSVNConfig(IWorkspace iWorkspace, Map<Integer, Project> projects) throws Exception {
+		String URL = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString() + "/config/URL.txt"));
+		String usuario = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString() + "/config/usuario.txt"));
+		String senha = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString() + "/config/senha.txt"));
+		return new SVNConfig(URL, projects, usuario, senha);
+	}
+
+	private List<Project> getProjectsForExecuteAllTests(Map<Integer, Project> projects) {
+		List<Project> projectsForExecuteAllTests = new ArrayList<Project>();
+		for (int i = 1; i <= projects.size(); i++) {
+			Project project = projects.get(i);
+			if (project.isAspectJNature())
+				projectsForExecuteAllTests.add(project);
+		}
+		return projectsForExecuteAllTests;
+	}
+
+	private void cleanOldFiles() {
+		try {
+			File tempFolder = new File("temp");
+			if (tempFolder != null && tempFolder.isDirectory())
+				FileUtils.deleteDirectory(tempFolder); // TODO: Deletar o
+														// ProjectsUpdates.xml
+														// (Quando?)
+			File projectsUpdates = new File("ProjectsUpdates.xml");
+			if (projectsUpdates.exists())
+				projectsUpdates.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private List<Task> obtainTasksModifiedMethods(IWorkspace iWorkspace, Map<Integer, Project> projects, History history) {
+		history.generateTasksXML();
+		List<Revision> revisionForCheckout = new ArrayList<Revision>();
+		List<Task> tasks = loadTasks(revisionForCheckout, iWorkspace.getRoot().getLocation().toString() + "/config");
+		if (tasks == null) {
+			System.out.println("Nenhuma informação sobre as tarefas foram encontradas...");
+			return null;
+		}
+		List<Task> tasksToRemove = new ArrayList<Task>();
+		for (Task task : tasks) {
+			if (task.isDoAndUndoDone()) {
+				System.out.println("A tarefa " + task.getId().toString() + " já foi analisada...");
+				continue;
+			}
+			System.out.println("Analisando tarefa: " + task.getId().toString());
+			for (Revision revision : task.getRevisions()) {
+				if (revision.isDoAndUndoDone()) {
+					System.out.println("\tA revisão " + revision.getId() + " já foi analisada...");
+					continue;
+				}
+				System.out.println("\tAnalisando revisão: " + revision.getId());
+				try {
+					System.out.println("\t\tDiff entre as revisões: " + revision.getOldId() + " e " + revision.getId());
+					Set<String> A = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), revision.getOldId(),
+							revision.getId());
+					Set<String> B = new HashSet<String>(0);
+					Set<String> C = new HashSet<String>(0);
+					Set<String> D = new HashSet<String>(0);
+					if (!A.isEmpty()) {
+						if (!revision.getOldId().equals(task.getOldRevision().getId())) {
+							System.out.println("\t\tDiff entre as revisões: " + task.getOldRevision().getId() + " e " + revision.getId());
+							B = history.getChangedMethodsSignaturesFromProjects(new HashSet<Project>(projects.values()), task.getOldRevision()
+									.getId(), revision.getId());
+							C = MathUtil.intersection(A, B);
+							D = new HashSet<String>(A);
+							D.removeAll(C);
+						} else
+							C = new HashSet<String>(A);
+					}
+					revision.setModifiedMethods(C);
+					revision.setUndoModifiedMethods(D);
+					revision.setDoAndUndoDone(true);
+				} catch (SVNException svne) {
+					svne.printStackTrace();
+					System.out.println("Conexão Perdida... ou Revisão muito antiga, e o arquivo/projeto ainda nem existe...");
+					revision.setDoAndUndoDone(false);
+					return null;
+				} catch (IOException ioe) {
+					System.out.println("Problemas ao acessar arquivos...");
+					revision.setDoAndUndoDone(false);
+					return null;
+				} finally {
+					if (revision.isDoAndUndoDone())
+						FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString() + "/config", "Tasks", "obj");
+				}
+			}
+			Set<String> Undo = new HashSet<String>();
+			Set<String> allModifiedMethods = new HashSet<String>();
+			for (int index = task.getRevisions().size() - 1; index >= 0; index--) {
+				Revision revision = task.getRevisions().get(index);
+				Undo.addAll(revision.getUndoModifiedMethods());
+				revision.getModifiedMethods().removeAll(Undo);
+				allModifiedMethods.addAll(revision.getModifiedMethods());
+			}
+			if (allModifiedMethods.isEmpty())
+				tasksToRemove.add(task);
+			task.setModifiedMethods(allModifiedMethods);
+			task.setDoAndUndoDone(true);
+			FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString() + "/config", "Tasks", "obj");
+		}
+		tasks.removeAll(tasksToRemove);
+		history.groupEliminateSortSaveTasks(tasks);
+		FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString() + "/config", "Tasks", "obj");
+		return tasks;
+	}
+
+	private void tasksRevisionsExecution(Boolean isAutomatic, IWorkspace iWorkspace, SVNConfig sVNConfig,
+			RegressionTestTechnique regressionTestTechnique, List<Project> projectForExecuteAllTests, History history, List<Task> tasks)
+			throws SVNException, CoreException, IOException, ClassNotFoundException, JavaModelException, Exception {
+		Map<TaskType, Integer> tasksCount = new HashMap<TaskType, Integer>();
+		tasksCount.put(TaskType.APRIMORAMENTO, 0);
+		tasksCount.put(TaskType.ERROEXECUCAO, 0);
+		tasksCount.put(TaskType.ERRONEGOCIOVALIDACAO, 0);
+		tasksCount.put(TaskType.ERROPADRONVISUALIZACAO, 0);
+		tasksCount.put(TaskType.VERIFICACAO, 0);
+		tasksCount.put(TaskType.OTHER, 0);
+
+		Map<TaskType, TaskTypeSet> taskTypes = new HashMap<TaskType, TaskTypeSet>(4);
+		taskTypes.put(TaskType.APRIMORAMENTO, new TaskTypeSet(TaskType.APRIMORAMENTO));
+		taskTypes.put(TaskType.ERROEXECUCAO, new TaskTypeSet(TaskType.ERROEXECUCAO));
+		taskTypes.put(TaskType.ERRONEGOCIOVALIDACAO, new TaskTypeSet(TaskType.ERRONEGOCIOVALIDACAO));
+		taskTypes.put(TaskType.VERIFICACAO, new TaskTypeSet(TaskType.VERIFICACAO));
+		taskTypes.put(TaskType.ERROPADRONVISUALIZACAO, new TaskTypeSet(TaskType.ERROPADRONVISUALIZACAO));
+
+		for (Task task : tasks) {
+			if (tasksCount.get(task.getType()) < 7) {
+				tasksCount.put(task.getType(), tasksCount.get(task.getType()) + 1);
+				checkoutExecuteDelete(isAutomatic, true, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task, task.getOldRevision(),
+						regressionTestTechnique);
+				checkoutExecuteDelete(isAutomatic, false, iWorkspace, projectForExecuteAllTests, history, sVNConfig, task, task.getCurrentRevision(),
+						regressionTestTechnique);
+				calculateMetricsAndAverages(iWorkspace.getRoot().getLocation().toString(), taskTypes, task);
+			}
+			finalizeAverages(taskTypes);
+		}
+	}
+
+	private void finalizeAverages(Map<TaskType, TaskTypeSet> taskTypes) {
+		for (TaskTypeSet taskTypeSet : taskTypes.values()) {
+			taskTypeSet.setInclusion(taskTypeSet.getInclusion() / new Float(taskTypeSet.getTasks().size()));
+			taskTypeSet.setPrecision(taskTypeSet.getPrecision() / new Float(taskTypeSet.getTasks().size()));
+		}
+	}
+
+	private void calculateMetricsAndAverages(String iWorkspaceFolder, Map<TaskType, TaskTypeSet> taskTypes, Task task) {
+		Set<TestCoverage> techniqueSelection = getTestCoverageSet(iWorkspaceFolder + "/result", "RTSSelection_" + task.getId());
+		Set<TestCoverage> techniqueExclusion = getTestCoverageSet(iWorkspaceFolder + "/result", "RTSExclusion_" + task.getId());
+		Set<TestCoverage> perfectSelection = getTestCoverageSet(iWorkspaceFolder + "/result", "PerfectSelection_" + task.getId());
+		Set<TestCoverage> perfectExclusion = getTestCoverageSet(iWorkspaceFolder + "/result", "PerfectExclusion_" + task.getId());
+		task.setInclusion(TestUtil.getInclusionMeasure(techniqueSelection, perfectSelection) * 100);
+		task.setPrecision(TestUtil.getPrecisionMeasure(techniqueExclusion, perfectExclusion) * 100);
+		TaskTypeSet taskTypeSet = taskTypes.get(task.getType());
+		taskTypeSet.setInclusion(taskTypeSet.getInclusion() + task.getInclusion());
+		taskTypeSet.setPrecision(taskTypeSet.getPrecision() + task.getPrecision());
+		taskTypeSet.getTasks().add(task);
+	}
+
+	private void checkoutExecuteDelete(Boolean isAutomatic, Boolean oldTaskRevision, IWorkspace iWorkspace, List<Project> projectForExecuteAllTests,
+			History history, SVNConfig sVNConfig, Task task, Revision revision, RegressionTestTechnique regressionTestTechnique) throws SVNException,
+			CoreException, IOException, ClassNotFoundException, JavaModelException, Exception {
+		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
+		String resultPath = iWorkspaceFolder + "/result";
+		if (!(new File(resultPath + "/TCM_" + revision.getId() + ".tcm")).exists()) {
+			history.checkouOrUpdateProjects(revision.getId());
+			Project aProject = projectForExecuteAllTests.get(0);
+			Class<?> aClass = ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
+			ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass), iWorkspaceFolder, revision.getId(), aProject.getName());
+			if (isAutomatic) {
+				for (Project project : projectForExecuteAllTests) {
+					if (!project.isExecuteTests())
+						continue;
+					IProject iProject = project.getIProject();
+					ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
+					TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
+				}
+			} else {
+				MessageDialog
+						.openInformation(
+								window.getShell(),
+								"Fase de Testes",
+								"1º) Inicialize o JBoss (Comando do cmd.exe: 'D:/Joao/servers/SIGAA/bin/run.bat') e;\n2º) Execute os testes manualmente;\n3º) Execute novamente o estudo empírico para continuar.");
+				return;
+			}
+		} else {
+			System.out.println("Testes finalizados...");
+			for (int i = 1; i <= sVNConfig.getProjects().size(); i++) {
+				Project project = sVNConfig.getProjects().get(i);
+				project.setIProject(iWorkspace.getRoot().getProject(project.getName())); // O
+																							// projeto
+																							// não
+																							// precisa
+																							// existir
+																							// no
+																							// workspace
+																							// para
+																							// setar
+																							// esta
+																							// informação.
+			}
+			for (Project project : projectForExecuteAllTests)
+				ProjectUtil.setAllUncoveredMethods(project, "TCM_" + revision.getId());
+		}
+		if (oldTaskRevision) {
+			String allOldTestsResultName = "AllOldTests_" + task.getId();
+			String selectionResultName = "RTSSelection_" + regressionTestTechnique.getName() + "_" + task.getId();
+			String exclusionResultName = "RTSExclusion_" + regressionTestTechnique.getName() + "_" + task.getId();
+			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
+					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()
+					|| !(new File(resultPath + "/" + allOldTestsResultName + ".slc")).exists()) {
+				// Pythia - a regression test selection tool based on textual
+				// differencing
+				regressionTestTechnique.setName("Pythia");
+				regressionTestTechnique.setRevision(revision);
+				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
+				Object configurations[] = { TCM };
+				regressionTestTechnique.setConfiguration(configurations);
+				// TODO: cada técnica de teste de regressão deve implementar sua
+				// própria técnica de obtenção dos métodos modificados
+				regressionTestTechnique.setModifiedMethods(task.getModifiedMethods());
+				// TODO: Verificar se o TCM que está dentro do
+				// DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o
+				// mesmo), este objeto não deve ser salvo pois prejudicaria a
+				// construção do MethodState de outras versões
+				Set<TestCoverage> allOldTests = TCM.getTestCoverages();
+				Set<TestCoverage> techniqueSelection = regressionTestTechnique.executeRegression();
+				Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
+				techniqueExclusion.removeAll(techniqueSelection);
+				FileUtil.saveObjectToFile(allOldTests, iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
+				FileUtil.saveObjectToFile(techniqueSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
+				FileUtil.saveObjectToFile(techniqueExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
+			}
+		} else { // TODO: Para que tecnicas que utilizam a currente funcionem
+					// terei que colocar a execução dela aqui
+			String allOldTestsResultName = "AllOldTests_" + task.getId();
+			String selectionResultName = "PerfectSelection_" + task.getId();
+			String exclusionResultName = "PerfectExclusion_" + task.getId();
+			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
+					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()) {
+				Set<String> modifiedMethods = task.getModifiedMethods();
+				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
+				TCM.setModifiedMethods(modifiedMethods);
+				Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
+				Set<TestCoverage> allOldTests = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspaceFolder + "/result", allOldTestsResultName,
+						"slc");
+				Set<TestCoverage> perfectExclusion = new HashSet<TestCoverage>(allOldTests);
+				Set<TestCoverage> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
+				perfectExclusion.removeAll(perfectSelection);
+				FileUtil.saveObjectToFile(perfectSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
+				FileUtil.saveObjectToFile(perfectExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
+			}
+		}
+		deleteProjectsFromCheckout(sVNConfig, revision, iWorkspaceFolder);
+		// TODO: cada revisão pode conter novos testes ou excluídos testes da
+		// revisão anterior, ao calcular as métricas tem de levar em
+		// consideração apenas o que já existia
+	}
+
+	private void deleteProjectsFromCheckout(SVNConfig sVNConfig, Revision revision, String iWorkspaceFolder) throws CoreException {
+		File currentRevisionFile = new File(iWorkspaceFolder + "/config/currentRevision.txt");
+		String currentRevision = FileUtil.loadTextFromFile(currentRevisionFile);
+		if (currentRevision == null || currentRevision.equals(revision.getId().toString())) {
+			for (int i = sVNConfig.getProjects().size(); i >= 1; i--) {
+				Project project = sVNConfig.getProjects().get(i);
+				IProject iProject = project.getIProject();
+				if (iProject.exists()) {
+					if (iProject.isOpen()) {
+						iProject.build(IncrementalProjectBuilder.CLEAN_BUILD, new SysOutProgressMonitor());
+						iProject.close(new SysOutProgressMonitor());
+					}
+					iProject.delete(true, new SysOutProgressMonitor());
+				}
+				if (project.isForCheckout()) {
+					File projectFile = new File(iWorkspaceFolder + project.getName());
+					if (projectFile.exists()) {
+						try {
+							FileUtils.deleteDirectory(projectFile);
+						} catch (IOException ioe) {
+							ioe.printStackTrace();
+						}
+					}
+				}
+			}
+			if (currentRevisionFile != null && currentRevisionFile.exists())
+				currentRevisionFile.delete();
+		}
+	}
+
+	private Map<Integer, Project> loadProjects(String location) throws Exception {
+		Map<Integer, Project> projects = loadProjectsManually();
+		// Map<String,ProjectRevisionInformations> projectRevisionInformations =
+		// null;
+		// try {
+		// Object obj = FileUtil.loadObjectFromFile(location, "Projects",
+		// "obj");
+		// if(obj != null && obj instanceof HashMap<?,?>) {
+		// projectRevisionInformations =
+		// (HashMap<String,ProjectRevisionInformations>) obj;
+		// if(projectRevisionInformations != null) {
+		// for(Project project : projects)
+		// project.setProjectRevisionInformations(projectRevisionInformations.get(project.getPath()));
+		// }
+		// }
+		// return projects;
+		// } catch(ClassCastException cce) {
+		// return projects;
+		// }
 		return projects;
 	}
 
-	private Map<Integer,Project> loadProjectsManually() throws Exception {
-		Map<Integer,Project> projects = new HashMap<Integer,Project>();
+	private Map<Integer, Project> loadProjectsManually() throws Exception {
+		Map<Integer, Project> projects = new HashMap<Integer, Project>();
 		projects.put(1, new Project("/br.ufrn.dimap.ttracker", "/br.ufrn.dimap.ttracker", null, false, false));
 		projects.put(2, new Project("/LIBS", "/LIBS", null, false, false));
 		projects.put(3, new Project("/branches/producao/Arquitetura", "/01_Arquitetura", null, false, true));
@@ -398,17 +447,33 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		projects.put(7, new Project("/ServicoRemotoBiblioteca", "/ServicoRemotoBiblioteca", null, false, false));
 		Set<String> packagesToTest = new HashSet<String>(1);
 		packagesToTest.add("/SIGAA/biblioteca");
-		projects.put(8, new Project("/branches/producao/SIGAA", "/SIGAA", null, true, true, packagesToTest)); //TODO: o ttracker está realmente rastreando apenas este projeto ou acaba saindo dele? Não deveria sair dele?
+		projects.put(8, new Project("/branches/producao/SIGAA", "/SIGAA", null, true, true, packagesToTest)); // TODO:
+																												// o
+																												// ttracker
+																												// está
+																												// realmente
+																												// rastreando
+																												// apenas
+																												// este
+																												// projeto
+																												// ou
+																												// acaba
+																												// saindo
+																												// dele?
+																												// Não
+																												// deveria
+																												// sair
+																												// dele?
 		return projects;
 	}
 
 	private List<Task> loadTasks(List<Revision> revisionForCheckout, String location) {
 		List<Task> tasks = null;
 		Object obj = FileUtil.loadObjectFromFile(location, "Tasks", "obj");
-		if(obj != null && obj instanceof ArrayList<?>) {
+		if (obj != null && obj instanceof ArrayList<?>) {
 			tasks = (List<Task>) obj;
-			if(tasks != null) {
-				for(Task task : tasks) {
+			if (tasks != null) {
+				for (Task task : tasks) {
 					revisionForCheckout.add(task.getOldRevision());
 					revisionForCheckout.add(task.getCurrentRevision());
 				}
@@ -416,57 +481,118 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				return tasks;
 			}
 		}
-		String xml = FileUtil.loadTextFromFile(new File(location+"/Tasks.xml"));
-		if(xml != null) {
+		String xml = FileUtil.loadTextFromFile(new File(location + "/Tasks.xml"));
+		if (xml != null) {
 			XStream xstream = new XStream();
 			List<Task> tempList = (List<Task>) xstream.fromXML(xml);
 			tasks = new ArrayList<Task>(tempList.size());
 			tasks.addAll(tempList);
-			Map<Integer,Revision> allRevisionsMap = new HashMap<Integer,Revision>();
+			Map<Integer, Revision> allRevisionsMap = new HashMap<Integer, Revision>();
 			for (Task task : tasks) {
 				task.setDoAndUndoDone(false);
 				for (Revision revision : task.getRevisions()) {
 					revision.setDoAndUndoDone(false);
-					revision.setOldId(revision.getId()>1 ? revision.getId()-1 : 1);
+					revision.setOldId(revision.getId() > 1 ? revision.getId() - 1 : 1);
 				}
 				Collections.sort(task.getRevisions());
-				
-				if(task.getRevisions().size() > 0) {
-					//Definindo a oldRevision da oldTask e as oldTasks da oldRevision
+
+				if (task.getRevisions().size() > 0) {
+					// Definindo a oldRevision da oldTask e as oldTasks da
+					// oldRevision
 					Set<Task> oldTasks = new HashSet<Task>(1);
 					oldTasks.add(task);
 					Revision oldRevision = null;
-					if(allRevisionsMap.containsKey(task.getRevisions().get(0).getOldId())) {
+					if (allRevisionsMap.containsKey(task.getRevisions().get(0).getOldId())) {
 						oldRevision = allRevisionsMap.get(task.getRevisions().get(0).getOldId());
-						if(oldRevision.getOldTasks() == null)
-							oldRevision.setOldTasks(new HashSet<Task>(oldTasks.size())); //TODO: Verificar se a lista já esta inicializada, se não está ok e pode remover este comentário, se sim não há necessidade deste teste, podendo excluir esta e a linha acima 
+						if (oldRevision.getOldTasks() == null)
+							oldRevision.setOldTasks(new HashSet<Task>(oldTasks.size())); // TODO:
+																							// Verificar
+																							// se
+																							// a
+																							// lista
+																							// já
+																							// esta
+																							// inicializada,
+																							// se
+																							// não
+																							// está
+																							// ok
+																							// e
+																							// pode
+																							// remover
+																							// este
+																							// comentário,
+																							// se
+																							// sim
+																							// não
+																							// há
+																							// necessidade
+																							// deste
+																							// teste,
+																							// podendo
+																							// excluir
+																							// esta
+																							// e
+																							// a
+																							// linha
+																							// acima
 						oldRevision.getOldTasks().addAll(oldTasks);
-					}
-					else {
-						oldRevision = new Revision(task.getRevisions().get(0).getOldId(),oldTasks,new HashSet<Task>(1));
-						allRevisionsMap.put(oldRevision.getId(),oldRevision);
+					} else {
+						oldRevision = new Revision(task.getRevisions().get(0).getOldId(), oldTasks, new HashSet<Task>(1));
+						allRevisionsMap.put(oldRevision.getId(), oldRevision);
 					}
 					task.setOldRevision(oldRevision);
-					
-					//Definindo a currentRevision da currentTask e as currentTasks da currentRevision
+
+					// Definindo a currentRevision da currentTask e as
+					// currentTasks da currentRevision
 					Set<Task> currentTasks = new HashSet<Task>(1);
 					currentTasks.add(task);
-					Revision currentRevision = task.getRevisions().get(task.getRevisions().size()-1);
-					if(allRevisionsMap.containsKey(currentRevision.getId()))
+					Revision currentRevision = task.getRevisions().get(task.getRevisions().size() - 1);
+					if (allRevisionsMap.containsKey(currentRevision.getId()))
 						allRevisionsMap.get(currentRevision.getId()).getCurrentTasks().addAll(currentTasks);
 					else {
-						if(currentRevision.getCurrentTasks() == null)
-							currentRevision.setCurrentTasks(new HashSet<Task>(currentTasks.size())); //TODO: Verificar se a lista já esta inicializada, se não está ok e pode remover este comentário, se sim não há necessidade deste teste, podendo excluir esta e a linha acima
+						if (currentRevision.getCurrentTasks() == null)
+							currentRevision.setCurrentTasks(new HashSet<Task>(currentTasks.size())); // TODO:
+																										// Verificar
+																										// se
+																										// a
+																										// lista
+																										// já
+																										// esta
+																										// inicializada,
+																										// se
+																										// não
+																										// está
+																										// ok
+																										// e
+																										// pode
+																										// remover
+																										// este
+																										// comentário,
+																										// se
+																										// sim
+																										// não
+																										// há
+																										// necessidade
+																										// deste
+																										// teste,
+																										// podendo
+																										// excluir
+																										// esta
+																										// e
+																										// a
+																										// linha
+																										// acima
 						currentRevision.getCurrentTasks().addAll(currentTasks);
-						allRevisionsMap.put(currentRevision.getId(),currentRevision);
+						allRevisionsMap.put(currentRevision.getId(), currentRevision);
 					}
 					task.setCurrentRevision(currentRevision);
 				}
 			}
-			for(Revision revision : allRevisionsMap.values()) {
-				if(revision.getOldTasks() == null)
+			for (Revision revision : allRevisionsMap.values()) {
+				if (revision.getOldTasks() == null)
 					revision.setOldTasks(new HashSet<Task>(0));
-				if(revision.getCurrentTasks() == null)
+				if (revision.getCurrentTasks() == null)
 					revision.setCurrentTasks(new HashSet<Task>(0));
 			}
 			revisionForCheckout.addAll(allRevisionsMap.values());
@@ -478,7 +604,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 
 	private Set<TestCoverage> getTestCoverageSet(String folder, String name) {
 		Object obj = FileUtil.loadObjectFromFile(folder, name, "slc");
-		if(obj != null && obj instanceof Set<?>)
+		if (obj != null && obj instanceof Set<?>)
 			return (Set<TestCoverage>) FileUtil.loadObjectFromFile(folder, name, "slc");
 		return new HashSet<TestCoverage>(0);
 	}
@@ -495,8 +621,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	}
 
 	private String getTestDirectory(IProject iProject, String sourceFolder) {
-		return iProject.getWorkspace().getRoot().getLocation().toString() + sourceFolder
-				+ "/br/ufrn/dimap/testtracker/tests";
+		return iProject.getWorkspace().getRoot().getLocation().toString() + sourceFolder + "/br/ufrn/dimap/testtracker/tests";
 	}
 
 	// private TestCoverageMapping getTestCoverageMapping(String
