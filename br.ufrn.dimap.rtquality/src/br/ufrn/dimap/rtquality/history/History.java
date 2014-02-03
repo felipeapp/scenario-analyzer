@@ -125,22 +125,25 @@ public class History {
     	File xmlFile = new File(iWorkspace.getRoot().getLocation().toString()+"/config/Tasks.xml");
     	if(!xmlFile.exists()) {
 			try {
-				Integer startRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.11.24", -1).getRevision()))+1; //+1 pois a revisão inicial-1 não deve ser menor que a primeira versão válida
+				Integer tempRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.11.24", -1).getRevision()))-1; //+1 pois a revisão inicial-1 não deve ser menor que a primeira versão válida
 				Integer endRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.12.18", -1).getRevision()));
-				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", startRevision, endRevision);
+				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", tempRevision, endRevision);
 				List<Task> tasks = new ArrayList<Task>();
+				Integer startRevision = null;
 				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext();) {
 					SVNLogEntry svnLogEntry = iterator.next();
 					Revision revision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
+					if(revision.getId().equals(tempRevision))
+						continue;
+					if(startRevision == null)
+						startRevision = revision.getId();
 					Integer taskId = Integer.valueOf(String.valueOf(getTaskNumberFromLogMessage(svnLogEntry.getMessage())));
 					if(taskId > 0) {
 						Task task = new Task(taskId);
 						if(tasks.contains(task)) {
-							if(!tasks.get(tasks.indexOf(task)).getRevisions().contains(revision)) {
-								Set<Revision> revisionsWithOutCopies = new HashSet<Revision>(tasks.get(tasks.indexOf(task)).getRevisions());
-								revisionsWithOutCopies.add(revision);
-								tasks.get(tasks.indexOf(task)).setRevisions(new ArrayList<Revision>(revisionsWithOutCopies));
-							}
+							Set<Revision> revisionsWithOutCopies = new HashSet<Revision>(tasks.get(tasks.indexOf(task)).getRevisions());
+							revisionsWithOutCopies.add(revision);
+							tasks.get(tasks.indexOf(task)).setRevisions(new ArrayList<Revision>(revisionsWithOutCopies));
 						}
 						else {
 							task.getRevisions().add(revision);
