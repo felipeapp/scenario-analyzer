@@ -42,14 +42,6 @@ public abstract class RegressionTestTechnique { //TODO: em algumas situações s
 		this.revision = revision;
 	}
 	
-	public IProject getIProject() {
-		return iProject;
-	}
-
-	public void setIProject(IProject iProject) {
-		this.iProject = iProject;
-	}
-
 	public Set<String> getModifiedMethods() {
 		return modifiedMethods;
 	}
