@@ -8,7 +8,7 @@ public class Revision implements Serializable, Comparable<Revision> {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Integer oldId;
+	private Revision oldRevision;
 	private Set<Task> oldTasks;
 	private Set<Task> currentTasks;
 	private Set<String> modifiedMethods;
@@ -23,6 +23,7 @@ public class Revision implements Serializable, Comparable<Revision> {
 	
 	public Revision(Integer id) {
 		this.id = id;
+		this.oldRevision = null;
 		this.oldTasks = new HashSet<Task>(0);
 		this.currentTasks = new HashSet<Task>(0);
 		this.doAndUndoDone = false;
@@ -30,7 +31,7 @@ public class Revision implements Serializable, Comparable<Revision> {
 	
 	public Revision(Integer id,Set<Task> oldTasks, Set<Task> currentTasks) {
 		this.id = id;
-		this.oldId = id>1 ? id-1 : 1;
+		this.oldRevision = null;
 		this.oldTasks = oldTasks;
 		this.currentTasks = currentTasks;
 		this.doAndUndoDone = false;
@@ -92,12 +93,12 @@ public class Revision implements Serializable, Comparable<Revision> {
 		this.nMnC = nMnC;
 	}
 
-	public Integer getOldId() {
-		return oldId;
+	public Revision getOldRevision() {
+		return oldRevision;
 	}
 
-	public void setOldId(Integer oldId) {
-		this.oldId = oldId;
+	public void setOldRevision(Revision oldRevision) {
+		this.oldRevision = oldRevision;
 	}
 
 	public Set<Task> getOldTasks() {
