@@ -17,6 +17,10 @@ public class Task implements Serializable {
 	private List<Revision> revisions;
 	private Revision oldRevision;
 	private Revision currentRevision;
+	private Set<TestCoverage> oldSelection;
+	private Set<TestCoverage> oldExclusion;
+	private Set<TestCoverage> currentSelection;
+	private Set<TestCoverage> currentExclusion;
 	private Set<String> modifiedMethods;
 	private Float inclusion;
 	private Float precision;
@@ -105,7 +109,39 @@ public class Task implements Serializable {
 		this.currentRevision = currentRevision;
 	}
 
-    public Set<String> getModifiedMethods() {
+    public Set<TestCoverage> getOldSelection() {
+		return oldSelection;
+	}
+
+	public void setOldSelection(Set<TestCoverage> oldSelection) {
+		this.oldSelection = oldSelection;
+	}
+	
+	public Set<TestCoverage> getOldExclusion() {
+		return oldExclusion;
+	}
+	
+	public void setOldExclusion(Set<TestCoverage> oldExclusion) {
+		this.oldExclusion = oldExclusion;
+	}
+
+	public Set<TestCoverage> getCurrentSelection() {
+		return currentSelection;
+	}
+
+	public void setCurrentSelection(Set<TestCoverage> currentSelection) {
+		this.currentSelection = currentSelection;
+	}
+
+	public Set<TestCoverage> getCurrentExclusion() {
+		return currentExclusion;
+	}
+
+	public void setCurrentExclusion(Set<TestCoverage> currentExcllusion) {
+		this.currentExclusion = currentExcllusion;
+	}
+
+	public Set<String> getModifiedMethods() {
 		return modifiedMethods;
 	}
 
