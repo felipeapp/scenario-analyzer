@@ -21,6 +21,15 @@ public class Revision implements Serializable, Comparable<Revision> {
 	private Float nMC;
 	private Float nMnC;
 	
+	public Revision() {
+		this.oldRevision = null;
+		this.oldTasks = new HashSet<Task>(0);
+		this.currentTasks = new HashSet<Task>(0);
+		this.modifiedMethods = new HashSet<String>(0);
+		this.UndoModifiedMethods = new HashSet<String>(0);
+		this.doAndUndoDone = false;
+	}
+	
 	public Revision(Integer id) {
 		this.id = id;
 		this.oldRevision = null;

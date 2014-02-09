@@ -153,16 +153,11 @@ public class TestCoverageMapping implements Serializable {
 		return testsCoverage;
 	}
 
-	public Map<String, MethodData> getModifiedCoveredMethods(Set<String> modifiedMethods) {
-		return methodStatePool.get(new MethodState(true, true));
-		// Map<String,MethodData> modifiedCoveredMethods = new
-		// HashMap<String,MethodData>(0);
-		// for(String modifiedMethod : modifiedMethods) {
-		// if(methodPool.containsKey(modifiedMethod))
-		// modifiedCoveredMethods.put(modifiedMethod,
-		// methodPool.get(modifiedMethod));
-		// }
-		// return modifiedCoveredMethods;
+	public Set<TestCoverage> getModifiedCoveredMethods(Set<String> modifiedMethods) {
+		Set<TestCoverage> testsCoverage = new HashSet<TestCoverage>(0);
+		for(String modifiedMethod : modifiedMethods)
+			testsCoverage.addAll(methodPool.get(modifiedMethod).getTestsCoverage());
+		return testsCoverage;
 	}
 
 	public Map<String, MethodData> getModifiedNotCoveredMethods(Set<String> modifiedMethods) {
