@@ -125,18 +125,16 @@ public class History {
     	File xmlFile = new File(iWorkspace.getRoot().getLocation().toString()+"/config/Tasks.xml");
     	if(!xmlFile.exists()) {
 			try {
-				Integer tempRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.11.24", -1).getRevision()))-1; //+1 pois a revisão inicial-1 não deve ser menor que a primeira versão válida
-				Integer endRevision = Integer.valueOf(String.valueOf(repository.info("/tags/SIGAA 3.12.18", -1).getRevision()));
-				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", tempRevision, endRevision);
+				Revision headRevision = getHeadRevision("/tags/SIGAA 3.11.24");
+				Revision previousRevision = getPreviousRevision("/branches/producao/SIGAA", headRevision);
+				Revision startRevision = getNextRevision("/branches/producao/SIGAA", headRevision);
+				Revision endRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
+				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", startRevision, endRevision);
 				List<Task> tasks = new ArrayList<Task>();
-				Integer startRevision = null;
-				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext();) {
+				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext(); ) {
 					SVNLogEntry svnLogEntry = iterator.next();
 					Revision revision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
-					if(revision.getId().equals(tempRevision))
-						continue;
-					if(startRevision == null)
-						startRevision = revision.getId();
+					revision.setOldRevision(previousRevision);
 					Integer taskId = Integer.valueOf(String.valueOf(getTaskNumberFromLogMessage(svnLogEntry.getMessage())));
 					if(taskId > 0) {
 						Task task = new Task(taskId);
@@ -149,15 +147,60 @@ public class History {
 							task.getRevisions().add(revision);
 							tasks.add(task);
 						}
+						previousRevision = revision;
 					}
 				}
-				populateTasksById(tasks, startRevision, endRevision);
+				populateTasksTypeById(tasks);
 				groupEliminateSortSaveTasks(tasks);
 			} catch (SVNException e) {
 				e.printStackTrace();
 			}
     	}
     }
+    
+    public void getStartAndEndRevisions(Revision startRevision, Revision endRevision) {
+		try {
+			Revision infoStartRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.11.24"));
+			Revision infoEndRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
+			startRevision.setId(infoStartRevision.getId());
+			endRevision.setId(infoEndRevision.getId());
+		} catch (SVNException e) {
+			e.printStackTrace();
+		}
+    }
+
+	private Revision getHeadRevision(String url) throws SVNException {
+		return new Revision(Integer.valueOf(String.valueOf(repository.info(url, -1).getRevision())));
+	}
+	
+	private Revision getPreviousRevision(String path, Revision revision) throws SVNException {
+		LinkedList<SVNLogEntry> entries = getSVNLogEntries(path, new Revision(0), revision);
+		Revision previousValidRevision = new Revision(0);
+		Iterator<SVNLogEntry> iterator = entries.descendingIterator();
+		if(iterator.hasNext()) {
+			iterator.next();
+			if(iterator.hasNext()) {
+				SVNLogEntry svnLogEntry = iterator.next();
+				previousValidRevision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
+			}
+		}
+		return previousValidRevision;
+	}
+	
+	private Revision getNextRevision(String path, Revision revision) throws SVNException {
+		Revision headRevision = getHeadRevision(path);
+		LinkedList<SVNLogEntry> entries = getSVNLogEntries(path, revision, headRevision);
+		Revision nextValidRevision = headRevision;
+		Iterator<SVNLogEntry> iterator = entries.iterator();
+		if(iterator.hasNext()) {
+			iterator.next();
+			if(iterator.hasNext()) {
+				SVNLogEntry svnLogEntry = iterator.next();
+				nextValidRevision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
+			}
+		}
+		return nextValidRevision;
+	}
 
 	public void groupEliminateSortSaveTasks(List<Task> tasks) {
 		Map<String, List<Task>> taskTypeGroups = groupByType(tasks);
@@ -233,14 +276,12 @@ public class History {
 		FileUtil.saveTextToFile(xmlText, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "xml");
 	}
     
-	public void populateTasksById(List<Task> tasks, Integer startRevision, Integer endRevision) {
+	public void populateTasksTypeById(List<Task> tasks) {
 		if(tasks != null) {
 			Set<Task> tasksToRemove = new HashSet<Task>();
 			Connection connection = null;
 			ResultSet rs = null;
 			PreparedStatement stmt = null;
-//			ResultSet rs2 = null;
-//			PreparedStatement stmt2 = null;
 			try {
 				if (connection == null) {
 					connection = DriverManager.getConnection(
@@ -264,24 +305,6 @@ public class History {
 						task.setType(TaskType.getTaskTypeByName(rs.getString("tipo")));
 						if(task.getType().equals(TaskType.OTHER))
 							task.setOtherType(rs.getString("tipo"));
-					
-//						stmt2 = connection.prepareStatement(
-//								"SELECT DISTINCT tarefa.numtarefa, substring(log_tarefa.log from '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)') revisao "+
-//								"FROM iproject.log_tarefa "+
-//								"INNER JOIN iproject.tarefa ON log_tarefa.id_tarefa = tarefa.id_tarefa "+
-//								"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
-//								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '[R|r]evis[a|ã|A|Ã]o[:| ]+([0-9]+)' ORDER BY revisao");
-//						stmt2.setLong(1, task.getId());
-//						rs2 = stmt2.executeQuery();
-//						while (rs2.next()) {
-//							Integer revisionId = Integer.valueOf(String.valueOf(rs2.getLong("revisao")));
-//							if(revisionId >= startRevision && revisionId <= endRevision)
-//								task.getRevisions().add(new Revision(revisionId));
-//							else {
-//								tasksToRemove.add(task);
-//								break;
-//							}
-//						}
 						if(tasksToRemove.contains(task))
 							continue;
 					}
@@ -306,20 +329,6 @@ public class History {
 						e.printStackTrace();
 					}
 				}
-//				if(rs2 != null) {
-//					try {
-//						rs2.close();
-//					} catch (SQLException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//				if(stmt2 != null) {
-//					try {
-//						stmt2.close();
-//					} catch (SQLException e) {
-//						e.printStackTrace();
-//					}
-//				}
 				if(connection != null) {
 					try {
 						connection.close();
@@ -355,7 +364,7 @@ public class History {
 		return task_number;
 	}
     
-    public Integer checkouOrUpdateProjects(Integer revision) throws SVNException, CoreException, IOException { //TODO: utilizar Long para a revisão e não Integer
+    public Integer checkouOrUpdateProjects(Revision revision) throws SVNException, CoreException, IOException { //TODO: utilizar Long para a revisão e não Integer
     	SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		SVNUpdateClient sVNUpdateClient = client.getUpdateClient();
@@ -380,22 +389,23 @@ public class History {
 						ioe.printStackTrace();
 					}
 				}
-				SVNNodeKind node = repository.checkPath(project.getPath(), revision);
-				Integer newRevision = 0;
+				SVNNodeKind node = repository.checkPath(project.getPath(), revision.getId());
+				Revision newRevision = new Revision(0);
 		    	if(node.equals(SVNNodeKind.NONE)) {
-		    		LinkedList<SVNLogEntry> entries = getSVNLogEntries(project.getPath(), 0, revision);
+		    		LinkedList<SVNLogEntry> entries = getSVNLogEntries(project.getPath(), new Revision(0), revision);
 		    		if(!entries.isEmpty())
-		    			newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
-		    		if(newRevision != 0)
+		    			newRevision = new Revision(Integer.valueOf(String.valueOf(entries.peekLast().getRevision())));
+		    		if(!newRevision.getId().equals(0))
 		    			revision = newRevision;
 		    	}
-		    	if(!node.equals(SVNNodeKind.NONE) || newRevision != 0) {
+		    	if(!node.equals(SVNNodeKind.NONE) || !newRevision.getId().equals(0)) {
 		    		file.mkdir();
+		    		System.out.println("\t\tBaixando o projeto: "+project.getName());
 		    		sVNUpdateClient.doCheckout(SVNURL.parseURIEncoded(sVNConfig.getSvnUrl()+project.getPath()),
-		    				file, SVNRevision.create(revision-1), SVNRevision.create(revision), SVNDepth.INFINITY, true);
+		    				file, SVNRevision.create(revision.getId()-1), SVNRevision.create(revision.getId()), SVNDepth.INFINITY, true);
 		    		client.dispose();
-		    		FileUtil.saveTextToFile(revision.toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
-		    		project.getProjectRevisionInformations().setRevision(revision);
+		    		FileUtil.saveTextToFile(revision.getId().toString(), iWorkspace.getRoot().getLocation().toString()+"/config", "currentRevision", "txt");
+		    		project.getProjectRevisionInformations().setRevision(revision.getId());
 		    		//			else if(!project.getProjectRevisionInformations().getRevision().equals(revision)) {
 		    		//				projectFile.put(project,file);
 		    		////				sVNWCClient.doCleanup(file);
@@ -414,10 +424,10 @@ public class History {
     }
 
 	@SuppressWarnings("unchecked")
-	private LinkedList<SVNLogEntry> getSVNLogEntries(String path, Integer startRevision, Integer endRevision) {
+	private LinkedList<SVNLogEntry> getSVNLogEntries(String path, Revision startRevision, Revision endRevision) {
 		try {
 			String paths[] = {path};
-			return (LinkedList<SVNLogEntry>) repository.log(paths, null, startRevision, endRevision, false, true);
+			return (LinkedList<SVNLogEntry>) repository.log(paths, null, startRevision.getId(), endRevision.getId(), false, true);
 		} catch (SVNException e) {
 			return new LinkedList<SVNLogEntry>();
 		}
@@ -437,10 +447,10 @@ public class History {
 				changeLib(project, "aspectjweaver*.jar", "aspectjweaver.jar");
 			}
 			project.getIProject().refreshLocal(IResource.DEPTH_INFINITE, new SysOutProgressMonitor());
-			Integer retorno = buildingProject(project.getIProject());
+//			Integer retorno = buildingProject(project.getIProject());
 			project.getProjectRevisionInformations().setRevisionBuilded(project.getProjectRevisionInformations().getRevision());
-			if(retorno.equals(-1))
-				return -1;
+//			if(retorno.equals(-1))
+//				return -1;
 //			projectRevisionInformations.put(project.getPath(), project.getProjectRevisionInformations());
 		}
 		return 0;
@@ -752,7 +762,7 @@ public class History {
 	    	if(!endNode.equals(SVNNodeKind.NONE)) {
 	    		if(startNode.equals(SVNNodeKind.NONE)) {
 	    			Integer newRevision = 0;
-	    			LinkedList<SVNLogEntry> entries = getSVNLogEntries(projectPath, 0, endRevision-1); //TODO: este método funciona com uma endRevision Inválida?
+	    			LinkedList<SVNLogEntry> entries = getSVNLogEntries(projectPath, new Revision(0), new Revision(endRevision-1)); //TODO: este método funciona com uma endRevision Inválida?
 	    			if(!entries.isEmpty())
 	    				newRevision = Integer.valueOf(String.valueOf(entries.peekLast().getRevision()));
 	    			if(newRevision != 0) {

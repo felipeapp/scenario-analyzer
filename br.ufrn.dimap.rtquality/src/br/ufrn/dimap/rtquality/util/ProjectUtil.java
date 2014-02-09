@@ -241,7 +241,16 @@ public class ProjectUtil {
 		return null;
 	}
 
-	public static void saveUtilInformations(String saveFileDirectory, String workspaceLocation, Integer revisionId, String projectName) {
+	public static void saveUtilInformations(String saveFileDirectory, String workspaceLocation, Integer revisionId, Integer taskId, String projectName) {
+//TODO: Reunir todas essas informações em texto e criar um objeto, persistí-lo para recuperar no TestTracker de uma só vez
+		FileUtil.saveTextToFile("TCM_"+revisionId.toString(), saveFileDirectory, "testCoverageMappingName", "txt");
+		FileUtil.saveTextToFile(workspaceLocation+"/result", saveFileDirectory, "resultFolder", "txt");
+		FileUtil.saveTextToFile(projectName, saveFileDirectory, "projectName", "txt");
+		FileUtil.saveTextToFile(revisionId.toString(), saveFileDirectory, "revision", "txt");
+		FileUtil.saveTextToFile(taskId.toString(), workspaceLocation+"/config", "currentTask", "txt");
+	}
+
+	public static void saveUtilInformations2(String saveFileDirectory, String workspaceLocation, Integer revisionId, String projectName) {
 //TODO: Reunir todas essas informações em texto e criar um objeto, persistí-lo para recuperar no TestTracker de uma só vez
 		FileUtil.saveTextToFile("TCM_"+revisionId.toString(), saveFileDirectory, "testCoverageMappingName", "txt");
 		FileUtil.saveTextToFile(workspaceLocation+"/result", saveFileDirectory, "resultFolder", "txt");
