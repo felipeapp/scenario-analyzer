@@ -26,8 +26,6 @@ import br.ufrn.dimap.ttracker.data.Variable;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public aspect TestTracker {
-	private static final Integer NOTFOUND = -1;
-	
 	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
 	private pointcut beforePointcut() :
 		cflow(
@@ -83,7 +81,7 @@ public aspect TestTracker {
 			}
 		}
 		else {
-			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
+			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 			saveTestCoverageMapping(member);
 		}
 	}
@@ -126,7 +124,6 @@ public aspect TestTracker {
 					try {
 						AudioClip clip = Applet.newAudioClip(new URL("file:///D:/Joao/workspaces/SIGAALast/br.ufrn.dimap.ttracker/sounds/beep-06.wav"));
 						clip.play();
-						clip.stop();
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					} 
@@ -160,8 +157,10 @@ public aspect TestTracker {
 		String name = member.getDeclaringClass().getName()+"."+member.getName()+"."+"arg";
 		LinkedHashSet<Variable> inputs = new LinkedHashSet<Variable>(args.length);
 		if(types.length == args.length){
-			for(int i=0;i<args.length;i++)
-				inputs.add(new Variable(types[i].getName(),name+i,args[i]));
+			for(int i=0;i<args.length;i++) {
+				String arg = args[i] instanceof String ? (String) args[i] : String.valueOf(args[i].hashCode());
+				inputs.add(new Variable(types[i].getName(),name+i,arg));
+			}
 		}
 		return inputs;
 	}
@@ -169,7 +168,8 @@ public aspect TestTracker {
 	private Variable getReturn(Member member, Object theReturnObject){
 		Class<?> type = getReturnType(member);
 		String name = member.getDeclaringClass().getName()+"."+member.getName()+"."+"return";
-		return new Variable(type.getName(),name,theReturnObject);
+		String theReturnString = theReturnObject instanceof String ? (String) theReturnObject : String.valueOf(theReturnObject.hashCode());
+		return new Variable(type.getName(),name,theReturnString);
 	}
 	
 	/**
@@ -223,10 +223,6 @@ public aspect TestTracker {
 		return !isSetOrGetOrIs(member) && !(member instanceof Constructor);
 	}
 	
-	private boolean isPublic(Member member){
-		return Modifier.isPublic(member.getModifiers());
-	}
-	
 	private boolean isSetOrGetOrIs(Member member){
 		return member.getName().startsWith("set") || member.getName().startsWith("get") || member.getName().startsWith("is");
 	}
@@ -245,10 +241,6 @@ public aspect TestTracker {
 		if(member instanceof Method)
 			return (((Method) member).getAnnotation(Test.class) != null) || (((Method) member).getName().startsWith("test") && ((Method) member).getDeclaringClass().getSuperclass().equals(TestCase.class));
 		return false;
-	}
-
-	private boolean canCreateNewTestCoverage(TestCoverage testCoverage, Member member, int argsLength){
-		return (testCoverage == null) && (isTestClassMember(member) || (isManagedBeanMember(member) && (isActionMethod(member) || (isPublicSetMethod(member) && argsLength == 1))));
 	}
 	
 }

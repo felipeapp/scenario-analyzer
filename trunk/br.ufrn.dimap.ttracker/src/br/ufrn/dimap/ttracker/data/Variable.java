@@ -9,12 +9,12 @@ public class Variable implements Serializable {
 	
 	private String type;
 	private String name;
-	private Object value;
+	private String value;
 	
-	public Variable(String type, String name, Object value) {
+	public Variable(String type, String name, String value) {
 		this.type = type;
 		this.name = name;
-		this.value = ObjectUtil.isSerializable(value);
+		this.value = value;
 	}
 
 	public String getType() {
@@ -25,10 +25,10 @@ public class Variable implements Serializable {
 		return name;
 	}
 
-	public Object getValue() {
+	public String getValue() {
 		return value;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
