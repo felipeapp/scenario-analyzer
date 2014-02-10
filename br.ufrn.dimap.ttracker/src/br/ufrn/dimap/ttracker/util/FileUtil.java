@@ -64,6 +64,7 @@ public class FileUtil {
 			fileInputStream.close();
 			return object;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		} finally {
 			if(fileInputStream != null) {
