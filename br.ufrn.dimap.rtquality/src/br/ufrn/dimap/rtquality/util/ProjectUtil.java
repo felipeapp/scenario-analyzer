@@ -200,7 +200,8 @@ public class ProjectUtil {
 			String aClass = ProjectUtil.getAClass(iProject);
 			ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
 			String resultFolder = FileUtil.getResultFolderByResource(iProjectClassLoader.loadClass(aClass));
-			TestCoverageMapping testCoverageMapping = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
+			TestCoverageMapping.setInstance((TestCoverageMapping) FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm"));
+			TestCoverageMapping testCoverageMapping = TestCoverageMapping.getInstance();
 			//Adiciona métodos uncovered
 			IJavaProject iJavaProject = JavaCore.create(iProject);
 			IPackageFragment[] iPackageFragments = iJavaProject.getPackageFragments();
