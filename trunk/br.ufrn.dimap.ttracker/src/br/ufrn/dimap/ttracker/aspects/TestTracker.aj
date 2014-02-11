@@ -81,28 +81,28 @@ public aspect TestTracker {
 			}
 		}
 		else {
-			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
 			saveTestCoverageMapping(member);
 		}
 	}
 
-	after() returning(Object theReturn) : afterPointcut() {
-		Long threadId = Thread.currentThread().getId();
-		Signature signature = thisJoinPoint.getSignature();
-		Member member = getMember(signature);
-		if(member != null) {
-			if(isTestClassMember(member) || isManagedBeanMember(member)){
-				if(isTestMethod(member) || isActionMethod(member)) {
-					TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
-					if(testCoverage != null) {
-						String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-						testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
-						saveTestCoverageMapping(member);
-					}
-				}
-			}
-		}
-	}
+//	after() returning(Object theReturn) : afterPointcut() {
+//		Long threadId = Thread.currentThread().getId();
+//		Signature signature = thisJoinPoint.getSignature();
+//		Member member = getMember(signature);
+//		if(member != null) {
+//			if(isTestClassMember(member) || isManagedBeanMember(member)){
+//				if(isTestMethod(member) || isActionMethod(member)) {
+//					TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+//					if(testCoverage != null) {
+//						String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
+//						testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
+//						saveTestCoverageMapping(member);
+//					}
+//				}
+//			}
+//		}
+//	}
 	
 	after() : afterPointcut() {
 		Long threadId = Thread.currentThread().getId();
