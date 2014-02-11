@@ -168,7 +168,15 @@ public aspect TestTracker {
 	private Variable getReturn(Member member, Object theReturnObject){
 		Class<?> type = getReturnType(member);
 		String name = member.getDeclaringClass().getName()+"."+member.getName()+"."+"return";
-		String theReturnString = theReturnObject instanceof String ? (String) theReturnObject : String.valueOf(theReturnObject.hashCode());
+		String theReturnString = "null";
+		if(theReturnObject != null) {
+			if(theReturnObject instanceof String)
+				theReturnString = (String) theReturnObject;
+			else {
+				int i = theReturnObject.hashCode();			
+				theReturnString = String.valueOf(i);
+			}
+		}
 		return new Variable(type.getName(),name,theReturnString);
 	}
 	
