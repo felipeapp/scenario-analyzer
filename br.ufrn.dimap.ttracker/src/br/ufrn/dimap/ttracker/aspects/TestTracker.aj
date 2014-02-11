@@ -158,7 +158,9 @@ public aspect TestTracker {
 		LinkedHashSet<Variable> inputs = new LinkedHashSet<Variable>(args.length);
 		if(types.length == args.length){
 			for(int i=0;i<args.length;i++) {
-				String arg = args[i] instanceof String ? (String) args[i] : String.valueOf(args[i].hashCode());
+				String arg = "null";
+				if(args[i] != null)
+					arg = args[i] instanceof String ? (String) args[i] : String.valueOf(args[i].hashCode());
 				inputs.add(new Variable(types[i].getName(),name+i,arg));
 			}
 		}
@@ -169,14 +171,8 @@ public aspect TestTracker {
 		Class<?> type = getReturnType(member);
 		String name = member.getDeclaringClass().getName()+"."+member.getName()+"."+"return";
 		String theReturnString = "null";
-		if(theReturnObject != null) {
-			if(theReturnObject instanceof String)
-				theReturnString = (String) theReturnObject;
-			else {
-				int i = theReturnObject.hashCode();			
-				theReturnString = String.valueOf(i);
-			}
-		}
+		if(theReturnObject != null)
+			theReturnString = theReturnObject instanceof String ? (String) theReturnObject : String.valueOf(theReturnObject.hashCode());			
 		return new Variable(type.getName(),name,theReturnString);
 	}
 	
