@@ -4,6 +4,7 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -72,8 +73,13 @@ public class TestCoverageMapping implements Serializable {
 			if (methodData != null && !methodData.getMethodState().isModified()) {
 				methodStatePool.get(methodData.getMethodState()).remove(methodData.getSignature());
 				methodData.getMethodState().setModified(true);
+				if(methodData.getMethodState().isCovered())
+					System.out.println("Aqui!");
 				methodStatePool.get(methodData.getMethodState()).put(methodData.getSignature(), methodData);
 				validModifiedMethods.add(methodSignature);
+			}
+			else {
+				System.out.println("O seguinte método ainda não existe nesta versão: "+methodSignature);
 			}
 		}
 		return validModifiedMethods;
@@ -145,8 +151,7 @@ public class TestCoverageMapping implements Serializable {
 	 */
 	public Set<TestCoverage> getModifiedChangedTestsCoverage() {
 		Set<TestCoverage> testsCoverage = new HashSet<TestCoverage>(0);
-		Set<MethodData> modifiedChangedMethods = new HashSet<MethodData>(methodStatePool.get(
-				new MethodState(true, true)).values());
+		Set<MethodData> modifiedChangedMethods = new HashSet<MethodData>(methodStatePool.get(new MethodState(true, true)).values());
 		for (MethodData modifiedChangedMethod : modifiedChangedMethods) {
 			testsCoverage.addAll(modifiedChangedMethod.getTestsCoverage());
 		}
@@ -155,8 +160,10 @@ public class TestCoverageMapping implements Serializable {
 
 	public Set<TestCoverage> getModifiedCoveredMethods(Set<String> modifiedMethods) {
 		Set<TestCoverage> testsCoverage = new HashSet<TestCoverage>(0);
-		for(String modifiedMethod : modifiedMethods)
-			testsCoverage.addAll(methodPool.get(modifiedMethod).getTestsCoverage());
+		for(String modifiedMethod : modifiedMethods) {
+			if(methodPool.containsKey(modifiedMethod))
+				testsCoverage.addAll(methodPool.get(modifiedMethod).getTestsCoverage());
+		}
 		return testsCoverage;
 	}
 
@@ -209,8 +216,13 @@ public class TestCoverageMapping implements Serializable {
 	}
 
 	public String printAllTestsCoverage() {
-		Integer numberOfCoveredMethods = methodStatePool.get(new MethodState(false, true)).keySet().size()+methodStatePool.get(new MethodState(true, true)).keySet().size();
-		String all = "Revision: "+(currentRevision != 0 ? currentRevision.toString() : "?")+"\n"+"Number of Methods: "+methodPool.size()+"\n"+"Methods Covered by Tests: "+Integer.valueOf((numberOfCoveredMethods*100)/methodPool.size()).toString()+"%\n";
+		Integer numberOfCoveredMethods = methodStatePool.get(new MethodState(false, true)).values().size()+methodStatePool.get(new MethodState(true, true)).values().size();
+		Float porcentagemCovered = new Float(numberOfCoveredMethods*100)/new Float(methodPool.keySet().size());
+		Integer numberOfModifiedMethods = methodStatePool.get(new MethodState(true,true)).keySet().size()+methodStatePool.get(new MethodState(true,false)).keySet().size();
+		Float porcentagemModified = new Float(numberOfModifiedMethods*100)/new Float(methodPool.keySet().size());
+		Float porcentagemModifiedCovered = new Float(methodStatePool.get(new MethodState(true,true)).keySet().size()*100)/new Float(methodPool.keySet().size());
+		DecimalFormat df = new DecimalFormat("0.0000");  
+		String all = "Revision: "+(currentRevision != 0 ? currentRevision.toString() : "?")+"\n"+"Number of Methods: "+methodPool.keySet().size()+"\n"+"Number of Methods Covered by Tests: "+df.format(porcentagemCovered)+"%\nNumber of Modified Methods: "+df.format(porcentagemModified)+"%\nNumber of Modified Methods Covered by Tests: "+df.format(porcentagemModifiedCovered)+"%\n";
 		all += "\n================================= Printing All =================================\n\n";
 		for (TestCoverage testCoverage : testCoverages) {
 			all += testCoverage.getPrint()+"\n";
@@ -277,6 +289,10 @@ public class TestCoverageMapping implements Serializable {
 
 	public Map<String, MethodData> getMethodPool() {
 		return methodPool;
+	}
+
+	public void setMethodPool(Map<String, MethodData> methodPool) {
+		this.methodPool = methodPool;
 	}
 
 	public Map<MethodState, Map<String, MethodData>> getMethodStatePool() {
