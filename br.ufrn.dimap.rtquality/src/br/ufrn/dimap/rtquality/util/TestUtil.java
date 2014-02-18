@@ -89,9 +89,8 @@ public class TestUtil {
 	}
 
 	public static Float getPrecisionMeasure(Set<TestCoverage> techniqueTestExclusion, Set<TestCoverage> idealTestExclusion){
-		if(idealTestExclusion.size() == 0)
+		if(idealTestExclusion != null && idealTestExclusion.size() == 0)
 			return new Float(1);
-		
 		Set<TestCoverage> intersection = TestCoverage.intersection(techniqueTestExclusion, idealTestExclusion);
 		return (new Float(intersection.size()))/(new Float(idealTestExclusion.size()));
 	}

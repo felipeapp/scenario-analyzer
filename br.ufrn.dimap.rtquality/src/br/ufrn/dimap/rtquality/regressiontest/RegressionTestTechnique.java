@@ -20,6 +20,7 @@ public abstract class RegressionTestTechnique { //TODO: em algumas situações s
 	
 	public abstract Set<TestCoverage> executeRegression();
 	public abstract void setConfiguration(Object args[]) throws Exception;
+	public abstract Object[] getConfiguration() throws Exception;
 	public abstract Map<MethodState,Map<String,MethodData>> getMethodStatePool();
 	
 	public RegressionTestTechnique(String name) {

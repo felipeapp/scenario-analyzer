@@ -21,7 +21,7 @@ public class Study {
 	public Set<String> getTasksModifiedMethods() {
 		Set<String> modifiedMethods = new HashSet<String>();
 		for(Task task : tasks)
-			modifiedMethods = task.getModifiedMethods();
+			modifiedMethods.addAll(task.getModifiedMethods());
 		return modifiedMethods;
 	}
 

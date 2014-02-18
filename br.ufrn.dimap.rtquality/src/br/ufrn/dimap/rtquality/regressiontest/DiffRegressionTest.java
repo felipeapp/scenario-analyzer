@@ -38,6 +38,12 @@ public class DiffRegressionTest extends RegressionTestTechnique {
 		if(configuration[0] instanceof TestCoverageMapping)
 			oldTestCoverageMapping = (TestCoverageMapping) configuration[0];
 	}
+
+	@Override
+	public Object[] getConfiguration() throws Exception {
+		Object objs[] = {oldTestCoverageMapping};
+		return objs;
+	}
 	
 	@Override
 	public void setRevision(Revision revision) {
