@@ -222,17 +222,17 @@ public class ProjectUtil {
 								signature = signature.substring(0,inicio+1);
 								String splittedParameters[] = parametros.split(" ");
 								for(int i=0;i<splittedParameters.length;i+=2) {
-									signature += splittedParameters[i] + ",";
+									signature += splittedParameters[i] + ", ";
 								}
-								signature = project.getName()+"."+signature.substring(0,signature.length()-1) + ")";
+								signature = signature.substring(0,signature.length()-2) + ")";
 								testCoverageMapping.findOrCreateMethodData(signature);
 							}
 						}
 					}
 				}
 			}
-			//Modifica o state dos modifieds
-			
+			String tcm = testCoverageMapping.printAllTestsCoverage();
+			FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 			testCoverageMapping.save();
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();

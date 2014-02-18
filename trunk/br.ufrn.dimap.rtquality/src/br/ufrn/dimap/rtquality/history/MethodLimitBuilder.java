@@ -46,9 +46,9 @@ public class MethodLimitBuilder {
  				String signature = (node.getReturnType2() != null ? node.getReturnType2() : "")+" "+pack+node.getName().getFullyQualifiedName()+"(";
  				
  				for(Object type : node.parameters())
- 					signature += ((SingleVariableDeclaration) type).getType().toString()+",";
+ 					signature += ((SingleVariableDeclaration) type).getType().toString()+", ";
  				if(node.parameters().size() > 0)
- 					signature = signature.substring(0, signature.length()-1);
+ 					signature = signature.substring(0, signature.length()-2);
  				signature += ")";
  				methods.add(new MethodLimit(signature, startLine, endLine));
 				

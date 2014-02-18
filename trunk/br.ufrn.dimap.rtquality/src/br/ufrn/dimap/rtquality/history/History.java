@@ -116,7 +116,7 @@ public class History {
     	Set<String> changedMethodsSignatures = new HashSet<String>(); 
     	for(Project project : projects) {
     		for(String changedMethodSignature : getChangedMethodsSignatures(project.getPath(), oldRevision, currentRevision))
-    			changedMethodsSignatures.add(project.getName()+"."+changedMethodSignature);
+    			changedMethodsSignatures.add(changedMethodSignature);
     	}
     	return changedMethodsSignatures;
     }
@@ -126,28 +126,17 @@ public class History {
     	if(!xmlFile.exists()) {
 			try {
 				Revision headRevision = getHeadRevision("/tags/SIGAA 3.11.24");
-				Revision previousRevision = getPreviousRevision("/branches/producao/SIGAA", headRevision);
 				Revision startRevision = getNextRevision("/branches/producao/SIGAA", headRevision);
 				Revision endRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
 				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", startRevision, endRevision);
 				List<Task> tasks = new ArrayList<Task>();
 				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext(); ) {
 					SVNLogEntry svnLogEntry = iterator.next();
-					Revision revision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
-					revision.setOldRevision(previousRevision);
 					Integer taskId = Integer.valueOf(String.valueOf(getTaskNumberFromLogMessage(svnLogEntry.getMessage())));
 					if(taskId > 0) {
 						Task task = new Task(taskId);
-						if(tasks.contains(task)) {
-							Set<Revision> revisionsWithOutCopies = new HashSet<Revision>(tasks.get(tasks.indexOf(task)).getRevisions());
-							revisionsWithOutCopies.add(revision);
-							tasks.get(tasks.indexOf(task)).setRevisions(new ArrayList<Revision>(revisionsWithOutCopies));
-						}
-						else {
-							task.getRevisions().add(revision);
+						if(!tasks.contains(task))
 							tasks.add(task);
-						}
-						previousRevision = revision;
 					}
 				}
 				populateTasksTypeById(tasks);
@@ -174,30 +163,27 @@ public class History {
 	}
 	
 	private Revision getPreviousRevision(String path, Revision revision) throws SVNException {
-		LinkedList<SVNLogEntry> entries = getSVNLogEntries(path, new Revision(0), revision);
-		Revision previousValidRevision = new Revision(0);
+		LinkedList<SVNLogEntry> entries = getSVNLogEntries(path, new Revision(revision.getId()-1000), revision);
+		Revision previousValidRevision = new Revision(revision.getId()-1000);
 		Iterator<SVNLogEntry> iterator = entries.descendingIterator();
-		if(iterator.hasNext()) {
-			iterator.next();
-			if(iterator.hasNext()) {
-				SVNLogEntry svnLogEntry = iterator.next();
-				previousValidRevision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
-			}
+		while(iterator.hasNext()) {
+			SVNLogEntry svnLogEntry = iterator.next();
+			previousValidRevision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
+			if(previousValidRevision.getId().compareTo(revision.getId()) < 0)
+				break;
 		}
 		return previousValidRevision;
 	}
 	
 	private Revision getNextRevision(String path, Revision revision) throws SVNException {
-		Revision headRevision = getHeadRevision(path);
-		LinkedList<SVNLogEntry> entries = getSVNLogEntries(path, revision, headRevision);
-		Revision nextValidRevision = headRevision;
+		LinkedList<SVNLogEntry> entries = getSVNLogEntries(path, revision, new Revision(revision.getId()+1000));
+		Revision nextValidRevision = new Revision(revision.getId()+1000);
 		Iterator<SVNLogEntry> iterator = entries.iterator();
-		if(iterator.hasNext()) {
-			iterator.next();
-			if(iterator.hasNext()) {
-				SVNLogEntry svnLogEntry = iterator.next();
-				nextValidRevision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
-			}
+		while(iterator.hasNext()) {
+			SVNLogEntry svnLogEntry = iterator.next();
+			nextValidRevision = new Revision(Integer.valueOf(String.valueOf(svnLogEntry.getRevision())));
+			if(nextValidRevision.getId().compareTo(revision.getId()) > 0)
+				break;
 		}
 		return nextValidRevision;
 	}
@@ -280,8 +266,10 @@ public class History {
 		if(tasks != null) {
 			Set<Task> tasksToRemove = new HashSet<Task>();
 			Connection connection = null;
-			ResultSet rs = null;
-			PreparedStatement stmt = null;
+			ResultSet rs1 = null;
+			PreparedStatement stmt1 = null;
+			ResultSet rs2 = null;
+			PreparedStatement stmt2 = null;
 			try {
 				if (connection == null) {
 					connection = DriverManager.getConnection(
@@ -289,24 +277,65 @@ public class History {
 							"postgres", "1234");
 				}
 				for(Task task : tasks) {
-					stmt = connection.prepareStatement(
+					stmt1 = connection.prepareStatement(
 							"SELECT tipo_tarefa.denominacao tipo, status_tarefa.denominacao status "+
 							"FROM iproject.tarefa "+
 							"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
 							"INNER JOIN iproject.status_tarefa ON tarefa.id_status = status_tarefa.id "+
 							"WHERE tarefa.numtarefa = ?");
-					stmt.setLong(1, task.getId());
-					rs = stmt.executeQuery();
-					if(rs.next()) {
-						if(!rs.getString("status").equals(FINALIZADA)) {
+					stmt1.setLong(1, task.getId());
+					rs1 = stmt1.executeQuery();
+					if(rs1.next()) {
+						if(!rs1.getString("status").equals(FINALIZADA)) {
 							tasksToRemove.add(task);
 							continue;
 						}
-						task.setType(TaskType.getTaskTypeByName(rs.getString("tipo")));
+						task.setType(TaskType.getTaskTypeByName(rs1.getString("tipo")));
 						if(task.getType().equals(TaskType.OTHER))
-							task.setOtherType(rs.getString("tipo"));
+							task.setOtherType(rs1.getString("tipo"));
 						if(tasksToRemove.contains(task))
 							continue;
+						
+						stmt2 = connection.prepareStatement(
+								"SELECT substring(log_tarefa.log, '([Revisão|revisão|Revisao|revisao]+[:| ]*[0-9]+)') revisao "+
+								"FROM iproject.log_tarefa "+
+								"INNER JOIN iproject.tarefa ON log_tarefa.id_tarefa = tarefa.id_tarefa "+
+								"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
+								"WHERE tarefa.numtarefa = ? AND log_tarefa.log ~ '([Revisão|revisão|Revisao|revisao]+[:| ]*[0-9]+)'");
+						stmt2.setLong(1, task.getId());
+						rs2 = stmt2.executeQuery();
+						while (rs2.next()) {
+							String revisionText = rs2.getString("revisao");
+							Integer revisionId = null;
+							if(revisionText.startsWith("Revisao") || revisionText.startsWith("Revisão") ||
+									revisionText.startsWith("revisao") || revisionText.startsWith("revisão")){
+								revisionText = revisionText.substring(7);
+								while(revisionText.length() > 0) {
+									try{
+										revisionId = Integer.valueOf(revisionText);
+										break;
+									} catch (Exception e) {
+										revisionText = revisionText.substring(1, revisionText.length());
+									}
+								}
+								if(revisionId == null)
+									continue;
+							}
+							else
+								continue;
+							Revision revision = new Revision(revisionId);
+							try {
+								Revision previousRevision = getPreviousRevision("/trunk/SIGAA", revision);
+								revision.setOldRevision(previousRevision);
+								Set<Revision> revisionsWithOutCopies = new HashSet<Revision>(task.getRevisions());
+								revisionsWithOutCopies.add(revision);
+								task.setRevisions(new ArrayList<Revision>(revisionsWithOutCopies));
+							} catch (SVNException e) {
+								System.out.println("A revisão "+revision+" não possui revisão anterior.");
+							}
+						}
+						if(task.getRevisions().isEmpty())
+							tasksToRemove.add(task);
 					}
 					else
 						tasksToRemove.add(task);
@@ -315,16 +344,30 @@ public class History {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				if(rs != null) {
+				if(rs1 != null) {
 					try {
-						rs.close();
+						rs1.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
 				}
-				if(stmt != null) {
+				if(stmt1 != null) {
 					try {
-						stmt.close();
+						stmt1.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(rs2 != null) {
+					try {
+						rs2.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(stmt2 != null) {
+					try {
+						stmt2.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
