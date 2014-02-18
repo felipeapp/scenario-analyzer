@@ -70,16 +70,18 @@ public class TestCoverageMapping implements Serializable {
 		Set<String> validModifiedMethods = new HashSet<String>(modifiedMethods.size());
 		for (String methodSignature : modifiedMethods) {
 			MethodData methodData = findMethodData(methodSignature);
-			if (methodData != null && !methodData.getMethodState().isModified()) {
-				methodStatePool.get(methodData.getMethodState()).remove(methodData.getSignature());
-				methodData.getMethodState().setModified(true);
-				if(methodData.getMethodState().isCovered())
-					System.out.println("Aqui!");
-				methodStatePool.get(methodData.getMethodState()).put(methodData.getSignature(), methodData);
-				validModifiedMethods.add(methodSignature);
+			if (methodData != null) {
+				if(!methodData.getMethodState().isModified()) {
+					methodStatePool.get(methodData.getMethodState()).remove(methodData.getSignature());
+					methodData.getMethodState().setModified(true);
+					if(methodData.getMethodState().isCovered())
+						System.out.println("Aqui!");
+					methodStatePool.get(methodData.getMethodState()).put(methodData.getSignature(), methodData);
+					validModifiedMethods.add(methodSignature);
+				}
 			}
 			else {
-				System.out.println("O seguinte método ainda não existe nesta versão: "+methodSignature);
+				System.out.println("O seguinte método não existe nesta versão: "+methodSignature);
 			}
 		}
 		return validModifiedMethods;
