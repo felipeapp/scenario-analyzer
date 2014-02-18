@@ -66,22 +66,21 @@ public aspect TestTracker {
 		Member member = getMember(signature);
 		loadTestCoverageMappingInstanceFromFile(member);
 		TestCoverageMapping.getInstance().setCurrentRevision(FileUtil.getTestCoverageMappingRevisionByResource(member.getDeclaringClass()));
-		String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
 			if((isTestClassMember(member) && isTestMethod(member)) || (isManagedBeanMember(member) && isActionMethod(member))){
 				testCoverage = new TestCoverage();
 				TestData testData = testCoverage.getTestData();
-				testData.setSignature(projectName+"."+signature.toString()); //retorno pacote classe método parâmetros
+				testData.setSignature(signature.toString()); //retorno pacote classe método parâmetros
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
-				testCoverage.addCoveredMethod(projectName+"."+signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
+				testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
 				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
 				saveTestCoverageMapping(member);
 			}
 		}
 		else {
-			testCoverage.addCoveredMethod(projectName+"."+signature.toString(), new LinkedHashSet<Variable>(0));
+			testCoverage.addCoveredMethod(signature.toString(), new LinkedHashSet<Variable>(0));
 			saveTestCoverageMapping(member);
 		}
 	}
@@ -95,8 +94,7 @@ public aspect TestTracker {
 //				if(isTestMethod(member) || isActionMethod(member)) {
 //					TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 //					if(testCoverage != null) {
-//						String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
-//						testCoverage.updateCoveredMethod(projectName+"."+signature.toString(), getReturn(member, theReturn));
+//						testCoverage.updateCoveredMethod(signature.toString(), getReturn(member, theReturn));
 //						saveTestCoverageMapping(member);
 //					}
 //				}
@@ -109,13 +107,12 @@ public aspect TestTracker {
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
 		if(member != null) {
-			String projectName = FileUtil.getProjectNameByResource(member.getDeclaringClass());
 			TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 			if(testCoverage != null){
 				TestData testData = testCoverage.getTestData();
 				if(((!testData.isManual() && isTestClassMember(member)) ||
 				(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
-				testData.getSignature().equals(projectName+"."+signature.toString())){
+				testData.getSignature().equals(signature.toString())){
 					TestCoverageMapping.getInstance().finishTestCoverage(threadId);
 					saveTestCoverageMapping(member);
 					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();

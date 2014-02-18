@@ -119,6 +119,8 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	}
 	
 	public static Set<TestCoverage> intersection(Set<TestCoverage> A, Set<TestCoverage> B) {
+		if(A == null || B == null)
+			return new HashSet<TestCoverage>(0);
 		Set<TestCoverage> auxB = new HashSet<TestCoverage>(B);
 		Set<TestCoverage> intersection = new HashSet<TestCoverage>(A.size()+B.size());
 		for (TestCoverage testA : A) {

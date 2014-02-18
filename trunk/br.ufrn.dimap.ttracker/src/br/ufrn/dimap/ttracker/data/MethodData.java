@@ -30,6 +30,10 @@ public class MethodData implements Serializable {
 		return signature;
 	}
 
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
 	public MethodState getMethodState() {
 		return methodState;
 	}
