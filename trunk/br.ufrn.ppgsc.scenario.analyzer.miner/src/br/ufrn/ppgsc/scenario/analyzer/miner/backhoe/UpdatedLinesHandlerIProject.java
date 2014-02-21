@@ -15,9 +15,9 @@ import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.IProjectDAO;
+import br.ufrn.ppgsc.scenario.analyzer.miner.db.ITaskManager;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.IProjectTask;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.UpdatedMethodsMinerUtil;
 
 public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 
@@ -28,7 +28,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
-	private IProjectDAO ipdao;
+	private ITaskManager taskm;
 	
 	private String path;
 	private SVNRepository repository;
@@ -36,7 +36,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	public UpdatedLinesHandlerIProject(SVNRepository repository, String path) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
-		ipdao = new IProjectDAO();
+		taskm = new IProjectDAO();
 		
 		this.path = path;
 		this.repository = repository;
@@ -71,7 +71,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 
 				IProjectTask task = null;
 				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
-				long task_number = UpdatedMethodsMinerUtil.getTaskNumberFromLogMessage(logMessage);
+				long task_number = taskm.getTaskNumberFromLogMessage(logMessage);
 				
 				if (task_number < 0) {
 					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + task_number);
@@ -79,7 +79,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 					task.setNumber(-1);
 				}
 				else {
-					task = ipdao.getTaskByNumber(task_number);
+					task = taskm.getTaskByNumber(task_number);
 				}
 				
 				tasks = new ArrayList<IProjectTask>();

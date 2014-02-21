@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 import org.tmatesoft.svn.core.SVNException;
@@ -27,37 +26,6 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 public abstract class UpdatedMethodsMinerUtil {
 	
 	private static final Logger logger = Logger.getLogger(UpdatedMethodsMinerUtil.class);
-	
-	public static long getTaskNumberFromLogMessage(String logMessage) {
-		Scanner in = new Scanner(logMessage);
-		
-		String task_word = in.next();
-		String task_value = in.next().replaceAll("[^0-9]", "");
-
-		in.close();
-		
-		long task_number;
-		
-		if (task_word.equalsIgnoreCase("commit")) {
-			logger.info("Task word commit was found! Setting task number to -2!");
-			task_number = -2;
-		}
-		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) {
-			logger.info("Task word was found! [" + task_word + "] Setting task number to " + task_value + "!");
-			task_number = Long.parseLong(task_value);
-		}
-		else if (task_word.matches("#[0-9]+")) {
-			task_value = task_word.replaceAll("#", "");
-			logger.info("Task word is task value! [" + task_word + "] Setting task number to " + task_value + "!");
-			task_number = Long.parseLong(task_value);
-		}
-		else {
-			logger.warn("Task word unknown [" + task_word + "]!\n" + logMessage);
-			task_number = -1;
-		}
-		
-		return task_number;
-	}
 	
 	public static Collection<UpdatedMethod> filterChangedMethods(List<MethodLimit> limits, List<UpdatedLine> lines) {
 		Map<String, UpdatedMethod> result = new HashMap<String, UpdatedMethod>();
