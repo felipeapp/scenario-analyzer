@@ -260,11 +260,13 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		history.getStartAndEndRevisions(startRevision, endRevision);
 		Study study = new Study(startRevision, endRevision, tasks);
 		Set<String> modifiedMethods = study.getTasksModifiedMethods();
-		String allModified = "";
-		for(String method : modifiedMethods) {
-			allModified += method+"\n";
+		String saida = "";
+		for(Task task : study.getTasks()) {
+			for(String method : task.getModifiedMethods()) {
+				saida += task.getId()+" "+method+"\n";
+			}
 		}
-		FileUtil.saveTextToFile(allModified, "D:/Joao/workspaces/runtime-EclipseApplication/result", "allModifiedMethods", "txt");
+		FileUtil.saveTextToFile(saida, iWorkspace.getRoot().getLocation().toString()+"/result", "todosOsMetodos", "txt");
 		
 		Integer retorno = -1; 
 		String start = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/result/startDone.txt"));
@@ -368,17 +370,31 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				regressionTestTechnique.setName("Pythia");
 				regressionTestTechnique.setRevision(revision);
 				TestCoverageMapping tcm = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
-				Set<String> coveredMethods = tcm.getMethodStatePool().get(new MethodState(false,true)).keySet();
-				String allCovered = "";
-				for(String method : coveredMethods) {
-					allCovered += method+"\n";
-				}
-				FileUtil.saveTextToFile(allCovered, "D:/Joao/workspaces/runtime-EclipseApplication/result", "allCoveredMethods", "txt");
 				Object configurations[] = { tcm };
 				regressionTestTechnique.setConfiguration(configurations);
 				// TODO: cada técnica de teste de regressão deve implementar sua própria técnica de obtenção dos métodos modificados
 				regressionTestTechnique.setModifiedMethods(modifiedMethods);
 				FileUtil.saveObjectToFile(regressionTestTechnique.getModifiedMethods(), resultPath, "modifiedMethods", "obj");
+				
+				String allModified = "";
+				for(String method : regressionTestTechnique.getModifiedMethods())
+					allModified += method+"\n";
+				FileUtil.saveTextToFile(allModified, resultPath, "allModifiedMethods", "txt");
+				
+				String allBibModified = "";
+				for(String method : regressionTestTechnique.getModifiedMethods()) {
+					if(method.contains("biblioteca"))
+						allBibModified += method+"\n";
+				}
+				FileUtil.saveTextToFile(allBibModified, resultPath, "allBibModifiedMethods", "txt");
+				
+				Set<MethodData> methods = new HashSet<MethodData>(regressionTestTechnique.getMethodStatePool().get(new MethodState(false,true)).values());
+				methods.addAll(regressionTestTechnique.getMethodStatePool().get(new MethodState(true, true)).values());
+				String allCovered = "";
+				for(MethodData method : methods)
+					allCovered += method.getSignature()+"\n";
+				FileUtil.saveTextToFile(allCovered, resultPath, "allCoveredMethods v"+revision.getId(), "txt");
+				
 				String tcmText = ((TestCoverageMapping) regressionTestTechnique.getConfiguration()[0]).printAllTestsCoverage();
 				FileUtil.saveTextToFile(tcmText, ((TestCoverageMapping) regressionTestTechnique.getConfiguration()[0]).getFileDirectory(), "tcmText", "txt"); //TODO: Utilizado para testes e debug
 				// TODO: Verificar se o TCM que está dentro do DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o
@@ -422,6 +438,14 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
 				Set<String> validModifiedMethods = (Set<String>) FileUtil.loadObjectFromFile(resultPath, "modifiedMethods", "obj");
 				TCM.setModifiedMethods(validModifiedMethods);
+				
+				Set<String> coveredMethods = TCM.getMethodStatePool().get(new MethodState(false,true)).keySet();
+				coveredMethods.addAll(TCM.getMethodStatePool().get(new MethodState(true, true)).keySet());
+				String allCovered = "";
+				for(String method : coveredMethods)
+					allCovered += method+"\n";
+				FileUtil.saveTextToFile(allCovered, resultPath, "allCoveredMethods v"+revision.getId(), "txt");
+				
 				String tcmText = TCM.printAllTestsCoverage();
 				FileUtil.saveTextToFile(tcmText, TCM.getFileDirectory(), "tcmText", "txt"); //TODO: Utilizado para testes e debug
 				Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
