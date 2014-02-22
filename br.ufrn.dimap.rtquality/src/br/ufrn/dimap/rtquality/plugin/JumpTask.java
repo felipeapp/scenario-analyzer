@@ -71,6 +71,11 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		IWorkspace iWorkspace = ResourcesPlugin.getWorkspace();
 		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
 		String resultPath = iWorkspaceFolder + "/result";
+		//TODO: Recuperar o descobrir o problema do keySet do MethodStatePool
+		TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_153085", "tcm");
+		for(Map<String, MethodData> map : tcm.getMethodStatePool().values()) {
+			map.get(map.keySet().iterator().next());
+		}
 		
 //		String covered = FileUtil.loadTextFromFile(new File(resultPath+"/allCoveredMethods.txt"));
 		String modified = FileUtil.loadTextFromFile(new File(resultPath+"/allModifiedMethods.txt"));
