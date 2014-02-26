@@ -81,6 +81,8 @@ public class TestCoverageMapping implements Serializable {
 				}
 			}
 			else {
+				if(methodSignature.contains(".biblioteca."))
+					System.out.println("Aqui!");
 				System.out.println("O seguinte método não existe nesta versão: "+methodSignature);
 			}
 		}
