@@ -127,7 +127,7 @@ public class FileUtil {
 			content = new String(chars);
 			return content;
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return null;
 		} finally {
 			if(reader != null) {
