@@ -43,10 +43,14 @@ public class MethodLimitBuilder {
  			public boolean visit(MethodDeclaration node) {
  				int startLine = cu.getLineNumber(node.getStartPosition());
  				int endLine = cu.getLineNumber(node.getStartPosition() + node.getLength());
- 				String signature = (node.getReturnType2() != null ? node.getReturnType2() : "")+" "+pack+node.getName().getFullyQualifiedName()+"(";
+ 				String signature = (node.getReturnType2() != null ? (node.getReturnType2().toString().contains("<") ? node.getReturnType2().toString().substring(0,node.getReturnType2().toString().indexOf("<")) : node.getReturnType2().toString()) : "")+" "+pack+node.getName().getFullyQualifiedName()+"(";
  				
- 				for(Object type : node.parameters())
- 					signature += ((SingleVariableDeclaration) type).getType().toString()+", ";
+ 				for(Object type : node.parameters()) {
+ 					String temp = ((SingleVariableDeclaration) type).getType().toString();
+ 					if(temp.contains("<"))
+ 						temp = temp.substring(0,temp.indexOf("<"));
+ 					signature += temp+", ";
+ 				}
  				if(node.parameters().size() > 0)
  					signature = signature.substring(0, signature.length()-2);
  				signature += ")";
