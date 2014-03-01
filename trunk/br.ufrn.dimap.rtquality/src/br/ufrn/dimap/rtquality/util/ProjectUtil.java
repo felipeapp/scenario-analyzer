@@ -214,15 +214,22 @@ public class ProjectUtil {
 							for (IMethod iMethod : iMethods) {
 								char parametersTypes[][] = new char[iMethod.getParameters().length][];
 								for(int i=0;i<iMethod.getParameters().length;i++)
-									parametersTypes[i] = Signature.toCharArray(iMethod.getParameters()[i].getTypeSignature().toCharArray());//ElementType()lementName()TypeRoot().getElementName()ypeSignature()arameterTypes()[i].toCharArray();//toCharArray();
+									parametersTypes[i] = iMethod.getParameters()[i].getTypeSignature().toCharArray();//ElementType()lementName()TypeRoot().getElementName()ypeSignature()arameterTypes()[i].toCharArray();//toCharArray();
 								String signature = new String(Signature.toCharArray(iMethod.getSignature().toCharArray(),(iType.getFullyQualifiedName()+"."+iMethod.getElementName()).toCharArray(),parametersTypes,false,true));
+								String tempR = signature.substring(0,signature.indexOf(" "));
+								if(tempR.contains("<"))
+									tempR = tempR.substring(0,tempR.indexOf("<"));
+								signature = tempR+signature.substring(signature.indexOf(" "));
 								int inicio = signature.lastIndexOf('(');
 								int fim = signature.lastIndexOf(')');
 								String parametros = signature.substring(inicio+1,fim);
 								signature = signature.substring(0,inicio+1);
 								String splittedParameters[] = parametros.split(" ");
 								for(int i=0;i<splittedParameters.length;i+=2) {
-									signature += splittedParameters[i] + ", ";
+									String temp = splittedParameters[i];
+				 					if(temp.contains("<"))
+				 						temp = temp.substring(0,temp.indexOf("<"));
+									signature += temp + ", ";
 								}
 								signature = signature.substring(0,signature.length()-2) + ")";
 								testCoverageMapping.findOrCreateMethodData(signature);

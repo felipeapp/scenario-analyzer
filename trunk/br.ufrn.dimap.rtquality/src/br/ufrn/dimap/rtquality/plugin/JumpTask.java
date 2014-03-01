@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,7 @@ import br.ufrn.dimap.ttracker.data.MethodData;
 import br.ufrn.dimap.ttracker.data.MethodState;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.Task;
+import br.ufrn.dimap.ttracker.data.TestCoverage;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
@@ -72,19 +74,48 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
 		String resultPath = iWorkspaceFolder + "/result";
 		//TODO: Recuperar o descobrir o problema do keySet do MethodStatePool
-		TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_153085", "tcm");
-		for(Map<String, MethodData> map : tcm.getMethodStatePool().values()) {
-			map.get(map.keySet().iterator().next());
-		}
+		TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_157172", "tcm");
+		tcm.setCurrentRevision(157172);
+		FileUtil.saveObjectToFile(tcm, resultPath, "TCM_157172", "tcm");
+//		Iterator<TestCoverage> i = tcm.getTestCoverages().iterator();
+//		while(i.hasNext()) {
+//			TestCoverage tc = i.next();
+//			String signature = tc.getTestData().getSignature();
+//			if(signature.contains("/")) {
+//				signature = signature.substring(signature.indexOf(".")+1);
+//				tc.getTestData().setSignature(signature);
+//			}
+//			if(signature.contains("<"))
+//				System.out.println("Aqui!");
+//		}
+//		
+//		TestCoverageMapping tcm2 = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_153085", "tcm");
+//		Iterator<TestCoverage> i2 = tcm2.getTestCoverages().iterator();
+//		while(i2.hasNext()) {
+//			TestCoverage tc = i2.next();
+//			String signature = tc.getTestData().getSignature();
+//			if(signature.contains("/")) {
+//				signature = signature.substring(signature.indexOf(".")+1);
+//				tc.getTestData().setSignature(signature);
+//			}
+//			if(signature.contains("<"))
+//				System.out.println("Aqui");
+//		}
+		
+//		FileUtil.saveObjectToFile(tcm2, resultPath, "TCM_157172", "tcm");
+		
+//		for(Map<String, MethodData> map : tcm.getMethodStatePool().values()) {
+//			map.get(map.keySet().iterator().next());
+//		}
 		
 //		String covered = FileUtil.loadTextFromFile(new File(resultPath+"/allCoveredMethods.txt"));
-		String modified = FileUtil.loadTextFromFile(new File(resultPath+"/allModifiedMethods.txt"));
-		String modBib = "";
-		for(String mod : modified.split("\n")) {
-			if(mod.contains("biblioteca"))
-				modBib += mod+"\n";
-		}
-		FileUtil.saveTextToFile(modBib, resultPath, "allBibModified", "txt");
+//		String modified = FileUtil.loadTextFromFile(new File(resultPath+"/allModifiedMethods.txt"));
+//		String modBib = "";
+//		for(String mod : modified.split("\n")) {
+//			if(mod.contains("biblioteca"))
+//				modBib += mod+"\n";
+//		}
+//		FileUtil.saveTextToFile(modBib, resultPath, "allBibModified", "txt");
 //		int cont = 0;
 //		String out = "";
 //		for(String mod : modified.split("\n")) {
