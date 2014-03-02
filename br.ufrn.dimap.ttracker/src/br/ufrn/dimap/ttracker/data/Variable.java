@@ -1,11 +1,15 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import br.ufrn.dimap.ttracker.util.ObjectUtil;
 
 public class Variable implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+    private static final Set<Class<?>> WRAPPER_TYPES = getWrapperTypes();
 	
 	private String type;
 	private String name;
@@ -65,5 +69,25 @@ public class Variable implements Serializable {
 			return false;
 		return true;
 	}
+	
+    public static boolean isWrapperType(Class<?> clazz)
+    {
+        return WRAPPER_TYPES.contains(clazz);
+    }
+
+    private static Set<Class<?>> getWrapperTypes()
+    {
+        Set<Class<?>> ret = new HashSet<Class<?>>();
+        ret.add(Boolean.class);
+        ret.add(Character.class);
+        ret.add(Byte.class);
+        ret.add(Short.class);
+        ret.add(Integer.class);
+        ret.add(Long.class);
+        ret.add(Float.class);
+        ret.add(Double.class);
+        ret.add(Void.class);
+        return ret;
+    }
 
 }

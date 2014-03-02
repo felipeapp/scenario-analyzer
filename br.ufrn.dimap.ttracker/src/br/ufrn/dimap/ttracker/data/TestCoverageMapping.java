@@ -3,7 +3,11 @@
  */
 package br.ufrn.dimap.ttracker.data;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +35,7 @@ public class TestCoverageMapping implements Serializable {
 	private SortedSet<TestCoverage> testCoverages;
 	private Integer nextId;
 	private String fileDirectory;
+	private boolean building;
 
 	private TestCoverageMapping() {
 		this.name = "TestCoverageMapping";
@@ -45,6 +50,7 @@ public class TestCoverageMapping implements Serializable {
 		this.testCoverages = new TreeSet<TestCoverage>();
 		this.nextId = 1;
 		this.fileDirectory = "C:/";
+		this.building = false;
 	}
 
 	public MethodData addCoveredMethod(String methodSignature) {
@@ -261,6 +267,14 @@ public class TestCoverageMapping implements Serializable {
 
 	public void save() {
 		FileUtil.saveObjectToFile(this, fileDirectory, name, "tcm");
+		playBeep();
+	}
+
+	private void playBeep() {
+		try {
+			AudioClip clip = Applet.newAudioClip(new URL("file:///D:/Joao/workspaces/SIGAALast/br.ufrn.dimap.ttracker/sounds/beep-06.wav"));
+			clip.play();
+		} catch (MalformedURLException e) {}
 	}
 
 	public String getName() {
@@ -289,6 +303,7 @@ public class TestCoverageMapping implements Serializable {
 
 	public static void setInstance(TestCoverageMapping otherInstance) {
 		instance = otherInstance;
+		instance.setBuilding(true);
 	}
 
 	public Map<String, MethodData> getMethodPool() {
@@ -325,6 +340,14 @@ public class TestCoverageMapping implements Serializable {
 
 	public void setFileDirectory(String fileDirectory) {
 		this.fileDirectory = fileDirectory;
+	}
+
+	public boolean isBuilding() {
+		return building;
+	}
+
+	public void setBuilding(boolean building) {
+		this.building = building;
 	}
 
 }
