@@ -56,7 +56,12 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	}
 	
 	public String getPrint() {
-		String all = "TestCoverage "+this.getIdTest()+": "+this.getTestData().getSignature()+"\n";
+		String inputs = " <- (";
+		for(Variable input : this.getTestData().getInputs()){
+			inputs += (input.getValue() == null ? "null" : input.getValue().toString()+", ");
+		}
+		inputs = this.getTestData().getInputs().size() == 0 ? "" : inputs.substring(0,inputs.length()-2)+")";
+		String all = "TestCoverage "+this.getIdTest()+": "+this.getTestData().getSignature()+inputs+"\n";
 		all += "MethodDatas:\n";
 		for (CoveredMethod coveredMethod : this.getCoveredMethods()) {
 			String returnString = ((coveredMethod.getTheReturn() == null || coveredMethod.getTheReturn().getValue() == null) ? "" : "("+coveredMethod.getTheReturn().getValue().toString()+") -> ");
