@@ -26,62 +26,42 @@ import br.ufrn.dimap.ttracker.data.Variable;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public aspect TestTracker {
+	private pointcut managedBean() :
+		within(br.ufrn.sigaa.biblioteca..*) &&
+		(within(@Scope("request") *) || within(@Scope("session") *) || execution(* TestCase+.*()) || @annotation(Test)) &&
+		(execution(* *(..)) || execution(*.new(..)));
 	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
 	private pointcut beforePointcut() :
-		cflow(
-			within(br.ufrn.sigaa.biblioteca..*) &&
-			(
-				within(@Scope("request") *) ||
-				within(@Scope("session") *) ||
-				execution(* TestCase+.*()) ||
-				@annotation(Test)
-			) &&
-			(
-				execution(* *(..)) ||
-				execution(*.new(..))
-			)
-		) &&
-		(
-			execution(* *(..)) ||
-			execution(*.new(..))
-		) &&
+		cflow(managedBean()) &&
+		(execution(* *(..)) || execution(*.new(..))) &&
 		exclusion();
-	private pointcut afterPointcut() :
-		within(br.ufrn.sigaa.biblioteca..*) &&
-		(
-			within(@Scope("request") *) ||
-			within(@Scope("session") *) ||
-			execution(* TestCase+.*()) ||
-			@annotation(Test)
-		) &&
-		(
-			execution(* *(..)) ||
-			execution(*.new(..))
-		) &&
-		exclusion();
+	private pointcut afterPointcut() : managedBean() && exclusion();
 	
 	before() : beforePointcut() {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
-		loadTestCoverageMappingInstanceFromFile(member);
+		if(!TestCoverageMapping.getInstance().isBuilding())
+			loadTestCoverageMappingInstanceFromFile(member);
 		TestCoverageMapping.getInstance().setCurrentRevision(FileUtil.getTestCoverageMappingRevisionByResource(member.getDeclaringClass()));
 		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
 			if((isTestClassMember(member) && isTestMethod(member)) || (isManagedBeanMember(member) && isActionMethod(member))){
 				testCoverage = new TestCoverage();
 				TestData testData = testCoverage.getTestData();
-				testData.setSignature(signature.toString()); //retorno pacote classe método parâmetros
-				testData.setClassFullName(member.getDeclaringClass().getCanonicalName()); //pacote classe
+				testData.setSignature(signature.toString());
+				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 				testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
-				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
-				saveTestCoverageMapping(member);
+				if(!TestCoverageMapping.getInstance().getTestCoverages().contains(testCoverage))
+					TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
+				TestCoverageMapping.getInstance().setBuilding(true);
+//				saveTestCoverageMapping(member);
 			}
 		}
 		else {
 			testCoverage.addCoveredMethod(signature.toString(), new LinkedHashSet<Variable>(0));
-			saveTestCoverageMapping(member);
+//			saveTestCoverageMapping(member);
 		}
 	}
 
@@ -118,12 +98,6 @@ public aspect TestTracker {
 					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
 					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
-					try {
-						AudioClip clip = Applet.newAudioClip(new URL("file:///D:/Joao/workspaces/SIGAALast/br.ufrn.dimap.ttracker/sounds/beep-06.wav"));
-						clip.play();
-					} catch (MalformedURLException e) {
-						e.printStackTrace();
-					} 
 				}
 			}
 		}
@@ -155,10 +129,10 @@ public aspect TestTracker {
 		LinkedHashSet<Variable> inputs = new LinkedHashSet<Variable>(args.length);
 		if(types.length == args.length){
 			for(int i=0;i<args.length;i++) {
-				String arg = "null";
+				String value = "null";
 				if(args[i] != null)
-					arg = args[i] instanceof String ? (String) args[i] : String.valueOf(args[i].hashCode());
-				inputs.add(new Variable(types[i].getName(),name+i,arg));
+					value = Variable.isWrapperType(types[i]) ? args[i].toString() : new String("hash: "+args[i].hashCode());
+				inputs.add(new Variable(types[i].getName(),name+i,value));
 			}
 		}
 		return inputs;
