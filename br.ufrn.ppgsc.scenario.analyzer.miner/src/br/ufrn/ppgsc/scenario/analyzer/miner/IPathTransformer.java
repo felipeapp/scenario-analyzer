@@ -8,6 +8,6 @@ package br.ufrn.ppgsc.scenario.analyzer.miner;
  */
 public interface IPathTransformer {
 
-	String[] convert(String method_signature, String repository_prefix, String workcopy_prefix_v1, String workcopy_prefix_v2);
+	public String[] convert(String method_signature, String repository_prefix, String workcopy_prefix_v1, String workcopy_prefix_v2);
 
 }
