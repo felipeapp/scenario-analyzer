@@ -21,13 +21,13 @@ import java.util.TreeSet;
 public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idTest; //TODO: Verificar se os IDs estão coerentes ou se estão sendo repetidos ou gerados de forma desordenada. Se sim descobrir o por quê e corrigir o problema.
+	private Integer idTest;
 	private TestData testData;
 	private Set<CoveredMethod> coveredMethods;
 	private Date date;
 	
 	public TestCoverage() {
-		this.idTest = TestCoverageMapping.getInstance().getNextId();
+		this.idTest = 0;
 		this.testData = new TestData();
 		this.coveredMethods = new HashSet<CoveredMethod>();
 		this.date = new Date();
@@ -102,12 +102,12 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	@Override
 	public int compareTo(TestCoverage arg0) {
 		TestCoverage other = (TestCoverage) arg0;
-		if(this.getIdTest() > other.getIdTest())
-			return 1;
-		else if(this.getIdTest() < other.getIdTest())
-			return -1;
-		else
+		if(this.equals(other))
 			return 0;
+		else if(this.getIdTest() > other.getIdTest())
+			return 1;
+		else
+			return -1;
 	}
 	
 	public String toString() {

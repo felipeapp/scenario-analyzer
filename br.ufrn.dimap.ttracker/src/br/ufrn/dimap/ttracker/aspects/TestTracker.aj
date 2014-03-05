@@ -53,9 +53,11 @@ public aspect TestTracker {
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 				testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
-				if(!TestCoverageMapping.getInstance().getTestCoverages().contains(testCoverage))
+				if(!TestCoverageMapping.getInstance().getTestCoverages().contains(testCoverage)) {
+					testCoverage.setIdTest(TestCoverageMapping.getInstance().getNextId());
 					TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
-				TestCoverageMapping.getInstance().setBuilding(true);
+					TestCoverageMapping.getInstance().setBuilding(true);
+				}
 //				saveTestCoverageMapping(member);
 			}
 		}

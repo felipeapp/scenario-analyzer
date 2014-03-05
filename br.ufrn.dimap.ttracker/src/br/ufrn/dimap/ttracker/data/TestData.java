@@ -50,8 +50,8 @@ public class TestData implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
 		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
+		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
 		return result;
 	}
 
@@ -62,15 +62,15 @@ public class TestData implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		TestData other = (TestData) obj;
-		if (inputs == null) {
-			if (other.inputs != null)
-				return false;
-		} else if (!inputs.equals(other.inputs))
-			return false;
 		if (signature == null) {
 			if (other.signature != null)
 				return false;
 		} else if (!signature.equals(other.signature))
+			return false;
+		if (inputs == null) {
+			if (other.inputs != null)
+				return false;
+		} else if (!inputs.equals(other.inputs))
 			return false;
 		return true;
 	}
