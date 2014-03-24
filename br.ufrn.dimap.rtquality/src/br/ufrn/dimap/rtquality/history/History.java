@@ -27,9 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.SortedSet;
-
-import javax.lang.model.type.TypeKind;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -50,7 +47,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.tmatesoft.svn.core.SVNDepth;
-import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNNodeKind;
@@ -65,14 +61,10 @@ import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNDiffClient;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc.SVNUpdateClient;
-import org.tmatesoft.svn.core.wc.SVNWCClient;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.dimap.rtquality.plugin.Activator;
 import br.ufrn.dimap.rtquality.plugin.SysOutProgressMonitor;
-import br.ufrn.dimap.rtquality.util.ProjectUtil;
-import br.ufrn.dimap.rtquality.util.TestUtil;
-import br.ufrn.dimap.ttracker.data.CoveredMethod;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.Task;
 import br.ufrn.dimap.ttracker.data.TaskType;
@@ -150,7 +142,8 @@ public class History {
     public void getStartAndEndRevisions(Revision startRevision, Revision endRevision) {
 		try {
 			Revision infoStartRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.11.24"));
-			Revision infoEndRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
+//			Revision infoEndRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
+			Revision infoEndRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.36"));
 			startRevision.setId(infoStartRevision.getId());
 			endRevision.setId(infoEndRevision.getId());
 		} catch (SVNException e) {
