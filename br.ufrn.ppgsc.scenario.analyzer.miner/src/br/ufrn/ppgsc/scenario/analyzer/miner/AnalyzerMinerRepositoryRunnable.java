@@ -15,9 +15,9 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.model.IProjectTask;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
+import br.ufrn.ppgsc.scenario.analyzer.miner.sigaa.SINFOIProjectIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.UpdatedMethodsMinerUtil;
 
 public final class AnalyzerMinerRepositoryRunnable {
@@ -118,9 +118,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 					pw.println("Revisão:" + up_line.getRevision());
 					pw.println("Data:" + up_line.getDate());
 					
-					List<IProjectTask> tasks = up_line.getTasks();
+					List<SINFOIProjectIssue> tasks = up_line.getTasks();
 
-					for (IProjectTask t : tasks) {
+					for (SINFOIProjectIssue t : tasks) {
 						if (t.getNumber() >= 0) {
 							pw.println("Id:" + t.getId());
 							pw.println("IdTipo:" + t.getIdType());
@@ -260,7 +260,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String path : map_path_methods.keySet())
 			for (UpdatedMethod method : map_path_methods.get(path))
 				for (UpdatedLine line : method.getUpdatedLines())
-					for (IProjectTask task : line.getTasks())
+					for (SINFOIProjectIssue task : line.getTasks())
 						task_numbers.add(task.getNumber());
 
 		return task_numbers;
@@ -276,7 +276,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (IProjectTask task : line.getTasks()) {
+					for (SINFOIProjectIssue task : line.getTasks()) {
 
 						if (task.getId() != -1 && !counted_tasks.contains(task.getId())) {
 							Integer counter = counter_task_types.get(task.getTypeName());
@@ -311,7 +311,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (IProjectTask task : line.getTasks()) {
+					for (SINFOIProjectIssue task : line.getTasks()) {
 
 						if (task.getId() != -1 && !(counted_tasks.contains(task.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
 							Collection<UpdatedMethod> list = task_members.get(task.getTypeName());

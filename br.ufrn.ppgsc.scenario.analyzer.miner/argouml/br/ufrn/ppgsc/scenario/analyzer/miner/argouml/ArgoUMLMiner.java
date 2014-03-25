@@ -8,8 +8,6 @@ import java.io.LineNumberReader;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.internal.dtree.ObjectNotFoundException;
@@ -19,7 +17,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
-import br.ufrn.backhoe.repminer.model.IssueContents;
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.IssueStatus;
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.IssueType;
@@ -32,7 +29,7 @@ public class ArgoUMLMiner {
 	public ArgoUMLMiner() {
 		properties = new Properties();
 		try {
-			properties.load(new FileInputStream("argouml.properties"));
+			properties.load(new FileInputStream("resources/argouml.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -40,6 +37,7 @@ public class ArgoUMLMiner {
 
 	/**
 	 * Método de entrada. Recebe o id da issue como parâmetro.
+	 * 
 	 * @param issueId
 	 * @return issue
 	 */
@@ -50,13 +48,13 @@ public class ArgoUMLMiner {
 			issue = getIssueInfo(issueId);
 		} catch (IOException | JDOMException | ParseException e) {
 			e.printStackTrace();
-		}			
+		}
 		return issue;
-		
+
 	}
 
-	private Issue getIssueInfo(Integer issueId) throws IOException, JDOMException, ParseException  {
-		List<IssueContents> severeIssues = new ArrayList<IssueContents>();
+	private Issue getIssueInfo(Integer issueId) throws IOException,
+			JDOMException, ParseException {
 		SAXBuilder builder = new SAXBuilder(false);
 		InputStream inputStream = HttpsUtils.getInputStreamFixHttps(properties
 				.getProperty("host") + issueId);
@@ -82,15 +80,14 @@ public class ArgoUMLMiner {
 
 		for (Object obj : doc.getRootElement().getChildren()) {
 			Element item = (Element) obj;
-			
+
 			verifyIssueWasFound(item);
 
 			issue = new Issue();
 
 			issue.setAffectedVersion(item.getChildText("version"));
 			issue.setComponent("component");
-			issue.setDateCreation(sdf.parse(item
-					.getChildText("creation_ts")));
+			issue.setDateCreation(sdf.parse(item.getChildText("creation_ts")));
 			issue.setIssueId(Integer.parseInt(item.getChildText("issue_id")));
 			issue.setIssueStatus(IssueStatus.valueOf(item
 					.getChildText("issue_status")));
@@ -99,24 +96,29 @@ public class ArgoUMLMiner {
 			issue.setShortDescription(item.getChildText("short_desc"));
 		}
 
-		return issue;		
+		return issue;
 	}
 
-	private void verifyIssueWasFound(Element item) throws ObjectNotFoundException {
+	private void verifyIssueWasFound(Element item)
+			throws ObjectNotFoundException {
 		if (item.getAttributeValue("status_message").trim().equals("NotFound")) {
-			throw new ObjectNotFoundException("Não existe issue para o id informado.");
-		}	
+			throw new ObjectNotFoundException(
+					"Não existe issue para o id informado.");
+		}
 	}
 
 	/**
-	 * Método que verifica se o argumento passado é diferente de nulo. Se não for, uma exceção é lançada.
+	 * Método que verifica se o argumento passado é diferente de nulo. Se não
+	 * for, uma exceção é lançada.
+	 * 
 	 * @param issueId
 	 * @throws IllegalArgumentException
 	 */
-	private void verifyValidArguments(Integer issueId) throws IllegalArgumentException {
+	private void verifyValidArguments(Integer issueId)
+			throws IllegalArgumentException {
 		if (issueId == null) {
 			throw new IllegalArgumentException("O id da tarefa está nulo");
-		}		
+		}
 	}
 
 }

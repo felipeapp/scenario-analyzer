@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.db;
+package br.ufrn.ppgsc.scenario.analyzer.miner.sigaa;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,15 +11,15 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.model.IProjectTask;
+import br.ufrn.ppgsc.scenario.analyzer.miner.db.IQueryIssue;
 
-public class IProjectDAO implements ITaskManager {
+public class SINFOIProjectIssueQuery implements IQueryIssue {
 	
-	private static final Logger logger = Logger.getLogger(IProjectDAO.class);
+	private static final Logger logger = Logger.getLogger(SINFOIProjectIssueQuery.class);
 	
 	private static Connection connection;
 	
-	public IProjectDAO() {
+	public SINFOIProjectIssueQuery() {
 		try {
 //			if (connection == null) {
 //				connection = DriverManager.getConnection(
@@ -37,8 +37,8 @@ public class IProjectDAO implements ITaskManager {
 		}
 	}
 	
-	public IProjectTask getTaskByNumber(long task_number) {
-		IProjectTask task = new IProjectTask();
+	public SINFOIProjectIssue getIssueByNumber(long taskNumber) {
+		SINFOIProjectIssue task = new SINFOIProjectIssue();
 		
 		// Retorna o objeto vazio caso não tenha conectado.
 		if (connection == null)
@@ -50,7 +50,7 @@ public class IProjectDAO implements ITaskManager {
 					+ " FROM iproject.tarefa INNER JOIN iproject.tipo_tarefa"
 					+ " ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa AND tarefa.numtarefa = ?");
 			
-			stmt.setLong(1, task_number);
+			stmt.setLong(1, taskNumber);
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
@@ -60,20 +60,22 @@ public class IProjectDAO implements ITaskManager {
 				task.setTypeName(rs.getString("tipo_denominacao"));
 			}
 			else {
-				logger.error("Task number " + task_number + " wasn't found.");
+				logger.error("Task number " + taskNumber + " wasn't found.");
 			}
 			
 			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error("Task number " + task_number + "\n" + e.getMessage());
+			logger.error("Task number " + taskNumber + "\n" + e.getMessage());
 		}
 		
 		return task;
 	}
 	
-	public List<IProjectTask> getTasksByRevision(long revision) {
-		List<IProjectTask> tasks = new ArrayList<IProjectTask>();
+	// TODO: Remover depois! 
+	// Este método não é mais usado!
+	public List<SINFOIProjectIssue> getTasksByRevision(long revision) {
+		List<SINFOIProjectIssue> tasks = new ArrayList<SINFOIProjectIssue>();
 		
 		// Retorna a lista vazia não conectou.
 		if (connection == null)
@@ -96,7 +98,7 @@ public class IProjectDAO implements ITaskManager {
 			 * pensebi quando testei para a revisão 70315.  
 			 */
 			while (rs.next()) {
-				IProjectTask t = new IProjectTask(
+				SINFOIProjectIssue t = new SINFOIProjectIssue(
 						rs.getLong("id"),
 						rs.getLong("numero"),
 						rs.getLong("id_tipo"),
@@ -114,8 +116,8 @@ public class IProjectDAO implements ITaskManager {
 		return tasks;
 	}
 	
-	public long getTaskNumberFromLogMessage(String logMessage) {
-		Scanner in = new Scanner(logMessage);
+	public long getIssueNumberFromMessageLog(String messageLog) {
+		Scanner in = new Scanner(messageLog);
 		
 		String task_word = in.next();
 		String task_value = in.next().replaceAll("[^0-9]", "");
@@ -138,7 +140,7 @@ public class IProjectDAO implements ITaskManager {
 			task_number = Long.parseLong(task_value);
 		}
 		else {
-			logger.warn("Task word unknown [" + task_word + "]!\n" + logMessage);
+			logger.warn("Task word unknown [" + task_word + "]!\n" + messageLog);
 			task_number = -1;
 		}
 		
@@ -146,12 +148,12 @@ public class IProjectDAO implements ITaskManager {
 	}
 	
 	public static void main(String[] args) {
-		IProjectDAO dao = new IProjectDAO();
+		SINFOIProjectIssueQuery dao = new SINFOIProjectIssueQuery();
 		
-		System.out.println(dao.getTaskByNumber(124277).getId());
-		System.out.println(dao.getTaskByNumber(124787).getId());
+		System.out.println(dao.getIssueByNumber(124277).getId());
+		System.out.println(dao.getIssueByNumber(124787).getId());
 		
-		for (IProjectTask t : dao.getTasksByRevision(70315))
+		for (SINFOIProjectIssue t : dao.getTasksByRevision(70315))
 			System.out.println(t.getNumber());
 	}
 	

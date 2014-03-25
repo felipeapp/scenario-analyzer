@@ -1,18 +1,19 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.model;
+package br.ufrn.ppgsc.scenario.analyzer.miner.sigaa;
 
-public class IProjectTask {
+// TODO: criar uma interface para acesso a issue
+public class SINFOIProjectIssue {
 
 	private long id;
 	private long number;
 	private long idType;
 	private String typeName;
 
-	public IProjectTask() {
+	public SINFOIProjectIssue() {
 		id = number = idType = -1;
 		typeName = "No task (-1)";
 	}
 
-	public IProjectTask(long id, long number, long idType, String typeName) {
+	public SINFOIProjectIssue(long id, long number, long idType, String typeName) {
 		this.id = id;
 		this.number = number;
 		this.idType = idType;

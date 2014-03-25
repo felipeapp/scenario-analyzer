@@ -12,7 +12,7 @@ public final class AnalyzerMinerRunnable {
 
 	public static void startAnalyzerMiner(IPathTransformer o, MinerType type) throws IOException {
 		Properties properties = new Properties();
-		properties.load(new FileInputStream("analyzer_miner.properties"));
+		properties.load(new FileInputStream("resources/analyzer_miner.properties"));
 
 		String date = properties.getProperty("date");
 		
