@@ -171,28 +171,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		pw.close();
 	}
 	
-	private void persistFile(String message, String partial_name) throws FileNotFoundException {
+	private void persistFile(String message, String partial_name, List<String> members) throws FileNotFoundException {
 		// TODO: Ver como centralizar os bancos para mineração.
 		GenericDB database_v2 = new DatabaseService(SystemPropertiesUtil.getInstance().getStringProperty("database_v2")).getGenericDB();
-	
-		/* TODO: Depois organizar esse método juntamente com o restante da implementação
-		 * e filtrar os métodos lendo do arquivo de degradados e alterados para que não seja
-		 * preciso criar o vetor members manualmente
-		 */
-		String[] members = {
-				"br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRenovaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)",
-				"br.ufrn.arq.dao.GenericDAOImpl.getSession()",
-				"br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRealizaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)",
-				"br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List)",
-				"br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)",
-				"br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)",
-				"br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String)",
-				"br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String)",
-				"br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object)",
-				"br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object,boolean)",
-				"br.ufrn.sigaa.dominio.Curso.setNome(java.lang.String)",
-				"br.ufrn.sigaa.dominio.Curso.getDescricao()"
-		};
 		
 		System.out.println("persistFile: " + message);
 		
@@ -200,7 +181,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", true));
 		
 		pw.println(message);
-		pw.println(members.length);
+		pw.println(members.size());
 		
 		for (String sig : members) {
 			System.out.println("Retrieving impacted members and scenarios from " + sig);
@@ -220,6 +201,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 	
 	public void run() throws FileNotFoundException {
 		int i = 0;
+		
+		/* Assinaturas de métodos que contribuiram especificamente para a degradação do desempenho
+		 * Será usada na mineração final.
+		 */
+		List<String> p_degradated_changed_methods = new ArrayList<String>();
 		
 		for (Scanner in : readers) {
 			List<String> repository_paths = new ArrayList<String>();
@@ -270,7 +256,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 					 * Limita��o quando o m�todo tem formas diferentes com o mesmo nome
 					 * A limita��o � causada devido o parser do JDT que est� sendo usado
 					 */
-					if (matchesName(path, upm.getMethodLimit().getSignature(), signatures)) {
+					String sig_matched = matchesName(path, upm.getMethodLimit().getSignature(), signatures);
+					
+					if (sig_matched != null) {
 						Collection<UpdatedMethod> upm_list = filtrated_path_upmethod.get(path);
 						
 						if (upm_list == null) {
@@ -280,7 +268,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 						
 						upm_list.add(upm);
 						
-						System.err.println(path + ">" + upm.getMethodLimit().getSignature() + "\n");
+						if (partial_names.get(i).equals("changed_methods") || partial_names.get(i).equals("p_degradated_methods"))
+							p_degradated_changed_methods.add(sig_matched);
 					}
 				}
 			}
@@ -306,12 +295,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
 		}
 		
-		/* TODO: Depois organizar esse método juntamente com o restante da implementação
-		 * e filtrar os métodos lendo do arquivo de degradados e alterados para que não seja
-		 * preciso criar o vetor members manualmente
-		 * TODO: Ver onde colocar isso.
-		 */
-		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation");
+		// TODO: Ver onde colocar isso
+		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degradated_changed_methods);
 	}
 	
 	private Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
@@ -399,17 +384,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 		return task_members;
 	}
 	
-	private boolean matchesName(String path, String method_name, List<String> method_signatures) {
+	private String matchesName(String path, String method_name, List<String> method_signatures) {
 		String class_name = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
 		String class_dot_method = class_name + "." + method_name;
 		
 		for (String sig : method_signatures)
-			if (sig.matches(".*[.]" + class_dot_method + "[(].*")) {
-				System.err.println(sig);
-				return true;
-			}
+			if (sig.matches(".*[.]" + class_dot_method + "[(].*"))
+				return sig;
 		
-		return false;
+		return null;
 	}
 
 }
