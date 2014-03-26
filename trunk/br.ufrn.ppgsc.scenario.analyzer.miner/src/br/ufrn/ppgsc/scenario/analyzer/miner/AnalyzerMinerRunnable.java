@@ -1,8 +1,8 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
+
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
 
 public final class AnalyzerMinerRunnable {
 
@@ -10,17 +10,23 @@ public final class AnalyzerMinerRunnable {
 		MinerDB, MinerRepository, Both
 	}
 
-	public static void startAnalyzerMiner(IPathTransformer o, MinerType type) throws IOException {
-		Properties properties = new Properties();
-		properties.load(new FileInputStream("resources/analyzer_miner.properties"));
-
-		String date = properties.getProperty("date");
+	public static void startAnalyzerMiner() throws IOException {
+		String date = SystemPropertiesUtil.getInstance().getStringProperty("date");
+		String type = SystemPropertiesUtil.getInstance().getStringProperty("mining_type");
 		
-		if (type == MinerType.MinerDB || type == MinerType.Both)
-			date = new AnalyzerMinerDBRunnable(properties).run();
+		if (type.equals(MinerType.MinerDB.name()) || type.equals(MinerType.Both.name()))
+			date = new AnalyzerMinerDBRunnable().run();
 
-		if (type == MinerType.MinerRepository || type == MinerType.Both)
-			new AnalyzerMinerRepositoryRunnable(properties, date, o).run();
+		if (type.equals(MinerType.MinerRepository.name()) || type.equals(MinerType.Both.name()))
+			new AnalyzerMinerRepositoryRunnable(date).run();
+	}
+	
+	public static void main(String[] args) {
+		try {
+			AnalyzerMinerRunnable.startAnalyzerMiner();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,6 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.sigaa;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.IPathTransformer;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 
 /*
 Versão 01

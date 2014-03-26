@@ -14,17 +14,17 @@ import org.tmatesoft.svn.core.SVNRevisionProperty;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.db.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
-import br.ufrn.ppgsc.scenario.analyzer.miner.sigaa.SINFOIProjectIssue;
-import br.ufrn.ppgsc.scenario.analyzer.miner.sigaa.SINFOIProjectIssueQuery;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
 
 public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 
 	private final Logger logger = Logger.getLogger(UpdatedLinesHandlerIProject.class);
 	
-	private static final Map<Long, List<SINFOIProjectIssue>> cache_revision_tasks =
-			new HashMap<Long, List<SINFOIProjectIssue>>();
+	private static final Map<Long, List<IContentIssue>> cache_revision_issues =
+			new HashMap<Long, List<IContentIssue>>();
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
@@ -36,7 +36,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	public UpdatedLinesHandlerIProject(SVNRepository repository, String path) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
-		issueQuery = new SINFOIProjectIssueQuery();
+		issueQuery = SystemPropertiesUtil.getInstance().getQueryIssueProperty();
 		
 		this.path = path;
 		this.repository = repository;
@@ -64,31 +64,31 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 		sourceCode.append(line + System.lineSeparator());
 		
 		if (revision != -1) {
-			List<SINFOIProjectIssue> tasks = cache_revision_tasks.get(revision);
+			List<IContentIssue> issues = cache_revision_issues.get(revision);
 			
-			if (tasks == null) {
+			if (issues == null) {
 				logger.info("Inside handler, getting tasks to revision " + revision);
 
-				SINFOIProjectIssue task = null;
+				IContentIssue issue = null;
 				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
-				long task_number = issueQuery.getIssueNumberFromMessageLog(logMessage);
+				long issue_number = issueQuery.getIssueNumberFromMessageLog(logMessage);
 				
-				if (task_number < 0) {
-					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + task_number);
-					task = new SINFOIProjectIssue();
-					task.setNumber(-1);
+				if (issue_number < 0) {
+					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
+					issue = SystemPropertiesUtil.getInstance().getContentIssueProperty();
+					issue.setNumber(-1);
 				}
 				else {
-					task = issueQuery.getIssueByNumber(task_number);
+					issue = issueQuery.getIssueByNumber(issue_number);
 				}
 				
-				tasks = new ArrayList<SINFOIProjectIssue>();
-				tasks.add(task);
+				issues = new ArrayList<IContentIssue>();
+				issues.add(issue);
 				
-				cache_revision_tasks.put(revision, tasks);
+				cache_revision_issues.put(revision, issues);
 			}
 			
-			changedLines.add(new UpdatedLine(date, revision, tasks, author, line, lineNumber));
+			changedLines.add(new UpdatedLine(date, revision, issues, author, line, lineNumber));
 		}
 	}
 

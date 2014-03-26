@@ -11,7 +11,8 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.db.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 
 public class SINFOIProjectIssueQuery implements IQueryIssue {
 	
@@ -37,8 +38,8 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 		}
 	}
 	
-	public SINFOIProjectIssue getIssueByNumber(long taskNumber) {
-		SINFOIProjectIssue task = new SINFOIProjectIssue();
+	public IContentIssue getIssueByNumber(long taskNumber) {
+		IContentIssue task = new SINFOIProjectIssue();
 		
 		// Retorna o objeto vazio caso não tenha conectado.
 		if (connection == null)

@@ -10,12 +10,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseService;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
@@ -30,12 +30,14 @@ public final class AnalyzerMinerDBRunnable {
 	
 	private String strdate;
 	
-	public AnalyzerMinerDBRunnable(Properties properties) throws IOException {
-		system_id = properties.getProperty("system_id");
-		performance_rate = Double.parseDouble(properties.getProperty("performance_rate"));
+	public AnalyzerMinerDBRunnable() throws IOException {
+		SystemPropertiesUtil properties = SystemPropertiesUtil.getInstance();
 		
-		database_v1 = new DatabaseService(properties.getProperty("database_v1")).getGenericDB();
-		database_v2 = new DatabaseService(properties.getProperty("database_v2")).getGenericDB();
+		system_id = properties.getStringProperty("system_id");
+		performance_rate = properties.getDoubleProperty("performance_rate");
+		
+		database_v1 = new DatabaseService(properties.getStringProperty("database_v1")).getGenericDB();
+		database_v2 = new DatabaseService(properties.getStringProperty("database_v2")).getGenericDB();
 		
 		strdate = new SimpleDateFormat("yyyy-MM-dd_HH'h'mm'min'").format(new Date());
 	}
