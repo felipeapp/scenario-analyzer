@@ -11,13 +11,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Scanner;
 import java.util.Set;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.sigaa.SINFOIProjectIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.UpdatedMethodsMinerUtil;
 
 public final class AnalyzerMinerRepositoryRunnable {
@@ -40,24 +41,25 @@ public final class AnalyzerMinerRepositoryRunnable {
 		"failed_methods_only_v1", "failed_methods_only_v2", "kept_methods",
 		"p_degradated_methods", "p_optimized_methods", "p_unchanged_methods"};
 
-	public AnalyzerMinerRepositoryRunnable(Properties properties,
-			String strdate, IPathTransformer o) throws FileNotFoundException {
-		transformer = o;
+	public AnalyzerMinerRepositoryRunnable(String strdate) throws FileNotFoundException {
+		SystemPropertiesUtil properties = SystemPropertiesUtil.getInstance();
+		
+		transformer = properties.getPathTransformerProperty();
 		this.strdate = strdate;
 		readers = new ArrayList<Scanner>();
 		partial_names = new ArrayList<String>();
 		
-		url = properties.getProperty("repository_url");
-		rep_prefix = properties.getProperty("repository_prefix");
-		user = properties.getProperty("repository_user");
-		password = properties.getProperty("repository_password");
-		system_id = properties.getProperty("system_id");
+		url = properties.getStringProperty("repository_url");
+		rep_prefix = properties.getStringProperty("repository_prefix");
+		user = properties.getStringProperty("repository_user");
+		password = properties.getStringProperty("repository_password");
+		system_id = properties.getStringProperty("system_id");
 		
-		wc_prefix_v1 = properties.getProperty("workcopy_prefix_v1");
-		wc_prefix_v2 = properties.getProperty("workcopy_prefix_v2");
+		wc_prefix_v1 = properties.getStringProperty("workcopy_prefix_v1");
+		wc_prefix_v2 = properties.getStringProperty("workcopy_prefix_v2");
 		
 		for (String name : files) {
-			boolean active = Boolean.parseBoolean(properties.getProperty(name));
+			boolean active = properties.getBooleanProperty(name);
 			
 			if (active) {
 				String filename = "miner.log/" + system_id + "_" + name + "_" + strdate + ".log";
@@ -118,9 +120,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 					pw.println("Revisão:" + up_line.getRevision());
 					pw.println("Data:" + up_line.getDate());
 					
-					List<SINFOIProjectIssue> tasks = up_line.getTasks();
+					List<IContentIssue> tasks = up_line.getIssues();
 
-					for (SINFOIProjectIssue t : tasks) {
+					for (IContentIssue t : tasks) {
 						if (t.getNumber() >= 0) {
 							pw.println("Id:" + t.getId());
 							pw.println("IdTipo:" + t.getIdType());
@@ -255,15 +257,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 	}
 	
 	private Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
-		Set<Long> task_numbers = new HashSet<Long>();
+		Set<Long> issue_numbers = new HashSet<Long>();
 
 		for (String path : map_path_methods.keySet())
 			for (UpdatedMethod method : map_path_methods.get(path))
 				for (UpdatedLine line : method.getUpdatedLines())
-					for (SINFOIProjectIssue task : line.getTasks())
-						task_numbers.add(task.getNumber());
+					for (IContentIssue issue : line.getIssues())
+						issue_numbers.add(issue.getNumber());
 
-		return task_numbers;
+		return issue_numbers;
 	}
 	
 	private Map<String, Integer> counterTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
@@ -276,17 +278,17 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (SINFOIProjectIssue task : line.getTasks()) {
+					for (IContentIssue issue : line.getIssues()) {
 
-						if (task.getId() != -1 && !counted_tasks.contains(task.getId())) {
-							Integer counter = counter_task_types.get(task.getTypeName());
+						if (issue.getId() != -1 && !counted_tasks.contains(issue.getId())) {
+							Integer counter = counter_task_types.get(issue.getTypeName());
 
 							if (counter == null)
-								counter_task_types.put(task.getTypeName(), 1);
+								counter_task_types.put(issue.getTypeName(), 1);
 							else
-								counter_task_types.put(task.getTypeName(), counter + 1);
+								counter_task_types.put(issue.getTypeName(), counter + 1);
 							
-							counted_tasks.add(task.getId());
+							counted_tasks.add(issue.getId());
 						}
 
 					}
@@ -311,21 +313,21 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (SINFOIProjectIssue task : line.getTasks()) {
+					for (IContentIssue issue : line.getIssues()) {
 
-						if (task.getId() != -1 && !(counted_tasks.contains(task.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
-							Collection<UpdatedMethod> list = task_members.get(task.getTypeName());
+						if (issue.getId() != -1 && !(counted_tasks.contains(issue.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
+							Collection<UpdatedMethod> list = task_members.get(issue.getTypeName());
 
 							if (list == null) {
 								list = new ArrayList<UpdatedMethod>();
 								list.add(method);
-								task_members.put(task.getTypeName(), list);
+								task_members.put(issue.getTypeName(), list);
 							}
 							else {
-								task_members.get(task.getTypeName()).add(method);
+								task_members.get(issue.getTypeName()).add(method);
 							}
 							
-							counted_tasks.add(task.getId());
+							counted_tasks.add(issue.getId());
 							counted_members.add(method.getMethodLimit().getSignature());
 						}
 

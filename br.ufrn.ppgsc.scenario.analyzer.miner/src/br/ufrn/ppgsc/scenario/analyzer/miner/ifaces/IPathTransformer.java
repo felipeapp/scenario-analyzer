@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner;
+package br.ufrn.ppgsc.scenario.analyzer.miner.ifaces;
 
 /*
  * Converte as assinaturas do método para caminhos de classe

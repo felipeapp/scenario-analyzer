@@ -4,21 +4,21 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.sigaa.SINFOIProjectIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 
 public class UpdatedLine {
 
 	private Date date;
 	private long revision;
-	private List<SINFOIProjectIssue> tasks;
+	private List<IContentIssue> issues;
 	private String author;
 	private String line;
 	private int lineNumber;
 
-	public UpdatedLine(Date date, long revision, List<SINFOIProjectIssue> tasks, String author, String line, int lineNumber) {
+	public UpdatedLine(Date date, long revision, List<IContentIssue> issues, String author, String line, int lineNumber) {
 		this.date = date;
 		this.revision = revision;
-		this.tasks = tasks;
+		this.issues = issues;
 		this.author = author;
 		this.line = line;
 		this.lineNumber = lineNumber;
@@ -40,12 +40,12 @@ public class UpdatedLine {
 		this.revision = revision;
 	}
 
-	public List<SINFOIProjectIssue> getTasks() {
-		return Collections.unmodifiableList(tasks);
+	public List<IContentIssue> getIssues() {
+		return Collections.unmodifiableList(issues);
 	}
 
-	public void setTasks(List<SINFOIProjectIssue> tasks) {
-		this.tasks = tasks;
+	public void setIssues(List<IContentIssue> issues) {
+		this.issues = issues;
 	}
 
 	public String getAuthor() {

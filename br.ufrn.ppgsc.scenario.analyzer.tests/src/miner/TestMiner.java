@@ -2,9 +2,9 @@ package miner;
 
 import java.util.Collection;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.sigaa.SINFOIProjectIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.UpdatedMethodsMinerUtil;
 
 public class TestMiner {
@@ -39,8 +39,8 @@ public class TestMiner {
 				System.out.println("\tDate: " + l.getDate());
 				System.out.print("\tTasks: ");
 				
-				for (SINFOIProjectIssue task : l.getTasks())
-					System.out.print(task.getNumber() + " ");
+				for (IContentIssue issue : l.getIssues())
+					System.out.print(issue.getNumber() + " ");
 				
 				System.out.println("\n\t-------------------------------------");
 			}
