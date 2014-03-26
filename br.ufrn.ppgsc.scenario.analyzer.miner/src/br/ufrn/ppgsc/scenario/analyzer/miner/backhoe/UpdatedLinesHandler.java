@@ -19,9 +19,9 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
 
-public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
+public class UpdatedLinesHandler implements ISVNAnnotateHandler {
 
-	private final Logger logger = Logger.getLogger(UpdatedLinesHandlerIProject.class);
+	private final Logger logger = Logger.getLogger(UpdatedLinesHandler.class);
 	
 	private static final Map<Long, List<IContentIssue>> cache_revision_issues =
 			new HashMap<Long, List<IContentIssue>>();
@@ -33,7 +33,7 @@ public class UpdatedLinesHandlerIProject implements ISVNAnnotateHandler {
 	private String path;
 	private SVNRepository repository;
 	
-	public UpdatedLinesHandlerIProject(SVNRepository repository, String path) {
+	public UpdatedLinesHandler(SVNRepository repository, String path) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		issueQuery = SystemPropertiesUtil.getInstance().getQueryIssueProperty();

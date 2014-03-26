@@ -25,7 +25,7 @@ public class UpdatedMethodsMinerNoDB extends Miner {
 	private final Logger logger = Logger.getLogger(UpdatedMethodsMinerNoDB.class);
 	
 	private Map<String, Collection<UpdatedMethod>> changedMethods;
-	private Map<String, UpdatedLinesHandlerIProject> handlers;
+	private Map<String, UpdatedLinesHandler> handlers;
 	
 	public void performSetup() {
 		logger.info("performSetup...");
@@ -40,7 +40,7 @@ public class UpdatedMethodsMinerNoDB extends Miner {
 		SVNClientManager client = SVNClientManager.newInstance();
 		client.setAuthenticationManager(repository.getAuthenticationManager());
 		
-		handlers = new HashMap<String, UpdatedLinesHandlerIProject>();
+		handlers = new HashMap<String, UpdatedLinesHandler>();
 		
 		try {
 			/* Acha quem foi a última pessoa que alterou cada linha.
@@ -61,10 +61,10 @@ public class UpdatedMethodsMinerNoDB extends Miner {
 					logger.info("Running doAnnotate [" + startRevisions.get(i) + ", " + endRevisions.get(i) + "]");
 					logger.info("Path (" + (i + 1) + "/" + targetPaths.size() + "):" + path);
 					
-					UpdatedLinesHandlerIProject handler = handlers.get(path);
+					UpdatedLinesHandler handler = handlers.get(path);
 					
 					if (handler == null) {
-						handler = new UpdatedLinesHandlerIProject(repository, path);
+						handler = new UpdatedLinesHandler(repository, path);
 						
 						client.getLogClient().doAnnotate(
 								SVNURL.parseURIEncoded(svnConnector.getUrl() + path),
@@ -90,7 +90,7 @@ public class UpdatedMethodsMinerNoDB extends Miner {
 		changedMethods = new HashMap<String, Collection<UpdatedMethod>>();
 		
 		for (String path : handlers.keySet()) {
-			UpdatedLinesHandlerIProject handler = handlers.get(path);
+			UpdatedLinesHandler handler = handlers.get(path);
 			
 			// Pega as linhas modificadas
 			List<UpdatedLine> lines = handler.getChangedLines();
