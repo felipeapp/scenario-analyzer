@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
@@ -62,7 +64,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			boolean active = properties.getBooleanProperty(name);
 			
 			if (active) {
-				String filename = "miner.log/" + system_id + "_" + name + "_" + strdate + ".log";
+				String filename = "miner_log/" + system_id + "_" + name + "_" + strdate + ".txt";
 				partial_names.add(name);
 				readers.add(new Scanner(new FileInputStream(filename)));
 			}
@@ -89,7 +91,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner.log/" + system_id + "_" + partial_name + "_" + strdate + ".log", false));
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", false));
 		
 		pw.println(message);
 		
@@ -117,7 +119,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				for (UpdatedLine up_line : upl_list) {
 					pw.println("Autor:" + up_line.getAuthor());
 					pw.println("Linha:" + up_line.getLineNumber());
-					pw.println("Revisão:" + up_line.getRevision());
+					pw.println("Revis�o:" + up_line.getRevision());
 					pw.println("Data:" + up_line.getDate());
 					
 					List<IContentIssue> tasks = up_line.getIssues();
@@ -126,8 +128,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 						if (t.getNumber() >= 0) {
 							pw.println("Id:" + t.getId());
 							pw.println("IdTipo:" + t.getIdType());
-							pw.println("Número:" + t.getNumber());
-							pw.println("TipoDenomicação:" + t.getTypeName());
+							pw.println("N�mero:" + t.getNumber());
+							pw.println("TipoDenomica��o:" + t.getTypeName());
 						}
 					}
 				}
@@ -164,6 +166,53 @@ public final class AnalyzerMinerRepositoryRunnable {
 			pw.println(list.size());
 			for (UpdatedMethod up : list)
 				pw.println(up.getMethodLimit().getSignature());
+		}
+		
+		pw.close();
+	}
+	
+	private void persistFile(String message, String partial_name) throws FileNotFoundException {
+		// TODO: Ver como centralizar os bancos para mineração.
+		GenericDB database_v2 = new DatabaseService(SystemPropertiesUtil.getInstance().getStringProperty("database_v2")).getGenericDB();
+	
+		/* TODO: Depois organizar esse método juntamente com o restante da implementação
+		 * e filtrar os métodos lendo do arquivo de degradados e alterados para que não seja
+		 * preciso criar o vetor members manualmente
+		 */
+		String[] members = {
+				"br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRenovaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)",
+				"br.ufrn.arq.dao.GenericDAOImpl.getSession()",
+				"br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRealizaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)",
+				"br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List)",
+				"br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)",
+				"br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)",
+				"br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String)",
+				"br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String)",
+				"br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object)",
+				"br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object,boolean)",
+				"br.ufrn.sigaa.dominio.Curso.setNome(java.lang.String)",
+				"br.ufrn.sigaa.dominio.Curso.getDescricao()"
+		};
+		
+		System.out.println("persistFile: " + message);
+		
+		PrintWriter pw = new PrintWriter(new FileOutputStream(
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", true));
+		
+		pw.println(message);
+		pw.println(members.length);
+		
+		for (String sig : members) {
+			System.out.println("Retrieving impacted members and scenarios from " + sig);
+			
+			Set<String> nodes = database_v2.getImpactedNodes(sig);
+			List<String> scenarios = database_v2.getScenariosByMember(sig);
+			
+			pw.println(sig + ":" + nodes.size());
+			pw.println(scenarios.size());
+			
+			for (String s : scenarios)
+				pw.println(s);
 		}
 		
 		pw.close();
@@ -210,18 +259,18 @@ public final class AnalyzerMinerRepositoryRunnable {
 			if (map_path_upmethod == null)
 				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
-			// Os que foram modificados e estão dentro do critério (degradados, por exemplo)
+			// Os que foram modificados e est�o dentro do crit�rio (degradados, por exemplo)
 			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
-			// Percorre a estrutura para filtrar os métodos de interesse para cada path
+			// Percorre a estrutura para filtrar os m�todos de interesse para cada path
 			for (String path : map_path_upmethod.keySet()) {
 				for (UpdatedMethod upm : map_path_upmethod.get(path)) {
 					/* 
-					 * Testa se o nome do método casa com a assinatura do método
-					 * Limitação quando o método tem formas diferentes com o mesmo nome
-					 * A limitação é causada devido o parser do JDT que está sendo usado
+					 * Testa se o nome do m�todo casa com a assinatura do m�todo
+					 * Limita��o quando o m�todo tem formas diferentes com o mesmo nome
+					 * A limita��o � causada devido o parser do JDT que est� sendo usado
 					 */
-					if (matchesName(upm.getMethodLimit().getSignature(), signatures)) {
+					if (matchesName(path, upm.getMethodLimit().getSignature(), signatures)) {
 						Collection<UpdatedMethod> upm_list = filtrated_path_upmethod.get(path);
 						
 						if (upm_list == null) {
@@ -230,22 +279,24 @@ public final class AnalyzerMinerRepositoryRunnable {
 						}
 						
 						upm_list.add(upm);
+						
+						System.err.println(path + ">" + upm.getMethodLimit().getSignature() + "\n");
 					}
 				}
 			}
 			
 			/*
-			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolução, considerando
-			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
-			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
+			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolu��o, considerando
+			 * as classes dos m�todos para o problema sendo analisado. Note que algumas classes
+			 * podem ter mudan�as em m�todos, mas estes n�o terem sido degradados neste caso.
 			 */
 			Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(map_path_upmethod);
 			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
 			
 			/*
 			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
-			 * por exemplo, quantas vezes o tipo de tarefa aparece para métodos com desempenho
-			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
+			 * por exemplo, quantas vezes o tipo de tarefa aparece para m�todos com desempenho
+			 * degradado. Agora, s�o apenas os m�todos modificados e afetados pelo problema analisado.
 			 */
 			Map<String, Collection<UpdatedMethod>> filtrated_task_members = getTaskMembers(filtrated_path_upmethod);
 			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);
@@ -254,6 +305,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 			persistFile(message, "svn_" + partial_names.get(i++), getTaskNumbers(filtrated_path_upmethod), filtrated_path_upmethod,
 					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
 		}
+		
+		/* TODO: Depois organizar esse método juntamente com o restante da implementação
+		 * e filtrar os métodos lendo do arquivo de degradados e alterados para que não seja
+		 * preciso criar o vetor members manualmente
+		 * TODO: Ver onde colocar isso.
+		 */
+		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation");
 	}
 	
 	private Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
@@ -341,10 +399,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 		return task_members;
 	}
 	
-	private boolean matchesName(String method_name, List<String> method_signatures) {
+	private boolean matchesName(String path, String method_name, List<String> method_signatures) {
+		String class_name = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
+		String class_dot_method = class_name + "." + method_name;
+		
 		for (String sig : method_signatures)
-			if (sig.matches(".*[.]" + method_name + "[(].*"))
+			if (sig.matches(".*[.]" + class_dot_method + "[(].*")) {
+				System.err.println(sig);
 				return true;
+			}
 		
 		return false;
 	}

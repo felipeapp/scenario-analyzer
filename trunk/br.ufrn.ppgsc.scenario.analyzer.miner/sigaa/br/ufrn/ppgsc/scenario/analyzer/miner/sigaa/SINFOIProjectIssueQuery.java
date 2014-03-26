@@ -22,12 +22,6 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	
 	public SINFOIProjectIssueQuery() {
 		try {
-//			if (connection == null) {
-//				connection = DriverManager.getConnection(
-//						"jdbc:postgresql://bddesenv1.info.ufrn.br:5432/sistemas_comum_20131009",
-//						"comum_user", "comum_user");
-//			}
-			
 			if (connection == null) {
 				connection = DriverManager.getConnection(
 						"jdbc:postgresql://localhost:5432/sistemas_comum",
@@ -75,8 +69,8 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	
 	// TODO: Remover depois! 
 	// Este método não é mais usado!
-	public List<SINFOIProjectIssue> getTasksByRevision(long revision) {
-		List<SINFOIProjectIssue> tasks = new ArrayList<SINFOIProjectIssue>();
+	public List<IContentIssue> getIssuesByRevision(long revision) {
+		List<IContentIssue> tasks = new ArrayList<IContentIssue>();
 		
 		// Retorna a lista vazia não conectou.
 		if (connection == null)
@@ -154,7 +148,7 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 		System.out.println(dao.getIssueByNumber(124277).getId());
 		System.out.println(dao.getIssueByNumber(124787).getId());
 		
-		for (SINFOIProjectIssue t : dao.getTasksByRevision(70315))
+		for (IContentIssue t : dao.getIssuesByRevision(70315))
 			System.out.println(t.getNumber());
 	}
 	
