@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
@@ -172,8 +172,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	}
 	
 	private void persistFile(String message, String partial_name, List<String> members) throws FileNotFoundException {
-		// TODO: Ver como centralizar os bancos para mineração.
-		GenericDB database_v2 = new DatabaseService(SystemPropertiesUtil.getInstance().getStringProperty("database_v2")).getGenericDB();
+		GenericDB database_v2 = DatabaseRelease.getDatabasev2();
 		
 		System.out.println("persistFile: " + message);
 		
@@ -295,7 +294,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
 		}
 		
-		// TODO: Ver onde colocar isso
+		// Mostrando o impacto dos responsáveis pela degradação de performance
 		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degradated_changed_methods);
 	}
 	

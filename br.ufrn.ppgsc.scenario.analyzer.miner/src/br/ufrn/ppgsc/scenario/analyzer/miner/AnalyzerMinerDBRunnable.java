@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
@@ -36,8 +36,8 @@ public final class AnalyzerMinerDBRunnable {
 		system_id = properties.getStringProperty("system_id");
 		performance_rate = properties.getDoubleProperty("performance_rate");
 		
-		database_v1 = new DatabaseService(properties.getStringProperty("database_v1")).getGenericDB();
-		database_v2 = new DatabaseService(properties.getStringProperty("database_v2")).getGenericDB();
+		database_v1 = DatabaseRelease.getDatabasev1();
+		database_v2 = DatabaseRelease.getDatabasev2();
 		
 		strdate = new SimpleDateFormat("yyyy-MM-dd_HH'h'mm'min'").format(new Date());
 	}
@@ -139,9 +139,7 @@ public final class AnalyzerMinerDBRunnable {
 		return map;
 	}
 	
-	/*
-	 * TODO: Adicionar mineração para mostrar a média e desvio dos cenários
-	 */
+	// TODO: Adicionar mineração para mostrar a média e desvio dos cenários
 	public String run() throws FileNotFoundException {
 		Map<String, Double> avg_time_v1 = database_v1.getExecutionTimeAverage();
 		Map<String, Double> avg_time_v2 = database_v2.getExecutionTimeAverage();

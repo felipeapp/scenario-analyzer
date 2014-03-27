@@ -68,7 +68,7 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	}
 	
 	// TODO: Remover depois! 
-	// Este método não é mais usado!
+	// Este método não é mais usado, mas o select ficou tão bonito :-)!
 	public List<IContentIssue> getIssuesByRevision(long revision) {
 		List<IContentIssue> tasks = new ArrayList<IContentIssue>();
 		
