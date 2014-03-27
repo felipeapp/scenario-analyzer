@@ -1,8 +1,11 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.backhoe;
+package br.ufrn.ppgsc.scenario.analyzer.miner.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -11,6 +14,8 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.MethodLimit;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public class MethodLimitBuilder {
 	
@@ -38,8 +43,25 @@ public class MethodLimitBuilder {
 		});
 	}
 	
-	public List<MethodLimit> getMethodLimits() {
-		return Collections.unmodifiableList(methods);
+	public Collection<UpdatedMethod> filterChangedMethods(List<UpdatedLine> lines) {
+		Map<String, UpdatedMethod> result = new HashMap<String, UpdatedMethod>();
+		
+		for (UpdatedLine l : lines) {
+			for (MethodLimit m : methods) {
+				if (l.getLineNumber() >= m.getStartLine() && l.getLineNumber() <= m.getEndLine()) {
+					UpdatedMethod mu = result.get(m.getSignature());
+					
+					if (mu == null) {
+						mu = new UpdatedMethod(m);
+						result.put(m.getSignature(), mu);
+					}
+					
+					mu.addUpdatedLine(l);
+				}
+			}
+		}
+		
+		return Collections.unmodifiableCollection(result.values());
 	}
 	
 }

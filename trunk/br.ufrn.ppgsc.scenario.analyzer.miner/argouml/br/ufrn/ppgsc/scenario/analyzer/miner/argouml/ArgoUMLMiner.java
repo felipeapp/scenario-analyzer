@@ -20,7 +20,7 @@ import org.xml.sax.InputSource;
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.IssueStatus;
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.IssueType;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtils;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil;
 
 public class ArgoUMLMiner {
 
@@ -56,7 +56,7 @@ public class ArgoUMLMiner {
 	private Issue getIssueInfo(Integer issueId) throws IOException,
 			JDOMException, ParseException {
 		SAXBuilder builder = new SAXBuilder(false);
-		InputStream inputStream = HttpsUtils.getInputStreamFixHttps(properties
+		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(properties
 				.getProperty("host") + issueId);
 		InputStreamReader isr = new InputStreamReader(inputStream);
 		Issue issue = null;

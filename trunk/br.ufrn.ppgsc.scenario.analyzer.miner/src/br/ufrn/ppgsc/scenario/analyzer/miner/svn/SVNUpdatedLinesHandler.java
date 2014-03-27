@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.backhoe;
+package br.ufrn.ppgsc.scenario.analyzer.miner.svn;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,11 +17,11 @@ import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
-public class UpdatedLinesHandler implements ISVNAnnotateHandler {
+public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 
-	private final Logger logger = Logger.getLogger(UpdatedLinesHandler.class);
+	private final Logger logger = Logger.getLogger(SVNUpdatedLinesHandler.class);
 	
 	private static final Map<Long, List<IContentIssue>> cache_revision_issues =
 			new HashMap<Long, List<IContentIssue>>();
@@ -33,10 +33,10 @@ public class UpdatedLinesHandler implements ISVNAnnotateHandler {
 	private String path;
 	private SVNRepository repository;
 	
-	public UpdatedLinesHandler(SVNRepository repository, String path) {
+	public SVNUpdatedLinesHandler(SVNRepository repository, String path) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
-		issueQuery = SystemPropertiesUtil.getInstance().getQueryIssueProperty();
+		issueQuery = SystemMetadataUtil.getInstance().getQueryIssueObject();
 		
 		this.path = path;
 		this.repository = repository;
@@ -75,7 +75,7 @@ public class UpdatedLinesHandler implements ISVNAnnotateHandler {
 				
 				if (issue_number < 0) {
 					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-					issue = SystemPropertiesUtil.getInstance().getContentIssueProperty();
+					issue = SystemMetadataUtil.getInstance().getContentIssueObject();
 					issue.setNumber(-1);
 				}
 				else {

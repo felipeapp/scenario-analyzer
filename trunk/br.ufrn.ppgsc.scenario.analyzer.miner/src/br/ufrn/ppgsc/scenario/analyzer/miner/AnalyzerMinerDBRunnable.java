@@ -15,7 +15,7 @@ import java.util.Set;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
@@ -31,7 +31,7 @@ public final class AnalyzerMinerDBRunnable {
 	private String strdate;
 	
 	public AnalyzerMinerDBRunnable() throws IOException {
-		SystemPropertiesUtil properties = SystemPropertiesUtil.getInstance();
+		SystemMetadataUtil properties = SystemMetadataUtil.getInstance();
 		
 		system_id = properties.getStringProperty("system_id");
 		performance_rate = properties.getDoubleProperty("performance_rate");

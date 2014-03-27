@@ -20,9 +20,9 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-public class HttpsUtils 
+public class HttpsUtil 
 {
-	private final Logger logger = Logger.getLogger(HttpsUtils.class);
+	private final Logger logger = Logger.getLogger(HttpsUtil.class);
 	/**
      * Gets an inputstreamreader for a https:// url, which ignores whether a certificate is valid
      * @param url
@@ -44,7 +44,7 @@ public class HttpsUtils
     {
         if(url.startsWith("https://")) 
         {
-            return HttpsUtils.getInputStreamForHTTPSIgnoreCertificateValidness(url);
+            return HttpsUtil.getInputStreamForHTTPSIgnoreCertificateValidness(url);
         } 
         else 
         {
@@ -54,11 +54,11 @@ public class HttpsUtils
             } 
             catch(MalformedURLException ex) 
             {
-                Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+                Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
             } 
             catch(IOException ex) 
             {
-                Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+                Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
             }
         }
         
@@ -75,7 +75,7 @@ public class HttpsUtils
     {
         if(url.startsWith("https://")) 
         {
-            return HttpsUtils.getInputStreamForHTTPSIgnoreCertificateValidness(url);
+            return HttpsUtil.getInputStreamForHTTPSIgnoreCertificateValidness(url);
         } 
         else 
         {
@@ -91,11 +91,11 @@ public class HttpsUtils
             } 
             catch(MalformedURLException ex) 
             {
-                Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+                Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
             } 
             catch(IOException ex) 
             {
-                Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+                Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
             }
         }
         
@@ -117,7 +117,7 @@ public class HttpsUtils
         } 
         catch(MalformedURLException ex) 
         {
-            Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+            Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
         }
         
         return null;
@@ -177,15 +177,15 @@ public class HttpsUtils
         } 
         catch(IOException ex) 
         {
-            Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+            Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
         } 
         catch(NoSuchAlgorithmException ex) 
         {
-            Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+            Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
         } 
         catch(KeyManagementException ex) 
         {
-            Logger.getLogger(HttpsUtils.class.getName()).log(Level.ERROR,null,ex);
+            Logger.getLogger(HttpsUtil.class.getName()).log(Level.ERROR,null,ex);
         }
         
         return null;

@@ -20,8 +20,8 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemPropertiesUtil;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.UpdatedMethodsMinerUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.svn.RepositoryManager;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public final class AnalyzerMinerRepositoryRunnable {
 
@@ -44,9 +44,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		"p_degradated_methods", "p_optimized_methods", "p_unchanged_methods"};
 
 	public AnalyzerMinerRepositoryRunnable(String strdate) throws FileNotFoundException {
-		SystemPropertiesUtil properties = SystemPropertiesUtil.getInstance();
+		SystemMetadataUtil properties = SystemMetadataUtil.getInstance();
 		
-		transformer = properties.getPathTransformerProperty();
+		transformer = properties.getPathTransformerObject();
 		this.strdate = strdate;
 		readers = new ArrayList<Scanner>();
 		partial_names = new ArrayList<String>();
@@ -235,8 +235,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			Map<String, Collection<UpdatedMethod>> map_path_upmethod = null;
 			
+			// TODO: melhorar este código para evitar múltiplas conexões no repositório
 			if (!signatures.isEmpty()) {
-				map_path_upmethod = UpdatedMethodsMinerUtil.getUpdatedMethodsFromRepository(
+				map_path_upmethod = new RepositoryManager().getUpdatedMethodsFromRepository(
 						url, user, password,
 						repository_paths, old_workcopy_paths, new_workcopy_paths);
 			}
