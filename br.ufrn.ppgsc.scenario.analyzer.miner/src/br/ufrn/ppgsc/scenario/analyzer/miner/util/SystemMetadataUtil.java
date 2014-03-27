@@ -8,14 +8,15 @@ import java.util.Properties;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IRepositoryMiner;
 
-public class SystemPropertiesUtil {
+public class SystemMetadataUtil {
 
-	private static SystemPropertiesUtil systemProperties = new SystemPropertiesUtil();
+	private static SystemMetadataUtil systemProperties = new SystemMetadataUtil();
 
 	private Properties properties;
 
-	private SystemPropertiesUtil() {
+	private SystemMetadataUtil() {
 		properties = new Properties();
 
 		try {
@@ -28,7 +29,7 @@ public class SystemPropertiesUtil {
 		}
 	}
 
-	public static SystemPropertiesUtil getInstance() {
+	public static SystemMetadataUtil getInstance() {
 		return systemProperties;
 	}
 
@@ -48,7 +49,7 @@ public class SystemPropertiesUtil {
 		return Boolean.parseBoolean(properties.getProperty(name));
 	}
 
-	public IPathTransformer getPathTransformerProperty() {
+	public IPathTransformer getPathTransformerObject() {
 		IPathTransformer object = null;
 
 		try {
@@ -64,7 +65,7 @@ public class SystemPropertiesUtil {
 		return object;
 	}
 
-	public IQueryIssue getQueryIssueProperty() {
+	public IQueryIssue getQueryIssueObject() {
 		IQueryIssue object = null;
 
 		try {
@@ -80,11 +81,27 @@ public class SystemPropertiesUtil {
 		return object;
 	}
 
-	public IContentIssue getContentIssueProperty() {
+	public IContentIssue getContentIssueObject() {
 		IContentIssue object = null;
 
 		try {
 			object = (IContentIssue) Class.forName(properties.getProperty("content_issue")).newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return object;
+	}
+	
+	public IRepositoryMiner getRepositoryMinerObject() {
+		IRepositoryMiner object = null;
+
+		try {
+			object = (IRepositoryMiner) Class.forName(properties.getProperty("repository_miner")).newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

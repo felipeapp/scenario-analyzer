@@ -5,13 +5,13 @@ import java.util.Collection;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.UpdatedMethodsMinerUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.svn.RepositoryManager;
 
 public class TestMiner {
 	
 	public static void main(String[] args) throws Exception {
 		
-		Collection<UpdatedMethod> result = UpdatedMethodsMinerUtil.getUpdatedMethodsFromRepository(
+		Collection<UpdatedMethod> result = new RepositoryManager().getUpdatedMethodsFromRepository(
 				"http://scenario-analyzer.googlecode.com/svn", "", "",
 				"/trunk/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java",
 				"/home/felipe/Doutorado/workspaces/workspace-analyzer/br.ufrn.ppgsc.scenario.analyzer.tests_oldrevision/src/tests/Main.java",
