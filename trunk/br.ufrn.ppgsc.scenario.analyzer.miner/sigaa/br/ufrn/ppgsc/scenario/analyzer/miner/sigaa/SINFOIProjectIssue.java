@@ -2,7 +2,6 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.sigaa;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 
-// TODO: criar uma interface para acesso a issue
 public class SINFOIProjectIssue implements IContentIssue {
 
 	private long id;

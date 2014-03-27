@@ -2,7 +2,6 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model;
 
 import java.util.Date;
 
-//TODO: criar uma interface para acesso a issue
 public class Issue {
 
 	private Integer issueId;
