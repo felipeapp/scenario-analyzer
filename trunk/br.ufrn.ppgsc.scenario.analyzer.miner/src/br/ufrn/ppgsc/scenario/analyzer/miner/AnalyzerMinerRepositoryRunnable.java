@@ -119,7 +119,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				for (UpdatedLine up_line : upl_list) {
 					pw.println("Autor:" + up_line.getAuthor());
 					pw.println("Linha:" + up_line.getLineNumber());
-					pw.println("Revis�o:" + up_line.getRevision());
+					pw.println("Revisão:" + up_line.getRevision());
 					pw.println("Data:" + up_line.getDate());
 					
 					List<IContentIssue> tasks = up_line.getIssues();
@@ -128,8 +128,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 						if (t.getNumber() >= 0) {
 							pw.println("Id:" + t.getId());
 							pw.println("IdTipo:" + t.getIdType());
-							pw.println("N�mero:" + t.getNumber());
-							pw.println("TipoDenomica��o:" + t.getTypeName());
+							pw.println("Número:" + t.getNumber());
+							pw.println("TipoDenomicação:" + t.getTypeName());
 						}
 					}
 				}
@@ -201,6 +201,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 	public void run() throws FileNotFoundException {
 		int i = 0;
 		
+		/*
+		 * O gerente de repositório conecta ao repositório e permite acesso
+		 * para a mineração dos dados através do método disponibilizado.
+		 * Conecta no momento que é criado.
+		 */
+		RepositoryManager repository = new RepositoryManager(url, user, password);
+		
 		/* 
 		 * Guarda as assinaturas de métodos que contribuiram especificamente
 		 * para a degradação do desempenho. Esta lista será usada na mineração final.
@@ -236,10 +243,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			Map<String, Collection<UpdatedMethod>> map_path_upmethod = null;
 			
-			// TODO: melhorar este código para evitar múltiplas conexões no repositório
 			if (!signatures.isEmpty()) {
-				map_path_upmethod = new RepositoryManager().getUpdatedMethodsFromRepository(
-						url, user, password,
+				map_path_upmethod = repository.getUpdatedMethodsFromRepository(
 						repository_paths, old_workcopy_paths, new_workcopy_paths);
 			}
 			

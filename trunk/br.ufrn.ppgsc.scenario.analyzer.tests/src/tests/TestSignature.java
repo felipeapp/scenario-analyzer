@@ -1,7 +1,6 @@
 package tests;
 
 import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 
 public class TestSignature {
 
@@ -42,6 +41,7 @@ public class TestSignature {
 		String[] types = params.split(",");
 		Class<?>[] cls_types = new Class<?>[types.length];
 		
+		System.out.println(class_name);
 		System.out.println("-----------");
 		
 		for (int i = 0; i < types.length; i++) {

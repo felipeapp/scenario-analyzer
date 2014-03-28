@@ -14,50 +14,42 @@ public class RepositoryManager {
 
 	private IRepositoryMiner miner;
 
-	public RepositoryManager() {
+	public RepositoryManager(String url, String user, String password) {
 		miner = SystemMetadataUtil.getInstance().getRepositoryMinerObject();
+		miner.connect(url, user, password);
 	}
-	
+
 	public Map<String, Collection<UpdatedMethod>> getUpdatedMethodsFromRepository(
-			String host, String user, String password, List<String> paths,
-			List<String> old_workcopies, List<String> new_workcopies) {
+			List<String> paths, List<String> old_workcopies,
+			List<String> new_workcopies) {
 
 		List<Long> old_revisions = new ArrayList<Long>();
 		List<Long> new_revisions = new ArrayList<Long>();
 
 		for (int i = 0; i < paths.size(); i++) {
-			old_revisions.add(miner.getCommittedRevisionNumber(old_workcopies
-					.get(i)));
-			new_revisions.add(miner.getCommittedRevisionNumber(new_workcopies
-					.get(i)));
+			old_revisions.add(miner.getCommittedRevisionNumber(old_workcopies.get(i)));
+			new_revisions.add(miner.getCommittedRevisionNumber(new_workcopies.get(i)));
 		}
 
-		miner.initialize(host, user, password, paths, old_revisions,
-				new_revisions);
-		miner.configure();
+		miner.initialize(paths, old_revisions, new_revisions);
 
 		return miner.mine();
 	}
 
 	public Collection<UpdatedMethod> getUpdatedMethodsFromRepository(
-			String host, String user, String password, String file_path,
-			String old_workcopy, String new_workcopy) {
+			String file_path, String old_workcopy, String new_workcopy) {
 
-		return getUpdatedMethodsFromRepository(host, user, password, file_path,
+		return getUpdatedMethodsFromRepository(file_path,
 				miner.getCommittedRevisionNumber(old_workcopy),
 				miner.getCommittedRevisionNumber(new_workcopy));
 	}
 
 	public Collection<UpdatedMethod> getUpdatedMethodsFromRepository(
-			String host, String user, String password, String file_path,
-			long old_revision, long new_revision) {
+			String file_path, long old_revision, long new_revision) {
 
-		miner.initialize(host, user, password,
-				Arrays.asList(new String[] { file_path }),
+		miner.initialize(Arrays.asList(new String[] { file_path }),
 				Arrays.asList(new Long(old_revision)),
 				Arrays.asList(new Long(new_revision)));
-
-		miner.configure();
 
 		return miner.mine().get(file_path);
 	}

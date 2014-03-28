@@ -3,9 +3,11 @@ package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<T> {
+public class GenericDAOHibernateImpl<T extends Serializable> extends
+		GenericDAO<T> {
 
 	@Override
 	public T persist(T instance) {
@@ -20,12 +22,18 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<
 
 	@Override
 	public T read(Class<T> clazz, long id) {
-		return (T) getSession().get(clazz, id);
+		Object object = getSession().get(clazz, id);
+		return clazz.cast(object);
 	}
 
 	@Override
 	public List<T> readAll(Class<T> clazz) {
-		return getSession().createQuery("from " + clazz.getName()).list();
+		Query query = getSession().createQuery("from " + clazz.getName());
+
+		@SuppressWarnings("unchecked")
+		List<T> list = query.list();
+
+		return list;
 	}
 
 }

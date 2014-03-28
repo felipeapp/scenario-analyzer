@@ -22,13 +22,15 @@ public class GenericDBHibernateImpl extends GenericDB {
 	public GenericDBHibernateImpl(String hibernateCfg) {
 		super(hibernateCfg);
 	}
-
+	
 	@Override
 	public <T> T read(Class<T> clazz, long id) {
-		return (T) getSession().get(clazz, id);
+		Object object = getSession().get(clazz, id);
+		return clazz.cast(object);
 	}
 
-	/* O cenário falhou se seu ponto de entrada falhou, ou seja, tempo = -1
+	/* 
+	 * O cenário falhou se seu ponto de entrada falhou, ou seja, tempo = -1
 	 * significando que a execução do ponto de entrada abortou.
 	 */
 	@Override

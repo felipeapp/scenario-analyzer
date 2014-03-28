@@ -7,6 +7,8 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
@@ -27,15 +29,22 @@ public abstract class GenericDB {
 
 	public abstract Set<String> getImpactedNodes(String signarute);
 
-	private Session session;
+	private Session s;
 
 	public GenericDB(String hibernateCfg) {
-		SessionFactory sessionFactory = new Configuration().configure(hibernateCfg).buildSessionFactory();
-		session = sessionFactory.openSession();
+		Configuration configuration = new Configuration().configure(hibernateCfg);
+
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
+				.applySettings(configuration.getProperties())
+				.buildServiceRegistry();
+
+		SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
+
+		s = sf.openSession();
 	}
 
 	public Session getSession() {
-		return session;
+		return s;
 	}
 
 }

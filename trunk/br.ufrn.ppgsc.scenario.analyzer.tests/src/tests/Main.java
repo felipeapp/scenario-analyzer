@@ -9,11 +9,13 @@ public class Main {
 	
 	@Robustness(name="robustness_convert")
 	public int convertToInt(String str) {
+		int a = 0;
+		
 		try {
-			int a = 1 / 1;
+			a = 1 / 1;
 		}
 		catch (ArithmeticException e) {
-			
+			System.out.println("ArithmeticException: " + a);
 		}
 		
 		try {
