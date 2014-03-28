@@ -1,4 +1,4 @@
-package test.convert.signature;
+package br.ufrn.ppgsc.scenario.analyzer.signature;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
