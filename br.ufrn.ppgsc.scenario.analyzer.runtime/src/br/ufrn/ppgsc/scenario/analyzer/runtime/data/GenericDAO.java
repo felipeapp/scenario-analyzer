@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 
 public abstract class GenericDAO<T extends Serializable> {
 
@@ -15,12 +15,11 @@ public abstract class GenericDAO<T extends Serializable> {
 
 	public abstract List<T> readAll(Class<T> clazz);
 
-	private static SessionFactory sf;
 	private static Session s;
 
 	public static Session getSession() {
-		if (sf == null && s == null) {
-			sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
+		if (s == null) {
+			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
 		}
 

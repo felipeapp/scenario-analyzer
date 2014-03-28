@@ -1,10 +1,10 @@
 package threads;
 
-import org.springframework.stereotype.Component;
+//import org.springframework.stereotype.Component;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 
-@Component
+//@Component
 public class MainThread {
 
 	private long time;

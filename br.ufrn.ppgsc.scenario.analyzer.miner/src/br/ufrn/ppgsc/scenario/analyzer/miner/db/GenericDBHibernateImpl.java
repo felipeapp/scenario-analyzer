@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StringType;
 
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
@@ -52,7 +54,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 				"select count(node.id) total from node where member = :signature");
 
 		query.setString("signature", signature);
-		query.addScalar("total", Hibernate.INTEGER);
+		query.addScalar("total", IntegerType.INSTANCE);
 
 		return (int) query.uniqueResult();
 	}
@@ -68,8 +70,8 @@ public class GenericDBHibernateImpl extends GenericDB {
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
-		query.addScalar("signature", Hibernate.STRING);
-		query.addScalar("average", Hibernate.DOUBLE);
+		query.addScalar("signature", StringType.INSTANCE);
+		query.addScalar("average", DoubleType.INSTANCE);
 
 		for (Object o : query.list()) {
 			Map<?, ?> elem = (Map<?, ?>) o;
@@ -90,7 +92,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 				+ " node.member = :signature order by scenario.name");
 
 		query.setString("signature", signature);
-		query.addScalar("sname", Hibernate.STRING);
+		query.addScalar("sname", StringType.INSTANCE);
 
 		for (Object o : query.list())
 			result.add((String) o);

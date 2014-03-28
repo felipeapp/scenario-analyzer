@@ -12,7 +12,6 @@ import br.ufrn.ppgsc.scenario.analyzer.util.JDTWALADataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.util.ScenarioAnalyzerUtil;
 
 import com.ibm.wala.cast.java.ipa.callgraph.JavaSourceAnalysisScope;
-import com.ibm.wala.classLoader.CallSiteReference;
 import com.ibm.wala.ipa.callgraph.CGNode;
 
 // TODO Adicionar signature para este elemento como key

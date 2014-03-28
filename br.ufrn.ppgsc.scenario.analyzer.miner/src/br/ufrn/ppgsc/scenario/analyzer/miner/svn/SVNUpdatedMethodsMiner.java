@@ -24,7 +24,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.parser.MethodLimitBuilder;
 
 public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 
-	private final Logger logger = Logger.getLogger(SVNUpdatedMethodsMiner.class);
+	private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 	
 	private Map<String, Collection<UpdatedMethod>> changedMethods;
 	private Map<String, SVNUpdatedLinesHandler> handlers;
