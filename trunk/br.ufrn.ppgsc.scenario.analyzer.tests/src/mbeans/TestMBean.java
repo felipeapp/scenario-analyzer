@@ -3,9 +3,9 @@ package mbeans;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-@Component
+//import org.springframework.stereotype.Component;
+//
+//@Component
 public class TestMBean {
 
 	private String nome;

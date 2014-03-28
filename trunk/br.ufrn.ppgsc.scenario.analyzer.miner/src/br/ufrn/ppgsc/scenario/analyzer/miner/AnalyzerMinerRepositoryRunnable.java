@@ -201,8 +201,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 	public void run() throws FileNotFoundException {
 		int i = 0;
 		
-		/* Assinaturas de métodos que contribuiram especificamente para a degradação do desempenho
-		 * Será usada na mineração final.
+		/* 
+		 * Guarda as assinaturas de métodos que contribuiram especificamente
+		 * para a degradação do desempenho. Esta lista será usada na mineração final.
 		 */
 		List<String> p_degradated_changed_methods = new ArrayList<String>();
 		
@@ -245,16 +246,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 			if (map_path_upmethod == null)
 				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
-			// Os que foram modificados e est�o dentro do crit�rio (degradados, por exemplo)
+			// Os que foram modificados e estão dentro do critério analisado (degradados, por exemplo)
 			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
-			// Percorre a estrutura para filtrar os m�todos de interesse para cada path
+			// Percorre a estrutura para filtrar os métodos de interesse para cada path
 			for (String path : map_path_upmethod.keySet()) {
 				for (UpdatedMethod upm : map_path_upmethod.get(path)) {
 					/* 
-					 * Testa se o nome do m�todo casa com a assinatura do m�todo
-					 * Limita��o quando o m�todo tem formas diferentes com o mesmo nome
-					 * A limita��o � causada devido o parser do JDT que est� sendo usado
+					 * Testa se o nome do método casa com a assinatura do método
+					 * Limitação quando o método tem formas diferentes com o mesmo nome
+					 * A limitação é causada devido o parser do JDT que está sendo usado
 					 */
 					String sig_matched = matchesName(path, upm.getMethodLimit().getSignature(), signatures);
 					
@@ -275,9 +276,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 			}
 			
 			/*
-			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolu��o, considerando
-			 * as classes dos m�todos para o problema sendo analisado. Note que algumas classes
-			 * podem ter mudan�as em m�todos, mas estes n�o terem sido degradados neste caso.
+			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolução, considerando
+			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
+			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
 			 */
 			Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(map_path_upmethod);
 			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
@@ -285,7 +286,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			/*
 			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
 			 * por exemplo, quantas vezes o tipo de tarefa aparece para m�todos com desempenho
-			 * degradado. Agora, s�o apenas os m�todos modificados e afetados pelo problema analisado.
+			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
 			 */
 			Map<String, Collection<UpdatedMethod>> filtrated_task_members = getTaskMembers(filtrated_path_upmethod);
 			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);

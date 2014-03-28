@@ -1,5 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,7 +24,6 @@ import javax.persistence.OrderBy;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
-// TODO: adicionar um booleano para dizer se o membro é um construtor ou método
 @Entity(name = "node")
 public class RuntimeNode {
 
@@ -33,16 +32,17 @@ public class RuntimeNode {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Lob
-	@Column(name = "member")
+	@Column(name = "member", columnDefinition = "text")
 	private String memberSignature;
 
-	@Lob
-	@Column(name = "exception")
+	@Column(name = "exception", columnDefinition = "text")
 	private String exceptionMessage;
 
 	@Column(name = "time")
 	private long executionTime;
+
+	@Column(name = "constructor")
+	private boolean isConstructor;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "node_annotation",
@@ -58,7 +58,7 @@ public class RuntimeNode {
 	@JoinColumn(name = "parent_id", referencedColumnName = "id")
 	@OrderBy("id asc")
 	private List<RuntimeNode> children;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "node_scenario",
 		joinColumns = @JoinColumn(name = "node_id"),
@@ -75,6 +75,7 @@ public class RuntimeNode {
 		scenarios = new ArrayList<RuntimeScenario>();
 		memberSignature = MemberUtil.getStandartMethodSignature(member);
 		annotations = RuntimeUtil.parseMemberAnnotations(member);
+		isConstructor = member instanceof Constructor;
 	}
 
 	public long getId() {
@@ -109,6 +110,14 @@ public class RuntimeNode {
 		this.executionTime = executionTime;
 	}
 
+	public boolean isConstructor() {
+		return isConstructor;
+	}
+
+	public void setConstructor(boolean isConstructor) {
+		this.isConstructor = isConstructor;
+	}
+
 	public List<RuntimeScenario> getScenarios() {
 		return Collections.unmodifiableList(scenarios);
 	}
@@ -116,7 +125,7 @@ public class RuntimeNode {
 	public void setScenarios(List<RuntimeScenario> scenarios) {
 		this.scenarios = scenarios;
 	}
-	
+
 	public void addScenario(RuntimeScenario scenario) {
 		scenarios.add(scenario);
 	}

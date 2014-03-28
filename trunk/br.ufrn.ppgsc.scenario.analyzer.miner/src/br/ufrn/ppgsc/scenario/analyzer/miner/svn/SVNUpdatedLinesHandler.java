@@ -21,7 +21,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 
-	private final Logger logger = Logger.getLogger(SVNUpdatedLinesHandler.class);
+	private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
 	
 	private static final Map<Long, List<IContentIssue>> cache_revision_issues =
 			new HashMap<Long, List<IContentIssue>>();
