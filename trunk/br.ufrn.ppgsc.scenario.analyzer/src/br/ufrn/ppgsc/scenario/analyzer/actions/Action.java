@@ -23,7 +23,7 @@ public class Action implements IObjectActionDelegate {
 
 	private Shell shell;
 	private ISelection selection;
-	
+
 	/**
 	 * Constructor for Action1.
 	 */
@@ -46,15 +46,15 @@ public class Action implements IObjectActionDelegate {
 		IAdaptable adaptable = (IAdaptable) element;
 		IResource resource = (IResource) adaptable.getAdapter(IResource.class);
 		IProject project = resource.getProject();
-		
+
 		ScenarioAnalyzerUtil.setFactoryDataElement(FactoryDataElementImpl.class);
 		ScenarioAnalyzerUtil.setProjectProcessor(JavaProjectProcessor.class);
 		ScenarioAnalyzerUtil.setAnnotationProcessor(AnnotationProcessor.class);
-		
+
 		ScenarioAnalyzerUtil.getAnnotationProcessor().addProcessorQA(PerformanceProcessor.class);
 		ScenarioAnalyzerUtil.getAnnotationProcessor().addProcessorQA(SecurityProcessor.class);
 		ScenarioAnalyzerUtil.getAnnotationProcessor().addProcessorQA(ReliabilityProcessor.class);
-		
+
 		ScenarioAnalyzerUtil.getProjectProcessor().process(project);
 	}
 
@@ -63,6 +63,13 @@ public class Action implements IObjectActionDelegate {
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = selection;
+	}
+
+	/**
+	 * Retorna o shell
+	 */
+	public Shell getShell() {
+		return shell;
 	}
 
 }
