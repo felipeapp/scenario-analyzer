@@ -2,12 +2,10 @@ package tests;
 
 import java.io.IOException;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 
 public class Main {
 	
-	@Robustness(name="robustness_convert")
 	public int convertToInt(String str) {
 		int a = 0;
 		
@@ -25,7 +23,6 @@ public class Main {
 		}
 	}
 	
-	@Robustness(name="robstness_divide")
 	public int divide(int a, int b, int[] c) {
 		return a / b;
 	}
