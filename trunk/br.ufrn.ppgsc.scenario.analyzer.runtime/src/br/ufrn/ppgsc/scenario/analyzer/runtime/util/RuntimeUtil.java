@@ -13,13 +13,11 @@ import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Reliability;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimePerformance;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeReliability;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeRobustness;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeSecurity;
 
 public abstract class RuntimeUtil {
@@ -85,24 +83,6 @@ public abstract class RuntimeUtil {
 		return rs;
 	}
 	
-	private static RuntimeRobustness getRuntimeRobustnessAnnotation(Member member) {
-		RuntimeRobustness rb = null;
-		Annotation annotation = ((AnnotatedElement) member).getAnnotation(Robustness.class);
-
-		if (annotation != null) {
-			Robustness rann = (Robustness) annotation;
-
-			rb = (RuntimeRobustness) annotations.get(rann.name());
-
-			if (rb == null) {
-				rb = new RuntimeRobustness(rann.name());
-				annotations.put(rann.name(), rb);
-			}
-		}
-
-		return rb;
-	}
-	
 	private static RuntimeReliability getRuntimeReliabilityAnnotation(Member member) {
 		RuntimeReliability rr = null;
 		Annotation annotation = ((AnnotatedElement) member).getAnnotation(Reliability.class);
@@ -131,10 +111,6 @@ public abstract class RuntimeUtil {
 		RuntimeSecurity security = RuntimeUtil.getRuntimeSecurityAnnotation(member);
 		if (security != null)
 			set.add(security);
-		
-		RuntimeRobustness robustness = RuntimeUtil.getRuntimeRobustnessAnnotation(member);
-		if (robustness != null)
-			set.add(robustness);
 		
 		RuntimeReliability reliability = RuntimeUtil.getRuntimeReliabilityAnnotation(member);
 		if (reliability != null)

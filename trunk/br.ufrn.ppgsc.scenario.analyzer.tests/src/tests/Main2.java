@@ -2,7 +2,6 @@ package tests;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Reliability;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Robustness;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 
@@ -42,7 +41,6 @@ public class Main2 {
 
 	@Performance(name = "qa_d_performance", limitTime = 5)
 	@Reliability(name = "qa_d_reliability", failureRate = 0.01)
-	@Robustness(name = "qa_d_robustness")
 	@Security(name = "qa_d_security")
 	public void D() {
 		try {
