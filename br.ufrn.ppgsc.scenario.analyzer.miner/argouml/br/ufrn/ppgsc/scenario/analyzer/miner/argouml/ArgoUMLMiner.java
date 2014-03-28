@@ -29,7 +29,8 @@ public class ArgoUMLMiner {
 	public ArgoUMLMiner() {
 		properties = new Properties();
 		try {
-			properties.load(new FileInputStream("resources/argouml.properties"));
+			properties
+					.load(new FileInputStream("resources/argouml.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,7 +56,7 @@ public class ArgoUMLMiner {
 
 	private Issue getIssueInfo(Integer issueId) throws IOException,
 			JDOMException, ParseException {
-		SAXBuilder builder = new SAXBuilder(false);
+		SAXBuilder builder = new SAXBuilder();
 		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(properties
 				.getProperty("host") + issueId);
 		InputStreamReader isr = new InputStreamReader(inputStream);
@@ -74,7 +75,7 @@ public class ArgoUMLMiner {
 
 		StringReader sr = new StringReader(sb.toString());
 		InputSource inputSource = new InputSource(sr);
-		builder.setValidation(false);
+		// builder.setValidation(true);
 		Document doc = builder.build(inputSource);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

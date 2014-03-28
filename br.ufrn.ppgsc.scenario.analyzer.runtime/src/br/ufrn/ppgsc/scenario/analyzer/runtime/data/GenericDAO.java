@@ -22,12 +22,15 @@ public abstract class GenericDAO<T extends Serializable> {
 
 	public static Session getSession() {
 		if (s == null) {
-			Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
+			Configuration configuration = new Configuration()
+					.configure("hibernate.cfg.xml");
 
-			ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-					configuration.getProperties()).buildServiceRegistry();
-			
-			SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
+			ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
+					.applySettings(configuration.getProperties())
+					.buildServiceRegistry();
+
+			SessionFactory sf = configuration
+					.buildSessionFactory(serviceRegistry);
 
 			s = sf.openSession();
 		}

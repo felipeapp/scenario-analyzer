@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
@@ -24,7 +24,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.parser.MethodLimitBuilder;
 
 public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 
-	private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+	private final Logger logger = Logger.getLogger(SVNUpdatedMethodsMiner.class);
 	
 	private Map<String, Collection<UpdatedMethod>> changedMethods;
 	private Map<String, SVNUpdatedLinesHandler> handlers;
@@ -39,20 +39,12 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
     
     private SVNRepository repository;
     private SVNClientManager client;
-
-    public void initialize(String url, String user, String password, List<String> targetPaths, List<Long> startRevisions, List<Long> endRevisions) {
+    
+	public void connect(String url, String user, String password) {
 		this.url = url;
 		this.user = user;
 		this.password = password;
-		this.targetPaths = targetPaths;
-		this.startRevisions = startRevisions;
-		this.endRevisions = endRevisions;
 		
-		this.handlers = new HashMap<String, SVNUpdatedLinesHandler>();
-		this.changedMethods = new HashMap<String, Collection<UpdatedMethod>>();
-	}
-    
-	public void configure() {
 		DAVRepositoryFactory.setup();
 
         try {
@@ -66,6 +58,15 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
         ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(user, password);
         repository.setAuthenticationManager(authManager);
 		client.setAuthenticationManager(authManager);
+	}
+	
+	public void initialize(List<String> targetPaths, List<Long> startRevisions, List<Long> endRevisions) {
+		this.targetPaths = targetPaths;
+		this.startRevisions = startRevisions;
+		this.endRevisions = endRevisions;
+		
+		this.handlers = new HashMap<String, SVNUpdatedLinesHandler>();
+		this.changedMethods = new HashMap<String, Collection<UpdatedMethod>>();
 	}
 	
 	public Map<String, Collection<UpdatedMethod>> mine() {
@@ -128,6 +129,18 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 		return changedMethods;
 	}
 	
+	public String getUrl() {
+		return url;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	// Path indica um caminho local
 	public long getCommittedRevisionNumber(String path) {
 		try {

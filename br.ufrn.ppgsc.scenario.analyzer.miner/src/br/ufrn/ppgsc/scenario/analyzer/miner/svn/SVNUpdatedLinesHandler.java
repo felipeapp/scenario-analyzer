@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNRevisionProperty;
 import org.tmatesoft.svn.core.io.SVNRepository;
@@ -21,7 +21,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 
-	private final Logger logger = Logger.getLogger(this.getClass().getSimpleName());
+	private final Logger logger = Logger.getLogger(SVNUpdatedLinesHandler.class);
 	
 	private static final Map<Long, List<IContentIssue>> cache_revision_issues =
 			new HashMap<Long, List<IContentIssue>>();

@@ -8,14 +8,18 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public interface IRepositoryMiner {
 
-	public void initialize(String url, String user, String password,
-			List<String> targetPaths, List<Long> startRevisions,
-			List<Long> endRevisions);
+	public void connect(String url, String user, String password);
 
-	public void configure();
+	public void initialize(List<String> targetPaths, List<Long> startRevisions, List<Long> endRevisions);
 
 	public Map<String, Collection<UpdatedMethod>> mine();
 
 	public long getCommittedRevisionNumber(String path);
+
+	public String getUrl();
+
+	public String getUser();
+
+	public String getPassword();
 
 }

@@ -11,20 +11,21 @@ public class TestMiner {
 	
 	public static void main(String[] args) throws Exception {
 		
-		Collection<UpdatedMethod> result = new RepositoryManager().getUpdatedMethodsFromRepository(
-				"http://scenario-analyzer.googlecode.com/svn", "", "",
+		RepositoryManager repository = new RepositoryManager("http://scenario-analyzer.googlecode.com/svn", "", "");
+//		RepositoryManager repository = new RepositoryManager("http://desenvolvimento.info.ufrn.br/projetos", "felipe_app", "s870312n");
+//		RepositoryManager repository = new RepositoryManager("http://desenvolvimento.info.ufrn.br/projetos", "user", "password");
+		
+		Collection<UpdatedMethod> result = repository.getUpdatedMethodsFromRepository(
 				"/trunk/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java",
 				"/home/felipe/Doutorado/workspaces/workspace-analyzer/br.ufrn.ppgsc.scenario.analyzer.tests_oldrevision/src/tests/Main.java",
 				"/home/felipe/Doutorado/workspaces/workspace-analyzer/br.ufrn.ppgsc.scenario.analyzer.tests/src/tests/Main.java");
 		
-//		Collection<UpdatedMethod> result = UpdatedMethodsMinerUtil.getUpdatedMethodsFromRepository(
-//				"http://desenvolvimento.info.ufrn.br/projetos", "felipe_app", "s870312n",
+//		Collection<UpdatedMethod> result = repository.getUpdatedMethodsFromRepository(
 //				"/trunk/Arquitetura/src/br/ufrn/arq/email/Mail.java",
 //				"C:/Eclipse/EclipseDoutorado/workspace/Arquitetura_2.5.22/src/br/ufrn/arq/email/Mail.java",
 //				"C:/Eclipse/EclipseDoutorado/workspace/Arquitetura_2.6.26/src/br/ufrn/arq/email/Mail.java");
-		
-//		Collection<UpdatedMethod> result = UpdatedMethodsMinerUtil.getUpdatedMethodsFromRepository(
-//				"http://desenvolvimento.info.ufrn.br/projetos", "user", "password",
+//		
+//		Collection<UpdatedMethod> result = repository.getUpdatedMethodsFromRepository(
 //				"/trunk/Arquitetura/src/br/ufrn/arq/email/Mail.java", 123141, 136067);
 		
 		for (UpdatedMethod m : result) {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
