@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
 
 /*
  * Ter uma anotção de scenario é caso base para iniciar a construção da estrutura.
@@ -49,7 +49,7 @@ public aspect AspectScenario {
 	Object around() : scenarioExecution() && !executionIgnored() {
 		long begin, end;
 		
-		Execution execution = RuntimeUtil.getInstance().getCurrentExecution();
+		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
 		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();

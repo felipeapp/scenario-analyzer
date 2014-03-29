@@ -11,21 +11,21 @@ import java.util.Properties;
 import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.runtime.annotation.GenericAnnotationParser;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
 
-public class RuntimeUtil {
+public class RuntimeCallGraph {
 
-	private static final RuntimeUtil runtimeUtil = new RuntimeUtil();
+	private static final RuntimeCallGraph runtimeUtil = new RuntimeCallGraph();
 	
-	private Execution execution = new Execution();
+	private SystemExecution execution = new SystemExecution();
 	private Map<String, RuntimeGenericAnnotation> annotations;
 	private List<GenericAnnotationParser> parsers;
 
-	private RuntimeUtil() {
+	private RuntimeCallGraph() {
 		Properties props = new Properties();
 		
-		execution = new Execution();
+		execution = new SystemExecution();
 		annotations = new HashMap<String, RuntimeGenericAnnotation>();
 		
 		try {
@@ -44,11 +44,11 @@ public class RuntimeUtil {
 		execution.setSystemVersion(version == null ? "Unknown" : version);
 	}
 	
-	public static RuntimeUtil getInstance() {
+	public static RuntimeCallGraph getInstance() {
 		return runtimeUtil;
 	}
 	
-	public Execution getCurrentExecution() {
+	public SystemExecution getCurrentExecution() {
 		return execution;
 	}
 

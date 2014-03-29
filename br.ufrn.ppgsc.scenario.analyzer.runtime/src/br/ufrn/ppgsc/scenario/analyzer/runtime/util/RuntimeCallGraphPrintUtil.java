@@ -8,7 +8,7 @@ import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 
-public abstract class PrintUtil {
+public abstract class RuntimeCallGraphPrintUtil {
 	
 	public static void printScenarioTree(RuntimeScenario tree, Appendable buffer) throws IOException {
 		buffer.append("Scenario: " + tree.getName() + " (ThreadId: " + tree.getThreadId() + ", Request: ");

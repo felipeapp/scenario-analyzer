@@ -4,10 +4,10 @@ import java.lang.reflect.Member;
 import java.util.Stack;
 
 import br.ufrn.ppgsc.scenario.analyzer.runtime.db.DatabaseService;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
 
 public aspect AspectMBean {
 	

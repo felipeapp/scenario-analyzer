@@ -6,8 +6,8 @@ import java.util.List;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 
-//TODO: Remover, pois atualmente ninguém está usando esta classe
-public abstract class QueryRuntimeUtil {
+//TODO: Pode ser removido, pois atualmente ninguém está usando esta classe
+public abstract class RuntimeCallGraphQueryUtil {
 
 	/*
 	 * O método iniciou o lançamento de uma exceção quando ele não terminou de

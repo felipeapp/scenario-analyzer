@@ -15,10 +15,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.db.DatabaseService;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 public abstract class AspectsUtil {
@@ -95,7 +95,7 @@ public abstract class AspectsUtil {
 	}
 	
 	protected static void popStacksAndPersistData(long time, Member member) {
-		Execution execution = RuntimeUtil.getInstance().getCurrentExecution();
+		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
 		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();

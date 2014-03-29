@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
 
 @Entity(name = "scenario")
 public class RuntimeScenario implements Serializable {
@@ -42,7 +42,7 @@ public class RuntimeScenario implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "execution_id")
-	private Execution execution;
+	private SystemExecution execution;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private RuntimeNode root;
@@ -62,7 +62,7 @@ public class RuntimeScenario implements Serializable {
 		this.root = root;
 		this.name = name;
 		this.date = new Date();
-		this.execution = RuntimeUtil.getInstance().getCurrentExecution();
+		this.execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 
 		if (context != null)
 			this.context = Collections.unmodifiableMap(context);
@@ -92,11 +92,11 @@ public class RuntimeScenario implements Serializable {
 		this.date = date;
 	}
 
-	public Execution getExecution() {
+	public SystemExecution getExecution() {
 		return execution;
 	}
 
-	public void setExecution(Execution execution) {
+	public void setExecution(SystemExecution execution) {
 		this.execution = execution;
 	}
 
