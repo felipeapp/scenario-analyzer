@@ -2,10 +2,10 @@ package mbeans;
 
 import java.io.IOException;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.PrintUtil;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraphPrintUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
 
 public class MainMBean {
 
@@ -19,7 +19,7 @@ public class MainMBean {
 			bean.getIdade();
 		}
 
-		Execution e = RuntimeUtil.getInstance().getCurrentExecution();
+		SystemExecution e = RuntimeCallGraph.getInstance().getCurrentExecution();
 
 		System.out.println(e.getId() + " - " + e.getDate());
 
@@ -27,7 +27,7 @@ public class MainMBean {
 			StringBuilder sb = new StringBuilder();
 
 			try {
-				PrintUtil.printScenarioTree(rs, sb);
+				RuntimeCallGraphPrintUtil.printScenarioTree(rs, sb);
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}

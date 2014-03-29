@@ -1,12 +1,8 @@
 package br.ufrn.ppgsc.scenario.analyzer.runtime.annotation;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Member;
-import java.util.Properties;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;

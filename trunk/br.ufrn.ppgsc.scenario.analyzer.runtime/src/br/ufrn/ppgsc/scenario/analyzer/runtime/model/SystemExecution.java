@@ -13,8 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
-public class Execution implements Serializable {
+@Entity(name = "execution")
+public class SystemExecution implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class Execution implements Serializable {
 	@OneToMany(mappedBy = "execution", fetch = FetchType.LAZY)
 	private List<RuntimeScenario> scenarios;
 
-	public Execution() {
+	public SystemExecution() {
 		scenarios = new LinkedList<RuntimeScenario>();
 		date = new Date();
 	}

@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
 @Entity(name = "node")
@@ -74,7 +74,7 @@ public class RuntimeNode {
 		children = new ArrayList<RuntimeNode>();
 		scenarios = new ArrayList<RuntimeScenario>();
 		memberSignature = MemberUtil.getStandartMethodSignature(member);
-		annotations = RuntimeUtil.getInstance().parseMemberAnnotations(member);
+		annotations = RuntimeCallGraph.getInstance().parseMemberAnnotations(member);
 		isConstructor = member instanceof Constructor;
 	}
 
