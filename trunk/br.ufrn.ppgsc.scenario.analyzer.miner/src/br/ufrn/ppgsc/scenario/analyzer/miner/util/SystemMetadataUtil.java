@@ -44,64 +44,26 @@ public class SystemMetadataUtil {
 	public int getIntProperty(String name) {
 		return Integer.parseInt(properties.getProperty(name));
 	}
-	
+
 	public boolean getBooleanProperty(String name) {
 		return Boolean.parseBoolean(properties.getProperty(name));
 	}
 
-	public IPathTransformer getPathTransformerObject() {
-		IPathTransformer object = null;
+	public <T> T newObjectFromProperties(Class<T> clazz) {
+		T object = null;
+		String name = null;
+
+		if (clazz.equals(IPathTransformer.class))
+			name = "path_transformer";
+		else if (clazz.equals(IQueryIssue.class))
+			name = "query_issue";
+		else if (clazz.equals(IContentIssue.class))
+			name = "content_issue";
+		else if (clazz.equals(IRepositoryMiner.class))
+			name = "repository_miner";
 
 		try {
-			object = (IPathTransformer) Class.forName(properties.getProperty("path_transformer")).newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return object;
-	}
-
-	public IQueryIssue getQueryIssueObject() {
-		IQueryIssue object = null;
-
-		try {
-			object = (IQueryIssue) Class.forName(properties.getProperty("query_issue")).newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return object;
-	}
-
-	public IContentIssue getContentIssueObject() {
-		IContentIssue object = null;
-
-		try {
-			object = (IContentIssue) Class.forName(properties.getProperty("content_issue")).newInstance();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return object;
-	}
-	
-	public IRepositoryMiner getRepositoryMinerObject() {
-		IRepositoryMiner object = null;
-
-		try {
-			object = (IRepositoryMiner) Class.forName(properties.getProperty("repository_miner")).newInstance();
+			object = clazz.cast(Class.forName(properties.getProperty(name)).newInstance());
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

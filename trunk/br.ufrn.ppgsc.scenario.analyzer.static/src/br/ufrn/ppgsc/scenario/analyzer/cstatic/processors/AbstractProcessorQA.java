@@ -1,6 +1,7 @@
 package br.ufrn.ppgsc.scenario.analyzer.cstatic.processors;
 
 import org.eclipse.jdt.core.dom.Annotation;
+import org.eclipse.jdt.core.dom.IAnnotationBinding;
 import org.eclipse.jdt.core.dom.IMethodBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
@@ -26,13 +27,15 @@ public abstract class AbstractProcessorQA {
 			 */
 			if (method_data != null) {
 				AbstractQAData qa_data = createInstance();
-				qa_data.setName(ScenarioAnalyzerUtil.getAnnotationValue(node.resolveAnnotationBinding(), "name"));
+				IAnnotationBinding ann_binding = node.resolveAnnotationBinding();
+				
+				qa_data.setName((String) ScenarioAnalyzerUtil.getAnnotationValue(ann_binding, "name"));
 	
 				method_data.getQualityAttributes().add(qa_data);
 				qa_data.setMethod(method_data);
 				qa_data.setType(getAnnotationClass());
 	
-				setFields(qa_data, node);
+				setExtraFields(qa_data, ann_binding);
 			} else {
 				System.err.println("[AbstractProcessorQA] Ignoring annotation @" + node.getTypeName().getFullyQualifiedName()
 						+ " in " + method_binding.getDeclaringClass().getQualifiedName() + "." + method_binding.getName());
@@ -42,12 +45,11 @@ public abstract class AbstractProcessorQA {
 		
 	}
 
-	public void setFields(AbstractQAData qa_data, Annotation node) {
-
-	}
-
 	public abstract AbstractQAData createInstance();
 	
 	public abstract Class<? extends java.lang.annotation.Annotation> getAnnotationClass();
+	
+	public void setExtraFields(AbstractQAData qa_data, IAnnotationBinding ann_binding) { }
+	
 
 }
