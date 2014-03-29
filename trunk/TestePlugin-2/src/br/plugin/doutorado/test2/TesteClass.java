@@ -1,8 +1,8 @@
 package br.plugin.doutorado.test2;
 
 import br.plugin.doutorado.test.Main;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Component;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 @Component(name="cTesteClass")
 public class TesteClass {
