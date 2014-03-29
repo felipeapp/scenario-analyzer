@@ -21,6 +21,7 @@ import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.AbstractQAData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ComponentData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.IAnnotationProcessor;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.IProjectProcessor;
 
@@ -33,10 +34,11 @@ import com.ibm.wala.util.strings.Atom;
 
 public abstract class ScenarioAnalyzerUtil {
 
-	private static Map<String, JDTWALADataStructure> data;
+	private static Map<String, IDataStructure> data;
 	private static FactoryDataElement factory;
 	private static IProjectProcessor projectProcessor;
 	private static IAnnotationProcessor annotationProcessor;
+	private static Class<? extends IDataStructure> dataStructureBuilder;
 
 	public static FactoryDataElement getFactoryDataElement() {
 		return factory;
@@ -79,19 +81,32 @@ public abstract class ScenarioAnalyzerUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void setDataStructureBuilder(Class<? extends IDataStructure> cls) {
+		dataStructureBuilder = cls;
+	}
 
-	public static JDTWALADataStructure createDataStructure(String version) {
+	public static IDataStructure createDataStructure(String version) {
+		IDataStructure ds = null;
+		
 		if (data == null)
-			data = new HashMap<String, JDTWALADataStructure>();
-
-		JDTWALADataStructure ds = new JDTWALADataStructure(version);
-
+			data = new HashMap<String, IDataStructure>();
+		
+		try {
+			ds = dataStructureBuilder.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+		ds.setVersion(version);
 		data.put(ds.getVersion(), ds);
 
 		return ds;
 	}
 
-	public static JDTWALADataStructure getDataStructureInstance(String version) {
+	public static IDataStructure getDataStructureInstance(String version) {
 		return data.get(version);
 	}
 
@@ -105,7 +120,7 @@ public abstract class ScenarioAnalyzerUtil {
 		return (CompilationUnit) parser.createAST(null);
 	}
 
-	public static void printDataStructure(JDTWALADataStructure data, PrintStream out) {
+	public static void printDataStructure(IDataStructure data, PrintStream out) {
 		for (ScenarioData scenario : data.getScenarios()) {
 			out.println("**********************\nScenario: " + scenario.getName());
 			printMethod(scenario.getStartMethod(), new HashSet<MethodData>(), "   ", out);
@@ -331,7 +346,7 @@ public abstract class ScenarioAnalyzerUtil {
 	/*
 	 * TODO Ver como tornar este método não sensível a troca de nome do cenário
 	 */
-	public static Set<ScenarioData> getAddedScenarios(JDTWALADataStructure datav1, JDTWALADataStructure datav2) {
+	public static Set<ScenarioData> getAddedScenarios(IDataStructure datav1, IDataStructure datav2) {
 		Set<ScenarioData> result = new HashSet<ScenarioData>();
 
 		for (ScenarioData sv2 : datav2.getScenarios()) {
@@ -388,7 +403,7 @@ public abstract class ScenarioAnalyzerUtil {
 	 * diferencias, por exemplo, quando a assinatura dos métodos mudam, apesar
 	 * do path ser o mesmo
 	 */
-	public static Set<ScenarioData> getUpdatedScenarios(JDTWALADataStructure dv1, JDTWALADataStructure dv2) {
+	public static Set<ScenarioData> getUpdatedScenarios(IDataStructure dv1, IDataStructure dv2) {
 		Set<ScenarioData> result = new HashSet<ScenarioData>();
 
 		for (ScenarioData sv1 : dv1.getScenarios()) {
@@ -411,7 +426,7 @@ public abstract class ScenarioAnalyzerUtil {
 		return result;
 	}
 
-	public static Set<ScenarioData> getRemovedScenarios(JDTWALADataStructure datav1, JDTWALADataStructure datav2) {
+	public static Set<ScenarioData> getRemovedScenarios(IDataStructure datav1, IDataStructure datav2) {
 		Set<ScenarioData> result = new HashSet<ScenarioData>();
 
 		for (ScenarioData sv1 : datav1.getScenarios()) {
@@ -431,7 +446,7 @@ public abstract class ScenarioAnalyzerUtil {
 		return result;
 	}
 
-	public static Set<ScenarioData> getUnchangedScenarios(JDTWALADataStructure datav1, JDTWALADataStructure datav2) {
+	public static Set<ScenarioData> getUnchangedScenarios(IDataStructure datav1, IDataStructure datav2) {
 		Set<ScenarioData> result = new HashSet<ScenarioData>();
 
 		for (ScenarioData sv1 : datav1.getScenarios())

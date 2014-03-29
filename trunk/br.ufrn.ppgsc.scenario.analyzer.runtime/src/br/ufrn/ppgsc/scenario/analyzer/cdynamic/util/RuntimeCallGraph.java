@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.cdynamic.annotation.GenericAnnotationParser;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.parsers.GenericAnnotationParser;
 
 public class RuntimeCallGraph {
 

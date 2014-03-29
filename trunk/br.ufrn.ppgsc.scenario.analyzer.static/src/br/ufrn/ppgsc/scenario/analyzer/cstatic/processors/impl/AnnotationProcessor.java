@@ -16,10 +16,10 @@ import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ClassData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ComponentData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.AbstractProcessorQA;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.IAnnotationProcessor;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.FactoryDataElement;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.JDTWALADataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
 
 public class AnnotationProcessor implements IAnnotationProcessor {
@@ -40,7 +40,7 @@ public class AnnotationProcessor implements IAnnotationProcessor {
 		}
 	}
 	
-	public void process(JDTWALADataStructure data) {
+	public void process(IDataStructure data) {
 		// Primeiro processa os casos de uso anotados
 		for (Annotation annotation : data.getAnnotations(Scenario.class))
 			processScenario(data, annotation);
@@ -58,7 +58,7 @@ public class AnnotationProcessor implements IAnnotationProcessor {
 		}
 	}
 	
-	private void processComponent(JDTWALADataStructure data, Annotation node) {
+	private void processComponent(IDataStructure data, Annotation node) {
 		ASTNode node_parent = node.getParent();
 		
 		if (node_parent instanceof TypeDeclaration) {
@@ -81,7 +81,7 @@ public class AnnotationProcessor implements IAnnotationProcessor {
 		}
 	}
 
-	private void processScenario(JDTWALADataStructure data, Annotation node) {
+	private void processScenario(IDataStructure data, Annotation node) {
 		// Fábrica para os elementos de dados
 		FactoryDataElement factory = ScenarioAnalyzerUtil.getFactoryDataElement();
 		

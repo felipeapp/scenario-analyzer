@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.impl;
+package br.ufrn.ppgsc.scenario.analyzer.cstatic.wala;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -8,14 +8,13 @@ import org.eclipse.jdt.core.JavaModelException;
 
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ClassData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.JDTWALADataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.visitors.AnnotationVisitor;
 
 import com.ibm.wala.classLoader.IMethod;
 import com.ibm.wala.ipa.callgraph.CGNode;
 
-public class ElementIndexer {
+public class WALAElementIndexer {
 	
 	public void indexMethod(JDTWALADataStructure data) {
 		for (CGNode node : data.getCallGraph()) {

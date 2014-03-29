@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.cdynamic.annotation;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.parsers;
 
 import java.lang.reflect.Member;
 import java.util.ArrayList;

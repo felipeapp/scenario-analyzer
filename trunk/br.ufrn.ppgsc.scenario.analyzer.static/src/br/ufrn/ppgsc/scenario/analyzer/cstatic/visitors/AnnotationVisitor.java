@@ -5,7 +5,7 @@ import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.JDTWALADataStructure;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.wala.JDTWALADataStructure;
 
 public class AnnotationVisitor extends ASTVisitor {
 

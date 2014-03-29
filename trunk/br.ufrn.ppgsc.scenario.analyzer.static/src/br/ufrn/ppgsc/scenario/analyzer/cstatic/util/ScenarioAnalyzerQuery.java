@@ -17,12 +17,13 @@ import br.ufrn.ppgsc.scenario.analyzer.common.util.MemberUtil;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.AbstractQAData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
 
 public class ScenarioAnalyzerQuery {
 	
-	private JDTWALADataStructure data;
+	private IDataStructure data;
 	
-	public ScenarioAnalyzerQuery(JDTWALADataStructure data) {
+	public ScenarioAnalyzerQuery(IDataStructure data) {
 		this.data = data;
 	}
 	
