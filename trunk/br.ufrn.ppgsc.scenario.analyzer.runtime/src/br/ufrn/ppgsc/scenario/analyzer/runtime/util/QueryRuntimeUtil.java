@@ -3,8 +3,8 @@ package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 
 //TODO: Remover, pois atualmente ninguém está usando esta classe
 public abstract class QueryRuntimeUtil {

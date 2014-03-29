@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.model;
 
 import java.io.Serializable;
 import java.util.Date;

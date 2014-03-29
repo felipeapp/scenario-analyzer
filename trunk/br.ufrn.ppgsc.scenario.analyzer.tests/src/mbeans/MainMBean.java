@@ -2,8 +2,8 @@ package mbeans;
 
 import java.io.IOException;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.PrintUtil;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 
@@ -19,7 +19,7 @@ public class MainMBean {
 			bean.getIdade();
 		}
 
-		Execution e = RuntimeUtil.getCurrentExecution();
+		Execution e = RuntimeUtil.getInstance().getCurrentExecution();
 
 		System.out.println(e.getId() + " - " + e.getDate());
 

@@ -14,10 +14,10 @@ import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.DatabaseService;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.db.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
 
@@ -95,7 +95,7 @@ public abstract class AspectsUtil {
 	}
 	
 	protected static void popStacksAndPersistData(long time, Member member) {
-		Execution execution = RuntimeUtil.getCurrentExecution();
+		Execution execution = RuntimeUtil.getInstance().getCurrentExecution();
 		
 		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
@@ -121,7 +121,7 @@ public abstract class AspectsUtil {
 			DatabaseService.saveResults(execution);
 	}
 	
-	protected static void setRobustness(Throwable t, Member m) {
+	protected static void setException(Throwable t, Member m) {
 		Stack<RuntimeNode> nodes_stack = getOrCreateRuntimeNodeStack();
 		
 		// Se estiver vazia é porque o método não faz parte de cenário

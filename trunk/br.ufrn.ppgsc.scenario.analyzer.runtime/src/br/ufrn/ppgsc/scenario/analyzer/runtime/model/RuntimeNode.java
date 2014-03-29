@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
@@ -74,7 +74,7 @@ public class RuntimeNode {
 		children = new ArrayList<RuntimeNode>();
 		scenarios = new ArrayList<RuntimeScenario>();
 		memberSignature = MemberUtil.getStandartMethodSignature(member);
-		annotations = RuntimeUtil.parseMemberAnnotations(member);
+		annotations = RuntimeUtil.getInstance().parseMemberAnnotations(member);
 		isConstructor = member instanceof Constructor;
 	}
 

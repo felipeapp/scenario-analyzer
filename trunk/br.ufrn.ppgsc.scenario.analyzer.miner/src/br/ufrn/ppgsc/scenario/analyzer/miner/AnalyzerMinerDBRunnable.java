@@ -16,9 +16,9 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 
 public final class AnalyzerMinerDBRunnable {
 

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeUtil;
 
 /*
@@ -49,7 +49,7 @@ public aspect AspectScenario {
 	Object around() : scenarioExecution() && !executionIgnored() {
 		long begin, end;
 		
-		Execution execution = RuntimeUtil.getCurrentExecution();
+		Execution execution = RuntimeUtil.getInstance().getCurrentExecution();
 		
 		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
@@ -111,13 +111,13 @@ public aspect AspectScenario {
 	// Intercepta lançamentos de exceções
 	after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
-		AspectsUtil.setRobustness(t, member);
+		AspectsUtil.setException(t, member);
 		AspectsUtil.popStacksAndPersistData(-1, member);
 	}
 	
 	// Intercepta capturas de exceções
 	before(Throwable t) : handler(Throwable+) && args(t) && executionFlow() && !executionIgnored() {
-		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
+		AspectsUtil.setException(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 	}
 	
 }

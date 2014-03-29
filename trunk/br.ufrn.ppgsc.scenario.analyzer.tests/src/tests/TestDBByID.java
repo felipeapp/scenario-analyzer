@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.Execution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.GenericDAO;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.GenericDAOHibernateImpl;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.db.GenericDAO;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.db.GenericDAOHibernateImpl;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.Execution;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.PrintUtil;
 
 public class TestDBByID {

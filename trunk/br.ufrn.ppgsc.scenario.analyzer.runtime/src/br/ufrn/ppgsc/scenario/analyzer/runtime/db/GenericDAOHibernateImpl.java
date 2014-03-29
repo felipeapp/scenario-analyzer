@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.db;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,8 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class GenericDAOHibernateImpl<T extends Serializable> extends
-		GenericDAO<T> {
+public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<T> {
 
 	@Override
 	public T persist(T instance) {
