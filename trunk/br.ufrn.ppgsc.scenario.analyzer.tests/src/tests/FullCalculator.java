@@ -1,9 +1,10 @@
 package tests;
 
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Performance;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Component;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+
 
 @Component(name = "cp - FullCalculator")
 public class FullCalculator implements IFullCalculator {

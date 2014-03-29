@@ -1,6 +1,7 @@
 package compsac;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
+
 
 public class MainCompSac {
 

@@ -5,8 +5,8 @@ import java.util.List;
 
 import br.ufrn.ppgsc.scenario.analyzer.runtime.db.GenericDAO;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.db.GenericDAOHibernateImpl;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraphPrintUtil;
 
 public class TesteDB {

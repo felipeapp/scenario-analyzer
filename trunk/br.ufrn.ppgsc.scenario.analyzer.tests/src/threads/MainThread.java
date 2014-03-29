@@ -1,8 +1,9 @@
 package threads;
 
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
+
 //import org.springframework.stereotype.Component;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
 
 //@Component
 public class MainThread {
