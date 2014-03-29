@@ -14,8 +14,8 @@ import org.hibernate.type.DoubleType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.data.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
 
 public class GenericDBHibernateImpl extends GenericDB {
 

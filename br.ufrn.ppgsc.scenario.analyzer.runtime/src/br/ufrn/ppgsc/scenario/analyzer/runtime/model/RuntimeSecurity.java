@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.model;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

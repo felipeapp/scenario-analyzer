@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.data;
+package br.ufrn.ppgsc.scenario.analyzer.runtime.model;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -62,7 +62,7 @@ public class RuntimeScenario implements Serializable {
 		this.root = root;
 		this.name = name;
 		this.date = new Date();
-		this.execution = RuntimeUtil.getCurrentExecution();
+		this.execution = RuntimeUtil.getInstance().getCurrentExecution();
 
 		if (context != null)
 			this.context = Collections.unmodifiableMap(context);
