@@ -1,8 +1,9 @@
 package tests;
 
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Reliability;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Component;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Reliability;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
+
 
 @Component(name="cp - MultDivCalculator")
 public class MultDivCalculator implements IMultDivCalculator {

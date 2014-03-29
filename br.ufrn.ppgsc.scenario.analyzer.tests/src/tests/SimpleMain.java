@@ -2,9 +2,9 @@ package tests;
 
 import org.junit.Test;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Performance;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 public class SimpleMain {
 

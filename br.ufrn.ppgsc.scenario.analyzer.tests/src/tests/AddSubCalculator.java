@@ -3,9 +3,9 @@ package tests;
 
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Component;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 @Component(name = "cp - AddSubCalculator")
 public class AddSubCalculator implements IAddSubCalculator {
