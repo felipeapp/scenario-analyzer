@@ -46,7 +46,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	public AnalyzerMinerRepositoryRunnable(String strdate) throws FileNotFoundException {
 		SystemMetadataUtil properties = SystemMetadataUtil.getInstance();
 		
-		transformer = properties.getPathTransformerObject();
+		transformer = properties.newObjectFromProperties(IPathTransformer.class);
 		this.strdate = strdate;
 		readers = new ArrayList<Scanner>();
 		partial_names = new ArrayList<String>();

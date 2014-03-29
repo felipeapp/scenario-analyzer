@@ -335,10 +335,10 @@ public abstract class ScenarioAnalyzerUtil {
 		visited.remove(root);
 	}
 
-	public static String getAnnotationValue(IAnnotationBinding annotation_binding, String attribute) {
+	public static Object getAnnotationValue(IAnnotationBinding annotation_binding, String attribute) {
 		for (IMemberValuePairBinding pair : annotation_binding.getAllMemberValuePairs())
-			if (pair.getName().endsWith(attribute))
-				return (String) pair.getValue();
+			if (pair.getName().equals(attribute))
+				return pair.getValue();
 
 		return null;
 	}

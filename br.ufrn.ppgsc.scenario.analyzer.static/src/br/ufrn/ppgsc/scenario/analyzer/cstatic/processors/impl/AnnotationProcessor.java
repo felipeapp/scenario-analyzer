@@ -66,7 +66,7 @@ public class AnnotationProcessor implements IAnnotationProcessor {
 			ClassData cls = data.getClassDataFromIndex(type_binding.getQualifiedName());
 			
 			if (cls != null) {
-				String component_name = ScenarioAnalyzerUtil.getAnnotationValue(node.resolveAnnotationBinding(), "name");
+				String component_name = (String) ScenarioAnalyzerUtil.getAnnotationValue(node.resolveAnnotationBinding(), "name");
 				
 				if (component_name.equals(""))
 					component_name = type_binding.getName();
@@ -86,7 +86,7 @@ public class AnnotationProcessor implements IAnnotationProcessor {
 		FactoryDataElement factory = ScenarioAnalyzerUtil.getFactoryDataElement();
 		
 		// pega o nome do caso de uso
-		String uc_name = ScenarioAnalyzerUtil.getAnnotationValue(node.resolveAnnotationBinding(), "name");
+		String uc_name = (String) ScenarioAnalyzerUtil.getAnnotationValue(node.resolveAnnotationBinding(), "name");
 		
 		// cria o caso de uso e configura os valores
 		ScenarioData scenario = factory.createScenarioData();

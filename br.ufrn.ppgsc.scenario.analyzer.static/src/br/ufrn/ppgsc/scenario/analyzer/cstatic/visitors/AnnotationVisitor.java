@@ -5,13 +5,13 @@ import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.NormalAnnotation;
 import org.eclipse.jdt.core.dom.SingleMemberAnnotation;
 
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.wala.JDTWALADataStructure;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
 
 public class AnnotationVisitor extends ASTVisitor {
 
-	private JDTWALADataStructure data;
+	private IDataStructure data;
 
-	public AnnotationVisitor(JDTWALADataStructure data) {
+	public AnnotationVisitor(IDataStructure data) {
 		this.data = data;
 	}
 

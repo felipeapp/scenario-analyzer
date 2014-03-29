@@ -15,7 +15,7 @@ public class RepositoryManager {
 	private IRepositoryMiner miner;
 
 	public RepositoryManager(String url, String user, String password) {
-		miner = SystemMetadataUtil.getInstance().getRepositoryMinerObject();
+		miner = SystemMetadataUtil.getInstance().newObjectFromProperties(IRepositoryMiner.class);
 		miner.connect(url, user, password);
 	}
 
