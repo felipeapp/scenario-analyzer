@@ -29,7 +29,7 @@ public class RuntimeCallGraph {
 		annotations = new HashMap<String, RuntimeGenericAnnotation>();
 		
 		try {
-			props.load(new FileInputStream("runtime.properties"));
+			props.load(new FileInputStream("cdynamic.properties"));
 		} catch (IOException e) {
 			System.err.println("Can't load runtime.properties file!");
 			System.exit(0);
