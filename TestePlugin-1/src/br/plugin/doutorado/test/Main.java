@@ -4,9 +4,9 @@ import java.util.List;
 
 import br.plugin.doutorado.test2.Calc;
 import br.plugin.doutorado.test2.IRun;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Reliability;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Reliability;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 public class Main {
 

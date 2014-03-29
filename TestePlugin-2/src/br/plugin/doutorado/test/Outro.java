@@ -1,7 +1,7 @@
 package br.plugin.doutorado.test;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Component;
 
 
 @Component(name="cOutro")

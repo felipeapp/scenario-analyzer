@@ -1,9 +1,9 @@
 package br.plugin.doutorado.test2;
 
 import br.plugin.doutorado.test.Main;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Component;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Performance;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Component;
 
 @Component(name="C_Calc")
 public class Calc {
