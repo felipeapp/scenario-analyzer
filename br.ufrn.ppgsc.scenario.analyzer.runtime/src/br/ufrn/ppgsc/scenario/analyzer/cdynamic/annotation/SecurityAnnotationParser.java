@@ -1,12 +1,12 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.annotation;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Member;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Security;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeSecurity;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeSecurity;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
 
 public class SecurityAnnotationParser extends GenericAnnotationParser {
 

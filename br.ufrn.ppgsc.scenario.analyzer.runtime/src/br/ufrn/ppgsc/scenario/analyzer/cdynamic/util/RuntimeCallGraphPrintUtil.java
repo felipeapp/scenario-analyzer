@@ -1,12 +1,12 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.util;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 
 public abstract class RuntimeCallGraphPrintUtil {
 	

@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.model;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.model;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
 
 @Entity(name = "scenario")
 public class RuntimeScenario implements Serializable {

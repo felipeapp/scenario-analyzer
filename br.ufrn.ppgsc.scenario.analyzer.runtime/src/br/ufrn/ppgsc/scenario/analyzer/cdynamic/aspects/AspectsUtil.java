@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
@@ -13,13 +13,13 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.db.DatabaseService;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
-import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.db.DatabaseService;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
+import br.ufrn.ppgsc.scenario.analyzer.common.util.MemberUtil;
 
 public abstract class AspectsUtil {
 	

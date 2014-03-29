@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,9 +10,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.annotation.GenericAnnotationParser;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.annotation.GenericAnnotationParser;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 
 public class RuntimeCallGraph {
 

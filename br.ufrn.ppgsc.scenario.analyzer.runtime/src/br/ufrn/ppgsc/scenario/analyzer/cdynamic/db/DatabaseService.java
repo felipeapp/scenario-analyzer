@@ -1,10 +1,10 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.db;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.db;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 
 public class DatabaseService<T extends Serializable> {
 

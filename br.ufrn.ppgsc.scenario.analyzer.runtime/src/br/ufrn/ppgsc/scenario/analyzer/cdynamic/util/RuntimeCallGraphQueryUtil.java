@@ -1,10 +1,10 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.util;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 
 //TODO: Pode ser removido, pois atualmente ninguém está usando esta classe
 public abstract class RuntimeCallGraphQueryUtil {
