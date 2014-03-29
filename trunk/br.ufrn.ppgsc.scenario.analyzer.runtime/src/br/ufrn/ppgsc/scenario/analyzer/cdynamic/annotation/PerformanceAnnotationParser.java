@@ -1,12 +1,12 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.annotation;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.annotation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Member;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.Performance;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimePerformance;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimePerformance;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Performance;
 
 public class PerformanceAnnotationParser extends GenericAnnotationParser {
 

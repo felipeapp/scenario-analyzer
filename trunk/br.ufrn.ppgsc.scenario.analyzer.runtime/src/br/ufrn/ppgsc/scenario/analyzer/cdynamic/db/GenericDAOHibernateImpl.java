@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.db;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.db;
 
 import java.io.Serializable;
 import java.util.List;

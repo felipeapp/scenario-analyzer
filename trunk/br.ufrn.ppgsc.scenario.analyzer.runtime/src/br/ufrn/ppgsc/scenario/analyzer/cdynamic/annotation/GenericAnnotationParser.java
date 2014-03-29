@@ -1,11 +1,11 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.annotation;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.annotation;
 
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeGenericAnnotation;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
 
 public abstract class GenericAnnotationParser {
 	

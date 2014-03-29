@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.model;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
@@ -21,8 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
-import br.ufrn.ppgsc.scenario.analyzer.util.MemberUtil;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.common.util.MemberUtil;
 
 @Entity(name = "node")
 public class RuntimeNode {

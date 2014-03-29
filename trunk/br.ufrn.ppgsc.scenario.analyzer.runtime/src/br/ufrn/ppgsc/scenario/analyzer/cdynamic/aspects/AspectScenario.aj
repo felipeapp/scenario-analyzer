@@ -1,15 +1,15 @@
-package br.ufrn.ppgsc.scenario.analyzer.runtime.aspects;
+package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 /*
  * Ter uma anotção de scenario é caso base para iniciar a construção da estrutura.
@@ -36,7 +36,7 @@ public aspect AspectScenario {
 	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 	
 	private pointcut executionFlow() :
-		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.annotations.arq.Scenario * *(..)));
+		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario * *(..)));
 	
 	/*
 	 * Todas as execuções de métodos e construtores
