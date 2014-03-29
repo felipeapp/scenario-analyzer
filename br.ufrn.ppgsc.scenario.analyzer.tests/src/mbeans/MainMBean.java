@@ -2,10 +2,10 @@ package mbeans;
 
 import java.io.IOException;
 
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.RuntimeScenario;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.model.SystemExecution;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraph;
-import br.ufrn.ppgsc.scenario.analyzer.runtime.util.RuntimeCallGraphPrintUtil;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraphPrintUtil;
 
 public class MainMBean {
 
