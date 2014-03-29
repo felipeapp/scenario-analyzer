@@ -18,6 +18,7 @@ import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.impl.PerformanceProces
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.impl.ReliabilityProcessor;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.impl.SecurityProcessor;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.wala.JDTWALADataStructure;
 
 public class Action implements IObjectActionDelegate {
 
@@ -50,6 +51,7 @@ public class Action implements IObjectActionDelegate {
 		ScenarioAnalyzerUtil.setFactoryDataElement(FactoryDataElementImpl.class);
 		ScenarioAnalyzerUtil.setProjectProcessor(JavaProjectProcessor.class);
 		ScenarioAnalyzerUtil.setAnnotationProcessor(AnnotationProcessor.class);
+		ScenarioAnalyzerUtil.setDataStructureBuilder(JDTWALADataStructure.class);
 
 		ScenarioAnalyzerUtil.getAnnotationProcessor().addProcessorQA(PerformanceProcessor.class);
 		ScenarioAnalyzerUtil.getAnnotationProcessor().addProcessorQA(SecurityProcessor.class);

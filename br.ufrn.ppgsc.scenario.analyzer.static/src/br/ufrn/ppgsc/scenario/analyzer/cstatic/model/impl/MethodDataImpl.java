@@ -1,37 +1,31 @@
 package br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.AbstractQAData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ClassData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.JDTWALADataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
-
-import com.ibm.wala.cast.java.ipa.callgraph.JavaSourceAnalysisScope;
-import com.ibm.wala.classLoader.CallSiteReference;
-import com.ibm.wala.ipa.callgraph.CGNode;
 
 // TODO Adicionar signature para este elemento como key
 public class MethodDataImpl implements MethodData {
 
-	/* TODO Está referência será setada apenas para o startMethod.
-	 *  Depois podemos considerar uma classe especializada desta
-	 *  para tratar o primeiro method do cenário, evitando que
-	 *  o atributo seja null na maioria dos casos
+	/*
+	 * TODO Está referência será setada apenas para o startMethod. Depois
+	 * podemos considerar uma classe especializada desta para tratar o primeiro
+	 * method do cenário, evitando que o atributo seja null na maioria dos casos
 	 */
 	private ScenarioData scenario;
-	
-	/* TODO Depois preciso ver uma forma de não colocar isso
-	 * em todos os métodos.
-	 * Esta key representa a versão da estrutura do grafo que
-	 * deve ser usada para buscar o método
+
+	/*
+	 * TODO Depois preciso ver uma forma de não colocar isso em todos os
+	 * métodos. Esta key representa a versão da estrutura do grafo que deve ser
+	 * usada para buscar o método
 	 */
 	private String version;
-	
+
 	private String name;
 	private String signature;
 	private ClassData declaringClass;
@@ -40,7 +34,7 @@ public class MethodDataImpl implements MethodData {
 	public MethodDataImpl() {
 		qualityAttributes = new ArrayList<AbstractQAData>();
 	}
-	
+
 	public String getVersion() {
 		return version;
 	}
@@ -56,7 +50,7 @@ public class MethodDataImpl implements MethodData {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getSignature() {
 		return signature;
 	}
@@ -82,35 +76,11 @@ public class MethodDataImpl implements MethodData {
 	}
 
 	public List<MethodData> getMethodInvocations() {
-		List<MethodData> result = new ArrayList<MethodData>();
-		JDTWALADataStructure data = ScenarioAnalyzerUtil.getDataStructureInstance(version);
-		CGNode node = data.getMethodNodeFromIndex(signature);
-		
-		for (Iterator<CallSiteReference> it = node.iterateCallSites(); it.hasNext();) {
-			for (CGNode child : data.getCallGraph().getPossibleTargets(node, it.next())) {
-				if (child.getMethod().getDeclaringClass().getClassLoader().getReference().equals(JavaSourceAnalysisScope.SOURCE))
-					result.add(data.getMethodDataFromIndex(
-						ScenarioAnalyzerUtil.getStandartMethodSignature(child.getMethod())));
-			}
-		}
-		
-		return result;
+		return ScenarioAnalyzerUtil.getDataStructureInstance(version).getMethodInvocations(signature);
 	}
 
 	public List<MethodData> getMethodParents() {
-		List<MethodData> result = new ArrayList<MethodData>();
-		JDTWALADataStructure data = ScenarioAnalyzerUtil.getDataStructureInstance(version);
-		CGNode node = data.getMethodNodeFromIndex(signature);
-		
-		for (Iterator<CGNode> itr = data.getCallGraph().getPredNodes(node); itr.hasNext();) {
-			CGNode parent = itr.next();
-			
-			if (parent.getMethod().getDeclaringClass().getClassLoader().getReference().equals(JavaSourceAnalysisScope.SOURCE))
-				result.add(data.getMethodDataFromIndex(
-					ScenarioAnalyzerUtil.getStandartMethodSignature(parent.getMethod())));
-		}
-		
-		return result;
+		return ScenarioAnalyzerUtil.getDataStructureInstance(version).getMethodParents(signature);
 	}
 
 	public List<AbstractQAData> getQualityAttributes() {
@@ -120,7 +90,7 @@ public class MethodDataImpl implements MethodData {
 	public void setQualityAttributes(List<AbstractQAData> qualityAttributes) {
 		this.qualityAttributes = qualityAttributes;
 	}
-	
+
 	@Override
 	public boolean equals(Object m) {
 		return this.getSignature().equals(((MethodData) m).getSignature());

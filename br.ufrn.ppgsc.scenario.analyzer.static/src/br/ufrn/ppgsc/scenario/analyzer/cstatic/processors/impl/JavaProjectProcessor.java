@@ -15,12 +15,10 @@ import org.eclipse.jdt.core.JavaModelException;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.AbstractQAData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.IProjectProcessor;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.JDTWALADataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerQuery;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
-
-import com.ibm.wala.ipa.callgraph.CallGraphStats;
 
 public class JavaProjectProcessor implements IProjectProcessor {
 
@@ -43,11 +41,10 @@ public class JavaProjectProcessor implements IProjectProcessor {
 			return;
 		}
 
-		JDTWALADataStructure data = ScenarioAnalyzerUtil.createDataStructure(project.getName());
+		IDataStructure data = ScenarioAnalyzerUtil.createDataStructure(project.getName());
 		System.out.println("--- Data structure created");
 		
 		data.buildCallGraph(javaProject);
-		System.out.println(CallGraphStats.getStats(data.getCallGraph()));
 		System.out.println("--- Call graph built");
 		
 		data.buildIndexes(javaProject);

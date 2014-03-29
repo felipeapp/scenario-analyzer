@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.cstatic.util;
+package br.ufrn.ppgsc.scenario.analyzer.cstatic.wala;
 
 import java.util.HashSet;
 

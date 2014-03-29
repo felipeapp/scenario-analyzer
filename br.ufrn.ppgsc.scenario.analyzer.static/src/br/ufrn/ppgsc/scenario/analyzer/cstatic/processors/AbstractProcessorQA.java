@@ -6,12 +6,12 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.AbstractQAData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.JDTWALADataStructure;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
 
 public abstract class AbstractProcessorQA {
 
-	public final void processQA(JDTWALADataStructure data) {
+	public final void processQA(IDataStructure data) {
 		
 		for (Annotation node : data.getAnnotations(getAnnotationClass())) {
 			

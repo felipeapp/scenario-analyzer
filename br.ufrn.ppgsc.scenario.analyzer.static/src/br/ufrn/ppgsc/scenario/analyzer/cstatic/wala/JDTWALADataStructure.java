@@ -1,8 +1,9 @@
-package br.ufrn.ppgsc.scenario.analyzer.cstatic.util;
+package br.ufrn.ppgsc.scenario.analyzer.cstatic.wala;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,49 +16,52 @@ import br.ufrn.ppgsc.scenario.analyzer.cstatic.Activator;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ClassData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.processors.impl.ElementIndexer;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
+import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
 
 import com.ibm.wala.cast.java.client.JDTJavaSourceAnalysisEngine;
+import com.ibm.wala.cast.java.ipa.callgraph.JavaSourceAnalysisScope;
+import com.ibm.wala.classLoader.CallSiteReference;
 import com.ibm.wala.client.AbstractAnalysisEngine;
 import com.ibm.wala.ide.util.EclipseFileProvider;
 import com.ibm.wala.ipa.callgraph.AnalysisScope;
 import com.ibm.wala.ipa.callgraph.CGNode;
 import com.ibm.wala.ipa.callgraph.CallGraph;
+import com.ibm.wala.ipa.callgraph.CallGraphStats;
 import com.ibm.wala.ipa.callgraph.Entrypoint;
 import com.ibm.wala.ipa.cha.IClassHierarchy;
 import com.ibm.wala.util.CancelException;
 import com.ibm.wala.util.collections.Pair;
 
-public class JDTWALADataStructure {
+public class JDTWALADataStructure implements IDataStructure {
 	
 	private CallGraph callGraph;
 	
 	// Versão do sistema da estrutura de dados
 	private String version;
 	
-	/* TODO
-	 * Reusei o pair do wala, ver implicaões disso!
-	 */
 	private Map<String, Pair<MethodData, CGNode>> indexMethod;
 	private Map<String, List<Annotation>> indexAnnotation;
 	private Map<String, ClassData> indexClassData;
 	private List<ScenarioData> listScenario;
 
-	protected JDTWALADataStructure(String version) {
-		this.version = version; 
-		
+	public JDTWALADataStructure() {
 		indexAnnotation = new HashMap<String, List<Annotation>>();
 		indexMethod = new HashMap<String, Pair<MethodData, CGNode>>();
 		indexClassData = new HashMap<String, ClassData>();
 		listScenario = new ArrayList<ScenarioData>();
 	}
-
-	public static JDTWALADataStructure getNewInstance(String version) {
-		return new JDTWALADataStructure(version);
-	}
 	
+	public void showCallGraphStats() {
+		System.out.println(CallGraphStats.getStats(callGraph));
+	}
+
 	public String getVersion() {
 		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
 	public void addMethodToIndex(String key, MethodData method, CGNode node) {
@@ -71,8 +75,36 @@ public class JDTWALADataStructure {
 		return indexMethod.get(key).fst;
 	}
 	
-	public CGNode getMethodNodeFromIndex(String key) {
+	private CGNode getMethodNodeFromIndex(String key) {
 		return indexMethod.get(key).snd;
+	}
+	
+	public List<MethodData> getMethodInvocations(String signature) {
+		List<MethodData> result = new ArrayList<MethodData>();
+		CGNode node = getMethodNodeFromIndex(signature);
+		
+		for (Iterator<CallSiteReference> it = node.iterateCallSites(); it.hasNext();) {
+			for (CGNode child : callGraph.getPossibleTargets(node, it.next())) {
+				if (child.getMethod().getDeclaringClass().getClassLoader().getReference().equals(JavaSourceAnalysisScope.SOURCE))
+					result.add(getMethodDataFromIndex(ScenarioAnalyzerUtil.getStandartMethodSignature(child.getMethod())));
+			}
+		}
+		
+		return result;
+	}
+	
+	public List<MethodData> getMethodParents(String signature) {
+		List<MethodData> result = new ArrayList<MethodData>();
+		CGNode node = getMethodNodeFromIndex(signature);
+		
+		for (Iterator<CGNode> itr = callGraph.getPredNodes(node); itr.hasNext();) {
+			CGNode parent = itr.next();
+			
+			if (parent.getMethod().getDeclaringClass().getClassLoader().getReference().equals(JavaSourceAnalysisScope.SOURCE))
+				result.add(getMethodDataFromIndex(ScenarioAnalyzerUtil.getStandartMethodSignature(parent.getMethod())));
+		}
+		
+		return result;
 	}
 	
 	public MethodData[] getMethodDataAsArray() {
@@ -142,7 +174,7 @@ public class JDTWALADataStructure {
 	 * - com.ibm.wala.client.AbstractAnalysisEngine.buildDefaultCallGraph()
 	 */
 	public void buildIndexes(IJavaProject project) {
-		ElementIndexer indexer = new ElementIndexer();
+		WALAElementIndexer indexer = new WALAElementIndexer();
 		
 		indexer.indexMethod(this);
 		System.out.println("--- Methods indexed");
