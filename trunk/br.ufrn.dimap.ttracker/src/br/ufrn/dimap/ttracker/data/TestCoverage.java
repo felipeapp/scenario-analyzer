@@ -123,6 +123,16 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		return stringBuffer.toString();
 	}
 	
+
+	
+	public String methodDataToString() {
+		String pilha = new String("");
+		for(CoveredMethod coveredMethod : coveredMethods) {
+			pilha += coveredMethod.getMethodData().getSignature()+"\n";
+		}
+		return pilha;
+	}
+	
 	public static Set<TestCoverage> intersection(Set<TestCoverage> A, Set<TestCoverage> B) {
 		if(A == null || B == null)
 			return new HashSet<TestCoverage>(0);
@@ -148,7 +158,7 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((testData == null) ? 0 : testData.hashCode());
-		result = prime * result + ((coveredMethods == null) ? 0 : coveredMethods.hashCode());
+		result = prime * result + ((methodDataToString() == null) ? 0 : methodDataToString().hashCode());
 		return result;
 	}
 
@@ -169,7 +179,7 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		if (coveredMethods == null) {
 			if (other.coveredMethods != null)
 				return false;
-		} else if (!coveredMethods.equals(other.coveredMethods))
+		} else if (!methodDataToString().equals(other.methodDataToString()))
 			return false;
 		return true;
 	}
