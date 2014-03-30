@@ -254,7 +254,7 @@ public class TestCoverageMapping implements Serializable {
 		return null;
 	}
 
-	private TestCoverage removeOpenedTestCoverage(Long threadId) {
+	public TestCoverage removeOpenedTestCoverage(Long threadId) {
 		if (threadId != null && testCoverageBuilding.containsKey(threadId)) {
 			return testCoverageBuilding.remove(threadId);
 		}
