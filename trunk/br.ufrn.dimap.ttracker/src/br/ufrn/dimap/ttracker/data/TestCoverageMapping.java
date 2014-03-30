@@ -63,6 +63,11 @@ public class TestCoverageMapping implements Serializable {
 		return methodData;
 	}
 
+	public void removeCoveredMethod(MethodData methodData) {
+		methodStatePool.get(methodData.getMethodState()).remove(methodData.getSignature());
+		methodPool.remove(methodData.getSignature());
+	}
+
 	/**
 	 * Atualiza o TestCoverageMapping definindo quais métodos sofreram
 	 * modificações, excluindo os métodos que ainda não foram implementados (nas
@@ -254,7 +259,7 @@ public class TestCoverageMapping implements Serializable {
 		return null;
 	}
 
-	public TestCoverage removeOpenedTestCoverage(Long threadId) {
+	private TestCoverage removeOpenedTestCoverage(Long threadId) {
 		if (threadId != null && testCoverageBuilding.containsKey(threadId)) {
 			return testCoverageBuilding.remove(threadId);
 		}
@@ -263,6 +268,17 @@ public class TestCoverageMapping implements Serializable {
 
 	public void finishTestCoverage(Long threadId) {
 		testCoverages.add(removeOpenedTestCoverage(threadId));
+	}
+
+	public void cancelTestCoverage(Long threadId) {
+		TestCoverage testCoverage = removeOpenedTestCoverage(threadId);
+		for(CoveredMethod coveredMethod : testCoverage.getCoveredMethods()) {
+			MethodData methodData = coveredMethod.getMethodData();
+			methodData.getTestsCoverage().remove(testCoverage);
+			if(methodData.getTestsCoverage().isEmpty()) {
+				removeCoveredMethod(methodData);
+			}
+		}
 	}
 
 	public void save() {
