@@ -119,7 +119,8 @@ public class History {
 			try {
 				Revision headRevision = getHeadRevision("/tags/SIGAA 3.11.24");
 				Revision startRevision = getNextRevision("/branches/producao/SIGAA", headRevision);
-				Revision endRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
+//				Revision endRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.18"));
+				Revision endRevision = getPreviousRevision("/branches/producao/SIGAA", getHeadRevision("/tags/SIGAA 3.12.36"));
 				LinkedList<SVNLogEntry> entries = getSVNLogEntries("/branches/producao/SIGAA", startRevision, endRevision);
 				List<Task> tasks = new ArrayList<Task>();
 				for(Iterator<SVNLogEntry> iterator = entries.iterator(); iterator.hasNext(); ) {
@@ -266,28 +267,26 @@ public class History {
 			try {
 				if (connection == null) {
 					connection = DriverManager.getConnection(
-							"jdbc:postgresql://localhost:5432/sistemas_comum_3_11_24",
-							"postgres", "1234");
+//							"jdbc:postgresql://localhost:5432/sistemas_comum_3_11_24",
+							"jdbc:postgresql://bddesenv1.info.ufrn.br:5432/sistemas_comum_20140204",
+//							"postgres", "1234");
+							"comum_user", "comum_user");
 				}
 				for(Task task : tasks) {
+					if(tasksToRemove.contains(task))
+						continue;
 					stmt1 = connection.prepareStatement(
-							"SELECT tipo_tarefa.denominacao tipo, status_tarefa.denominacao status "+
+							"SELECT tipo_tarefa.denominacao tipo "+
 							"FROM iproject.tarefa "+
 							"INNER JOIN iproject.tipo_tarefa ON tarefa.id_tipo_tarefa = tipo_tarefa.id_tipo_tarefa "+
 							"INNER JOIN iproject.status_tarefa ON tarefa.id_status = status_tarefa.id "+
-							"WHERE tarefa.numtarefa = ?");
+							"WHERE tarefa.numtarefa = ? AND status_tarefa.denominacao = 'FINALIZADA'");
 					stmt1.setLong(1, task.getId());
 					rs1 = stmt1.executeQuery();
 					if(rs1.next()) {
-						if(!rs1.getString("status").equals(FINALIZADA)) {
-							tasksToRemove.add(task);
-							continue;
-						}
 						task.setType(TaskType.getTaskTypeByName(rs1.getString("tipo")));
 						if(task.getType().equals(TaskType.OTHER))
 							task.setOtherType(rs1.getString("tipo"));
-						if(tasksToRemove.contains(task))
-							continue;
 						
 						stmt2 = connection.prepareStatement(
 								"SELECT substring(log_tarefa.log, '([Revisão|revisão|Revisao|revisao]+[:| ]*[0-9]+)') revisao "+

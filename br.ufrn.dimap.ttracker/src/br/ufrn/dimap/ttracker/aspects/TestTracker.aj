@@ -101,7 +101,7 @@ public aspect TestTracker {
 						FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 					}
 					else
-						TestCoverageMapping.getInstance().removeOpenedTestCoverage(threadId);
+						TestCoverageMapping.getInstance().cancelTestCoverage(threadId);
 				}
 			}
 		}
