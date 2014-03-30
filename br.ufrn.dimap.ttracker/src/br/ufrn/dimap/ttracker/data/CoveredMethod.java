@@ -36,8 +36,8 @@ public class CoveredMethod implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
 		result = prime * result + ((methodData == null) ? 0 : methodData.hashCode());
+		result = prime * result + ((inputs == null) ? 0 : inputs.hashCode());
 		result = prime * result + ((theReturn == null) ? 0 : theReturn.hashCode());
 		return result;
 	}
@@ -51,15 +51,15 @@ public class CoveredMethod implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		CoveredMethod other = (CoveredMethod) obj;
-		if (inputs == null) {
-			if (other.inputs != null)
-				return false;
-		} else if (!inputs.equals(other.inputs))
-			return false;
 		if (methodData == null) {
 			if (other.methodData != null)
 				return false;
 		} else if (!methodData.equals(other.methodData))
+			return false;
+		if (inputs == null) {
+			if (other.inputs != null)
+				return false;
+		} else if (!inputs.equals(other.inputs))
 			return false;
 		if (theReturn == null) {
 			if (other.theReturn != null)

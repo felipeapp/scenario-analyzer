@@ -131,18 +131,16 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		for (TestCoverage testA : A) {
 			TestCoverage aux = null;
 			for(TestCoverage testB : auxB) {
-				if(testA.getTestData().equals(testB.getTestData())) {
+				if(testA.equals(testB)) {
 					aux = testB;
 					intersection.add(aux);
 					break;
 				}
 			}
-			if(aux != null) {
+			if(aux != null)
 				auxB.remove(aux);
-				aux = null;
-			}
 		}
-		return intersection;
+		return new HashSet<TestCoverage>(intersection);
 	}
 
 	@Override
@@ -150,6 +148,7 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((testData == null) ? 0 : testData.hashCode());
+		result = prime * result + ((coveredMethods == null) ? 0 : coveredMethods.hashCode());
 		return result;
 	}
 
@@ -166,6 +165,11 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 			if (other.testData != null)
 				return false;
 		} else if (!testData.equals(other.testData))
+			return false;
+		if (coveredMethods == null) {
+			if (other.coveredMethods != null)
+				return false;
+		} else if (!coveredMethods.equals(other.coveredMethods))
 			return false;
 		return true;
 	}

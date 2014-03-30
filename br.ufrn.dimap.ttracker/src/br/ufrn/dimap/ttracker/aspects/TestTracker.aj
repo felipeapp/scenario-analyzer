@@ -53,11 +53,8 @@ public aspect TestTracker {
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 				testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
-				if(!TestCoverageMapping.getInstance().getTestCoverages().contains(testCoverage)) {
-					testCoverage.setIdTest(TestCoverageMapping.getInstance().getNextId());
-					TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
-					TestCoverageMapping.getInstance().setBuilding(true);
-				}
+				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
+				TestCoverageMapping.getInstance().setBuilding(true);
 //				saveTestCoverageMapping(member);
 			}
 		}
@@ -95,11 +92,16 @@ public aspect TestTracker {
 				if(((!testData.isManual() && isTestClassMember(member)) ||
 				(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
 				testData.getSignature().equals(signature.toString())){
-					TestCoverageMapping.getInstance().finishTestCoverage(threadId);
-					saveTestCoverageMapping(member);
-					String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
-					String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
-					FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
+					if(!TestCoverageMapping.getInstance().getTestCoverages().contains(testCoverage)) {
+						testCoverage.setIdTest(TestCoverageMapping.getInstance().getNextId());
+						TestCoverageMapping.getInstance().finishTestCoverage(threadId);
+						saveTestCoverageMapping(member);
+						String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+						String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
+						FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
+					}
+					else
+						TestCoverageMapping.getInstance().removeOpenedTestCoverage(threadId);
 				}
 			}
 		}
