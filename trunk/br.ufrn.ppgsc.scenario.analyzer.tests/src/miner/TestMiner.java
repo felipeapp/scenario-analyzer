@@ -2,7 +2,7 @@ package miner;
 
 import java.util.Collection;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 import br.ufrn.ppgsc.scenario.analyzer.miner.svn.RepositoryManager;
@@ -40,7 +40,7 @@ public class TestMiner {
 				System.out.println("\tDate: " + l.getDate());
 				System.out.print("\tTasks: ");
 				
-				for (IContentIssue issue : l.getIssues())
+				for (Issue issue : l.getIssues())
 					System.out.print(issue.getNumber() + " ");
 				
 				System.out.println("\n\t-------------------------------------");

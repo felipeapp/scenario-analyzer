@@ -75,7 +75,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				
 				if (issue_number < 0) {
 					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-					issue = SystemMetadataUtil.getInstance().newObjectFromProperties(Issue.class);
+					issue = new Issue();
 					issue.setNumber(-1);
 				}
 				else {
