@@ -8,19 +8,23 @@ import java.io.LineNumberReader;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.eclipse.core.internal.dtree.ObjectNotFoundException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil;
 
-public class ArgoUMLMiner {
+public class ArgoUMLMiner implements IQueryIssue {
 
 	private Properties properties;
 
@@ -33,32 +37,12 @@ public class ArgoUMLMiner {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Método de entrada. Recebe o id da issue como parâmetro.
-	 * 
-	 * @param issueId
-	 * @return issue
-	 */
-	public Issue getIssueInfoByIssueId(Integer issueId) {
-		Issue issue = null;
-		try {
-			verifyValidArguments(issueId);
-			issue = getIssueInfo(issueId);
-		} catch (IOException | JDOMException | ParseException e) {
-			e.printStackTrace();
-		}
-		return issue;
-
-	}
-
-	private Issue getIssueInfo(Integer issueId) throws IOException,
-			JDOMException, ParseException {
+	
+	private Document getXMLByIssueId(Long issueId) throws IOException, JDOMException {
 		SAXBuilder builder = new SAXBuilder();
 		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(properties
 				.getProperty("host") + issueId);
 		InputStreamReader isr = new InputStreamReader(inputStream);
-		Issue issue = null;
 
 		LineNumberReader lineNumberReader = new LineNumberReader(isr);
 		String line = null;
@@ -74,12 +58,40 @@ public class ArgoUMLMiner {
 		StringReader sr = new StringReader(sb.toString());
 		InputSource inputSource = new InputSource(sr);
 		Document doc = builder.build(inputSource);
+		
+		return doc;
+	}
+
+	private boolean verifyIssueWasFound(Document document) {
+		for (Object obj : document.getRootElement().getChildren()) {
+			Element element = (Element) obj;
+			if (element.getAttributeValue("status_message").trim().equals(properties.getProperty("status_message"))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Método que verifica se o argumento passado é diferente de nulo. Se não
+	 * for, uma exceção é lançada.
+	 * 
+	 * @param issueId
+	 * @throws IllegalArgumentException
+	 */
+	private void verifyValidArguments(Long issueId)
+			throws IllegalArgumentException {
+		if (issueId == null) {
+			throw new IllegalArgumentException("O id da tarefa está nulo");
+		}
+	}
+	
+	private Issue getIssueInfoFromXML(Document doc) throws ParseException {
+		Issue issue = null;
 		SimpleDateFormat sdf = new SimpleDateFormat(properties.getProperty("dateFormat"));
 
 		for (Object obj : doc.getRootElement().getChildren()) {
 			Element item = (Element) obj;
-
-			verifyIssueWasFound(item);
 
 			issue = new Issue();
 
@@ -95,26 +107,38 @@ public class ArgoUMLMiner {
 		return issue;
 	}
 
-	private void verifyIssueWasFound(Element item)
-			throws ObjectNotFoundException {
-		if (item.getAttributeValue("status_message").trim().equals(properties.getProperty("status_message"))) {
-			throw new ObjectNotFoundException(
-					"Não existe issue para o id informado.");
+	@Override
+	public Issue getIssueByNumber(long taskNumber) {
+		Issue issue = null;
+		try {
+			verifyValidArguments(taskNumber);
+			Document document = getXMLByIssueId(taskNumber);
+			if (verifyIssueWasFound(document)) {
+				issue = getIssueInfoFromXML(document);
+			}
+		} catch (IOException | JDOMException | ParseException e) {
+			e.printStackTrace();
 		}
+		return issue;
 	}
 
-	/**
-	 * Método que verifica se o argumento passado é diferente de nulo. Se não
-	 * for, uma exceção é lançada.
-	 * 
-	 * @param issueId
-	 * @throws IllegalArgumentException
-	 */
-	private void verifyValidArguments(Integer issueId)
-			throws IllegalArgumentException {
-		if (issueId == null) {
-			throw new IllegalArgumentException("O id da tarefa está nulo");
+	@Override
+	public List<Long> getIssueNumbersFromMessageLog(String messageLog) {
+		List<Long> issuesId = new ArrayList<Long>();
+		Pattern pattern = Pattern.compile("[0-9]+");
+		Matcher matcher = pattern.matcher(messageLog);
+		while(matcher.find()) {
+			try {
+				Long issueId = Long.parseLong(matcher.group());
+				Document doc = getXMLByIssueId(issueId);
+				if (verifyIssueWasFound(doc)) {
+					issuesId.add(issueId);
+				}
+ 			} catch (NumberFormatException | IOException | JDOMException e) {
+				e.printStackTrace();
+			}
 		}
+		return issuesId;
 	}
 
 }

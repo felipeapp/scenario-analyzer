@@ -112,7 +112,7 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 		return tasks;
 	}
 	
-	public long getIssueNumberFromMessageLog(String messageLog) {
+	public List<Long> getIssueNumbersFromMessageLog(String messageLog) {
 		Scanner in = new Scanner(messageLog);
 		
 		String task_word = in.next();
@@ -120,27 +120,27 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 
 		in.close();
 		
-		long task_number;
+		List<Long> issuesId = new ArrayList<Long>();
 		
 		if (task_word.equalsIgnoreCase("commit")) {
 			logger.info("Task word commit was found! Setting task number to -2!");
-			task_number = -2;
+			issuesId.add(-2L);
 		}
 		else if (task_word.equalsIgnoreCase("tarefa") || task_word.equals("#")) {
 			logger.info("Task word was found! [" + task_word + "] Setting task number to " + task_value + "!");
-			task_number = Long.parseLong(task_value);
+			issuesId.add(Long.parseLong(task_value));
 		}
 		else if (task_word.matches("#[0-9]+")) {
 			task_value = task_word.replaceAll("#", "");
 			logger.info("Task word is task value! [" + task_word + "] Setting task number to " + task_value + "!");
-			task_number = Long.parseLong(task_value);
+			issuesId.add(Long.parseLong(task_value));
 		}
 		else {
 			logger.warn("Task word unknown [" + task_word + "]!\n" + messageLog);
-			task_number = -1;
+			issuesId.add(-1L);
 		}
 		
-		return task_number;
+		return issuesId;
 	}
 	
 	public static void main(String[] args) {
