@@ -4,21 +4,35 @@ import java.util.Date;
 
 public class Issue {
 
-	private Integer issueId;
-	private Long number;
+	private long issueId;
+	private long number;
 	private String issueStatus;
 	private String component;
 	private String affectedVersion;
 	private Date dateCreation;
 	private String issueType;
+	private long issueTypeId;
 	private String shortDescription;
 
-	public Integer getIssueId() {
+	public Issue() {
+		issueId = number = -1;
+		issueType = "No task (-1)";
+	}
+
+	public long getIssueId() {
 		return issueId;
 	}
 
-	public void setIssueId(Integer issueId) {
+	public void setIssueId(long issueId) {
 		this.issueId = issueId;
+	}
+
+	public long getNumber() {
+		return number;
+	}
+
+	public void setNumber(long number) {
+		this.number = number;
 	}
 
 	public String getIssueStatus() {
@@ -61,20 +75,20 @@ public class Issue {
 		this.issueType = issueType;
 	}
 
+	public long getIssueTypeId() {
+		return issueTypeId;
+	}
+
+	public void setIssueTypeId(long issueTypeId) {
+		this.issueTypeId = issueTypeId;
+	}
+
 	public String getShortDescription() {
 		return shortDescription;
 	}
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
-	}
-
-	public Long getNumber() {
-		return number;
-	}
-
-	public void setNumber(Long number) {
-		this.number = number;
 	}
 
 }
