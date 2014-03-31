@@ -70,20 +70,22 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				logger.info("Inside handler, getting tasks to revision " + revision);
 
 				Issue issue = null;
-				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
-				long issue_number = issueQuery.getIssueNumberFromMessageLog(logMessage);
-				
-				if (issue_number < 0) {
-					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-					issue = new Issue();
-					issue.setNumber(-1);
-				}
-				else {
-					issue = issueQuery.getIssueByNumber(issue_number);
-				}
-				
 				issues = new ArrayList<Issue>();
-				issues.add(issue);
+				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
+				List<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
+				
+				
+				for (Long issue_number : issue_numbers) {
+					if (issue_number < 0) {
+						logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
+						issue = new Issue();
+						issue.setNumber(-1);
+					}
+					else {
+						issue = issueQuery.getIssueByNumber(issue_number);
+					}
+					issues.add(issue);
+				}
 				
 				cache_revision_issues.put(revision, issues);
 			}
