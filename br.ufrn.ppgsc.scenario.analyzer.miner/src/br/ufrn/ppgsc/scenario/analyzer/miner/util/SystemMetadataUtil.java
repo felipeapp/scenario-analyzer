@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IRepositoryMiner;
@@ -57,8 +56,6 @@ public class SystemMetadataUtil {
 			name = "path_transformer";
 		else if (clazz.equals(IQueryIssue.class))
 			name = "query_issue";
-		else if (clazz.equals(IContentIssue.class))
-			name = "content_issue";
 		else if (clazz.equals(IRepositoryMiner.class))
 			name = "repository_miner";
 

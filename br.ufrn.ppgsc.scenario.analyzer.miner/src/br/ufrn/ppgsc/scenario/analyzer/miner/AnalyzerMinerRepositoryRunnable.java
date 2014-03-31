@@ -16,8 +16,8 @@ import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
-import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 import br.ufrn.ppgsc.scenario.analyzer.miner.svn.RepositoryManager;
@@ -122,14 +122,14 @@ public final class AnalyzerMinerRepositoryRunnable {
 					pw.println("Revisão:" + up_line.getRevision());
 					pw.println("Data:" + up_line.getDate());
 					
-					List<IContentIssue> tasks = up_line.getIssues();
+					List<Issue> tasks = up_line.getIssues();
 
-					for (IContentIssue t : tasks) {
+					for (Issue t : tasks) {
 						if (t.getNumber() >= 0) {
-							pw.println("Id:" + t.getId());
-							pw.println("IdTipo:" + t.getIdType());
+							pw.println("Id:" + t.getIssueId());
+							pw.println("IdTipo:" + t.getIssueTypeId());
 							pw.println("Número:" + t.getNumber());
-							pw.println("TipoDenomicação:" + t.getTypeName());
+							pw.println("TipoDenomicação:" + t.getIssueType());
 						}
 					}
 				}
@@ -311,7 +311,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String path : map_path_methods.keySet())
 			for (UpdatedMethod method : map_path_methods.get(path))
 				for (UpdatedLine line : method.getUpdatedLines())
-					for (IContentIssue issue : line.getIssues())
+					for (Issue issue : line.getIssues())
 						issue_numbers.add(issue.getNumber());
 
 		return issue_numbers;
@@ -327,17 +327,17 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (IContentIssue issue : line.getIssues()) {
+					for (Issue issue : line.getIssues()) {
 
-						if (issue.getId() != -1 && !counted_tasks.contains(issue.getId())) {
-							Integer counter = counter_task_types.get(issue.getTypeName());
+						if (issue.getIssueId() != -1 && !counted_tasks.contains(issue.getIssueId())) {
+							Integer counter = counter_task_types.get(issue.getIssueType());
 
 							if (counter == null)
-								counter_task_types.put(issue.getTypeName(), 1);
+								counter_task_types.put(issue.getIssueType(), 1);
 							else
-								counter_task_types.put(issue.getTypeName(), counter + 1);
+								counter_task_types.put(issue.getIssueType(), counter + 1);
 							
-							counted_tasks.add(issue.getId());
+							counted_tasks.add(issue.getIssueId());
 						}
 
 					}
@@ -362,21 +362,21 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (IContentIssue issue : line.getIssues()) {
+					for (Issue issue : line.getIssues()) {
 
-						if (issue.getId() != -1 && !(counted_tasks.contains(issue.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
-							Collection<UpdatedMethod> list = task_members.get(issue.getTypeName());
+						if (issue.getIssueId() != -1 && !(counted_tasks.contains(issue.getIssueId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
+							Collection<UpdatedMethod> list = task_members.get(issue.getIssueType());
 
 							if (list == null) {
 								list = new ArrayList<UpdatedMethod>();
 								list.add(method);
-								task_members.put(issue.getTypeName(), list);
+								task_members.put(issue.getIssueType(), list);
 							}
 							else {
-								task_members.get(issue.getTypeName()).add(method);
+								task_members.get(issue.getIssueType()).add(method);
 							}
 							
-							counted_tasks.add(issue.getId());
+							counted_tasks.add(issue.getIssueId());
 							counted_members.add(method.getMethodLimit().getSignature());
 						}
 

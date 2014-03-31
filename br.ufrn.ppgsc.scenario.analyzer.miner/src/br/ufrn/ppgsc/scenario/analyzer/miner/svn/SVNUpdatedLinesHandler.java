@@ -14,8 +14,8 @@ import org.tmatesoft.svn.core.SVNRevisionProperty;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
@@ -23,8 +23,8 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 
 	private final Logger logger = Logger.getLogger(SVNUpdatedLinesHandler.class);
 	
-	private static final Map<Long, List<IContentIssue>> cache_revision_issues =
-			new HashMap<Long, List<IContentIssue>>();
+	private static final Map<Long, List<Issue>> cache_revision_issues =
+			new HashMap<Long, List<Issue>>();
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
@@ -64,25 +64,25 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		sourceCode.append(line + System.lineSeparator());
 		
 		if (revision != -1) {
-			List<IContentIssue> issues = cache_revision_issues.get(revision);
+			List<Issue> issues = cache_revision_issues.get(revision);
 			
 			if (issues == null) {
 				logger.info("Inside handler, getting tasks to revision " + revision);
 
-				IContentIssue issue = null;
+				Issue issue = null;
 				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
 				long issue_number = issueQuery.getIssueNumberFromMessageLog(logMessage);
 				
 				if (issue_number < 0) {
 					logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-					issue = SystemMetadataUtil.getInstance().newObjectFromProperties(IContentIssue.class);
+					issue = SystemMetadataUtil.getInstance().newObjectFromProperties(Issue.class);
 					issue.setNumber(-1);
 				}
 				else {
 					issue = issueQuery.getIssueByNumber(issue_number);
 				}
 				
-				issues = new ArrayList<IContentIssue>();
+				issues = new ArrayList<Issue>();
 				issues.add(issue);
 				
 				cache_revision_issues.put(revision, issues);

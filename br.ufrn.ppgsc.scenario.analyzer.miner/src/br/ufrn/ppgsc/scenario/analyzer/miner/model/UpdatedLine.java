@@ -4,18 +4,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
-
 public class UpdatedLine {
 
 	private Date date;
 	private long revision;
-	private List<IContentIssue> issues;
+	private List<Issue> issues;
 	private String author;
 	private String line;
 	private int lineNumber;
 
-	public UpdatedLine(Date date, long revision, List<IContentIssue> issues, String author, String line, int lineNumber) {
+	public UpdatedLine(Date date, long revision, List<Issue> issues, String author, String line, int lineNumber) {
 		this.date = date;
 		this.revision = revision;
 		this.issues = issues;
@@ -40,11 +38,11 @@ public class UpdatedLine {
 		this.revision = revision;
 	}
 
-	public List<IContentIssue> getIssues() {
+	public List<Issue> getIssues() {
 		return Collections.unmodifiableList(issues);
 	}
 
-	public void setIssues(List<IContentIssue> issues) {
+	public void setIssues(List<Issue> issues) {
 		this.issues = issues;
 	}
 

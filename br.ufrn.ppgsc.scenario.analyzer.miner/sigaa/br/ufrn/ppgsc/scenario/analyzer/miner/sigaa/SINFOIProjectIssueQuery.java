@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 import org.jboss.logging.Logger;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IContentIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 
 public class SINFOIProjectIssueQuery implements IQueryIssue {
 	
@@ -32,8 +32,8 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 		}
 	}
 	
-	public IContentIssue getIssueByNumber(long taskNumber) {
-		IContentIssue task = new SINFOIProjectIssue();
+	public Issue getIssueByNumber(long taskNumber) {
+		Issue task = new Issue();
 		
 		// Retorna o objeto vazio caso não tenha conectado.
 		if (connection == null)
@@ -49,10 +49,10 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				task.setId(rs.getLong("id"));
+				task.setIssueId(rs.getLong("id"));
 				task.setNumber(rs.getLong("numero"));
-				task.setIdType(rs.getLong("id_tipo"));
-				task.setTypeName(rs.getString("tipo_denominacao"));
+//				task.setIdType(rs.getLong("id_tipo"));
+				task.setIssueType(rs.getString("tipo_denominacao"));
 			}
 			else {
 				logger.error("Task number " + taskNumber + " wasn't found.");
@@ -69,8 +69,8 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	
 	// TODO: Remover depois! 
 	// Este método não é mais usado, mas o select ficou tão bonito :-)!
-	public List<IContentIssue> getIssuesByRevision(long revision) {
-		List<IContentIssue> tasks = new ArrayList<IContentIssue>();
+	public List<Issue> getIssuesByRevision(long revision) {
+		List<Issue> tasks = new ArrayList<Issue>();
 		
 		// Retorna a lista vazia não conectou.
 		if (connection == null)
@@ -93,13 +93,14 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 			 * pensebi quando testei para a revisão 70315.  
 			 */
 			while (rs.next()) {
-				SINFOIProjectIssue t = new SINFOIProjectIssue(
-						rs.getLong("id"),
-						rs.getLong("numero"),
-						rs.getLong("id_tipo"),
-						rs.getString("tipo_denominacao"));
+				Issue issue = new Issue();
 				
-				tasks.add(t);
+				issue.setIssueId(rs.getLong("id"));
+				issue.setNumber(rs.getLong("numero"));
+				issue.setIssueTypeId(rs.getLong("id_tipo"));
+				issue.setIssueType(rs.getString("tipo_denominacao"));
+				
+				tasks.add(issue);
 			}
 			
 			rs.close();
@@ -145,10 +146,10 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	public static void main(String[] args) {
 		SINFOIProjectIssueQuery dao = new SINFOIProjectIssueQuery();
 		
-		System.out.println(dao.getIssueByNumber(124277).getId());
-		System.out.println(dao.getIssueByNumber(124787).getId());
+		System.out.println(dao.getIssueByNumber(124277).getIssueId());
+		System.out.println(dao.getIssueByNumber(124787).getIssueId());
 		
-		for (IContentIssue t : dao.getIssuesByRevision(70315))
+		for (Issue t : dao.getIssuesByRevision(70315))
 			System.out.println(t.getNumber());
 	}
 	
