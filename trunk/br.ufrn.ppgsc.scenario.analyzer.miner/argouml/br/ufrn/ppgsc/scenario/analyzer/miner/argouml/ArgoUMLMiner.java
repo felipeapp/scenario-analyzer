@@ -17,9 +17,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.Issue;
-import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.IssueStatus;
-import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.IssueType;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil;
 
 public class ArgoUMLMiner {
@@ -90,10 +88,8 @@ public class ArgoUMLMiner {
 			issue.setComponent("component");
 			issue.setDateCreation(sdf.parse(item.getChildText("creation_ts")));
 			issue.setIssueId(Integer.parseInt(item.getChildText("issue_id")));
-			issue.setIssueStatus(IssueStatus.valueOf(item
-					.getChildText("issue_status")));
-			issue.setIssueType(IssueType.valueOf(item
-					.getChildText("issue_type")));
+			issue.setIssueStatus(item.getChildText("issue_status"));
+			issue.setIssueType(item.getChildText("issue_type"));
 			issue.setShortDescription(item.getChildText("short_desc"));
 		}
 
