@@ -73,9 +73,8 @@ public class ArgoUMLMiner {
 
 		StringReader sr = new StringReader(sb.toString());
 		InputSource inputSource = new InputSource(sr);
-		// builder.setValidation(true);
 		Document doc = builder.build(inputSource);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat(properties.getProperty("dateFormat"));
 
 		for (Object obj : doc.getRootElement().getChildren()) {
 			Element item = (Element) obj;
@@ -98,7 +97,7 @@ public class ArgoUMLMiner {
 
 	private void verifyIssueWasFound(Element item)
 			throws ObjectNotFoundException {
-		if (item.getAttributeValue("status_message").trim().equals("NotFound")) {
+		if (item.getAttributeValue("status_message").trim().equals(properties.getProperty("status_message"))) {
 			throw new ObjectNotFoundException(
 					"Não existe issue para o id informado.");
 		}
