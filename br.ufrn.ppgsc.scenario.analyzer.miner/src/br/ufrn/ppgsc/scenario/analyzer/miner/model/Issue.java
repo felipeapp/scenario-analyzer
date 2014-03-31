@@ -1,15 +1,16 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model;
+package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
 import java.util.Date;
 
 public class Issue {
 
 	private Integer issueId;
-	private IssueStatus issueStatus;
+	private Long number;
+	private String issueStatus;
 	private String component;
 	private String affectedVersion;
 	private Date dateCreation;
-	private IssueType issueType;
+	private String issueType;
 	private String shortDescription;
 
 	public Integer getIssueId() {
@@ -20,11 +21,11 @@ public class Issue {
 		this.issueId = issueId;
 	}
 
-	public IssueStatus getIssueStatus() {
+	public String getIssueStatus() {
 		return issueStatus;
 	}
 
-	public void setIssueStatus(IssueStatus issueStatus) {
+	public void setIssueStatus(String issueStatus) {
 		this.issueStatus = issueStatus;
 	}
 
@@ -52,11 +53,11 @@ public class Issue {
 		this.dateCreation = dateCreation;
 	}
 
-	public IssueType getIssueType() {
+	public String getIssueType() {
 		return issueType;
 	}
 
-	public void setIssueType(IssueType issueType) {
+	public void setIssueType(String issueType) {
 		this.issueType = issueType;
 	}
 
@@ -66,6 +67,14 @@ public class Issue {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	public Long getNumber() {
+		return number;
+	}
+
+	public void setNumber(Long number) {
+		this.number = number;
 	}
 
 }

@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.ArgoUMLMiner;
-import br.ufrn.ppgsc.scenario.analyzer.miner.argouml.model.Issue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 
 public class ArgoUMLMinerTest {
 
