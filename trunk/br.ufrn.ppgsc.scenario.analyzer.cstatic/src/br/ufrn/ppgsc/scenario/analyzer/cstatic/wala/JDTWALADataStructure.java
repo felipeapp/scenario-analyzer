@@ -37,7 +37,7 @@ public class JDTWALADataStructure implements IDataStructure {
 	
 	private CallGraph callGraph;
 	
-	// Versão do sistema da estrutura de dados
+	// Versão do sistema da estrutura de dados usada
 	private String version;
 	
 	private Map<String, Pair<MethodData, CGNode>> indexMethod;
