@@ -17,7 +17,6 @@ import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ClassData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.MethodData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.ScenarioData;
 import br.ufrn.ppgsc.scenario.analyzer.cstatic.model.impl.IDataStructure;
-import br.ufrn.ppgsc.scenario.analyzer.cstatic.util.ScenarioAnalyzerUtil;
 
 import com.ibm.wala.cast.java.client.JDTJavaSourceAnalysisEngine;
 import com.ibm.wala.cast.java.ipa.callgraph.JavaSourceAnalysisScope;
@@ -86,7 +85,7 @@ public class JDTWALADataStructure implements IDataStructure {
 		for (Iterator<CallSiteReference> it = node.iterateCallSites(); it.hasNext();) {
 			for (CGNode child : callGraph.getPossibleTargets(node, it.next())) {
 				if (child.getMethod().getDeclaringClass().getClassLoader().getReference().equals(JavaSourceAnalysisScope.SOURCE))
-					result.add(getMethodDataFromIndex(ScenarioAnalyzerUtil.getStandartMethodSignature(child.getMethod())));
+					result.add(getMethodDataFromIndex(WalaAnalyzerUtil.getStandartMethodSignature(child.getMethod())));
 			}
 		}
 		
@@ -101,7 +100,7 @@ public class JDTWALADataStructure implements IDataStructure {
 			CGNode parent = itr.next();
 			
 			if (parent.getMethod().getDeclaringClass().getClassLoader().getReference().equals(JavaSourceAnalysisScope.SOURCE))
-				result.add(getMethodDataFromIndex(ScenarioAnalyzerUtil.getStandartMethodSignature(parent.getMethod())));
+				result.add(getMethodDataFromIndex(WalaAnalyzerUtil.getStandartMethodSignature(parent.getMethod())));
 		}
 		
 		return result;
