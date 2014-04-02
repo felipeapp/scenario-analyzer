@@ -6,10 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
-// Esta classe usa libs do Hibernate 4
 public abstract class GenericDAO<T extends Serializable> {
 
 	public abstract T persist(T instance);
@@ -22,16 +19,7 @@ public abstract class GenericDAO<T extends Serializable> {
 
 	public static Session getSession() {
 		if (s == null) {
-			Configuration configuration = new Configuration()
-					.configure("hibernate.cfg.xml");
-
-			ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-					.applySettings(configuration.getProperties())
-					.buildServiceRegistry();
-
-			SessionFactory sf = configuration
-					.buildSessionFactory(serviceRegistry);
-
+			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
 		}
 
