@@ -17,8 +17,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.jboss.logging.Logger;
-import org.jboss.logging.Logger.Level;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class HttpsUtil {
 	/**
