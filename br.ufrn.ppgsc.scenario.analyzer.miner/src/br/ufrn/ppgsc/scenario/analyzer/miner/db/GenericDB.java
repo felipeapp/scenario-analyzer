@@ -7,8 +7,6 @@ import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
@@ -32,14 +30,7 @@ public abstract class GenericDB {
 	private Session s;
 
 	public GenericDB(String hibernateCfg) {
-		Configuration configuration = new Configuration().configure(hibernateCfg);
-
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
-				.applySettings(configuration.getProperties())
-				.buildServiceRegistry();
-
-		SessionFactory sf = configuration.buildSessionFactory(serviceRegistry);
-
+		SessionFactory sf = new Configuration().configure(hibernateCfg).buildSessionFactory();
 		s = sf.openSession();
 	}
 
