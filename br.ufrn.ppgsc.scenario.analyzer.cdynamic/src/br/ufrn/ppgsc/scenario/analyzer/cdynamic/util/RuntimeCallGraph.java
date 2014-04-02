@@ -31,7 +31,7 @@ public class RuntimeCallGraph {
 		try {
 			props.load(new FileInputStream("cdynamic.properties"));
 		} catch (IOException e) {
-			System.err.println("Can't load runtime.properties file!");
+			System.err.println("Can't load cdynamic.properties file!");
 			System.exit(0);
 		}
 		
