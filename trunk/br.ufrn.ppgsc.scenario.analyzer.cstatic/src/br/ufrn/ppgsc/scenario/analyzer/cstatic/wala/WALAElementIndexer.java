@@ -25,7 +25,7 @@ public class WALAElementIndexer {
 			
 			String class_name = imethod.getDeclaringClass().getName().getClassName().toString();
 			String method_name = imethod.isInit()? class_name : imethod.getName().toString();
-			String method_std_signature = ScenarioAnalyzerUtil.getStandartMethodSignature(imethod);
+			String method_std_signature = WalaAnalyzerUtil.getStandartMethodSignature(imethod);
 			
 			// recupera/cria a classe e configura os valores
 			ClassData cls = data.getClassDataFromIndex(class_name);
