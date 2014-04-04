@@ -34,14 +34,12 @@ public abstract class AspectsUtil {
 			new Hashtable<Long, Stack<RuntimeNode>>();
 	
 	protected static boolean isScenarioEntryPoint(Member member) {
-		boolean result = false;
+		Scenario ann_scenario = null;
 		
-		if (member instanceof Method) {
-			Scenario ann_scenario = ((Method) member).getAnnotation(Scenario.class);
-			result = ann_scenario != null;
-		}
+		if (member instanceof Method)
+			ann_scenario = ((Method) member).getAnnotation(Scenario.class);
 		
-		return result;
+		return ann_scenario != null;
 	}
 	
 	protected static boolean isIgnorableMBeanFlow(Member member) {
@@ -94,6 +92,29 @@ public abstract class AspectsUtil {
 		return result;
 	}
 	
+	protected static void popStacksAndPersistData(long time) {
+		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
+		
+		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
+		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
+		
+		try {
+			// Desempilha o último método e configura o tempo de execução dele
+			nodes_stack.pop().setExecutionTime(time);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		 * Se a pilha de nós estiver vazia, desempilha o cenário em execução,
+		 * pois ele terminou de executar e salva as informações no banco de dados
+		 */
+		if (nodes_stack.empty()) {
+			scenarios_stack.pop();
+			DatabaseService.saveResults(execution);
+		}
+	}
+	
 	protected static void popStacksAndPersistData(long time, Member member) {
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
@@ -107,8 +128,6 @@ public abstract class AspectsUtil {
 			/*
 			 * Caso o método seja um método de entrada de um cenário,
 			 * significa que o cenário terminou de executar.
-			 * Salvamos as informações coletadas na banco de dados
-			 * A limpeza dos cenários é opcional apenas para liberar memória
 			 */
 			if (AspectsUtil.isScenarioEntryPoint(member))
 				scenarios_stack.pop();
@@ -117,7 +136,7 @@ public abstract class AspectsUtil {
 		}
 		
 		// Se a pilha de cenários estiver vazia, salva as informações no banco de dados
-		if (scenarios_stack.isEmpty())
+		if (scenarios_stack.empty())
 			DatabaseService.saveResults(execution);
 	}
 	
