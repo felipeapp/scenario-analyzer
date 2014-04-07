@@ -1,7 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 
 import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -9,7 +8,6 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
-import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 
 public aspect AspectAllScenario {
@@ -65,7 +63,7 @@ public aspect AspectAllScenario {
 		 * Retira os elementos das pilhas e salva as informações no banco de dados
 		 * Observe que este método também é chamado quando ocorrem falhas
 		 */
-		AspectsUtil.popStacksAndPersistData(end - begin, member);
+		AspectsUtil.popStacksAndPersistData(end - begin);
 		
 		return o;
 	}
@@ -74,7 +72,7 @@ public aspect AspectAllScenario {
 	after() throwing(Throwable t) : executions() && !executionIgnored()  {
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
 		AspectsUtil.setException(t, member);
-		AspectsUtil.popStacksAndPersistData(-1, member);
+		AspectsUtil.popStacksAndPersistData(-1);
 	}
 	
 	// Intercepta capturas de exceções
