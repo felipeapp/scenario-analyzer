@@ -10,6 +10,8 @@ import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.io.File;
 
 import junit.framework.TestCase;
 
@@ -25,9 +27,11 @@ import br.ufrn.dimap.ttracker.data.TestData;
 import br.ufrn.dimap.ttracker.data.Variable;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
+import com.thoughtworks.xstream.XStream;
+
 public aspect TestTracker {
 	private pointcut managedBean() :
-		within(br.ufrn.sigaa.biblioteca..*) &&
+		within(exemplo..*) &&
 		(within(@Scope("request") *) || within(@Scope("session") *) || execution(* TestCase+.*()) || @annotation(Test)) &&
 		(execution(* *(..)) || execution(*.new(..)));
 	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
@@ -41,10 +45,11 @@ public aspect TestTracker {
 		Long threadId = Thread.currentThread().getId();
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
-		if(!TestCoverageMapping.getInstance().isBuilding())
+		if(!TestCoverageMapping.getInstance().isBuilding() || FileUtil.loadTextFromFile(new File(FileUtil.getResultFolderByResource(member.getDeclaringClass())+"/building.txt")).equals("0"))
 			loadTestCoverageMappingInstanceFromFile(member);
-		TestCoverageMapping.getInstance().setCurrentRevision(FileUtil.getTestCoverageMappingRevisionByResource(member.getDeclaringClass()));
-		TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+		TestCoverageMapping tcm = TestCoverageMapping.getInstance();
+		tcm.setCurrentRevision(FileUtil.getTestCoverageMappingRevisionByResource(member.getDeclaringClass()));
+		TestCoverage testCoverage = tcm.getOpenedTestCoverage(threadId);
 		if(testCoverage == null){
 			if((isTestClassMember(member) && isTestMethod(member)) || (isManagedBeanMember(member) && isActionMethod(member))){
 				testCoverage = new TestCoverage();
@@ -53,8 +58,8 @@ public aspect TestTracker {
 				testData.setClassFullName(member.getDeclaringClass().getCanonicalName());
 				testData.setManual(!isTestClassMember(member) && isManagedBeanMember(member));
 				testCoverage.addCoveredMethod(signature.toString(), getInputs(member, thisJoinPoint.getArgs()));
-				TestCoverageMapping.getInstance().getTestCoverageBuilding().put(threadId, testCoverage);
-				TestCoverageMapping.getInstance().setBuilding(true);
+				tcm.getTestCoverageBuilding().put(threadId, testCoverage);
+				tcm.setBuilding(true);
 //				saveTestCoverageMapping(member);
 			}
 		}
@@ -86,22 +91,23 @@ public aspect TestTracker {
 		Signature signature = thisJoinPoint.getSignature();
 		Member member = getMember(signature);
 		if(member != null) {
-			TestCoverage testCoverage = TestCoverageMapping.getInstance().getOpenedTestCoverage(threadId);
+			TestCoverageMapping tcm = TestCoverageMapping.getInstance();
+			TestCoverage testCoverage = tcm.getOpenedTestCoverage(threadId);
 			if(testCoverage != null){
 				TestData testData = testCoverage.getTestData();
 				if(((!testData.isManual() && isTestClassMember(member)) ||
 				(testData.isManual() && isManagedBeanMember(member) && isActionMethod(member))) &&
 				testData.getSignature().equals(signature.toString())){
-					if(!TestCoverageMapping.getInstance().getTestCoverages().contains(testCoverage)) {
-						testCoverage.setIdTest(TestCoverageMapping.getInstance().getNextId());
-						TestCoverageMapping.getInstance().finishTestCoverage(threadId);
+					if(!tcm.getTestCoverages().contains(testCoverage)) {
+						testCoverage.setIdTest(tcm.getNextId());
+						tcm.finishTestCoverage(threadId);
 						saveTestCoverageMapping(member);
-						String tcm = TestCoverageMapping.getInstance().printAllTestsCoverage();
+						String tcmText = tcm.printAllTestsCoverage();
 						String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
-						FileUtil.saveTextToFile(tcm, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
+						FileUtil.saveTextToFile(tcmText, resultFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
 					}
 					else
-						TestCoverageMapping.getInstance().cancelTestCoverage(threadId);
+						tcm.cancelTestCoverage(threadId);
 				}
 			}
 		}
@@ -119,9 +125,15 @@ public aspect TestTracker {
 		try{
 			String resultFolder = FileUtil.getResultFolderByResource(member.getDeclaringClass());
 			String testCoverageMappingName = FileUtil.getTestCoverageMappingNameByResource(member.getDeclaringClass());
-			Object obj = FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
-			if(obj != null && obj instanceof TestCoverageMapping)
-				TestCoverageMapping.setInstance((TestCoverageMapping) obj);
+			FileUtil.saveTextToFile("1", resultFolder, "building", "txt");
+			String xml = FileUtil.loadTextFromFile(new File(resultFolder + "/" + testCoverageMappingName + ".tcm"));
+			if (xml != null) {
+				XStream xstream = new XStream();
+				Object obj = xstream.fromXML(xml);
+//				Object obj = FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
+				if(obj != null && obj instanceof TestCoverageMapping)
+					TestCoverageMapping.setInstance((TestCoverageMapping) obj);
+			}
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
 		}

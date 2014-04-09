@@ -67,6 +67,7 @@ import br.ufrn.dimap.ttracker.data.Task;
 import br.ufrn.dimap.ttracker.data.TaskType;
 import br.ufrn.dimap.ttracker.data.TaskTypeSet;
 import br.ufrn.dimap.ttracker.data.TestCoverage;
+import br.ufrn.dimap.ttracker.data.TestCoverageGroup;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 import br.ufrn.dimap.ttracker.util.ObjectUtil;
@@ -295,9 +296,11 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		System.out.println("============================================================");
 		System.out.println("Médias dos Tipos de Tarefas:");
 		for (TaskTypeSet taskTypeSet : taskTypes.values()) {
+			String taxaInclusao = taskTypeSet.getQtdInclusionStart().size()+"/"+taskTypeSet.getQtdInclusionEnd().size();
+			String taxaPrecisao = taskTypeSet.getQtdPrecisionStart().size()+"/"+taskTypeSet.getQtdPrecisionEnd().size();
 			taskTypeSet.setInclusion(taskTypeSet.getInclusion() / new Float(taskTypeSet.getTasks().size()));
 			taskTypeSet.setPrecision(taskTypeSet.getPrecision() / new Float(taskTypeSet.getTasks().size()));
-			System.out.println("\tTipo da Tarefa: "+taskTypeSet.getName()+"\n\t\tInclusão: "+taskTypeSet.getInclusion()+"%\n\t\tPrecisão: "+taskTypeSet.getPrecision()+"%");
+			System.out.println("\tTipo da Tarefa: "+taskTypeSet.getName()+"\n\t\tInclusão: "+taxaInclusao+" - "+taskTypeSet.getInclusion()+"%\n\t\tPrecisão: "+taxaPrecisao+" - "+taskTypeSet.getPrecision()+"%");
 		}
 		System.out.println("============================================================");
 	}
@@ -306,19 +309,31 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		System.out.println("============================================================");
 		System.out.println("Métricas das Tarefas:");
 		for(Task task : tasks) {
-			task.setInclusion(TestUtil.getInclusionMeasure(task.getOldSelection(), task.getCurrentSelection()) * 100);
-			Set<TestCoverage> intersection = TestCoverage.intersection(task.getOldSelection(), task.getCurrentSelection());
-			String taxaInclusao = intersection.size()+"/"+task.getCurrentSelection().size();
-			task.setPrecision(TestUtil.getPrecisionMeasure(task.getOldExclusion(), task.getCurrentExclusion()) * 100);
-			Set<TestCoverage> intersection2 = TestCoverage.intersection(task.getOldExclusion(), task.getCurrentExclusion());
-			String taxaExclusao = intersection2.size()+"/"+task.getCurrentExclusion().size();
+			task.setInclusion(TestUtil.getInclusionMeasureGroup(task.getOldSelectionGroup(), task.getCurrentSelectionGroup()) * 100);
+			Set<TestCoverageGroup> intersection = TestCoverage.intersectionGroup(task.getOldSelectionGroup(), task.getCurrentSelectionGroup());
+			String taxaInclusao = intersection.size()+"/"+task.getCurrentSelectionGroup().size();
+			task.setPrecision(TestUtil.getPrecisionMeasureGroup(task.getOldExclusionGroup(), task.getCurrentExclusionGroup()) * 100);
+			Set<TestCoverageGroup> intersection2 = TestCoverage.intersectionGroup(task.getOldExclusionGroup(), task.getCurrentExclusionGroup());
+			String taxaExclusao = intersection2.size()+"/"+task.getCurrentExclusionGroup().size();
 			System.out.println("\tTarefa Número: "+task.getId()+"\tTipo da Tarefa: "+task.getType().getName()+"\n\t\tInclusão: "+taxaInclusao+" - "+task.getInclusion()+"%\n\t\tPrecisão: "+taxaExclusao+" - "+task.getPrecision()+"%");
 			TaskTypeSet taskTypeSet = taskTypes.get(task.getType());
 			taskTypeSet.setInclusion(taskTypeSet.getInclusion() + task.getInclusion());
 			taskTypeSet.setPrecision(taskTypeSet.getPrecision() + task.getPrecision());
+			taskTypeSet.getQtdInclusionStart().addAll(getQtd(intersection));
+			taskTypeSet.getQtdInclusionEnd().addAll(getQtd(task.getCurrentSelectionGroup()));
+			taskTypeSet.getQtdPrecisionStart().addAll(getQtd(intersection2));
+			taskTypeSet.getQtdPrecisionEnd().addAll(getQtd(task.getCurrentExclusionGroup()));
 			taskTypeSet.getTasks().add(task);
 		}
 		System.out.println("============================================================");
+	}
+	
+	private Set<Integer> getQtd(Set<TestCoverageGroup> testCoverageGroups) {
+		Set<Integer> qtd = new HashSet<Integer>(0);
+		for(TestCoverageGroup tCG : testCoverageGroups) {
+			qtd.add(tCG.getId());
+		}
+		return qtd;
 	}
 
 	private Integer checkoutExecuteDelete2(Boolean isAutomatic, Boolean startRevision, IWorkspace iWorkspace,
@@ -410,17 +425,17 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				FileUtil.saveTextToFile(tcmText, tcm2.getFileDirectory(), "tcmText", "txt"); //TODO: Utilizado para testes e debug
 				// TODO: Verificar se o TCM que está dentro do DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o
 				// mesmo), este objeto não deve ser salvo pois prejudicaria a construção do MethodState de outras versões
-				Set<TestCoverage> allOldTests = new HashSet<TestCoverage>(tcm2.getTestCoverages());
-				Set<TestCoverage> techniqueSelection = new HashSet<TestCoverage>(regressionTestTechnique.executeRegression());
-				Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
+				Set<TestCoverageGroup> allOldTests = new HashSet<TestCoverageGroup>(tcm2.getTestCoveragesGroup());
+				Set<TestCoverageGroup> techniqueSelection = new HashSet<TestCoverageGroup>(regressionTestTechnique.executeRegression());
+				Set<TestCoverageGroup> techniqueExclusion = new HashSet<TestCoverageGroup>(allOldTests);
 				techniqueExclusion.removeAll(techniqueSelection);
 				FileUtil.saveObjectToFile(allOldTests, iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
 				FileUtil.saveObjectToFile(techniqueSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
 				FileUtil.saveObjectToFile(techniqueExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
 				for(Task task : tasks) {
-					task.setOldSelection(new HashSet<TestCoverage>(tcm2.getModifiedCoveredMethods(task.getModifiedMethods())));
-					task.setOldExclusion(new HashSet<TestCoverage>(allOldTests));
-					task.getOldExclusion().removeAll(task.getOldSelection());
+					task.setOldSelectionGroup(new HashSet<TestCoverageGroup>(tcm2.getModifiedCoveredMethodsGroup(task.getModifiedMethods())));
+					task.setOldExclusionGroup(new HashSet<TestCoverageGroup>(allOldTests));
+					task.getOldExclusionGroup().removeAll(task.getOldSelectionGroup());
 				}
 				FileUtil.saveObjectToFile(tasks, iWorkspaceFolder + "/config", "Tasks", "obj");
 				
@@ -428,13 +443,14 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				covered1.addAll(tcm2.getMethodStatePool().get(new MethodState(true,true)).keySet());
 				Set<String> modified1 = new HashSet<String>(tcm2.getMethodStatePool().get(new MethodState(true,false)).keySet());
 				modified1.addAll(tcm2.getMethodStatePool().get(new MethodState(true,true)).keySet());
+				Set<String> coveredModified1 = tcm2.getMethodStatePool().get(new MethodState(true,true)).keySet();
 				String sizes = "========================================Versão 3.11.24========================================\n";
 				sizes += "Quantidade Total de Testes: "+allOldTests.size()+"\n";
 				sizes += "Quantidade de Testes Incluídos Pela Técnica: "+techniqueSelection.size()+"\n";
 				sizes += "Quantidade de Testes Excluídos Pela Técnica: "+techniqueExclusion.size()+"\n";
 				sizes += "Quantidade de Métodos Cobertos Pelos Testes: "+covered1.size()+"\n";
 				sizes += "Quantidade de Métodos Modificados Entre as Versões: "+modified1.size()+"\n";
-				sizes += "Quantidade de Métodos Cobertos e Modificados: "+tcm2.getMethodStatePool().get(new MethodState(true,true)).keySet().size()+"\n";
+				sizes += "Quantidade de Métodos Cobertos e Modificados: "+coveredModified1.size()+"\n";
 				sizes += "====================================================================================================\n";
 				FileUtil.saveTextToFile(sizes, resultPath, "Sizes v3.11.24", "txt");
 				FileUtil.saveTextToFile("1", resultPath, "startDone", "txt");
@@ -446,8 +462,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
 					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()) {
 				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
-				Set<String> validModifiedMethods = (Set<String>) FileUtil.loadObjectFromFile(resultPath, "modifiedMethods", "obj");
-				TCM.setModifiedMethods(validModifiedMethods);
+				TCM.setModifiedMethods(modifiedMethods);
 				
 				String allBibModified = "";
 				Set<String> modifiedBibMethods = new HashSet<String>(TCM.getMethodStatePool().get(new MethodState(true,false)).keySet());
@@ -469,18 +484,18 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				
 				tcmText = TCM.printAllTestsCoverage();
 				FileUtil.saveTextToFile(tcmText, TCM.getFileDirectory(), "tcmText", "txt"); //TODO: Utilizado para testes e debug
-				Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
-				Set<TestCoverage> allOldTests = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
-				Set<TestCoverage> allNewTests = new HashSet<TestCoverage>(TCM.getTestCoverages());
-				Set<TestCoverage> perfectExclusion = new HashSet<TestCoverage>(MathUtil.intersection(allOldTests, allNewTests));
-				Set<TestCoverage> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
+				Set<TestCoverageGroup> toolSelection = TCM.getModifiedChangedTestsCoverageGroup();
+				Set<TestCoverageGroup> allOldTests = (Set<TestCoverageGroup>) FileUtil.loadObjectFromFile(iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
+				Set<TestCoverageGroup> allNewTests = new HashSet<TestCoverageGroup>(TCM.getTestCoveragesGroup());
+				Set<TestCoverageGroup> perfectExclusion = new HashSet<TestCoverageGroup>(MathUtil.intersection(allOldTests, allNewTests));
+				Set<TestCoverageGroup> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
 				perfectExclusion.removeAll(perfectSelection);
 				FileUtil.saveObjectToFile(perfectSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
 				FileUtil.saveObjectToFile(perfectExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
 				for(Task task : tasks) {
-					task.setCurrentSelection(MathUtil.intersection(allOldTests, TCM.getModifiedCoveredMethods(task.getModifiedMethods())));
-					task.setCurrentExclusion(new HashSet<TestCoverage>(MathUtil.intersection(allOldTests, allNewTests)));
-					task.getCurrentExclusion().removeAll(task.getCurrentSelection());
+					task.setCurrentSelectionGroup(MathUtil.intersection(allOldTests, TCM.getModifiedCoveredMethodsGroup(task.getModifiedMethods())));
+					task.setCurrentExclusionGroup(new HashSet<TestCoverageGroup>(MathUtil.intersection(allOldTests, allNewTests)));
+					task.getCurrentExclusionGroup().removeAll(task.getCurrentSelectionGroup());
 				}
 				FileUtil.saveObjectToFile(tasks, iWorkspace.getRoot().getLocation().toString() + "/config", "Tasks", "obj");
 				
@@ -488,13 +503,14 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				covered2.addAll(TCM.getMethodStatePool().get(new MethodState(true,true)).keySet());
 				Set<String> modified2 = new HashSet<String>(TCM.getMethodStatePool().get(new MethodState(true,false)).keySet());
 				modified2.addAll(TCM.getMethodStatePool().get(new MethodState(true,true)).keySet());
+				Set<String> coveredModified2 = TCM.getMethodStatePool().get(new MethodState(true,true)).keySet();
 				String sizes = "========================================Versão 3.12.36========================================\n";
 				sizes += "Quantidade Total de Testes Válidos: "+MathUtil.intersection(allOldTests, allNewTests).size()+"\n";
 				sizes += "Quantidade de Testes Que Devem Ser Incluídos: "+perfectSelection.size()+"\n";
 				sizes += "Quantidade de Testes Que Devem Ser Excluídos: "+perfectExclusion.size()+"\n";
 				sizes += "Quantidade de Métodos Cobertos Pelos Testes: "+covered2.size()+"\n";
 				sizes += "Quantidade de Métodos Modificados Entre as Versões: "+modified2.size()+"\n";
-				sizes += "Quantidade de Métodos Cobertos e Modificados: "+TCM.getMethodStatePool().get(new MethodState(true,true)).keySet().size()+"\n";
+				sizes += "Quantidade de Métodos Cobertos e Modificados: "+coveredModified2.size()+"\n";
 				sizes += "====================================================================================================\n";
 				FileUtil.saveTextToFile(sizes, resultPath, "Sizes v3.12.36", "txt");
 				FileUtil.saveTextToFile("1", resultPath, "endDone", "txt");
@@ -507,111 +523,111 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		return 0;
 	}
 
-	private Integer checkoutExecuteDelete(Boolean isAutomatic, Boolean oldTaskRevision, IWorkspace iWorkspace,
-			List<Project> projectForExecuteAllTests, History history, SVNConfig sVNConfig, Task task, Revision revision,
-			RegressionTestTechnique regressionTestTechnique) throws SVNException, CoreException, IOException, ClassNotFoundException,
-			JavaModelException, Exception {
-
-		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
-		String resultPath = iWorkspaceFolder + "/result";
-		if ((new File(resultPath + "/RMV_" + task.getId() + ".tcm")).exists()) {
-			System.out.println("Pulando tarefa: " + task.getId());
-			return -1;
-		}
-		if (!(new File(resultPath + "/TCM_" + revision.getId() + ".tcm")).exists()) {
-			System.out.println("\tBaixando projetos com a revisão: " + revision.getId());
-			Integer retorno = history.checkouOrUpdateProjects(revision);
-			if (retorno.equals(-1))
-				return -1;
-			Project aProject = projectForExecuteAllTests.get(0);
-			// Class<?> aClass =
-			// ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
-			// ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass),
-			// iWorkspaceFolder, revision.getId(), aProject.getName());
-			ProjectUtil.saveUtilInformations(iWorkspaceFolder + "/SIGAA/app/sigaa.ear/lib.jar", iWorkspaceFolder, revision.getId(), task.getId(),
-					aProject.getName());
-			if (isAutomatic) {
-				for (Project project : projectForExecuteAllTests) {
-					if (!project.isExecuteTests())
-						continue;
-					IProject iProject = project.getIProject();
-					ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
-					TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
-				}
-			} else {
-				MessageDialog
-						.openInformation(
-								window.getShell(),
-								"Fase de Testes",
-								"1º) Compile os projetos;\n2º) Inicialize o servidor JBoss;\n3º) Execute os testes manualmente e;\n4º) Execute novamente o estudo empírico para continuar.");
-				return 1;
-			}
-		} else {
-			System.out.println("Testes finalizados...");
-			for (int i = 1; i <= sVNConfig.getProjects().size(); i++) {
-				Project project = sVNConfig.getProjects().get(i);
-				project.setIProject(iWorkspace.getRoot().getProject(project.getName()));
-				// O projeto não precisa existir no workspace para setar esta
-				// informação
-			}
-			for (Project project : projectForExecuteAllTests)
-				ProjectUtil.setAllUncoveredMethods(project, iWorkspaceFolder+"\result", "TCM_" + revision.getId());
-		}
-		if (oldTaskRevision) {
-			String allOldTestsResultName = "AllOldTests_" + task.getId();
-			String selectionResultName = "RTSSelection_" + regressionTestTechnique.getName() + "_" + task.getId();
-			String exclusionResultName = "RTSExclusion_" + regressionTestTechnique.getName() + "_" + task.getId();
-			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
-					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()
-					|| !(new File(resultPath + "/" + allOldTestsResultName + ".slc")).exists()) {
-				// Pythia - a regression test selection tool based on textual
-				// differencing
-				regressionTestTechnique.setName("Pythia");
-				regressionTestTechnique.setRevision(revision);
-				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
-				Object configurations[] = { TCM };
-				regressionTestTechnique.setConfiguration(configurations);
-				// TODO: cada técnica de teste de regressão deve implementar sua
-				// própria técnica de obtenção dos métodos modificados
-				regressionTestTechnique.setModifiedMethods(task.getModifiedMethods());
-				// TODO: Verificar se o TCM que está dentro do
-				// DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o
-				// mesmo), este objeto não deve ser salvo pois prejudicaria a
-				// construção do MethodState de outras versões
-				Set<TestCoverage> allOldTests = TCM.getTestCoverages();
-				Set<TestCoverage> techniqueSelection = regressionTestTechnique.executeRegression();
-				Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
-				techniqueExclusion.removeAll(techniqueSelection);
-				FileUtil.saveObjectToFile(allOldTests, iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
-				FileUtil.saveObjectToFile(techniqueSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
-				FileUtil.saveObjectToFile(techniqueExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
-			}
-		} else { // TODO: Para que tecnicas que utilizam a currente funcionem
-					// terei que colocar a execução dela aqui
-			String allOldTestsResultName = "AllOldTests_" + task.getId();
-			String selectionResultName = "PerfectSelection_" + task.getId();
-			String exclusionResultName = "PerfectExclusion_" + task.getId();
-			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
-					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()) {
-				Set<String> modifiedMethods = task.getModifiedMethods();
-				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
-				TCM.setModifiedMethods(modifiedMethods);
-				Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
-				Set<TestCoverage> allOldTests = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspaceFolder + "/result", allOldTestsResultName,
-						"slc");
-				Set<TestCoverage> perfectExclusion = new HashSet<TestCoverage>(allOldTests);
-				Set<TestCoverage> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
-				perfectExclusion.removeAll(perfectSelection);
-				FileUtil.saveObjectToFile(perfectSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
-				FileUtil.saveObjectToFile(perfectExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
-			}
-		}
-		deleteProjectsFromCheckout(sVNConfig, revision, iWorkspaceFolder);
-		// TODO: cada revisão pode conter novos testes ou excluídos testes da
-		// revisão anterior, ao calcular as métricas tem de levar em
-		// consideração apenas o que já existia
-		return 0;
-	}
+//	private Integer checkoutExecuteDelete(Boolean isAutomatic, Boolean oldTaskRevision, IWorkspace iWorkspace,
+//			List<Project> projectForExecuteAllTests, History history, SVNConfig sVNConfig, Task task, Revision revision,
+//			RegressionTestTechnique regressionTestTechnique) throws SVNException, CoreException, IOException, ClassNotFoundException,
+//			JavaModelException, Exception {
+//
+//		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
+//		String resultPath = iWorkspaceFolder + "/result";
+//		if ((new File(resultPath + "/RMV_" + task.getId() + ".tcm")).exists()) {
+//			System.out.println("Pulando tarefa: " + task.getId());
+//			return -1;
+//		}
+//		if (!(new File(resultPath + "/TCM_" + revision.getId() + ".tcm")).exists()) {
+//			System.out.println("\tBaixando projetos com a revisão: " + revision.getId());
+//			Integer retorno = history.checkouOrUpdateProjects(revision);
+//			if (retorno.equals(-1))
+//				return -1;
+//			Project aProject = projectForExecuteAllTests.get(0);
+//			// Class<?> aClass =
+//			// ProjectUtil.getIProjectClassLoader(aProject.getIProject()).loadClass(ProjectUtil.getAClass(aProject.getIProject()));
+//			// ProjectUtil.saveUtilInformations(FileUtil.getBuildFolderByResource(aClass),
+//			// iWorkspaceFolder, revision.getId(), aProject.getName());
+//			ProjectUtil.saveUtilInformations(iWorkspaceFolder + "/SIGAA/app/sigaa.ear/lib.jar", iWorkspaceFolder, revision.getId(), task.getId(),
+//					aProject.getName());
+//			if (isAutomatic) {
+//				for (Project project : projectForExecuteAllTests) {
+//					if (!project.isExecuteTests())
+//						continue;
+//					IProject iProject = project.getIProject();
+//					ClassLoader iProjectClassLoader = ProjectUtil.getIProjectClassLoader(iProject);
+//					TestUtil.executeTests(iProjectClassLoader, ProjectUtil.getAllTestClasses(iProject, project.getPackagesToTest()));
+//				}
+//			} else {
+//				MessageDialog
+//						.openInformation(
+//								window.getShell(),
+//								"Fase de Testes",
+//								"1º) Compile os projetos;\n2º) Inicialize o servidor JBoss;\n3º) Execute os testes manualmente e;\n4º) Execute novamente o estudo empírico para continuar.");
+//				return 1;
+//			}
+//		} else {
+//			System.out.println("Testes finalizados...");
+//			for (int i = 1; i <= sVNConfig.getProjects().size(); i++) {
+//				Project project = sVNConfig.getProjects().get(i);
+//				project.setIProject(iWorkspace.getRoot().getProject(project.getName()));
+//				// O projeto não precisa existir no workspace para setar esta
+//				// informação
+//			}
+//			for (Project project : projectForExecuteAllTests)
+//				ProjectUtil.setAllUncoveredMethods(project, iWorkspaceFolder+"\result", "TCM_" + revision.getId());
+//		}
+//		if (oldTaskRevision) {
+//			String allOldTestsResultName = "AllOldTests_" + task.getId();
+//			String selectionResultName = "RTSSelection_" + regressionTestTechnique.getName() + "_" + task.getId();
+//			String exclusionResultName = "RTSExclusion_" + regressionTestTechnique.getName() + "_" + task.getId();
+//			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
+//					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()
+//					|| !(new File(resultPath + "/" + allOldTestsResultName + ".slc")).exists()) {
+//				// Pythia - a regression test selection tool based on textual
+//				// differencing
+//				regressionTestTechnique.setName("Pythia");
+//				regressionTestTechnique.setRevision(revision);
+//				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
+//				Object configurations[] = { TCM };
+//				regressionTestTechnique.setConfiguration(configurations);
+//				// TODO: cada técnica de teste de regressão deve implementar sua
+//				// própria técnica de obtenção dos métodos modificados
+//				regressionTestTechnique.setModifiedMethods(task.getModifiedMethods());
+//				// TODO: Verificar se o TCM que está dentro do
+//				// DiffRegressionTest é uma cópia ou o mesmo objeto (deve ser o
+//				// mesmo), este objeto não deve ser salvo pois prejudicaria a
+//				// construção do MethodState de outras versões
+//				Set<TestCoverage> allOldTests = TCM.getTestCoverages();
+//				Set<TestCoverage> techniqueSelection = regressionTestTechnique.executeRegression();
+//				Set<TestCoverage> techniqueExclusion = new HashSet<TestCoverage>(allOldTests);
+//				techniqueExclusion.removeAll(techniqueSelection);
+//				FileUtil.saveObjectToFile(allOldTests, iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
+//				FileUtil.saveObjectToFile(techniqueSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
+//				FileUtil.saveObjectToFile(techniqueExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
+//			}
+//		} else { // TODO: Para que tecnicas que utilizam a currente funcionem
+//					// terei que colocar a execução dela aqui
+//			String allOldTestsResultName = "AllOldTests_" + task.getId();
+//			String selectionResultName = "PerfectSelection_" + task.getId();
+//			String exclusionResultName = "PerfectExclusion_" + task.getId();
+//			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
+//					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()) {
+//				Set<String> modifiedMethods = task.getModifiedMethods();
+//				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
+//				TCM.setModifiedMethods(modifiedMethods);
+//				Set<TestCoverage> toolSelection = TCM.getModifiedChangedTestsCoverage();
+//				Set<TestCoverage> allOldTests = (Set<TestCoverage>) FileUtil.loadObjectFromFile(iWorkspaceFolder + "/result", allOldTestsResultName,
+//						"slc");
+//				Set<TestCoverage> perfectExclusion = new HashSet<TestCoverage>(allOldTests);
+//				Set<TestCoverage> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
+//				perfectExclusion.removeAll(perfectSelection);
+//				FileUtil.saveObjectToFile(perfectSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
+//				FileUtil.saveObjectToFile(perfectExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
+//			}
+//		}
+//		deleteProjectsFromCheckout(sVNConfig, revision, iWorkspaceFolder);
+//		// TODO: cada revisão pode conter novos testes ou excluídos testes da
+//		// revisão anterior, ao calcular as métricas tem de levar em
+//		// consideração apenas o que já existia
+//		return 0;
+//	}
 
 	private void deleteProjectsFromCheckout(SVNConfig sVNConfig, Revision revision, String iWorkspaceFolder) throws CoreException {
 		File currentRevisionFile = new File(iWorkspaceFolder + "/config/currentRevision.txt");

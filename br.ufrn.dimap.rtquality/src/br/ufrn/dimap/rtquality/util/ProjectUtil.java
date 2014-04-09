@@ -37,6 +37,8 @@ import org.eclipse.jdt.internal.core.JavaModelManager;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.junit.Test;
 
+import com.thoughtworks.xstream.XStream;
+
 import br.ufrn.dimap.rtquality.history.ChangedAssetsMinerUtil;
 import br.ufrn.dimap.rtquality.history.MethodLimit;
 import br.ufrn.dimap.rtquality.history.MethodLimitBuilder;
@@ -187,7 +189,13 @@ public class ProjectUtil {
 	
 	public static TestCoverageMapping getTestCoverageMapping(String tcmPath, String testCoverageMappingName) {
 		try{
-			return (TestCoverageMapping) FileUtil.loadObjectFromFile(tcmPath, testCoverageMappingName, "tcm");
+			String xml = FileUtil.loadTextFromFile(new File(tcmPath + "/" + testCoverageMappingName + ".tcm"));
+			TestCoverageMapping testCoverageMapping = null;
+			if (xml != null) {
+				XStream xstream = new XStream();
+				testCoverageMapping = (TestCoverageMapping) xstream.fromXML(xml);
+			}
+			return testCoverageMapping;
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
 		}
@@ -197,8 +205,13 @@ public class ProjectUtil {
 	public static TestCoverageMapping setAllUncoveredMethods(Project project, String tcmFolder, String testCoverageMappingName) throws ClassNotFoundException {
 		try{
 			IProject iProject = project.getIProject();
-			TestCoverageMapping.setInstance((TestCoverageMapping) FileUtil.loadObjectFromFile(tcmFolder, testCoverageMappingName, "tcm"));
-			TestCoverageMapping testCoverageMapping = TestCoverageMapping.getInstance();
+			String xml = FileUtil.loadTextFromFile(new File(tcmFolder + "/" + testCoverageMappingName + ".tcm"));
+			TestCoverageMapping testCoverageMapping = null;
+			if (xml != null) {
+				XStream xstream = new XStream();
+				testCoverageMapping = (TestCoverageMapping) xstream.fromXML(xml);
+			}
+			TestCoverageMapping.setInstance(testCoverageMapping);
 			//Adiciona métodos uncovered
 			IJavaProject iJavaProject = JavaCore.create(iProject);
 			IPackageFragment[] iPackageFragments = iJavaProject.getPackageFragments();
