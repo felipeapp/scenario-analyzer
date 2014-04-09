@@ -8,12 +8,20 @@ public class TaskTypeSet {
 	private Set<Task> tasks;
 	private Float inclusion;
 	private Float precision;
+	private Set<Integer> qtdInclusionStart;
+	private Set<Integer> qtdInclusionEnd;
+	private Set<Integer> qtdPrecisionStart;
+	private Set<Integer> qtdPrecisionEnd;
 
 	public TaskTypeSet(TaskType name) {
 		this.name = name;
 		this.tasks = new HashSet<Task>();
 		this.inclusion = 0F;
 		this.precision = 0F;
+		this.qtdInclusionStart = new HashSet<Integer>();
+		this.qtdInclusionEnd = new HashSet<Integer>();
+		this.qtdPrecisionStart = new HashSet<Integer>();
+		this.qtdPrecisionEnd = new HashSet<Integer>();
 	}
 
 	public String getName() {
@@ -42,6 +50,38 @@ public class TaskTypeSet {
 
 	public void setPrecision(Float precision) {
 		this.precision = precision;
+	}
+
+	public Set<Integer> getQtdInclusionStart() {
+		return qtdInclusionStart;
+	}
+
+	public void setQtdInclusionStart(Set<Integer> qtdInclusionStart) {
+		this.qtdInclusionStart = qtdInclusionStart;
+	}
+
+	public Set<Integer> getQtdInclusionEnd() {
+		return qtdInclusionEnd;
+	}
+
+	public void setQtdInclusionEnd(Set<Integer> qtdInclusionEnd) {
+		this.qtdInclusionEnd = qtdInclusionEnd;
+	}
+
+	public Set<Integer> getQtdPrecisionStart() {
+		return qtdPrecisionStart;
+	}
+
+	public void setQtdPrecisionStart(Set<Integer> qtdPrecisionStart) {
+		this.qtdPrecisionStart = qtdPrecisionStart;
+	}
+
+	public Set<Integer> getQtdPrecisionEnd() {
+		return qtdPrecisionEnd;
+	}
+
+	public void setQtdPrecisionEnd(Set<Integer> qtdPrecisionEnd) {
+		this.qtdPrecisionEnd = qtdPrecisionEnd;
 	}
 
 }

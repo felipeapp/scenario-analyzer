@@ -1,6 +1,5 @@
 package br.ufrn.dimap.rtquality.regressiontest;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -8,7 +7,7 @@ import java.util.Set;
 import br.ufrn.dimap.ttracker.data.MethodData;
 import br.ufrn.dimap.ttracker.data.MethodState;
 import br.ufrn.dimap.ttracker.data.Revision;
-import br.ufrn.dimap.ttracker.data.TestCoverage;
+import br.ufrn.dimap.ttracker.data.TestCoverageGroup;
 import br.ufrn.dimap.ttracker.data.TestCoverageMapping;
 
 public class DiffRegressionTest extends RegressionTestTechnique {
@@ -20,10 +19,10 @@ public class DiffRegressionTest extends RegressionTestTechnique {
 	}
 	
 	@Override
-	public Set<TestCoverage> executeRegression() {
+	public Set<TestCoverageGroup> executeRegression() {
 		if(modifiedMethods != null)
-			return oldTestCoverageMapping.getModifiedChangedTestsCoverage();
-		return new HashSet<TestCoverage>(0);
+			return oldTestCoverageMapping.getModifiedChangedTestsCoverageGroup();
+		return new HashSet<TestCoverageGroup>(0);
 	}
 
 	@Override

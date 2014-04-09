@@ -94,6 +94,10 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	public Set<CoveredMethod> getCoveredMethods() {
 		return coveredMethods;
 	}
+	
+	public void setCoveredMethods(Set<CoveredMethod> coveredMethods) {
+		this.coveredMethods = coveredMethods;
+	}
 
 	public Date getDate() {
 		return date;
@@ -125,12 +129,13 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 	
 
 	
-	public String methodDataToString() {
-		String pilha = new String("");
-		for(CoveredMethod coveredMethod : coveredMethods) {
-			pilha += coveredMethod.getMethodData().getSignature()+"\n";
-		}
-		return pilha;
+	public Set<String> methodDataToSet() {
+		if(coveredMethods == null)
+			return null;
+		Set<String> set = new HashSet<String>();
+		for(CoveredMethod coveredMethod : coveredMethods)
+			set.add(coveredMethod.getMethodData().getSignature());
+		return set;
 	}
 	
 	public static Set<TestCoverage> intersection(Set<TestCoverage> A, Set<TestCoverage> B) {
@@ -152,20 +157,38 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		}
 		return new HashSet<TestCoverage>(intersection);
 	}
+	
+	public static Set<TestCoverageGroup> intersectionGroup(Set<TestCoverageGroup> A, Set<TestCoverageGroup> B) {
+		if(A == null || B == null)
+			return new HashSet<TestCoverageGroup>(0);
+		Set<TestCoverageGroup> auxB = new HashSet<TestCoverageGroup>(B);
+		Set<TestCoverageGroup> intersection = new HashSet<TestCoverageGroup>(A.size()+B.size());
+		for (TestCoverageGroup testA : A) {
+			TestCoverageGroup aux = null;
+			for(TestCoverageGroup testB : auxB) {
+				if(testA.equals(testB)) {
+					aux = testB;
+					intersection.add(aux);
+					break;
+				}
+			}
+			if(aux != null)
+				auxB.remove(aux);
+		}
+		return new HashSet<TestCoverageGroup>(intersection);
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((testData == null) ? 0 : testData.hashCode());
-		result = prime * result + ((methodDataToString() == null) ? 0 : methodDataToString().hashCode());
+		result = prime * result + ((methodDataToSet() == null) ? 0 : methodDataToSet().hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -179,7 +202,7 @@ public class TestCoverage implements Comparable<TestCoverage>, Serializable {
 		if (coveredMethods == null) {
 			if (other.coveredMethods != null)
 				return false;
-		} else if (!methodDataToString().equals(other.methodDataToString()))
+		} else if (!methodDataToSet().equals(other.methodDataToSet()))
 			return false;
 		return true;
 	}

@@ -4,10 +4,9 @@
 package br.ufrn.dimap.ttracker.data;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * @author João Guedes
@@ -18,12 +17,14 @@ public class MethodData implements Serializable {
 	
 	private String signature;
 	private MethodState methodState;
-	private SortedSet<TestCoverage> testsCoverage;
+	private Set<TestCoverage> testsCoverage;
+	private Set<Integer> testsCoverageGroup;
 	
 	public MethodData(String signature) {
 		this.signature = signature;
 		this.methodState = new MethodState();
-		testsCoverage = new TreeSet<TestCoverage>();
+		testsCoverage = new HashSet<TestCoverage>();
+		testsCoverageGroup = new HashSet<Integer>();
 	}
 	
 	public String getSignature() {
@@ -41,7 +42,19 @@ public class MethodData implements Serializable {
 	public Set<TestCoverage> getTestsCoverage() {
 		return testsCoverage;
 	}
+
+	public void setTestsCoverage(Set<TestCoverage> testsCoverage) {
+		this.testsCoverage = testsCoverage;
+	}
 	
+	public Set<Integer> getTestsCoverageGroup() {
+		return testsCoverageGroup;
+	}
+
+	public void setTestsCoverageGroup(Set<Integer> testsCoverageGroup) {
+		this.testsCoverageGroup = testsCoverageGroup;
+	}
+
 	public void combineWith(MethodData other) throws Exception {  //TODO: Traduzir as mensagens das exceções para o inglês
 		//TODO: Criar uma exception própria para esta situação
 		if(!signature.equals(other.getSignature()))

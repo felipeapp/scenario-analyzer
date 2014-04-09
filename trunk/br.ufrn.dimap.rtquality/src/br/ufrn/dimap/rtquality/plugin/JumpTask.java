@@ -74,9 +74,25 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		String iWorkspaceFolder = iWorkspace.getRoot().getLocation().toString();
 		String resultPath = iWorkspaceFolder + "/result";
 		//TODO: Recuperar o descobrir o problema do keySet do MethodStatePool
-		TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_157172", "tcm");
-		tcm.setCurrentRevision(157172);
-		FileUtil.saveObjectToFile(tcm, resultPath, "TCM_157172", "tcm");
+		String start = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/result/startDone.txt"));
+		String end = FileUtil.loadTextFromFile(new File(iWorkspace.getRoot().getLocation().toString()+"/result/endDone.txt"));
+		boolean startDone = (start != null && start.equals("1")) ? true : false;
+		boolean endDone = (end != null && end.equals("1")) ? true : false;
+		if(!startDone) {
+			TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_153085", "tcm");
+			tcm.getNextGroupId();
+			tcm.setBuilding(false);
+			FileUtil.saveTextToFile("0", resultPath, "building", "txt");
+			tcm.save();
+		}
+		if(!endDone) {
+			TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_160277", "tcm");
+			tcm.getNextGroupId();
+			tcm.setBuilding(false);
+			FileUtil.saveTextToFile("0", resultPath, "building", "txt");
+			tcm.save();
+		}
+//		FileUtil.saveObjectToFile(tcm, resultPath, "TCM_157172", "tcm");
 //		Iterator<TestCoverage> i = tcm.getTestCoverages().iterator();
 //		while(i.hasNext()) {
 //			TestCoverage tc = i.next();
@@ -140,7 +156,7 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 //		removeProjectName(tcm1);
 //		removeProjectName(tcm2);
 		
-		System.out.println("Aqui!");
+//		System.out.println("Aqui!");
 //		Set<String> allModified = new HashSet<String>(tcm1.getMethodStatePool().get(new MethodState(true,true)).keySet());
 //		allModified.addAll(tcm1.getMethodStatePool().get(new MethodState(false,true)).keySet());
 //		String all = "";

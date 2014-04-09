@@ -9,12 +9,16 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+
+import com.thoughtworks.xstream.XStream;
 
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
@@ -32,8 +36,10 @@ public class TestCoverageMapping implements Serializable {
 	private Map<String, MethodData> methodPool;
 	private Map<MethodState, Map<String, MethodData>> methodStatePool;
 	private Map<Long, TestCoverage> testCoverageBuilding;
-	private SortedSet<TestCoverage> testCoverages;
+	private Map<Integer, TestCoverageGroup> testCoverageGroup;
+	private Set<TestCoverage> testCoverages;
 	private Integer nextId;
+	private Integer nextGroupId;
 	private String fileDirectory;
 	private boolean building;
 
@@ -47,8 +53,9 @@ public class TestCoverageMapping implements Serializable {
 		this.methodStatePool.put(new MethodState(false, true), new HashMap<String, MethodData>());
 		this.methodStatePool.put(new MethodState(false, false), new HashMap<String, MethodData>());
 		this.testCoverageBuilding = new HashMap<Long, TestCoverage>();
-		this.testCoverages = new TreeSet<TestCoverage>();
+		this.testCoverages = new HashSet<TestCoverage>();
 		this.nextId = 1;
+		this.nextGroupId = 1;
 		this.fileDirectory = "C:/";
 		this.building = false;
 	}
@@ -164,13 +171,23 @@ public class TestCoverageMapping implements Serializable {
 	 * 
 	 * @return
 	 */
-	public Set<TestCoverage> getModifiedChangedTestsCoverage() {
+	public Set<TestCoverage> getModifiedChangedTestsCoverage() {	
 		Set<TestCoverage> testsCoverage = new HashSet<TestCoverage>(0);
 		Set<MethodData> modifiedChangedMethods = new HashSet<MethodData>(methodStatePool.get(new MethodState(true, true)).values());
 		for (MethodData modifiedChangedMethod : modifiedChangedMethods) {
 			testsCoverage.addAll(modifiedChangedMethod.getTestsCoverage());
 		}
 		return testsCoverage;
+	}
+	
+	public Set<TestCoverageGroup> getModifiedChangedTestsCoverageGroup() {
+		Set<TestCoverageGroup> testsCoverageGroups = new HashSet<TestCoverageGroup>(0);
+		Set<MethodData> modifiedChangedMethods = new HashSet<MethodData>(methodStatePool.get(new MethodState(true, true)).values());
+		for (MethodData modifiedChangedMethod : modifiedChangedMethods) {
+			for(Integer group : modifiedChangedMethod.getTestsCoverageGroup())
+				testsCoverageGroups.add(testCoverageGroup.get(group));
+		}
+		return testsCoverageGroups;
 	}
 
 	public Set<TestCoverage> getModifiedCoveredMethods(Set<String> modifiedMethods) {
@@ -180,6 +197,17 @@ public class TestCoverageMapping implements Serializable {
 				testsCoverage.addAll(methodPool.get(modifiedMethod).getTestsCoverage());
 		}
 		return testsCoverage;
+	}
+
+	public Set<TestCoverageGroup> getModifiedCoveredMethodsGroup(Set<String> modifiedMethods) {
+		Set<TestCoverageGroup> testsCoverageGroup = new HashSet<TestCoverageGroup>(0);
+		for(String modifiedMethod : modifiedMethods) {
+			if(methodPool.containsKey(modifiedMethod)) {
+				for(Integer group : methodPool.get(modifiedMethod).getTestsCoverageGroup())
+					testsCoverageGroup.add(testCoverageGroup.get(group));
+			}
+		}
+		return testsCoverageGroup;
 	}
 
 	public Map<String, MethodData> getModifiedNotCoveredMethods(Set<String> modifiedMethods) {
@@ -239,7 +267,9 @@ public class TestCoverageMapping implements Serializable {
 		DecimalFormat df = new DecimalFormat("0.0000");  
 		String all = "Revision: "+(currentRevision != 0 ? currentRevision.toString() : "?")+"\n"+"Number of Methods: "+methodPool.keySet().size()+"\n"+"Number of Methods Covered by Tests: "+df.format(porcentagemCovered)+"%\nNumber of Modified Methods: "+df.format(porcentagemModified)+"%\nNumber of Modified Methods Covered by Tests: "+df.format(porcentagemModifiedCovered)+"%\n";
 		all += "\n================================= Printing All =================================\n\n";
-		for (TestCoverage testCoverage : testCoverages) {
+		List<TestCoverage> list = new ArrayList<TestCoverage>(testCoverages);
+		Collections.sort(list);
+		for (TestCoverage testCoverage : list) {
 			all += testCoverage.getPrint()+"\n";
 		}
 		System.out.println(all);
@@ -267,22 +297,40 @@ public class TestCoverageMapping implements Serializable {
 	}
 
 	public void finishTestCoverage(Long threadId) {
-		testCoverages.add(removeOpenedTestCoverage(threadId));
+		TestCoverage testCoverage = removeOpenedTestCoverage(threadId);
+		if(!testCoverageGroup.containsKey(seeNextGroupId()))
+			testCoverageGroup.put(seeNextGroupId(), new TestCoverageGroup(seeNextGroupId()));
+		testCoverageGroup.get(seeNextGroupId()).getTestCoverages().add(testCoverage);
+		testCoverages.add(testCoverage);
+		for(CoveredMethod coveredMethod : testCoverage.getCoveredMethods())
+			coveredMethod.getMethodData().getTestsCoverageGroup().add(seeNextGroupId());
 	}
 
 	public void cancelTestCoverage(Long threadId) {
 		TestCoverage testCoverage = removeOpenedTestCoverage(threadId);
+		testCoverageGroup.get(seeNextGroupId()).getTestCoverages().add(getFirstAddTestCoverage(testCoverage));
+		testCoverage.getTestData().setSignature("");
 		for(CoveredMethod coveredMethod : testCoverage.getCoveredMethods()) {
 			MethodData methodData = coveredMethod.getMethodData();
+			methodData.setTestsCoverage(new HashSet<TestCoverage>(methodData.getTestsCoverage()));
 			methodData.getTestsCoverage().remove(testCoverage);
-			if(methodData.getTestsCoverage().isEmpty()) {
-				removeCoveredMethod(methodData);
-			}
+			methodData.getTestsCoverageGroup().add(seeNextGroupId());
 		}
+	}
+	
+	private TestCoverage getFirstAddTestCoverage(TestCoverage testCoverage) {
+		for(TestCoverage testCoverage2 : testCoverages) {
+			if(testCoverage.equals(testCoverage2))
+				return testCoverage2;
+		}
+		return null;
 	}
 
 	public void save() {
-		FileUtil.saveObjectToFile(this, fileDirectory, name, "tcm");
+		XStream xstream = new XStream();
+		String xmlText = xstream.toXML(this);
+		FileUtil.saveTextToFile(xmlText, fileDirectory, name, "tcm");
+//		FileUtil.saveObjectToFile(this, fileDirectory, name, "tcm");
 		playBeep();
 	}
 
@@ -305,8 +353,20 @@ public class TestCoverageMapping implements Serializable {
 		return testCoverages;
 	}
 
+	public Set<TestCoverageGroup> getTestCoveragesGroup() {
+		return new HashSet<TestCoverageGroup>(testCoverageGroup.values());
+	}
+
 	public Integer getNextId() {
 		return nextId++;
+	}
+
+	public Integer seeNextGroupId() {
+		return nextGroupId;
+	}
+
+	public Integer getNextGroupId() {
+		return nextGroupId++;
 	}
 
 	public Integer seeNextId() {

@@ -1,6 +1,7 @@
 package br.ufrn.dimap.rtquality.regressiontest;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import br.ufrn.dimap.ttracker.data.MethodData;
 import br.ufrn.dimap.ttracker.data.MethodState;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.TestCoverage;
+import br.ufrn.dimap.ttracker.data.TestCoverageGroup;
 
 public abstract class RegressionTestTechnique { //TODO: em algumas situações será necessário seaprar novos testes dos testes velhos, dependendo da implementação os testes novos não podem ser incluídos nas medições
 	protected String name; 
@@ -18,7 +20,7 @@ public abstract class RegressionTestTechnique { //TODO: em algumas situações s
 	protected Set<String> modifiedMethods;
 	protected Set<TestCoverage> selectedTestCoverages;
 	
-	public abstract Set<TestCoverage> executeRegression();
+	public abstract Set<TestCoverageGroup> executeRegression();
 	public abstract void setConfiguration(Object args[]) throws Exception;
 	public abstract Object[] getConfiguration() throws Exception;
 	public abstract Map<MethodState,Map<String,MethodData>> getMethodStatePool();

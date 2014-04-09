@@ -14,6 +14,7 @@ import br.ufrn.dimap.ttracker.data.MethodData;
 import br.ufrn.dimap.ttracker.data.MethodState;
 import br.ufrn.dimap.ttracker.data.Revision;
 import br.ufrn.dimap.ttracker.data.TestCoverage;
+import br.ufrn.dimap.ttracker.data.TestCoverageGroup;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 public class TestUtil {
@@ -87,11 +88,25 @@ public class TestUtil {
 		Set<TestCoverage> intersection = TestCoverage.intersection(techniqueTestSelection, idealTestSelection);
 		return (new Float(intersection.size()))/(new Float(idealTestSelection.size()));
 	}
+	
+	public static Float getInclusionMeasureGroup(Set<TestCoverageGroup> techniqueTestSelection, Set<TestCoverageGroup> idealTestSelection) {
+		if(idealTestSelection.size() == 0)
+			return new Float(1);
+		Set<TestCoverageGroup> intersection = TestCoverage.intersectionGroup(techniqueTestSelection, idealTestSelection);
+		return (new Float(intersection.size()))/(new Float(idealTestSelection.size()));
+	}
 
 	public static Float getPrecisionMeasure(Set<TestCoverage> techniqueTestExclusion, Set<TestCoverage> idealTestExclusion){
 		if(idealTestExclusion != null && idealTestExclusion.size() == 0)
 			return new Float(1);
 		Set<TestCoverage> intersection = TestCoverage.intersection(techniqueTestExclusion, idealTestExclusion);
+		return (new Float(intersection.size()))/(new Float(idealTestExclusion.size()));
+	}
+
+	public static Float getPrecisionMeasureGroup(Set<TestCoverageGroup> techniqueTestExclusion, Set<TestCoverageGroup> idealTestExclusion){
+		if(idealTestExclusion != null && idealTestExclusion.size() == 0)
+			return new Float(1);
+		Set<TestCoverageGroup> intersection = TestCoverage.intersectionGroup(techniqueTestExclusion, idealTestExclusion);
 		return (new Float(intersection.size()))/(new Float(idealTestExclusion.size()));
 	}
 	

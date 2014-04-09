@@ -17,10 +17,10 @@ public class Task implements Serializable {
 	private List<Revision> revisions;
 	private Revision oldRevision;
 	private Revision currentRevision;
-	private Set<TestCoverage> oldSelection;
-	private Set<TestCoverage> oldExclusion;
-	private Set<TestCoverage> currentSelection;
-	private Set<TestCoverage> currentExclusion;
+	private Set<TestCoverageGroup> oldSelectionGroup;
+	private Set<TestCoverageGroup> oldExclusionGroup;
+	private Set<TestCoverageGroup> currentSelectionGroup;
+	private Set<TestCoverageGroup> currentExclusionGroup;
 	private Set<String> modifiedMethods;
 	private Float inclusion;
 	private Float precision;
@@ -109,36 +109,36 @@ public class Task implements Serializable {
 		this.currentRevision = currentRevision;
 	}
 
-    public Set<TestCoverage> getOldSelection() {
-		return oldSelection;
+	public Set<TestCoverageGroup> getOldSelectionGroup() {
+		return oldSelectionGroup;
 	}
 
-	public void setOldSelection(Set<TestCoverage> oldSelection) {
-		this.oldSelection = oldSelection;
-	}
-	
-	public Set<TestCoverage> getOldExclusion() {
-		return oldExclusion;
-	}
-	
-	public void setOldExclusion(Set<TestCoverage> oldExclusion) {
-		this.oldExclusion = oldExclusion;
+	public void setOldSelectionGroup(Set<TestCoverageGroup> oldSelectionGroup) {
+		this.oldSelectionGroup = oldSelectionGroup;
 	}
 
-	public Set<TestCoverage> getCurrentSelection() {
-		return currentSelection;
+	public Set<TestCoverageGroup> getOldExclusionGroup() {
+		return oldExclusionGroup;
 	}
 
-	public void setCurrentSelection(Set<TestCoverage> currentSelection) {
-		this.currentSelection = currentSelection;
+	public void setOldExclusionGroup(Set<TestCoverageGroup> oldExclusionGroup) {
+		this.oldExclusionGroup = oldExclusionGroup;
 	}
 
-	public Set<TestCoverage> getCurrentExclusion() {
-		return currentExclusion;
+	public Set<TestCoverageGroup> getCurrentSelectionGroup() {
+		return currentSelectionGroup;
 	}
 
-	public void setCurrentExclusion(Set<TestCoverage> currentExcllusion) {
-		this.currentExclusion = currentExcllusion;
+	public void setCurrentSelectionGroup(Set<TestCoverageGroup> currentSelectionGroup) {
+		this.currentSelectionGroup = currentSelectionGroup;
+	}
+
+	public Set<TestCoverageGroup> getCurrentExclusionGroup() {
+		return currentExclusionGroup;
+	}
+
+	public void setCurrentExclusionGroup(Set<TestCoverageGroup> currentExclusionGroup) {
+		this.currentExclusionGroup = currentExclusionGroup;
 	}
 
 	public Set<String> getModifiedMethods() {
