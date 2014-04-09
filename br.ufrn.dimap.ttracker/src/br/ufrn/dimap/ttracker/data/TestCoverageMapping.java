@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
@@ -330,7 +331,7 @@ public class TestCoverageMapping implements Serializable {
 	}
 
 	public void save() {
-		XStream xstream = new XStream();
+		XStream xstream = new XStream(new DomDriver());
 		String xmlText = xstream.toXML(this);
 		FileUtil.saveTextToFile(xmlText, fileDirectory, name, "tcm");
 //		FileUtil.saveObjectToFile(this, fileDirectory, name, "tcm");

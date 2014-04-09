@@ -49,6 +49,7 @@ import org.tmatesoft.svn.core.wc.SVNRevision;
 
 import com.sun.corba.se.impl.orbutil.DenseIntMapImpl;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.ufrn.dimap.rtquality.history.History;
 import br.ufrn.dimap.rtquality.history.Project;
@@ -429,9 +430,9 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				Set<TestCoverageGroup> techniqueSelection = new HashSet<TestCoverageGroup>(regressionTestTechnique.executeRegression());
 				Set<TestCoverageGroup> techniqueExclusion = new HashSet<TestCoverageGroup>(allOldTests);
 				techniqueExclusion.removeAll(techniqueSelection);
-				FileUtil.saveObjectToFile(allOldTests, iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
-				FileUtil.saveObjectToFile(techniqueSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
-				FileUtil.saveObjectToFile(techniqueExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
+				saveTestCoverageGroup(resultPath, allOldTestsResultName, allOldTests);
+				saveTestCoverageGroup(resultPath, selectionResultName, techniqueSelection);
+				saveTestCoverageGroup(resultPath, exclusionResultName, techniqueExclusion);
 				for(Task task : tasks) {
 					task.setOldSelectionGroup(new HashSet<TestCoverageGroup>(tcm2.getModifiedCoveredMethodsGroup(task.getModifiedMethods())));
 					task.setOldExclusionGroup(new HashSet<TestCoverageGroup>(allOldTests));
@@ -485,13 +486,13 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				tcmText = TCM.printAllTestsCoverage();
 				FileUtil.saveTextToFile(tcmText, TCM.getFileDirectory(), "tcmText", "txt"); //TODO: Utilizado para testes e debug
 				Set<TestCoverageGroup> toolSelection = TCM.getModifiedChangedTestsCoverageGroup();
-				Set<TestCoverageGroup> allOldTests = (Set<TestCoverageGroup>) FileUtil.loadObjectFromFile(iWorkspaceFolder + "/result", allOldTestsResultName, "slc");
+				Set<TestCoverageGroup> allOldTests = loadTestCoverageGroup(resultPath, allOldTestsResultName);
 				Set<TestCoverageGroup> allNewTests = new HashSet<TestCoverageGroup>(TCM.getTestCoveragesGroup());
 				Set<TestCoverageGroup> perfectExclusion = new HashSet<TestCoverageGroup>(MathUtil.intersection(allOldTests, allNewTests));
 				Set<TestCoverageGroup> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
 				perfectExclusion.removeAll(perfectSelection);
-				FileUtil.saveObjectToFile(perfectSelection, iWorkspaceFolder + "/result", selectionResultName, "slc");
-				FileUtil.saveObjectToFile(perfectExclusion, iWorkspaceFolder + "/result", exclusionResultName, "slc");
+				saveTestCoverageGroup(resultPath, selectionResultName, perfectSelection);
+				saveTestCoverageGroup(resultPath, exclusionResultName, perfectExclusion);
 				for(Task task : tasks) {
 					task.setCurrentSelectionGroup(MathUtil.intersection(allOldTests, TCM.getModifiedCoveredMethodsGroup(task.getModifiedMethods())));
 					task.setCurrentExclusionGroup(new HashSet<TestCoverageGroup>(MathUtil.intersection(allOldTests, allNewTests)));
@@ -521,6 +522,27 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		// revisão anterior, ao calcular as métricas tem de levar em
 		// consideração apenas o que já existia
 		return 0;
+	}
+	
+	private void saveTestCoverageGroup(String resultFolder, String name, Set<TestCoverageGroup> tCG) {
+		XStream xstream = new XStream(new DomDriver());
+		String xmlText = xstream.toXML(tCG);
+		FileUtil.saveTextToFile(xmlText, resultFolder, name, "slc");
+	}
+	
+	private Set<TestCoverageGroup> loadTestCoverageGroup(String resultFolder, String name) {
+		try{
+			String xml = FileUtil.loadTextFromFile(new File(resultFolder + "/" + name + ".slc"));
+			Set<TestCoverageGroup> tCG = null;
+			if (xml != null) {
+				XStream xstream = new XStream(new DomDriver());
+				tCG = (Set<TestCoverageGroup>) xstream.fromXML(xml);
+			}
+			return tCG;
+		} catch(ClassCastException cce) {
+			cce.printStackTrace();
+		}
+		return null;
 	}
 
 //	private Integer checkoutExecuteDelete(Boolean isAutomatic, Boolean oldTaskRevision, IWorkspace iWorkspace,
@@ -703,7 +725,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		}
 		String xml = FileUtil.loadTextFromFile(new File(location + "/Tasks.xml"));
 		if (xml != null) {
-			XStream xstream = new XStream();
+			XStream xstream = new XStream(new DomDriver());
 			List<Task> tempList = (List<Task>) xstream.fromXML(xml);
 			tasks = new ArrayList<Task>(tempList.size());
 			tasks.addAll(tempList);
@@ -774,9 +796,9 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 	}
 
 	private Set<TestCoverage> getTestCoverageSet(String folder, String name) {
-		Object obj = FileUtil.loadObjectFromFile(folder, name, "slc");
+		Object obj = loadTestCoverageGroup(folder, name);
 		if (obj != null && obj instanceof Set<?>)
-			return (Set<TestCoverage>) FileUtil.loadObjectFromFile(folder, name, "slc");
+			return (Set<TestCoverage>) obj;
 		return new HashSet<TestCoverage>(0);
 	}
 

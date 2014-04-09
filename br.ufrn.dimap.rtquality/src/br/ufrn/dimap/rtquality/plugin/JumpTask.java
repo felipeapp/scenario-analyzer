@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.ufrn.dimap.rtquality.history.History;
 import br.ufrn.dimap.rtquality.history.Project;
@@ -255,7 +256,7 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		}
 		String xml = FileUtil.loadTextFromFile(new File(location + "/Tasks.xml"));
 		if (xml != null) {
-			XStream xstream = new XStream();
+			XStream xstream = new XStream(new DomDriver());
 			List<Task> tempList = (List<Task>) xstream.fromXML(xml);
 			tasks = new ArrayList<Task>(tempList.size());
 			tasks.addAll(tempList);

@@ -209,7 +209,7 @@ public class ProjectUtil {
 			String xml = FileUtil.loadTextFromFile(new File(tcmFolder + "/" + testCoverageMappingName + ".tcm"));
 			TestCoverageMapping testCoverageMapping = null;
 			if (xml != null) {
-				XStream xstream = new XStream();
+				XStream xstream = new XStream(new DomDriver());
 				testCoverageMapping = (TestCoverageMapping) xstream.fromXML(xml);
 			}
 			TestCoverageMapping.setInstance(testCoverageMapping);
