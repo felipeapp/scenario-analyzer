@@ -71,6 +71,7 @@ import br.ufrn.dimap.ttracker.data.TaskType;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class History {
 	private SVNConfig sVNConfig;
@@ -251,7 +252,7 @@ public class History {
 			}
 		}
 		FileUtil.saveTextToFile(print, iWorkspace.getRoot().getLocation().toString()+"/config", "TaskPrint", "txt");
-		XStream xstream = new XStream();
+		XStream xstream = new XStream(new DomDriver());
 		String xmlText = xstream.toXML(finalTasksSelection);
 		FileUtil.saveTextToFile(xmlText, iWorkspace.getRoot().getLocation().toString()+"/config", "Tasks", "xml");
 	}
@@ -875,7 +876,7 @@ public class History {
 	private Object getObjectFromXML(File xmlFile){
 		xmlFile.getAbsolutePath();
 		String xml = FileUtil.loadTextFromFile(xmlFile);
-		XStream xstream = new XStream();
+		XStream xstream = new XStream(new DomDriver());
 		Object object = (Object) xstream.fromXML(xml);
 		return object;
 	}
