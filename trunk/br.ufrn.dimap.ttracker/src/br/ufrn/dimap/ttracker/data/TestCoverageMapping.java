@@ -53,6 +53,7 @@ public class TestCoverageMapping implements Serializable {
 		this.methodStatePool.put(new MethodState(false, true), new HashMap<String, MethodData>());
 		this.methodStatePool.put(new MethodState(false, false), new HashMap<String, MethodData>());
 		this.testCoverageBuilding = new HashMap<Long, TestCoverage>();
+		this.testCoverageGroup = new HashMap<Integer, TestCoverageGroup>();
 		this.testCoverages = new HashSet<TestCoverage>();
 		this.nextId = 1;
 		this.nextGroupId = 1;
