@@ -28,6 +28,7 @@ import br.ufrn.dimap.ttracker.data.Variable;
 import br.ufrn.dimap.ttracker.util.FileUtil;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public aspect TestTracker {
 	private pointcut managedBean() :
@@ -128,7 +129,7 @@ public aspect TestTracker {
 			FileUtil.saveTextToFile("1", resultFolder, "building", "txt");
 			String xml = FileUtil.loadTextFromFile(new File(resultFolder + "/" + testCoverageMappingName + ".tcm"));
 			if (xml != null) {
-				XStream xstream = new XStream();
+				XStream xstream = new XStream(new DomDriver());
 				Object obj = xstream.fromXML(xml);
 //				Object obj = FileUtil.loadObjectFromFile(resultFolder, testCoverageMappingName, "tcm");
 				if(obj != null && obj instanceof TestCoverageMapping)
