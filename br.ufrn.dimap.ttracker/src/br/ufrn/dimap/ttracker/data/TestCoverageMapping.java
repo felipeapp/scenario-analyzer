@@ -309,6 +309,8 @@ public class TestCoverageMapping implements Serializable {
 
 	public void cancelTestCoverage(Long threadId) {
 		TestCoverage testCoverage = removeOpenedTestCoverage(threadId);
+		if(!testCoverageGroup.containsKey(seeNextGroupId()))
+			testCoverageGroup.put(seeNextGroupId(), new TestCoverageGroup(seeNextGroupId()));
 		testCoverageGroup.get(seeNextGroupId()).getTestCoverages().add(getFirstAddTestCoverage(testCoverage));
 		testCoverage.getTestData().setSignature("");
 		for(CoveredMethod coveredMethod : testCoverage.getCoveredMethods()) {
