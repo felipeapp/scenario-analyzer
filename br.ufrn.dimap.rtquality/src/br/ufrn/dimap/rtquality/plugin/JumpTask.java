@@ -79,14 +79,14 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		boolean startDone = (start != null && start.equals("1")) ? true : false;
 		boolean endDone = (end != null && end.equals("1")) ? true : false;
 		if(!startDone) {
-			TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_153085", "tcm");
+			TestCoverageMapping tcm = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_153085");
 			tcm.getNextGroupId();
 			tcm.setBuilding(false);
 			FileUtil.saveTextToFile("0", resultPath, "building", "txt");
 			tcm.save();
 		}
-		if(!endDone) {
-			TestCoverageMapping tcm = (TestCoverageMapping) FileUtil.loadObjectFromFile(resultPath, "TCM_160277", "tcm");
+		else if(!endDone) {
+			TestCoverageMapping tcm = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_160277");
 			tcm.getNextGroupId();
 			tcm.setBuilding(false);
 			FileUtil.saveTextToFile("0", resultPath, "building", "txt");

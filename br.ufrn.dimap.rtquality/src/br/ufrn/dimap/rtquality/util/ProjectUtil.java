@@ -38,6 +38,7 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.junit.Test;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import br.ufrn.dimap.rtquality.history.ChangedAssetsMinerUtil;
 import br.ufrn.dimap.rtquality.history.MethodLimit;
@@ -192,7 +193,7 @@ public class ProjectUtil {
 			String xml = FileUtil.loadTextFromFile(new File(tcmPath + "/" + testCoverageMappingName + ".tcm"));
 			TestCoverageMapping testCoverageMapping = null;
 			if (xml != null) {
-				XStream xstream = new XStream();
+				XStream xstream = new XStream(new DomDriver());
 				testCoverageMapping = (TestCoverageMapping) xstream.fromXML(xml);
 			}
 			return testCoverageMapping;
