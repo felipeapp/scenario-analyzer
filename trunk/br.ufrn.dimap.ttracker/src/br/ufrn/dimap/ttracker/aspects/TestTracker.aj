@@ -31,7 +31,7 @@ import com.thoughtworks.xstream.XStream;
 
 public aspect TestTracker {
 	private pointcut managedBean() :
-		within(exemplo..*) &&
+		within(br.ufrn.sigaa.biblioteca..*) &&
 		(within(@Scope("request") *) || within(@Scope("session") *) || execution(* TestCase+.*()) || @annotation(Test)) &&
 		(execution(* *(..)) || execution(*.new(..)));
 	private pointcut exclusion() : !within(br.ufrn.dimap.ttracker..*) && !within(br.ufrn.dimap.rtquality..*);// && !within(junit.*);
