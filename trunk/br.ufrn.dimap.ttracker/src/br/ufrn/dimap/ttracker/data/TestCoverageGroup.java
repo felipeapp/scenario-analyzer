@@ -1,9 +1,12 @@
 package br.ufrn.dimap.ttracker.data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TestCoverageGroup implements Comparable<TestCoverageGroup> {
+public class TestCoverageGroup implements Comparable<TestCoverageGroup>, Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private Set<TestCoverage> testCoverages;
 	
