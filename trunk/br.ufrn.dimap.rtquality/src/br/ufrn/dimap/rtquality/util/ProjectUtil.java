@@ -206,12 +206,7 @@ public class ProjectUtil {
 	public static TestCoverageMapping setAllUncoveredMethods(Project project, String tcmFolder, String testCoverageMappingName) throws ClassNotFoundException {
 		try{
 			IProject iProject = project.getIProject();
-			String xml = FileUtil.loadTextFromFile(new File(tcmFolder + "/" + testCoverageMappingName + ".tcm"));
-			TestCoverageMapping testCoverageMapping = null;
-			if (xml != null) {
-				XStream xstream = new XStream(new DomDriver());
-				testCoverageMapping = (TestCoverageMapping) xstream.fromXML(xml);
-			}
+			TestCoverageMapping testCoverageMapping = ProjectUtil.getTestCoverageMapping(tcmFolder, testCoverageMappingName);
 			TestCoverageMapping.setInstance(testCoverageMapping);
 			//Adiciona métodos uncovered
 			IJavaProject iJavaProject = JavaCore.create(iProject);
@@ -251,7 +246,7 @@ public class ProjectUtil {
 			}
 			String tcm = testCoverageMapping.printAllTestsCoverage();
 			FileUtil.saveTextToFile(tcm, tcmFolder, "tcmText", "txt"); //TODO: Utilizado para testes e debug
-			testCoverageMapping.save();
+//			testCoverageMapping.save();
 		} catch(ClassCastException cce) {
 			cce.printStackTrace();
 		} catch (JavaModelException e) {
