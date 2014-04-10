@@ -395,7 +395,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				// differencing
 				regressionTestTechnique.setName("Pythia");
 				regressionTestTechnique.setRevision(revision);
-				TestCoverageMapping tcm = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
+				TestCoverageMapping tcm = TestCoverageMapping.getInstance();
+				//ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
 				Object configurations[] = { tcm };
 				regressionTestTechnique.setConfiguration(configurations);
 				// TODO: cada técnica de teste de regressão deve implementar sua própria técnica de obtenção dos métodos modificados
@@ -462,7 +463,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			String exclusionResultName = "PerfectExclusion";
 			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
 					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()) {
-				TestCoverageMapping TCM = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_" + revision.getId());
+				TestCoverageMapping TCM = TestCoverageMapping.getInstance();
 				TCM.setModifiedMethods(modifiedMethods);
 				
 				String allBibModified = "";
