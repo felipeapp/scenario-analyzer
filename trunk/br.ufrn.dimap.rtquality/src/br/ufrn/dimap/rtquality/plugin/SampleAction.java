@@ -297,8 +297,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 		System.out.println("============================================================");
 		System.out.println("Médias dos Tipos de Tarefas:");
 		for (TaskTypeSet taskTypeSet : taskTypes.values()) {
-			String taxaInclusao = taskTypeSet.getQtdInclusionStart().size()+"/"+taskTypeSet.getQtdInclusionEnd().size();
-			String taxaPrecisao = taskTypeSet.getQtdPrecisionStart().size()+"/"+taskTypeSet.getQtdPrecisionEnd().size();
+			String taxaInclusao = taskTypeSet.getInclusion()+"/"+new Float(taskTypeSet.getTasks().size());
+			String taxaPrecisao = taskTypeSet.getPrecision()+"/"+new Float(taskTypeSet.getTasks().size());
 			taskTypeSet.setInclusion(taskTypeSet.getInclusion() / new Float(taskTypeSet.getTasks().size()));
 			taskTypeSet.setPrecision(taskTypeSet.getPrecision() / new Float(taskTypeSet.getTasks().size()));
 			System.out.println("\tTipo da Tarefa: "+taskTypeSet.getName()+"\n\t\tInclusão: "+taxaInclusao+" - "+taskTypeSet.getInclusion()+"%\n\t\tPrecisão: "+taxaPrecisao+" - "+taskTypeSet.getPrecision()+"%");
@@ -320,10 +320,6 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			TaskTypeSet taskTypeSet = taskTypes.get(task.getType());
 			taskTypeSet.setInclusion(taskTypeSet.getInclusion() + task.getInclusion());
 			taskTypeSet.setPrecision(taskTypeSet.getPrecision() + task.getPrecision());
-			taskTypeSet.getQtdInclusionStart().addAll(getQtd(intersection));
-			taskTypeSet.getQtdInclusionEnd().addAll(getQtd(task.getCurrentSelectionGroup()));
-			taskTypeSet.getQtdPrecisionStart().addAll(getQtd(intersection2));
-			taskTypeSet.getQtdPrecisionEnd().addAll(getQtd(task.getCurrentExclusionGroup()));
 			taskTypeSet.getTasks().add(task);
 		}
 		System.out.println("============================================================");
@@ -390,7 +386,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 			String exclusionResultName = "RTSExclusion_" + regressionTestTechnique.getName();
 			if (!(new File(resultPath + "/" + selectionResultName + ".slc")).exists()
 					|| !(new File(resultPath + "/" + exclusionResultName + ".slc")).exists()
-					|| !(new File(resultPath + "/" + allOldTestsResultName + ".slc")).exists()) {
+					|| !(new File(resultPath + "/" + allOldTestsResultName + ".slc")).exists()) { //TODO: Mudar estes arquivos para armazenarem apenas um boolean (mantenha o allOldTests armazenando os testes mesmo, pois ele sim é necessário)
 				// Pythia - a regression test selection tool based on textual
 				// differencing
 				regressionTestTechnique.setName("Pythia");
@@ -432,8 +428,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				Set<TestCoverageGroup> techniqueExclusion = new HashSet<TestCoverageGroup>(allOldTests);
 				techniqueExclusion.removeAll(techniqueSelection);
 				saveTestCoverageGroup(resultPath, allOldTestsResultName, allOldTests);
-				saveTestCoverageGroup(resultPath, selectionResultName, techniqueSelection);
-				saveTestCoverageGroup(resultPath, exclusionResultName, techniqueExclusion);
+//				saveTestCoverageGroup(resultPath, selectionResultName, techniqueSelection);
+//				saveTestCoverageGroup(resultPath, exclusionResultName, techniqueExclusion);
 				for(Task task : tasks) {
 					task.setOldSelectionGroup(new HashSet<TestCoverageGroup>(tcm2.getModifiedCoveredMethodsGroup(task.getModifiedMethods())));
 					task.setOldExclusionGroup(new HashSet<TestCoverageGroup>(allOldTests));
@@ -450,6 +446,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				sizes += "Quantidade Total de Testes: "+allOldTests.size()+"\n";
 				sizes += "Quantidade de Testes Incluídos Pela Técnica: "+techniqueSelection.size()+"\n";
 				sizes += "Quantidade de Testes Excluídos Pela Técnica: "+techniqueExclusion.size()+"\n";
+				sizes += "Quantidade de Métodos: "+tcm2.getMethodPool().keySet().size()+"\n";
 				sizes += "Quantidade de Métodos Cobertos Pelos Testes: "+covered1.size()+"\n";
 				sizes += "Quantidade de Métodos Modificados Entre as Versões: "+modified1.size()+"\n";
 				sizes += "Quantidade de Métodos Cobertos e Modificados: "+coveredModified1.size()+"\n";
@@ -492,8 +489,8 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				Set<TestCoverageGroup> perfectExclusion = new HashSet<TestCoverageGroup>(MathUtil.intersection(allOldTests, allNewTests));
 				Set<TestCoverageGroup> perfectSelection = MathUtil.intersection(allOldTests, toolSelection);
 				perfectExclusion.removeAll(perfectSelection);
-				saveTestCoverageGroup(resultPath, selectionResultName, perfectSelection);
-				saveTestCoverageGroup(resultPath, exclusionResultName, perfectExclusion);
+//				saveTestCoverageGroup(resultPath, selectionResultName, perfectSelection);
+//				saveTestCoverageGroup(resultPath, exclusionResultName, perfectExclusion);
 				for(Task task : tasks) {
 					task.setCurrentSelectionGroup(MathUtil.intersection(allOldTests, TCM.getModifiedCoveredMethodsGroup(task.getModifiedMethods())));
 					task.setCurrentExclusionGroup(new HashSet<TestCoverageGroup>(MathUtil.intersection(allOldTests, allNewTests)));
@@ -510,6 +507,7 @@ public class SampleAction implements IWorkbenchWindowActionDelegate {
 				sizes += "Quantidade Total de Testes Válidos: "+MathUtil.intersection(allOldTests, allNewTests).size()+"\n";
 				sizes += "Quantidade de Testes Que Devem Ser Incluídos: "+perfectSelection.size()+"\n";
 				sizes += "Quantidade de Testes Que Devem Ser Excluídos: "+perfectExclusion.size()+"\n";
+				sizes += "Quantidade de Métodos: "+TCM.getMethodPool().keySet().size()+"\n";
 				sizes += "Quantidade de Métodos Cobertos Pelos Testes: "+covered2.size()+"\n";
 				sizes += "Quantidade de Métodos Modificados Entre as Versões: "+modified2.size()+"\n";
 				sizes += "Quantidade de Métodos Cobertos e Modificados: "+coveredModified2.size()+"\n";

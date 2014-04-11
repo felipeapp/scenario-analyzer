@@ -81,6 +81,7 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		boolean endDone = (end != null && end.equals("1")) ? true : false;
 		if(!startDone) {
 			TestCoverageMapping tcm = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_153085");
+			System.out.println(tcm.seeNextGroupId());
 			tcm.getNextGroupId();
 			tcm.setBuilding(false);
 			FileUtil.saveTextToFile("0", resultPath, "building", "txt");
@@ -88,6 +89,7 @@ public class JumpTask implements IWorkbenchWindowActionDelegate {
 		}
 		else if(!endDone) {
 			TestCoverageMapping tcm = ProjectUtil.getTestCoverageMapping(resultPath, "TCM_160277");
+			System.out.println(tcm.seeNextGroupId());
 			tcm.getNextGroupId();
 			tcm.setBuilding(false);
 			FileUtil.saveTextToFile("0", resultPath, "building", "txt");
