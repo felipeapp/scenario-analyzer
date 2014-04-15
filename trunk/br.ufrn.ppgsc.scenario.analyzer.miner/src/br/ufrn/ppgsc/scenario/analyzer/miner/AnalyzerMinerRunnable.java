@@ -2,6 +2,8 @@ package br.ufrn.ppgsc.scenario.analyzer.miner;
 
 import java.io.IOException;
 
+import org.apache.log4j.BasicConfigurator;
+
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public final class AnalyzerMinerRunnable {
@@ -22,6 +24,9 @@ public final class AnalyzerMinerRunnable {
 	}
 	
 	public static void main(String[] args) {
+		// Configuração básica para o log4j
+		BasicConfigurator.configure();
+		
 		try {
 			AnalyzerMinerRunnable.startAnalyzerMiner();
 		} catch (IOException e) {
