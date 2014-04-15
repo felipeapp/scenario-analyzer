@@ -74,7 +74,6 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
 				List<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
 				
-				
 				for (Long issue_number : issue_numbers) {
 					if (issue_number < 0) {
 						logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
@@ -84,6 +83,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 					else {
 						issue = issueQuery.getIssueByNumber(issue_number);
 					}
+					
 					issues.add(issue);
 				}
 				
