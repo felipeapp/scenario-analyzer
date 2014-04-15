@@ -29,6 +29,9 @@ public class RuntimeCallGraph {
 		annotations = new HashMap<String, RuntimeGenericAnnotation>();
 		
 		try {
+			/**
+			 * O arquivo é localizado na pasta raiz do projeto que se está executando a análise.
+			 */
 			props.load(new FileInputStream("cdynamic.properties"));
 		} catch (IOException e) {
 			System.err.println("Can't load cdynamic.properties file!");
