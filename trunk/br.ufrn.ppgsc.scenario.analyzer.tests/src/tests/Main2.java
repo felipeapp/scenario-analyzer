@@ -1,18 +1,19 @@
 package tests;
 
+import junit.framework.TestCase;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Performance;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Reliability;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Security;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 
-public class Main2 {
+public class Main2 extends TestCase {
 
 	public static void main(String[] args) {
 		Main2 o = new Main2();
 
-		o.B();
-		o.A();
+		o.testB();
+		o.testA();
 	}
 
 	private Main2() {
@@ -21,8 +22,8 @@ public class Main2 {
 
 	@Scenario(name = "Scenario A")
 	@Performance(name = "qa_a_performance", limitTime = 10)
-	public void A() {
-		B();
+	public void testA() {
+		testB();
 		C();
 		new Main2();
 	}
@@ -30,7 +31,7 @@ public class Main2 {
 	@Performance(name = "qa_b_performance", limitTime = 4)
 	@Reliability(name = "qa_b_reliability", failureRate = 0.1)
 	@Scenario(name = "Scenario B")
-	private int B() {
+	private int testB() {
 		C();
 		return 0;
 	}

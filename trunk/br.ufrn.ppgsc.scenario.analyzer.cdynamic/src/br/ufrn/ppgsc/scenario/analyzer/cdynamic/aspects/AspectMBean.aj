@@ -1,8 +1,8 @@
-package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
-
-
-public aspect AspectMBean {
-	
+//package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
+//
+//
+//public aspect AspectMBean {
+//	
 //	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 //	
 ////	private pointcut mBeanExecution() :
@@ -85,5 +85,5 @@ public aspect AspectMBean {
 //	before(Throwable t) : handler(Throwable+) && args(t) && !executionIgnored() {
 //		AspectsUtil.setRobustness(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 //	}
-	
-}
+//	
+//}
