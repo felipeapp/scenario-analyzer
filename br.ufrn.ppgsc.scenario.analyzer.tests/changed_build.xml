@@ -51,10 +51,10 @@ Building this requires:
     <property file="${argo.root.dir}/argouml-build/default.properties"/>
 
     <property name="build.dir" location="build-eclipse"/>
-    <property name="build.classes" value="${build.dir}"/>
+    <property name="build.classes" value="build-eclipse"/>
 
     <property name="tests.classes" value="${build.dir}-tests"/>
-    <property name="tests.reports" value="${build.dir}-tests"/>
+    <property name="tests.reports" value="${build.dir}-tests/reports"/>
 
     <path id="java.tools.classpath">
       <pathelement path="${JAVA_HOME}/lib/tools.jar"/>
@@ -64,7 +64,7 @@ Building this requires:
       <fileset dir="lib">
         <include name="*.jar"/>
       </fileset>
-      <fileset dir="../argouml-core-infra/build/">
+      <fileset dir="../argouml-core-infra/build-eclipse/">
         <include name="*.jar"/>
       </fileset>
       <fileset dir="../argouml-core-model/build-eclipse/">
@@ -105,14 +105,17 @@ Building this requires:
   	<!-- Extras para o classpath para rodar o analisador -->
   	<path id="analyzer.libs.classpath">
   		
-  	  <pathelement location="../argouml-core-model/build-eclipse"/>
-  	  <pathelement location="../argouml-core-model-mdr/build-eclipse"/>
-  	  <fileset dir="../argouml-core-model-mdr/lib">
-  	  	<include name="*.jar"/>
-  	  </fileset>
-  			
-  	  <!--
-  	  build-eclipse-tests;
+  		<pathelement location="../argouml-core-model/build-eclipse"/>
+  		<pathelement location="../argouml-core-model-mdr/build-eclipse"/>
+  		
+  		<pathelement location="../argouml-core-infra/lib/log4j-1.2.6.jar"/>
+  		
+  		<fileset dir="../argouml-core-model-mdr/lib">
+  			<include name="*.jar"/>
+  		</fileset>
+  		
+  		<!--
+  		build-eclipse-tests;
   		build-eclipse;
   		lib\*;
   		..\argouml-core-tools\build-eclipse;
@@ -121,21 +124,22 @@ Building this requires:
   		..\argouml-core-tools\apache-ant-1.7.0\lib\ant.jar;
   		..\argouml-core-tools\jdepend-2.9\lib\jdepend-2.9.jar;
   		..\argouml-core-infra\lib\log4j-1.2.6.jar;
-  	  -->
-  	
-      <pathelement location="../br.ufrn.ppgsc.scenario.analyzer.libs/libs/javax.faces-2.2.6.jar"/>
-      <pathelement location="../br.ufrn.ppgsc.scenario.analyzer.libs/libs/postgresql-9.3-1101.jdbc41.jar"/>
-      <pathelement location="../br.ufrn.ppgsc.scenario.analyzer.libs/libs_client/aspectjrt_1.7.3.jar"/>
+  		-->
   		
-  	  <pathelement location="../br.ufrn.ppgsc.scenario.analyzer.common/bin"/>
-  	  <pathelement location="../br.ufrn.ppgsc.scenario.analyzer.cdynamic/bin"/>
-  	  	
-  	  <fileset dir="../br.ufrn.ppgsc.scenario.analyzer.libs/libs/hibernate_3.6.10">
-  	  	<include name="*.jar"/>
-  	  </fileset>
-    </path>
+  		<pathelement location="../br.ufrn.ppgsc.scenario.analyzer.libs/libs/javax.faces-2.2.6.jar"/>
+  		<pathelement location="../br.ufrn.ppgsc.scenario.analyzer.libs/libs/postgresql-9.3-1101.jdbc41.jar"/>
+  		<pathelement location="../br.ufrn.ppgsc.scenario.analyzer.libs/libs_client/aspectjrt_1.7.3.jar"/>
+  		
+  		<pathelement location="../br.ufrn.ppgsc.scenario.analyzer.common/bin"/>
+  		<pathelement location="../br.ufrn.ppgsc.scenario.analyzer.cdynamic/bin"/>
+  		
+  		<fileset dir="../br.ufrn.ppgsc.scenario.analyzer.libs/libs/hibernate_3.6.10">
+  			<include name="*.jar"/>
+  		</fileset>
+  		
+  	</path>
   	<!-- Extras para o classpath para rodar o analisador -->
-
+  	
     <!-- In order to use ant optional tasks which use jars that are not -->
     <!-- copied into ANT_HOME/lib, we must declare the tasks ourselves. -->
 
@@ -197,6 +201,9 @@ Building this requires:
 
   <target name="prepare" depends="init">
     <!-- create directories -->
+  	<echo message="Preparing the build directories in argouml-core-infra"/>
+  	<mkdir dir="../argouml-core-infra/build-eclipse"/>
+  	
     <echo message="Preparing the build directories in argouml-app"/>
     <mkdir dir="${build.dir}"/>
     <mkdir dir="${build.classes}"/>
@@ -498,7 +505,7 @@ Building this requires:
     <junit errorproperty="junit.failure" failureproperty="junit.failure" 
            fork="yes" dir="${basedir}" forkmode="perTest"
            haltonfailure="false"
-           maxmemory="512M" printsummary="${junit.printsummary}">
+           maxmemory="2048M" printsummary="${junit.printsummary}">
       <sysproperty key="test.model.uml" 
             value="../argouml-core-model-mdr/src/org/argouml/model/mdr/mof/01-02-15.xml"/>
       <sysproperty key="argouml.model.implementation" 
@@ -511,12 +518,16 @@ Building this requires:
       <assertions>
         <enable/>
       </assertions>
-      <classpath refid="tests.all.classpath"/>
+      <classpath>
+      	<path refid="tests.all.classpath"/>
+      	<path refid="analyzer.libs.classpath"/>
+      </classpath>
       <formatter type="xml"/>
       <batchtest todir="${tests.reports}">
         <fileset dir="${tests.classes}">
           <include name="org/argouml/**/Test*.class"/>
-          <exclude name="**/*$*" />
+          <exclude name="**/*$*"/>
+          <exclude name="org/argouml/TestDependencies.class"/>
         </fileset>
       </batchtest>
     </junit>
@@ -546,7 +557,7 @@ Build reports.">
     <junit errorproperty="junit.failure" failureproperty="junit.failure" 
            fork="yes" dir="${basedir}" forkmode="perTest"
            haltonfailure="false"
-           maxmemory="512M" printsummary="${junit.printsummary}">
+           maxmemory="2048M" printsummary="${junit.printsummary}">
       <sysproperty key="log4j.configuration" value="org/argouml/resource/default.lcf"/>
       <sysproperty key="argouml.tests.dir" value="tests"/>
       <assertions>
@@ -556,11 +567,10 @@ Build reports.">
       	<path refid="tests.all.classpath"/>
       	<path refid="analyzer.libs.classpath"/>
       </classpath>
-    	
       <formatter type="xml"/>
       <batchtest todir="${tests.reports}">
         <fileset dir="${tests.classes}">
-          <include name="org/argouml/**/GUITest*.class"/>
+        	<include name="org/argouml/**/GUITest*.class"/>
           <exclude name="**/*$*" />
         </fileset>
       </batchtest>
@@ -771,4 +781,3 @@ Build reports.">
   </target>
 
 </project>
-
