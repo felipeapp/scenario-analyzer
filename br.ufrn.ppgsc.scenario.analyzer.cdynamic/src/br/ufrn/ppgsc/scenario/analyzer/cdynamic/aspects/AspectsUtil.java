@@ -1,5 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -33,13 +34,22 @@ public abstract class AspectsUtil {
 	private final static Map<Long, Stack<RuntimeNode>> thread_nodes_map =
 			new Hashtable<Long, Stack<RuntimeNode>>();
 	
-	protected static boolean isScenarioEntryPoint(Member member) {
-		Scenario ann_scenario = null;
+	protected static boolean isScenarioEntryPoint(Member member, Class<? extends Annotation> ann_cls) {
+		Annotation annotation = null;
 		
 		if (member instanceof Method)
-			ann_scenario = ((Method) member).getAnnotation(Scenario.class);
+			annotation = ((Method) member).getAnnotation(ann_cls);
 		
-		return ann_scenario != null;
+		return annotation != null;
+	}
+	
+	protected static String getEntryPointName(Member member) {
+		Scenario ann_scenario = ((Method) member).getAnnotation(Scenario.class);
+		
+		if (ann_scenario == null)
+			return "Entry point for " + member.getDeclaringClass().getSimpleName() + "." + member.getName();
+		else
+			return ann_scenario.name();
 	}
 	
 	protected static boolean isIgnorableMBeanFlow(Member member) {
@@ -115,7 +125,7 @@ public abstract class AspectsUtil {
 		}
 	}
 	
-	protected static void popStacksAndPersistData(long time, Member member) {
+	protected static void popStacksAndPersistData(long time, Member member, Class<? extends Annotation> annotation) {
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
 		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
@@ -129,7 +139,7 @@ public abstract class AspectsUtil {
 			 * Caso o método seja um método de entrada de um cenário,
 			 * significa que o cenário terminou de executar.
 			 */
-			if (AspectsUtil.isScenarioEntryPoint(member))
+			if (AspectsUtil.isScenarioEntryPoint(member, annotation))
 				scenarios_stack.pop();
 		} catch (Exception e) {
 			e.printStackTrace();

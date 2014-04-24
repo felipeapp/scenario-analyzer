@@ -1,4 +1,5 @@
 //package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
+//package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 //
 //
 //public aspect AspectMBean {
