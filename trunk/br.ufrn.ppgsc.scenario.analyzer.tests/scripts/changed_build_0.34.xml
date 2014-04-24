@@ -54,7 +54,7 @@ Building this requires:
     <property name="build.classes" value="build-eclipse"/>
 
     <property name="tests.classes" value="${build.dir}-tests"/>
-    <property name="tests.reports" value="${build.dir}-tests/reports"/>
+    <property name="tests.reports" value="${build.dir}-tests/reports-${test.execution}"/>
 
     <path id="java.tools.classpath">
       <pathelement path="${JAVA_HOME}/lib/tools.jar"/>
