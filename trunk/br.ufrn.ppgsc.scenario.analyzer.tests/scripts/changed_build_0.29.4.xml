@@ -544,7 +544,7 @@ Building this requires:
     <junit errorproperty="junit.failure" failureproperty="junit.failure" 
            fork="yes" dir="${basedir}" forkmode="perTest"
            haltonfailure="false"
-           maxmemory="2048M" printsummary="${junit.printsummary}">
+           maxmemory="3072M" printsummary="${junit.printsummary}">
       <sysproperty key="test.model.uml" 
             value="../argouml-core-model-mdr/src/org/argouml/model/mdr/mof/01-02-15.xml"/>
       <sysproperty key="argouml.model.implementation" 
@@ -597,7 +597,7 @@ Build reports.">
     <junit errorproperty="junit.failure" failureproperty="junit.failure" 
            fork="yes" dir="${basedir}" forkmode="perTest"
            haltonfailure="false"
-           maxmemory="2048M" printsummary="${junit.printsummary}">
+           maxmemory="3072M" printsummary="${junit.printsummary}">
       <sysproperty key="log4j.configuration" value="org/argouml/resource/default.lcf"/>
       <sysproperty key="argouml.tests.dir" value="tests"/>
       <assertions>
