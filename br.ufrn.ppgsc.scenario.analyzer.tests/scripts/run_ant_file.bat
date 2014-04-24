@@ -13,11 +13,11 @@ IF "%2" == "" GOTO HelpMessage
 FOR /L %%I IN (1,1,%2) DO (
 	echo "%%I: Running ant build file..."
 	IF "%3" == "" (
-		echo "%%I: ant %1"
-		cmd /c ant %1
+		echo "%%I: ant %1 -Dtest.execution=%%I"
+		cmd /c ant %1 -Dtest.execution=%%I
 	) ELSE (
-		echo "%%I: ant %1 > exec%%I_%3 2>&1"
-		cmd /c ant %1 > exec%%I_%3 2>&1
+		echo "%%I: ant %1 > exec%%I_%3 2>&1 -Dtest.execution=%%I"
+		cmd /c ant %1 > exec%%I_%3 2>&1 -Dtest.execution=%%I
 	)
 	
 	echo "%%I: Dumping database..."
