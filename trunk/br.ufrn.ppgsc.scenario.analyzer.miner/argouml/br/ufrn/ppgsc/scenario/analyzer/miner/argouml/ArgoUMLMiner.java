@@ -31,8 +31,7 @@ public class ArgoUMLMiner implements IQueryIssue {
 	public ArgoUMLMiner() {
 		properties = new Properties();
 		try {
-			properties
-					.load(new FileInputStream("resources/argouml.properties"));
+			properties.load(new FileInputStream("resources/argouml.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
