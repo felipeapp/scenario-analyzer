@@ -19,7 +19,9 @@ public abstract class GenericDB {
 
 	public abstract int getNumberOfMethodExecution(String signature);
 
-	public abstract Map<String, Double> getExecutionTimeAverage();
+	public abstract Map<String, Double> getExecutionTimeAverageOfMembers();
+	
+	public abstract Map<String, Double> getExecutionTimeAverageOfScenarios();
 
 	public abstract List<RuntimeNode> getFailedNodes(RuntimeScenario scenario);
 

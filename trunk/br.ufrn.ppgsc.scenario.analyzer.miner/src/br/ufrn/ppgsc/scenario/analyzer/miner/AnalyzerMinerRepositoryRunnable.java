@@ -41,7 +41,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private static final String files[] =
 		{"changed_methods", "excluded_methods", "failed_methods_both",
 		"failed_methods_only_v1", "failed_methods_only_v2", "kept_methods",
-		"p_degradated_methods", "p_optimized_methods", "p_unchanged_methods"};
+		"p_degraded_methods", "p_optimized_methods", "p_unchanged_methods"};
 
 	public AnalyzerMinerRepositoryRunnable(String strdate) throws FileNotFoundException {
 		SystemMetadataUtil properties = SystemMetadataUtil.getInstance();
@@ -91,7 +91,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", false));
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
 		
 		pw.println(message);
 		
@@ -177,7 +177,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", true));
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
 		
 		pw.println(message);
 		pw.println(members.size());
