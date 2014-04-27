@@ -169,4 +169,36 @@ public class ArgoUMLMiner implements IQueryIssue {
 		return result;
 	}
 
+	public static void main(String[] args) {
+		
+		String texto[] = {
+			"Issue 570 -",
+			"[Issue 6450]",
+			"Issue 5601:",
+			"Fix for issue 6436:",
+			"issue 6169,",
+			"issue 6169",
+			"issue 5990.",
+			"Part of issue 5990 that is",
+			"Issue 5959:Further",
+			"Issue 6032 and issue 6035",
+			"For isSue 6208)",
+			"Fix for issue 3990 and issue 3403: Add",
+			"Defect 6358 - ",
+			"Task 6348",
+			"Issue 6048 and 6053",
+			"Fixed issue ",
+			"This consider issue 6054, issue 4034 and issue 1234",
+			"This consider issue 6054, issue 4034 and 1234"
+		};
+		
+		for (String t : texto) {
+			System.out.println(t);
+			
+			for (long id : new ArgoUMLMiner().getIssueNumbersFromMessageLog(t))
+				System.out.println("\t" + id);
+		}
+
+	}
+
 }
