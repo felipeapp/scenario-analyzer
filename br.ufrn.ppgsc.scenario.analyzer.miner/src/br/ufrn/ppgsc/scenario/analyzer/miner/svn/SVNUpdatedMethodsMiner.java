@@ -105,6 +105,9 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 						
 						handlers.put(path, handler);
 					}
+					else {
+						logger.info("Path previously analyzedPath: " + path);
+					}
 				}
 				
 				++i;

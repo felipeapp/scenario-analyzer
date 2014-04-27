@@ -2,6 +2,7 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.svn;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,19 +73,35 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				Issue issue = null;
 				issues = new ArrayList<Issue>();
 				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
-				List<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
+				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
 				
-				for (Long issue_number : issue_numbers) {
-					if (issue_number < 0) {
-						logger.warn("Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-						issue = new Issue();
-						issue.setNumber(-1);
-					}
-					else {
-						issue = issueQuery.getIssueByNumber(issue_number);
-					}
+				if (issue_numbers.isEmpty()) {
+					logger.warn("[IssueListEmpty] LogMessage: " + logMessage);
+					logger.warn("[IssueListEmpty] Path: " + path + ", revision = " + revision);
+					
+					issue = new Issue();
+					issue.setNumber(-1);
 					
 					issues.add(issue);
+				}
+				else {
+					for (Long issue_number : issue_numbers) {
+						if (issue_number < 0) {
+							logger.warn("[NotFoundIssue] LogMessage: " + logMessage);
+							logger.warn("[NotFoundIssue] Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
+							
+							issue = new Issue();
+							issue.setNumber(-1);
+						}
+						else {
+							logger.info("[FoundIssue] LogMessage: " + logMessage);
+							logger.info("[FoundIssue] Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
+							
+							issue = issueQuery.getIssueByNumber(issue_number);
+						}
+						
+						issues.add(issue);
+					}
 				}
 				
 				cache_revision_issues.put(revision, issues);

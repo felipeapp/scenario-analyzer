@@ -182,8 +182,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		pw.println(message);
 		pw.println(members.size());
 		
+		int i = 0;
 		for (String sig : members) {
-			System.out.println("Retrieving impacted members and scenarios from " + sig);
+			System.out.println("[" + ++i + "/" + members.size() + "] Retrieving impacted members and scenarios by " + sig);
 			
 			Set<String> nodes = database_v2.getImpactedNodes(sig);
 			List<String> scenarios = database_v2.getScenariosByMember(sig);
@@ -224,18 +225,41 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			message = loadFile(in, signatures);
 			
+			System.out.println(files[i]);
+			
 			for (String s : signatures) {
 				String paths[] = transformer.convert(s, rep_prefix, wc_prefix_v1, wc_prefix_v2);
 				
-				if (!new File(paths[1]).exists())
-					throw new FileNotFoundException(paths[1]);
+				if (paths == null) {
+					System.out.println("Ignoring " + s + " because paths is null (Is it right?).");
+					continue;
+				}
 				
-				if (!new File(paths[2]).exists())
-					throw new FileNotFoundException(paths[2]);
+				boolean ignore_file = false;
+				boolean file_exists_v1 = new File(paths[1]).exists();
+				boolean file_exists_v2 = new File(paths[2]).exists();
 				
-				repository_paths.add(paths[0]);
-				old_workcopy_paths.add(paths[1]);
-				new_workcopy_paths.add(paths[2]);
+				if (!file_exists_v1 && !file_exists_v2)
+					throw new FileNotFoundException("\n" + paths[1] + "\n" + paths[2]);
+				
+				if (!file_exists_v1) {
+					System.out.println("Not found (Is it right?): " + paths[1]);
+					ignore_file = true;
+				}
+				
+				if (!file_exists_v2) {
+					System.out.println("Not found (Is it right?): " + paths[2]);
+					ignore_file = true;
+				}
+				
+				if (ignore_file) {
+					System.out.println("Ignoring files...");
+				}
+				else {
+					repository_paths.add(paths[0]);
+					old_workcopy_paths.add(paths[1]);
+					new_workcopy_paths.add(paths[2]);
+				}
 			}
 			
 			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + " ["

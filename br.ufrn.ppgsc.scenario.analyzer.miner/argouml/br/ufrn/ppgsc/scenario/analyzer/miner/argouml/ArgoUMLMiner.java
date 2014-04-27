@@ -1,6 +1,5 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.argouml;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,9 +7,10 @@ import java.io.LineNumberReader;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,24 +23,19 @@ import org.xml.sax.InputSource;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class ArgoUMLMiner implements IQueryIssue {
 
-	private Properties properties;
+	private SystemMetadataUtil metadata;
 
 	public ArgoUMLMiner() {
-		properties = new Properties();
-		try {
-			properties.load(new FileInputStream("resources/argouml.properties"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		metadata = SystemMetadataUtil.getInstance();
 	}
-	
+
 	private Document getXMLByIssueId(Long issueId) throws IOException, JDOMException {
 		SAXBuilder builder = new SAXBuilder();
-		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(properties
-				.getProperty("host") + issueId);
+		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(metadata.getStringProperty("host") + issueId);
 		InputStreamReader isr = new InputStreamReader(inputStream);
 
 		LineNumberReader lineNumberReader = new LineNumberReader(isr);
@@ -57,17 +52,18 @@ public class ArgoUMLMiner implements IQueryIssue {
 		StringReader sr = new StringReader(sb.toString());
 		InputSource inputSource = new InputSource(sr);
 		Document doc = builder.build(inputSource);
-		
+
 		return doc;
 	}
 
 	private boolean verifyIssueWasFound(Document document) {
 		for (Object obj : document.getRootElement().getChildren()) {
 			Element element = (Element) obj;
-			if (element.getAttributeValue("status_message").trim().equals(properties.getProperty("status_message"))) {
+			
+			if (element.getAttributeValue("status_message").trim().equals(metadata.getStringProperty("status_message")))
 				return false;
-			}
 		}
+		
 		return true;
 	}
 
@@ -78,16 +74,14 @@ public class ArgoUMLMiner implements IQueryIssue {
 	 * @param issueId
 	 * @throws IllegalArgumentException
 	 */
-	private void verifyValidArguments(Long issueId)
-			throws IllegalArgumentException {
-		if (issueId == null) {
+	private void verifyValidArguments(Long issueId) throws IllegalArgumentException {
+		if (issueId == null)
 			throw new IllegalArgumentException("O id da tarefa está nulo");
-		}
 	}
-	
+
 	private Issue getIssueInfoFromXML(Document doc) throws ParseException {
 		Issue issue = null;
-		SimpleDateFormat sdf = new SimpleDateFormat(properties.getProperty("dateFormat"));
+		SimpleDateFormat sdf = new SimpleDateFormat(metadata.getStringProperty("dateFormat"));
 
 		for (Object obj : doc.getRootElement().getChildren()) {
 			Element item = (Element) obj;
@@ -109,35 +103,70 @@ public class ArgoUMLMiner implements IQueryIssue {
 	@Override
 	public Issue getIssueByNumber(long taskNumber) {
 		Issue issue = null;
+		
 		try {
 			verifyValidArguments(taskNumber);
 			Document document = getXMLByIssueId(taskNumber);
-			if (verifyIssueWasFound(document)) {
+			
+			if (verifyIssueWasFound(document))
 				issue = getIssueInfoFromXML(document);
-			}
 		} catch (IOException | JDOMException | ParseException e) {
 			e.printStackTrace();
 		}
+		
 		return issue;
 	}
 
 	@Override
-	public List<Long> getIssueNumbersFromMessageLog(String messageLog) {
-		List<Long> issuesId = new ArrayList<Long>();
-		Pattern pattern = Pattern.compile("[0-9]+");
+	public Collection<Long> getIssueNumbersFromMessageLog(String messageLog) {
+		Set<Long> result = new HashSet<Long>();
+
+		String words = "(issue|defect|bug|task)";
+		String regex1 = words + ".\\d+";
+		String regex2 = words + ".\\d+.and.\\d+";
+		
+		Pattern pattern = Pattern.compile(regex1, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 		Matcher matcher = pattern.matcher(messageLog);
-		while(matcher.find()) {
-			try {
-				Long issueId = Long.parseLong(matcher.group());
-				Document doc = getXMLByIssueId(issueId);
-				if (verifyIssueWasFound(doc)) {
-					issuesId.add(issueId);
-				}
- 			} catch (NumberFormatException | IOException | JDOMException e) {
-				e.printStackTrace();
-			}
+
+		while (matcher.find()) {
+			String stmt = matcher.group();
+			Scanner in = new Scanner(stmt);
+			
+			// This read the issue word
+			in.next();
+			
+			// this read the number after the issue word
+			long issue_number = in.nextLong();
+			
+			result.add(issue_number);
+			in.close();
 		}
-		return issuesId;
+		
+		pattern = Pattern.compile(regex2, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+		matcher = pattern.matcher(messageLog);
+
+		while (matcher.find()) {
+			String stmt = matcher.group();
+			Scanner in = new Scanner(stmt);
+			
+			// This read the issue word
+			in.next();
+			
+			// this read the first number after the issue word
+			long issue_number = in.nextLong();
+			result.add(issue_number);
+			
+			// this read the word and between the numbers
+			in.next();
+			
+			// this read the second number after the word and
+			issue_number = in.nextLong();
+			result.add(issue_number);
+			
+			in.close();
+		}
+		
+		return result;
 	}
 
 }

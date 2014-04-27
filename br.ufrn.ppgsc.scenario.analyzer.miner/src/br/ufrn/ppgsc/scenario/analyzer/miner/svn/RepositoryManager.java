@@ -29,6 +29,10 @@ public class RepositoryManager {
 		for (int i = 0; i < paths.size(); i++) {
 			old_revisions.add(miner.getCommittedRevisionNumber(old_workcopies.get(i)));
 			new_revisions.add(miner.getCommittedRevisionNumber(new_workcopies.get(i)));
+			
+//			System.out.println("Path: " + paths.get(i));
+//			System.out.println("Old: " + old_revisions.get(i));
+//			System.out.println("New: " + old_revisions.get(i));
 		}
 
 		miner.initialize(paths, old_revisions, new_revisions);
