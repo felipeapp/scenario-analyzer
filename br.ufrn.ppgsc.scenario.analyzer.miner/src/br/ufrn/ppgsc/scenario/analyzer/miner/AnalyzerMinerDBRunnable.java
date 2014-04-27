@@ -46,7 +46,7 @@ public final class AnalyzerMinerDBRunnable {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", true));
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
 		
 		pw.println(message);
 		
@@ -61,13 +61,33 @@ public final class AnalyzerMinerDBRunnable {
 		pw.close();
 	}
 	
+	private void persistFile(String message, String partial_name, Collection<String> collection,
+			Map<String, Double> average_v1, Map<String, Double> average_v2, double rate) throws FileNotFoundException {
+		System.out.println("persistFile: " + message);
+		
+		PrintWriter pw = new PrintWriter(new FileOutputStream(
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
+		
+		pw.println(message);
+		
+		pw.println(collection.size());
+		
+		for (String elem : collection)
+			pw.println(elem + System.lineSeparator() + average_v1.get(elem) + " " + average_v2.get(elem));
+		
+		if (rate > 0)
+			pw.println(rate);
+		
+		pw.close();
+	}
+	
 	private void persistFile(String message, String partial_name,
 			Map<RuntimeScenario, List<RuntimeNode>> map_scenario_node,
 			Map<String, Integer> map_failed_methods, GenericDB db) throws FileNotFoundException {
 		System.out.println("persistFile: " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt", true));
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
 		
 		pw.println(message);
 		pw.println(map_scenario_node.size());
@@ -139,26 +159,52 @@ public final class AnalyzerMinerDBRunnable {
 		return map;
 	}
 	
-	// TODO: Adicionar mineração para mostrar a média e desvio dos cenários 
 	public String run() throws FileNotFoundException {
-		System.out.println("Calculating time average of version 1...");
-		Map<String, Double> avg_time_v1 = database_v1.getExecutionTimeAverage();
-		System.out.println("Calculating time average of version 2...");
-		Map<String, Double> avg_time_v2 = database_v2.getExecutionTimeAverage();
+		System.out.println("Calculating time average of scenarios in version 1...");
+		Map<String, Double> avg_time_scenarios_v1 = database_v1.getExecutionTimeAverageOfMembers();
+		System.out.println("Calculating time average of scenarios in version 2...");
+		Map<String, Double> avg_time_scenarios_v2 = database_v2.getExecutionTimeAverageOfMembers();
+
+		System.out.println("Determining excluded scenarios...");
+		Set<String> excluded_scenarios = AnalyzerCollectionUtil.except(avg_time_scenarios_v1.keySet(), avg_time_scenarios_v2.keySet());
+		System.out.println("Determining changed scenarios...");
+		Set<String> changed_scenarios = AnalyzerCollectionUtil.except(avg_time_scenarios_v2.keySet(), avg_time_scenarios_v1.keySet());
+		System.out.println("Determining kept scenarios...");
+		Set<String> kept_scenarios = AnalyzerCollectionUtil.intersect(avg_time_scenarios_v1.keySet(), avg_time_scenarios_v2.keySet());
+		
+		System.out.println("Determining scenarios with degraded performance...");
+		Collection<String> p_degraded_scenarios = AnalyzerCollectionUtil.degradated(avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		System.out.println("Determining scenarios with optimized performance...");
+		Collection<String> p_optimized_scenarios = AnalyzerCollectionUtil.optimized(avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		System.out.println("Determining scenarios with unchanged performance...");
+		Collection<String> p_unchanged_scenarios = AnalyzerCollectionUtil.unchanged(avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		
+		persistFile("# Cenários executados na primeira versão, mas não na evolução", "excluded_scenarios", excluded_scenarios, 0);
+		persistFile("# Cenários executados na evolução, mas não na primeira versão", "changed_scenarios", changed_scenarios, 0);
+		persistFile("# Cenários que foram executados nas duas versões", "kept_scenarios", kept_scenarios, 0);
+		
+		persistFile("# Cenários que tiveram performance degradada na evolução", "p_degraded_scenarios", p_degraded_scenarios, avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		persistFile("# Cenários que tiveram performance otimizada na evolução", "p_optimized_scenarios", p_optimized_scenarios, avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		persistFile("# Cenários que tiveram performance inalterada na evolução", "p_unchanged_scenarios", p_unchanged_scenarios, avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		
+		System.out.println("Calculating time average of members in version 1...");
+		Map<String, Double> avg_time_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
+		System.out.println("Calculating time average of members in version 2...");
+		Map<String, Double> avg_time_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
 
 		System.out.println("Determining excluded methods...");
-		Set<String> excluded_methods = AnalyzerCollectionUtil.except(avg_time_v1.keySet(), avg_time_v2.keySet());
+		Set<String> excluded_methods = AnalyzerCollectionUtil.except(avg_time_members_v1.keySet(), avg_time_members_v2.keySet());
 		System.out.println("Determining changed methods...");
-		Set<String> changed_methods = AnalyzerCollectionUtil.except(avg_time_v2.keySet(), avg_time_v1.keySet());
+		Set<String> changed_methods = AnalyzerCollectionUtil.except(avg_time_members_v2.keySet(), avg_time_members_v1.keySet());
 		System.out.println("Determining kept methods...");
-		Set<String> kept_methods = AnalyzerCollectionUtil.intersect(avg_time_v1.keySet(), avg_time_v2.keySet());
+		Set<String> kept_methods = AnalyzerCollectionUtil.intersect(avg_time_members_v1.keySet(), avg_time_members_v2.keySet());
 		
 		System.out.println("Determining methods with degraded performance...");
-		Collection<String> p_degraded_methods = AnalyzerCollectionUtil.degradated(avg_time_v1, avg_time_v2, performance_rate);
+		Collection<String> p_degraded_methods = AnalyzerCollectionUtil.degradated(avg_time_members_v1, avg_time_members_v2, performance_rate);
 		System.out.println("Determining methods with optimized performance...");
-		Collection<String> p_optimized_methods = AnalyzerCollectionUtil.optimized(avg_time_v1, avg_time_v2, performance_rate);
+		Collection<String> p_optimized_methods = AnalyzerCollectionUtil.optimized(avg_time_members_v1, avg_time_members_v2, performance_rate);
 		System.out.println("Determining methods with unchanged performance...");
-		Collection<String> p_unchanged_methods = AnalyzerCollectionUtil.unchanged(avg_time_v1, avg_time_v2, performance_rate);
+		Collection<String> p_unchanged_methods = AnalyzerCollectionUtil.unchanged(avg_time_members_v1, avg_time_members_v2, performance_rate);
 		
 		persistFile("# Métodos executados na primeira versão, mas não na evolução", "excluded_methods", excluded_methods, 0);
 		persistFile("# Métodos executados na evolução, mas não na primeira versão", "changed_methods", changed_methods, 0);

@@ -62,7 +62,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 	}
 	
 	@Override
-	public Map<String, Double> getExecutionTimeAverage() {
+	public Map<String, Double> getExecutionTimeAverageOfMembers() {
 		Map<String, Double> result = new HashMap<String, Double>();
 
 		Session s = getSession();
@@ -78,6 +78,28 @@ public class GenericDBHibernateImpl extends GenericDB {
 		for (Object o : query.list()) {
 			Map<?, ?> elem = (Map<?, ?>) o;
 			result.put(elem.get("signature").toString(), (Double) elem.get("average"));
+		}
+
+		return result;
+	}
+	
+	@Override
+	public Map<String, Double> getExecutionTimeAverageOfScenarios() {
+		Map<String, Double> result = new HashMap<String, Double>();
+
+		Session s = getSession();
+
+		SQLQuery query = s.createSQLQuery("select scenario.name sname, avg(node.time) saverage from scenario inner join node"
+				+ " on scenario.root_id = node.id and node.time <> -1 group by scenario.name order by scenario.name;");
+
+		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+
+		query.addScalar("sname", StringType.INSTANCE);
+		query.addScalar("saverage", DoubleType.INSTANCE);
+
+		for (Object o : query.list()) {
+			Map<?, ?> elem = (Map<?, ?>) o;
+			result.put(elem.get("sname").toString(), (Double) elem.get("saverage"));
 		}
 
 		return result;
