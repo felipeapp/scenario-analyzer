@@ -52,8 +52,18 @@ public class ArgoUMLPathTransformer implements IPathTransformer {
 			name = "org/argouml/util/MyTokenizer";
 		else if (name.equals("org/argouml/cognitive/EnabledCM"))
 			name = "org/argouml/cognitive/StandardCM";
+		else if (name.equals("org/argouml/uml/diagram/ui/ActionNavigateUpFromDiagram"))
+			name = "org/argouml/uml/diagram/ui/PropPanelDiagram";
+		else if (name.equals("org/argouml/uml/diagram/ui/UMLDiagramHomeModelComboBoxModel"))
+			name = "org/argouml/uml/diagram/ui/PropPanelDiagram";
+		else if (name.equals("org/argouml/uml/diagram/ui/ActionSetDiagramHomeModel"))
+			name = "org/argouml/uml/diagram/ui/PropPanelDiagram";
+		else if (name.equals("org/argouml/cognitive/NotSnoozedCM"))
+			name = "org/argouml/cognitive/StandardCM";
+		else if (name.equals("org/argouml/uml/diagram/collaboration/ui/FigMessageGroup"))
+			name = "org/argouml/uml/diagram/collaboration/ui/FigAssociationRole";
 		// ---------------------------------------
-		
+
 		// Redirecionando para o projeto correto de acordo com pacote
 		if (method_signature.startsWith("org.argouml.model.mdr"))
 			full_path = "argouml-core-model-mdr/";
@@ -87,7 +97,9 @@ public class ArgoUMLPathTransformer implements IPathTransformer {
 	private boolean belongsToTestFolder(String class_path) {
 		String name = class_path.substring(class_path.lastIndexOf('/') + 1);
 		
-		return name.equals("InitializeModel") || name.startsWith("Test") ||
+		return name.equals("ThreadHelper") || name.equals("CheckUMLModelHelper") ||
+				name.equals("AbstractUMLModelElementListModel2Test") ||
+				name.equals("InitializeModel") || name.startsWith("Test") ||
 				name.startsWith("AbstractTest") || name.startsWith("GenericUmlObjectTest");
 	}
 	

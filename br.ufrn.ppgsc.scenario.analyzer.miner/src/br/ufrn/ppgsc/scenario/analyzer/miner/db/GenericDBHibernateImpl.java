@@ -90,7 +90,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 		Session s = getSession();
 
 		SQLQuery query = s.createSQLQuery("select scenario.name sname, avg(node.time) saverage from scenario inner join node"
-				+ " on scenario.root_id = node.id and node.time <> -1 group by scenario.name order by scenario.name;");
+				+ " on scenario.root_id = node.id and node.time <> -1 group by sname order by sname;");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 

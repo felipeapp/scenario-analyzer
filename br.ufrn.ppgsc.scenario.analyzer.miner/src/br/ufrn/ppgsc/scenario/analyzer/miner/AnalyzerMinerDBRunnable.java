@@ -161,9 +161,9 @@ public final class AnalyzerMinerDBRunnable {
 	
 	public String run() throws FileNotFoundException {
 		System.out.println("Calculating time average of scenarios in version 1...");
-		Map<String, Double> avg_time_scenarios_v1 = database_v1.getExecutionTimeAverageOfMembers();
+		Map<String, Double> avg_time_scenarios_v1 = database_v1.getExecutionTimeAverageOfScenarios();
 		System.out.println("Calculating time average of scenarios in version 2...");
-		Map<String, Double> avg_time_scenarios_v2 = database_v2.getExecutionTimeAverageOfMembers();
+		Map<String, Double> avg_time_scenarios_v2 = database_v2.getExecutionTimeAverageOfScenarios();
 
 		System.out.println("Determining excluded scenarios...");
 		Set<String> excluded_scenarios = AnalyzerCollectionUtil.except(avg_time_scenarios_v1.keySet(), avg_time_scenarios_v2.keySet());
