@@ -1,6 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.argouml.test;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +14,7 @@ public class ArgoUMLMinerTest {
 	public void performRequestToGetIssueInfoWithValidId() {
 		ArgoUMLMiner miner = new ArgoUMLMiner();
 		Issue issue = miner.getIssueByNumber(3458);
+		System.out.println(issue.getIssueId());
 		Assert.assertNotNull(issue);
 	}
 
@@ -27,28 +28,28 @@ public class ArgoUMLMinerTest {
 	@Test
 	public void parseIssueNumberFromMessageLogWithOneNumber() {
 		ArgoUMLMiner miner = new ArgoUMLMiner();
-		List<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue 2743: Events are not...");
+		Collection<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue 2743: Events are not...");
 		Assert.assertEquals(1, issuesId.size());
 	}
 	
 	@Test
 	public void parseIssueNumberFromMessageLogWithTwoNumbers() {
 		ArgoUMLMiner miner = new ArgoUMLMiner();
-		List<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue 3333. Issue 3323, Corrected some typos, and switched on wordwrap for the wizard instructions text. Changed the button text from 'Next' to 'Next>', since this is the indication used in all the critics texts.");
+		Collection<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue 3333. Issue 3323, Corrected some typos, and switched on wordwrap for the wizard instructions text. Changed the button text from 'Next' to 'Next>', since this is the indication used in all the critics texts.");
 		Assert.assertEquals(2, issuesId.size());
 	}
 	
 	@Test
 	public void parseIssueNumberFromMessageLogWithNoNumbers() {
 		ArgoUMLMiner miner = new ArgoUMLMiner();
-		List<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue ");
+		Collection<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue ");
 		Assert.assertEquals(0, issuesId.size());
 	}
 	
 	@Test
 	public void parseIssueNumberFromMessageLogWithOneNonTaskNumber() {
 		ArgoUMLMiner miner = new ArgoUMLMiner();
-		List<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue 98426879624789642 blablabla...");
+		Collection<Long> issuesId = miner.getIssueNumbersFromMessageLog("Fixed issue 98426879624789642 blablabla...");
 		Assert.assertEquals(0, issuesId.size());
 	}
 

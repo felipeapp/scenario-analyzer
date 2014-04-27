@@ -139,24 +139,32 @@ public final class AnalyzerMinerDBRunnable {
 		return map;
 	}
 	
-	// TODO: Adicionar mineração para mostrar a média e desvio dos cenários
+	// TODO: Adicionar mineração para mostrar a média e desvio dos cenários 
 	public String run() throws FileNotFoundException {
+		System.out.println("Calculating time average of version 1...");
 		Map<String, Double> avg_time_v1 = database_v1.getExecutionTimeAverage();
+		System.out.println("Calculating time average of version 2...");
 		Map<String, Double> avg_time_v2 = database_v2.getExecutionTimeAverage();
 
+		System.out.println("Determining excluded methods...");
 		Set<String> excluded_methods = AnalyzerCollectionUtil.except(avg_time_v1.keySet(), avg_time_v2.keySet());
+		System.out.println("Determining changed methods...");
 		Set<String> changed_methods = AnalyzerCollectionUtil.except(avg_time_v2.keySet(), avg_time_v1.keySet());
+		System.out.println("Determining kept methods...");
 		Set<String> kept_methods = AnalyzerCollectionUtil.intersect(avg_time_v1.keySet(), avg_time_v2.keySet());
 		
-		Collection<String> p_degradated_methods = AnalyzerCollectionUtil.degradated(avg_time_v1, avg_time_v2, performance_rate);
+		System.out.println("Determining methods with degraded performance...");
+		Collection<String> p_degraded_methods = AnalyzerCollectionUtil.degradated(avg_time_v1, avg_time_v2, performance_rate);
+		System.out.println("Determining methods with optimized performance...");
 		Collection<String> p_optimized_methods = AnalyzerCollectionUtil.optimized(avg_time_v1, avg_time_v2, performance_rate);
+		System.out.println("Determining methods with unchanged performance...");
 		Collection<String> p_unchanged_methods = AnalyzerCollectionUtil.unchanged(avg_time_v1, avg_time_v2, performance_rate);
 		
 		persistFile("# Métodos executados na primeira versão, mas não na evolução", "excluded_methods", excluded_methods, 0);
 		persistFile("# Métodos executados na evolução, mas não na primeira versão", "changed_methods", changed_methods, 0);
 		persistFile("# Métodos que foram executados nas duas versões", "kept_methods", kept_methods, 0);
 		
-		persistFile("# Métodos que tiveram performance degradada na evolução", "p_degradated_methods", p_degradated_methods, performance_rate);
+		persistFile("# Métodos que tiveram performance degradada na evolução", "p_degraded_methods", p_degraded_methods, performance_rate);
 		persistFile("# Métodos que tiveram performance otimizada na evolução", "p_optimized_methods", p_optimized_methods, performance_rate);
 		persistFile("# Métodos que tiveram performance inalterada na evolução", "p_unchanged_methods", p_unchanged_methods, performance_rate);
 		
