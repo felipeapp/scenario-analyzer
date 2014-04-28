@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- Colocar no classpath para especificar o nível de log -->
 <configuration>
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>test_log.txt</file>
+		<append>true</append>
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			<pattern>[%d{HH:mm:ss}][%thread] %-5level %logger{35} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<root level="WARN">
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
 	</root>
-
-	<!--<logger name="com.ning.http.client" level="WARN" />-->
 </configuration>
