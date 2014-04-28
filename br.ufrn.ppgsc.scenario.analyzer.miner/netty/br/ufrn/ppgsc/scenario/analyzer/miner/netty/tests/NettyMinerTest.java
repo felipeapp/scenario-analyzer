@@ -10,7 +10,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.netty.NettyMiner;
 
 public class NettyMinerTest {
 
-//	@Test
+	@Test
 	public void performRequestToGetIssueInfoWithValidId() {
 		NettyMiner miner = new NettyMiner();
 		Issue issue = miner.getIssueByNumber(2433);
