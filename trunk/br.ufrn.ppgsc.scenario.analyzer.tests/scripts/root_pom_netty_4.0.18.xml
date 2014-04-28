@@ -153,7 +153,7 @@
       -verbose:gc
     </test.jvm.argLine>
     
-    <scenario.analyzer.path>C:/Users/Felipe/Workspaces/netty</scenario.analyzer.path>
+    <scenario.analyzer.path>C:/Development/Workspace/netty-4.0.18.Final_scenario-analyzer</scenario.analyzer.path>
   </properties>
 
   <modules>
@@ -491,6 +491,9 @@
           </excludes>
           <runOrder>random</runOrder>
           <argLine>${test.jvm.argLine.coverage} ${test.jvm.argLine}</argLine>
+          <!-- Isto foi adicionado para que cada teste rode independnte do outro, em uma JVM limpa -->
+          <forkCount>1</forkCount><!-- Não executa em paralelo, inicia apenas uma JVM por -->
+          <reuseForks>false</reuseForks><!-- Não reusa a JVM, finaliza a anterior e inicia outra para o novo teste -->
           <additionalClasspathElements>
           	<additionalClasspathElement>${scenario.analyzer.path}/br.ufrn.ppgsc.scenario.analyzer.libs/libs/javax.faces-2.2.6.jar</additionalClasspathElement>
 	    	<additionalClasspathElement>${scenario.analyzer.path}/br.ufrn.ppgsc.scenario.analyzer.libs/libs/postgresql-9.3-1101.jdbc41.jar</additionalClasspathElement>
@@ -510,6 +513,7 @@
       		<!--<additionalClasspathElement>${scenario.analyzer.path}/br.ufrn.ppgsc.scenario.analyzer.libs/libs/hibernate_3.6.10/slf4j-api-1.6.1.jar</additionalClasspathElement>-->
       		<!--<additionalClasspathElement>${scenario.analyzer.path}/br.ufrn.ppgsc.scenario.analyzer.libs/libs/hibernate_3.6.10/slf4j-simple-1.6.1.jar</additionalClasspathElement>-->
           </additionalClasspathElements>
+          <!-- Fim das minhas modificações -->
         </configuration>
       </plugin>
       <!-- always produce osgi bundles -->
@@ -916,4 +920,3 @@
     </pluginManagement>
   </build>
 </project>
-
