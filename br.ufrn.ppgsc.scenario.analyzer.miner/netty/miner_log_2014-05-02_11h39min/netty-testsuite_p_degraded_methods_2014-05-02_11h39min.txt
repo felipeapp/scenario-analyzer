@@ -1,0 +1,21 @@
+# Métodos que tiveram performance degradada na evolução
+18
+io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server(java.lang.String,int)
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout()
+io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutput()
+io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutput(io.netty.bootstrap.ServerBootstrap)
+io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease()
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutor()
+io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise()
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout(io.netty.bootstrap.Bootstrap)
+io.netty.testsuite.transport.socket.DatagramMulticastTest.testMulticast()
+io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption()
+io.netty.testsuite.transport.socket.DatagramMulticastTest$MulticastTestHandler.await()
+io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSend()
+io.netty.testsuite.transport.socket.WriteBeforeRegisteredTest.testWriteBeforeConnect()
+io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server.waitForRunning(boolean)
+io.netty.testsuite.transport.socket.SocketTestPermutation$6.newInstance()
+io.netty.testsuite.transport.socket.SocketTestPermutation$3.newInstance()
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
+0.05

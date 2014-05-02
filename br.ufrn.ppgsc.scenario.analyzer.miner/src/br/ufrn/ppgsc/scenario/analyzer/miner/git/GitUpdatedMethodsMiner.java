@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.gitsvn;
+package br.ufrn.ppgsc.scenario.analyzer.miner.git;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -101,7 +101,6 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 	}
 
 	public String getCommittedRevisionNumber(String path) {
-		System.out.println(path);
 		if (path.contains("netty-4.0.0.Final"))
 			return "8acba6063eabd9fafec57c5abcfa3dd79285bbdf";
 		else if (path.contains("netty-4.0.18.Final"))
