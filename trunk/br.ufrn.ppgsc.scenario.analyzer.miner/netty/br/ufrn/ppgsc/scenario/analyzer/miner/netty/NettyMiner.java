@@ -23,9 +23,13 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class NettyMiner implements IQueryIssue {
+	
+	enum IssueType {
+		DEFECT, FEATURE, IMPROVEMENT;
+	}
 
 	private SystemMetadataUtil metadata;
-
+	
 	public NettyMiner() {
 		metadata = SystemMetadataUtil.getInstance();
 	}
@@ -67,7 +71,18 @@ public class NettyMiner implements IQueryIssue {
 		issue.setDateCreation(sdf.parse(date));
 		issue.setIssueId(json.getInt("number"));
 		issue.setIssueStatus(json.getString("state"));
-//		issue.setIssueType(null);
+		if (json.getJSONArray("labels") != null) {
+			for (int i = 0; i < json.getJSONArray("labels").length(); i++) {
+				String type = json.getJSONArray("labels").getJSONObject(i).getString("name");
+				try {
+					if (IssueType.valueOf(type.toUpperCase()) instanceof IssueType) {
+						issue.setIssueType(type);
+					}
+				} catch (Exception e) {
+					// não faz nada, apenas passa pro próximo indice do for
+				}
+			}
+		}
 		issue.setShortDescription(json.getString("title"));
 
 		return issue;
@@ -100,7 +115,6 @@ public class NettyMiner implements IQueryIssue {
 
 		while (matcher.find()) {
 			String stmt = matcher.group();
-			System.out.println(stmt);
 			Scanner in = new Scanner(stmt);
 			
 			// This read the issue word
