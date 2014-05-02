@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.gitsvn;
+package br.ufrn.ppgsc.scenario.analyzer.miner.git;
 
 import java.io.BufferedReader;
 import java.io.File;

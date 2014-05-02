@@ -67,7 +67,7 @@ public class NettyMiner implements IQueryIssue {
 		issue.setDateCreation(sdf.parse(date));
 		issue.setIssueId(json.getInt("number"));
 		issue.setIssueStatus(json.getString("state"));
-		issue.setIssueType(null);
+//		issue.setIssueType(null);
 		issue.setShortDescription(json.getString("title"));
 
 		return issue;
