@@ -7,13 +7,13 @@ import java.util.List;
 public class UpdatedLine {
 
 	private Date date;
-	private long revision;
+	private String revision;
 	private List<Issue> issues;
 	private String author;
 	private String line;
 	private int lineNumber;
 
-	public UpdatedLine(Date date, long revision, List<Issue> issues, String author, String line, int lineNumber) {
+	public UpdatedLine(Date date, String revision, List<Issue> issues, String author, String line, int lineNumber) {
 		this.date = date;
 		this.revision = revision;
 		this.issues = issues;
@@ -30,11 +30,11 @@ public class UpdatedLine {
 		this.date = date;
 	}
 
-	public long getRevision() {
+	public String getRevision() {
 		return revision;
 	}
 
-	public void setRevision(long revision) {
+	public void setRevision(String revision) {
 		this.revision = revision;
 	}
 
