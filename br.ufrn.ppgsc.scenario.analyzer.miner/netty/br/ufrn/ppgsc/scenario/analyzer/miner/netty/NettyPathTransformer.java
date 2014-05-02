@@ -5,14 +5,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 public class NettyPathTransformer implements IPathTransformer {
 
 	public String[] convert(String method_signature, String repository_prefix, String workcopy_prefix_v1, String workcopy_prefix_v2) {
-		/*
-		 * Neste caso as classes foram geradas localmente e
-		 * não fazem parte do repositório, logo serão ignoradas.
-		 * Simplesmente retorna null
-		 */
-		if (method_signature.startsWith("org.omg.uml"))
-			return null;
-		
+
 		String full_path = "";
 		String name = method_signature.replaceAll("[(].*[)]", "");
 		
@@ -32,62 +25,26 @@ public class NettyPathTransformer implements IPathTransformer {
 		// Refazendo o caminho de classes internas
 		if (name.equals("org/argouml/profile/internal/DummyDependencyChecker"))
 			name = "org/argouml/profile/internal/TestDependencyResolver";
-		else if (name.equals("org/argouml/uml/diagram/static_structure/ui/PackagePortFigRect"))
-			name = "org/argouml/uml/diagram/static_structure/ui/FigPackage";
-		else if (name.equals("org/argouml/profile/internal/DependentString"))
-			name = "org/argouml/profile/internal/TestDependencyResolver";
-		else if (name.equals("org/argouml/persistence/ProfileConfigurationParser"))
-			name = "org/argouml/persistence/ProfileConfigurationFilePersister";
-		else if (name.equals("org/argouml/cognitive/checklist/ui/TableModelChecklist"))
-			name = "org/argouml/cognitive/checklist/ui/TabChecklist";
-		else if (name.equals("org/argouml/model/mdr/Registry"))
-			name = "org/argouml/model/mdr/ModelEventPumpMDRImpl";
-		else if (name.equals("org/argouml/uml/diagram/ui/FigAssociationEndAnnotation"))
-			name = "org/argouml/uml/diagram/ui/FigAssociation";
-		else if (name.equals("org/argouml/util/TokenSep"))
-			name = "org/argouml/util/MyTokenizer";
-		else if (name.equals("org/argouml/util/QuotedStringSeparator"))
-			name = "org/argouml/util/MyTokenizer";
-		else if (name.equals("org/argouml/util/ExprSeparatorWithStrings"))
-			name = "org/argouml/util/MyTokenizer";
-		else if (name.equals("org/argouml/cognitive/EnabledCM"))
-			name = "org/argouml/cognitive/StandardCM";
-		else if (name.equals("org/argouml/uml/diagram/ui/ActionNavigateUpFromDiagram"))
-			name = "org/argouml/uml/diagram/ui/PropPanelDiagram";
-		else if (name.equals("org/argouml/uml/diagram/ui/UMLDiagramHomeModelComboBoxModel"))
-			name = "org/argouml/uml/diagram/ui/PropPanelDiagram";
-		else if (name.equals("org/argouml/uml/diagram/ui/ActionSetDiagramHomeModel"))
-			name = "org/argouml/uml/diagram/ui/PropPanelDiagram";
-		else if (name.equals("org/argouml/cognitive/NotSnoozedCM"))
-			name = "org/argouml/cognitive/StandardCM";
-		else if (name.equals("org/argouml/uml/diagram/collaboration/ui/FigMessageGroup"))
-			name = "org/argouml/uml/diagram/collaboration/ui/FigAssociationRole";
 		// ---------------------------------------
 
+		if (method_signature.startsWith("io.netty.testsuite"))
+			full_path += "testsuite/src/test/java/";
 		// Redirecionando para o projeto correto de acordo com pacote
-		if (method_signature.startsWith("org.argouml.model.mdr"))
-			full_path = "argouml-core-model-mdr/";
-		else if (method_signature.startsWith("org.argouml.model") && belongsToTestFolder(name))
-			full_path = "argouml-app/";
-		else if (method_signature.startsWith("org.argouml.model"))
-			full_path = "argouml-core-model/";
-		else
-			full_path = "argouml-app/";
-		// ---------------------------------------------------------
+//		if (method_signature.startsWith("io.netty.buffer"))
+//			full_path = "buffer/";
+//		else if (method_signature.startsWith("io.netty.handler.codec"))
+//			full_path = "codec/";
+//		else if (method_signature.startsWith("io.netty.testsuite.transport"))
+//			full_path = "transport/";
 		
-		// Redirecionando para a pasta de código correta: src ou test
-		if (belongsToTestFolder(name) ||
-				name.equals("org/argouml/profile/ProfileMother") ||
-				name.equals("org/argouml/FileHelper"))
-			full_path += "tests/";
-		else
-			full_path += "src/";
+		
+		// ---------------------------------------------------------
 		
 		// Completa o nome do arquivo
 		full_path += name + ".java";
 		
 		String result[] = new String[3];
-		result[0] = repository_prefix + "src/" + full_path;
+		result[0] = repository_prefix + full_path;
 		result[1] = workcopy_prefix_v1 + full_path;
 		result[2] = workcopy_prefix_v2 + full_path;
 		
