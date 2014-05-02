@@ -13,7 +13,7 @@ public class NettyMinerTest {
 	@Test
 	public void performRequestToGetIssueInfoWithValidId() {
 		NettyMiner miner = new NettyMiner();
-		Issue issue = miner.getIssueByNumber(2433);
+		Issue issue = miner.getIssueByNumber(2330);
 		System.out.println(issue.getIssueId());
 		Assert.assertNotNull(issue);
 	}
