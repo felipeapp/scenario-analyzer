@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.svn;
+package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,6 @@ import java.util.Map;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IRepositoryMiner;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class RepositoryManager {
 
@@ -23,8 +22,8 @@ public class RepositoryManager {
 			List<String> paths, List<String> old_workcopies,
 			List<String> new_workcopies) {
 
-		List<Long> old_revisions = new ArrayList<Long>();
-		List<Long> new_revisions = new ArrayList<Long>();
+		List<String> old_revisions = new ArrayList<String>();
+		List<String> new_revisions = new ArrayList<String>();
 
 		for (int i = 0; i < paths.size(); i++) {
 			old_revisions.add(miner.getCommittedRevisionNumber(old_workcopies.get(i)));
@@ -52,8 +51,8 @@ public class RepositoryManager {
 			String file_path, long old_revision, long new_revision) {
 
 		miner.initialize(Arrays.asList(new String[] { file_path }),
-				Arrays.asList(new Long(old_revision)),
-				Arrays.asList(new Long(new_revision)));
+				Arrays.asList(new String[] { String.valueOf(old_revision) }),
+				Arrays.asList(new String[] { String.valueOf(new_revision) }));
 
 		return miner.mine().get(file_path);
 	}
