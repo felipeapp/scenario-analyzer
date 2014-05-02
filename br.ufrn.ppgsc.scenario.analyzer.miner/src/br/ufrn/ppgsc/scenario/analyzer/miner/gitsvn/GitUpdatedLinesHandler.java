@@ -19,9 +19,9 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
-public class GitSVNUpdatedLinesHandler {
+public class GitUpdatedLinesHandler {
 
-	private final Logger logger = Logger.getLogger(GitSVNUpdatedLinesHandler.class);
+	private final Logger logger = Logger.getLogger(GitUpdatedLinesHandler.class);
 	
 	private static final Map<String, List<Issue>> cache_commit_issues =
 			new HashMap<String, List<Issue>>();
@@ -35,7 +35,7 @@ public class GitSVNUpdatedLinesHandler {
 	private String filedir;
 	private String filename;
 	
-	public GitSVNUpdatedLinesHandler(String startRev, String endRev, String filedir, String filename) {
+	public GitUpdatedLinesHandler(String startRev, String endRev, String filedir, String filename) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		issueQuery = SystemMetadataUtil.getInstance().newObjectFromProperties(IQueryIssue.class);
@@ -162,7 +162,7 @@ public class GitSVNUpdatedLinesHandler {
 	}
 
 	public static void main(String[] args) throws IOException {
-		GitSVNUpdatedLinesHandler gitHandler = new GitSVNUpdatedLinesHandler(
+		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
 				"8acba6063eabd9fafec57c5abcfa3dd79285bbdf",
 				"78aac538f858b9c407c046eabb478c7fe859b04e",
 				"C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socket/",

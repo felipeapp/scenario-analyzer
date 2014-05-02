@@ -34,8 +34,8 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
     private String password;
     
     private List<String> targetPaths;
-	private List<Long> startRevisions;
-	private List<Long> endRevisions;
+	private List<String> startRevisions;
+	private List<String> endRevisions;
     
     private SVNRepository repository;
     private SVNClientManager client;
@@ -60,7 +60,7 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 		client.setAuthenticationManager(authManager);
 	}
 	
-	public void initialize(List<String> targetPaths, List<Long> startRevisions, List<Long> endRevisions) {
+	public void initialize(List<String> targetPaths, List<String> startRevisions, List<String> endRevisions) {
 		this.targetPaths = targetPaths;
 		this.startRevisions = startRevisions;
 		this.endRevisions = endRevisions;
@@ -99,8 +99,8 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 						client.getLogClient().doAnnotate(
 								SVNURL.parseURIEncoded(url + path),
 								null,
-								SVNRevision.create(startRevisions.get(i)),
-								SVNRevision.create(endRevisions.get(i)),
+								SVNRevision.create(Long.parseLong(startRevisions.get(i))),
+								SVNRevision.create(Long.parseLong(endRevisions.get(i))),
 								handler);
 						
 						handlers.put(path, handler);
@@ -145,9 +145,11 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 	}
 
 	// Path indica um caminho local
-	public long getCommittedRevisionNumber(String path) {
+	public String getCommittedRevisionNumber(String path) {
+		long revision = -1;
+		
 		try {
-			return SVNClientManager.newInstance()
+			revision = SVNClientManager.newInstance()
 					.getStatusClient()
 					.doStatus(new File(path), false)
 					.getCommittedRevision()
@@ -156,7 +158,7 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 			e.printStackTrace();
 		}
 		
-		return -1;
+		return String.valueOf(revision);
 	}
 	
 	/* 

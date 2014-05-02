@@ -10,11 +10,11 @@ public interface IRepositoryMiner {
 
 	public void connect(String url, String user, String password);
 
-	public void initialize(List<String> targetPaths, List<Long> startRevisions, List<Long> endRevisions);
+	public void initialize(List<String> targetPaths, List<String> startRevisions, List<String> endRevisions);
 
 	public Map<String, Collection<UpdatedMethod>> mine();
 
-	public long getCommittedRevisionNumber(String path);
+	public String getCommittedRevisionNumber(String path);
 
 	public String getUrl();
 

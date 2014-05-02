@@ -5,7 +5,7 @@ import java.util.Collection;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.svn.RepositoryManager;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager;
 
 public class TestMiner {
 	
