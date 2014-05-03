@@ -15,10 +15,14 @@
   ~ under the License.
   
   Execute:
-  	mvn test -Dcheckstyle.skip=true -Danimal.sniffer.skip=true -DskipAutobahnTestsuite=true
+  	mvn test -Dcheckstyle.skip=true -Danimal.sniffer.skip=true
   	
   Disable tests:
   	io.netty.testsuite.transport.socket.SocketGatheringWriteTest
+  
+  Tests changed (Sometimes they never finish!):
+  	io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho() -> @Test(timeout = 120000)
+  	io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho() -> @Test(timeout = 120000)
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -87,7 +91,6 @@
       -XX:+UseStringCache
       -XX:+OptimizeStringConcat
       -XX:+HeapDumpOnOutOfMemoryError
-      -verbose:gc
       -Xmx4096m
       -XX:MaxPermSize=1024m
     </test.jvm.argLine>
