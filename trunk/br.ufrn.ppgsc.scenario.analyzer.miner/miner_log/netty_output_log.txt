@@ -79,30 +79,1079 @@ Getting updated methods from repository to changed_methods [249, # Métodos exec
 0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - starting mining...
 0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
 0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (1/249):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
-110 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit fb619f23947aab158a11730e00f4dbd490093669
-141 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: fix writability callback
+1703 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit fb619f23947aab158a11730e00f4dbd490093669
+1759 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: fix writability callback
 
 
-141 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = fb619f23947aab158a11730e00f4dbd490093669
-141 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit de44917e62c6ccadb2ae4cf62009f3fa0ad71827
-188 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Use recyclable write task to reduce GC pressure
+1759 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = fb619f23947aab158a11730e00f4dbd490093669
+1822 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit de44917e62c6ccadb2ae4cf62009f3fa0ad71827
+1869 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Use recyclable write task to reduce GC pressure
 
 
-188 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = de44917e62c6ccadb2ae4cf62009f3fa0ad71827
-188 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
-219 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix possible leak when a write is rejected
+1869 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = de44917e62c6ccadb2ae4cf62009f3fa0ad71827
+1869 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+1900 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix possible leak when a write is rejected
 
 
-219 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
-219 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit bdedde1294590039e5ab57196053103b2024ca9f
-266 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1259] Add optimized queue for SCMP pattern and use it in NIO and native transport
+1900 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+1900 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit bdedde1294590039e5ab57196053103b2024ca9f
+1947 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1259] Add optimized queue for SCMP pattern and use it in NIO and native transport
 
 This queue also produces less GC then CLQ when make use of OneTimeTask
 
 
-266 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = bdedde1294590039e5ab57196053103b2024ca9f, task number = 1259
-6126 [main] ERROR br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil  - 
-java.io.IOException: Server returned HTTP response code: 403 for URL: https://api.github.com/repos/netty/netty/issues/1259
+1947 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = bdedde1294590039e5ab57196053103b2024ca9f, task number = 1259
+3853 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit d5e202d7554f79a7a7d670e371486d66a9f75c9d
+3887 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Better promise validation messages
+
+
+3887 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = d5e202d7554f79a7a7d670e371486d66a9f75c9d
+3887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b8866aef330403353285486bbf5c0342b6c6a998
+3919 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: No need to check instanceof everytime to find the next inbound / outbound context
+
+
+3919 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = b8866aef330403353285486bbf5c0342b6c6a998
+3919 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 48a7a21541b96eba74b493d8a2ce4a678a6bc9db
+3966 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Correctly update Channel.isWritable() when the write happens from outside the EventLoop in a fast fashion. Fixes [#1697]
+
+Introduce a new interface called MessageSizeEstimator. This can be specific per Channel (via ChannelConfig). The MessageSizeEstimator will be used to estimate for a message that should be written. The default implementation handles ByteBuf, ByteBufHolder and FileRegion. A user is free to plug-in his/her own implementation for different behaviour.
+
+
+3966 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 48a7a21541b96eba74b493d8a2ce4a678a6bc9db, task number = 1697
+4497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 87602fde252b90850e3a702e82256a3b2e0b56b9
+4559 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2215] DefaultChannelHandlerContext tasks needs to be volatile to ensure every thread only see full initialized instances
+
+
+4559 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 87602fde252b90850e3a702e82256a3b2e0b56b9, task number = 2215
+5169 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 81de2275e482c8954c85e67be0d2799b53ba6e6e
+5225 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Remove unnecessary traversal of pipeline which occurs when a Channel is closed
+
+- Remove unnecessary ascending traversal of pipeline in DefaultChannelHandlerContext.freeInbound()
+- Move DefaultChannelHandlerContext.teardownAll() to DefaultChannelPipeline
+
+
+5225 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 81de2275e482c8954c85e67be0d2799b53ba6e6e
+5240 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a06295fe0ad72358f980d09feb8c971613793527
+5272 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Correctly fix problem in ByteToMessageDecoder and ReplayingDecoder which could let to have a released buffer passed to the decode methods.
+
+This fixes #1664 and revert also the original commit which was meant to fix it 3b1881b523e61496d9bc50e44927f7b58fa449e6 . The problem with the original commit was that it could delay handlerRemove(..) calls and so mess up the order or forward bytes to late.
+
+
+5272 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = a06295fe0ad72358f980d09feb8c971613793527, task number = 1664
+5897 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit e81368af0632b28a7ba54be49142e2b5bf78d14b
+5944 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Simplify handler invocations in DefaultChannelHandlerContext
+
+- Sometimes we delegated executor.inEventLoop() to the next context and sometimes we did not.  Now we always check inEventLoop() before delegating.
+
+
+5944 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = e81368af0632b28a7ba54be49142e2b5bf78d14b
+5975 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit aa74f0000605ee2563f42c9434578579d2db21e6
+6006 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2349] Correctly handle cancelled ChannelPromise in DefaultChannelHandlerContext
+
+Motivation:
+At the moment an IllegalArgumentException will be thrown if a ChannelPromise is cancelled while propagate through the ChannelPipeline. This is not correct, we should just stop to propagate it as it is valid to cancel at any time.
+
+Modifications:
+Stop propagate the operation through the ChannelPipeline once a ChannelPromise is cancelled.
+
+Result:
+No more IllegalArgumentException when cancel a ChannelPromise while moving through the ChannelPipeline.
+
+
+6006 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = aa74f0000605ee2563f42c9434578579d2db21e6, task number = 2349
+6553 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 59c2fd881318b5c421983881e68889225e0a4d18
+6606 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1723] invoke close in eventloop
+
+
+6606 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 59c2fd881318b5c421983881e68889225e0a4d18, task number = 1723
+7153 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+7184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1707] More efficient implementation of ChannelHandlerContext.writeAndFlush(..)
+
+
+7184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 5ef30b6d8b55441fddc8ddfdd24251f378e24e60, task number = 1707
+7715 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 013ac44d3a64d53ab9e131cb43124fcbc0873caf
+7774 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1832] - Channel writability change notifications sometimes fail to fire
+
+
+7774 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 013ac44d3a64d53ab9e131cb43124fcbc0873caf, task number = 1832
+8290 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b934b6009c9e7d2ed6df400698d6e6e4b550291d
+8352 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Share some code, related to [#1707]]
+
+
+8352 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = b934b6009c9e7d2ed6df400698d6e6e4b550291d, task number = 1707
+8962 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 64c3f58279809141a851becba445a20badc8a610
+9018 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Not wakeup the EventLoop for writes as they will not cause a flush anyway
+
+
+9018 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 64c3f58279809141a851becba445a20badc8a610
+9034 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 25f96b164498988439c38baf6ff4c57763464824
+9081 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1606] Reduce overhead during writes because of ChannelPromise validation
+
+
+9081 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 25f96b164498988439c38baf6ff4c57763464824, task number = 1606
+9659 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit d4aa5b53d6410d543834f3d54841bd5eaf95dbee
+9721 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Simplify the validation logic proposed in 25f96b164498988439c38baf6ff4c57763464824
+
+
+9721 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = d4aa5b53d6410d543834f3d54841bd5eaf95dbee
+9721 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+9753 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1947] Handle RejectExecutionException graceful for outbound operations
+
+
+9753 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2, task number = 1947
+10300 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+10300 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (2/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+10568 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit db59b38db330512219e6f7e3cf09b2c959d87cd1
+10630 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: SPDY: remove SPDY/2 support
+
+
+10630 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSpdyEchoTest.java, commit = db59b38db330512219e6f7e3cf09b2c959d87cd1
+10630 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 2360142b89b1bec85e98ab05a53f7ff0b63795de
+10677 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: SPDY: refactor frame codec implementation
+
+Motivation:
+
+Currently, the SPDY frame encoding and decoding code is based upon
+the ChannelHandler abstraction. This requires maintaining multiple
+versions for 3.x and 4.x (and possibly 5.x moving forward).
+
+Modifications:
+
+The SPDY frame encoding and decoding code is separated from the
+ChannelHandler and SpdyFrame abstractions. Also test coverage is
+improved.
+
+Result:
+
+SpdyFrameCodec now implements the ChannelHandler abstraction and is
+responsible for creating and handling SpdyFrame objects.
+
+Conflicts:
+	codec-http/src/main/java/io/netty/handler/codec/spdy/SpdyFrameCodec.java
+
+
+10677 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSpdyEchoTest.java, commit = 2360142b89b1bec85e98ab05a53f7ff0b63795de
+10677 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 39ae2dd3f1856def09b21995ff0496b6ee59a8b8
+10708 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: SPDY: add SPDY/3.1 support
+
+- with Michael Schore <mschore@twitter.com>
+
+
+10708 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSpdyEchoTest.java, commit = 39ae2dd3f1856def09b21995ff0496b6ee59a8b8
+10724 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+10771 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2254] Fix regression in handling autoRead and Channel.read()
+
+This regression was introduced by e0b39159657c9eb711047bc32367537c4870d467
+
+
+10771 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSpdyEchoTest.java, commit = 7fe10fe6354af68db42afbed6e5cff2464b9fbb2, task number = 2254
+11302 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+11302 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (3/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+11406 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b9bae2b5e4bf32f6db783664a02e1d22ba4159db
+11453 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Disable the timeout of some tests in SocketEchoTest to find out why it is hanging in CI
+
+
+11453 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketEchoTest.java, commit = b9bae2b5e4bf32f6db783664a02e1d22ba4159db
+11453 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+11468 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (4/249):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+11468 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+11468 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+11468 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (5/249):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+11609 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 8a673db92b728a668564563f6d7fb0c2664ef91f
+11640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1644] Fixed IndexOutOfBoundException when calling copy() on a empty CompositeByteBuf
+
+
+11640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 8a673db92b728a668564563f6d7fb0c2664ef91f, task number = 1644
+12187 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 451e91d1429c08ce8f92bb8ce0b9ad8c28afb904
+12234 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1821] Fix IndexOutOfBoundsException which was thrown if the last component was removed but other components was left
+
+
+12234 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 451e91d1429c08ce8f92bb8ce0b9ad8c28afb904, task number = 1821
+12765 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 2b9a07cac90f7a5a5e6e5fb7859ae19e6c11323c
+12814 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: CompositeByteBuf.isDirect() should return true if its only backed by direct buffers
+
+
+12814 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 2b9a07cac90f7a5a5e6e5fb7859ae19e6c11323c
+12830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 23baef8fb48fa363ffd0ed9f5d803a36a05e715f
+12861 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1853] Optimize gathering writes for CompositeByteBuf that are only backed by one ByteBuffer
+
+
+12861 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 23baef8fb48fa363ffd0ed9f5d803a36a05e715f, task number = 1853
+13408 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5416f2315e222acf8d9a36a51bcd4142a0f1c022
+13471 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1797] No use internalNioBuffer() in derived buffers as it is not meant for concurrent access
+
+
+13471 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 5416f2315e222acf8d9a36a51bcd4142a0f1c022, task number = 1797
+13986 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f1d4f813ed6404b83d539a5f68166bea89fc95df
+14048 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix nioBuffer implementation for CompositeByteBuf
+
+
+14048 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = f1d4f813ed6404b83d539a5f68166bea89fc95df
+14064 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b00f8c63901369babae2009e48f6c4d12b9f4097
+14095 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1976] Fix IndexOutOfBoundsException when calling CompositeByteBuf.discardReadComponents()
+
+
+14095 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = b00f8c63901369babae2009e48f6c4d12b9f4097, task number = 1976
+14704 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 764741c5ce73f42f6451027c8f87d4021deac0e1
+14751 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Change the contract of ResourceLeakDetector.open() so that unsampled resources are recycled
+
+- This also fixes the problem introduced while trying to implement #1612 (Allow to disable resource leak detection).
+
+
+14751 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 764741c5ce73f42f6451027c8f87d4021deac0e1, task number = 1612
+15329 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+15329 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (6/249):buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+15476 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 65b522a2a75c78c977a65e15663509509b5f12e0
+15522 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Better buffer leak reporting
+
+- Remove the reference to ResourceLeak from the buffer implementations
+  and use wrappers instead:
+  - SimpleLeakAwareByteBuf and AdvancedLeakAwareByteBuf
+  - It is now allocator's responsibility to create a leak-aware buffer.
+  - Added AbstractByteBufAllocator.toLeakAwareBuffer() for easier
+    implementation
+- Add WrappedByteBuf to reduce duplication between *LeakAwareByteBuf and
+  UnreleasableByteBuf
+- Raise the level of leak reports to ERROR - because it will break the
+  app eventually
+- Replace enabled/disabled property with the leak detection level
+  - Only print stack trace when level is ADVANCED or above to avoid user
+    confusion
+- Add the 'leak' build profile, which enables highly detailed leak
+  reporting during the build
+- Remove ResourceLeakException which is unsed anymore
+
+
+15522 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBufAllocator.java, commit = 65b522a2a75c78c977a65e15663509509b5f12e0
+15522 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+15554 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Simpler toString() for ByteBufAllocators
+
+
+15554 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBufAllocator.java, commit = ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+15554 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ada07cb9e0700dff4ecdc3d20afc46ea46f1bc38
+15585 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix types in javadocs
+
+
+15585 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBufAllocator.java, commit = ada07cb9e0700dff4ecdc3d20afc46ea46f1bc38
+15585 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit feb8d101bddc032cf55d6c63bc1020ac6930e30a
+15632 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1626] Use static fields for default values
+
+
+15632 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBufAllocator.java, commit = feb8d101bddc032cf55d6c63bc1020ac6930e30a, task number = 1626
+16163 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+16163 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (7/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+16241 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ae904a1f56d80cb3f4ad160006c05319e73d173a
+16272 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Introduce a new ChannelOption called DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION. Related to [#1830]
+
+This ChannelOption allows to tell the DatagramChannel implementation to be active as soon as they are registrated to their EventLoop. This can be used to make it possible to write to a not bound DatagramChannel.
+The ChannelOption is marked as @deprecated as I'm looking for a better solution in master which breaks default behaviour with 4.0 branch.
+
+
+16272 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketDatagramUnicastTest.java, commit = ae904a1f56d80cb3f4ad160006c05319e73d173a, task number = 1830
+16788 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 357677d8fac857aae4e4b4b92d79dd37be81bb26
+16824 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1830] Add testcase for write to not bound DatagramChannel impls and revert change in OIO as it breaks things as the udnerlying socket lazy binds
+
+
+16840 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketDatagramUnicastTest.java, commit = 357677d8fac857aae4e4b4b92d79dd37be81bb26, task number = 1830
+17340 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 2712ed9cbb4bba69a8b30102ce036a0b06d41ec5
+17403 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix inspector warnings
+
+
+17403 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketDatagramUnicastTest.java, commit = 2712ed9cbb4bba69a8b30102ce036a0b06d41ec5
+17403 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+17403 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (8/249):transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+17653 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit bcef796dc7cfa340ff1c26231ffbdf5eef397192
+17684 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Rewrite ChannelOutboundBuffer
+
+- Merge MessageList into ChannelOutboundBuffer
+- Make ChannelOutboundBuffer a queue-like data structure so that it is nearly impossible to leak a message
+- Make ChannelOutboundBuffer public so that AbstractChannel can expose it to its subclasses.
+- TODO: Re-enable gathering write in NioSocketChannel
+
+
+17684 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = bcef796dc7cfa340ff1c26231ffbdf5eef397192
+17684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit c2dc993c424904d0717c0388cf2690c49155d2e7
+17715 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2375] [#2404] Fix bug in respecting ChannelConfig.setAutoRead(false) and also fix Channel.read() for OIO
+
+Motivation:
+At the moment ChanneConfig.setAutoRead(false) only is guaranteer to not have an extra channelRead(...) triggered when used from within the channelRead(...) or channelReadComplete(...) method. This is not the correct behaviour as it should also work from other methods that are triggered from within the EventLoop. For example a valid use case is to have it called from within a ChannelFutureListener, which currently not work as expected.
+
+Beside this there is another bug which is kind of related. Currently Channel.read() will not work as expected for OIO as we will stop try to read even if nothing could be read there after one read operation on the socket (when the SO_TIMEOUT kicks in).
+
+Modifications:
+Implement the logic the right way for the NIO/OIO/SCTP and native transport, specific to the transport implementation. Also correctly handle Channel.read() for OIO transport by trigger a new read if SO_TIMEOUT was catched.
+
+Result:
+It is now also possible to use ChannelConfig.setAutoRead(false) from other methods that are called from within the EventLoop and have direct effect.
+
+
+17731 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = c2dc993c424904d0717c0388cf2690c49155d2e7, task number = 2404
+18231 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2375] [#2404] Fix bug in respecting ChannelConfig.setAutoRead(false) and also fix Channel.read() for OIO
+
+Motivation:
+At the moment ChanneConfig.setAutoRead(false) only is guaranteer to not have an extra channelRead(...) triggered when used from within the channelRead(...) or channelReadComplete(...) method. This is not the correct behaviour as it should also work from other methods that are triggered from within the EventLoop. For example a valid use case is to have it called from within a ChannelFutureListener, which currently not work as expected.
+
+Beside this there is another bug which is kind of related. Currently Channel.read() will not work as expected for OIO as we will stop try to read even if nothing could be read there after one read operation on the socket (when the SO_TIMEOUT kicks in).
+
+Modifications:
+Implement the logic the right way for the NIO/OIO/SCTP and native transport, specific to the transport implementation. Also correctly handle Channel.read() for OIO transport by trigger a new read if SO_TIMEOUT was catched.
+
+Result:
+It is now also possible to use ChannelConfig.setAutoRead(false) from other methods that are called from within the EventLoop and have direct effect.
+
+
+18231 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = c2dc993c424904d0717c0388cf2690c49155d2e7, task number = 2375
+18818 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit e0b2f34a379777a7d4e1c9efe31a1d1c66bb6d74
+18865 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2308] Use SelectorProvider.open*() to open NIO channels and so remove condition when create new NIO channels.
+
+Motivation:
+At the moment we use SocketChannel.open(), ServerSocketChannel.open() and DatagramSocketChannel.open(...) within the constructor of our
+NIO channels. This introduces a bottleneck if you create a lot of connections as these calls delegate to SelectorProvider.provider() which
+uses synchronized internal. This change removed the bottleneck.
+
+Modifications:
+Obtain a static instance of the SelectorProvider and use SelectorProvider.openSocketChannel(), SelectorProvider.openServerSocketChannel() and
+SelectorProvider.openDatagramChannel(). This eliminates the bottleneck as SelectorProvider.provider() is not called on every channel creation.
+
+Result:
+Less conditions when create new channels.
+
+
+18865 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = e0b2f34a379777a7d4e1c9efe31a1d1c66bb6d74, task number = 2308
+19459 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+19498 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Allow specifying `SelectorProvider` when constructing an NIO channel #2311
+
+Motivation:
+
+At the moment we use the system-wide default selector provider for this invocation of the Java virtual machine when constructing a new NIO channel, which makes using an alternative SelectorProvider practically useless.
+This change allows user specify his/her preferred SelectorProvider.
+
+Modifications:
+
+Add SelectorProvider as a param for current `private static *Channel newSocket` method of NioSocketChannel, NioServerSocketChannel and NioDatagramChannel.
+Change default constructors of NioSocketChannel, NioServerSocketChannel and NioDatagramChannel to use DEFAULT_SELECTOR_PROVIDER when calling newSocket(SelectorProvider).
+Add new constructors for NioSocketChannel, NioServerSocketChannel and NioDatagramChannel which allow user specify his/her preferred SelectorProvider.
+
+Result:
+
+Now users can specify his/her preferred SelectorProvider when constructing an NIO channel.
+
+
+19498 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8, task number = 2311
+20029 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit c79a3cdefe4ced7f7effc94a6862a0d1d5af0dae
+20076 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Fix a bug in NioSocketChannel.doWrite() where flush() triggered from a ChannelFutureListener is ignored
+
+- Fixes #1679
+
+
+20076 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = c79a3cdefe4ced7f7effc94a6862a0d1d5af0dae, task number = 1679
+20576 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 46ea0d4e7b8380cfc8c3f5508ac2a3896262e08e
+20652 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Implement gathering writes in NioSocketChannel
+
+- Add some support methods in ChannelOutputBuffer
+
+
+20652 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = 46ea0d4e7b8380cfc8c3f5508ac2a3896262e08e
+20652 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9fd8bf329d6c5b8e0305e5b75ee43f1ea3b9ef93
+20730 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: More efficient handling of incomplete writes.
+
+The problem with the old way was that we always set the OP_WRITE when the buffer could not be written
+until the write-spin-count was reached. This means that in some cases the channel was still be writable
+but we just was not able to write out the data quick enough. For this cases we should better break out the
+write loop and schedule a write to be picked up later in the EventLoop, when other tasks was executed.
+The OP_WRITE will only be set if a write actual returned 0 which means there is no more room for writing data
+and this we need to wait for the os to notify us.
+
+
+20730 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = 9fd8bf329d6c5b8e0305e5b75ee43f1ea3b9ef93
+20730 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ad0c456209d31522a7729acba2264b432326c5b2
+20777 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Ensure operationProgressed is invoked even on completion
+
+- Fixes #1809
+
+
+20777 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java, commit = ad0c456209d31522a7729acba2264b432326c5b2, task number = 1809
+21308 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+21308 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (9/249):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+21464 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 25c226a8357d324fb201b1150a3d629f3917d18d
+21495 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make sure only direct ByteBuffer are passed to the underlying jdk Channel.
+
+This is needed because of otherwise the JDK itself will do an extra ByteBuffer copy with it's own pool implementation. Even worth it will be done
+multiple times if the ByteBuffer is always only partial written. With this change the copy is done inside of netty using it's own allocator and
+only be done one time in all cases.
+
+
+21495 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 25c226a8357d324fb201b1150a3d629f3917d18d
+21495 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 19c92ceb59b8f2c77511b49cb3e0e9f70c50a711
+21527 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Separate 'progress total' and 'pending number of bytes'
+
+- Reverted the recent changes in AbstractChannel.calculateMessageSize()
+
+
+21527 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 19c92ceb59b8f2c77511b49cb3e0e9f70c50a711
+21527 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f4074a8811c1878a01bdfaee1159a19612888177
+21558 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix compilation errors introduced by sloppy merge
+
+
+21558 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = f4074a8811c1878a01bdfaee1159a19612888177
+21558 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 11a235ffe94e75d23b7d745f8c3e47b031629e6a
+21605 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Use thread local direct buffer for I/O when the current allocator is unpooled
+
+- Allocating and deallocating a direct buffer for I/O is an expensive
+  operation, so we have to at least have a pool of direct buffers if the
+  current allocator is not pooled
+
+
+21605 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 11a235ffe94e75d23b7d745f8c3e47b031629e6a
+21605 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 8178322c5cc81a4f496a5a493a7adf27d7e31540
+21643 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: A little bit of Javadoc for ChannelOutboundBuffer
+
+
+21643 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 8178322c5cc81a4f496a5a493a7adf27d7e31540
+21643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 4cd7e625556f86eb25a4a4cfae20ed0d34aaf5ed
+21674 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make ChannelOutboundBuffer recycled
+
+
+21674 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 4cd7e625556f86eb25a4a4cfae20ed0d34aaf5ed
+21674 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9bee78f91c46bfe7f7e4049b568dc13675d4b611
+21706 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Provide an optimized AtomicIntegerFieldUpdater, AtomicLongFieldUpdater and AtomicReferenceFieldUpdater
+
+
+21706 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 9bee78f91c46bfe7f7e4049b568dc13675d4b611
+21706 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a89b17fa944504a00107d40ecf6043de197f34df
+21737 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Merge ChannelOutboundBuffer.failUnflushed() and recycle() into a single method and make sure it is run later on reentrance
+
+- Previously, failUnflushed() did not run when inFail is true, which made unflushed writes are not released on reentrance.   This has been fixed by this commit.
+- Also, AbstractUnsafe.outboundBuffer is set to null as early as possible to remove the chance of any write attempts made after the closure.
+
+
+21737 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = a89b17fa944504a00107d40ecf6043de197f34df
+21737 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 217b8e255c05887a30803a6c96abac1d320c3d8b
+21768 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1763] Fill ChannelOutboundBuffer.nioBuffers with null on close to allow the content to be GC'ed
+
+
+21768 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 217b8e255c05887a30803a6c96abac1d320c3d8b, task number = 1763
+22284 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a383988cdb57e56e5211fdf592545fe67331ff6e
+22346 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: add struct to replace parallel arrays consolidate flushed & unflushed buffers
+
+
+22346 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = a383988cdb57e56e5211fdf592545fe67331ff6e
+22346 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit fc6213604dc3a1a596b5a6fb25fd9cf0759e0fc7
+22378 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make sure ChannelOutboundBuffer not throw NPE during increment/decrement pending writes
+
+
+22378 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = fc6213604dc3a1a596b5a6fb25fd9cf0759e0fc7
+22378 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a8d67b02825d6fbb1d145c7aaee8382f5f648035
+22424 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix data structure corruption and resource leak in ChannelOutboundBuffer
+
+
+22424 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = a8d67b02825d6fbb1d145c7aaee8382f5f648035
+22424 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 06e250e493ddbff674d1ec11deb12541f93d6519
+22456 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: remove unused initialCapacity
+
+
+22456 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 06e250e493ddbff674d1ec11deb12541f93d6519
+22456 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7f86550ef83316352d0d52c0f31836c7b3fb1506
+22487 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1619] Fix bug in ChannelOutboundBuffer which could lead to invalid write order when fireChannelWritabilityChanged() write another message
+
+
+22487 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 7f86550ef83316352d0d52c0f31836c7b3fb1506, task number = 1619
+23003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 206dc2a3918d3754b8d9b4b73f107a085377a2d0
+23058 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1772] Make sure ChannelOutboundBuffer.recycle() does also reset unflushed, flushed and tail.
+
+This fix a IndexOutOfBoundsException which as triggered if recycle() did cut down the buffer[] to the initial size.
+
+
+23058 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 206dc2a3918d3754b8d9b4b73f107a085377a2d0, task number = 1772
+23683 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 32e28950e18287283437856738652d9f9bda8ab6
+23730 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Move marking ChannelPromise for writes uncancellable to addFlush for keep things simple
+
+
+23730 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 32e28950e18287283437856738652d9f9bda8ab6
+23745 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7041a9238e5087efa5fb0fa3d8a5d0721eb5f610
+23777 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Allow to cancel non-flushed writes
+
+
+23777 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 7041a9238e5087efa5fb0fa3d8a5d0721eb5f610
+23777 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 80d30c3dd81a4409a3abaf04d7bff0525d4ad166
+23823 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Small code improvements
+
+
+23823 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 80d30c3dd81a4409a3abaf04d7bff0525d4ad166
+23823 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 0f6cc0cc7bcc546c124ed875d197f0333bca2da9
+23855 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1630] Fix re-entrance bug in ChannelOutboundBuffer.remove(...)
+
+
+23855 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 0f6cc0cc7bcc546c124ed875d197f0333bca2da9, task number = 1630
+24449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5e4169802f407114aa18d1b4265bf5231673b20b
+24521 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix potential reentrance issue in ChannelOutboundBuffer
+
+
+24521 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 5e4169802f407114aa18d1b4265bf5231673b20b
+24521 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 92cec8d2acdc08b75646e5e2c988183ca0841c17
+24568 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Split up the nioBuffers() method to allow for inline. Related to #1812
+
+This move less common method patterns to extra methods and so make the nioBuffers() method with most common pattern (backed by one ByteBuffer) small enough for inlining.
+
+
+24568 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 92cec8d2acdc08b75646e5e2c988183ca0841c17, task number = 1812
+25146 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b4fa8af0791b3a31a91ea8112175adf6493b834b
+25193 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Cache underlying ByteBuffers and count in ChannelOutboundBuffer.Entry to reduce object creation and so GC pressure
+
+Beside this it also helps to reduce CPU usage as nioBufferCount() is quite expensive when used on CompositeByteBuf which are
+nested and contains a lot of components
+
+
+25193 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = b4fa8af0791b3a31a91ea8112175adf6493b834b
+25208 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit c0936fc8e70ec17f9248b139947cd2e85c793b6f
+25240 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1890] Correctly expand ByteBuffer array in all cases
+
+The problem was that we did not handle the case correctly when doubling the array was not enough. We need to keep doubling until everything fits in.
+
+
+25240 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = c0936fc8e70ec17f9248b139947cd2e85c793b6f, task number = 1890
+25755 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit e28594952b7e9e0c7eeced17142484ceb0d5d84b
+25831 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Make the cleanup logic in ChannelOutboundBuffer more robust
+
+- Fixes #1601
+
+
+25831 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = e28594952b7e9e0c7eeced17142484ceb0d5d84b, task number = 1601
+26346 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 6a2f340ec0187ba68eee869863357b74b6e8c6bf
+26393 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: trim buffers before recycling
+
+
+26393 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 6a2f340ec0187ba68eee869863357b74b6e8c6bf
+26393 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 568166d55454a079e558c66c35c867ac5ff7fcd7
+26425 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Cleanup
+
+
+26425 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 568166d55454a079e558c66c35c867ac5ff7fcd7
+26425 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 96b0a949e102a5766abc5e12b3392b1bf3da7005
+26471 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Make most outbound operations cancellable / More robust promise update
+
+- Inspired by #2214 by @normanmaurer
+- Call setUncancellable() before performing an outbound operation
+- Add safeSetSuccess/Failure() and use them wherever
+
+
+26471 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 96b0a949e102a5766abc5e12b3392b1bf3da7005, task number = 2214
+26971 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit d52dc3b740e778bbab60b2a7b5715ec44f31c10b
+27028 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Do not warn if failed to mark a void promise as success
+
+- it's always supposed to fail.
+
+
+27028 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = d52dc3b740e778bbab60b2a7b5715ec44f31c10b
+27028 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 393f7b2306f282df852bb487173c725396607ea7
+27075 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: ChannelOutboundBuffer returns total pending write size
+
+total pending write size may be used to optimize write batching
+
+
+27075 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 393f7b2306f282df852bb487173c725396607ea7
+27075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+27075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (10/249):buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+27216 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 77b4ec7e1bc0b8c6111728cc074226dd9cfe1b73
+27247 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1800] [#1802] Correctly expand capacity of ByteBuf while preserve content
+
+
+27247 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferUnpooledHeapByteBuf.java, commit = 77b4ec7e1bc0b8c6111728cc074226dd9cfe1b73, task number = 1802
+27747 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1800] [#1802] Correctly expand capacity of ByteBuf while preserve content
+
+
+27747 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferUnpooledHeapByteBuf.java, commit = 77b4ec7e1bc0b8c6111728cc074226dd9cfe1b73, task number = 1800
+28263 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a74149e9848fef73d909dd56843e0fbab23f877d
+28326 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1865] Only use internalNioBuffer when one of the read* or write* methods are used. This is neccessary to prevent races as those can happen when a slice or duplicate is shared between different Channels
+that are not assigned to the same EventLoop. In general get* operations should always be safe to be used from different Threads.
+
+This aslo include unit tests that show the issue
+
+
+28326 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferUnpooledHeapByteBuf.java, commit = a74149e9848fef73d909dd56843e0fbab23f877d, task number = 1865
+28826 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 68b616728a08b78f3af77f288f103c1cb0ba2c9c
+28889 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1925] Only expose sub-region of ByteBuf on nioBuffer(...)
+
+
+28889 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferUnpooledHeapByteBuf.java, commit = 68b616728a08b78f3af77f288f103c1cb0ba2c9c, task number = 1925
+29404 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+29404 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (11/249):buffer/src/main/java/io/netty/buffer/PoolThreadCache.java
+29472 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 13fd69e8712acd337570aad2c153cf4b2bc9b586
+29503 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Implement Thread caches for pooled buffers to minimize conditions. This fixes [#2264] and [#808].
+
+Motivation:
+Remove the synchronization bottleneck in PoolArena and so speed up things
+
+Modifications:
+
+This implementation uses kind of the same technics as outlined in the jemalloc paper and jemalloc
+blogpost https://www.facebook.com/notes/facebook-engineering/scalable-memory-allocation-using-jemalloc/480222803919.
+
+At the moment we only cache for "known" Threads (that powers EventExecutors) and not for others to keep the overhead
+minimal when need to free up unused buffers in the cache and free up cached buffers once the Thread completes. Here
+we use multi-level caches for tiny, small and normal allocations. Huge allocations are not cached at all to keep the
+memory usage at a sane level. All the different cache configurations can be adjusted via system properties or the constructor
+directly where it makes sense.
+
+Result:
+Less conditions as most allocations can be served by the cache itself
+
+
+29503 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferPoolThreadCache.java, commit = 13fd69e8712acd337570aad2c153cf4b2bc9b586, task number = 2264
+30003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Implement Thread caches for pooled buffers to minimize conditions. This fixes [#2264] and [#808].
+
+Motivation:
+Remove the synchronization bottleneck in PoolArena and so speed up things
+
+Modifications:
+
+This implementation uses kind of the same technics as outlined in the jemalloc paper and jemalloc
+blogpost https://www.facebook.com/notes/facebook-engineering/scalable-memory-allocation-using-jemalloc/480222803919.
+
+At the moment we only cache for "known" Threads (that powers EventExecutors) and not for others to keep the overhead
+minimal when need to free up unused buffers in the cache and free up cached buffers once the Thread completes. Here
+we use multi-level caches for tiny, small and normal allocations. Huge allocations are not cached at all to keep the
+memory usage at a sane level. All the different cache configurations can be adjusted via system properties or the constructor
+directly where it makes sense.
+
+Result:
+Less conditions as most allocations can be served by the cache itself
+
+
+30003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferPoolThreadCache.java, commit = 13fd69e8712acd337570aad2c153cf4b2bc9b586, task number = 808
+30550 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+30550 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (12/249):buffer/src/main/java/io/netty/buffer/PooledUnsafeDirectByteBuf.java
+30642 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+30642 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (13/249):buffer/src/main/java/io/netty/buffer/UnpooledUnsafeDirectByteBuf.java
+30720 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit e83fb821d512456113a5e16b21ddb5c5458d9e79
+30751 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Allow to override how wrapped direct ByteBuffer are allocated to make it easier to extend
+
+
+30751 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferUnpooledUnsafeDirectByteBuf.java, commit = e83fb821d512456113a5e16b21ddb5c5458d9e79
+30751 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7231be592aa65ac1e91d0a319761f7e3df2225e9
+30783 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Also allow to override how direct ByteBuffers are freed
+
+
+30783 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferUnpooledUnsafeDirectByteBuf.java, commit = 7231be592aa65ac1e91d0a319761f7e3df2225e9
+30814 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+30814 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (14/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+30892 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit bc21443ea904ba37f46c1fb3b9ab99322e3bbb0d
+30923 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Fix a regression in SslHandler where delegated tasks run in a different executor makes the session hang
+
+- Fixes #2098
+- Deprecate specifying an alternative Executor for delegated tasks for SslHandler
+
+
+30923 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSslEchoTest.java, commit = bc21443ea904ba37f46c1fb3b9ab99322e3bbb0d, task number = 2098
+31439 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a857994d82cadfce21ab34434c3523a8e8653141
+31501 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Add test to show that writing a CompositeByteBuf when SslHandler is in use works. Related to [#1825]
+
+
+31501 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSslEchoTest.java, commit = a857994d82cadfce21ab34434c3523a8e8653141, task number = 1825
+32095 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit eda702b6abc288ccc6055b09d74434cd6aee402f
+32165 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Set timeout for SocketSslEchoTest
+
+Motivation:
+
+We are seeing EpollSocketSslEchoTest does not finish itself while its I/O thread is busy.  Jenkins should have terminated them when the global build timeout reaches, but Jenkins seems to fail to do so.  What's more interesting is that Jenkins will start another job before the EpollSocketSslEchoTest is terminated, and Linux starts to oom-kill them, impacting the uptime of the CI service.
+
+Modifications:
+
+- Set timeout for all test cases in SocketSslEchoTest so that all SSL tests terminate themselves when they take too long.
+- Fix a bug where the epoll testsuite uses non-daemon threads which can potentially prevent JVM from quitting.
+- (Cleanup) Separate boss group and worker group just like we do for NIO/OIO transport testsuite.
+
+Result:
+
+Potentially more stable CI machine.
+
+
+32165 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSslEchoTest.java, commit = eda702b6abc288ccc6055b09d74434cd6aee402f
+32165 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+32165 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (15/249):buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+32259 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9c934116f2781af7a7e4d5647ba6cf45c4fed546
+32290 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2370] Periodically check for not alive Threads and free up their ThreadPoolCache
+
+Motivation:
+At the moment we create new ThreadPoolCache whenever a Thread tries either allocate or release something on the PooledByteBufAllocator. When something is released we put it then in its ThreadPoolCache. The problem is we never check if a Thread is not alive anymore and so we may end up with memory that is never freed again if a user create many short living Threads that use the PooledByteBufAllocator.
+
+Modifications:
+Periodically check if the Thread is still alive that has a ThreadPoolCache assinged and if not free it.
+
+Result:
+Memory is freed up correctly even for short living Threads.
+
+
+32290 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferPooledByteBufAllocator.java, commit = 9c934116f2781af7a7e4d5647ba6cf45c4fed546, task number = 2370
+32899 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+32946 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Bit tricks to check for and calculate power of two.
+
+Motivation:
+I was studying the code and thought this was simpler and easier to
+understand.
+
+Modifications:
+Replaced the for loop and if conditions, with a simple implementation.
+
+Result:
+Code is easier to understand.
+
+
+32946 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferPooledByteBufAllocator.java, commit = 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+32946 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+32946 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (16/249):transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+32946 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+32946 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+32946 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (17/249):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+33024 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 54db9ec725d2b2f74436b15e6c7aef196f098a81
+33055 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Use StringUtil.simpleClassName(..) instead of Class.getSimpleName() where necessary
+
+- Class.getSimpleName() doesn't render anonymous classes very well
+- + some minor cleanup
+
+
+33055 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = 54db9ec725d2b2f74436b15e6c7aef196f098a81
+33087 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 6d09e57be72cd76b42741c3cba59e9d25f6738a7
+33118 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1875] Correctly check the readerIndex when try to read a byte from AbstractByteBuf
+
+
+33118 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = 6d09e57be72cd76b42741c3cba59e9d25f6738a7, task number = 1875
+33905 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5ddd7cee90d5b59ebacdc3da6a25f548646eddad
+33968 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1797] Throw IllegalArgumentException if AbstractByteBuf.skipBytes(...) is used with a negative value
+
+
+33968 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = 5ddd7cee90d5b59ebacdc3da6a25f548646eddad, task number = 1797
+34499 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f0a3f849f7d0e028eb97e672a3cbf52648b98617
+34540 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix a bug in AbstractByteBuf.writeZero() where the capacity is not auto-expanded
+
+
+34540 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = f0a3f849f7d0e028eb97e672a3cbf52648b98617
+34556 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+34556 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (18/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+34556 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+34556 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+34556 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (19/249):buffer/src/main/java/io/netty/buffer/AbstractDerivedByteBuf.java
+34618 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+34618 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (20/249):testsuite/src/test/java/io/netty/testsuite/util/TestUtils.java
+34774 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit de5abdeb489d08b2ebd60f6dc6e176fd9eb74767
+34821 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Move the reusable classes in netty-testsuite to main/java/src and deploy them
+
+
+34821 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/utilTestUtils.java, commit = de5abdeb489d08b2ebd60f6dc6e176fd9eb74767
+34821 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+34821 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (21/249):transport/src/main/java/io/netty/channel/nio/NioEventLoop.java
+34915 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 012166803a08eb825ae90495f2728e06c45b9811
+34962 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2353] Use a privileged block to get ClassLoader and System property if needed
+
+Motivation:
+When using System.getProperty(...) and various methods to get a ClassLoader it will fail when a SecurityManager is in place.
+
+Modifications:
+Use a priveled block if needed. This work is based in the PR #2353 done by @anilsaldhana .
+
+Result:
+Code works also when SecurityManager is present
+
+
+34962 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 012166803a08eb825ae90495f2728e06c45b9811, task number = 2353
+35493 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+35540 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Ensure the selector implementation can be instrumented before attempting instrumentation
+
+- Fixes #1908
+
+
+35540 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec, task number = 1908
+36048 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 62ebe88981ab42b28eafad89586307e0c249f00a
+36095 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Allow to set IoRatio to 100%
+
+
+36095 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 62ebe88981ab42b28eafad89586307e0c249f00a
+36095 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 69a36b8beab76ad176a20554d692e89d62f8919b
+36127 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Prettify exception message
+
+
+36127 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 69a36b8beab76ad176a20554d692e89d62f8919b
+36127 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 80ed147652133ce222279f34e21f4b44e8a4a728
+36173 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2164] Only reregister SelectionKeys that are still valid
+
+
+36173 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 80ed147652133ce222279f34e21f4b44e8a4a728, task number = 2164
+36845 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 2aa35922b47f6c65a5f6114965d33cdd8078e197
+36881 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2363] SelectedSelectionKeySet may hold strong reference to SelectionKey after Channel is closed
+
+Motivation:
+Because we not null out the array entry in the SelectionKey[] which is produced by SelectedSelectionKeySet.flip() we may end up with a few SelectionKeyreferences still hanging around here even after the Channel was closed. As these entries may be present at the end of the SelectionKey[] which is never updated for a long time as not enough SelectionKeys are ready.
+
+Modifications:
+Once we access the SelectionKey out of the SelectionKey[] we directly null it out.
+
+Result:
+Reference can be GC'ed right away once the Channel was closed.
+
+
+36881 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 2aa35922b47f6c65a5f6114965d33cdd8078e197, task number = 2363
+37490 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f034f90fb34689af29cbc3158b3a16411183a306
+37553 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1836] Add comment to explain why read is triggered
+
+
+37553 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = f034f90fb34689af29cbc3158b3a16411183a306, task number = 1836
+38256 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 4d0621855a40368052ecb9238c206d03d3067d25
+38309 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Remove unused package private method and so remove some complexity
+
+
+38309 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 4d0621855a40368052ecb9238c206d03d3067d25
+38309 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit bf5c928796712740ceba42384f0dfe4b45a94fb5
+38356 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Not cause busy loop when interrupt Thread of NioEventLoop
+
+Motivation:
+Because Thread.currentThread().interrupt() will unblock Selector.select() we need to take special care when check if we need to rebuild the Selector. If the unblock was caused by the interrupt() we will clear it and move on as this is most likely a bug in a custom ChannelHandler or a library the user makes use of.
+
+Modification:
+Clear the interrupt state of the Thread if the Selector was unblock because of an interrupt and the returned keys was 0.
+
+Result:
+No more busy loop caused by Thread.currentThread().interrupt()
+
+
+38356 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = bf5c928796712740ceba42384f0dfe4b45a94fb5
+38356 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+38356 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (22/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+38356 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+38356 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+38356 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (23/249):transport/src/main/java/io/netty/channel/socket/DefaultSocketChannelConfig.java
+38466 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+38497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Add AUTO_CLOSE option
+
+- Fixes #1952
+- If AUTO_CLOSE is turned on, Netty will close the channel immediately and automatically on write failure.  The default is false.
+
+
+38497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socketDefaultSocketChannelConfig.java, commit = c7b66545b4a4b4a903f4393e08b9ba9498c19fc5, task number = 1952
+39184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (24/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+39184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+39184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (25/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+39294 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5acb8759e47d10ea84450d353620cf74ac963e3b
+39330 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Perform cross-tests between NIO and epoll transport
+
+Motivation:
+
+The epoll testsuite tests the epoll transport only against itself (i.e. epoll x epoll only).  We should test the epoll transport also against the well-tested NIO transport, too.
+
+Modifications:
+
+- Make SocketTestPermutation extensible and reusable so that the epoll testsuite can take advantage of it.
+- Rename EpollTestUtils to EpollSocketTestPermutation and make it extend SocketTestPermutation.
+- Overall clean-up of SocketTestPermutation
+  - Use Arrays.asList() for simplicity
+  - Add combo() method to remove code duplication
+
+Result:
+
+The epoll transport is now also tested against the NIO transport.  SocketTestPermutation got cleaner.
+
+
+39330 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketTestPermutation.java, commit = 5acb8759e47d10ea84450d353620cf74ac963e3b
+39330 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+39377 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Reduce SO_TIMEOUT of testsuite so it finishes sooner
+
+Motivation:
+
+Testing the OIO transport takes longer time than other transports because it has to wait for SO_TIMEOUT if there is nothing to read.  In production, it's not a good idea to decrease this value (1000ms) because it will result in so many SocketTimeoutExceptions internally, but doing so in the testsuite should be fine.
+
+Modifications:
+
+Reduce the default SO_TIMEOUT of OIO channels to 10 ms.
+
+Result:
+
+Our testsuite finishes sooner.
+
+
+39377 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketTestPermutation.java, commit = 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+39377 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+39408 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Allow to extend the provided tests by the testsuite
+
+This allows custom transport implementations to just re-use the tests provided by netty and so make sure everything works like expected.
+
+
+39408 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketTestPermutation.java, commit = 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+39424 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39424 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (26/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketBufReleaseTest.java
+39486 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b3d8c81557315ac5b5d4b381fe7461ce276a3f9e
+39518 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix all leaks reported during tests
+
+- One notable leak is from WebSocketFrameAggregator
+- All other leaks are from tests
+
+
+39518 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketBufReleaseTest.java, commit = b3d8c81557315ac5b5d4b381fe7461ce276a3f9e
+39518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a6b4eddbba6643f9cc662089a59a9e13180a3c4b
+39549 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Run tests with Pooled and Unpooled allocator
+
+
+39549 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketBufReleaseTest.java, commit = a6b4eddbba6643f9cc662089a59a9e13180a3c4b
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (27/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (28/249):buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (29/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (30/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39549 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (31/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketObjectEchoTest.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (32/249):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (33/249):buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (34/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39643 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (35/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/AbstractDatagramTest.java
+39721 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39721 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (36/249):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+39721 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+39721 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39721 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (37/249):transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (38/249):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (39/249):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (40/249):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39830 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (41/249):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+39940 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39940 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (42/249):buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+39940 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+39940 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Running doAnnotate [8acba6063eabd9fafec57c5abcfa3dd79285bbdf, f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a]
+39940 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedMethodsMiner  - Path (43/249):transport/src/main/java/io/netty/channel/AbstractChannel.java
+40033 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 81612f8e9bc02bdb1bac6f1d6bd4d221668bb559
+40080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1624] Fix resource leak when writing to a closed / not-open channel
+
+
+40080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 81612f8e9bc02bdb1bac6f1d6bd4d221668bb559, task number = 1624
+40580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit cc9b9567b990ad3fa6cdf0bf42b7dd04fd0cb108
+40638 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make sure all write attempts made after a channel is closed are marked as failure
+
+
+40638 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = cc9b9567b990ad3fa6cdf0bf42b7dd04fd0cb108
+40638 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit df442b9b6ade46dedbc4b44ec1f085b6d4958c9b
+40669 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: #1924] Only log RejectExecutorException when call invokeLater(...)
+
+
+40669 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = df442b9b6ade46dedbc4b44ec1f085b6d4958c9b, task number = 1924
+41185 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 8828d5327a6a7ddb71dcd0a66ca5f262b1a26e60
+41263 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Move inFlush0 and outboundBuffer in AbstractChannel to AbstractUnsafe
+
+.. because they are accessed by AbstractUnsafe much more often.
+
+
+41263 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 8828d5327a6a7ddb71dcd0a66ca5f262b1a26e60
+41279 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 3922c518cdbeb0d8091ce06698e569bc37b54acf
+41310 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Clean up AbstractUnsafe#bind and AbstractUnsafe#disconnect.
+
+
+41310 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 3922c518cdbeb0d8091ce06698e569bc37b54acf
+41310 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit cffbba94ee476b87a3932d2d5a975e55714657f9
+41341 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1654] Remove AbstractChannel.doPreClose() and notify close future on register failure. Based on patch of @jpinner
+
+
+41341 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = cffbba94ee476b87a3932d2d5a975e55714657f9, task number = 1654
+41841 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 041d37e0c8b3616dc86468bd2c3b6332638bdf1b
+41903 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Make most outbound operations are cancellable
+
+- Inspired by #2214
+- It actually reduces the chance of trying to marking a cancelled promise as success again, which raises an IllegalStateException.
+
+
+41903 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 041d37e0c8b3616dc86468bd2c3b6332638bdf1b, task number = 2214
+42388 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit bf2430d255956ff32307aea3a5e725ee2be16dc2
+42450 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Change AbstractChannel#doRegister return type from Runnable to void.
+
+
+42450 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = bf2430d255956ff32307aea3a5e725ee2be16dc2
+42450 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit d7f9b1ee76320dd9fc1e9992b4b75773718614bb
+42497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Fixes the problem where the promise of the outbound operation that causes a channel closure is notified after channelInactive()
+
+- Fixes #1897
+
+
+42497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = d7f9b1ee76320dd9fc1e9992b4b75773718614bb, task number = 1897
+42997 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9c8d980a74d7cf786aabaa233c692e247767aaac
+43061 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Fix a bug where a ChannelFutureListener can allow Unsafe.close() and Unsafe.flush() to overlap and reenter from flush() to close().
+
+ - Fixes #1600
+
+
+43061 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 9c8d980a74d7cf786aabaa233c692e247767aaac, task number = 1600
+43576 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 15279b2525f694d1789ce06d74cf2d55a9a64e01
+43654 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1654] Notify close future after the close was complete
+
+
+43654 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 15279b2525f694d1789ce06d74cf2d55a9a64e01, task number = 1654
+44154 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 241f856cc721dbf786321a94c987c5026eea5412
+44217 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: remove AbstractChannel#doPreClose
+
+
+44217 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 241f856cc721dbf786321a94c987c5026eea5412
+44217 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit fef838f197ca42189f9760c4927993abd9055c01
+44248 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make sure channelInactive() and channelDeregistered() are triggered even if outboundBuffer.recycle() fails
+
+
+44248 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = fef838f197ca42189f9760c4927993abd9055c01
+44248 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5f363e8adeef9ddd118e6906e2848ce0a0b049c7
+44295 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Revert "remove AbstractChannel#doPreClose"
+
+This reverts commit 241f856cc721dbf786321a94c987c5026eea5412.
+
+
+44295 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 5f363e8adeef9ddd118e6906e2848ce0a0b049c7
+44295 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ca59c1201e2ee2abe0c1548b371dcd056cbe2b56
+44326 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Change AbstractChannel#doDeregister return type from Runnable to void.
+
+
+44326 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = ca59c1201e2ee2abe0c1548b371dcd056cbe2b56
+44326 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5cd939f63464e9bd46c87a75134fad7e75ede9e8
+44357 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#2362] AbstractChannel.AbstractUnsafe.write(...) is slow
+
+Motivation:
+At the moment we do a Channel.isActive() check in every AbstractChannel.AbstractUnsafe.write(...) call which gives quite some overhead as shown in the profiler when you write fast enough. We can eliminate the check and do something more smart here.
+
+Modifications:
+Remove the isActive() check and just check if the ChannelOutboundBuffer was set to null before, which means the Channel was closed. The rest will be handled in flush0() anyway.
+
+Result:
+Less overhead when doing many write calls
+
+
+44357 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 5cd939f63464e9bd46c87a75134fad7e75ede9e8, task number = 2362
+44983 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5e5df6bd09b30b11deb2d8ee7b12b949636cbdb2
+45045 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix NPE
+
+
+45045 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = 5e5df6bd09b30b11deb2d8ee7b12b949636cbdb2
+45045 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit faf8b76b5a5487b0308ebe021f45461881b2c568
+45076 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Fix a potential bug where AbstractUnsafe.flush0() fails to clear the inFlush0 flag
+
+- Fixes #1609
+
+
+45076 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java, commit = faf8b76b5a5487b0308ebe021f45461881b2c568, task number = 1609
+45654 [main] ERROR br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil  - 
+java.io.IOException: Server returned HTTP response code: 403 for URL: https://api.github.com/repos/netty/netty/issues/1609
 	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(Unknown Source)
 	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(Unknown Source)
 	at br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil.getInputStreamForHTTPSIgnoreCertificateValidness(HttpsUtil.java:169)
