@@ -15,6 +15,16 @@ public class NettyMinerTest {
 		NettyMiner miner = new NettyMiner();
 		Issue issue = miner.getIssueByNumber(2330);
 		System.out.println(issue.getIssueId());
+		System.out.println(issue.getIssueType());
+		Assert.assertNotNull(issue);
+	}
+	
+	@Test
+	public void performRequestToGetIssueInfoWithValidId2() {
+		NettyMiner miner = new NettyMiner();
+		Issue issue = miner.getIssueByNumber(2300);
+		System.out.println(issue.getIssueId());
+		System.out.println(issue.getIssueType());
 		Assert.assertNotNull(issue);
 	}
 	
