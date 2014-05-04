@@ -97,11 +97,20 @@ public class GitUpdatedLinesHandler {
 	private UpdatedLine handleLine(String gitblameline) throws IOException {
 		
 		Scanner in = new Scanner(gitblameline);
-
+		
 		String commit = in.next();
 		String firstName = in.next().replace("(", "");
 		String lastName = in.next();
-		@SuppressWarnings("unused") String datetime = in.next() + " " + in.next();
+		
+		@SuppressWarnings("unused") String datetime;
+		if (lastName.startsWith("20")) {
+			datetime = lastName + " " + in.next();
+			lastName = "";
+		}
+		else {
+			datetime = in.next() + " " + in.next();
+		}
+		
 		@SuppressWarnings("unused") String timezone = in.next();
 		int lineNumber = Integer.parseInt(in.next().replace(")", ""));
 		String sourceLine = in.nextLine().substring(1);
@@ -164,9 +173,9 @@ public class GitUpdatedLinesHandler {
 	public static void main(String[] args) throws IOException {
 		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
 				"8acba6063eabd9fafec57c5abcfa3dd79285bbdf",
-				"78aac538f858b9c407c046eabb478c7fe859b04e",
-				"C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socket/",
-				"SocketSpdyEchoTest.java");
+				"f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a",
+				"C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/",
+				"DefaultChannelHandlerContext.java");
 		
 		gitHandler.calculateChangedLines();
 		
