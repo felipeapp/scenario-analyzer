@@ -72,16 +72,22 @@ public class NettyMiner implements IQueryIssue {
 		issue.setIssueId(json.getInt("number"));
 		issue.setIssueStatus(json.getString("state"));
 		if (json.getJSONArray("labels") != null) {
+			String issueType = "";
 			for (int i = 0; i < json.getJSONArray("labels").length(); i++) {
 				String type = json.getJSONArray("labels").getJSONObject(i).getString("name");
 				try {
 					if (IssueType.valueOf(type.toUpperCase()) instanceof IssueType) {
-						issue.setIssueType(type);
+						if (issueType != null && issueType.isEmpty()) {
+							issueType += type;
+						} else {
+							issueType += ("," + type);
+						}
 					}
 				} catch (Exception e) {
 					// não faz nada, apenas passa pro próximo indice do for
 				}
 			}
+			issue.setIssueType(issueType);
 		}
 		issue.setShortDescription(json.getString("title"));
 
