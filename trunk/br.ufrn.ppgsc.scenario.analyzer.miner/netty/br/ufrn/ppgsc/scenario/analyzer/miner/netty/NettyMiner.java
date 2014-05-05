@@ -35,7 +35,9 @@ public class NettyMiner implements IQueryIssue {
 	}
 
 	private JSONObject getJSONByIssueId(Long issueId) throws IOException, JDOMException {
-		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(metadata.getStringProperty("host") + issueId);
+		String url = metadata.getStringProperty("host") + issueId + "?client_id=" + metadata.getStringProperty("client_id") +
+				"&client_secret=" + metadata.getStringProperty("client_secret");
+		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(url);
 		InputStreamReader isr = new InputStreamReader(inputStream);
 
 		LineNumberReader lineNumberReader = new LineNumberReader(isr);
