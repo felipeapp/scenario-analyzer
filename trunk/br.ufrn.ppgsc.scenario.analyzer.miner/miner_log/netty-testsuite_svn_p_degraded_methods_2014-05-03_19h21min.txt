@@ -1,0 +1,503 @@
+# Métodos que tiveram performance degradada na evolução
+-1 
+5
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStringEchoTest.java
+1
+testStringEcho 60 62
+5
+Autor:Norman Maurer
+Linha:61
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+Autor:Norman Maurer
+Linha:62
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+Autor:Norman Maurer
+Linha:73
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+Autor:Norman Maurer
+Linha:74
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+Autor:Norman Maurer
+Linha:75
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketConnectionAttemptTest.java
+1
+testConnectTimeout 53 61
+2
+Autor:Trustin Lee
+Linha:54
+Revisão:dc9537e672f931a7bc26aa90263d3dd7189c386e
+Data:null
+Autor:Trustin Lee
+Linha:55
+Revisão:2746688fd7da77df0e72e2a20364a0b6803e4096
+Data:null
+transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+1
+setOption 147 177
+9
+Autor:Trustin Lee
+Linha:148
+Revisão:d2032254b7b29aca620223c672ffa244171898b5
+Data:null
+Autor:Trustin Lee
+Linha:164
+Revisão:c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+Data:null
+Autor:Trustin Lee
+Linha:165
+Revisão:c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+Data:null
+Autor:Norman Maurer
+Linha:166
+Revisão:f40a3f34b17633b884f3d35dc2eb43d0810a0cfa
+Data:null
+Autor:Norman Maurer
+Linha:167
+Revisão:f40a3f34b17633b884f3d35dc2eb43d0810a0cfa
+Data:null
+Autor:Norman Maurer
+Linha:168
+Revisão:f40a3f34b17633b884f3d35dc2eb43d0810a0cfa
+Data:null
+Autor:Norman Maurer
+Linha:169
+Revisão:f40a3f34b17633b884f3d35dc2eb43d0810a0cfa
+Data:null
+Autor:Norman Maurer
+Linha:170
+Revisão:b54937ab5051004faa6c04048d6bb0410e6dcb33
+Data:null
+Autor:Norman Maurer
+Linha:171
+Revisão:b54937ab5051004faa6c04048d6bb0410e6dcb33
+Data:null
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+1
+testSimpleEchoWithAdditionalExecutor 79 82
+3
+Autor:Trustin Lee
+Linha:79
+Revisão:b9bae2b5e4bf32f6db783664a02e1d22ba4159db
+Data:null
+Autor:Norman Maurer
+Linha:85
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+Autor:Norman Maurer
+Linha:86
+Revisão:7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Data:null
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+2
+write 648 662
+45
+Autor:Trustin Lee
+Linha:649
+Revisão:e81368af0632b28a7ba54be49142e2b5bf78d14b
+Data:null
+Autor:bgallagher 
+Linha:653
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:Norman Maurer
+Linha:654
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:655
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:656
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:657
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:658
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:bgallagher 
+Linha:659
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:Trustin Lee
+Linha:660
+Revisão:e81368af0632b28a7ba54be49142e2b5bf78d14b
+Data:null
+Autor:Trustin Lee
+Linha:661
+Revisão:e81368af0632b28a7ba54be49142e2b5bf78d14b
+Data:null
+Autor:bgallagher 
+Linha:719
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:720
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:721
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:722
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:723
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:724
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:725
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:726
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:727
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:728
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:729
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:730
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:731
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:732
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:bgallagher 
+Linha:733
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:Bill Gallagher
+Linha:734
+Revisão:013ac44d3a64d53ab9e131cb43124fcbc0873caf
+Data:null
+Autor:bgallagher 
+Linha:735
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:Norman Maurer
+Linha:736
+Revisão:b934b6009c9e7d2ed6df400698d6e6e4b550291d
+Data:null
+Autor:Norman Maurer
+Linha:737
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:738
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:739
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:740
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:741
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:742
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:743
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:744
+Revisão:b934b6009c9e7d2ed6df400698d6e6e4b550291d
+Data:null
+Autor:Norman Maurer
+Linha:745
+Revisão:b934b6009c9e7d2ed6df400698d6e6e4b550291d
+Data:null
+Autor:Norman Maurer
+Linha:944
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:945
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:946
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:997
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:998
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:999
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:1000
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+Autor:Norman Maurer
+Linha:1001
+Revisão:64c3f58279809141a851becba445a20badc8a610
+Data:null
+writeAndFlush 702 717
+13
+Autor:Norman Maurer
+Linha:704
+Revisão:5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Data:null
+Autor:Norman Maurer
+Linha:705
+Revisão:5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Data:null
+Autor:Norman Maurer
+Linha:706
+Revisão:5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Data:null
+Autor:bgallagher 
+Linha:707
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:Norman Maurer
+Linha:708
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:709
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:710
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:711
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:712
+Revisão:aa74f0000605ee2563f42c9434578579d2db21e6
+Data:null
+Autor:Norman Maurer
+Linha:713
+Revisão:5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Data:null
+Autor:bgallagher 
+Linha:714
+Revisão:fb619f23947aab158a11730e00f4dbd490093669
+Data:null
+Autor:Norman Maurer
+Linha:715
+Revisão:5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Data:null
+Autor:Norman Maurer
+Linha:716
+Revisão:5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Data:null
+5
+:12
+defect:27
+improvement:7
+feature:1
+feature,improvement:1
+3
+:2
+defect:5
+improvement:1
+5
+
+39
+NioSocketChannelConfig
+safeExecute
+run
+run
+run
+init
+connect
+getMessageSizeEstimator
+setMessageSizeEstimator
+beginRead
+finishConnect
+removeReadOp
+DefaultChannelPipeline
+setAllocator
+setWriteBufferLowWaterMark
+setConnectTimeoutMillis
+setWriteSpinCount
+openSelector
+processSelectedKey
+rebuildSelector
+testStringEchoNotAutoRead
+channelReadComplete
+testStringEcho
+StringEchoHandler
+estimatorHandle
+invokeLater
+ensureOpen
+register0
+safeSetFailure
+safeSetSuccess
+testSimpleEcho
+testSimpleEchoWithAdditionalExecutorNotAutoRead
+testSimpleEchoWithVoidPromiseNotAutoRead
+EchoHandler
+testSimpleEchoWithAdditionalExecutorAndVoidPromise
+testSimpleEcho0
+testSimpleEchoNotAutoRead
+testSimpleEchoWithAdditionalExecutor
+testSimpleEchoWithVoidPromise
+defect
+73
+testConnectCancellation
+testConnectTimeout
+doWrite
+doWrite
+NioSocketChannelConfig
+autoReadCleared
+validatePromise
+connect
+invokeChannelRegistered
+invokeChannelReadComplete
+close
+write
+invokeChannelWritabilityChanged
+invokeBind
+invokeConnect
+invokeExceptionCaught
+invokeDisconnect
+invokeChannelUnregistered
+invokeDeregister
+invokeChannelActive
+invokeRead
+invokeUserEventTriggered
+invokeChannelRead
+invokeFlush
+invokeClose
+disconnect
+invokeWrite
+bind
+deregister
+invokeChannelInactive
+setReadPending
+isReadPending
+doBeginRead
+connect
+checkReadableBytes
+skipBytes
+readByte
+setAutoRead
+isAutoClose
+getOptions
+getOptions
+setOption
+setOption
+setAutoClose
+getWriteBufferHighWaterMark
+getOption
+fulfillConnectPromise
+fulfillConnectPromise
+finishConnect
+doBind
+initAndRegister
+operationComplete
+doWrite
+doRead
+NioServerSocketChannelConfig
+callHandlerRemoved
+setWriteBufferHighWaterMark
+processSelectedKeysOptimized
+openSelector
+testSimpleSendWithoutBind
+channelRead0
+nioBuffer
+getBytes
+capacity
+capacity
+readBytes
+DefaultOioSocketChannelConfig
+run
+run
+write
+flush0
+channelRead
+forceClose
+improvement
+8
+newSocket
+validatePromise
+write
+writeAndFlush
+DefaultChannelConfig
+register
+NioServerSocketChannel
+write
+feature
+3
+newSocket
+NioSocketChannel
+NioServerSocketChannel
+feature,improvement
+9
+shutdownOutput
+fireChannelInactive
+fireChannelUnregistered
+fireExceptionCaught
+fireChannelActive
+fireChannelRegistered
+fireUserEventTriggered
+fireChannelRead
+newTaskQueue
+3
+
+3
+testStringEcho
+testSimpleEchoWithAdditionalExecutor
+write
+defect
+5
+testConnectTimeout
+setOption
+setOption
+setOption
+write
+improvement
+2
+write
+writeAndFlush
