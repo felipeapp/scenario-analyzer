@@ -186,10 +186,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String sig : members) {
 			System.out.println("[" + ++i + "/" + members.size() + "] Retrieving impacted members and scenarios by " + sig);
 			
-			Set<String> nodes = database_v2.getImpactedNodes(sig);
+//			Set<String> nodes = database_v2.getImpactedNodes(sig);
 			List<String> scenarios = database_v2.getScenariosByMember(sig);
 			
-			pw.println(sig + ":" + nodes.size());
+//			pw.println(sig + ":" + nodes.size());
+			pw.println(sig);
 			pw.println(scenarios.size());
 			
 			for (String s : scenarios)
