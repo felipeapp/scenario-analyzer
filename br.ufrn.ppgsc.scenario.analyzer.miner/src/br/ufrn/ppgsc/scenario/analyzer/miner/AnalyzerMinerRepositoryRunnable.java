@@ -262,7 +262,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 	
 	private void persistScenariosWithBlames(String message, String partial_name, Map<String, List<String>> scenariosWithBlames) throws FileNotFoundException {
 		int total_members = 0;
+		int total_scenarios_with_blames = 0;
 		int total_members_without_word = 0;
+		
 		Set<String> counted = new HashSet<String>();
 		
 		System.out.println("persistFile: " + message);
@@ -270,7 +272,21 @@ public final class AnalyzerMinerRepositoryRunnable {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
 		
+		for (List<String> list : scenariosWithBlames.values())
+			if (!list.isEmpty())
+				++total_scenarios_with_blames;
+		
 		pw.println(message);
+		
+		// Cenários que possuem blames
+		pw.println(total_scenarios_with_blames);
+		
+		/* 
+		 * Todos os cenários, alguns podem não ter blames.
+		 * Isso acontece, por exemplo, devido somatórios de membros
+		 * degradados, pequenos aumentos individuais (menor que a taxa)
+		 * que quando somados impactam o cenário (com variação maior que a taxa)
+		 */
 		pw.println(scenariosWithBlames.size());
 		
 		for (String scenario : scenariosWithBlames.keySet()) {
@@ -306,133 +322,133 @@ public final class AnalyzerMinerRepositoryRunnable {
 	}
 	
 	public void run() throws FileNotFoundException {
-//		int i = 0;
-//		
-//		/*
-//		 * O gerente de repositório conecta ao repositório e permite acesso
-//		 * para a mineração dos dados através do método disponibilizado.
-//		 * Conecta no momento que é criado.
-//		 */
-//		RepositoryManager repository = new RepositoryManager(url, user, password);
-//		
-//		/* 
-//		 * Guarda as assinaturas de métodos que contribuiram especificamente
-//		 * para a degradação do desempenho. Esta lista será usada na mineração final.
-//		 */
-//		List<String> p_degradated_changed_methods = new ArrayList<String>();
-//		
-//		for (Scanner in : readers) {
-//			List<String> repository_paths = new ArrayList<String>();
-//			List<String> old_workcopy_paths = new ArrayList<String>();
-//			List<String> new_workcopy_paths = new ArrayList<String>();
-//			
-//			List<String> signatures = new ArrayList<String>();
-//			String message;
-//			
-//			message = loadFile(in, signatures);
-//			
-//			System.out.println(files[i]);
-//			
-//			for (String s : signatures) {
-//				String paths[] = transformer.convert(s, rep_prefix, wc_prefix_v1, wc_prefix_v2);
-//				
-//				if (paths == null) {
-//					System.out.println("Ignoring " + s + " because paths is null (Is it right?).");
-//					continue;
-//				}
-//				
-//				boolean ignore_file = false;
-//				boolean file_exists_v1 = new File(paths[1]).exists();
-//				boolean file_exists_v2 = new File(paths[2]).exists();
-//				
-//				if (!file_exists_v1 && !file_exists_v2)
-//					throw new FileNotFoundException("\n" + paths[1] + "\n" + paths[2]);
-//				
-//				if (!file_exists_v1) {
-//					System.out.println("Not found (Is it right?): " + paths[1]);
-//					ignore_file = true;
-//				}
-//				
-//				if (!file_exists_v2) {
-//					System.out.println("Not found (Is it right?): " + paths[2]);
-//					ignore_file = true;
-//				}
-//				
-//				if (ignore_file) {
-//					System.out.println("Ignoring files...");
-//				}
-//				else {
-//					repository_paths.add(paths[0]);
-//					old_workcopy_paths.add(paths[1]);
-//					new_workcopy_paths.add(paths[2]);
-//				}
-//			}
-//			
-//			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + " ["
-//					+ repository_paths.size() + ", " + message + "]");
-//			
-//			Map<String, Collection<UpdatedMethod>> map_path_upmethod = null;
-//			
-//			if (!signatures.isEmpty()) {
-//				map_path_upmethod = repository.getUpdatedMethodsFromRepository(
-//						repository_paths, old_workcopy_paths, new_workcopy_paths);
-//			}
-//			
-//			if (map_path_upmethod == null)
-//				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
-//			
-//			// Os que foram modificados e estão dentro do critério analisado (degradados, por exemplo)
-//			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
-//			
-//			// Percorre a estrutura para filtrar os métodos de interesse para cada path
-//			for (String path : map_path_upmethod.keySet()) {
-//				for (UpdatedMethod upm : map_path_upmethod.get(path)) {
-//					/* 
-//					 * Testa se o nome do método casa com a assinatura do método
-//					 * Limitação quando o método tem formas diferentes com o mesmo nome
-//					 * A limitação é causada devido o parser do JDT que está sendo usado
-//					 */
-//					String sig_matched = matchesName(path, upm.getMethodLimit().getSignature(), signatures);
-//					
-//					if (sig_matched != null) {
-//						Collection<UpdatedMethod> upm_list = filtrated_path_upmethod.get(path);
-//						
-//						if (upm_list == null) {
-//							upm_list = new ArrayList<UpdatedMethod>();
-//							filtrated_path_upmethod.put(path, upm_list);
-//						}
-//						
-//						upm_list.add(upm);
-//						
-//						if (partial_names.get(i).equals("changed_methods") || partial_names.get(i).equals("p_degradated_methods"))
-//							p_degradated_changed_methods.add(sig_matched);
-//					}
-//				}
-//			}
-//			
-//			/*
-//			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolução, considerando
-//			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
-//			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
-//			 */
-//			Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(map_path_upmethod);
-//			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
-//			
-//			/*
-//			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
-//			 * por exemplo, quantas vezes o tipo de tarefa aparece para m�todos com desempenho
-//			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
-//			 */
-//			Map<String, Collection<UpdatedMethod>> filtrated_task_members = getTaskMembers(filtrated_path_upmethod);
-//			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);
-//			
-//			// Persistir em arquivo os dados coletados
-//			persistFile(message, "svn_" + partial_names.get(i++), getTaskNumbers(filtrated_path_upmethod), filtrated_path_upmethod,
-//					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
-//		}
-//		
-//		// Mostrando o impacto dos responsáveis pela degradação de performance
-//		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degradated_changed_methods);
+		int i = 0;
+		
+		/*
+		 * O gerente de repositório conecta ao repositório e permite acesso
+		 * para a mineração dos dados através do método disponibilizado.
+		 * Conecta no momento que é criado.
+		 */
+		RepositoryManager repository = new RepositoryManager(url, user, password);
+		
+		/* 
+		 * Guarda as assinaturas de métodos que contribuiram especificamente
+		 * para a degradação do desempenho. Esta lista será usada na mineração final.
+		 */
+		List<String> p_degradated_changed_methods = new ArrayList<String>();
+		
+		for (Scanner in : readers) {
+			List<String> repository_paths = new ArrayList<String>();
+			List<String> old_workcopy_paths = new ArrayList<String>();
+			List<String> new_workcopy_paths = new ArrayList<String>();
+			
+			List<String> signatures = new ArrayList<String>();
+			String message;
+			
+			message = loadFile(in, signatures);
+			
+			System.out.println(files[i]);
+			
+			for (String s : signatures) {
+				String paths[] = transformer.convert(s, rep_prefix, wc_prefix_v1, wc_prefix_v2);
+				
+				if (paths == null) {
+					System.out.println("Ignoring " + s + " because paths is null (Is it right?).");
+					continue;
+				}
+				
+				boolean ignore_file = false;
+				boolean file_exists_v1 = new File(paths[1]).exists();
+				boolean file_exists_v2 = new File(paths[2]).exists();
+				
+				if (!file_exists_v1 && !file_exists_v2)
+					throw new FileNotFoundException("\n" + paths[1] + "\n" + paths[2]);
+				
+				if (!file_exists_v1) {
+					System.out.println("Not found (Is it right?): " + paths[1]);
+					ignore_file = true;
+				}
+				
+				if (!file_exists_v2) {
+					System.out.println("Not found (Is it right?): " + paths[2]);
+					ignore_file = true;
+				}
+				
+				if (ignore_file) {
+					System.out.println("Ignoring files...");
+				}
+				else {
+					repository_paths.add(paths[0]);
+					old_workcopy_paths.add(paths[1]);
+					new_workcopy_paths.add(paths[2]);
+				}
+			}
+			
+			System.out.println("Getting updated methods from repository to " + partial_names.get(i) + " ["
+					+ repository_paths.size() + ", " + message + "]");
+			
+			Map<String, Collection<UpdatedMethod>> map_path_upmethod = null;
+			
+			if (!signatures.isEmpty()) {
+				map_path_upmethod = repository.getUpdatedMethodsFromRepository(
+						repository_paths, old_workcopy_paths, new_workcopy_paths);
+			}
+			
+			if (map_path_upmethod == null)
+				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
+			
+			// Os que foram modificados e estão dentro do critério analisado (degradados, por exemplo)
+			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
+			
+			// Percorre a estrutura para filtrar os métodos de interesse para cada path
+			for (String path : map_path_upmethod.keySet()) {
+				for (UpdatedMethod upm : map_path_upmethod.get(path)) {
+					/* 
+					 * Testa se o nome do método casa com a assinatura do método
+					 * Limitação quando o método tem formas diferentes com o mesmo nome
+					 * A limitação é causada devido o parser do JDT que está sendo usado
+					 */
+					String sig_matched = matchesName(path, upm.getMethodLimit().getSignature(), signatures);
+					
+					if (sig_matched != null) {
+						Collection<UpdatedMethod> upm_list = filtrated_path_upmethod.get(path);
+						
+						if (upm_list == null) {
+							upm_list = new ArrayList<UpdatedMethod>();
+							filtrated_path_upmethod.put(path, upm_list);
+						}
+						
+						upm_list.add(upm);
+						
+						if (partial_names.get(i).equals("changed_methods") || partial_names.get(i).equals("p_degradated_methods"))
+							p_degradated_changed_methods.add(sig_matched);
+					}
+				}
+			}
+			
+			/*
+			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolução, considerando
+			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
+			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
+			 */
+			Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(map_path_upmethod);
+			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
+			
+			/*
+			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
+			 * por exemplo, quantas vezes o tipo de tarefa aparece para m�todos com desempenho
+			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
+			 */
+			Map<String, Collection<UpdatedMethod>> filtrated_task_members = getTaskMembers(filtrated_path_upmethod);
+			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);
+			
+			// Persistir em arquivo os dados coletados
+			persistFile(message, "svn_" + partial_names.get(i++), getTaskNumbers(filtrated_path_upmethod), filtrated_path_upmethod,
+					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
+		}
+		
+		// Mostrando o impacto dos responsáveis pela degradação de performance
+		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degradated_changed_methods);
 		
 		// Recuperando os cenários degradados e os membros culpados
 		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames(
