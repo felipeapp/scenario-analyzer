@@ -62,6 +62,10 @@ public class ArgoUMLPathTransformer implements IPathTransformer {
 			name = "org/argouml/cognitive/StandardCM";
 		else if (name.equals("org/argouml/uml/diagram/collaboration/ui/FigMessageGroup"))
 			name = "org/argouml/uml/diagram/collaboration/ui/FigAssociationRole";
+		else if (name.equals("org/argouml/ui/PredicateMType"))
+			name = "org/argouml/ui/FindDialog";
+		else if (name.equals("org/argouml/uml/diagram/ui/FigRole"))
+			name = "org/argouml/uml/diagram/ui/FigAssociation";
 		// ---------------------------------------
 
 		// Redirecionando para o projeto correto de acordo com pacote
@@ -100,7 +104,8 @@ public class ArgoUMLPathTransformer implements IPathTransformer {
 		return name.equals("ThreadHelper") || name.equals("CheckUMLModelHelper") ||
 				name.equals("AbstractUMLModelElementListModel2Test") ||
 				name.equals("InitializeModel") || name.startsWith("Test") ||
-				name.startsWith("AbstractTest") || name.startsWith("GenericUmlObjectTest");
+				name.startsWith("AbstractTest") || name.startsWith("GenericUmlObjectTest") ||
+				name.startsWith("GUITest") || name.equals("CheckMain");
 	}
 	
 }
