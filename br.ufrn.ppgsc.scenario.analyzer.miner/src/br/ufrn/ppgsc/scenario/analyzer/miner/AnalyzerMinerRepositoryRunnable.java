@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
@@ -39,6 +40,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String wc_prefix_v1;
 	private String wc_prefix_v2;
 	private String exclude_word;
+	private int package_deep;
 
 	private static final String files[] =
 		{"changed_methods", "excluded_methods", "failed_methods_both",
@@ -63,6 +65,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		wc_prefix_v2 = properties.getStringProperty("workcopy_prefix_v2");
 		
 		exclude_word = properties.getStringProperty("exclude_word");
+		package_deep = properties.getIntProperty("package_deep");
 		
 		for (String name : files) {
 			boolean active = properties.getBooleanProperty(name);
@@ -260,6 +263,57 @@ public final class AnalyzerMinerRepositoryRunnable {
 		pw.close();
 	}
 	
+	public void persistFile(String message, String partial_name,
+			Map<String, Integer> total_classes, Map<String, Integer> total_packages) throws FileNotFoundException {
+		System.out.println("persistFile: " + message);
+		
+		PrintWriter pw = new PrintWriter(new FileOutputStream(
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
+		
+		pw.println(total_classes.size());
+		
+		Set<String> class_keys = new TreeSet<String>(total_classes.keySet());
+		Set<String> package_keys = new TreeSet<String>(total_packages.keySet());
+		
+		for (String class_name : class_keys)
+			pw.println(class_name + " " + total_classes.get(class_name));
+		
+		pw.println(total_packages.size());
+		
+		for (String package_prefix : package_keys)
+			pw.println(package_prefix + " " + total_packages.get(package_prefix));
+		
+		pw.close();
+	}
+	
+	public void countTotalOfModules(Map<String, List<String>> scenariosWithBlames,
+			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep) {
+		
+		Set<String> counted = new HashSet<String>();
+		
+		for (List<String> signatures : scenariosWithBlames.values()) {
+			if (signatures.isEmpty())
+				continue;
+			
+			for (String sig : signatures) {
+				if (counted.contains(sig) || matchesExcludeWord(sig))
+					continue;
+				
+				String class_name = getClassNameFromSignature(sig);
+				String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
+				
+				Integer value = total_classes.get(class_name);
+				total_classes.put(class_name, value == null ? 1 : value + 1);
+				
+				value = total_packages.get(package_prefix);
+				total_packages.put(package_prefix, value == null ? 1 : value + 1);
+				
+				counted.add(sig);
+			}
+		}
+		
+	}
+	
 	private void persistScenariosWithBlames(String message, String partial_name, Map<String, List<String>> scenariosWithBlames) throws FileNotFoundException {
 		int total_members = 0;
 		int total_scenarios_with_blames = 0;
@@ -420,6 +474,14 @@ public final class AnalyzerMinerRepositoryRunnable {
 						
 						upm_list.add(upm);
 						
+						/*
+						 * OBS: Em caso de dúvida porque o equals do sigaa não entrou na solução dos
+						 * nove métodos degradados, a resposta é que apesar dele ser novo na execução
+						 * evolução, o método já existia antes e não era usado. Ele não foi modificado,
+						 * logo nenhuma mudança feita para ele poderia ser culpada de degradação, pois
+						 * elas não existem. No caso dos outros quatro métodos, eles são novos e foram
+						 * adicionados ao código durante a evolução.
+						 */
 						if (partial_names.get(i).equals("changed_methods") || partial_names.get(i).equals("p_degradated_methods"))
 							p_degradated_changed_methods.add(sig_matched);
 					}
@@ -457,6 +519,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 		// Mostrando os cenários degradados e os membros culpados
 		persistScenariosWithBlames("# Membros responsáveis pela degradação de performance em cada cenários",
 				"scenarios_blames_performance_degradation", scenariosWithBlames);
+		
+		// Mapas para contar quantas vezes as classes e pacotes aparecem no resultado dos culpados
+		Map<String, Integer> total_classes = new HashMap<String, Integer>();
+		Map<String, Integer> total_packages = new HashMap<String, Integer>();
+		
+		// Conta e armazena os resultados nos mapas.
+		countTotalOfModules(scenariosWithBlames, total_classes, total_packages, package_deep);
+		
+		// Mostrando os cenários degradados e os membros culpados
+		persistFile("# Contagem de classes e pacotes", "total_of_classes_and_packages", total_classes, total_packages);
 	}
 	
 	private Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
@@ -542,6 +614,31 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 
 		return task_members;
+	}
+	
+	private String getClassNameFromSignature(String signature) {
+		String method_name = signature.substring(0, signature.indexOf("("));
+		
+		if (Character.isLowerCase(method_name.charAt(method_name.lastIndexOf('.') + 1)))
+			return method_name.substring(0, method_name.lastIndexOf("."));
+		
+		return method_name;
+	}
+	
+	private String getPackagePrefixFromSignature(String signature, int deep) {
+		int i = 0, j = 0;
+		
+		while (i < signature.length()) {
+			if (signature.charAt(i) == '.')
+				++j;
+			
+			if (j == deep)
+				break;
+			
+			++i;
+		}
+		
+		return signature.substring(0, i);
 	}
 	
 	private boolean matchesExcludeWord(String text) {
