@@ -25,7 +25,7 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 			if (connection == null) {
 				connection = DriverManager.getConnection(
 						"jdbc:postgresql://localhost:5432/sistemas_comum",
-						"postgres", "1234");
+						"postgres", "123456");
 			}
 		} catch (SQLException e) {
 			logger.warn(e.getMessage());

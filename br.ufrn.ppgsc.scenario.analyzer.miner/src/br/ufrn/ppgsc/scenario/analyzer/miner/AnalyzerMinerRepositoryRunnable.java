@@ -90,7 +90,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	}
 	
 	private void persistFile(String message, String partial_name, Set<Long> task_numbers,
-			Map<String, Collection<UpdatedMethod>> map_path_upmethod,
+			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod,
 			Map<String, Integer> counter_task_types,
 			Map<String, Integer> filtrated_counter_task_types,
 			Map<String, Collection<UpdatedMethod>> task_members,
@@ -106,37 +106,40 @@ public final class AnalyzerMinerRepositoryRunnable {
 			pw.print(tnumber + " ");
 		pw.println();
 		
-		pw.println(map_path_upmethod.size());
+		pw.println(filtrated_path_upmethod.size());
 		
-		for (String path: map_path_upmethod.keySet()) {
+		for (String path: filtrated_path_upmethod.keySet()) {
 			pw.println(path);
 			
-			Collection<UpdatedMethod> upmethod_list = map_path_upmethod.get(path);
+			Collection<UpdatedMethod> upmethod_list = filtrated_path_upmethod.get(path);
 			
-			pw.println(upmethod_list.size());
+			pw.println("Members " + upmethod_list.size());
 			
 			for (UpdatedMethod method : upmethod_list) {
 				List<UpdatedLine> upl_list = method.getUpdatedLines();
+				Set<String> counte_revisions = new HashSet<String>();
 				
 				pw.print(method.getMethodLimit().getSignature() + " ");
 				pw.print(method.getMethodLimit().getStartLine() + " ");
 				pw.println(method.getMethodLimit().getEndLine());
-				pw.println(upl_list.size());
+				pw.println("Lines " + upl_list.size());
 				
 				for (UpdatedLine up_line : upl_list) {
-					pw.println("Autor:" + up_line.getAuthor());
-					pw.println("Linha:" + up_line.getLineNumber());
-					pw.println("Revisão:" + up_line.getRevision());
-					pw.println("Data:" + up_line.getDate());
+					if (counte_revisions.contains(up_line.getRevision()))
+						continue;
 					
-					List<Issue> tasks = up_line.getIssues();
-
-					for (Issue t : tasks) {
-						if (t.getNumber() >= 0) {
-							pw.println("Id:" + t.getIssueId());
-							pw.println("IdTipo:" + t.getIssueTypeId());
-							pw.println("Número:" + t.getNumber());
-							pw.println("TipoDenomicação:" + t.getIssueType());
+					List<Issue> issues = up_line.getIssues();
+				
+					pw.println("Revision " + up_line.getRevision());
+					pw.println("Issues " + issues.size());
+					
+					counte_revisions.add(up_line.getRevision());
+					
+					for (Issue issue : issues) {
+						if (issue.getNumber() >= 0) {
+							pw.print("IssueID " + issue.getIssueId() + " | ");
+							pw.print("IssueNumber " + issue.getNumber() + " | ");
+							pw.println("IssueType " + issue.getIssueType());
 						}
 					}
 				}
@@ -177,6 +180,98 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		pw.close();
 	}
+	
+	// TODO: Ver se posso tirar
+//	private void persistFile2(String message, String partial_name, Set<Long> task_numbers,
+//			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod,
+//			Map<String, Integer> counter_task_types,
+//			Map<String, Integer> filtrated_counter_task_types,
+//			Map<String, Collection<UpdatedMethod>> task_members,
+//			Map<String, Collection<UpdatedMethod>> filtrated_task_members) throws FileNotFoundException {
+//		System.out.println("persistFile: " + message);
+//		
+//		PrintWriter pw = new PrintWriter(new FileOutputStream(
+//				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
+//		
+//		pw.println(message);
+//		
+//		for (Long tnumber : task_numbers)
+//			pw.print(tnumber + " ");
+//		pw.println();
+//		
+//		pw.println(filtrated_path_upmethod.size());
+//		
+//		for (String path: filtrated_path_upmethod.keySet()) {
+//			pw.println(path);
+//			
+//			Collection<UpdatedMethod> upmethod_list = filtrated_path_upmethod.get(path);
+//			
+//			pw.println(upmethod_list.size());
+//			
+//			for (UpdatedMethod method : upmethod_list) {
+//				List<UpdatedLine> upl_list = method.getUpdatedLines();
+//				
+//				pw.print(method.getMethodLimit().getSignature() + " ");
+//				pw.print(method.getMethodLimit().getStartLine() + " ");
+//				pw.println(method.getMethodLimit().getEndLine());
+//				pw.println(upl_list.size());
+//				
+//				for (UpdatedLine up_line : upl_list) {
+//					pw.println("Autor:" + up_line.getAuthor());
+//					pw.println("Linha:" + up_line.getLineNumber());
+//					pw.println("RevisÃ£o:" + up_line.getRevision());
+//					pw.println("Data:" + up_line.getDate());
+//					
+//					List<Issue> tasks = up_line.getIssues();
+//
+//					pw.println("####" + task_members.size());
+//					pw.println("@@@@" + tasks.size());
+//					for (Issue t : tasks) {
+//						if (t.getNumber() >= 0) {
+//							pw.println("Id:" + t.getIssueId());
+//							pw.println("IdTipo:" + t.getIssueTypeId());
+//							pw.println("NÃºmero:" + t.getNumber());
+//							pw.println("TipoDenomicaÃ§Ã£o:" + t.getIssueType());
+//						}
+//					}
+//				}
+//			}
+//		}
+//		
+//		pw.println(counter_task_types.size());
+//		
+//		for (String type : counter_task_types.keySet())
+//			pw.println(type + ":" + counter_task_types.get(type));
+//		
+//		pw.println(filtrated_counter_task_types.size());
+//		
+//		for (String type : filtrated_counter_task_types.keySet())
+//			pw.println(type + ":" + filtrated_counter_task_types.get(type));
+//		
+//		pw.println(task_members.size());
+//
+//		for (String type : task_members.keySet()) {
+//			Collection<UpdatedMethod> list = task_members.get(type);
+//
+//			pw.println(type);
+//			pw.println(list.size());
+//			for (UpdatedMethod up : list)
+//				pw.println(up.getMethodLimit().getSignature());
+//		}
+//
+//		pw.println(filtrated_task_members.size());
+//
+//		for (String type : filtrated_task_members.keySet()) {
+//			Collection<UpdatedMethod> list = filtrated_task_members.get(type);
+//
+//			pw.println(type);
+//			pw.println(list.size());
+//			for (UpdatedMethod up : list)
+//				pw.println(up.getMethodLimit().getSignature());
+//		}
+//		
+//		pw.close();
+//	}
 	
 	private Map<String, List<String>> getScenariosWithBlames(String scenarios_file, String methods_file) throws FileNotFoundException {
 		Map<String, List<String>> scenarios_blames = new HashMap<String, List<String>>();
@@ -234,7 +329,81 @@ public final class AnalyzerMinerRepositoryRunnable {
 		return message;
 	}
 	
-	private void persistFile(String message, String partial_name, List<String> members) throws FileNotFoundException {
+	private void persistFile(String message, String partial_name, Map<String, Collection<UpdatedMethod>> members) throws FileNotFoundException {
+		System.out.println("persistFile: " + message);
+		
+		PrintWriter pw = new PrintWriter(new FileOutputStream(
+				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
+		
+		pw.println(message);
+		pw.println(members.size());
+		
+		for (String signature : members.keySet()) {
+			pw.println(signature);
+			
+			Collection<UpdatedMethod> upmethod_list = members.get(signature);
+			
+			pw.println("Members " + upmethod_list.size());
+			
+			for (UpdatedMethod method : upmethod_list) {
+				List<UpdatedLine> upl_list = method.getUpdatedLines();
+				Set<String> counte_revisions = new HashSet<String>();
+				
+				pw.print(method.getMethodLimit().getSignature() + " ");
+				pw.print(method.getMethodLimit().getStartLine() + " ");
+				pw.println(method.getMethodLimit().getEndLine());
+				pw.println("Lines " + upl_list.size());
+				
+				for (UpdatedLine up_line : upl_list) {
+					if (counte_revisions.contains(up_line.getRevision()))
+						continue;
+					
+					List<Issue> issues = up_line.getIssues();
+				
+					pw.println("Revision " + up_line.getRevision());
+					
+					if (issues.size() == 1 && issues.get(0).getNumber() < 0)
+						pw.println("Issues " + 0);
+					else
+						pw.println("Issues " + issues.size());
+					
+					counte_revisions.add(up_line.getRevision());
+					
+					for (Issue issue : issues) {
+						if (issue.getNumber() >= 0) {
+							pw.print("IssueID " + issue.getIssueId() + " | ");
+							pw.print("IssueNumber " + issue.getNumber() + " | ");
+							pw.print("IssueType " + issue.getIssueType() + " | ");
+							pw.println("ShortDescription " + issue.getShortDescription());
+						}
+					}
+				}
+			}
+		}
+		
+		Map<String, Integer> counter_task_types = counterTaskTypes(members);
+		Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(members);
+		
+		pw.println("TotalOfTypes " + counter_task_types.size());
+		
+		for (String type : counter_task_types.keySet())
+			pw.println(type + " " + counter_task_types.get(type));
+		
+		pw.println("TotalOfTypes " + task_members.size());
+
+		for (String type : task_members.keySet()) {
+			Collection<UpdatedMethod> list = task_members.get(type);
+
+			pw.println(type);
+			pw.println("TotalOfMembers " + list.size());
+			for (UpdatedMethod up : list)
+				pw.println(up.getMethodLimit().getSignature());
+		}
+		
+		pw.close();
+	}
+	
+	private void persistFile(String message, String partial_name, Set<String> members) throws FileNotFoundException {
 		GenericDB database_v2 = DatabaseRelease.getDatabasev2();
 		
 		System.out.println("persistFile: " + message);
@@ -379,17 +548,17 @@ public final class AnalyzerMinerRepositoryRunnable {
 		int i = 0;
 		
 		/*
-		 * O gerente de repositório conecta ao repositório e permite acesso
-		 * para a mineração dos dados através do método disponibilizado.
-		 * Conecta no momento que é criado.
+		 * O gerente de repositÃ³rio conecta ao repositÃ³rio e permite acesso
+		 * para a mineraÃ§Ã£o dos dados atravÃ©s do mÃ©todo disponibilizado.
+		 * Conecta no momento que Ã© criado.
 		 */
 		RepositoryManager repository = new RepositoryManager(url, user, password);
 		
 		/* 
-		 * Guarda as assinaturas de métodos que contribuiram especificamente
-		 * para a degradação do desempenho. Esta lista será usada na mineração final.
+		 * Guarda as assinaturas de mÃ©todos que contribuiram especificamente
+		 * para a degradaÃ§Ã£o do desempenho. Esta lista serÃ¡ usada na mineraÃ§Ã£o final.
 		 */
-		List<String> p_degradated_changed_methods = new ArrayList<String>();
+		Map<String, Collection<UpdatedMethod>> p_degraded_changed_methods = new HashMap<String, Collection<UpdatedMethod>>();
 		
 		for (Scanner in : readers) {
 			List<String> repository_paths = new ArrayList<String>();
@@ -451,16 +620,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 			if (map_path_upmethod == null)
 				map_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
-			// Os que foram modificados e estão dentro do critério analisado (degradados, por exemplo)
+			// Os que foram modificados e estÃ£o dentro do critÃ©rio analisado (degradados, por exemplo)
 			Map<String, Collection<UpdatedMethod>> filtrated_path_upmethod = new HashMap<String, Collection<UpdatedMethod>>();
 			
-			// Percorre a estrutura para filtrar os métodos de interesse para cada path
+			// Percorre a estrutura para filtrar os mÃ©todos de interesse para cada path
 			for (String path : map_path_upmethod.keySet()) {
 				for (UpdatedMethod upm : map_path_upmethod.get(path)) {
 					/* 
-					 * Testa se o nome do método casa com a assinatura do método
-					 * Limitação quando o método tem formas diferentes com o mesmo nome
-					 * A limitação é causada devido o parser do JDT que está sendo usado
+					 * Testa se o nome do mÃ©todo casa com a assinatura do mÃ©todo
+					 * LimitaÃ§Ã£o quando o mÃ©todo tem formas diferentes com o mesmo nome
+					 * A limitaÃ§Ã£o Ã© causada devido o parser do JDT que estÃ¡ sendo usado
 					 */
 					String sig_matched = matchesName(path, upm.getMethodLimit().getSignature(), signatures);
 					
@@ -475,31 +644,31 @@ public final class AnalyzerMinerRepositoryRunnable {
 						upm_list.add(upm);
 						
 						/*
-						 * OBS: Em caso de dúvida porque o equals do sigaa não entrou na solução dos
-						 * nove métodos degradados, a resposta é que apesar dele ser novo na execução
-						 * evolução, o método já existia antes e não era usado. Ele não foi modificado,
-						 * logo nenhuma mudança feita para ele poderia ser culpada de degradação, pois
-						 * elas não existem. No caso dos outros quatro métodos, eles são novos e foram
-						 * adicionados ao código durante a evolução.
+						 * OBS: Em caso de dÃºvida porque o equals do sigaa nÃ£o entrou na soluÃ§Ã£o dos
+						 * nove mÃ©todos degradados, a resposta Ã© que apesar dele ser novo na execuÃ§Ã£o
+						 * evoluÃ§Ã£o, o mÃ©todo jÃ¡ existia antes e nÃ£o era usado. Ele nÃ£o foi modificado,
+						 * logo nenhuma mudanÃ§a feita para ele poderia ser culpada de degradaÃ§Ã£o, pois
+						 * elas nÃ£o existem. No caso dos outros quatro mÃ©todos, eles sÃ£o novos e foram
+						 * adicionados ao cÃ³digo durante a evoluÃ§Ã£o.
 						 */
-						if (partial_names.get(i).equals("changed_methods") || partial_names.get(i).equals("p_degradated_methods"))
-							p_degradated_changed_methods.add(sig_matched);
+						if (partial_names.get(i).equals("changed_methods") || partial_names.get(i).equals("p_degraded_methods"))
+							p_degraded_changed_methods.put(sig_matched, upm_list);
 					}
 				}
 			}
 			
 			/*
-			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evolução, considerando
-			 * as classes dos métodos para o problema sendo analisado. Note que algumas classes
-			 * podem ter mudanças em métodos, mas estes não terem sido degradados neste caso.
+			 * Conta quantas vezes o tipo de tarefa ocorreu em toda a evoluÃ§Ã£o, considerando
+			 * as classes dos mÃ©todos para o problema sendo analisado. Note que algumas classes
+			 * podem ter mudanÃ§as em mÃ©todos, mas estes nÃ£o terem sido degradados neste caso.
 			 */
 			Map<String, Collection<UpdatedMethod>> task_members = getTaskMembers(map_path_upmethod);
 			Map<String, Integer> counter_task_types = counterTaskTypes(map_path_upmethod);
 			
 			/*
 			 * Conta quantas vezes o tipo de tarefa ocorreu para o problema sendo analisado,
-			 * por exemplo, quantas vezes o tipo de tarefa aparece para m�todos com desempenho
-			 * degradado. Agora, são apenas os métodos modificados e afetados pelo problema analisado.
+			 * por exemplo, quantas vezes o tipo de tarefa aparece para mï¿½todos com desempenho
+			 * degradado. Agora, sÃ£o apenas os mÃ©todos modificados e afetados pelo problema analisado.
 			 */
 			Map<String, Collection<UpdatedMethod>> filtrated_task_members = getTaskMembers(filtrated_path_upmethod);
 			Map<String, Integer> filtrated_counter_task_types = counterTaskTypes(filtrated_path_upmethod);
@@ -509,15 +678,18 @@ public final class AnalyzerMinerRepositoryRunnable {
 					counter_task_types, filtrated_counter_task_types, task_members, filtrated_task_members);
 		}
 		
-		// Mostrando o impacto dos responsáveis pela degradação de performance
-		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degradated_changed_methods);
+		// Mostrando os issues
+		persistFile("# Issues responsÃ¡veis pela degradaÃ§Ã£o de performance", "issues_performance_degradation", p_degraded_changed_methods);
 		
-		// Recuperando os cenários degradados e os membros culpados
+		// Mostrando o impacto dos responsÃ¡veis pela degradaÃ§Ã£o de performance
+		persistFile("# MÃ©todos responsÃ¡veis pela degradaÃ§Ã£o de performance", "methods_performance_degradation", p_degraded_changed_methods.keySet());
+		
+		// Recuperando os cenÃ¡rios degradados e os membros culpados
 		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames(
 				"p_degraded_scenarios", "methods_performance_degradation");
 		
-		// Mostrando os cenários degradados e os membros culpados
-		persistScenariosWithBlames("# Membros responsáveis pela degradação de performance em cada cenários",
+		// Mostrando os cenÃ¡rios degradados e os membros culpados
+		persistScenariosWithBlames("# Membros responsÃ¡veis pela degradaÃ§Ã£o de performance em cada cenÃ¡rios",
 				"scenarios_blames_performance_degradation", scenariosWithBlames);
 		
 		// Mapas para contar quantas vezes as classes e pacotes aparecem no resultado dos culpados
@@ -527,7 +699,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		// Conta e armazena os resultados nos mapas.
 		countTotalOfModules(scenariosWithBlames, total_classes, total_packages, package_deep);
 		
-		// Mostrando os cenários degradados e os membros culpados
+		// Mostrando os cenÃ¡rios degradados e os membros culpados
 		persistFile("# Contagem de classes e pacotes", "total_of_classes_and_packages", total_classes, total_packages);
 	}
 	
@@ -555,7 +727,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 					for (Issue issue : line.getIssues()) {
 
-						if (issue.getIssueId() != -1 && !counted_tasks.contains(issue.getIssueId())) {
+						if (issue.getIssueId() > 0 && !counted_tasks.contains(issue.getIssueId())) {
 							Integer counter = counter_task_types.get(issue.getIssueType());
 
 							if (counter == null)
@@ -590,7 +762,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 					for (Issue issue : line.getIssues()) {
 
-						if (issue.getIssueId() != -1 && !(counted_tasks.contains(issue.getIssueId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
+						if (issue.getIssueId() > 0 && !(counted_tasks.contains(issue.getIssueId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
 							Collection<UpdatedMethod> list = task_members.get(issue.getIssueType());
 
 							if (list == null) {

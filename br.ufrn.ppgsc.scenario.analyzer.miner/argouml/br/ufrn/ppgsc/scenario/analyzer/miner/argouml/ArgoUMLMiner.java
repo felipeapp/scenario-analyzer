@@ -92,6 +92,7 @@ public class ArgoUMLMiner implements IQueryIssue {
 			issue.setComponent("component");
 			issue.setDateCreation(sdf.parse(item.getChildText("creation_ts")));
 			issue.setIssueId(Integer.parseInt(item.getChildText("issue_id")));
+			issue.setNumber(Integer.parseInt(item.getChildText("issue_id")));
 			issue.setIssueStatus(item.getChildText("issue_status"));
 			issue.setIssueType(item.getChildText("issue_type"));
 			issue.setShortDescription(item.getChildText("short_desc"));
