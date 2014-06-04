@@ -1,11 +1,13 @@
-# Membros responsáveis pela degradação de performance em cada cenários
+# Membros responsÃ¡veis pela degradaÃ§Ã£o de performance em cada cenÃ¡rios
+8
 8
 Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-14 11
+15 12
 io.netty.buffer.PooledByteBufAllocator$PoolThreadLocalCache(io.netty.buffer.PooledByteBufAllocator,long)
 io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 io.netty.channel.ChannelOption.valueOf(java.lang.String)
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -17,18 +19,20 @@ io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.
 io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
 io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-27 19
+30 21
 io.netty.buffer.AbstractByteBufAllocator.toString()
 io.netty.channel.AbstractChannel.estimatorHandle()
 io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
 io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
 io.netty.channel.DefaultChannelConfig.getWriteBufferHighWaterMark()
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
 io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
 io.netty.channel.DefaultChannelHandlerContext.findContextInbound()
 io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -41,12 +45,13 @@ io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootst
 io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
 io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
 io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutor()
 io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
 io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
 io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
 io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
 Entry point for DatagramUnicastTest.testSimpleSend
-24 20
+26 22
 io.netty.buffer.AbstractByteBufAllocator.toString()
 io.netty.buffer.PooledByteBufAllocator$PoolThreadLocalCache(io.netty.buffer.PooledByteBufAllocator,long)
 io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
@@ -56,10 +61,12 @@ io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
 io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
 io.netty.channel.DefaultChannelConfig.getWriteBufferHighWaterMark()
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
 io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
 io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -72,8 +79,9 @@ io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
 io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
 io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
 Entry point for SocketConnectionAttemptTest.testConnectTimeout
-12 9
+14 10
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
@@ -84,10 +92,12 @@ io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.cha
 io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
 io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
 io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout()
 io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
 Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-9 6
+10 7
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -97,7 +107,7 @@ io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.
 io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
 io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
 Entry point for DatagramMulticastTest.testMulticast
-25 21
+27 23
 io.netty.buffer.AbstractByteBufAllocator.toString()
 io.netty.buffer.PooledByteBufAllocator$PoolThreadLocalCache(io.netty.buffer.PooledByteBufAllocator,long)
 io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
@@ -107,10 +117,12 @@ io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
 io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
 io.netty.channel.DefaultChannelConfig.getWriteBufferHighWaterMark()
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
 io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
 io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -124,15 +136,17 @@ io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
 io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
 io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
 Entry point for SocketStringEchoTest.testStringEcho
-24 16
+27 18
 io.netty.buffer.AbstractByteBufAllocator.toString()
 io.netty.channel.AbstractChannel.estimatorHandle()
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
 io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
 io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
 io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -144,13 +158,14 @@ io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.Sel
 io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
 io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
 io.netty.testsuite.transport.socket.SocketStringEchoTest$StringEchoHandler(boolean)
+io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho()
 io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
 io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
 io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
 io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
 io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-23 20
+25 22
 io.netty.buffer.PooledByteBufAllocator$PoolThreadLocalCache(io.netty.buffer.PooledByteBufAllocator,long)
 io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 io.netty.channel.AbstractChannel.estimatorHandle()
@@ -159,10 +174,12 @@ io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
 io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
 io.netty.channel.DefaultChannelConfig.getWriteBufferHighWaterMark()
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
 io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
 io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
@@ -174,5 +191,5 @@ io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.Sel
 io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
 io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
 io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
-44
-27
+49
+29
