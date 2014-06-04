@@ -1,16 +1,17 @@
-# Métodos responsáveis pela degradação de performance
-94
-io.netty.channel.socket.DefaultDatagramChannelConfig.setActiveOnOpen(boolean)
+# MÃ©todos responsÃ¡veis pela degradaÃ§Ã£o de performance
+100
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,io.netty.channel.ChannelPromise)
 1
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.channel.socket.DefaultDatagramChannelConfig.getOption(io.netty.channel.ChannelOption)
+Entry point for SocketCancelWriteTest.testCancelWrite
+io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler(boolean)
+4
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
 1
-Entry point for DatagramMulticastTest.testMulticast
-io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
-3
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
 io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
 30
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
@@ -43,227 +44,29 @@ Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
-28
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
-31
+io.netty.buffer.PooledByteBufAllocator$PoolThreadLocalCache(io.netty.buffer.PooledByteBufAllocator,long)
+18
 Entry point for DatagramMulticastTest.testMulticast
 Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
-32
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
 Entry point for SocketBufReleaseTest.testBufRelease
 Entry point for SocketCancelWriteTest.testCancelWrite
 Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
 Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
 Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
 Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
 Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
 Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
 Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
 Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
-35
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
-35
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.DefaultChannelHandlerContext.findContextInbound()
-11
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
 1
-Entry point for SocketCancelWriteTest.testCancelWrite
-io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
-29
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
 Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object)
-1
-Entry point for SocketCancelWriteTest.testCancelWrite
 io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
 29
 Entry point for DatagramMulticastTest.testMulticast
@@ -295,18 +98,10 @@ Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.buffer.ByteBufAllocator)
-2
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
-2
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-io.netty.buffer.Unpooled.buffer()
+io.netty.buffer.PoolArena.smallIdx(int)
 1
-Entry point for SocketCancelWriteTest.testCancelWrite
-io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
 29
 Entry point for DatagramMulticastTest.testMulticast
 Entry point for DatagramUnicastTest.testSimpleSend
@@ -337,232 +132,6 @@ Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.DefaultChannelConfig.getWriteBufferHighWaterMark()
-21
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.bootstrap.AbstractBootstrap.register()
-1
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.buffer.PooledByteBufAllocator$PoolThreadLocalCache(io.netty.buffer.PooledByteBufAllocator,long)
-18
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
-18
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
-28
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
-28
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.channel.socket.DefaultSocketChannelConfig.setAllocator(io.netty.buffer.ByteBufAllocator)
-32
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolArena.smallIdx(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolArena.isTiny(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolArena.isTinyOrSmall(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
-4
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
-4
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
-37
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.buffer.AbstractByteBufAllocator.heapBuffer()
-1
-Entry point for SocketCancelWriteTest.testCancelWrite
 io.netty.buffer.AbstractByteBufAllocator.toString()
 31
 Entry point for DatagramMulticastTest.testMulticast
@@ -596,44 +165,14 @@ Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead()
-1
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
-7
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
-7
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoNotAutoRead()
-1
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
-37
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
+29
 Entry point for DatagramMulticastTest.testMulticast
 Entry point for DatagramUnicastTest.testSimpleSend
 Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketBufReleaseTest.testBufRelease
 Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
 Entry point for SocketEchoTest.testSimpleEcho
 Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
@@ -649,9 +188,35 @@ Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
 Entry point for SocketObjectEchoTest.testObjectEcho
 Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
 Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+28
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
 Entry point for SocketSslEchoTest.testSslEcho
@@ -661,80 +226,7 @@ Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
-21
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsClientHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine,boolean)
-2
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTls(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
-2
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTlsNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsServerHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine,boolean)
-2
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEchoNotAutoRead()
-1
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
-2
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler(boolean)
-2
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectCancellation()
-1
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-io.netty.channel.ChannelOption.valueOf(java.lang.String)
-18
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
 32
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
@@ -802,45 +294,91 @@ Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
-4
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler(boolean)
-4
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-io.netty.buffer.UnpooledUnsafeDirectByteBuf.deallocate()
+io.netty.buffer.PoolThreadCache$MemoryRegionCache(int)
 1
 Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+2
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoNotAutoRead()
+1
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
+2
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+35
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object)
+1
+Entry point for SocketCancelWriteTest.testCancelWrite
 io.netty.buffer.UnpooledUnsafeDirectByteBuf.freeDirect(java.nio.ByteBuffer)
 1
 Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PooledByteBuf.deallocate()
+io.netty.channel.DefaultChannelConfig.getWriteBufferHighWaterMark()
+21
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.socket.DefaultDatagramChannelConfig.setActiveOnOpen(boolean)
 1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.testsuite.transport.socket.AbstractDatagramTest.configure(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
-3
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
 Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
-3
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
-30
+io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+28
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
 Entry point for SocketBufReleaseTest.testBufRelease
@@ -860,8 +398,6 @@ Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
 Entry point for SocketObjectEchoTest.testObjectEcho
 Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
 Entry point for SocketSslEchoTest.testSslEcho
@@ -871,6 +407,383 @@ Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+1
+Entry point for SocketCancelWriteTest.testCancelWrite
+io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+32
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler(boolean)
+2
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+io.netty.channel.AbstractChannel.estimatorHandle()
+29
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestClientHandler(io.netty.buffer.ByteBuf,boolean)
+2
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
+7
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTls(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+2
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+io.netty.channel.socket.DefaultSocketChannelConfig.setAllocator(io.netty.buffer.ByteBufAllocator)
+32
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutor()
+1
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+io.netty.channel.socket.nio.NioDatagramChannel.checkJavaVersion()
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind()
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEchoNotAutoRead()
+1
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+io.netty.channel.nio.NioEventLoop.newTaskQueue()
+18
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelHandlerContext.findContextInbound()
+11
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+io.netty.buffer.AbstractByteBufAllocator.heapBuffer()
+1
+Entry point for SocketCancelWriteTest.testCancelWrite
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+37
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.buffer.PoolArena.isTiny(int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho()
+1
+Entry point for SocketStringEchoTest.testStringEcho
+io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTlsNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+28
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
+29
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+31
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+37
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.AbstractDatagramTest.configure(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.buffer.ByteBufAllocator)
+2
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
 io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket)
 30
 Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
@@ -903,21 +816,169 @@ Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.handler.codec.spdy.SpdyVersion,boolean)
-2
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestClientHandler(io.netty.buffer.ByteBuf,boolean)
-2
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
 1
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler(boolean)
-2
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+io.netty.channel.socket.DefaultDatagramChannelConfig.getOption(io.netty.channel.ChannelOption)
+1
+Entry point for DatagramMulticastTest.testMulticast
+io.netty.buffer.PooledByteBuf.deallocate()
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+37
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+35
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+io.netty.buffer.PoolThreadCache.cache(io.netty.buffer.PoolThreadCache.MemoryRegionCache[],int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsServerHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine,boolean)
+2
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+2
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
+18
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+4
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.AbstractChannel.write(java.lang.Object)
+1
+Entry point for SocketCancelWriteTest.testCancelWrite
+io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean,boolean)
+2
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead()
+1
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+io.netty.buffer.PoolThreadCache.log2(int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+2
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler(boolean)
+2
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.buffer.UnpooledUnsafeDirectByteBuf.deallocate()
+1
+Entry point for SocketBufReleaseTest.testBufRelease
 io.netty.channel.nio.NioEventLoop.openSelector()
 18
 Entry point for DatagramMulticastTest.testMulticast
@@ -938,61 +999,9 @@ Entry point for SocketSslGreetingTest.testSslGreeting
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.nio.NioEventLoop.newTaskQueue()
-18
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+io.netty.buffer.PoolThreadCache.cacheForSmall(io.netty.buffer.PoolArena,int)
+1
 Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketSslGreetingTest.testSslGreeting
-Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
-2
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler(boolean)
-2
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily)
-3
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.channel.socket.nio.NioDatagramChannel.checkJavaVersion()
-3
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind()
-1
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
-2
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketStringEchoTest$StringEchoHandler(boolean)
-2
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
 37
 Entry point for DatagramMulticastTest.testMulticast
@@ -1032,6 +1041,115 @@ Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.buffer.PoolThreadCache$SubPageMemoryRegionCache(int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectCancellation()
+1
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+io.netty.buffer.PoolArena.isTinyOrSmall(int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+30
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelReadManualRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.bootstrap.AbstractBootstrap.register()
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+4
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout()
+1
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+io.netty.buffer.Unpooled.buffer()
+1
+Entry point for SocketCancelWriteTest.testCancelWrite
+io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+2
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+io.netty.testsuite.transport.socket.SocketStringEchoTest$StringEchoHandler(boolean)
+2
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+io.netty.buffer.PoolThreadCache$NormalMemoryRegionCache(int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.ChannelOption.valueOf(java.lang.String)
+18
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketAutoReadTest.testAutoReadDisableOutsideChannelRead
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslGreetingTest.testSslGreeting
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily)
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler(boolean)
+2
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
+4
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsClientHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine,boolean)
+2
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
 io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
 37
 Entry point for DatagramMulticastTest.testMulticast
@@ -1071,35 +1189,8 @@ Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.buffer.PoolThreadCache.cache(io.netty.buffer.PoolThreadCache.MemoryRegionCache[],int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache.log2(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache$MemoryRegionCache(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache.cacheForSmall(io.netty.buffer.PoolArena,int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache$NormalMemoryRegionCache(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.buffer.PoolThreadCache$SubPageMemoryRegionCache(int)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
-io.netty.channel.AbstractChannel.estimatorHandle()
-29
+io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
+21
 Entry point for DatagramMulticastTest.testMulticast
 Entry point for DatagramUnicastTest.testSimpleSend
 Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
@@ -1113,33 +1204,24 @@ Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromis
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
 Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
 Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
 Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
 Entry point for SocketSslEchoTest.testSslEcho
 Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.AbstractChannel.write(java.lang.Object)
-1
-Entry point for SocketCancelWriteTest.testCancelWrite
-io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean,boolean)
+io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
+7
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.handler.codec.spdy.SpdyVersion,boolean)
 2
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
-2
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
