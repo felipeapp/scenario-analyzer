@@ -16,7 +16,7 @@ public class Issue {
 
 	public Issue() {
 		issueId = number = -1;
-		issueType = "No task (-1)";
+		issueType = "No issue (-1)";
 	}
 
 	public long getIssueId() {
