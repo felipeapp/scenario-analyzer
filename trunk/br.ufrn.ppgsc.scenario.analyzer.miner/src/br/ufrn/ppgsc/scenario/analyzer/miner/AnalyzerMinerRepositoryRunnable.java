@@ -456,7 +456,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 	}
 	
 	public void countTotalOfModules(Map<String, List<String>> scenariosWithBlames,
-			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep) {
+			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep,
+			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) {
 		
 		Set<String> counted = new HashSet<String>();
 		
@@ -465,7 +466,12 @@ public final class AnalyzerMinerRepositoryRunnable {
 				continue;
 			
 			for (String sig : signatures) {
-				if (counted.contains(sig) || matchesExcludeWord(sig))
+				Double t1 = avg_time_members_v1.get(sig);
+				Double t2 = avg_time_members_v2.get(sig);
+				
+				double delta = t1 == null ? t2 : t2 - t1;
+				
+				if (counted.contains(sig) || matchesExcludeWord(sig) || delta < 0.001)
 					continue;
 				
 				String class_name = getClassNameFromSignature(sig);
@@ -483,11 +489,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 	}
 	
-	private void persistScenariosWithBlames(String message, String partial_name, Map<String, List<String>> scenariosWithBlames) throws FileNotFoundException {
+	private void persistScenariosWithBlames(String message, String partial_name, Map<String, List<String>> scenariosWithBlames,
+			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) throws FileNotFoundException {
 		int total_members = 0;
 		int total_scenarios_with_blames = 0;
 		int total_members_without_word = 0;
 		
+		Set<String> members_with_time = new TreeSet<String>();
 		Set<String> counted = new HashSet<String>();
 		
 		System.out.println("persistFile: " + message);
@@ -495,14 +503,19 @@ public final class AnalyzerMinerRepositoryRunnable {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(
 				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
 		
+		PrintWriter pwl = new PrintWriter(new FileOutputStream(
+				"miner_log/" + system_id + "_" + partial_name + "_list_" + strdate + ".txt"), true);
+		
 		for (List<String> list : scenariosWithBlames.values())
 			if (!list.isEmpty())
 				++total_scenarios_with_blames;
 		
 		pw.println(message);
+		pwl.println(message + " [list]");
 		
 		// Cenários que possuem blames
 		pw.println(total_scenarios_with_blames);
+		pwl.println(total_scenarios_with_blames);
 		
 		/* 
 		 * Todos os cenários, alguns podem não ter blames.
@@ -512,7 +525,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		 */
 		pw.println(scenariosWithBlames.size());
 		
-		for (String scenario : scenariosWithBlames.keySet()) {
+		for (String scenario : new TreeSet<String>(scenariosWithBlames.keySet())) {
 			List<String> signatures = scenariosWithBlames.get(scenario);
 			
 			Collections.sort(signatures);
@@ -526,22 +539,42 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			pw.println(signatures.size() + " " + i);
 			
+			if (i > 0)
+				pwl.println(scenario);
+			
 			for (String s : signatures) {
-				pw.println(s);
+				Double t1 = avg_time_members_v1.get(s);
+				Double t2 = avg_time_members_v2.get(s);
+				
+				double delta = t1 == null ? t2 : t2 - t1;
+				
+				String text = s + " " + t1 + " " + t2 + " " + delta;
+				
+				pw.println(text);
+				// Aqui vai contar com os testes
+				//members_with_time.add(text);
 				
 				if (!counted.contains(s)) {
 					counted.add(s);
 					++total_members;
 					
-					if (!matchesExcludeWord(s))
+					if (!matchesExcludeWord(s) && delta >= 0.001) {
 						++total_members_without_word;
+						members_with_time.add(text);
+					}
 				}
 			}
 		}
 		
 		pw.println(total_members);
 		pw.println(total_members_without_word);
+		
+		pwl.println(members_with_time.size());
+		for (String member : members_with_time)
+			pwl.println(member);
+		
 		pw.close();
+		pwl.close();
 	}
 	
 	public void run() throws FileNotFoundException {
@@ -688,16 +721,42 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames(
 				"p_degraded_scenarios", "methods_performance_degradation");
 		
+		/*
+		 *  Necessário para o Netty porque estes testes mudaram.
+		 *  TODO: Ver como não usar isso depois.
+		 */
+		scenariosWithBlames.remove("Entry point for DatagramUnicastTest.testSimpleSend");
+		scenariosWithBlames.remove("Entry point for SocketConnectionAttemptTest.testConnectTimeout");
+		scenariosWithBlames.remove("Entry point for DatagramMulticastTest.testMulticast");
+		
+		/*
+		 *  Necessário para o ArgoUML porque este teste tem um sleep(2000).
+		 *  TODO: Ver como não usar isso depois.
+		 */		
+		scenariosWithBlames.remove("Entry point for TestNotationProvider.testListener");
+		
+		/*
+		 *  Temporário
+		 *  TODO: Fazer o teste durante a análise de degradação na fase anterior
+		 *  da abordagem e depois retirar isso
+		 */
+		
+		GenericDB database_v1 = DatabaseRelease.getDatabasev1();
+		GenericDB database_v2 = DatabaseRelease.getDatabasev2();
+		Map<String, Double> avg_time_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
+		Map<String, Double> avg_time_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
+		
 		// Mostrando os cenÃ¡rios degradados e os membros culpados
-		persistScenariosWithBlames("# Membros responsÃ¡veis pela degradaÃ§Ã£o de performance em cada cenÃ¡rios",
-				"scenarios_blames_performance_degradation", scenariosWithBlames);
+		persistScenariosWithBlames("# Membros responsáveis pela degradação de performance em cada cenário degradado",
+				"scenarios_blames_performance_degradation", scenariosWithBlames, avg_time_members_v1, avg_time_members_v2);
 		
 		// Mapas para contar quantas vezes as classes e pacotes aparecem no resultado dos culpados
 		Map<String, Integer> total_classes = new HashMap<String, Integer>();
 		Map<String, Integer> total_packages = new HashMap<String, Integer>();
 		
 		// Conta e armazena os resultados nos mapas.
-		countTotalOfModules(scenariosWithBlames, total_classes, total_packages, package_deep);
+		countTotalOfModules(scenariosWithBlames, total_classes, total_packages, package_deep,
+				avg_time_members_v1, avg_time_members_v2);
 		
 		// Mostrando os cenÃ¡rios degradados e os membros culpados
 		persistFile("# Contagem de classes e pacotes", "total_of_classes_and_packages", total_classes, total_packages);

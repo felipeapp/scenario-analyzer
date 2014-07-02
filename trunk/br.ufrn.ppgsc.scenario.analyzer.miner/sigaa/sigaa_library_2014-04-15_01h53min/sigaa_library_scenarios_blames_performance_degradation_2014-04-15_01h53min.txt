@@ -1,46 +1,46 @@
-# Membros responsáveis pela degradação de performance em cada cenários
+# Membros responsáveis pela degradação de performance em cada cenário degradado
 6
 6
-Pesquisa Simples no Acervo
-3 3
-br.ufrn.arq.dao.GenericDAOImpl.getSession()
-br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)
-br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)
-Renovar Empréstimo
-6 6
-br.ufrn.arq.dao.GenericDAOImpl.getSession()
-br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)
-br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)
-br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String)
-br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRenovaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)
-br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List)
-Emitir Declaração de Quitação
-4 4
-br.ufrn.arq.dao.GenericDAOImpl.getSession()
-br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)
-br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)
-br.ufrn.sigaa.dominio.Curso.getDescricao()
-Realizar Empréstimo
-8 8
-br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object)
-br.ufrn.arq.dao.GenericDAOImpl.getSession()
-br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)
-br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)
-br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String)
-br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRealizaEmprestimo.execute(br.ufrn.arq.dominio.Movimento)
-br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List)
-br.ufrn.sigaa.dominio.Curso.getDescricao()
-Verificar Situação do Usuário
-4 4
-br.ufrn.arq.dao.GenericDAOImpl.getSession()
-br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)
-br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)
-br.ufrn.sigaa.dominio.Curso.getDescricao()
 Devolver Empréstimo
 4 4
-br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object)
-br.ufrn.arq.dao.GenericDAOImpl.getSession()
-br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session)
-br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int)
+br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object) 0.3263157894736842 7.873684210526315 7.5473684210526315
+br.ufrn.arq.dao.GenericDAOImpl.getSession() 0.16617781851512373 5.492942254812099 5.326764436296975
+br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session) null 5.313748854262145 5.313748854262145
+br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int) null 0.22071494042163153 0.22071494042163153
+Emitir Declaração de Quitação
+4 4
+br.ufrn.arq.dao.GenericDAOImpl.getSession() 0.16617781851512373 5.492942254812099 5.326764436296975
+br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session) null 5.313748854262145 5.313748854262145
+br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int) null 0.22071494042163153 0.22071494042163153
+br.ufrn.sigaa.dominio.Curso.getDescricao() 0.0 0.09375 0.09375
+Pesquisa Simples no Acervo
+3 3
+br.ufrn.arq.dao.GenericDAOImpl.getSession() 0.16617781851512373 5.492942254812099 5.326764436296975
+br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session) null 5.313748854262145 5.313748854262145
+br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int) null 0.22071494042163153 0.22071494042163153
+Realizar Empréstimo
+8 8
+br.ufrn.arq.dao.GenericDAOImpl.findByExactField(java.lang.Class,java.lang.String,java.lang.Object) 0.3263157894736842 7.873684210526315 7.5473684210526315
+br.ufrn.arq.dao.GenericDAOImpl.getSession() 0.16617781851512373 5.492942254812099 5.326764436296975
+br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session) null 5.313748854262145 5.313748854262145
+br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int) null 0.22071494042163153 0.22071494042163153
+br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String) 0.0 0.8130434782608695 0.8130434782608695
+br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRealizaEmprestimo.execute(br.ufrn.arq.dominio.Movimento) 227.53333333333333 448.5777777777778 221.04444444444445
+br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List) null 16.55 16.55
+br.ufrn.sigaa.dominio.Curso.getDescricao() 0.0 0.09375 0.09375
+Renovar Empréstimo
+6 6
+br.ufrn.arq.dao.GenericDAOImpl.getSession() 0.16617781851512373 5.492942254812099 5.326764436296975
+br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session) null 5.313748854262145 5.313748854262145
+br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int) null 0.22071494042163153 0.22071494042163153
+br.ufrn.arq.util.UFRNUtils.toMD5(java.lang.String,java.lang.String) 0.0 0.8130434782608695 0.8130434782608695
+br.ufrn.sigaa.biblioteca.circulacao.negocio.ProcessadorRenovaEmprestimo.execute(br.ufrn.arq.dominio.Movimento) 160.66666666666666 321.3666666666667 160.70000000000002
+br.ufrn.sigaa.biblioteca.util.CirculacaoUtil.geraProrrogacoesEmprestimo(br.ufrn.sigaa.biblioteca.circulacao.dominio.Emprestimo,br.ufrn.sigaa.biblioteca.dominio.Biblioteca,java.util.List) null 16.55 16.55
+Verificar Situação do Usuário
+4 4
+br.ufrn.arq.dao.GenericDAOImpl.getSession() 0.16617781851512373 5.492942254812099 5.326764436296975
+br.ufrn.arq.seguranca.log.SessionLogger.registerCaller(int,org.hibernate.Session) null 5.313748854262145 5.313748854262145
+br.ufrn.arq.util.UFRNUtils.stackTraceInvocador(int) null 0.22071494042163153 0.22071494042163153
+br.ufrn.sigaa.dominio.Curso.getDescricao() 0.0 0.09375 0.09375
 9
 9

@@ -16,10 +16,10 @@ public interface IRepositoryMiner {
 
 	public String getCommittedRevisionNumber(String path);
 
-	public String getUrl();
-
-	public String getUser();
-
-	public String getPassword();
+//	public String getUrl();
+//
+//	public String getUser();
+//
+//	public String getPassword();
 
 }
