@@ -19,10 +19,6 @@
   	
   Disabled tests (It has failed always!):
   	io.netty.testsuite.transport.socket.SocketGatheringWriteTest
-  
-  Tests changed (Sometimes they never finish! The originals has not time limit.):
-  	io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho() -> @Test(timeout = 120000)
-  	io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho() -> @Test(timeout = 120000)
 	
   Do not convert netty-common project to JAR. Use the original JAR (downloaded).
   -->
@@ -38,7 +34,7 @@
   <groupId>io.netty</groupId>
   <artifactId>netty-parent</artifactId>
   <packaging>pom</packaging>
-  <version>4.0.0.Final</version>
+  <version>4.0.6.Final</version>
 
   <name>Netty</name>
   <url>http://netty.io/</url>
@@ -65,7 +61,7 @@
     <url>https://github.com/netty/netty</url>
     <connection>scm:git:git://github.com/netty/netty.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/netty/netty.git</developerConnection>
-    <tag>netty-4.0.0.Final</tag>
+    <tag>netty-4.0.6.Final</tag>
   </scm>
 
   <developers>
@@ -96,8 +92,7 @@
       -Xmx4096m
       -XX:MaxPermSize=1024m
     </test.jvm.argLine>
-    
-    <scenario.analyzer.path>C:/Users/Felipe/Workspaces/workspace-netty-4.0.0.Final</scenario.analyzer.path>
+    <scenario.analyzer.path>C:/Development/Workspace/scenario-analyzer</scenario.analyzer.path>
   </properties>
  
   <modules>
@@ -405,14 +400,11 @@
           <excludes>
             <exclude>**/Abstract*</exclude>
             <exclude>**/TestUtil*</exclude>
-            <!-- Meus excludes -->
-            <exclude>**/SocketGatheringWriteTest*</exclude>
-            <!-- Fim dos meus excludes -->
           </excludes>
           <runOrder>random</runOrder>
           <argLine>${test.jvm.argLine}</argLine>
-          <!-- Isto foi adicionado para que cada teste rode independnte do outro, em uma JVM limpa -->
-          <forkCount>1</forkCount><!-- Não executa em paralelo, inicia apenas uma JVM por -->
+          <!-- Isto foi adicionado para que cada teste rode independente do outro, em uma JVM limpa -->
+          <forkCount>1</forkCount><!-- Não executa em paralelo, inicia apenas uma JVM por vez -->
           <reuseForks>false</reuseForks><!-- Não reusa a JVM, finaliza a anterior e inicia outra para o novo teste -->
           <additionalClasspathElements>          	
           	<additionalClasspathElement>${scenario.analyzer.path}/br.ufrn.ppgsc.scenario.analyzer.libs/libs/javax.faces-2.2.6.jar</additionalClasspathElement>
@@ -622,3 +614,4 @@
     </pluginManagement>
   </build>
 </project>
+
