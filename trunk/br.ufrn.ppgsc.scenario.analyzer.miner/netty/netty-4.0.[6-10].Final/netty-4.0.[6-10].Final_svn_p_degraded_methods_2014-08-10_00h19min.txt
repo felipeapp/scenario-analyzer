@@ -1,0 +1,104 @@
+# Métodos que tiveram performance degradada na evolução
+-1 1829 1707 1825 
+4
+transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+Members 1
+newInstance 55 61
+Lines 2
+Revision fc6213604dc3a1a596b5a6fb25fd9cf0759e0fc7
+Issues 1
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+Members 1
+testSslEchoWithChunkHandler 75 77
+Lines 2
+Revision a857994d82cadfce21ab34434c3523a8e8653141
+Issues 1
+IssueID 1825 | IssueNumber 1825 | IssueType defect
+transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+Members 1
+bind 224 234
+Lines 1
+Revision 7d9388a3cc90b322eb1e9ea048a16e31beaad387
+Issues 1
+IssueID 1829 | IssueNumber 1829 | IssueType improvement
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+Members 2
+writeAndFlush 680 691
+Lines 9
+Revision 5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Issues 1
+IssueID 1707 | IssueNumber 1707 | IssueType improvement
+Revision fb619f23947aab158a11730e00f4dbd490093669
+Issues 1
+findContextOutbound 828 834
+Lines 1
+Revision b8866aef330403353285486bbf5c0342b6c6a998
+Issues 1
+3
+defect:10
+improvement:3
+none yet:6
+2
+defect:1
+improvement:2
+3
+defect
+24
+setActiveOnOpen
+getOptions
+setOption
+getOption
+channelInactive
+checkReadableBytes
+skipBytes
+readByte
+getOptions
+getOptions
+isActive
+doWrite
+getBytes
+readBytes
+testSslEchoWithChunkHandlerComposite
+testSslEchoWithChunkHandler
+testSslEcho0
+channelRead0
+EchoHandler
+testSslEchoComposite
+testSslEcho
+addFlush
+close
+recycle
+improvement
+6
+writeAndFlush
+register
+bind
+fillBufferArrayNonDirect
+nioBuffers
+fillBufferArray
+none yet
+16
+setMessageSizeEstimator
+write
+disconnect
+run
+newInstance
+getMessageSizeEstimator
+finishConnect
+DefaultChannelPipeline
+processSelectedKey
+estimatorHandle
+remove
+decrementPendingOutboundBytes
+addMessage
+getWritable
+incrementPendingOutboundBytes
+exceptionCaught
+2
+defect
+1
+testSslEchoWithChunkHandler
+improvement
+2
+bind
+writeAndFlush
