@@ -100,11 +100,12 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 		return password;
 	}
 
+	//TODO: Deixar esse método genérico
 	public String getCommittedRevisionNumber(String path) {
-		if (path.contains("netty-4.0.0.Final"))
-			return "8acba6063eabd9fafec57c5abcfa3dd79285bbdf";
-		else if (path.contains("netty-4.0.19.Final"))
-			return "f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a";
+		if (path.contains("netty-4.0.17.Final"))
+			return "33587eb18357dfece421167aea52cd722ee101f9";
+		else if (path.contains("netty-4.0.18.Final"))
+			return "1512a4dccacfd9bf14f06b5c96b2ec46d22760c2";
 		
 		return null;
 	}
