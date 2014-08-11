@@ -172,8 +172,8 @@ public class GitUpdatedLinesHandler {
 
 	public static void main(String[] args) throws IOException {
 		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
-				"8acba6063eabd9fafec57c5abcfa3dd79285bbdf",
-				"f696c98ff8fe23dce4f2046cdb7d8483fc24cc8a",
+				"c5d8af446a39db10a1744d47e5a466fa1c87a374",
+				"b562148e2d8d0f0487495fb5dd2d5de62306c5e0",
 				"C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/",
 				"DefaultChannelHandlerContext.java");
 		

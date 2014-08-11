@@ -1,12 +1,11 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.svn;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
@@ -19,29 +18,20 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IRepositoryMiner;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
-import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.parser.MethodLimitBuilder;
 
 public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
-
-	private final Logger logger = Logger.getLogger(SVNUpdatedMethodsMiner.class);
 	
-	private Map<String, Collection<UpdatedMethod>> changedMethods;
 	private Map<String, SVNUpdatedLinesHandler> handlers;
-	
+    
 	private String url;
     private String user;
     private String password;
-    
-    private List<String> targetPaths;
-	private List<String> startRevisions;
-	private List<String> endRevisions;
-    
+	
     private SVNRepository repository;
     private SVNClientManager client;
     
-	public void connect(String url, String user, String password) {
-		this.url = url;
+    public void connect(String url, String user, String password) {
+    	this.url = url;
 		this.user = user;
 		this.password = password;
 		
@@ -58,78 +48,39 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
         ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(user, password);
         repository.setAuthenticationManager(authManager);
 		client.setAuthenticationManager(authManager);
-	}
-	
-	public void initialize(List<String> targetPaths, List<String> startRevisions, List<String> endRevisions) {
-		this.targetPaths = targetPaths;
-		this.startRevisions = startRevisions;
-		this.endRevisions = endRevisions;
-		
+    }
+    
+	public void initialize() {
 		this.handlers = new HashMap<String, SVNUpdatedLinesHandler>();
-		this.changedMethods = new HashMap<String, Collection<UpdatedMethod>>();
 	}
 	
-	public Map<String, Collection<UpdatedMethod>> mine() {
-		logger.info("starting mining...");
+	public Object mine(String path, String startRevision, String endRevision) {
+		/* Acha quem foi a última pessoa que alterou cada linha.
+		 * Para isso doAnnotate olha um conjunto de revisões anteriores e diz quem
+		 * foi a última pessoa que alterou a linha antes de chegar na revisão final.
+		 * Se a revisão que alterou aquela linha não está no intervalo de revisões considerado,
+		 * ela é considerada como não alterada, retornando -1 para o número da revisão
+		 * e null para os outros elementos.
+		 * 
+		 * O número da linha retornada é referente ao arquivo da versão final (arquivo de referência)
+		 * 
+		 * Ainda não entendi o que é a pegRevision, não vi diferença mudando o valor passado,
+		 * então estou passando null e funciona!
+		 */
+		SVNUpdatedLinesHandler handler = new SVNUpdatedLinesHandler(repository, path);
 		
 		try {
-			/* Acha quem foi a última pessoa que alterou cada linha.
-			 * Para isso doAnnotate olha um conjunto de revisões anteriores e diz quem
-			 * foi a última pessoa que alterou a linha antes de chegar na revisão final.
-			 * Se a revisão que alterou aquela linha não está no intervalo de revisões considerado,
-			 * ela é considerada como não alterada, retornando -1 para o número da revisão
-			 * e null para os outros elementos.
-			 * 
-			 * O número da linha retornada é referente ao arquivo da versão final (arquivo de referência)
-			 * 
-			 * Ainda não entendi o que é a pegRevision, não vi diferença mudando o valor passado,
-			 * então estou passando null e funciona!
-			 */
-			int i = 0;
-			for (String path : targetPaths) {
-				if (!startRevisions.get(i).equals(endRevisions.get(i))) {
-					logger.info("Running doAnnotate [" + startRevisions.get(i) + ", " + endRevisions.get(i) + "]");
-					logger.info("Path (" + (i + 1) + "/" + targetPaths.size() + "):" + path);
-					
-					SVNUpdatedLinesHandler handler = handlers.get(path);
-					
-					if (handler == null) {
-						handler = new SVNUpdatedLinesHandler(repository, path);
-						
-						client.getLogClient().doAnnotate(
-								SVNURL.parseURIEncoded(url + path),
-								null,
-								SVNRevision.create(Long.parseLong(startRevisions.get(i))),
-								SVNRevision.create(Long.parseLong(endRevisions.get(i))),
-								handler);
-						
-						handlers.put(path, handler);
-					}
-					else {
-						logger.info("Path previously analyzedPath: " + path);
-					}
-				}
-				
-				++i;
-			}
-		} catch (SVNException ex) {
-			ex.printStackTrace();
+			client.getLogClient().doAnnotate(
+					SVNURL.parseURIEncoded(url + path),
+					null,
+					SVNRevision.create(Long.parseLong(startRevision)),
+					SVNRevision.create(Long.parseLong(endRevision)),
+					handler);
+		} catch (SVNException e) {
+			e.printStackTrace();
 		}
 		
-		for (String path : handlers.keySet()) {
-			SVNUpdatedLinesHandler handler = handlers.get(path);
-			
-			// Pega as linhas modificadas
-			List<UpdatedLine> lines = handler.getChangedLines();
-			
-			// Parse da classe buscando os métodos (linha inicial, final, nome)
-			MethodLimitBuilder builder = new MethodLimitBuilder(handler.getSourceCode());
-			
-			// Pega os métodos mudados verificando as linhas mudadas e os limites dos métodos
-			changedMethods.put(path, builder.filterChangedMethods(lines));
-		}
-		
-		return changedMethods;
+		return handler;
 	}
 	
 	public String getUrl() {
@@ -144,6 +95,26 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 		return password;
 	}
 
+	public Object getLinesHandler(String path) {
+		return handlers.get(path);
+	}
+
+	public Object putLinesHandler(String path, Object handler) {
+		return handlers.put(path, (SVNUpdatedLinesHandler) handler);
+	}
+	
+	public Set<String> getAllLinesHandlerKeys() {
+		return handlers.keySet();
+	}
+
+	public List<UpdatedLine> getChangedLines(String path) {
+		return handlers.get(path).getChangedLines();
+	}
+
+	public String getSourceCode(String path) {
+		return handlers.get(path).getSourceCode();
+	}
+	
 	// Path indica um caminho local
 	public String getCommittedRevisionNumber(String path) {
 		long revision = -1;
