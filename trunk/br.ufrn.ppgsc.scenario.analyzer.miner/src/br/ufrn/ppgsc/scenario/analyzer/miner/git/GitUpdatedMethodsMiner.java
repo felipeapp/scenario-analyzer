@@ -33,7 +33,8 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 		
 		this.gitcommits = new Properties();
 		try {
-			this.gitcommits.load(new FileInputStream(SystemMetadataUtil.getInstance().getStringProperty("commit_file")));
+			this.gitcommits.load(new FileInputStream(
+					"resources/" + SystemMetadataUtil.getInstance().getStringProperty("commit_file")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
