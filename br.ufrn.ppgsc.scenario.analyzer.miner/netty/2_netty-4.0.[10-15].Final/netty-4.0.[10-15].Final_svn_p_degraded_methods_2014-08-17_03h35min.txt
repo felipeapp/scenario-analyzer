@@ -1,0 +1,131 @@
+# Métodos que tiveram performance degradada na evolução
+-1 2098 1952 2128 
+8
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketConnectionAttemptTest.java
+Members 1
+testConnectTimeout 53 61
+Lines 2
+Revision dc9537e672f931a7bc26aa90263d3dd7189c386e
+Issues 1
+Revision 2746688fd7da77df0e72e2a20364a0b6803e4096
+Issues 1
+IssueID 2128 | IssueNumber 2128 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+Members 1
+testSpdyEcho 150 159
+Lines 16
+Revision 39ae2dd3f1856def09b21995ff0496b6ee59a8b8
+Issues 1
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketBufReleaseTest.java
+Members 1
+testBufRelease 48 70
+Lines 3
+Revision b3d8c81557315ac5b5d4b381fe7461ce276a3f9e
+Issues 1
+transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+Members 1
+toString 296 333
+Lines 1
+Revision 54db9ec725d2b2f74436b15e6c7aef196f098a81
+Issues 1
+transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+Members 1
+setOption 149 179
+Lines 3
+Revision d2032254b7b29aca620223c672ffa244171898b5
+Issues 1
+IssueID 1952 | IssueNumber 1952 | IssueType defect
+Revision c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+Issues 1
+IssueID 1952 | IssueNumber 1952 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+Members 1
+testSslEcho 88 91
+Lines 21
+Revision bc21443ea904ba37f46c1fb3b9ab99322e3bbb0d
+Issues 1
+IssueID 2098 | IssueNumber 2098 | IssueType defect
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+Members 1
+write 694 714
+Lines 1
+Revision 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+Issues 1
+testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+Members 1
+testSimpleSendWithoutBind 72 100
+Lines 1
+Revision 2712ed9cbb4bba69a8b30102ce036a0b06d41ec5
+Issues 1
+3
+defect:10
+improvement:2
+none yet:6
+1
+defect:3
+3
+defect
+28
+testConnectCancellation
+testConnectTimeout
+isAutoClose
+getOptions
+setOption
+setAutoClose
+getWriteBufferHighWaterMark
+getOption
+doBind
+initAndRegister
+operationComplete
+setWriteBufferHighWaterMark
+openSelector
+nioBuffer
+capacity
+capacity
+disconnect
+flush0
+channelRead
+forceClose
+SocketSslEchoTest
+initChannel
+data
+testSslEcho
+wrap
+run
+SslHandler
+runDelegatedTasks
+improvement
+12
+DefaultChannelConfig
+wrap
+finishWrap
+handshake
+wrapNonAppData
+flush
+decode
+isEncrypted
+channelReadComplete
+channelActive
+getEncryptedPacketLength
+handlerAdded
+none yet
+13
+discardReadComponents
+safeExecute
+connect
+disconnect
+bind
+deregister
+close
+doReadMessages
+disconnect
+invokeLater
+unwrap
+operationComplete
+write
+1
+defect
+3
+testConnectTimeout
+setOption
+testSslEcho
