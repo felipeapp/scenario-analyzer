@@ -592,7 +592,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			pwl.println(member);
 		
 		pwl.println(map_number_issue.size());
-		for (long issue_number : map_number_issue.keySet())
+		for (long issue_number : new TreeSet<Long>(map_number_issue.keySet()))
 			pwl.println(issue_number + ":" + map_number_issue.get(issue_number).getIssueType());
 		
 		Map<String, Set<Long>> map_type_issues = new HashMap<String, Set<Long>>();
