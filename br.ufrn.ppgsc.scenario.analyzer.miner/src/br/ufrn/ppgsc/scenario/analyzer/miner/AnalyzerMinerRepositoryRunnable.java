@@ -499,7 +499,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Set<String> members_with_time = new TreeSet<String>();
 		Set<String> counted = new HashSet<String>();
 		
-		Set<Issue> list_issues = new HashSet<Issue>();
+		Map<Long, Issue> map_number_issue = new HashMap<Long, Issue>();
 		Map<String, Set<Issue>> map_type_issues = new HashMap<String, Set<Issue>>();
 		
 		System.out.println("persistFile: " + message);
@@ -547,6 +547,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 				pwl.println(scenario);
 			
 			for (String s : signatures) {
+				Set<Long> method_number_issue = new HashSet<Long>();
+				
 				Double t1 = avg_time_members_v1.get(s);
 				Double t2 = avg_time_members_v2.get(s);
 				
@@ -557,9 +559,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 				for (UpdatedMethod um : p_degraded_changed_methods.get(s)) {
 					for (UpdatedLine ul : um.getUpdatedLines()) {
 						for (Issue issue  : ul.getIssues()) {
-							text += " " + issue.getNumber();
-							
-							list_issues.add(issue);
+							method_number_issue.add(issue.getNumber());
+							map_number_issue.put(issue.getNumber(), issue);
 							
 							Set<Issue> type_list = map_type_issues.get(issue.getIssueType());
 							
@@ -572,6 +573,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 						}
 					}
 				}
+				
+				for (Long number : method_number_issue)
+					text += " " + number;
 				
 				pw.println(text);
 				// Aqui vai contar com os testes
@@ -596,9 +600,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String member : members_with_time)
 			pwl.println(member);
 		
-		pwl.println(list_issues.size());
-		for (Issue issue : list_issues)
-			pwl.println(issue.getNumber() + " " + issue.getIssueType());
+		pwl.println(map_number_issue.size());
+		for (long issue_number : map_number_issue.keySet())
+			pwl.println(issue_number + ":" + map_number_issue.get(issue_number).getIssueType());
 		
 		pwl.println(map_type_issues.size());
 		for (String issue_type : map_type_issues.keySet())
