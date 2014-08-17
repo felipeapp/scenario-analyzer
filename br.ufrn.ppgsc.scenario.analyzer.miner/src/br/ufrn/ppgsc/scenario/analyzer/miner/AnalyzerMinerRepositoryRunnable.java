@@ -758,7 +758,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 		
 		// Mostrando os issues
-		persistFile("# Issues responsáveis pela degradação de performance", "issues_performance_degradation_all", p_degraded_changed_methods);
+		persistFile("# Issues responsáveis pela degradação de performance", "issues_performance_degradation", p_degraded_changed_methods);
 		
 		// Mostrando o impacto dos responsáveis pela degradação de performance
 		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degraded_changed_methods.keySet());
