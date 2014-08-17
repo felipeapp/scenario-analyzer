@@ -1,0 +1,21 @@
+# Membros responsáveis pela degradação de performance em cada cenário degradado [list]
+3
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketStartTlsTest.testStartTls
+3
+io.netty.channel.ChannelHandlerAdapter.isSharable() 0.1618150684931507 0.21818181818181817 0.05636674968866748 1650
+io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel) null 0.23217391304347826 0.23217391304347826 -1
+io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean) null 0.005728899113304893 0.005728899113304893 -1 1606
+3
+-1:No issue (-1)
+1650:none yet
+1606:improvement
+3
+improvement:1
+No issue (-1):1
+none yet:1
+3
+improvement:1606 
+No issue (-1):-1 
+none yet:1650 
