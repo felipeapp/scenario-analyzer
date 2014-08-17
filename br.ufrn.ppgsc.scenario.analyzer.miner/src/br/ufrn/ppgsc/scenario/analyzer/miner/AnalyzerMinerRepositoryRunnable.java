@@ -499,8 +499,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Set<String> members_with_time = new TreeSet<String>();
 		Set<String> counted = new HashSet<String>();
 		
-		List<Issue> list_issues = new ArrayList<Issue>();
-		Map<String, List<Issue>> map_type_issues = new HashMap<String, List<Issue>>();
+		Set<Issue> list_issues = new HashSet<Issue>();
+		Map<String, Set<Issue>> map_type_issues = new HashMap<String, Set<Issue>>();
 		
 		System.out.println("persistFile: " + message);
 		
@@ -561,10 +561,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 							
 							list_issues.add(issue);
 							
-							List<Issue> type_list = map_type_issues.get(issue.getIssueType());
+							Set<Issue> type_list = map_type_issues.get(issue.getIssueType());
 							
 							if (type_list == null) {
-								type_list = new ArrayList<Issue>();
+								type_list = new HashSet<Issue>();
 								map_type_issues.put(issue.getIssueType(), type_list);
 							}
 							
