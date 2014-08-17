@@ -1,0 +1,1132 @@
+135 [main] INFO org.hibernate.annotations.common.Version - Hibernate Commons Annotations 3.2.0.Final
+140 [main] INFO org.hibernate.cfg.Environment - Hibernate 3.6.10.Final
+145 [main] INFO org.hibernate.cfg.Environment - hibernate.properties not found
+145 [main] INFO org.hibernate.cfg.Environment - Bytecode provider name : javassist
+150 [main] INFO org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling
+234 [main] INFO org.hibernate.cfg.Configuration - configuring from resource: netty/netty_4.0.6.Final_testsuite_hibernate.cfg.xml
+234 [main] INFO org.hibernate.cfg.Configuration - Configuration resource: netty/netty_4.0.6.Final_testsuite_hibernate.cfg.xml
+329 [main] INFO org.hibernate.cfg.Configuration - Configured SessionFactory: null
+399 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution
+439 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution on table execution
+524 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario
+524 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario on table scenario
+549 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode
+549 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode on table node
+564 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation
+564 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation on table annotation
+569 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimePerformance
+579 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeSecurity
+579 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeReliability
+579 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeRobustness
+594 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode.children -> node
+594 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution.scenarios -> scenario
+594 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+599 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+604 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Using Hibernate built-in connection pool (not for production use!)
+604 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Hibernate connection pool size: 20
+604 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - autocommit mode: false
+629 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - using driver: org.postgresql.Driver at URL: jdbc:postgresql://localhost:5432/netty_4.0.6.Final_testsuite
+629 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - connection properties: {user=scenario_analyzer_user, password=****}
+734 [main] INFO org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.PostgreSQLDialect
+754 [main] INFO org.hibernate.engine.jdbc.JdbcSupportLoader - Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Database ->
+       name : PostgreSQL
+    version : 9.3.4
+      major : 9
+      minor : 3
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Driver ->
+       name : PostgreSQL Native Driver
+    version : PostgreSQL 9.3 JDBC4.1 (build 1101)
+      major : 9
+      minor : 3
+754 [main] INFO org.hibernate.transaction.TransactionFactoryFactory - Using default transaction strategy (direct JDBC transactions)
+754 [main] INFO org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+754 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+754 [main] INFO org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+759 [main] INFO org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+759 [main] INFO org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+759 [main] INFO org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled
+759 [main] INFO org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+759 [main] INFO org.hibernate.cfg.SettingsFactory - Query cache: disabled
+759 [main] INFO org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory
+759 [main] INFO org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+759 [main] INFO org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+764 [main] INFO org.hibernate.cfg.SettingsFactory - Statistics: disabled
+764 [main] INFO org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+764 [main] INFO org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+764 [main] INFO org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+764 [main] INFO org.hibernate.cfg.SettingsFactory - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+789 [main] INFO org.hibernate.impl.SessionFactoryImpl - building session factory
+794 [main] INFO org.hibernate.type.BasicTypeRegistry - Type registration [materialized_blob] overrides previous : org.hibernate.type.MaterializedBlobType@4d16c81d
+1119 [main] INFO org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+1124 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - Running schema validator
+1124 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - fetching database metadata
+1161 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.annotation
+1161 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, failure_rate, name, type, limit_time]
+1171 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.execution
+1171 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, system_name, date, system_version]
+1176 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node
+1176 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [member, id, time, exception, parent_id, constructor]
+1186 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_annotation
+1186 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [annotation_id, node_id]
+1191 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_scenario
+1191 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [scenario_id, node_id]
+1196 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario
+1196 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, root_id, name, execution_id, date, thread_id]
+1201 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario_context
+1201 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, value, key]
+1243 [main] INFO org.hibernate.cfg.Configuration - configuring from resource: netty/netty_4.0.10.Final_testsuite_hibernate.cfg.xml
+1243 [main] INFO org.hibernate.cfg.Configuration - Configuration resource: netty/netty_4.0.10.Final_testsuite_hibernate.cfg.xml
+1248 [main] INFO org.hibernate.cfg.Configuration - Configured SessionFactory: null
+1248 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution
+1248 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution on table execution
+1253 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario
+1253 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario on table scenario
+1258 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode
+1258 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode on table node
+1263 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation
+1263 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation on table annotation
+1263 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimePerformance
+1263 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeSecurity
+1268 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeReliability
+1268 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeRobustness
+1268 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode.children -> node
+1268 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution.scenarios -> scenario
+1268 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+1273 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+1273 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Using Hibernate built-in connection pool (not for production use!)
+1273 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Hibernate connection pool size: 20
+1273 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - autocommit mode: false
+1273 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - using driver: org.postgresql.Driver at URL: jdbc:postgresql://localhost:5432/netty_4.0.10.Final_testsuite
+1273 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - connection properties: {user=scenario_analyzer_user, password=****}
+1293 [main] INFO org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.PostgreSQLDialect
+1293 [main] INFO org.hibernate.engine.jdbc.JdbcSupportLoader - Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Database ->
+       name : PostgreSQL
+    version : 9.3.4
+      major : 9
+      minor : 3
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Driver ->
+       name : PostgreSQL Native Driver
+    version : PostgreSQL 9.3 JDBC4.1 (build 1101)
+      major : 9
+      minor : 3
+1293 [main] INFO org.hibernate.transaction.TransactionFactoryFactory - Using default transaction strategy (direct JDBC transactions)
+1293 [main] INFO org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+1293 [main] INFO org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Query cache: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Statistics: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+1293 [main] INFO org.hibernate.cfg.SettingsFactory - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+1298 [main] INFO org.hibernate.impl.SessionFactoryImpl - building session factory
+1298 [main] INFO org.hibernate.type.BasicTypeRegistry - Type registration [materialized_blob] overrides previous : org.hibernate.type.MaterializedBlobType@4d16c81d
+1328 [main] INFO org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+1328 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - Running schema validator
+1328 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - fetching database metadata
+1348 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.annotation
+1348 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, failure_rate, name, type, limit_time]
+1353 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.execution
+1353 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, system_name, date, system_version]
+1358 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node
+1358 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [member, id, time, exception, parent_id, constructor]
+1363 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_annotation
+1363 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [annotation_id, node_id]
+1368 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_scenario
+1368 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [scenario_id, node_id]
+1373 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario
+1373 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, root_id, name, execution_id, date, thread_id]
+1378 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario_context
+1378 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, value, key]
+Calculating time average of scenarios in version 1...
+Calculating time average of scenarios in version 2...
+Determining excluded scenarios...
+Determining changed scenarios...
+Determining kept scenarios...
+Determining scenarios with degraded performance...
+Determining scenarios with optimized performance...
+Determining scenarios with unchanged performance...
+persistFile: # Cenários executados na primeira versão, mas não na evolução
+persistFile: # Cenários executados na evolução, mas não na primeira versão
+persistFile: # Cenários que foram executados nas duas versões
+persistFile: # Cenários que tiveram performance degradada na evolução
+persistFile: # Cenários que tiveram performance otimizada na evolução
+persistFile: # Cenários que tiveram performance inalterada na evolução
+Calculating time average of members in version 1...
+Calculating time average of members in version 2...
+Determining excluded methods...
+Determining changed methods...
+Determining kept methods...
+Determining methods with degraded performance...
+Determining methods with optimized performance...
+Determining methods with unchanged performance...
+persistFile: # Métodos executados na primeira versão, mas não na evolução
+persistFile: # Métodos executados na evolução, mas não na primeira versão
+persistFile: # Métodos que foram executados nas duas versões
+persistFile: # Métodos que tiveram performance degradada na evolução
+persistFile: # Métodos que tiveram performance otimizada na evolução
+persistFile: # Métodos que tiveram performance inalterada na evolução
+Building map for scenario 4, Entry point for SctpEchoTest.testSimpleEcho, 1/20, 1 seconds
+Building map for scenario 16, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 2/20, 2 seconds
+Building map for scenario 44, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 3/20, 2 seconds
+Building map for scenario 48, Entry point for SctpEchoTest.testSimpleEcho, 4/20, 1 seconds
+Building map for scenario 51, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 5/20, 2 seconds
+Building map for scenario 60, Entry point for SctpEchoTest.testSimpleEcho, 6/20, 1 seconds
+Building map for scenario 83, Entry point for SctpEchoTest.testSimpleEcho, 7/20, 1 seconds
+Building map for scenario 87, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 8/20, 2 seconds
+Building map for scenario 107, Entry point for SctpEchoTest.testSimpleEcho, 9/20, 1 seconds
+Building map for scenario 112, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 10/20, 2 seconds
+Building map for scenario 126, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 11/20, 2 seconds
+Building map for scenario 129, Entry point for SctpEchoTest.testSimpleEcho, 12/20, 1 seconds
+Building map for scenario 156, Entry point for SctpEchoTest.testSimpleEcho, 13/20, 1 seconds
+Building map for scenario 160, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 14/20, 2 seconds
+Building map for scenario 174, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 15/20, 2 seconds
+Building map for scenario 178, Entry point for SctpEchoTest.testSimpleEcho, 16/20, 1 seconds
+Building map for scenario 195, Entry point for SctpEchoTest.testSimpleEcho, 17/20, 1 seconds
+Building map for scenario 201, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 18/20, 2 seconds
+Building map for scenario 236, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 19/20, 2 seconds
+Building map for scenario 239, Entry point for SctpEchoTest.testSimpleEcho, 20/20, 1 seconds
+persistFile: # Cenários que falharam na primeira versão
+Building map for scenario 1, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 1/20, 3 seconds
+Building map for scenario 20, Entry point for SctpEchoTest.testSimpleEcho, 2/20, 1 seconds
+Building map for scenario 28, Entry point for SctpEchoTest.testSimpleEcho, 3/20, 1 seconds
+Building map for scenario 42, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 4/20, 3 seconds
+Building map for scenario 62, Entry point for SctpEchoTest.testSimpleEcho, 5/20, 1 seconds
+Building map for scenario 79, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 6/20, 3 seconds
+Building map for scenario 82, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 7/20, 3 seconds
+Building map for scenario 106, Entry point for SctpEchoTest.testSimpleEcho, 8/20, 1 seconds
+Building map for scenario 126, Entry point for SctpEchoTest.testSimpleEcho, 9/20, 1 seconds
+Building map for scenario 134, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 10/20, 3 seconds
+Building map for scenario 139, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 11/20, 3 seconds
+Building map for scenario 141, Entry point for SctpEchoTest.testSimpleEcho, 12/20, 1 seconds
+Building map for scenario 177, Entry point for SctpEchoTest.testSimpleEcho, 13/20, 1 seconds
+Building map for scenario 178, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 14/20, 3 seconds
+Building map for scenario 192, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 15/20, 3 seconds
+Building map for scenario 213, Entry point for SctpEchoTest.testSimpleEcho, 16/20, 1 seconds
+Building map for scenario 227, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 17/20, 3 seconds
+Building map for scenario 234, Entry point for SctpEchoTest.testSimpleEcho, 18/20, 1 seconds
+Building map for scenario 245, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 19/20, 3 seconds
+Building map for scenario 262, Entry point for SctpEchoTest.testSimpleEcho, 20/20, 1 seconds
+persistFile: # Cenários que falharam na evolução
+persistFile: # Métodos que falharam apenas na primeira versão
+persistFile: # Métodos que falharam apenas na evolução
+persistFile: # Métodos que falharam em ambas as versões
+changed_methods
+Not found (Is it right?): C:/Development/Workspace/netty-untouched/netty-4.0.6.Final/transport/src/main/java/io/netty/channel/DefaultMessageSizeEstimator.java
+Ignoring files...
+Not found (Is it right?): C:/Development/Workspace/netty-untouched/netty-4.0.6.Final/transport/src/main/java/io/netty/channel/DefaultMessageSizeEstimator.java
+Ignoring files...
+Not found (Is it right?): C:/Development/Workspace/netty-untouched/netty-4.0.6.Final/transport/src/main/java/io/netty/channel/DefaultMessageSizeEstimator.java
+Ignoring files...
+Not found (Is it right?): C:/Development/Workspace/netty-untouched/netty-4.0.6.Final/transport/src/main/java/io/netty/channel/DefaultMessageSizeEstimator.java
+Ignoring files...
+Not found (Is it right?): C:/Development/Workspace/netty-untouched/netty-4.0.6.Final/transport/src/main/java/io/netty/channel/DefaultMessageSizeEstimator.java
+Ignoring files...
+Getting updated methods from repository to changed_methods [52, # Métodos executados na evolução, mas não na primeira versão]
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - starting mining...
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (1/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+115 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 451e91d1429c08ce8f92bb8ce0b9ad8c28afb904
+140 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1821] Fix IndexOutOfBoundsException which was thrown if the last component was removed but other components was left
+
+
+140 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 451e91d1429c08ce8f92bb8ce0b9ad8c28afb904, task number = 1821
+980 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 2b9a07cac90f7a5a5e6e5fb7859ae19e6c11323c
+1001 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: CompositeByteBuf.isDirect() should return true if its only backed by direct buffers
+
+
+1001 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 2b9a07cac90f7a5a5e6e5fb7859ae19e6c11323c
+1031 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 23baef8fb48fa363ffd0ed9f5d803a36a05e715f
+1056 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1853] Optimize gathering writes for CompositeByteBuf that are only backed by one ByteBuffer
+
+
+1056 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 23baef8fb48fa363ffd0ed9f5d803a36a05e715f, task number = 1853
+1596 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5416f2315e222acf8d9a36a51bcd4142a0f1c022
+1621 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1797] No use internalNioBuffer() in derived buffers as it is not meant for concurrent access
+
+
+1621 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = 5416f2315e222acf8d9a36a51bcd4142a0f1c022, task number = 1797
+2076 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f1d4f813ed6404b83d539a5f68166bea89fc95df
+2102 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Fix nioBuffer implementation for CompositeByteBuf
+
+
+2102 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferCompositeByteBuf.java, commit = f1d4f813ed6404b83d539a5f68166bea89fc95df
+2142 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+2142 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (2/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+2167 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ae904a1f56d80cb3f4ad160006c05319e73d173a
+2192 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Introduce a new ChannelOption called DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION. Related to [#1830]
+
+This ChannelOption allows to tell the DatagramChannel implementation to be active as soon as they are registrated to their EventLoop. This can be used to make it possible to write to a not bound DatagramChannel.
+The ChannelOption is marked as @deprecated as I'm looking for a better solution in master which breaks default behaviour with 4.0 branch.
+
+
+2192 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketDatagramUnicastTest.java, commit = ae904a1f56d80cb3f4ad160006c05319e73d173a, task number = 1830
+2662 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 357677d8fac857aae4e4b4b92d79dd37be81bb26
+2692 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1830] Add testcase for write to not bound DatagramChannel impls and revert change in OIO as it breaks things as the udnerlying socket lazy binds
+
+
+2692 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketDatagramUnicastTest.java, commit = 357677d8fac857aae4e4b4b92d79dd37be81bb26, task number = 1830
+3172 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+3172 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (3/52):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+3223 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 25c226a8357d324fb201b1150a3d629f3917d18d
+3248 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make sure only direct ByteBuffer are passed to the underlying jdk Channel.
+
+This is needed because of otherwise the JDK itself will do an extra ByteBuffer copy with it's own pool implementation. Even worth it will be done
+multiple times if the ByteBuffer is always only partial written. With this change the copy is done inside of netty using it's own allocator and
+only be done one time in all cases.
+
+
+3248 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 25c226a8357d324fb201b1150a3d629f3917d18d
+3248 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 217b8e255c05887a30803a6c96abac1d320c3d8b
+3273 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1763] Fill ChannelOutboundBuffer.nioBuffers with null on close to allow the content to be GC'ed
+
+
+3273 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 217b8e255c05887a30803a6c96abac1d320c3d8b, task number = 1763
+3698 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 48a7a21541b96eba74b493d8a2ce4a678a6bc9db
+3738 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Correctly update Channel.isWritable() when the write happens from outside the EventLoop in a fast fashion. Fixes [#1697]
+
+Introduce a new interface called MessageSizeEstimator. This can be specific per Channel (via ChannelConfig). The MessageSizeEstimator will be used to estimate for a message that should be written. The default implementation handles ByteBuf, ByteBufHolder and FileRegion. A user is free to plug-in his/her own implementation for different behaviour.
+
+
+3738 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 48a7a21541b96eba74b493d8a2ce4a678a6bc9db, task number = 1697
+4183 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a383988cdb57e56e5211fdf592545fe67331ff6e
+4254 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: add struct to replace parallel arrays consolidate flushed & unflushed buffers
+
+
+4254 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = a383988cdb57e56e5211fdf592545fe67331ff6e
+4254 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit fc6213604dc3a1a596b5a6fb25fd9cf0759e0fc7
+4284 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Make sure ChannelOutboundBuffer not throw NPE during increment/decrement pending writes
+
+
+4284 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = fc6213604dc3a1a596b5a6fb25fd9cf0759e0fc7
+4289 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 06e250e493ddbff674d1ec11deb12541f93d6519
+4309 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: remove unused initialCapacity
+
+
+4309 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 06e250e493ddbff674d1ec11deb12541f93d6519
+4309 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 013ac44d3a64d53ab9e131cb43124fcbc0873caf
+4329 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1832] - Channel writability change notifications sometimes fail to fire
+
+
+4329 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 013ac44d3a64d53ab9e131cb43124fcbc0873caf, task number = 1832
+4764 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 206dc2a3918d3754b8d9b4b73f107a085377a2d0
+4794 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1772] Make sure ChannelOutboundBuffer.recycle() does also reset unflushed, flushed and tail.
+
+This fix a IndexOutOfBoundsException which as triggered if recycle() did cut down the buffer[] to the initial size.
+
+
+4794 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 206dc2a3918d3754b8d9b4b73f107a085377a2d0, task number = 1772
+5399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 80d30c3dd81a4409a3abaf04d7bff0525d4ad166
+5425 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Small code improvements
+
+
+5425 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 80d30c3dd81a4409a3abaf04d7bff0525d4ad166
+5435 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 92cec8d2acdc08b75646e5e2c988183ca0841c17
+5460 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Split up the nioBuffers() method to allow for inline. Related to #1812
+
+This move less common method patterns to extra methods and so make the nioBuffers() method with most common pattern (backed by one ByteBuffer) small enough for inlining.
+
+
+5460 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 92cec8d2acdc08b75646e5e2c988183ca0841c17, task number = 1812
+5890 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b4fa8af0791b3a31a91ea8112175adf6493b834b
+5945 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Cache underlying ByteBuffers and count in ChannelOutboundBuffer.Entry to reduce object creation and so GC pressure
+
+Beside this it also helps to reduce CPU usage as nioBufferCount() is quite expensive when used on CompositeByteBuf which are
+nested and contains a lot of components
+
+
+5945 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = b4fa8af0791b3a31a91ea8112175adf6493b834b
+5960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 6a2f340ec0187ba68eee869863357b74b6e8c6bf
+5990 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: trim buffers before recycling
+
+
+5990 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java, commit = 6a2f340ec0187ba68eee869863357b74b6e8c6bf
+5995 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+5995 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (4/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+6025 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a857994d82cadfce21ab34434c3523a8e8653141
+6045 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Add test to show that writing a CompositeByteBuf when SslHandler is in use works. Related to [#1825]
+
+
+6045 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/testsuite/src/test/java/io/netty/testsuite/transport/socketSocketSslEchoTest.java, commit = a857994d82cadfce21ab34434c3523a8e8653141, task number = 1825
+6545 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+6545 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (5/52):buffer/src/main/java/io/netty/buffer/AbstractDerivedByteBuf.java
+6586 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+6586 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (6/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+6586 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+6586 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+6586 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (7/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+6621 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit fb619f23947aab158a11730e00f4dbd490093669
+6641 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: fix writability callback
+
+
+6641 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = fb619f23947aab158a11730e00f4dbd490093669
+6641 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit de44917e62c6ccadb2ae4cf62009f3fa0ad71827
+6661 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Use recyclable write task to reduce GC pressure
+
+
+6661 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = de44917e62c6ccadb2ae4cf62009f3fa0ad71827
+6666 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b8866aef330403353285486bbf5c0342b6c6a998
+6686 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: No need to check instanceof everytime to find the next inbound / outbound context
+
+
+6686 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = b8866aef330403353285486bbf5c0342b6c6a998
+6711 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 59c2fd881318b5c421983881e68889225e0a4d18
+6736 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1723] invoke close in eventloop
+
+
+6736 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 59c2fd881318b5c421983881e68889225e0a4d18, task number = 1723
+7201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+7231 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1707] More efficient implementation of ChannelHandlerContext.writeAndFlush(..)
+
+
+7231 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = 5ef30b6d8b55441fddc8ddfdd24251f378e24e60, task number = 1707
+7696 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b934b6009c9e7d2ed6df400698d6e6e4b550291d
+7747 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Share some code, related to [#1707]]
+
+
+7747 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java, commit = b934b6009c9e7d2ed6df400698d6e6e4b550291d, task number = 1707
+8227 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8227 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (8/52):transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (9/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (10/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8282 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (11/52):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+8362 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8362 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (12/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+8362 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+8362 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8362 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (13/52):buffer/src/main/java/io/netty/buffer/SlicedByteBuf.java
+8407 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8407 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (14/52):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+8407 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+8407 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8407 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (15/52):transport/src/main/java/io/netty/channel/AbstractChannel.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (16/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (17/52):buffer/src/main/java/io/netty/buffer/SlicedByteBuf.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/SlicedByteBuf.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (18/52):transport/src/main/java/io/netty/channel/AbstractChannel.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (19/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (20/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (21/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (22/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (23/52):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8477 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (24/52):buffer/src/main/java/io/netty/buffer/EmptyByteBuf.java
+8532 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+8532 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (25/52):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+8562 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7d9388a3cc90b322eb1e9ea048a16e31beaad387
+8587 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Allow to only register a Channel via AbstractBootstrap and bind/connect it later. Related to [#1829]
+
+
+8587 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/bootstrapAbstractBootstrap.java, commit = 7d9388a3cc90b322eb1e9ea048a16e31beaad387, task number = 1829
+9032 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 7aefd0cbdbc01aa344c5b2f3261734c4a2afe313
+9053 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Make AbstractBootstrap public
+
+.. to work around the issue with JDK reflection described here:
+
+  http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4283544
+
+Fixes #1780
+
+
+9053 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/bootstrapAbstractBootstrap.java, commit = 7aefd0cbdbc01aa344c5b2f3261734c4a2afe313, task number = 1780
+9523 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+9523 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (26/52):buffer/src/main/java/io/netty/buffer/Unpooled.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (27/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (28/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (29/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (30/52):transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+9578 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (31/52):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+9603 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit a74149e9848fef73d909dd56843e0fbab23f877d
+9623 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1865] Only use internalNioBuffer when one of the read* or write* methods are used. This is neccessary to prevent races as those can happen when a slice or duplicate is shared between different Channels
+that are not assigned to the same EventLoop. In general get* operations should always be safe to be used from different Threads.
+
+This aslo include unit tests that show the issue
+
+
+9623 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = a74149e9848fef73d909dd56843e0fbab23f877d, task number = 1865
+10103 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 6d09e57be72cd76b42741c3cba59e9d25f6738a7
+10124 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1875] Correctly check the readerIndex when try to read a byte from AbstractByteBuf
+
+
+10124 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = 6d09e57be72cd76b42741c3cba59e9d25f6738a7, task number = 1875
+10559 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 5ddd7cee90d5b59ebacdc3da6a25f548646eddad
+10589 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1797] Throw IllegalArgumentException if AbstractByteBuf.skipBytes(...) is used with a negative value
+
+
+10589 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/buffer/src/main/java/io/netty/bufferAbstractByteBuf.java, commit = 5ddd7cee90d5b59ebacdc3da6a25f548646eddad, task number = 1797
+11049 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+11049 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (32/52):transport/src/main/java/io/netty/channel/DefaultAddressedEnvelope.java
+11094 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+11094 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (33/52):transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+11124 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f40a3f34b17633b884f3d35dc2eb43d0810a0cfa
+11140 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1692] Allow to set WRITE_BUFFER_HIGH_WATER_MARK and WRITE_BUFFER_LOW_WATER_MARK via ChannelOption
+
+
+11140 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelConfig.java, commit = f40a3f34b17633b884f3d35dc2eb43d0810a0cfa, task number = 1692
+11585 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit b54937ab5051004faa6c04048d6bb0410e6dcb33
+11610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1711] Allow to use ChannelOption for set / get MessageSizeEstimator
+
+
+11610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelConfig.java, commit = b54937ab5051004faa6c04048d6bb0410e6dcb33, task number = 1711
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (34/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (35/52):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (36/52):buffer/src/main/java/io/netty/buffer/SlicedByteBuf.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/SlicedByteBuf.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (37/52):buffer/src/main/java/io/netty/buffer/Unpooled.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/Unpooled.java
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12035 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (38/52):buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (39/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (40/52):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (41/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (42/52):transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (43/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (44/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (45/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12075 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (46/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (47/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (48/52):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramUnicastTest.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (49/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (50/52):buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/CompositeByteBuf.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (51/52):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (52/52):transport/src/main/java/io/netty/channel/AbstractChannel.java
+12080 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+persistFile: # Métodos executados na evolução, mas não na primeira versão
+excluded_methods
+Getting updated methods from repository to excluded_methods [9, # Métodos executados na primeira versão, mas não na evolução]
+13518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - starting mining...
+13518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (1/9):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13579 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13579 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (2/9):transport/src/main/java/io/netty/channel/AbstractChannel.java
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (3/9):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (4/9):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13624 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (5/9):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+13674 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13674 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (6/9):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13674 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+13674 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13674 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (7/9):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+13724 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13724 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (8/9):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+13754 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13754 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (9/9):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+13754 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+persistFile: # Métodos executados na primeira versão, mas não na evolução
+failed_methods_both
+Getting updated methods from repository to p_degraded_methods [90, # Métodos que tiveram performance degradada na evolução]
+13844 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - starting mining...
+13844 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13844 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (1/90):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+13899 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13899 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (2/90):testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+13929 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13929 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (3/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+13964 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13964 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (4/90):transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+13999 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+13999 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (5/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (6/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (7/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14044 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (8/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
+14074 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14074 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (9/90):buffer/src/main/java/io/netty/buffer/AbstractReferenceCountedByteBuf.java
+14104 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14104 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (10/90):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+14134 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14134 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (11/90):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (12/90):testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (13/90):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14184 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (14/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14234 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14234 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (15/90):transport/src/main/java/io/netty/channel/oio/AbstractOioChannel.java
+14264 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14264 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (16/90):buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+14299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (17/90):transport/src/main/java/io/netty/channel/socket/InternetProtocolFamily.java
+14329 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14329 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (18/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+14364 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14364 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (19/90):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (20/90):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (21/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (22/90):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14399 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (23/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+14429 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14429 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (24/90):buffer/src/main/java/io/netty/buffer/Unpooled.java
+14474 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14474 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (25/90):transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (26/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (27/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (28/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (29/90):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (30/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (31/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (32/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14509 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (33/90):transport/src/main/java/io/netty/channel/socket/oio/OioServerSocketChannel.java
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (34/90):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (35/90):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14544 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (36/90):transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (37/90):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (38/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14580 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (39/90):transport/src/main/java/io/netty/channel/socket/nio/ProtocolFamilyConverter.java
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (40/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (41/90):transport/src/main/java/io/netty/channel/socket/nio/ProtocolFamilyConverter.java
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/socket/nio/ProtocolFamilyConverter.java
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14610 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (42/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/WriteBeforeRegisteredTest.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (43/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (44/90):transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (45/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (46/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (47/90):testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+14640 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (48/90):transport/src/main/java/io/netty/channel/ChannelHandlerAdapter.java
+14665 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit af499b5fb4862041962cba2e00670ad415130897
+14690 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Mark ChannelHandler.exceptionCaught(...) as deprecated in preparation to move to ChannelInboundHandler. Related to [#1808]
+
+
+14690 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelHandlerAdapter.java, commit = af499b5fb4862041962cba2e00670ad415130897, task number = 1808
+15135 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15135 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (49/90):codec/src/main/java/io/netty/handler/codec/ByteToMessageDecoder.java
+15160 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 1547876e97e9babc17f683e8a47894757a4e1bee
+15180 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Tiny optimizations
+
+
+15180 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/codec/src/main/java/io/netty/handler/codecByteToMessageDecoder.java, commit = 1547876e97e9babc17f683e8a47894757a4e1bee
+15180 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9a88c50ffb1233a95d89b83d01d6c9673c8641e7
+15205 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1728] Recycle list after done with it in ReplayingDecoder/ByteToMessageDecoder channelInactive(..)
+
+
+15205 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/codec/src/main/java/io/netty/handler/codecByteToMessageDecoder.java, commit = 9a88c50ffb1233a95d89b83d01d6c9673c8641e7, task number = 1728
+15620 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 87b17e195acec2a02a9e51ba271d6b7c0079bdf5
+15641 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Grammar
+
+
+15641 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/codec/src/main/java/io/netty/handler/codecByteToMessageDecoder.java, commit = 87b17e195acec2a02a9e51ba271d6b7c0079bdf5
+15641 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15641 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (50/90):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (51/90):testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (52/90):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (53/90):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15671 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (54/90):transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (55/90):transport/src/main/java/io/netty/channel/oio/AbstractOioChannel.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/oio/AbstractOioChannel.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (56/90):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (57/90):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15701 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (58/90):transport/src/main/java/io/netty/channel/socket/oio/OioDatagramChannel.java
+15741 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15741 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (59/90):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+15791 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+15791 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (60/90):transport/src/main/java/io/netty/channel/nio/NioEventLoop.java
+15846 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit f034f90fb34689af29cbc3158b3a16411183a306
+15866 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1836] Add comment to explain why read is triggered
+
+
+15866 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = f034f90fb34689af29cbc3158b3a16411183a306, task number = 1836
+16286 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 4d0621855a40368052ecb9238c206d03d3067d25
+16306 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Remove unused package private method and so remove some complexity
+
+
+16306 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioNioEventLoop.java, commit = 4d0621855a40368052ecb9238c206d03d3067d25
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (61/90):transport/src/main/java/io/netty/channel/oio/AbstractOioChannel.java
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/oio/AbstractOioChannel.java
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (62/90):transport/src/main/java/io/netty/channel/socket/oio/OioDatagramChannel.java
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/socket/oio/OioDatagramChannel.java
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (63/90):buffer/src/main/java/io/netty/buffer/Unpooled.java
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/Unpooled.java
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16311 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (64/90):transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java
+16341 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9fd35d09a26e1dd060baa9d307cd69f05d6f7ae6
+16361 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1770] Fix NPE which was thrown if connection timeout was disabled and the connect did not finish directly when using NIO
+
+
+16361 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioAbstractNioChannel.java, commit = 9fd35d09a26e1dd060baa9d307cd69f05d6f7ae6, task number = 1770
+16776 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit 9d8c4ded50702fdacb75a89e65471627095723ac
+16807 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] LogMessage: Move method in correct scope
+
+
+16807 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [IssueListEmpty] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioAbstractNioChannel.java, commit = 9d8c4ded50702fdacb75a89e65471627095723ac
+16812 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16812 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (65/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketShutdownOutputByPeerTest.java
+16857 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16857 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (66/90):transport/src/main/java/io/netty/channel/socket/nio/NioServerSocketChannel.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (67/90):testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (68/90):buffer/src/main/java/io/netty/buffer/AbstractReferenceCountedByteBuf.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractReferenceCountedByteBuf.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (69/90):transport/src/main/java/io/netty/channel/AbstractChannel.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (70/90):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+16887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (71/90):transport/src/main/java/io/netty/channel/nio/AbstractNioByteChannel.java
+16922 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit ad0c456209d31522a7729acba2264b432326c5b2
+16942 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Ensure operationProgressed is invoked even on completion
+
+- Fixes #1809
+
+
+16942 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioAbstractNioByteChannel.java, commit = ad0c456209d31522a7729acba2264b432326c5b2, task number = 1809
+17397 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17397 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (72/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketConnectionAttemptTest.java
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (73/90):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (74/90):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17437 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (75/90):transport/src/main/java/io/netty/channel/socket/oio/OioSocketChannel.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (76/90):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (77/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (78/90):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (79/90):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (80/90):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (81/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketConnectionAttemptTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketConnectionAttemptTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (82/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketShutdownOutputByPeerTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketShutdownOutputByPeerTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (83/90):testsuite/src/test/java/io/netty/testsuite/transport/socket/WriteBeforeRegisteredTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/WriteBeforeRegisteredTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (84/90):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (85/90):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (86/90):testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/udt/UDTClientServerConnectionTest.java
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17467 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (87/90):transport/src/main/java/io/netty/channel/SucceededChannelFuture.java
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (88/90):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (89/90):buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17497 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (90/90):transport/src/main/java/io/netty/channel/socket/nio/NioDatagramChannel.java
+persistFile: # Métodos que tiveram performance degradada na evolução
+failed_methods_only_v1
+Getting updated methods from repository to p_optimized_methods [78, # Métodos que tiveram performance otimizada na evolução]
+17813 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - starting mining...
+17813 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17813 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (1/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+17843 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17843 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (2/78):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+17878 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17878 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (3/78):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+17913 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17913 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (4/78):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+17943 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17943 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (5/78):transport/src/main/java/io/netty/channel/FixedRecvByteBufAllocator.java
+17973 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+17973 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (6/78):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (7/78):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (8/78):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (9/78):buffer/src/main/java/io/netty/buffer/Unpooled.java
+18068 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18068 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (10/78):transport/src/main/java/io/netty/channel/socket/oio/OioServerSocketChannel.java
+18098 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18098 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (11/78):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+18148 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18153 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (12/78):testsuite/src/test/java/io/netty/testsuite/util/TestUtils.java
+18178 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18178 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (13/78):transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+18218 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18218 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (14/78):handler/src/main/java/io/netty/handler/ssl/SslHandler.java
+18268 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18268 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (15/78):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+18268 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+18268 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18268 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (16/78):transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+18303 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18303 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (17/78):transport/src/main/java/io/netty/channel/ThreadPerChannelEventLoopGroup.java
+18333 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit caf91b9c0687bedab40ba06f596b0c2c2f1ae7e3
+18353 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: Fix IllegalStateException triggered while shutting down ThreadPerChannelEventLoopGroup
+
+- Fix #1718
+- Add the test case contributed by @mkw
+
+
+18353 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelThreadPerChannelEventLoopGroup.java, commit = caf91b9c0687bedab40ba06f596b0c2c2f1ae7e3, task number = 1718
+18793 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18793 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (18/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+18828 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+18828 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (19/78):transport/src/main/java/io/netty/channel/SimpleChannelInboundHandler.java
+18854 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - Inside handler, getting issues to commit c97971b53adaa07c1f1e43774fd76f2e2ebd8862
+18874 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] LogMessage: [#1805] Fix example in javadocs of SimpleChannelInboundHandler
+
+
+18874 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - [FoundIssue] Path: C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelSimpleChannelInboundHandler.java, commit = c97971b53adaa07c1f1e43774fd76f2e2ebd8862, task number = 1805
+19314 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19314 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (20/78):transport/src/main/java/io/netty/channel/oio/AbstractOioChannel.java
+19354 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19354 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (21/78):transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+19389 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19389 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (22/78):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+19389 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+19389 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19389 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (23/78):transport/src/main/java/io/netty/channel/AbstractChannel.java
+19429 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19429 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (24/78):buffer/src/main/java/io/netty/buffer/SlicedByteBuf.java
+19464 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19464 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (25/78):transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+19499 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19499 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (26/78):buffer/src/main/java/io/netty/buffer/AbstractDerivedByteBuf.java
+19524 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19524 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (27/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19524 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19524 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19524 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (28/78):transport/src/main/java/io/netty/channel/AdaptiveRecvByteBufAllocator.java
+19554 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19554 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (29/78):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+19554 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+19554 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19554 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (30/78):buffer/src/main/java/io/netty/buffer/UnpooledByteBufAllocator.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (31/78):testsuite/src/test/java/io/netty/testsuite/util/TestUtils.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/util/TestUtils.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (32/78):transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/Bootstrap.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (33/78):buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (34/78):transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (35/78):transport/src/main/java/io/netty/channel/ThreadPerChannelEventLoopGroup.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/ThreadPerChannelEventLoopGroup.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (36/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (37/78):transport/src/main/java/io/netty/channel/AbstractChannel.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (38/78):transport/src/main/java/io/netty/channel/ThreadPerChannelEventLoop.java
+19614 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19614 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (39/78):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+19614 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+19614 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19614 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (40/78):transport/src/main/java/io/netty/channel/socket/nio/NioServerSocketChannel.java
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (41/78):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (42/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19649 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (43/78):transport/src/main/java/io/netty/channel/socket/oio/OioSocketChannel.java
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (44/78):transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (45/78):handler/src/main/java/io/netty/handler/ssl/SslHandler.java
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: handler/src/main/java/io/netty/handler/ssl/SslHandler.java
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19684 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (46/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/DatagramMulticastTest.java
+19709 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19709 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (47/78):buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+19744 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19744 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (48/78):transport/src/main/java/io/netty/channel/socket/oio/OioDatagramChannel.java
+19784 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19784 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (49/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19784 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+19784 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19784 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (50/78):transport/src/main/java/io/netty/channel/socket/DefaultSocketChannelConfig.java
+19819 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19819 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (51/78):transport/src/main/java/io/netty/channel/ChannelHandlerAdapter.java
+19849 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19849 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (52/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+19849 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+19849 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19849 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (53/78):transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java
+19885 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19885 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (54/78):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+19885 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+19885 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19885 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (55/78):transport/src/main/java/io/netty/channel/socket/nio/NioDatagramChannel.java
+19925 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19925 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (56/78):buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (57/78):transport/src/main/java/io/netty/channel/AbstractChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (58/78):buffer/src/main/java/io/netty/buffer/Unpooled.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/Unpooled.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (59/78):transport/src/main/java/io/netty/channel/AbstractChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (60/78):transport/src/main/java/io/netty/channel/socket/oio/OioServerSocketChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/socket/oio/OioServerSocketChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (61/78):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (62/78):transport/src/main/java/io/netty/channel/ThreadPerChannelEventLoopGroup.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/ThreadPerChannelEventLoopGroup.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (63/78):buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (64/78):transport/src/main/java/io/netty/channel/socket/oio/OioSocketChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/socket/oio/OioSocketChannel.java
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+19955 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (65/78):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (66/78):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (67/78):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20005 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (68/78):transport/src/main/java/io/netty/channel/group/DefaultChannelGroup.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (69/78):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (70/78):transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/nio/AbstractNioChannel.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (71/78):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (72/78):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (73/78):buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (74/78):transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPromise.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (75/78):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketTestPermutation.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (76/78):transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (77/78):transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Running doAnnotate [3f70d5caa4bf0201ff1861e8dcb111a537a4a64c, d35768ae117e7f9f20fca5b5297c96019b9a574a]
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path (78/78):transport/src/main/java/io/netty/channel/AbstractChannel.java
+20040 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Path previously analyzedPath: transport/src/main/java/io/netty/channel/AbstractChannel.java
+persistFile: # Métodos que tiveram performance otimizada na evolução
+persistFile: # Issues responsáveis pela degradação de performance
+persistFile: # Métodos responsáveis pela degradação de performance
+[1/18] Retrieving impacted members and scenarios by io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+[2/18] Retrieving impacted members and scenarios by io.netty.channel.socket.DefaultDatagramChannelConfig.getOption(io.netty.channel.ChannelOption)
+[3/18] Retrieving impacted members and scenarios by io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind()
+[4/18] Retrieving impacted members and scenarios by io.netty.channel.socket.DefaultDatagramChannelConfig.setActiveOnOpen(boolean)
+[5/18] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.findContextInbound()
+[6/18] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
+[7/18] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+[8/18] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
+[9/18] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.findContextOutbound()
+[10/18] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+[11/18] Retrieving impacted members and scenarios by io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoWithChunkHandler(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+[12/18] Retrieving impacted members and scenarios by io.netty.bootstrap.AbstractBootstrap.register()
+[13/18] Retrieving impacted members and scenarios by io.netty.channel.AbstractChannel.estimatorHandle()
+[14/18] Retrieving impacted members and scenarios by io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean)
+[15/18] Retrieving impacted members and scenarios by io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
+[16/18] Retrieving impacted members and scenarios by io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+[17/18] Retrieving impacted members and scenarios by io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoComposite(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+[18/18] Retrieving impacted members and scenarios by io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoWithChunkHandlerComposite(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+Processing... # Métodos responsáveis pela degradação de performance
+persistFile: # Membros responsáveis pela degradação de performance em cada cenário degradado
+persistFile: # Contagem de classes e pacotes
