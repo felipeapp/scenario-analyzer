@@ -500,7 +500,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Set<String> counted = new HashSet<String>();
 		
 		Map<Long, Issue> map_number_issue = new HashMap<Long, Issue>();
-		Map<String, Set<Issue>> map_type_issues = new HashMap<String, Set<Issue>>();
+		Map<String, Set<Long>> map_type_issues = new HashMap<String, Set<Long>>();
 		
 		System.out.println("persistFile: " + message);
 		
@@ -562,14 +562,14 @@ public final class AnalyzerMinerRepositoryRunnable {
 							method_number_issue.add(issue.getNumber());
 							map_number_issue.put(issue.getNumber(), issue);
 							
-							Set<Issue> type_list = map_type_issues.get(issue.getIssueType());
+							Set<Long> type_list = map_type_issues.get(issue.getIssueType());
 							
 							if (type_list == null) {
-								type_list = new HashSet<Issue>();
+								type_list = new HashSet<Long>();
 								map_type_issues.put(issue.getIssueType(), type_list);
 							}
 							
-							type_list.add(issue);
+							type_list.add(issue.getNumber());
 						}
 					}
 				}
@@ -607,6 +607,14 @@ public final class AnalyzerMinerRepositoryRunnable {
 		pwl.println(map_type_issues.size());
 		for (String issue_type : map_type_issues.keySet())
 			pwl.println(issue_type + ":" + map_type_issues.get(issue_type).size());
+		
+		pwl.println(map_type_issues.size());
+		for (String issue_type : map_type_issues.keySet()) {
+			pwl.print(issue_type + ":");
+			for (long numbers : map_type_issues.get(issue_type))
+				pwl.print(numbers + " ");
+			pwl.println();
+		}
 		
 		
 		pw.close();
