@@ -1,0 +1,40 @@
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+A mudança aqui não foi significativa, apenas duas linhas adicionadas para newInstance().
+Shutdown Output by Peer (Without Option)
+
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Send Echo Message with SPDY Support
+
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Send Echo Message with SSL Support
+
+Entry point for SocketStartTlsTest.testStartTls
+A mudança aqui também não foi significativa, apenas uma mudança em alguns testes.
+Start TLS Communication
+
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+Write Data Before Connection
+
+io.netty.bootstrap.AbstractBootstrap.bind() 27.8015873015873 29.78082191780822 1.9792346162209178
+io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int) null 0.018605466012613876 0.018605466012613876
+io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel) 0.23217391304347826 0.7674074074074074 0.5352334943639292
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise) null 0.10147357667151566 0.10147357667151566
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise) 0.08015552734197878 0.12276104072046462 0.04260551337848584
+
+Issues
+1697 1707 1825 1829 1830 1832 
+
+Commits
+1606
+d4aa5b53d6410d543834f3d54841bd5eaf95dbee
+25f96b164498988439c38baf6ff4c57763464824
+d5e202d7554f79a7a7d670e371486d66a9f75c9d
+fabefba79185ce7ec143d911ae86f5ab8bb08845
+4cd7e625556f86eb25a4a4cfae20ed0d34aaf5ed
+
+1650
+fabefba79185ce7ec143d911ae86f5ab8bb08845
+
+No issue
+4cd7e625556f86eb25a4a4cfae20ed0d34aaf5ed
+

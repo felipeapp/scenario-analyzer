@@ -47,21 +47,36 @@ public class MethodLimitBuilder {
 		Map<String, UpdatedMethod> result = new HashMap<String, UpdatedMethod>();
 		
 		for (UpdatedLine l : lines) {
-			for (MethodLimit m : methods) {
-				if (l.getLineNumber() >= m.getStartLine() && l.getLineNumber() <= m.getEndLine()) {
-					UpdatedMethod mu = result.get(m.getSignature());
-					
-					if (mu == null) {
-						mu = new UpdatedMethod(m);
-						result.put(m.getSignature(), mu);
+			if (!isComment(l.getLine())) {
+				for (MethodLimit m : methods) {
+					if (l.getLineNumber() >= m.getStartLine() && l.getLineNumber() <= m.getEndLine()) {
+						UpdatedMethod mu = result.get(m.getSignature());
+						
+						if (mu == null) {
+							mu = new UpdatedMethod(m);
+							result.put(m.getSignature(), mu);
+						}
+						
+						mu.addUpdatedLine(l);
 					}
-					
-					mu.addUpdatedLine(l);
 				}
 			}
 		}
 		
 		return Collections.unmodifiableCollection(result.values());
+	}
+	
+	/**
+		 Isso é apenas uma simplificação, para evitar pelo menos uma parte dos casos.
+		 Um comentário como esse não será detectado, por exemplo, pois não inicia nem
+		 com / nem com *
+		 Isso é preciso porque o visitor considera este tipo de comentário como parte da
+		 declaração do método.
+		 TODO: Ver uma solução mais precisa para essa situação.
+	*/
+	private boolean isComment(String line) {
+		String line_trim = line.trim();
+		return line_trim.startsWith("/") || line_trim.startsWith("*");
 	}
 	
 }
