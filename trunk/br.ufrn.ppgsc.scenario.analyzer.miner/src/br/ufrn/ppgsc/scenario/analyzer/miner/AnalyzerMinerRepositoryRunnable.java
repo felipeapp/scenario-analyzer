@@ -547,7 +547,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				pwl.println(scenario);
 			
 			for (String s : signatures) {
-				Set<Long> method_number_issue = new HashSet<Long>();
+				Map<Long, Issue> local_map_number_issue = new HashMap<Long, Issue>();
 				
 				Double t1 = avg_time_members_v1.get(s);
 				Double t2 = avg_time_members_v2.get(s);
@@ -559,8 +559,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				for (UpdatedMethod um : p_degraded_changed_methods.get(s)) {
 					for (UpdatedLine ul : um.getUpdatedLines()) {
 						for (Issue issue  : ul.getIssues()) {
-							method_number_issue.add(issue.getNumber());
-							map_number_issue.put(issue.getNumber(), issue);
+							local_map_number_issue.put(issue.getNumber(), issue);
 							
 							Set<Long> type_list = map_type_issues.get(issue.getIssueType());
 							
@@ -574,12 +573,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 					}
 				}
 				
-				for (Long number : method_number_issue)
-					text += " " + number;
+				for (Issue issue : local_map_number_issue.values())
+					text += " " + issue.getNumber();
 				
 				pw.println(text);
 				// Aqui vai contar com os testes
 				//members_with_time.add(text);
+				//map_number_issue.putAll(local_map_number_issue);
 				
 				if (!counted.contains(s)) {
 					counted.add(s);
@@ -588,6 +588,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 					if (!matchesExcludeWord(s) && delta >= 0.001) {
 						++total_members_without_word;
 						members_with_time.add(text);
+						map_number_issue.putAll(local_map_number_issue);
 					}
 				}
 			}
