@@ -490,13 +490,17 @@ public final class AnalyzerMinerRepositoryRunnable {
 	}
 	
 	private void persistScenariosWithBlames(String message, String partial_name, Map<String, List<String>> scenariosWithBlames,
-			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) throws FileNotFoundException {
+			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2,
+			Map<String, Collection<UpdatedMethod>> p_degraded_changed_methods) throws FileNotFoundException {
 		int total_members = 0;
 		int total_scenarios_with_blames = 0;
 		int total_members_without_word = 0;
 		
 		Set<String> members_with_time = new TreeSet<String>();
 		Set<String> counted = new HashSet<String>();
+		
+		List<Issue> list_issues = new ArrayList<Issue>();
+		Map<String, List<Issue>> map_type_issues = new HashMap<String, List<Issue>>();
 		
 		System.out.println("persistFile: " + message);
 		
@@ -550,6 +554,25 @@ public final class AnalyzerMinerRepositoryRunnable {
 				
 				String text = s + " " + t1 + " " + t2 + " " + delta;
 				
+				for (UpdatedMethod um : p_degraded_changed_methods.get(s)) {
+					for (UpdatedLine ul : um.getUpdatedLines()) {
+						for (Issue issue  : ul.getIssues()) {
+							text += " " + issue.getNumber();
+							
+							list_issues.add(issue);
+							
+							List<Issue> type_list = map_type_issues.get(issue.getIssueType());
+							
+							if (type_list == null) {
+								type_list = new ArrayList<Issue>();
+								map_type_issues.put(issue.getIssueType(), type_list);
+							}
+							
+							type_list.add(issue);
+						}
+					}
+				}
+				
 				pw.println(text);
 				// Aqui vai contar com os testes
 				//members_with_time.add(text);
@@ -573,6 +596,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String member : members_with_time)
 			pwl.println(member);
 		
+		pwl.println(list_issues.size());
+		for (Issue issue : list_issues)
+			pwl.println(issue.getNumber() + " " + issue.getIssueType());
+		
+		pwl.println(map_type_issues.size());
+		for (String issue_type : map_type_issues.keySet())
+			pwl.println(issue_type + ":" + map_type_issues.get(issue_type).size());
+		
+		
 		pw.close();
 		pwl.close();
 	}
@@ -581,7 +613,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		int i = 0;
 		
 		/*
-		 * O gerente de repositÃ³rio conecta ao repositÃ³rio e permite acesso
+		 * O gerente de repositório conecta ao repositÃ³rio e permite acesso
 		 * para a mineraÃ§Ã£o dos dados atravÃ©s do mÃ©todo disponibilizado.
 		 * Conecta no momento que Ã© criado.
 		 */
@@ -590,6 +622,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		/* 
 		 * Guarda as assinaturas de mÃ©todos que contribuiram especificamente
 		 * para a degradaÃ§Ã£o do desempenho. Esta lista serÃ¡ usada na mineraÃ§Ã£o final.
+		 * A chave do Map é a assinatura do método. O conteúdo é a lista de métodos que
+		 * casam com a assinatura, lembrando que devido a limitação de assinaturas do parser
+		 * mais de um nome de método pode casar com a assinatura.
 		 */
 		Map<String, Collection<UpdatedMethod>> p_degraded_changed_methods = new HashMap<String, Collection<UpdatedMethod>>();
 		
@@ -712,12 +747,12 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 		
 		// Mostrando os issues
-		persistFile("# Issues responsÃ¡veis pela degradaÃ§Ã£o de performance", "issues_performance_degradation", p_degraded_changed_methods);
+		persistFile("# Issues responsáveis pela degradação de performance", "issues_performance_degradation_all", p_degraded_changed_methods);
 		
-		// Mostrando o impacto dos responsÃ¡veis pela degradaÃ§Ã£o de performance
-		persistFile("# MÃ©todos responsÃ¡veis pela degradaÃ§Ã£o de performance", "methods_performance_degradation", p_degraded_changed_methods.keySet());
+		// Mostrando o impacto dos responsáveis pela degradação de performance
+		persistFile("# Métodos responsáveis pela degradação de performance", "methods_performance_degradation", p_degraded_changed_methods.keySet());
 		
-		// Recuperando os cenÃ¡rios degradados e os membros culpados
+		// Recuperando os cenários degradados e os membros culpados
 		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames(
 				"p_degraded_scenarios", "methods_performance_degradation");
 		
@@ -746,9 +781,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Map<String, Double> avg_time_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
 		Map<String, Double> avg_time_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
 		
-		// Mostrando os cenÃ¡rios degradados e os membros culpados
+		// Mostrando os cenários degradados e os membros culpados
 		persistScenariosWithBlames("# Membros responsáveis pela degradação de performance em cada cenário degradado",
-				"scenarios_blames_performance_degradation", scenariosWithBlames, avg_time_members_v1, avg_time_members_v2);
+				"scenarios_blames_performance_degradation", scenariosWithBlames,
+				avg_time_members_v1, avg_time_members_v2, p_degraded_changed_methods);
 		
 		// Mapas para contar quantas vezes as classes e pacotes aparecem no resultado dos culpados
 		Map<String, Integer> total_classes = new HashMap<String, Integer>();
