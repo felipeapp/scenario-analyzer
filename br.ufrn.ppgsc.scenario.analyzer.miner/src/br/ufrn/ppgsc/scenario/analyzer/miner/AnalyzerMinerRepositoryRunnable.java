@@ -564,7 +564,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 							Set<Long> type_list = map_type_issues.get(issue.getIssueType());
 							
 							if (type_list == null) {
-								type_list = new HashSet<Long>();
+								type_list = new TreeSet<Long>();
 								map_type_issues.put(issue.getIssueType(), type_list);
 							}
 							
