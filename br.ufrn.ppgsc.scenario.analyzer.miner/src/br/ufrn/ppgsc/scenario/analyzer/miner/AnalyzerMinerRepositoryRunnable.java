@@ -616,7 +616,6 @@ public final class AnalyzerMinerRepositoryRunnable {
 			pwl.println();
 		}
 		
-		
 		pw.close();
 		pwl.close();
 	}
