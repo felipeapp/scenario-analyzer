@@ -1,0 +1,54 @@
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+2
+Entry point for SocketBufReleaseTest.testBufRelease
+3
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+4
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+5
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+6
+Entry point for SocketObjectEchoTest.testObjectEcho
+7
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+8
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+9
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+10
+Entry point for SocketSslEchoTest.testSslEcho
+11
+Entry point for SocketStartTlsTest.testStartTls
+12
+Entry point for SocketStringEchoTest.testStringEcho
+13
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+
+io.netty.bootstrap.ServerBootstrap.toString() 0.02727272727272727 0.06321839080459771 0.03594566353187044 -1
+io.netty.buffer.AbstractByteBufAllocator.toString() null 0.00543859649122807 0.00543859649122807 -1
+io.netty.buffer.PooledByteBuf.deallocate() null 0.26666666666666666 0.26666666666666666 -1
+io.netty.channel.ChannelOption.valueOf(java.lang.String) null 0.05976190476190476 0.05976190476190476 -1
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object) 0.0 0.03679245283018868 0.03679245283018868 1952
+io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object) null 0.030967409260620877 0.030967409260620877 -1 1947
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise) 0.10147357667151566 0.1389855257097498 0.037511949038234155 -1
+io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel) null 0.18195488721804512 0.18195488721804512 2060
+io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel) null 0.32066666666666666 0.32066666666666666 2060
+io.netty.channel.nio.NioEventLoop.openSelector() null 3.248 3.248 1908
+
+Issues
+1908:defect
+Modificou algumas linhas de openSelector() que é um novo método. Descobrir quem adicionou ele.
+
+1947:none yet
+safeExecute()
+
+1952:defect
+2060:defect
+
+Commits
