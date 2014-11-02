@@ -80,6 +80,7 @@ public class QueryScenarios {
 			"Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise",
 			"Entry point for SocketFileRegionTest.testFileRegion",
 			"Entry point for SocketFileRegionTest.testFileRegionVoidPromise",
+			"Entry point for SocketFileRegionTest.testFileRegionNotAutoRead",
 			"Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho",
 			"Entry point for SocketObjectEchoTest.testObjectEcho",
 			"Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput",
