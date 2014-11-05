@@ -1,34 +1,59 @@
 1
 Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Send Simple Unicast Message with Datagram
+
 2
 Entry point for SocketBufReleaseTest.testBufRelease
+Socket Buffer Release
+
 3
 Entry point for SocketEchoTest.testSimpleEcho
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
 Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Send Simple Echo Message with Socket
+
 4
 Entry point for SocketFileRegionTest.testFileRegion
 Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Send File Region With Socket
+
 5
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Send Fixed Length Echo Message with Socket
+
 6
 Entry point for SocketObjectEchoTest.testObjectEcho
+Send Object Echo Message with Socket
+
 7
 Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
 Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Shutdown Output By Peer
+
 8
 Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Shutdown Output By Self
+
 9
 Entry point for SocketSpdyEchoTest.testSpdyEcho
+Send Echo Message with SPDY Support
+
 10
 Entry point for SocketSslEchoTest.testSslEcho
+Send Echo Message with SSL Support
+
 11
 Entry point for SocketStartTlsTest.testStartTls
+Start TLS Communication
+
 12
 Entry point for SocketStringEchoTest.testStringEcho
+Send String Echo Message with Socket
+
 13
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+Write Data Before Connection
 
 io.netty.bootstrap.ServerBootstrap.toString() 0.02727272727272727 0.06321839080459771 0.03594566353187044 -1
 io.netty.buffer.AbstractByteBufAllocator.toString() null 0.00543859649122807 0.00543859649122807 -1
@@ -52,3 +77,9 @@ safeExecute()
 2060:defect
 
 Commits
+
+Total of issues (considering attribute milestone):
+From 4.0.10.Final to 4.0.11.Final -> 26 closed
+From 4.0.11.Final to 4.0.13.Final -> 18 closed
+From 4.0.13.Final to 4.0.15.Final -> 27 closed
+Total: 71
