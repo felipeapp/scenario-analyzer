@@ -13,7 +13,15 @@ public abstract class GenericAnnotationParser {
 		List<GenericAnnotationParser> result = new ArrayList<GenericAnnotationParser>();
 		
 		String regex = properties.getProperty("regex");
-		String class_list[] = properties.getProperty("annotation_parsers").split(regex);
+		String parsers = properties.getProperty("annotation_parsers");
+		
+		if (parsers == null)
+			return result;
+		
+		if (regex == null)
+			regex = ":";
+		
+		String class_list[] = parsers.split(regex);
 
 		for (String class_name : class_list) {
 			GenericAnnotationParser parser = null;

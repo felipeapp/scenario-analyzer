@@ -34,11 +34,11 @@ public aspect AspectAnnotatedScenario {
 	
 	private pointcut executionIgnored() : within(br.ufrn.ppgsc.scenario.analyzer..*);
 	
-	private static final Class<? extends Annotation> ANNOTATION_CLS = org.junit.Test.class;
-//	private static final Class<? extends Annotation> ANNOTATION_CLS = br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario.class;
+//	private static final Class<? extends Annotation> ANNOTATION_CLS = org.junit.Test.class;
+	private static final Class<? extends Annotation> ANNOTATION_CLS = br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario.class;
 	private pointcut executionFlow() :
-		cflow(execution(@org.junit.Test * *(..)));
-//		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario * *(..)));
+//		cflow(execution(@org.junit.Test * *(..)));
+		cflow(execution(@br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario * *(..)));
 	
 	/*
 	 * Todas as execuções de métodos e construtores
