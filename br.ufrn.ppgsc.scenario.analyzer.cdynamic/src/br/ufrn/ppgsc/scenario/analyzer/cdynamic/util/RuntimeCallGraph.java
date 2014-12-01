@@ -35,7 +35,7 @@ public class RuntimeCallGraph {
 			props.load(new FileInputStream("cdynamic.properties"));
 		} catch (IOException e) {
 			System.err.println("Can't load cdynamic.properties file!");
-			System.exit(0);
+			System.err.println("Ignoring cdynamic.properties...");
 		}
 		
 		parsers = GenericAnnotationParser.getAnnotationParsers(props);
