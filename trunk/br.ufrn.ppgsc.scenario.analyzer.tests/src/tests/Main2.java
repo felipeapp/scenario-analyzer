@@ -22,18 +22,18 @@ public class Main2 extends TestCase {
 
 	}
 
-//	@Scenario(name = "Scenario A")
-	@Test
-	@Performance(name = "qa_a_performance", limitTime = 10)
+	@Scenario(name = "Scenario A")
+//	@Test
+//	@Performance(name = "qa_a_performance", limitTime = 10)
 	public void testA() {
 		testB();
 		C();
 		new Main2();
 	}
 
-	@Performance(name = "qa_b_performance", limitTime = 4)
-	@Reliability(name = "qa_b_reliability", failureRate = 0.1)
-	@Test
+//	@Performance(name = "qa_b_performance", limitTime = 4)
+//	@Reliability(name = "qa_b_reliability", failureRate = 0.1)
+//	@Test
 	@Scenario(name = "Scenario B")
 	private int testB() {
 		C();
@@ -41,14 +41,14 @@ public class Main2 extends TestCase {
 	}
 
 	@Scenario(name = "Scenario C")
-	@Test
+//	@Test
 	public void C() {
 		D();
 	}
 
-	@Performance(name = "qa_d_performance", limitTime = 5)
-	@Reliability(name = "qa_d_reliability", failureRate = 0.01)
-	@Security(name = "qa_d_security")
+//	@Performance(name = "qa_d_performance", limitTime = 5)
+//	@Reliability(name = "qa_d_reliability", failureRate = 0.01)
+//	@Security(name = "qa_d_security")
 	public void D() {
 		try {
 			System.out.println(1 / 0);
