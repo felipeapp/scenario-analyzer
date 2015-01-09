@@ -1,0 +1,93 @@
+# Métodos que tiveram performance otimizada na evolução
+-1 2187 2254 2214 
+6
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+Members 1
+testSpdyEcho 153 156
+Lines 7
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+transport/src/main/java/io/netty/channel/socket/nio/NioDatagramChannel.java
+Members 1
+joinGroup 352 390
+Lines 27
+Revision f94b563bcd64840a9978204e75812ed182830990
+Issues 1
+transport/src/main/java/io/netty/channel/AbstractChannel.java
+Members 1
+close 522 574
+Lines 7
+Revision 041d37e0c8b3616dc86468bd2c3b6332638bdf1b
+Issues 1
+IssueID 2214 | IssueNumber 2214 | IssueType none yet
+Revision 96b0a949e102a5766abc5e12b3392b1bf3da7005
+Issues 1
+IssueID 2214 | IssueNumber 2214 | IssueType none yet
+transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+Members 1
+newInstance 708 712
+Lines 5
+Revision 11a235ffe94e75d23b7d745f8c3e47b031629e6a
+Issues 1
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+Members 2
+write 696 722
+Lines 15
+Revision 64c3f58279809141a851becba445a20badc8a610
+Issues 1
+WriteTask 936 938
+Lines 3
+Revision 64c3f58279809141a851becba445a20badc8a610
+Issues 1
+buffer/src/main/java/io/netty/buffer/AbstractReferenceCountedByteBuf.java
+Members 1
+refCnt 47 50
+Lines 1
+Revision f23d68b42fd71674fee6623f6779d70b6849da21
+Issues 1
+IssueID 2187 | IssueNumber 2187 | IssueType defect
+2
+defect:1
+none yet:3
+2
+defect:1
+none yet:2
+2
+defect
+1
+refCnt
+none yet
+24
+connect
+read
+beginRead
+removeReadOp
+safeFail
+safeSuccess
+totalPendingWriteBytes
+testSpdyEcho
+SpdyEchoTestClientHandler
+channelReadComplete
+testSpdyEchoNotAutoRead
+SpdyEchoTestServerHandler
+rebuildSelector
+handleReadException
+register0
+register
+safeSetFailure
+write
+disconnect
+bind
+ensureOpen
+safeSetSuccess
+deregister
+close
+2
+defect
+1
+refCnt
+none yet
+2
+testSpdyEcho
+close

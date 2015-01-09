@@ -1,0 +1,78 @@
+# Métodos que tiveram performance otimizada na evolução
+-1 
+2
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+Members 2
+testSslEcho 88 91
+Lines 1
+Revision eda702b6abc288ccc6055b09d74434cd6aee402f
+Issues 1
+testSslEchoNotAutoRead 97 100
+Lines 1
+Revision eda702b6abc288ccc6055b09d74434cd6aee402f
+Issues 1
+buffer/src/main/java/io/netty/buffer/PooledByteBufAllocator.java
+Members 1
+validateAndCalculatePageShifts 189 200
+Lines 6
+Revision 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+Issues 1
+4
+defect:1
+improvement:4
+feature:1
+feature,improvement:1
+0
+4
+defect
+8
+validatePromise
+connect
+close
+writeAndFlush
+write
+disconnect
+bind
+deregister
+improvement
+20
+free
+free
+get
+freeThreadLocalCache
+PooledByteBufAllocator
+exists
+hasThreadLocalCache
+smallIdx
+isDirect
+reallocate
+findSubpagePoolHead
+allocate
+isTiny
+tinyIdx
+normalizeCapacity
+newChunk
+PoolArena
+isTinyOrSmall
+newSocket
+NioServerSocketChannel
+feature
+4
+newSocket
+NioSocketChannel
+NioServerSocketChannel
+NioDatagramChannel
+feature,improvement
+11
+fireChannelInactive
+fireChannelUnregistered
+fireExceptionCaught
+fireChannelActive
+fireChannelRegistered
+fireUserEventTriggered
+fireChannelRead
+shutdownOutput
+newTaskQueue
+register
+beginRead
+0

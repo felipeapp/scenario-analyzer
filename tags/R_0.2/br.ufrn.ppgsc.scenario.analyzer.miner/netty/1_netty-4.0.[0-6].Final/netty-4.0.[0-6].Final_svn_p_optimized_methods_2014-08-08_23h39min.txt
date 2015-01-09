@@ -1,0 +1,91 @@
+# Métodos que tiveram performance otimizada na evolução
+-1 1664 1600 1654 
+2
+transport/src/main/java/io/netty/channel/AbstractChannel.java
+Members 1
+close 510 558
+Lines 44
+Revision 9c8d980a74d7cf786aabaa233c692e247767aaac
+Issues 1
+IssueID 1600 | IssueNumber 1600 | IssueType defect
+Revision 15279b2525f694d1789ce06d74cf2d55a9a64e01
+Issues 1
+IssueID 1654 | IssueNumber 1654 | IssueType defect
+Revision 241f856cc721dbf786321a94c987c5026eea5412
+Issues 1
+Revision fef838f197ca42189f9760c4927993abd9055c01
+Issues 1
+Revision 5f363e8adeef9ddd118e6906e2848ce0a0b049c7
+Issues 1
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+Members 4
+findContextOutbound 803 809
+Lines 1
+Revision 3b1881b523e61496d9bc50e44927f7b58fa449e6
+Issues 1
+IssueID 1664 | IssueNumber 1664 | IssueType defect
+close 531 549
+Lines 5
+Revision e81368af0632b28a7ba54be49142e2b5bf78d14b
+Issues 1
+write 622 643
+Lines 7
+Revision e81368af0632b28a7ba54be49142e2b5bf78d14b
+Issues 1
+flush 653 673
+Lines 8
+Revision e81368af0632b28a7ba54be49142e2b5bf78d14b
+Issues 1
+3
+defect:7
+improvement:1
+none yet:1
+1
+defect:3
+3
+defect
+32
+doWrite
+findContextInbound
+invokeChannelReadComplete
+invokeChannelRegistered
+findContextOutbound
+invokeChannelWritabilityChanged
+invokeBind
+invokeConnect
+invokeExceptionCaught
+invokeDisconnect
+invokeChannelUnregistered
+invokeDeregister
+invokeChannelActive
+invokeRead
+invokeUserEventTriggered
+invokeChannelRead
+invokeFlush
+invokeClose
+invokeWrite
+invokeChannelInactive
+callHandlerRemoved
+run
+run
+run
+close
+register
+register0
+write
+flush0
+unwrap
+setHandshakeFailure
+closeOutboundAndChannel
+improvement
+1
+validatePromise
+none yet
+1
+isSharable
+1
+defect
+3
+close
+close
+findContextOutbound
