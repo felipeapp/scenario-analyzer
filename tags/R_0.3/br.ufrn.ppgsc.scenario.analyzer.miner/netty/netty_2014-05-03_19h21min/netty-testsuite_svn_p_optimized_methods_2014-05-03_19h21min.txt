@@ -1,0 +1,489 @@
+# Métodos que tiveram performance otimizada na evolução
+-1 2098 1600 1259 2349 2390 2187 1626 2254 1802 1800 1650 1829 1830 2060 1825 1654 2214 
+21
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSpdyEchoTest.java
+Members 2
+testSpdyEcho 147 150
+Lines 17
+Revision 39ae2dd3f1856def09b21995ff0496b6ee59a8b8
+Issues 1
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+Revision 2360142b89b1bec85e98ab05a53f7ff0b63795de
+Issues 1
+createFrames 45 145
+Lines 7
+Revision db59b38db330512219e6f7e3cf09b2c959d87cd1
+Issues 1
+transport/src/main/java/io/netty/channel/socket/DefaultDatagramChannelConfig.java
+Members 1
+setOption 109 138
+Lines 2
+Revision ae904a1f56d80cb3f4ad160006c05319e73d173a
+Issues 1
+IssueID 1830 | IssueNumber 1830 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketFixedLengthEchoTest.java
+Members 1
+testFixedLengthEcho 55 57
+Lines 5
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+transport/src/main/java/io/netty/channel/socket/nio/NioDatagramChannel.java
+Members 1
+joinGroup 376 419
+Lines 32
+Revision f94b563bcd64840a9978204e75812ed182830990
+Issues 1
+Revision e8b5c9ccae21bb48f536f44232df0a2a7fe4e0e5
+Issues 1
+IssueID 2390 | IssueNumber 2390 | IssueType improvement
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+Members 2
+findContextOutbound 868 874
+Lines 1
+Revision b8866aef330403353285486bbf5c0342b6c6a998
+Issues 1
+close 551 572
+Lines 11
+Revision e81368af0632b28a7ba54be49142e2b5bf78d14b
+Issues 1
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement
+Revision 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+Issues 1
+buffer/src/main/java/io/netty/buffer/AbstractReferenceCountedByteBuf.java
+Members 1
+refCnt 47 50
+Lines 1
+Revision f23d68b42fd71674fee6623f6779d70b6849da21
+Issues 1
+IssueID 2187 | IssueNumber 2187 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStringEchoTest.java
+Members 1
+testStringEcho 60 62
+Lines 5
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+buffer/src/main/java/io/netty/buffer/Unpooled.java
+Members 1
+buffer 130 138
+Lines 3
+Revision e4f391f626f1ce358b3037e38ecfec82eb9a4e30
+Issues 1
+buffer/src/main/java/io/netty/buffer/UnpooledHeapByteBuf.java
+Members 1
+capacity 105 132
+Lines 1
+Revision 77b4ec7e1bc0b8c6111728cc074226dd9cfe1b73
+Issues 2
+IssueID 1802 | IssueNumber 1802 | IssueType defect
+IssueID 1800 | IssueNumber 1800 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketFileRegionTest.java
+Members 2
+testFileRegionVoidPromise 57 60
+Lines 2
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testFileRegion 67 69
+Lines 1
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+transport/src/main/java/io/netty/channel/SingleThreadEventLoop.java
+Members 1
+register 46 49
+Lines 1
+Revision 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+Issues 1
+IssueID 2060 | IssueNumber 2060 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketBufReleaseTest.java
+Members 1
+testBufRelease 48 70
+Lines 3
+Revision b3d8c81557315ac5b5d4b381fe7461ce276a3f9e
+Issues 1
+transport/src/main/java/io/netty/channel/AbstractChannel.java
+Members 1
+close 523 575
+Lines 48
+Revision 041d37e0c8b3616dc86468bd2c3b6332638bdf1b
+Issues 1
+IssueID 2214 | IssueNumber 2214 | IssueType none yet
+Revision 9c8d980a74d7cf786aabaa233c692e247767aaac
+Issues 1
+IssueID 1600 | IssueNumber 1600 | IssueType defect
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement
+Revision 15279b2525f694d1789ce06d74cf2d55a9a64e01
+Issues 1
+IssueID 1654 | IssueNumber 1654 | IssueType defect
+Revision 96b0a949e102a5766abc5e12b3392b1bf3da7005
+Issues 1
+IssueID 2214 | IssueNumber 2214 | IssueType none yet
+Revision 241f856cc721dbf786321a94c987c5026eea5412
+Issues 1
+Revision fef838f197ca42189f9760c4927993abd9055c01
+Issues 1
+Revision 5f363e8adeef9ddd118e6906e2848ce0a0b049c7
+Issues 1
+transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java
+Members 1
+toString 296 333
+Lines 1
+Revision 54db9ec725d2b2f74436b15e6c7aef196f098a81
+Issues 1
+buffer/src/main/java/io/netty/buffer/AbstractByteBufAllocator.java
+Members 1
+heapBuffer 120 123
+Lines 1
+Revision feb8d101bddc032cf55d6c63bc1020ac6930e30a
+Issues 1
+IssueID 1626 | IssueNumber 1626 | IssueType none yet
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+Members 1
+testSslEcho 88 91
+Lines 30
+Revision eda702b6abc288ccc6055b09d74434cd6aee402f
+Issues 1
+Revision bc21443ea904ba37f46c1fb3b9ab99322e3bbb0d
+Issues 1
+IssueID 2098 | IssueNumber 2098 | IssueType defect
+Revision a857994d82cadfce21ab34434c3523a8e8653141
+Issues 1
+IssueID 1825 | IssueNumber 1825 | IssueType defect
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+Members 4
+doBind 271 294
+Lines 14
+Revision 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+Issues 1
+IssueID 2060 | IssueNumber 2060 | IssueType defect
+initAndRegister 296 324
+Lines 3
+Revision 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+Issues 1
+IssueID 2060 | IssueNumber 2060 | IssueType defect
+toString 385 431
+Lines 3
+Revision 54db9ec725d2b2f74436b15e6c7aef196f098a81
+Issues 1
+bind 227 237
+Lines 1
+Revision 7d9388a3cc90b322eb1e9ea048a16e31beaad387
+Issues 1
+IssueID 1829 | IssueNumber 1829 | IssueType improvement
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+Members 4
+testSimpleEcho 66 68
+Lines 2
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testSimpleEchoWithAdditionalExecutorAndVoidPromise 120 122
+Lines 1
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testSimpleEchoWithAdditionalExecutor 79 82
+Lines 3
+Revision b9bae2b5e4bf32f6db783664a02e1d22ba4159db
+Issues 1
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testSimpleEchoWithVoidPromise 97 100
+Lines 3
+Revision b9bae2b5e4bf32f6db783664a02e1d22ba4159db
+Issues 1
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
+Members 1
+testStartTls 66 68
+Lines 5
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketObjectEchoTest.java
+Members 1
+testObjectEcho 58 60
+Lines 5
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+transport/src/main/java/io/netty/channel/ChannelHandlerAdapter.java
+Members 1
+isSharable 47 60
+Lines 9
+Revision fabefba79185ce7ec143d911ae86f5ab8bb08845
+Issues 1
+IssueID 1650 | IssueNumber 1650 | IssueType none yet
+Revision ef76907422d74ba9a37347c4fa0dde9975f307b7
+Issues 1
+5
+defect:30
+improvement:11
+feature:2
+none yet:21
+feature,improvement:1
+4
+defect:10
+improvement:2
+none yet:4
+feature,improvement:1
+5
+defect
+83
+setActiveOnOpen
+getOptions
+setOption
+setWriteBufferHighWaterMark
+setAutoClose
+getOption
+validatePromise
+connect
+invokeChannelRegistered
+invokeChannelReadComplete
+close
+write
+invokeChannelWritabilityChanged
+invokeBind
+invokeConnect
+invokeExceptionCaught
+invokeDisconnect
+invokeChannelUnregistered
+invokeDeregister
+invokeChannelActive
+invokeRead
+invokeUserEventTriggered
+invokeChannelRead
+invokeFlush
+invokeClose
+disconnect
+invokeWrite
+bind
+deregister
+invokeChannelInactive
+setReadPending
+isReadPending
+doBeginRead
+connect
+checkReadableBytes
+skipBytes
+readByte
+nioBuffer
+internalNioBuffer
+doBind
+initAndRegister
+operationComplete
+fulfillConnectPromise
+fulfillConnectPromise
+finishConnect
+read
+refCnt
+nioBuffer
+getBytes
+capacity
+capacity
+readBytes
+doWrite
+doWrite
+NioSocketChannelConfig
+autoReadCleared
+channelInactive
+callDecode
+NioServerSocketChannelConfig
+callHandlerRemoved
+isActive
+channelRead0
+setOpWrite
+clearOpWrite
+run
+run
+write
+flush0
+forceClose
+SocketSslEchoTest
+SocketSslEchoTest
+initChannel
+data
+testSslEcho
+setHandshakeSuccessIfStillHandshaking
+closeOutboundAndChannel
+setHandshakeSuccess
+SslHandler
+runDelegatedTasks
+wrap
+operationComplete
+safeClose
+setHandshakeFailure
+improvement
+22
+validatePromise
+write
+writeAndFlush
+copiedBuffer
+register
+newSocket
+channelRead
+expandCumulation
+NioServerSocketChannel
+joinGroup
+read
+closeOnRead
+write
+unwrap
+wrapNonAppData
+isEncrypted
+channelActive
+getEncryptedPacketLength
+wrap
+finishWrap
+handshake
+handlerAdded
+feature
+5
+newSocket
+NioSocketChannel
+NioServerSocketChannel
+NioDatagramChannel
+exceptionCaught
+none yet
+76
+setMessageSizeEstimator
+safeExecute
+run
+run
+init
+setReadPending
+connect
+copiedBuffer
+beginRead
+finishConnect
+removeReadOp
+setAutoRead
+setAllocator
+setWriteBufferLowWaterMark
+setConnectTimeoutMillis
+setWriteSpinCount
+operationComplete
+compositeHeapBuffer
+directBuffer
+compositeDirectBuffer
+heapBuffer
+testSimpleEcho
+testSimpleEchoWithAdditionalExecutorNotAutoRead
+testSimpleEchoWithVoidPromiseNotAutoRead
+channelReadComplete
+EchoHandler
+testSimpleEchoWithAdditionalExecutorAndVoidPromise
+testSimpleEcho0
+testSimpleEchoNotAutoRead
+testSimpleEchoWithAdditionalExecutor
+testSimpleEchoWithVoidPromise
+StartTlsClientHandler
+exceptionCaught
+testStartTls
+testStartTlsNotAutoRead
+StartTlsServerHandler
+testObjectEchoNotAutoRead
+testObjectEcho
+handlerRemoved
+testFileRegion0
+TestHandler
+testFileRegionVoidPromise
+testFileRegion
+channelRead0
+testFileRegionVoidPromiseNotAutoRead
+testFileRegionNotAutoRead
+testSpdyEcho
+SpdyEchoTestClientHandler
+testSpdyEchoNotAutoRead
+SpdyEchoTestServerHandler
+DefaultChannelPipeline
+testFixedLengthEcho
+testFixedLengthEchoNotAutoRead
+doReadMessages
+setOpWrite
+handleReadException
+testStringEchoNotAutoRead
+testStringEcho
+StringEchoHandler
+estimatorHandle
+invokeLater
+ensureOpen
+register0
+safeSetFailure
+safeSetSuccess
+testSslEchoNotAutoRead
+unwrapMultiple
+write
+channelActive
+unwrapSingle
+unwrapSingle
+unwrapNonApp
+flush
+decode
+ignoreException
+isSharable
+feature,improvement
+8
+fireChannelInactive
+fireChannelUnregistered
+fireExceptionCaught
+fireChannelActive
+fireChannelRegistered
+fireUserEventTriggered
+fireChannelRead
+shutdownOutput
+4
+defect
+12
+setOption
+close
+refCnt
+capacity
+capacity
+register
+close
+close
+testSslEcho
+testSslEcho
+doBind
+initAndRegister
+improvement
+2
+joinGroup
+bind
+none yet
+14
+testSpdyEcho
+testFixedLengthEcho
+testStringEcho
+testFileRegionVoidPromise
+testFileRegion
+close
+heapBuffer
+testSimpleEcho
+testSimpleEchoWithAdditionalExecutorAndVoidPromise
+testSimpleEchoWithAdditionalExecutor
+testSimpleEchoWithVoidPromise
+testStartTls
+testObjectEcho
+isSharable
+feature,improvement
+1
+close
