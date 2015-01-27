@@ -9,6 +9,7 @@ import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 public class Main2 extends TestCase {
 
+	@Test
 	public static void main(String[] args) {
 		Main2 o = new Main2();
 
