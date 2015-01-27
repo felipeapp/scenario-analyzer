@@ -109,8 +109,23 @@ public abstract class AspectsUtil {
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
 		
 		try {
-			// Desempilha o último método e configura o tempo de execução dele
-			nodes_stack.pop().setExecutionTime(time);
+			// Desempilha o último método
+			RuntimeNode node = nodes_stack.pop();
+			
+			// Configura o tempo de executação total
+			node.setExecutionTime(time);
+			
+			if (time == -1) {
+				node.setRealExecutionTime(time);
+			}
+			else {
+				// Configura o tempo de executação real (subtraindo o tempo dos filhos)
+				long real_time = time;
+				for (RuntimeNode child : node.getChildren())
+					real_time -= child.getExecutionTime();
+				
+				node.setRealExecutionTime(real_time);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,8 +147,23 @@ public abstract class AspectsUtil {
 		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
 		
 		try {
-			// Desempilha o último método e configura o tempo de execução dele
-			nodes_stack.pop().setExecutionTime(time);
+			// Desempilha o último método
+			RuntimeNode node = nodes_stack.pop();
+			
+			// Configura o tempo de executação total
+			node.setExecutionTime(time);
+			
+			if (time == -1) {
+				node.setRealExecutionTime(time);
+			}
+			else {
+				// Configura o tempo de executação real (subtraindo o tempo dos filhos)
+				long real_time = time;
+				for (RuntimeNode child : node.getChildren())
+					real_time -= child.getExecutionTime();
+				
+				node.setRealExecutionTime(real_time);
+			}
 					
 			/*
 			 * Caso o método seja um método de entrada de um cenário,

@@ -40,6 +40,9 @@ public class RuntimeNode {
 
 	@Column(name = "time")
 	private long executionTime;
+	
+	@Column(name = "real_time")
+	private long realExecutionTime;
 
 	@Column(name = "constructor")
 	private boolean isConstructor;
@@ -104,6 +107,14 @@ public class RuntimeNode {
 
 	public long getExecutionTime() {
 		return executionTime;
+	}
+	
+	public long getRealExecutionTime() {
+		return realExecutionTime;
+	}
+	
+	public void setRealExecutionTime(long realExecutionTime) {
+		this.realExecutionTime = realExecutionTime;
 	}
 
 	public void setExecutionTime(long executionTime) {
