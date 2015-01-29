@@ -30,7 +30,7 @@ public class DatabaseService<T extends Serializable> {
 				 */
 				if (rs.getThreadId() == Thread.currentThread().getId()) {
 					it.remove();
-					dao.persist(rs);
+					dao.save(rs);
 				}
 			}
 		}

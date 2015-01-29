@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 
 public abstract class GenericDAO<T extends Serializable> {
 
-	public abstract T persist(T instance);
+	public abstract T save(T instance);
 
 	public abstract T read(Class<T> clazz, long id);
 
@@ -23,7 +23,7 @@ public abstract class GenericDAO<T extends Serializable> {
 			 *  AnnotationConfiguration is deprecated. We should use Configuration
 			 *  AnnotationConfiguration is being used because of SIGAA
 			 */
-			SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
+			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
 		}
 

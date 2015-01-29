@@ -11,6 +11,7 @@
 		<property name="connection.url">jdbc:postgresql://127.0.0.1:5432/scenario_analyzer_db</property>
 		<property name="connection.username">scenario_analyzer_user</property>
 		<property name="connection.password">123456</property>
+		<property name="connection.pool_size">1</property>
 
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
@@ -19,19 +20,15 @@
 
 		<property name="hbm2ddl.auto">update</property>
 
-		<!--
 		<property name="hibernate.connection.autocommit">false</property>
-		
-		<property name="hibernate.default_batch_fetch_size">50000</property>
-	    <property name="hibernate.jdbc.batch_size">50000</property>
-	    <property name="hibernate.jdbc.fetch_size">50000</property>
-	
+
+		<property name="hibernate.jdbc.batch_size">1000</property>
+	    
 	    <property name="hibernate.order_inserts">true</property>
 	    <property name="hibernate.order_updates">true</property>
-	
+	    
 	    <property name="hibernate.cache.use_query_cache">false</property>
 	    <property name="hibernate.cache.use_second_level_cache">false</property>
-	    -->
 
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution" />
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario" />
