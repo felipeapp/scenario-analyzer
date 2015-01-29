@@ -1,5 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.cdynamic.model;
 
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
@@ -25,7 +26,9 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
 import br.ufrn.ppgsc.scenario.analyzer.common.util.MemberUtil;
 
 @Entity(name = "node")
-public class RuntimeNode {
+public class RuntimeNode implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column
