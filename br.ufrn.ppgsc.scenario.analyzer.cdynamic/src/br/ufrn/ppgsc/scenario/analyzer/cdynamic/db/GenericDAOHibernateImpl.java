@@ -5,16 +5,30 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<T> {
 
 	@Override
-	public T persist(T instance) {
+	public T save(T instance) {
+		System.out.println();
+		
 		Session s = getSession();
-
-		s.beginTransaction();
-		s.persist(instance);
-		s.getTransaction().commit();
+		
+		Transaction tx = null;
+		
+		try { 
+			tx = s.beginTransaction();
+			s.save(instance);
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
+			
+			e.printStackTrace();
+		} finally {
+			s.clear();
+		}
 
 		return instance;
 	}
