@@ -11,15 +11,14 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<
 
 	@Override
 	public T save(T instance) {
-		System.out.println();
-		
 		Session s = getSession();
-		
 		Transaction tx = null;
 		
 		try { 
 			tx = s.beginTransaction();
+			System.out.println("Saving scenario " + instance.toString());
 			s.save(instance);
+			System.out.println("Commiting scenario " + instance.toString());
 			tx.commit();
 		} catch (RuntimeException e) {
 			if (tx != null)
