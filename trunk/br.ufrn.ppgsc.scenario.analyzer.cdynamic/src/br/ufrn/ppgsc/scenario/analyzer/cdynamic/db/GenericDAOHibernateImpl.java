@@ -16,9 +16,9 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<
 		
 		try { 
 			tx = s.beginTransaction();
-			System.out.println("Saving scenario " + instance.toString());
+			System.out.println("Saving " + instance.toString());
 			s.save(instance);
-			System.out.println("Commiting scenario " + instance.toString());
+			System.out.println("Commiting " + instance.toString());
 			tx.commit();
 		} catch (RuntimeException e) {
 			if (tx != null)
