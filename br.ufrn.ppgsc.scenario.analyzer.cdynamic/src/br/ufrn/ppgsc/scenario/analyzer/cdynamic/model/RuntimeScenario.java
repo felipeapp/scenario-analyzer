@@ -134,5 +134,10 @@ public class RuntimeScenario implements Serializable {
 	public void setContext(Map<String, String> context) {
 		this.context = context;
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 }

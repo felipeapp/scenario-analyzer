@@ -21,7 +21,7 @@ public abstract class GenericDAO<T extends Serializable> {
 		if (s == null) {
 			/*
 			 *  AnnotationConfiguration is deprecated. We should use Configuration
-			 *  AnnotationConfiguration is being used because of SIGAA
+			 *  AnnotationConfiguration should be used with SIGAA
 			 */
 			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
