@@ -28,6 +28,10 @@ public abstract class GenericDB {
 	public abstract List<String> getScenariosByMember(String signature);
 
 	public abstract Set<String> getImpactedNodes(String signarute);
+	
+	public abstract List<String> getSignatureOfMembers();
+	
+	public abstract double[] getAllExecutionTimeByMember(String signature);
 
 	private Session s;
 
