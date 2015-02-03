@@ -12,6 +12,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.type.DoubleType;
 import org.hibernate.type.IntegerType;
+import org.hibernate.type.LongType;
 import org.hibernate.type.StringType;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
@@ -120,6 +121,40 @@ public class GenericDBHibernateImpl extends GenericDB {
 
 		for (Object o : query.list())
 			result.add((String) o);
+
+		return result;
+	}
+	
+	@Override
+	public List<String> getSignatureOfMembers() {
+		List<String> result = new ArrayList<String>();
+
+		Session s = getSession();
+
+		SQLQuery query = s.createSQLQuery("select distinct member from node where time <> -1");
+
+		query.addScalar("member", StringType.INSTANCE);
+
+		for (Object o : query.list())
+			result.add((String) o);
+
+		return result;
+	}
+	
+	@Override
+	public double[] getAllExecutionTimeByMember(String signature) {
+		Session s = getSession();
+
+		SQLQuery query = s.createSQLQuery("select time from node where time <> -1 and member = :signature");
+
+		query.setString("signature", signature);
+		query.addScalar("time", LongType.INSTANCE);
+
+		List<?> rset = query.list();
+		double[] result = new double[rset.size()];
+		
+		for (int i = 0; i < result.length; i++)
+			result[i] = (Long) rset.get(i);
 
 		return result;
 	}
