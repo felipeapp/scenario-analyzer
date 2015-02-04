@@ -13,9 +13,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.jdom2.JDOMException;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
@@ -34,7 +34,7 @@ public class NettyMiner implements IQueryIssue {
 		metadata = SystemMetadataUtil.getInstance();
 	}
 
-	private JSONObject getJSONByIssueId(Long issueId) throws IOException, JDOMException {
+	private JSONObject getJSONByIssueId(Long issueId) throws IOException, JDOMException, JSONException {
 		String url = metadata.getStringProperty("host") + issueId + "?client_id=" + metadata.getStringProperty("client_id") +
 				"&client_secret=" + metadata.getStringProperty("client_secret");
 		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(url);
