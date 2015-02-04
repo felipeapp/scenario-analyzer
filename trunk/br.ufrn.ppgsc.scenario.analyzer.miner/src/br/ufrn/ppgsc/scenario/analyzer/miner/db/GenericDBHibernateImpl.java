@@ -69,7 +69,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 		Session s = getSession();
 
 		SQLQuery query = s.createSQLQuery("select node.member signature, avg(node.time) average"
-				+ " from node where node.time <> -1 group by signature order by signature");
+				+ " from node where node.time > 0 group by signature order by signature");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
@@ -91,7 +91,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 		Session s = getSession();
 
 		SQLQuery query = s.createSQLQuery("select scenario.name sname, avg(node.time) saverage from scenario inner join node"
-				+ " on scenario.root_id = node.id and node.time <> -1 group by sname order by sname;");
+				+ " on scenario.root_id = node.id and node.time > 0 group by sname order by sname;");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
@@ -131,7 +131,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select distinct member from node where time <> -1");
+		SQLQuery query = s.createSQLQuery("select distinct member from node where time > 0");
 
 		query.addScalar("member", StringType.INSTANCE);
 
@@ -145,7 +145,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 	public double[] getAllExecutionTimeByMember(String signature) {
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select time from node where time <> -1 and member = :signature");
+		SQLQuery query = s.createSQLQuery("select time from node where time > 0 and member = :signature");
 
 		query.setString("signature", signature);
 		query.addScalar("time", LongType.INSTANCE);
