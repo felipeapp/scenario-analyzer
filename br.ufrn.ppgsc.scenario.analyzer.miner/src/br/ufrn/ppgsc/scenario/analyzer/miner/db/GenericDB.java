@@ -32,6 +32,8 @@ public abstract class GenericDB {
 	public abstract List<String> getSignatureOfMembers();
 	
 	public abstract double[] getAllExecutionTimeByMember(String signature);
+	
+	public abstract double[] getAllExecutionTimeByScenario(String sname);
 
 	private Session s;
 
