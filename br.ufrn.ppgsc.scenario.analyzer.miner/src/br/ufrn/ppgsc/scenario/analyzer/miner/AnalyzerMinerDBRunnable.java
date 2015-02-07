@@ -1,9 +1,7 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -12,12 +10,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerReportUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.StatElement;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.Tests;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public final class AnalyzerMinerDBRunnable {
@@ -26,6 +27,7 @@ public final class AnalyzerMinerDBRunnable {
 	private GenericDB database_v2;
 	
 	private double performance_rate;
+	private double significance_level;
 	private String system_id;
 	
 	private String strdate;
@@ -35,98 +37,12 @@ public final class AnalyzerMinerDBRunnable {
 		
 		system_id = properties.getStringProperty("system_id");
 		performance_rate = properties.getDoubleProperty("performance_rate");
+		significance_level = properties.getDoubleProperty("significance_level");
 		
 		database_v1 = DatabaseRelease.getDatabasev1();
 		database_v2 = DatabaseRelease.getDatabasev2();
 		
 		strdate = new SimpleDateFormat("yyyy-MM-dd_HH'h'mm'min'").format(new Date());
-	}
-	
-	private void persistFile(String message, String partial_name, Collection<String> collection, double rate) throws FileNotFoundException {
-		System.out.println("persistFile: " + message);
-		
-		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
-		
-		pw.println(message);
-		
-		pw.println(collection.size());
-		
-		for (String elem : collection)
-			pw.println(elem);
-		
-		if (rate > 0)
-			pw.println(rate);
-		
-		pw.close();
-	}
-	
-	private void persistFile(String message, String partial_name, Collection<String> collection,
-			Map<String, Double> average_v1, Map<String, Double> average_v2, double rate) throws FileNotFoundException {
-		System.out.println("persistFile: " + message);
-		
-		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
-		
-		pw.println(message);
-		
-		pw.println(collection.size());
-		
-		for (String elem : collection)
-			pw.println(elem + System.lineSeparator() + average_v1.get(elem) + " " + average_v2.get(elem));
-		
-		if (rate > 0)
-			pw.println(rate);
-		
-		pw.close();
-	}
-	
-	private void persistFile(String message, String partial_name,
-			Map<RuntimeScenario, List<RuntimeNode>> map_scenario_node,
-			Map<String, Integer> map_failed_methods, GenericDB db) throws FileNotFoundException {
-		System.out.println("persistFile: " + message);
-		
-		PrintWriter pw = new PrintWriter(new FileOutputStream(
-				"miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt"), true);
-		
-		pw.println(message);
-		pw.println(map_scenario_node.size());
-		
-		for (RuntimeScenario s : map_scenario_node.keySet()) {
-			List<RuntimeNode> nodes = map_scenario_node.get(s);
-			
-			pw.print(s.getId() + ",");
-			pw.print(s.getName() + ",");
-			pw.print(s.getThreadId() + ",");
-			pw.print(s.getDate() + ",");
-			pw.println(s.getRoot().getMemberSignature());
-			
-			pw.println(s.getContext().size());
-
-			for (String key : s.getContext().keySet())
-				pw.println(key + "=" + s.getContext().get(key));
-			
-			pw.println(nodes.size());
-			
-			for (RuntimeNode n : nodes) {
-				String sig = n.getMemberSignature();
-				
-				pw.print(n.getId() + ",");
-				pw.print(sig + ",");
-				pw.print(n.getExecutionTime() + ",");
-				pw.print(n.getExceptionMessage() + ",");
-				pw.println((double) map_failed_methods.get(sig) / db.getNumberOfMethodExecution(sig));
-				
-				pw.println(n.getAnnotations().size());
-				
-				for (RuntimeGenericAnnotation annotation : n.getAnnotations())
-					pw.println(annotation.getName());
-			}
-			
-			pw.println("-----------------------------------");
-		}
-		
-		pw.close();
 	}
 	
 	private Map<RuntimeScenario, List<RuntimeNode>> buildMapOfFailedScenarios(
@@ -159,95 +75,131 @@ public final class AnalyzerMinerDBRunnable {
 		return map;
 	}
 	
+	private String getFileName(String partial_name) {
+		return "miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
+	}
+	
 	public String run() throws FileNotFoundException {
-		System.out.println("Calculating time average of scenarios in release 1...");
-		Map<String, Double> avg_time_scenarios_v1 = database_v1.getExecutionTimeAverageOfScenarios();
-		System.out.println("\tTotal = " + avg_time_scenarios_v1.size());
+		// Object responsible for the calculation of the statistical tests
+		AnalyzerStatistical as = new AnalyzerStatistical();
 		
-		System.out.println("Calculating time average of scenarios in release 2...");
-		Map<String, Double> avg_time_scenarios_v2 = database_v2.getExecutionTimeAverageOfScenarios();
-		System.out.println("\tTotal = " + avg_time_scenarios_v2.size());
+		// Here, we start the treatment of the failed scenarios and methods
+		System.out.println("Getting scenarios and means for release 1...");
+		Map<String, Double> avg_scenarios_v1 = database_v1.getExecutionTimeAverageOfScenarios();
+		System.out.println("\tTotal = " + avg_scenarios_v1.size());
+		
+		System.out.println("Getting scenarios and means for release 2...");
+		Map<String, Double> avg_scenarios_v2 = database_v2.getExecutionTimeAverageOfScenarios();
+		System.out.println("\tTotal = " + avg_scenarios_v2.size());
 		
 		System.out.println("Determining removed scenarios...");
-		Set<String> removed_scenarios = AnalyzerCollectionUtil.except(avg_time_scenarios_v1.keySet(), avg_time_scenarios_v2.keySet());
+		Set<String> removed_scenarios = AnalyzerCollectionUtil.except(avg_scenarios_v1.keySet(), avg_scenarios_v2.keySet());
 		System.out.println("\tTotal = " + removed_scenarios.size());
 		
 		System.out.println("Determining added scenarios...");
-		Set<String> added_scenarios = AnalyzerCollectionUtil.except(avg_time_scenarios_v2.keySet(), avg_time_scenarios_v1.keySet());
+		Set<String> added_scenarios = AnalyzerCollectionUtil.except(avg_scenarios_v2.keySet(), avg_scenarios_v1.keySet());
 		System.out.println("\tTotal = " + added_scenarios.size());
 		
-		System.out.println("Determining kept scenarios...");
-		Set<String> kept_scenarios = AnalyzerCollectionUtil.intersect(avg_time_scenarios_v1.keySet(), avg_time_scenarios_v2.keySet());
-		System.out.println("\tTotal = " + kept_scenarios.size());
+		System.out.println("Calculating statistical tests for common scenarios...");
+		Map<String, StatElement> scenario_results = as.executeStatisticalTests(avg_scenarios_v1, avg_scenarios_v2, RuntimeScenario.class);
 		
-		System.out.println("Determining scenarios with degraded performance (rate method)...");
-		Collection<String> p_rate_degraded_scenarios = AnalyzerCollectionUtil.degradated(avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
-		System.out.println("\tTotal = " + p_rate_degraded_scenarios.size());
+		// Save scenarios in separated files
+		AnalyzerReportUtil.saveReport("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);
+		AnalyzerReportUtil.saveReport("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), avg_scenarios_v1, removed_scenarios, 0, 0);
+		AnalyzerReportUtil.saveReport("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), avg_scenarios_v2, added_scenarios, 0, 0);
 		
-		System.out.println("Determining scenarios with optimized performance (rate method)...");
-		Collection<String> p_rate_optimized_scenarios = AnalyzerCollectionUtil.optimized(avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
-		System.out.println("\tTotal = " + p_rate_optimized_scenarios.size());
+		// Save scenarios according their execution time variation measured by the performance rate
+		AnalyzerReportUtil.saveReport("# Degradated scenarios (Rate method)", getFileName("pr_degraded_scenarios"), AnalyzerCollectionUtil.degradatedRate(scenario_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveReport("# Optimized scenarios (Rate method)", getFileName("pr_optimized_scenarios"), AnalyzerCollectionUtil.optimizedRate(scenario_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveReport("# Unchanged scenarios (Rate method)", getFileName("pr_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedRate(scenario_results.values(), performance_rate), performance_rate, 0);
 		
-		System.out.println("Determining scenarios with unchanged performance (rate method)...");
-		Collection<String> p_rate_unchanged_scenarios = AnalyzerCollectionUtil.unchanged(avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
-		System.out.println("\tTotal = " + p_rate_unchanged_scenarios.size());
+		// Save scenarios according their execution time variation measured by the TTest
+		AnalyzerReportUtil.saveReport("# Degradated scenarios (TTest P-Value)", getFileName("pt_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Optimized scenarios (TTest P-Value)", getFileName("pt_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Unchanged scenarios (TTest P-Value)", getFileName("pt_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), significance_level, Tests.TTest), 0, significance_level);
 		
-		//TODO: executar o test estatístico
+		// Save scenarios according their execution time variation measured by the UTest
+		AnalyzerReportUtil.saveReport("# Degradated scenarios (UTest P-Value)", getFileName("pu_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Optimized scenarios (UTest P-Value)", getFileName("pu_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Unchanged scenarios (UTest P-Value)", getFileName("pu_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), significance_level, Tests.UTest), 0, significance_level);
 		
-		persistFile("# Cenários executados na primeira versão, mas não na evolução", "removed_scenarios", removed_scenarios, 0);
-		persistFile("# Cenários executados na evolução, mas não na primeira versão", "added_scenarios", added_scenarios, 0);
-		persistFile("# Cenários que foram executados nas duas versões", "kept_scenarios", kept_scenarios, 0);
+		System.out.println("-------------------------------------------------------------------");
 		
-		persistFile("# Cenários que tiveram performance degradada na evolução", "p_degraded_scenarios", p_rate_degraded_scenarios, avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
-		persistFile("# Cenários que tiveram performance otimizada na evolução", "p_optimized_scenarios", p_rate_optimized_scenarios, avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
-		persistFile("# Cenários que tiveram performance inalterada na evolução", "p_unchanged_scenarios", p_rate_unchanged_scenarios, avg_time_scenarios_v1, avg_time_scenarios_v2, performance_rate);
+		// Here, we start the treatment of the methods
+		System.out.println("Getting methods and means for release 1...");
+		Map<String, Double> avg_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
+		System.out.println("\tTotal = " + avg_members_v1.size());
 		
-		System.out.println("Calculating time average of members in version 1...");
-		Map<String, Double> avg_time_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
-		System.out.println("Calculating time average of members in version 2...");
-		Map<String, Double> avg_time_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
+		System.out.println("Getting methods and means for release 2...");
+		Map<String, Double> avg_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
+		System.out.println("\tTotal = " + avg_members_v2.size());
 
-		System.out.println("Determining excluded methods...");
-		Set<String> excluded_methods = AnalyzerCollectionUtil.except(avg_time_members_v1.keySet(), avg_time_members_v2.keySet());
-		System.out.println("Determining changed methods...");
-		Set<String> changed_methods = AnalyzerCollectionUtil.except(avg_time_members_v2.keySet(), avg_time_members_v1.keySet());
-		System.out.println("Determining kept methods...");
-		Set<String> kept_methods = AnalyzerCollectionUtil.intersect(avg_time_members_v1.keySet(), avg_time_members_v2.keySet());
+		System.out.println("Determining removed methods...");
+		Set<String> removed_methods = AnalyzerCollectionUtil.except(avg_members_v1.keySet(), avg_members_v2.keySet());
+		System.out.println("\tTotal = " + removed_methods.size());
 		
-		System.out.println("Determining methods with degraded performance...");
-		Collection<String> p_degraded_methods = AnalyzerCollectionUtil.degradated(avg_time_members_v1, avg_time_members_v2, performance_rate);
-		System.out.println("Determining methods with optimized performance...");
-		Collection<String> p_optimized_methods = AnalyzerCollectionUtil.optimized(avg_time_members_v1, avg_time_members_v2, performance_rate);
-		System.out.println("Determining methods with unchanged performance...");
-		Collection<String> p_unchanged_methods = AnalyzerCollectionUtil.unchanged(avg_time_members_v1, avg_time_members_v2, performance_rate);
+		System.out.println("Determining added methods...");
+		Set<String> added_methods = AnalyzerCollectionUtil.except(avg_members_v2.keySet(), avg_members_v1.keySet());
+		System.out.println("\tTotal = " + added_methods.size());
 		
-		persistFile("# Métodos executados na primeira versão, mas não na evolução", "excluded_methods", excluded_methods, 0);
-		persistFile("# Métodos executados na evolução, mas não na primeira versão", "changed_methods", changed_methods, 0);
-		persistFile("# Métodos que foram executados nas duas versões", "kept_methods", kept_methods, 0);
+		System.out.println("Calculating statistical tests for common methods...");
+		Map<String, StatElement> method_results = as.executeStatisticalTests(avg_members_v1, avg_members_v2, RuntimeNode.class);
 		
-		persistFile("# Métodos que tiveram performance degradada na evolução", "p_degraded_methods", p_degraded_methods, performance_rate);
-		persistFile("# Métodos que tiveram performance otimizada na evolução", "p_optimized_methods", p_optimized_methods, performance_rate);
-		persistFile("# Métodos que tiveram performance inalterada na evolução", "p_unchanged_methods", p_unchanged_methods, performance_rate);
+		// Save methods in separated files
+		AnalyzerReportUtil.saveReport("# Methods executed in both releases", getFileName("kept_methods"), method_results.values(), 0, 0);
+		AnalyzerReportUtil.saveReport("# Methods executed in the first release, but not in the second", getFileName("removed_methods"), avg_members_v1, removed_methods, 0, 0);
+		AnalyzerReportUtil.saveReport("# Methods executed in the second release, but not in the first", getFileName("added_methods"), avg_members_v2, added_methods, 0, 0);
 		
-		Collection<RuntimeScenario> failed_scenarios_v1 = database_v1.getScenariosFailed();
-		Collection<RuntimeScenario> failed_scenarios_v2 = database_v2.getScenariosFailed();
+		// Save methods according their execution time variation measured by the performance rate
+		AnalyzerReportUtil.saveReport("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradatedRate(method_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveReport("# Optimized methods (Rate method)", getFileName("pr_optimized_methods"), AnalyzerCollectionUtil.optimizedRate(method_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveReport("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(method_results.values(), performance_rate), performance_rate, 0);
+		
+		// Save scenarios according their execution time variation measured by the TTest
+		AnalyzerReportUtil.saveReport("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		
+		// Save scenarios according their execution time variation measured by the UTest
+		AnalyzerReportUtil.saveReport("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		AnalyzerReportUtil.saveReport("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		
+		System.out.println("-------------------------------------------------------------------");
+		
+		// Here, we start the treatment of the failed scenarios and methods
+		System.out.println("Getting failed scenarios for release 1...");
+		List<RuntimeScenario> failed_scenarios_v1 = database_v1.getFailedScenarios();
+		System.out.println("\tTotal = " + failed_scenarios_v1.size());
+		
+		System.out.println("Getting failed scenarios for release 2...");
+		List<RuntimeScenario> failed_scenarios_v2 = database_v2.getFailedScenarios();
+		System.out.println("\tTotal = " + failed_scenarios_v2.size());
 		
 		Map<String, Integer> failed_methods_v1 = new HashMap<String, Integer>();
 		Map<String, Integer> failed_methods_v2 = new HashMap<String, Integer>();
 		
-		Map<RuntimeScenario, List<RuntimeNode>> map_failed_scenario_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
-		persistFile("# Cenários que falharam na primeira versão", "failed_scenarios_v1", map_failed_scenario_node_v1, failed_methods_v1, database_v1);
+		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
+		AnalyzerReportUtil.saveReport("# Release 1 failed scenarios", getFileName("r1_failed_scenarios"), failed_scenario_to_node_v1, failed_methods_v1, 1);
 		
-		Map<RuntimeScenario, List<RuntimeNode>> map_failed_scenario_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
-		persistFile("# Cenários que falharam na evolução", "failed_scenarios_v2", map_failed_scenario_node_v2, failed_methods_v2, database_v2);
+		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
+		AnalyzerReportUtil.saveReport("# Release 2 failed scenarios", getFileName("r2_failed_scenarios"), failed_scenario_to_node_v2, failed_methods_v2, 2);
 		
+		System.out.println("Getting failed methods for release 1...");
 		Set<String> failed_methods_only_v1 = AnalyzerCollectionUtil.except(failed_methods_v1.keySet(), failed_methods_v2.keySet());
-		Set<String> failed_methods_only_v2 = AnalyzerCollectionUtil.except(failed_methods_v2.keySet(), failed_methods_v1.keySet());
-		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
+		System.out.println("\tTotal = " + failed_methods_only_v1.size());
 		
-		persistFile("# Métodos que falharam apenas na primeira versão", "failed_methods_only_v1", failed_methods_only_v1, 0);
-		persistFile("# Métodos que falharam apenas na evolução", "failed_methods_only_v2", failed_methods_only_v2, 0);
-		persistFile("# Métodos que falharam em ambas as versões", "failed_methods_both", failed_methods_both, 0);
+		System.out.println("Getting failed methods for release 1...");
+		Set<String> failed_methods_only_v2 = AnalyzerCollectionUtil.except(failed_methods_v2.keySet(), failed_methods_v1.keySet());
+		System.out.println("\tTotal = " + failed_methods_only_v2.size());
+		
+		System.out.println("Getting failed methods for both releases...");
+		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
+		System.out.println("\tTotal = " + failed_methods_both.size());
+		
+		AnalyzerReportUtil.saveReport("# Methods that have failed only in release 1", getFileName("failed_methods_only_v1"),failed_methods_only_v1);
+		AnalyzerReportUtil.saveReport("# Methods that have failed only in release 2", getFileName("failed_methods_only_v2"), failed_methods_only_v2);
+		AnalyzerReportUtil.saveReport("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both);
 		
 		return strdate;
 	}

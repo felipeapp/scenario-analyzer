@@ -35,7 +35,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 	 * significando que a execução do ponto de entrada abortou.
 	 */
 	@Override
-	public List<RuntimeScenario> getScenariosFailed() {
+	public List<RuntimeScenario> getFailedScenarios() {
 		List<RuntimeScenario> result = new ArrayList<RuntimeScenario>();
 		
 		Session s = getSession();
@@ -60,6 +60,22 @@ public class GenericDBHibernateImpl extends GenericDB {
 		query.addScalar("total", IntegerType.INSTANCE);
 
 		return (int) query.uniqueResult();
+	}
+	
+	@Override
+	public List<String> getSignatureOfMembers() {
+		List<String> result = new ArrayList<String>();
+
+		Session s = getSession();
+
+		SQLQuery query = s.createSQLQuery("select distinct member from node where time > 0");
+
+		query.addScalar("member", StringType.INSTANCE);
+
+		for (Object o : query.list())
+			result.add((String) o);
+
+		return result;
 	}
 	
 	@Override
@@ -90,8 +106,9 @@ public class GenericDBHibernateImpl extends GenericDB {
 
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select scenario.name sname, avg(node.time) saverage from scenario inner join node"
-				+ " on scenario.root_id = node.id and node.time > 0 group by sname order by sname");
+		SQLQuery query = s.createSQLQuery("select scenario.name sname, avg(node.time) saverage"
+				+ " from scenario inner join node on scenario.root_id = node.id and node.time <> -1"
+				+ " group by sname order by sname");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
@@ -126,22 +143,6 @@ public class GenericDBHibernateImpl extends GenericDB {
 	}
 	
 	@Override
-	public List<String> getSignatureOfMembers() {
-		List<String> result = new ArrayList<String>();
-
-		Session s = getSession();
-
-		SQLQuery query = s.createSQLQuery("select distinct member from node where time > 0");
-
-		query.addScalar("member", StringType.INSTANCE);
-
-		for (Object o : query.list())
-			result.add((String) o);
-
-		return result;
-	}
-	
-	@Override
 	public double[] getAllExecutionTimeByMember(String signature) {
 		Session s = getSession();
 
@@ -163,11 +164,11 @@ public class GenericDBHibernateImpl extends GenericDB {
 	public double[] getAllExecutionTimeByScenario(String sname) {
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select node.time time from scenario inner join node"
-				+ " on scenario.root_id = node.id and scenario.name = :sname and node.time > 0;");
+		SQLQuery query = s.createSQLQuery("select node.time stime from scenario inner join node"
+				+ " on scenario.root_id = node.id and scenario.name = :sname and node.time <> -1");
 
 		query.setString("sname", sname);
-		query.addScalar("time", LongType.INSTANCE);
+		query.addScalar("stime", LongType.INSTANCE);
 
 		List<?> rset = query.list();
 		double[] result = new double[rset.size()];

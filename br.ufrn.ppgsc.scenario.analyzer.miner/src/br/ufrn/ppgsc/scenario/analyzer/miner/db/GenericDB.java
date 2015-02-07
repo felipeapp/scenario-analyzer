@@ -15,7 +15,7 @@ public abstract class GenericDB {
 
 	public abstract <T> T read(Class<T> clazz, long id);
 
-	public abstract List<RuntimeScenario> getScenariosFailed();
+	public abstract List<RuntimeScenario> getFailedScenarios();
 
 	public abstract int getNumberOfMethodExecution(String signature);
 
