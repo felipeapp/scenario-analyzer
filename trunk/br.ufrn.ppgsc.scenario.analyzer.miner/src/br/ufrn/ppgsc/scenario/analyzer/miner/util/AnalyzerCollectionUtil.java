@@ -1,9 +1,12 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
+
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.StatElement;
 
 public abstract class AnalyzerCollectionUtil {
 
@@ -19,38 +22,97 @@ public abstract class AnalyzerCollectionUtil {
 		return intersect;
 	}
 
-	public static Set<String> degradated(Map<String, Double> mapA, Map<String, Double> mapB, double rate) {
-		Set<String> commum = intersect(mapA.keySet(), mapB.keySet());
-		Set<String> result = new HashSet<String>();
+	/** It uses the rate method to determine if there was performance degradation */
+	public static List<StatElement> degradatedRate(Collection<StatElement> elements, double rate) {
+		List<StatElement> result = new ArrayList<StatElement>();
 
-		for (String signature : commum)
-			if (mapB.get(signature) > mapA.get(signature) * (1 + rate))
-				result.add(signature);
-
-		return result;
-	}
-
-	public static Set<String> optimized(Map<String, Double> mapA, Map<String, Double> mapB, double rate) {
-		Set<String> commum = intersect(mapA.keySet(), mapB.keySet());
-		Set<String> result = new HashSet<String>();
-
-		for (String signature : commum)
-			if (mapB.get(signature) < mapA.get(signature) * (1 - rate))
-				result.add(signature);
+		for (StatElement e : elements)
+			if (e.getAVGv2() > e.getAVGv1() * (1 + rate))
+				result.add(e);
 
 		return result;
 	}
 
-	public static Set<String> unchanged(Map<String, Double> mapA, Map<String, Double> mapB, double rate) {
-		Set<String> commum = intersect(mapA.keySet(), mapB.keySet());
-		Set<String> result = new HashSet<String>();
+	/** It uses the rate method to determine if there was performance optimization */
+	public static List<StatElement> optimizedRate(Collection<StatElement> elements, double rate) {
+		List<StatElement> result = new ArrayList<StatElement>();
 
-		for (String signature : commum) {
-			double avg1 = mapA.get(signature);
-			double avg2 = mapB.get(signature);
+		for (StatElement e : elements)
+			if (e.getAVGv2() < e.getAVGv1() * (1 - rate))
+				result.add(e);
 
-			if (avg2 >= avg1 * (1 - rate) && avg2 <= avg1 * (1 + rate))
-				result.add(signature);
+		return result;
+	}
+
+	/** It uses the rate method to determine unchanged performance */
+	public static List<StatElement> unchangedRate(Collection<StatElement> elements, double rate) {
+		List<StatElement> result = new ArrayList<StatElement>();
+
+		for (StatElement e : elements)
+			if (e.getAVGv2() >= e.getAVGv1() * (1 - rate) && e.getAVGv2() <= e.getAVGv1() * (1 + rate))
+				result.add(e);
+
+		return result;
+	}
+
+	/** It uses the pvalue to determine performance degradation */
+	public static List<StatElement> degradatedPValue(Collection<StatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+		List<StatElement> result = new ArrayList<StatElement>();
+
+		for (StatElement e : elements) {
+			double pvalue;
+			
+			if (test == AnalyzerStatistical.Tests.TTest)
+				pvalue = e.getTTestPvalue();
+			else if (test == AnalyzerStatistical.Tests.UTest)
+				pvalue = e.getUTestPvalue();
+			else
+				throw new RuntimeException("Target test invalid at runtime");
+			
+			if (pvalue <= alpha && e.getAVGv2() - e.getAVGv1() > 0)
+				result.add(e);
+		}
+
+		return result;
+	}
+	
+	/** It uses the pvalue to determine if there was performance optimization */
+	public static List<StatElement> optimizedPValue(Collection<StatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+		List<StatElement> result = new ArrayList<StatElement>();
+
+		for (StatElement e : elements) {
+			double pvalue;
+			
+			if (test == AnalyzerStatistical.Tests.TTest)
+				pvalue = e.getTTestPvalue();
+			else if (test == AnalyzerStatistical.Tests.UTest)
+				pvalue = e.getUTestPvalue();
+			else
+				throw new RuntimeException("Target test invalid at runtime");
+			
+			if (pvalue <= alpha && e.getAVGv2() - e.getAVGv1() < 0)
+				result.add(e);
+		}
+
+		return result;
+	}
+	
+	/** It uses the pvalue to determine unchanged performance */
+	public static List<StatElement> unchangedPValue(Collection<StatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+		List<StatElement> result = new ArrayList<StatElement>();
+
+		for (StatElement e : elements) {
+			double pvalue;
+			
+			if (test == AnalyzerStatistical.Tests.TTest)
+				pvalue = e.getTTestPvalue();
+			else if (test == AnalyzerStatistical.Tests.UTest)
+				pvalue = e.getUTestPvalue();
+			else
+				throw new RuntimeException("Target test invalid at runtime");
+			
+			if (pvalue > alpha || Double.isNaN(pvalue))
+				result.add(e);
 		}
 
 		return result;
