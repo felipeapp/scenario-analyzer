@@ -14,10 +14,10 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerReportUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.StatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.Tests;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
@@ -76,7 +76,7 @@ public final class AnalyzerMinerDBRunnable {
 	}
 	
 	private String getFileName(String partial_name) {
-		return "miner_log/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
+		return "reports/degradation_analysis/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
 	}
 	
 	public String run() throws FileNotFoundException {
@@ -180,10 +180,10 @@ public final class AnalyzerMinerDBRunnable {
 		Map<String, Integer> failed_methods_v2 = new HashMap<String, Integer>();
 		
 		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
-		AnalyzerReportUtil.saveReport("# Release 1 failed scenarios", getFileName("r1_failed_scenarios"), failed_scenario_to_node_v1, failed_methods_v1, 1);
+		AnalyzerReportUtil.saveReport("# Release 1 failed scenarios", getFileName("failed_scenarios_r1"), failed_scenario_to_node_v1, failed_methods_v1, 1);
 		
 		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
-		AnalyzerReportUtil.saveReport("# Release 2 failed scenarios", getFileName("r2_failed_scenarios"), failed_scenario_to_node_v2, failed_methods_v2, 2);
+		AnalyzerReportUtil.saveReport("# Release 2 failed scenarios", getFileName("failed_scenarios_r2"), failed_scenario_to_node_v2, failed_methods_v2, 2);
 		
 		System.out.println("Getting failed methods for release 1...");
 		Set<String> failed_methods_only_v1 = AnalyzerCollectionUtil.except(failed_methods_v1.keySet(), failed_methods_v2.keySet());
@@ -197,8 +197,8 @@ public final class AnalyzerMinerDBRunnable {
 		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
 		System.out.println("\tTotal = " + failed_methods_both.size());
 		
-		AnalyzerReportUtil.saveReport("# Methods that have failed only in release 1", getFileName("failed_methods_only_v1"),failed_methods_only_v1);
-		AnalyzerReportUtil.saveReport("# Methods that have failed only in release 2", getFileName("failed_methods_only_v2"), failed_methods_only_v2);
+		AnalyzerReportUtil.saveReport("# Methods that have failed only in release 1", getFileName("failed_methods_only_r1"),failed_methods_only_v1);
+		AnalyzerReportUtil.saveReport("# Methods that have failed only in release 2", getFileName("failed_methods_only_r2"), failed_methods_only_v2);
 		AnalyzerReportUtil.saveReport("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both);
 		
 		return strdate;

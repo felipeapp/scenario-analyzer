@@ -2,11 +2,16 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.StatElement;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public abstract class AnalyzerCollectionUtil {
 
@@ -116,6 +121,91 @@ public abstract class AnalyzerCollectionUtil {
 		}
 
 		return result;
+	}
+	
+	public static Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Set<Long> issue_numbers = new HashSet<Long>();
+
+		for (String path : map_path_methods.keySet())
+			for (UpdatedMethod method : map_path_methods.get(path))
+				for (UpdatedLine line : method.getUpdatedLines())
+					for (Issue issue : line.getIssues())
+						issue_numbers.add(issue.getNumber());
+
+		return issue_numbers;
+	}
+	
+	public static Map<String, Integer> counterTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Map<String, Integer> counter_task_types = new HashMap<String, Integer>();
+		Set<Long> counted_tasks = new HashSet<Long>();
+
+		for (String path : map_path_methods.keySet()) {
+
+			for (UpdatedMethod method : map_path_methods.get(path)) {
+
+				for (UpdatedLine line : method.getUpdatedLines()) {
+
+					for (Issue issue : line.getIssues()) {
+
+						if (issue.getIssueId() > 0 && !counted_tasks.contains(issue.getIssueId())) {
+							Integer counter = counter_task_types.get(issue.getIssueType());
+
+							if (counter == null)
+								counter_task_types.put(issue.getIssueType(), 1);
+							else
+								counter_task_types.put(issue.getIssueType(), counter + 1);
+							
+							counted_tasks.add(issue.getIssueId());
+						}
+
+					}
+
+				}
+
+			}
+		}
+
+		return counter_task_types;
+	}
+	
+	public static Map<String, Collection<UpdatedMethod>> getTaskMembers(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Map<String, Collection<UpdatedMethod>> task_members = new HashMap<String, Collection<UpdatedMethod>>();
+		
+		Set<Long> counted_tasks = new HashSet<Long>();
+		Set<String> counted_members = new HashSet<String>();
+
+		for (String path : map_path_methods.keySet()) {
+
+			for (UpdatedMethod method : map_path_methods.get(path)) {
+
+				for (UpdatedLine line : method.getUpdatedLines()) {
+
+					for (Issue issue : line.getIssues()) {
+
+						if (issue.getIssueId() > 0 && !(counted_tasks.contains(issue.getIssueId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
+							Collection<UpdatedMethod> list = task_members.get(issue.getIssueType());
+
+							if (list == null) {
+								list = new ArrayList<UpdatedMethod>();
+								list.add(method);
+								task_members.put(issue.getIssueType(), list);
+							}
+							else {
+								task_members.get(issue.getIssueType()).add(method);
+							}
+							
+							counted_tasks.add(issue.getIssueId());
+							counted_members.add(method.getMethodLimit().getSignature());
+						}
+
+					}
+
+				}
+
+			}
+		}
+
+		return task_members;
 	}
 
 }
