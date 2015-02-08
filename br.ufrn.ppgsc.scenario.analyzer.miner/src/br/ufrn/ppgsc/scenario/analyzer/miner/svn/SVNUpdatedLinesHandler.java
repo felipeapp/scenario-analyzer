@@ -68,7 +68,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 			List<Issue> issues = cache_revision_issues.get(revision);
 			
 			if (issues == null) {
-				logger.info("Inside handler, getting tasks to revision " + revision);
+				logger.info("\tGetting issues to revision " + revision + " in " + path);
 
 				Issue issue = null;
 				issues = new ArrayList<Issue>();
@@ -76,27 +76,22 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
 				
 				if (issue_numbers.isEmpty()) {
-					logger.warn("[IssueListEmpty] LogMessage: " + logMessage);
-					logger.warn("[IssueListEmpty] Path: " + path + ", revision = " + revision);
+					logger.warn("\t[Empty] No issues for log message: " + logMessage);
 					
 					issue = new Issue();
-					issue.setNumber(-1);
+					issue.setNumber(0);
 					
 					issues.add(issue);
 				}
 				else {
 					for (Long issue_number : issue_numbers) {
-						if (issue_number < 0) {
-							logger.warn("[NotFoundIssue] LogMessage: " + logMessage);
-							logger.warn("[NotFoundIssue] Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-							
+						if (issue_number <= 0) {
+							logger.warn("\t[Invalid: " + issue_number + "] No issues for log message: " + logMessage);
 							issue = new Issue();
-							issue.setNumber(-1);
+							issue.setNumber(0);
 						}
 						else {
-							logger.info("[FoundIssue] LogMessage: " + logMessage);
-							logger.info("[FoundIssue] Path: " + path + ", revision = " + revision + ", task number = " + issue_number);
-							
+							logger.info("\t[Found: " + issue_number + "] In log message: " + logMessage);
 							issue = issueQuery.getIssueByNumber(issue_number);
 						}
 						

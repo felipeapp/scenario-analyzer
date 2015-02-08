@@ -234,7 +234,9 @@ public abstract class AnalyzerCollectionUtil {
 			for (int j = 0; j < number_of_scenarios; j++) {
 				String scenario_name = br.readLine();
 				Collection<String> blame_signature = scenario_to_blame.get(scenario_name);
-				blame_signature.add(signature);
+				
+				if (blame_signature != null)
+					blame_signature.add(signature);
 			}
 		}
 

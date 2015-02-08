@@ -16,7 +16,7 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 	
 	private Properties gitcommits;
 	
-	private Map<String, GitUpdatedLinesHandler> handlers;
+	private static Map<String, GitUpdatedLinesHandler> handlers;
 	
 	private String url;
     private String user;
@@ -28,8 +28,13 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 		this.password = password;
     }
     
+    public void close() {
+    	
+    }
+    
     public void initialize() {
-		this.handlers = new HashMap<String, GitUpdatedLinesHandler>();
+		if (handlers == null)
+			handlers = new HashMap<String, GitUpdatedLinesHandler>();
 		
 		this.gitcommits = new Properties();
 		try {

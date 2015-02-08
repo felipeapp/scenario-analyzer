@@ -15,8 +15,8 @@ public class Issue {
 	private String shortDescription;
 
 	public Issue() {
-		issueId = number = -1;
-		issueType = "No issue (-1)";
+		issueId = number = 0;
+		issueType = "No issue (0)";
 	}
 
 	public long getIssueId() {
@@ -89,6 +89,11 @@ public class Issue {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Issue && number == ((Issue) obj).getNumber();
 	}
 
 }

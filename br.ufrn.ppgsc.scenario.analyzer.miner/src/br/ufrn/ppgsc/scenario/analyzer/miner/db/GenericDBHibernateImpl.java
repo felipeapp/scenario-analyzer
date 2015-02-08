@@ -146,7 +146,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 	public double[] getAllExecutionTimeByMember(String signature) {
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select time from node where time <> -1 and member = :signature");
+		SQLQuery query = s.createSQLQuery("select time from node where time > 0 and member = :signature");
 
 		query.setString("signature", signature);
 		query.addScalar("time", LongType.INSTANCE);
