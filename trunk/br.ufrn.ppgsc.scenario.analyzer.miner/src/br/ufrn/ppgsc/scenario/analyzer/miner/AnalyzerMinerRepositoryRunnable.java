@@ -1,8 +1,9 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,7 +13,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -102,26 +102,30 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 	}
 	
-	private Map<String, List<String>> getScenariosWithBlames(String scenarios_file, String methods_file) throws FileNotFoundException {
+	private Map<String, List<String>> getScenariosWithBlames(String scenarios_file, String methods_file) throws IOException {
 		Map<String, List<String>> scenarios_blames = new HashMap<String, List<String>>();
 		
-		Scanner in = new Scanner(new FileInputStream(getOutputFileName(methods_file)));
+		Collection<String> degraded_scenarios = new HashSet<String>();  
+		BufferedReader br = new BufferedReader(new FileReader(getOutputFileName(methods_file)));
 		
-		loadScenarios(scenarios_blames, scenarios_file);
+		AnalyzerReportUtil.loadReport(degraded_scenarios, getInputFileName(scenarios_file));
+		
+		for (String name : degraded_scenarios)
+			scenarios_blames.put(name, new ArrayList<String>());
 		
 		// Ler a mensagem
-		System.out.println("Processing... " + in.nextLine());
+		System.out.println("Processing... " + br.readLine());
 		
-		int total_members = in.nextInt(); in.nextLine();
+		int total_members = Integer.parseInt(br.readLine());
 		
 		for (int i = 0; i < total_members; i++) {
 			
-			String signature = in.nextLine();
-			int total_scenarios = in.nextInt(); in.nextLine();
+			String signature = br.readLine();
+			int total_scenarios = Integer.parseInt(br.readLine());
 			
 			for (int j = 0; j < total_scenarios; j++) {
 				
-				String scenario = in.nextLine();
+				String scenario = br.readLine();
 				
 				List<String> members_sig = scenarios_blames.get(scenario);
 				if (members_sig != null)
@@ -131,32 +135,33 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 		}
 
-		in.close();
+		br.close();
 		
 		return scenarios_blames;
 	}
 	
-	private String loadScenarios(Map<String, List<String>> scenarios_blames, String name) throws FileNotFoundException {
-		String message = null;
-		String filename = getOutputFileName(name);
-		
-		Scanner in = new Scanner(new FileInputStream(filename));
-
-		message = in.nextLine();
-		
-		int total = in.nextInt();
-		in.nextLine();
-
-		for (int i = 0; i < total; i++) {
-			String scenario_name = in.nextLine();
-			in.nextLine(); // Tempos
-			scenarios_blames.put(scenario_name, new ArrayList<String>());
-		}
-
-		in.close();
-
-		return message;
-	}
+//	private String loadScenarios(Map<String, List<String>> scenarios_blames, String name) throws FileNotFoundException {
+//		String message = null;
+//		String filename = getInputFileName(name);
+//		
+//		Scanner in = new Scanner(new FileInputStream(filename));
+//
+//		message = in.nextLine();
+//		
+//		int total = in.nextInt();
+//		in.nextLine();
+//		in.nextLine();
+//
+//		for (int i = 0; i < total; i++) {
+//			String scenario_name = in.nextLine();
+//			in.nextLine(); // Tempos
+//			scenarios_blames.put(scenario_name, new ArrayList<String>());
+//		}
+//
+//		in.close();
+//
+//		return message;
+//	}
 	
 	public void persistFile(String message, String filename,
 			Map<String, Integer> total_classes, Map<String, Integer> total_packages) throws FileNotFoundException {
@@ -375,7 +380,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 */
 			Collection<String> full_signatures = new ArrayList<String>();
 			
-			String file_message = AnalyzerReportUtil.loadSignatures(full_signatures, getInputFileName(filename));
+			String file_message = AnalyzerReportUtil.loadReport(full_signatures, getInputFileName(filename));
 			
 			for (String signature : full_signatures) {
 				String paths[] = transformer.convert(signature, repository_prefix, workcopy_prefix_r1, workcopy_prefix_r2);
@@ -499,26 +504,26 @@ public final class AnalyzerMinerRepositoryRunnable {
 		if (!p_degradation_methods.isEmpty()) {
 			// Saving issues
 			AnalyzerReportUtil.saveReport("# Issues potentially blamed for performance degradation",
-					"issues_performance_degradation", p_degradation_methods);
+					getOutputFileName("issues_performance_degradation"), p_degradation_methods);
 			
 			// Getting and saving the impacted elements by the blamed methods
 			AnalyzerReportUtil.getImpactedElementsAndsaveReport("# Methods potentially blamed for performance degradation",
-					"methods_performance_degradation", p_degradation_methods.keySet());
+					getOutputFileName("methods_performance_degradation"), p_degradation_methods.keySet());
 		}
 		
 		// TODO: Check if optimization is working
 		if (!p_optimization_methods.isEmpty()) {
 			// Saving issues
 			AnalyzerReportUtil.saveReport("# Issues potentially blamed for performance optimization",
-					"issues_performance_degradation", p_optimization_methods);
+					getOutputFileName("issues_performance_degradation"), p_optimization_methods);
 			
 			// Getting and saving the impacted elements by the blamed methods
 			AnalyzerReportUtil.getImpactedElementsAndsaveReport("# Methods potentially blamed for performance optimization",
-					"methods_performance_degradation", p_optimization_methods.keySet());
+					getOutputFileName("methods_performance_degradation"), p_optimization_methods.keySet());
 		}
 		
 		// Getting the degraded scenarios and the blamed methods
-		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames("p_degraded_scenarios", "methods_performance_degradation");
+		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames("pu_degraded_scenarios", "methods_performance_degradation");
 		
 		/*
 		 * I removed these tests because they changed.
