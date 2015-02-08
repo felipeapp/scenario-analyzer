@@ -1,5 +1,8 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -135,7 +138,7 @@ public abstract class AnalyzerCollectionUtil {
 		return issue_numbers;
 	}
 	
-	public static Map<String, Integer> counterTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+	public static Map<String, Integer> countTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
 		Map<String, Integer> counter_task_types = new HashMap<String, Integer>();
 		Set<Long> counted_tasks = new HashSet<Long>();
 
@@ -208,4 +211,36 @@ public abstract class AnalyzerCollectionUtil {
 		return task_members;
 	}
 
+	public static Map<String, List<String>> getScenariosWithBlames(
+			String degraded_scenarios_filename, String degraded_methods_filename) throws IOException {
+		
+		Map<String, List<String>> scenario_to_blame = new HashMap<String, List<String>>();
+		Collection<String> degraded_scenarios = new HashSet<String>();
+		
+		AnalyzerReportUtil.loadCollection(degraded_scenarios, degraded_scenarios_filename);
+		BufferedReader br = new BufferedReader(new FileReader(degraded_methods_filename));
+		
+		for (String sname : degraded_scenarios)
+			scenario_to_blame.put(sname, new ArrayList<String>());
+		
+		System.out.println("Processing >> " + br.readLine());
+		
+		int number_of_methods = Integer.parseInt(br.readLine());
+		
+		for (int i = 0; i < number_of_methods; i++) {
+			String signature = br.readLine();
+			int number_of_scenarios = Integer.parseInt(br.readLine());
+			
+			for (int j = 0; j < number_of_scenarios; j++) {
+				String scenario_name = br.readLine();
+				Collection<String> blame_signature = scenario_to_blame.get(scenario_name);
+				blame_signature.add(signature);
+			}
+		}
+
+		br.close();
+		
+		return scenario_to_blame;
+	}
+	
 }

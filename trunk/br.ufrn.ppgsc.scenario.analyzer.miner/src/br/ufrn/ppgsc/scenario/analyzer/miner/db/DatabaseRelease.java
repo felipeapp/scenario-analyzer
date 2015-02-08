@@ -9,14 +9,14 @@ public abstract class DatabaseRelease {
 
 	public static GenericDB getDatabasev1() {
 		if (databasev1 == null)
-			databasev1 = new DatabaseService(SystemMetadataUtil.getInstance().getStringProperty("database_v1")).getGenericDB();
+			databasev1 = new DatabaseService(SystemMetadataUtil.getInstance().getStringProperty("database_r1")).getGenericDB();
 
 		return databasev1;
 	}
 
 	public static GenericDB getDatabasev2() {
 		if (databasev2 == null)
-			databasev2 = new DatabaseService(SystemMetadataUtil.getInstance().getStringProperty("database_v2")).getGenericDB();
+			databasev2 = new DatabaseService(SystemMetadataUtil.getInstance().getStringProperty("database_r2")).getGenericDB();
 
 		return databasev2;
 	}
