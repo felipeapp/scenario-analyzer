@@ -320,7 +320,7 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
-	public static String loadSignatures(Collection<String> signatures, String filename) throws IOException {
+	public static String loadReport(Collection<String> map, String filename) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		
 		String message = br.readLine();
@@ -337,7 +337,7 @@ public abstract class AnalyzerReportUtil {
 		
 		for (int i = 0; i < number_of_registers; i++) {
 			String[] line = br.readLine().split(";");
-			signatures.add(line[0]);
+			map.add(line[0]);
 		}
 		
 		/* 
@@ -346,7 +346,7 @@ public abstract class AnalyzerReportUtil {
 		 */
 		br.close();
 		
-		System.out.println("\tTotal = " + signatures.size());
+		System.out.println("\tTotal = " + map.size());
 		
 		return message;
 	}
