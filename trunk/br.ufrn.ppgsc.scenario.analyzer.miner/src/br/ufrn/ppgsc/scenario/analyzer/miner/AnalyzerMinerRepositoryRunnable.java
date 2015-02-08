@@ -38,7 +38,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String workcopy_prefix_r1;
 	private String workcopy_prefix_r2;
 	private String exclude_word;
-	private String scenario_degradation_source;
+	private String comparison_strategy;
+	private String[] exclude_entry_points;
 	private int package_deep;
 
 	private static final String[] TARGET_FILES = {
@@ -95,109 +96,58 @@ public final class AnalyzerMinerRepositoryRunnable {
 		exclude_word = properties.getStringProperty("exclude_word");
 		package_deep = properties.getIntProperty("package_deep");
 		
-		scenario_degradation_source = properties.getStringProperty("scenario_degradation_source");
+		comparison_strategy = properties.getStringProperty("comparison_strategy");
+		exclude_entry_points = properties.getStringProperty("exclude_entry_points").split(";");
 		
 		for (String name : TARGET_FILES)
 			if (properties.getBooleanProperty(name))
 				active_targets.add(name);
 		
 	}
-
-	public void persistFile(String message, String filename,
-			Map<String, Integer> total_classes, Map<String, Integer> total_packages) throws FileNotFoundException {
-		System.out.println("Saving >> : " + message);
-		
-		PrintWriter pw = new PrintWriter(getRMFilePath(filename));
-		
-		pw.println(total_classes.size());
-		
-		Set<String> class_keys = new TreeSet<String>(total_classes.keySet());
-		Set<String> package_keys = new TreeSet<String>(total_packages.keySet());
-		
-		for (String class_name : class_keys)
-			pw.println(class_name + " " + total_classes.get(class_name));
-		
-		pw.println(total_packages.size());
-		
-		for (String package_prefix : package_keys)
-			pw.println(package_prefix + " " + total_packages.get(package_prefix));
-		
-		pw.close();
-	}
 	
-	public void countTotalOfModules(Map<String, List<String>> scenariosWithBlames,
-			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep,
-			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) {
-		
-		Set<String> counted = new HashSet<String>();
-		
-		for (List<String> signatures : scenariosWithBlames.values()) {
-			if (signatures.isEmpty())
-				continue;
-			
-			for (String sig : signatures) {
-				Double t1 = avg_time_members_v1.get(sig);
-				Double t2 = avg_time_members_v2.get(sig);
-				
-				double delta = t1 == null ? t2 : t2 - t1;
-				
-				if (counted.contains(sig) || matchesExcludeWord(sig) || delta < 0.001)
-					continue;
-				
-				String class_name = getClassNameFromSignature(sig);
-				String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
-				
-				Integer value = total_classes.get(class_name);
-				total_classes.put(class_name, value == null ? 1 : value + 1);
-				
-				value = total_packages.get(package_prefix);
-				total_packages.put(package_prefix, value == null ? 1 : value + 1);
-				
-				counted.add(sig);
-			}
-		}
-		
-	}
-	
-	private void persistScenariosWithBlames(String message, String filename, Map<String, List<String>> scenariosWithBlames,
+	// TODO: How can I move this to report util?
+	private void saveScenariosAndBlames(String message, String filename, Map<String, List<String>> scenario_to_blames,
 			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2,
-			Map<String, Collection<UpdatedMethod>> p_degraded_changed_methods) throws FileNotFoundException {
+			Map<String, Collection<UpdatedMethod>> p_degraded_methods) throws FileNotFoundException {
+		
+		System.out.println("Saving >> " + message);
+		
 		int total_members = 0;
 		int total_scenarios_with_blames = 0;
 		int total_members_without_word = 0;
 		
-		Set<String> members_with_time = new TreeSet<String>();
+		Set<String> members_signature = new TreeSet<String>();
+		Set<String> members_with_information = new TreeSet<String>();
 		Set<String> counted = new HashSet<String>();
 		
-		Map<Long, Issue> map_number_issue = new HashMap<Long, Issue>();
-		
-		System.out.println("persistFile: " + message);
+		Map<Long, Issue> number_to_issue = new HashMap<Long, Issue>();
+		Map<String, Set<Issue>> revision_to_issue = new HashMap<String, Set<Issue>>();
 		
 		PrintWriter pw = new PrintWriter(getRMFilePath(filename));
+		PrintWriter pw_list = new PrintWriter(getRMFilePath(filename + "_summary"));
 		
-		PrintWriter pwl = new PrintWriter(getRMFilePath(filename + "_list_"));
-		
-		for (List<String> list : scenariosWithBlames.values())
+		// We need the loop to count because some of them can be empty
+		for (List<String> list : scenario_to_blames.values())
 			if (!list.isEmpty())
 				++total_scenarios_with_blames;
 		
 		pw.println(message);
-		pwl.println(message + " [list]");
+		pw_list.println(message + " [summary]");
 		
-		// Cenários que possuem blames
-		pw.println(total_scenarios_with_blames);
-		pwl.println(total_scenarios_with_blames);
+		// Number of scenario that have blamed members
+		pw.println("Number of scenarios: " + total_scenarios_with_blames);
+		pw_list.println("Number of scenarios: " + total_scenarios_with_blames);
 		
 		/* 
-		 * Todos os cenários, alguns podem não ter blames.
-		 * Isso acontece, por exemplo, devido somatórios de membros
-		 * degradados, pequenos aumentos individuais (menor que a taxa)
-		 * que quando somados impactam o cenário (com variação maior que a taxa)
+		 * Some of the scenarios might not have blame members.
+		 * It happens because the sum of small variation of members 
+		 * that are not covered by the comparison methods, but when they are put
+		 * together, they are bigger enough to impact the scenario
 		 */
-		pw.println(scenariosWithBlames.size());
+		pw.println("Number of scenarios (include empties): " + scenario_to_blames.size());
 		
-		for (String scenario : new TreeSet<String>(scenariosWithBlames.keySet())) {
-			List<String> signatures = scenariosWithBlames.get(scenario);
+		for (String scenario : new TreeSet<String>(scenario_to_blames.keySet())) {
+			List<String> signatures = scenario_to_blames.get(scenario);
 			
 			Collections.sort(signatures);
 			
@@ -208,36 +158,60 @@ public final class AnalyzerMinerRepositoryRunnable {
 				if (!matchesExcludeWord(s))
 					++i;
 			
-			pw.println(signatures.size() + " " + i);
+			pw.println("\tNumber of methods: " + signatures.size());
+			pw.println("\tNumber of methods (exclude word applied): " + i);
 			
 			if (i > 0)
-				pwl.println(scenario);
+				pw_list.println(scenario);
 			
 			for (String s : signatures) {
-				Map<Long, Issue> local_map_number_issue = new HashMap<Long, Issue>();
+				Map<Long, Issue> local_number_to_issue = new HashMap<Long, Issue>();
+				Map<String, Set<Issue>> local_revision_to_issues = new HashMap<String, Set<Issue>>();
 				
 				Double t1 = avg_time_members_v1.get(s);
 				Double t2 = avg_time_members_v2.get(s);
 				
 				double delta = t1 == null ? t2 : t2 - t1;
 				
-				String text = s + " " + t1 + " " + t2 + " " + delta;
+				StringBuilder sb = new StringBuilder();
 				
-				for (UpdatedMethod um : p_degraded_changed_methods.get(s)) {
+				sb.append("\t" + s + System.lineSeparator());
+				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + System.lineSeparator());
+				
+				for (UpdatedMethod um : p_degraded_methods.get(s)) {
 					for (UpdatedLine ul : um.getUpdatedLines()) {
-						for (Issue issue  : ul.getIssues()) {
-							local_map_number_issue.put(issue.getNumber(), issue);
+						Set<Issue> issues_from_map = local_revision_to_issues.get(ul.getRevision());
+						
+						for (Issue issue  : ul.getIssues())
+							local_number_to_issue.put(issue.getNumber(), issue);
+						
+						if (issues_from_map == null) {
+							issues_from_map = new HashSet<Issue>();
+							local_revision_to_issues.put(ul.getRevision(), issues_from_map);
 						}
+						
+						issues_from_map.addAll(ul.getIssues());
 					}
 				}
 				
-				for (Issue issue : local_map_number_issue.values())
-					text += " " + issue.getNumber();
+				for (String revision : local_revision_to_issues.keySet()) {
+					sb.append("\t\t\tRevision: " + revision + System.lineSeparator());
+					
+					sb.append("\t\t\t\tIssues: ");
+					for (Issue issue : local_revision_to_issues.get(revision))
+						sb.append(issue.getNumber() + ";");
+					sb.deleteCharAt(sb.length() - 1);
+					sb.append(System.lineSeparator());
+				}
 				
-				pw.println(text);
-				// Aqui vai contar com os testes
+//				text += System.lineSeparator() + "\t\t";
+//				for (Issue issue : local_number_to_issue.values())
+//					text += ";" + issue.getNumber();
+				
+				pw.print(sb.toString());
+				// It will count including the tests
 				//members_with_time.add(text);
-				//map_number_issue.putAll(local_map_number_issue);
+				//number_to_issue.putAll(local_number_to_issue);
 				
 				if (!counted.contains(s)) {
 					counted.add(s);
@@ -245,8 +219,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 					
 					if (!matchesExcludeWord(s) && delta >= 0.001) {
 						++total_members_without_word;
-						members_with_time.add(text);
-						map_number_issue.putAll(local_map_number_issue);
+						members_with_information.add(sb.toString());
+						members_signature.add(s + ";" + t1 + ";" + t2 + ";" + delta);
+						number_to_issue.putAll(local_number_to_issue);
+						revision_to_issue.putAll(local_revision_to_issues);
 					}
 				}
 			}
@@ -255,46 +231,63 @@ public final class AnalyzerMinerRepositoryRunnable {
 		pw.println(total_members);
 		pw.println(total_members_without_word);
 		
-		pwl.println(members_with_time.size());
-		for (String member : members_with_time)
-			pwl.println(member);
+		pw_list.println(members_signature.size());
+		for (String member : members_signature)
+			pw_list.println(member);
 		
-		pwl.println(map_number_issue.size());
-		for (long issue_number : new TreeSet<Long>(map_number_issue.keySet()))
-			pwl.println(issue_number + ":" + map_number_issue.get(issue_number).getIssueType());
+		pw_list.println(members_with_information.size());
+		for (String member : members_with_information)
+			pw_list.print(member);
 		
-		Map<String, Set<Long>> map_type_issues = new HashMap<String, Set<Long>>();
-		for (Issue issue  : map_number_issue.values()) {
-			Set<Long> issue_number_list = map_type_issues.get(issue.getIssueType());
+		pw_list.println(number_to_issue.size());
+		for (long issue_number : new TreeSet<Long>(number_to_issue.keySet()))
+			pw_list.println(issue_number + ";" + number_to_issue.get(issue_number).getIssueType());
+		
+		Map<String, Set<Long>> issuetype_to_number = new HashMap<String, Set<Long>>();
+		for (Issue issue  : number_to_issue.values()) {
+			Set<Long> issue_number_list = issuetype_to_number.get(issue.getIssueType());
 			
 			if (issue_number_list == null) {
 				issue_number_list = new TreeSet<Long>();
-				map_type_issues.put(issue.getIssueType(), issue_number_list);
+				issuetype_to_number.put(issue.getIssueType(), issue_number_list);
 			}
 			
 			issue_number_list.add(issue.getNumber());
 		}
 		
-		pwl.println(map_type_issues.size());
-		for (String issue_type : map_type_issues.keySet())
-			pwl.println(issue_type + ":" + map_type_issues.get(issue_type).size());
+		pw_list.println(issuetype_to_number.size());
+		for (String issue_type : issuetype_to_number.keySet())
+			pw_list.println(issue_type + ";" + issuetype_to_number.get(issue_type).size());
 		
-		pwl.println(map_type_issues.size());
-		for (String issue_type : map_type_issues.keySet()) {
-			pwl.print(issue_type + ":");
-			for (long numbers : map_type_issues.get(issue_type))
-				pwl.print(numbers + " ");
-			pwl.println();
+		pw_list.println(issuetype_to_number.size());
+		for (String issue_type : issuetype_to_number.keySet()) {
+			pw_list.print(issue_type);
+			for (long numbers : issuetype_to_number.get(issue_type))
+				pw_list.print(";" + numbers);
+			pw_list.println();
 		}
 		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Number of revisions (commits): " + revision_to_issue.size() + System.lineSeparator());
+		for (String revision : revision_to_issue.keySet()) {
+			sb.append("Revision (Issues): " + revision + "(");
+			for (Issue issue : revision_to_issue.get(revision))
+				sb.append(issue.getNumber() + ";");
+			sb.deleteCharAt(sb.length() - 1);
+			sb.append(")" + System.lineSeparator());
+		}
+		pw_list.print(sb.toString());
+		
 		pw.close();
-		pwl.close();
+		pw_list.close();
 	}
 	
+	// TODO: How can I move this to report util?
 	private String getDAFilePath(String partial_name) {
 		return "reports/degradation_analysis/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
 	}
 	
+	// TODO: How can I move this to report util?
 	private String getRMFilePath(String partial_name) {
 		return "reports/repository_mining/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
 	}
@@ -482,46 +475,54 @@ public final class AnalyzerMinerRepositoryRunnable {
 		 * TODO: Implement the same reports to optimization.
 		 */
 		
+		Map<String, List<String>> degraded_scenario_to_blames = null;
+		Map<String, List<String>> optimized_scenario_to_blames = null;
+		
 		// Getting the degraded scenarios and the blamed methods
-		Map<String, List<String>> scenariosWithBlames = AnalyzerCollectionUtil.getScenariosWithBlames(
-				getDAFilePath(scenario_degradation_source), getRMFilePath("methods_of_performance_degradation"));
+		if (!p_degradation_methods.isEmpty()) {
+			degraded_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
+				getDAFilePath(comparison_strategy + "degraded_scenarios"),
+				getRMFilePath("methods_of_performance_degradation"));
+			
+			removeExcludedEntryPoints(degraded_scenario_to_blames);
+		}
 		
-		/*
-		 * I removed these tests because they changed.
-		 * TODO: Think how to include the possibility of excluding scenarios.
-		 */
-		scenariosWithBlames.remove("Entry point for DatagramUnicastTest.testSimpleSend");
-		scenariosWithBlames.remove("Entry point for SocketConnectionAttemptTest.testConnectTimeout");
-		scenariosWithBlames.remove("Entry point for DatagramMulticastTest.testMulticast");
-		
-		/*
-		 * The same case, but now for ArgoUML. This scenario has a sleep(2000).
-		 * TODO: Think how to include the possibility of excluding scenarios.
-		 */		
-		scenariosWithBlames.remove("Entry point for TestNotationProvider.testListener");
+		if (!p_optimization_methods.isEmpty()) {
+			optimized_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
+				getDAFilePath(comparison_strategy + "optimized_scenarios"),
+				getRMFilePath("methods_of_performance_optimization"));
+			
+			removeExcludedEntryPoints(optimized_scenario_to_blames);
+		}
 		
 		// TODO: Can I reuse it?
 		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
 		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
 		
-		
-		///////////////////////////////////
+		////////////////////////////////////////////////////
 		/** EU PAREI DE VERIFICAR AQUI, CONTINUAR AMANHÃ **/
-		///////////////////////////////////
-		
+		////////////////////////////////////////////////////
 		
 		if (!p_degradation_methods.isEmpty()) {
-			// Showing degraded scenarios and blamed methods
-			persistScenariosWithBlames("# Methods blamed for performance degradation in each of the degraded scenarios",
-					"scenarios_blames_performance_degradation", scenariosWithBlames,
+			/*
+			 * Showing degraded scenarios and blamed methods.
+			 * Note that this save have to pass the partial name of the file.
+			 * The save method will discover the path in this case.
+			 */
+			saveScenariosAndBlames("# Methods blamed for performance degradation in each of the degraded scenarios",
+					"blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
 					avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
 		}
 		
 		// TODO: Check if optimization is working
 		if (!p_optimization_methods.isEmpty()) {
-			// Showing optimized scenarios and blamed methods
-			persistScenariosWithBlames("# Methods blamed for performance optimization in each of the optimized scenarios",
-					"scenarios_blames_performance_degradation", scenariosWithBlames,
+			/*
+			 * Showing optimized scenarios and blamed methods.
+			 * Note that this save have to pass the partial name of the file.
+			 * The save method will discover the path in this case.
+			 */
+			saveScenariosAndBlames("# Methods blamed for performance optimization in each of the optimized scenarios",
+					"blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
 					avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
 		}
 		
@@ -529,12 +530,68 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Map<String, Integer> total_classes = new HashMap<String, Integer>();
 		Map<String, Integer> total_packages = new HashMap<String, Integer>();
 		
-		// Count and save the results
-		countTotalOfModules(scenariosWithBlames, total_classes, total_packages, package_deep,
-				avg_time_members_v1, avg_time_members_v2);
+		if (degraded_scenario_to_blames != null) {
+			// Count and save the results
+			countTotalOfModules(degraded_scenario_to_blames, total_classes, total_packages, package_deep,
+					avg_time_members_v1, avg_time_members_v2);
+			
+			// Showing statistical for classes and packages
+			AnalyzerReportUtil.saveCodeAssets("# Statistical for degraded classes and packages",
+					getRMFilePath("total_of_degraded_classes_and_packages"), total_classes, total_packages);
+		}
 		
-		// Shoing the scenaios and the blamed methods
-		persistFile("# Contagem de classes e pacotes", "total_of_classes_and_packages", total_classes, total_packages);
+		if (optimized_scenario_to_blames != null) {
+			// For optimization now
+			total_classes.clear();
+			total_packages.clear();
+			
+			// Count and save the results
+			countTotalOfModules(optimized_scenario_to_blames, total_classes, total_packages, package_deep,
+					avg_time_members_v1, avg_time_members_v2);
+			
+			// Showing statistical for classes and packages
+			AnalyzerReportUtil.saveCodeAssets("# Statistical for optimized classes and packages",
+					getRMFilePath("total_of_optimized_classes_and_packages"), total_classes, total_packages);
+		}
+	}
+	
+	private void countTotalOfModules(Map<String, List<String>> scenario_to_blames,
+			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep,
+			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) {
+		
+		Set<String> counted = new HashSet<String>();
+		
+		for (List<String> signatures : scenario_to_blames.values()) {
+			if (signatures.isEmpty())
+				continue;
+			
+			for (String sig : signatures) {
+				Double t1 = avg_time_members_v1.get(sig);
+				Double t2 = avg_time_members_v2.get(sig);
+				
+				double delta = t1 == null ? t2 : t2 - t1;
+				
+				if (counted.contains(sig) || matchesExcludeWord(sig) || delta < 0.001)
+					continue;
+				
+				String class_name = getClassNameFromSignature(sig);
+				String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
+				
+				Integer value = total_classes.get(class_name);
+				total_classes.put(class_name, value == null ? 1 : value + 1);
+				
+				value = total_packages.get(package_prefix);
+				total_packages.put(package_prefix, value == null ? 1 : value + 1);
+				
+				counted.add(sig);
+			}
+		}
+		
+	}
+	
+	private void removeExcludedEntryPoints(Map<String, List<String>> scenario_to_blames) {
+		for (String entry : exclude_entry_points)
+			scenario_to_blames.remove(entry);
 	}
 	
 	private String getClassNameFromSignature(String signature) {

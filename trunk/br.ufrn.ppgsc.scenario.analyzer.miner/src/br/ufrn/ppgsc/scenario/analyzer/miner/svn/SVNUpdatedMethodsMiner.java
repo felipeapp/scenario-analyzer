@@ -21,7 +21,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 
 public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 	
-	private Map<String, SVNUpdatedLinesHandler> handlers;
+	private static Map<String, SVNUpdatedLinesHandler> handlers;
     
 	private String url;
     private String user;
@@ -50,8 +50,13 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 		client.setAuthenticationManager(authManager);
     }
     
+    public void close() {
+    	repository.closeSession();
+    }
+    
 	public void initialize() {
-		this.handlers = new HashMap<String, SVNUpdatedLinesHandler>();
+		if (handlers == null)
+			handlers = new HashMap<String, SVNUpdatedLinesHandler>();
 	}
 	
 	public Object mine(String path, String startRevision, String endRevision) {

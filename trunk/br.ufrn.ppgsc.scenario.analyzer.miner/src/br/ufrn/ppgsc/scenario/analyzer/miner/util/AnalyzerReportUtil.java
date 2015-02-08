@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
@@ -185,11 +187,10 @@ public abstract class AnalyzerReportUtil {
 				
 					pw.println("\t\tLine Number: " + upline.getLineNumber());
 					pw.println("\t\tCommit: " + upline.getRevision());
-					pw.println("\t\t\tNumber of Issues: " + issue_collection.size());
+					pw.println("\t\tNumber of Issues: " + issue_collection.size());
 					
 					for (Issue issue : issue_collection)
-						if (issue.getNumber() > 0)
-							pw.println("\t\t\t" + issue.getIssueId() + ";" + issue.getNumber() + ";" + issue.getIssueType());
+						pw.println("\t\t\t" + issue.getIssueId() + ";" + issue.getNumber() + ";" + issue.getIssueType());
 				}
 			}
 		}
@@ -238,6 +239,28 @@ public abstract class AnalyzerReportUtil {
 			for (String s : scenarios)
 				pw.println(s);
 		}
+		
+		pw.close();
+	}
+	
+	public static void saveCodeAssets(String message, String filename,
+			Map<String, Integer> total_classes, Map<String, Integer> total_packages) throws FileNotFoundException {
+		System.out.println("Saving >> " + message);
+		
+		PrintWriter pw = new PrintWriter(filename);
+		
+		pw.println(total_classes.size());
+		
+		Set<String> class_keys = new TreeSet<String>(total_classes.keySet());
+		Set<String> package_keys = new TreeSet<String>(total_packages.keySet());
+		
+		for (String class_name : class_keys)
+			pw.println(class_name + " " + total_classes.get(class_name));
+		
+		pw.println(total_packages.size());
+		
+		for (String package_prefix : package_keys)
+			pw.println(package_prefix + " " + total_packages.get(package_prefix));
 		
 		pw.close();
 	}

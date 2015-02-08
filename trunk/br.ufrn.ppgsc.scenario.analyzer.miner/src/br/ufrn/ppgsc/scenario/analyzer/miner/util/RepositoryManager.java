@@ -18,15 +18,22 @@ public class RepositoryManager {
 	private final Logger logger = Logger.getLogger(RepositoryManager.class);
 	
 	private IRepositoryMiner miner;
+	private String url;
+	private String user;
+	private String password;
 
 	public RepositoryManager(String url, String user, String password) {
 		miner = SystemMetadataUtil.getInstance().newObjectFromProperties(IRepositoryMiner.class);
-		miner.connect(url, user, password);
+		
+		this.url = url;
+		this.user = user;
+		this.password = password;
 	}
 
 	public Map<String, Collection<UpdatedMethod>> getUpdatedMethodsFromRepository(List<String> target_paths,
 			List<String> old_workcopies, List<String> new_workcopies) {
-		logger.info("starting mining...");
+		logger.info("Starting release mining, open connection now...");
+		miner.connect(url, user, password);
 		
 		Map<String, Collection<UpdatedMethod>> changedMethods = new HashMap<String, Collection<UpdatedMethod>>();
 		
@@ -42,20 +49,26 @@ public class RepositoryManager {
 		
 		for (int i = 0; i < target_paths.size(); ++i) {
 			if (!old_revisions.get(i).equals(new_revisions.get(i))) {
-				logger.info("Running doAnnotate [" + old_revisions.get(i) + ", " + new_revisions.get(i) + "]");
-				logger.info("Path (" + (i + 1) + "/" + target_paths.size() + "):" + target_paths.get(i));
-				
+				logger.info("[R1 != R2] Path (" + (i + 1) + "/" + target_paths.size() + "):" + target_paths.get(i));
+
 				Object handler = miner.getLinesHandler(target_paths.get(i));
 				
 				if (handler == null) {
+					logger.info("\tRunning doAnnotate [" + old_revisions.get(i) + ", " + new_revisions.get(i) + "]");
 					handler = miner.mine(target_paths.get(i), old_revisions.get(i), new_revisions.get(i));
 					miner.putLinesHandler(target_paths.get(i), handler);
 				}
 				else {
-					logger.info("Path previously analyzedPath: " + target_paths.get(i));
+					logger.info("\tPath previously analyzed");
 				}
 			}
+			else {
+				logger.info("[R1 = R2] Path (" + (i + 1) + "/" + target_paths.size() + "):" + target_paths.get(i));
+			}
 		}
+		
+		logger.info("Finishing mining, close connection now...");
+		miner.close();
 		
 		for (String key : miner.getAllLinesHandlerKeys()) {
 			// Pega as linhas modificadas

@@ -10,6 +10,8 @@ public interface IRepositoryMiner {
 	public void connect(String url, String user, String password);
 
 	public void initialize();
+	
+	public void close();
 
 	public Object mine(String path, String startRevision, String endRevision);
 

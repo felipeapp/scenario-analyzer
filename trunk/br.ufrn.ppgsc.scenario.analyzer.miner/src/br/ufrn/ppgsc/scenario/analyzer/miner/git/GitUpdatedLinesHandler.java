@@ -123,9 +123,9 @@ public class GitUpdatedLinesHandler {
 			List<Issue> issues = cache_commit_issues.get(commit);
 			
 			if (issues == null) {
-				logger.info("Inside handler, getting issues to commit " + commit);
-
 				String path = filedir + filename;
+				
+				logger.info("\tGetting issues to " + commit + " in " + path);
 				
 				Issue issue = null;
 				issues = new ArrayList<Issue>();
@@ -133,27 +133,22 @@ public class GitUpdatedLinesHandler {
 				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
 				
 				if (issue_numbers.isEmpty()) {
-					logger.warn("[IssueListEmpty] LogMessage: " + logMessage);
-					logger.warn("[IssueListEmpty] Path: " + path + ", commit = " + commit);
+					logger.warn("\t[Empty] No issues for log message: " + logMessage);
 					
 					issue = new Issue();
-					issue.setNumber(-1);
+					issue.setNumber(0);
 					
 					issues.add(issue);
 				}
 				else {
 					for (Long issue_number : issue_numbers) {
 						if (issue_number < 0) {
-							logger.warn("[NotFoundIssue] LogMessage: " + logMessage);
-							logger.warn("[NotFoundIssue] Path: " + path + ", commit = " + commit + ", task number = " + issue_number);
-							
+							logger.warn("\t[Invalid: " + issue_number + "] No issues for log message: " + logMessage);
 							issue = new Issue();
-							issue.setNumber(-1);
+							issue.setNumber(0);
 						}
 						else {
-							logger.info("[FoundIssue] LogMessage: " + logMessage);
-							logger.info("[FoundIssue] Path: " + path + ", commit = " + commit + ", task number = " + issue_number);
-							
+							logger.info("\t[Found: " + issue_number + "] In log message: " + logMessage);
 							issue = issueQuery.getIssueByNumber(issue_number);
 						}
 						
