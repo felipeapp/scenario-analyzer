@@ -11,58 +11,10 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
 
 public class AnalyzerStatistical {
 
-	public class StatElement {
-		private String elementName;
-		private double UTestPvalue;
-		private double TTestPvalue;
-		private double AVGv1;
-		private double AVGv2;
-		private int N1;
-		private int N2;
-
-		public StatElement(String elementName, double UTestPvalue, double TTestPvalue, double AVGv1, double AVGv2, int N1, int N2) {
-			this.elementName = elementName;
-			this.UTestPvalue = UTestPvalue;
-			this.TTestPvalue = TTestPvalue;
-			this.AVGv1 = AVGv1;
-			this.AVGv2 = AVGv2;
-			this.N1 = N1;
-			this.N2 = N2;
-		}
-
-		public String getElementName() {
-			return elementName;
-		}
-
-		public double getUTestPvalue() {
-			return UTestPvalue;
-		}
-
-		public double getTTestPvalue() {
-			return TTestPvalue;
-		}
-
-		public double getAVGv1() {
-			return AVGv1;
-		}
-
-		public double getAVGv2() {
-			return AVGv2;
-		}
-
-		public int getN1() {
-			return N1;
-		}
-
-		public int getN2() {
-			return N2;
-		}
-
-	}
-	
 	public enum Tests {TTest, UTest};
 
 	public Map<String, StatElement> executeStatisticalTests(Map<String, Double> avgs_v1, Map<String, Double> avgs_v2, Class<?> target) {
@@ -98,7 +50,7 @@ public class AnalyzerStatistical {
 				ttest_pvalue = TestUtils.tTest(execs_time_v1, execs_time_v2);
 			}
 			
-			result.put(key, new StatElement(key, utest_pvalue, ttest_pvalue,
+			result.put(key, new StatElement(key, ttest_pvalue, utest_pvalue,
 					avgs_v1.get(key), avgs_v2.get(key),
 					execs_time_v1.length, execs_time_v2.length));
 		}
