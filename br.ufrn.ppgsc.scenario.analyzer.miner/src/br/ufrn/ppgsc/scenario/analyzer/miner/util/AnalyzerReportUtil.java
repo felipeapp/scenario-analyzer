@@ -7,10 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
@@ -24,10 +22,9 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public abstract class AnalyzerReportUtil {
 
-	public static void saveReport(
+	public static void saveAVGs(
 			String message, String filename,
-			Map<String, Double> avgs, Collection<String> elements,
-			double rate, double alpha) throws FileNotFoundException {
+			Map<String, Double> avgs, Collection<String> elements) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
 
@@ -35,20 +32,18 @@ public abstract class AnalyzerReportUtil {
 
 		pw.println(message);
 		pw.println(elements.size());
-		pw.println("Name;Average;N");
+		pw.println("Name;Average");
 
 		for (String key : elements)
 			pw.println(key + ";" + avgs.get(key));
-		
-		pw.println(rate);
-		pw.println(alpha);
 		
 		pw.close();
 		
 	}
 	
-	public static void saveReport(
-			String message, String filename, Collection<StatElement> collection,
+	public static void saveElements(
+			String message, String filename,
+			Collection<StatElement> collection,
 			double rate, double alpha) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
@@ -65,7 +60,7 @@ public abstract class AnalyzerReportUtil {
 					+ e.getAVGv1() + ";" + e.getAVGv2() + ";"
 					+ e.getN1() + ";" + e.getN2());
 		}
-
+		
 		pw.println(rate);
 		pw.println(alpha);
 		
@@ -73,7 +68,7 @@ public abstract class AnalyzerReportUtil {
 		
 	}
 	
-	public static void saveReport(String message, String filename,
+	public static void saveFails(String message, String filename,
 			Map<RuntimeScenario, List<RuntimeNode>> scenario_to_nodes,
 			Map<String, Integer> failed_methods, int release) throws FileNotFoundException {
 		
@@ -131,7 +126,7 @@ public abstract class AnalyzerReportUtil {
 		
 	}
 	
-	public static void saveReport(String message, String filename, Collection<String> collection) throws FileNotFoundException {
+	public static void saveCollection(String message, String filename, Collection<String> collection) throws FileNotFoundException {
 		System.out.println("Saving >> " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
@@ -145,7 +140,7 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
-	public static void saveReport(String message, String filename,
+	public static void saveFullMiningData(String message, String filename,
 			Map<String, Collection<UpdatedMethod>> path_to_upmethod,
 			Collection<Long> issue_numbers,
 			Map<String, Integer> issuetype_to_count,
@@ -219,25 +214,25 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
-	public static void getImpactedElementsAndsaveReport(String message, String filename, Collection<String> members) throws FileNotFoundException {
+	public static void saveImpactedElements(String message, String filename,
+			Collection<String> methods) throws FileNotFoundException {
+		System.out.println("Saving >> " + message);
+		
 		GenericDB database_v2 = DatabaseRelease.getDatabasev2();
-		
-		System.out.println("persistFile: " + message);
-		
-		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
+		PrintWriter pw = new PrintWriter(filename);
 		
 		pw.println(message);
-		pw.println(members.size());
+		pw.println(methods.size());
 		
 		int i = 0;
-		for (String sig : members) {
-			System.out.println("[" + ++i + "/" + members.size() + "] Retrieving impacted members and scenarios by " + sig);
+		for (String signature : methods) {
+			System.out.println("[" + ++i + "/" + methods.size() + "] Retrieving impacted members and scenarios by " + signature);
 			
-//			Set<String> nodes = database_v2.getImpactedNodes(sig);
-			List<String> scenarios = database_v2.getScenariosByMember(sig);
+//			Set<String> nodes = database_v2.getImpactedNodes(signature);
+			List<String> scenarios = database_v2.getScenariosByMember(signature);
 			
-//			pw.println(sig + ":" + nodes.size());
-			pw.println(sig);
+//			pw.println(signature + ":" + nodes.size());
+			pw.println(signature);
 			pw.println(scenarios.size());
 			
 			for (String s : scenarios)
@@ -247,80 +242,7 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
-	public static void saveReport(String message, String filename, Map<String, Collection<UpdatedMethod>> signature_upmethod) throws FileNotFoundException {
-		System.out.println("persistFile: " + message);
-		
-		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
-		
-		pw.println(message);
-		pw.println(signature_upmethod.size());
-		
-		for (String signature : signature_upmethod.keySet()) {
-			pw.println(signature);
-			
-			Collection<UpdatedMethod> upmethod_list = signature_upmethod.get(signature);
-			
-			pw.println("Members " + upmethod_list.size());
-			
-			for (UpdatedMethod method : upmethod_list) {
-				List<UpdatedLine> upl_list = method.getUpdatedLines();
-				Set<String> counte_revisions = new HashSet<String>();
-				
-				pw.print(method.getMethodLimit().getSignature() + " ");
-				pw.print(method.getMethodLimit().getStartLine() + " ");
-				pw.println(method.getMethodLimit().getEndLine());
-				pw.println("Lines " + upl_list.size());
-				
-				for (UpdatedLine up_line : upl_list) {
-					if (counte_revisions.contains(up_line.getRevision()))
-						continue;
-					
-					List<Issue> issues = up_line.getIssues();
-				
-					pw.println("Revision " + up_line.getRevision());
-					
-					if (issues.size() == 1 && issues.get(0).getNumber() < 0)
-						pw.println("Issues " + 0);
-					else
-						pw.println("Issues " + issues.size());
-					
-					counte_revisions.add(up_line.getRevision());
-					
-					for (Issue issue : issues) {
-						if (issue.getNumber() >= 0) {
-							pw.print("IssueID " + issue.getIssueId() + " | ");
-							pw.print("IssueNumber " + issue.getNumber() + " | ");
-							pw.print("IssueType " + issue.getIssueType() + " | ");
-							pw.println("ShortDescription " + issue.getShortDescription());
-						}
-					}
-				}
-			}
-		}
-		
-		Map<String, Integer> counter_task_types = AnalyzerCollectionUtil.counterTaskTypes(signature_upmethod);
-		Map<String, Collection<UpdatedMethod>> task_members = AnalyzerCollectionUtil.getTaskMembers(signature_upmethod);
-		
-		pw.println("TotalOfTypes " + counter_task_types.size());
-		
-		for (String type : counter_task_types.keySet())
-			pw.println(type + " " + counter_task_types.get(type));
-		
-		pw.println("TotalOfTypes " + task_members.size());
-
-		for (String type : task_members.keySet()) {
-			Collection<UpdatedMethod> list = task_members.get(type);
-
-			pw.println(type);
-			pw.println("TotalOfMembers " + list.size());
-			for (UpdatedMethod up : list)
-				pw.println(up.getMethodLimit().getSignature());
-		}
-		
-		pw.close();
-	}
-	
-	public static String loadReport(Collection<String> map, String filename) throws IOException {
+	public static String loadCollection(Collection<String> collection, String filename) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		
 		String message = br.readLine();
@@ -328,16 +250,12 @@ public abstract class AnalyzerReportUtil {
 		
 		int number_of_registers = Integer.parseInt(br.readLine());
 		
-		/*
-		 * Just read the header
-		 * Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
-		 * 0    1               2               3       4       5  6
-		 */
 		br.readLine();
 		
 		for (int i = 0; i < number_of_registers; i++) {
 			String[] line = br.readLine().split(";");
-			map.add(line[0]);
+			// I just need the first token: element name
+			collection.add(line[0]);
 		}
 		
 		/* 
@@ -346,7 +264,7 @@ public abstract class AnalyzerReportUtil {
 		 */
 		br.close();
 		
-		System.out.println("\tTotal = " + map.size());
+		System.out.println("\tTotal = " + collection.size());
 		
 		return message;
 	}

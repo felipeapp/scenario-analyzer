@@ -1,9 +1,7 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -40,6 +38,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String workcopy_prefix_r1;
 	private String workcopy_prefix_r2;
 	private String exclude_word;
+	private String scenario_degradation_source;
 	private int package_deep;
 
 	private static final String[] TARGET_FILES = {
@@ -96,78 +95,19 @@ public final class AnalyzerMinerRepositoryRunnable {
 		exclude_word = properties.getStringProperty("exclude_word");
 		package_deep = properties.getIntProperty("package_deep");
 		
+		scenario_degradation_source = properties.getStringProperty("scenario_degradation_source");
+		
 		for (String name : TARGET_FILES)
 			if (properties.getBooleanProperty(name))
 				active_targets.add(name);
 		
 	}
-	
-	private Map<String, List<String>> getScenariosWithBlames(String scenarios_file, String methods_file) throws IOException {
-		Map<String, List<String>> scenarios_blames = new HashMap<String, List<String>>();
-		
-		Collection<String> degraded_scenarios = new HashSet<String>();  
-		BufferedReader br = new BufferedReader(new FileReader(getOutputFileName(methods_file)));
-		
-		AnalyzerReportUtil.loadReport(degraded_scenarios, getInputFileName(scenarios_file));
-		
-		for (String name : degraded_scenarios)
-			scenarios_blames.put(name, new ArrayList<String>());
-		
-		// Ler a mensagem
-		System.out.println("Processing... " + br.readLine());
-		
-		int total_members = Integer.parseInt(br.readLine());
-		
-		for (int i = 0; i < total_members; i++) {
-			
-			String signature = br.readLine();
-			int total_scenarios = Integer.parseInt(br.readLine());
-			
-			for (int j = 0; j < total_scenarios; j++) {
-				
-				String scenario = br.readLine();
-				
-				List<String> members_sig = scenarios_blames.get(scenario);
-				if (members_sig != null)
-					members_sig.add(signature);
-				
-			}
-			
-		}
 
-		br.close();
-		
-		return scenarios_blames;
-	}
-	
-//	private String loadScenarios(Map<String, List<String>> scenarios_blames, String name) throws FileNotFoundException {
-//		String message = null;
-//		String filename = getInputFileName(name);
-//		
-//		Scanner in = new Scanner(new FileInputStream(filename));
-//
-//		message = in.nextLine();
-//		
-//		int total = in.nextInt();
-//		in.nextLine();
-//		in.nextLine();
-//
-//		for (int i = 0; i < total; i++) {
-//			String scenario_name = in.nextLine();
-//			in.nextLine(); // Tempos
-//			scenarios_blames.put(scenario_name, new ArrayList<String>());
-//		}
-//
-//		in.close();
-//
-//		return message;
-//	}
-	
 	public void persistFile(String message, String filename,
 			Map<String, Integer> total_classes, Map<String, Integer> total_packages) throws FileNotFoundException {
-		System.out.println("persistFile: " + message);
+		System.out.println("Saving >> : " + message);
 		
-		PrintWriter pw = new PrintWriter(getOutputFileName(filename));
+		PrintWriter pw = new PrintWriter(getRMFilePath(filename));
 		
 		pw.println(total_classes.size());
 		
@@ -233,9 +173,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		System.out.println("persistFile: " + message);
 		
-		PrintWriter pw = new PrintWriter(getOutputFileName(filename));
+		PrintWriter pw = new PrintWriter(getRMFilePath(filename));
 		
-		PrintWriter pwl = new PrintWriter(getOutputFileName(filename + "_list_"));
+		PrintWriter pwl = new PrintWriter(getRMFilePath(filename + "_list_"));
 		
 		for (List<String> list : scenariosWithBlames.values())
 			if (!list.isEmpty())
@@ -351,11 +291,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 		pwl.close();
 	}
 	
-	private String getInputFileName(String partial_name) {
+	private String getDAFilePath(String partial_name) {
 		return "reports/degradation_analysis/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
 	}
 	
-	private String getOutputFileName(String partial_name) {
+	private String getRMFilePath(String partial_name) {
 		return "reports/repository_mining/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
 	}
 	
@@ -380,7 +320,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 */
 			Collection<String> full_signatures = new ArrayList<String>();
 			
-			String file_message = AnalyzerReportUtil.loadReport(full_signatures, getInputFileName(filename));
+			String file_message = AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath(filename));
 			
 			for (String signature : full_signatures) {
 				String paths[] = transformer.convert(signature, repository_prefix, workcopy_prefix_r1, workcopy_prefix_r2);
@@ -484,46 +424,67 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			// Collect some issue information for the full list of changed methods
 			Map<String, Collection<UpdatedMethod>> full_issuetype_to_upmethod = AnalyzerCollectionUtil.getTaskMembers(full_path_to_upmethod);
-			Map<String, Integer> full_issuetype_to_count = AnalyzerCollectionUtil.counterTaskTypes(full_path_to_upmethod);
+			Map<String, Integer> full_issuetype_to_count = AnalyzerCollectionUtil.countTaskTypes(full_path_to_upmethod);
 			Collection<Long> full_issue_numbers = AnalyzerCollectionUtil.getTaskNumbers(full_path_to_upmethod);
 			
 			// Collect some issue information for the filtered list of changed methods
 			Map<String, Collection<UpdatedMethod>> filtered_issuetype_to_upmethod = AnalyzerCollectionUtil.getTaskMembers(filtered_path_to_upmethod);
-			Map<String, Integer> filtered_issuetype_to_count = AnalyzerCollectionUtil.counterTaskTypes(filtered_path_to_upmethod);
+			Map<String, Integer> filtered_issuetype_to_count = AnalyzerCollectionUtil.countTaskTypes(filtered_path_to_upmethod);
 			Collection<Long> filtered_issue_numbers = AnalyzerCollectionUtil.getTaskNumbers(filtered_path_to_upmethod);
 			
 			// Save the results of all methods from degradation analysis
-			AnalyzerReportUtil.saveReport(file_message + " (after mining phase)", getOutputFileName("full_" + filename), full_path_to_upmethod,
+			AnalyzerReportUtil.saveFullMiningData(file_message + " (after mining phase)", getRMFilePath("full_" + filename), full_path_to_upmethod,
 					full_issue_numbers,	full_issuetype_to_count, full_issuetype_to_upmethod);
 			
 			// Save the results of the filtered methods (degraded and changed)
-			AnalyzerReportUtil.saveReport(file_message, getOutputFileName("filtrated_" + filename), filtered_path_to_upmethod,
+			AnalyzerReportUtil.saveFullMiningData(file_message, getRMFilePath("filtrated_" + filename), filtered_path_to_upmethod,
 					filtered_issue_numbers,	filtered_issuetype_to_count, filtered_issuetype_to_upmethod);
 		}
 		
 		if (!p_degradation_methods.isEmpty()) {
 			// Saving issues
-			AnalyzerReportUtil.saveReport("# Issues potentially blamed for performance degradation",
-					getOutputFileName("issues_performance_degradation"), p_degradation_methods);
+			AnalyzerReportUtil.saveFullMiningData(
+				"# Issues potentially blamed for performance degradation (degraded + added)",
+				getRMFilePath("issues_of_performance_degradation"), p_degradation_methods,
+				AnalyzerCollectionUtil.getTaskNumbers(p_degradation_methods),
+				AnalyzerCollectionUtil.countTaskTypes(p_degradation_methods),
+				AnalyzerCollectionUtil.getTaskMembers(p_degradation_methods)
+			);
 			
 			// Getting and saving the impacted elements by the blamed methods
-			AnalyzerReportUtil.getImpactedElementsAndsaveReport("# Methods potentially blamed for performance degradation",
-					getOutputFileName("methods_performance_degradation"), p_degradation_methods.keySet());
+			AnalyzerReportUtil.saveImpactedElements(
+				"# Methods potentially blamed for performance degradation",
+				getRMFilePath("methods_of_performance_degradation"), p_degradation_methods.keySet());
 		}
 		
 		// TODO: Check if optimization is working
 		if (!p_optimization_methods.isEmpty()) {
-			// Saving issues
-			AnalyzerReportUtil.saveReport("# Issues potentially blamed for performance optimization",
-					getOutputFileName("issues_performance_degradation"), p_optimization_methods);
-			
+			/*
+			 *  Saving potentially blamed issues.
+			 *  The removed methods might be not considered.
+			 */
+			AnalyzerReportUtil.saveFullMiningData(
+				"# Issues potentially blamed for performance optimization (remved + optimized)",
+				getRMFilePath("issues_of_performance_optimization"), p_optimization_methods,
+				AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
+				AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
+				AnalyzerCollectionUtil.getTaskMembers(p_optimization_methods)
+			);
+
 			// Getting and saving the impacted elements by the blamed methods
-			AnalyzerReportUtil.getImpactedElementsAndsaveReport("# Methods potentially blamed for performance optimization",
-					getOutputFileName("methods_performance_degradation"), p_optimization_methods.keySet());
+			AnalyzerReportUtil.saveImpactedElements(
+				"# Methods potentially blamed for performance optimization (removed + )",
+				getRMFilePath("methods_of_performance_optimization"), p_optimization_methods.keySet());
 		}
 		
+		/* 
+		 * From this point, we generate more details only for degradation.
+		 * TODO: Implement the same reports to optimization.
+		 */
+		
 		// Getting the degraded scenarios and the blamed methods
-		Map<String, List<String>> scenariosWithBlames = getScenariosWithBlames("pu_degraded_scenarios", "methods_performance_degradation");
+		Map<String, List<String>> scenariosWithBlames = AnalyzerCollectionUtil.getScenariosWithBlames(
+				getDAFilePath(scenario_degradation_source), getRMFilePath("methods_of_performance_degradation"));
 		
 		/*
 		 * I removed these tests because they changed.
@@ -542,6 +503,12 @@ public final class AnalyzerMinerRepositoryRunnable {
 		// TODO: Can I reuse it?
 		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
 		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
+		
+		
+		///////////////////////////////////
+		/** EU PAREI DE VERIFICAR AQUI, CONTINUAR AMANHÃ **/
+		///////////////////////////////////
+		
 		
 		if (!p_degradation_methods.isEmpty()) {
 			// Showing degraded scenarios and blamed methods
