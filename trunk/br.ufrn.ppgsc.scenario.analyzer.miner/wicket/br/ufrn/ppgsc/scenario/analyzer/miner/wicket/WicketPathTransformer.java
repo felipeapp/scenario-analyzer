@@ -2,6 +2,11 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.wicket;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
 
+/* TODO:
+ * Os dados para essa classe deveriam estar vindo de um arquivo que mapeia os pacotes
+ * para seu diretório correto. Acredito que um arquivo de proproedades resolveria,
+ * e ai a implemantação poderia ficar genérica, igual para todos os sistemas.
+ */
 public class WicketPathTransformer implements IPathTransformer {
 
 	public String[] convert(String method_signature, String repository_prefix, String workcopy_prefix_v1, String workcopy_prefix_v2) {
@@ -18,28 +23,30 @@ public class WicketPathTransformer implements IPathTransformer {
 		
 		name = name.replaceAll("[.]", "/").replaceAll("[$].*", "");
 		
-		// Se for enum ainda ficará com uma barra no final que precisa ser removida
+		// If it is Enum, it will have a / at the end. We need to remove.
 		if (name.endsWith("/"))
 			name = name.substring(0, name.lastIndexOf('/'));
 
-		// Direciona para dentro do projeto correto
-		if (method_signature.startsWith("io.netty.testsuite"))
-			full_path += "testsuite/src/test/java/";
-		else if (method_signature.startsWith("io.netty.channel") ||
-				method_signature.startsWith("io.netty.bootstrap"))
-			full_path += "transport/src/main/java/";
-		else if (method_signature.startsWith("io.netty.buffer"))
-			full_path += "buffer/src/main/java/";
-		else if (method_signature.startsWith("io.netty.handler.codec.http") ||
-				method_signature.startsWith("io.netty.handler.codec.rtsp") ||
-				method_signature.startsWith("io.netty.handler.codec.spdy"))
-			full_path += "codec-http/src/main/java/";
-		else if (method_signature.startsWith("io.netty.handler.codec"))
-			full_path += "codec/src/main/java/";
-		else if (method_signature.startsWith("io.netty.handler"))
-			full_path += "handler/src/main/java/";
+		// Switch the directory
+		if (method_signature.startsWith("org.apache.wicket.util.tester"))
+			full_path += "wicket-core/src/main/java/";
 		
-		// Completa o nome do arquivo
+		else if (method_signature.startsWith("org.apache.wicket.util"))
+			full_path += "wicket-util/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.authroles"))
+			full_path += "wicket-auth-roles/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.examples"))
+			if (name.endsWith("Test"))
+				full_path += "wicket-examples/src/test/java/";
+			else
+				full_path += "wicket-examples/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket"))
+			full_path += "wicket-core/src/main/java/";
+		
+		// Add .java to the file
 		full_path += name + ".java";
 		
 		String result[] = new String[3];

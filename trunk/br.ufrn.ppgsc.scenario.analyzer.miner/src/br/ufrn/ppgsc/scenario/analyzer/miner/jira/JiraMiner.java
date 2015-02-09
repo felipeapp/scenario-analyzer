@@ -79,8 +79,6 @@ public class JiraMiner implements IQueryIssue {
 				e.printStackTrace();
 			}
 			
-			System.out.println(issueStr);
-			
 			// This remove the issue work and convert to a number
 			long issue_number = Long.parseLong(issueStr.replace(word, "").trim());
 			result.add(issue_number);
