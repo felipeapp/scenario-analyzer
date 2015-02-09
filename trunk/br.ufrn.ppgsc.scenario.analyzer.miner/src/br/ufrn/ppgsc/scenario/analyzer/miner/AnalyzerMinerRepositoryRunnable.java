@@ -499,10 +499,6 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
 		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
 		
-		////////////////////////////////////////////////////
-		/** EU PAREI DE VERIFICAR AQUI, CONTINUAR AMANHÃ **/
-		////////////////////////////////////////////////////
-		
 		if (!p_degradation_methods.isEmpty()) {
 			/*
 			 * Showing degraded scenarios and blamed methods.

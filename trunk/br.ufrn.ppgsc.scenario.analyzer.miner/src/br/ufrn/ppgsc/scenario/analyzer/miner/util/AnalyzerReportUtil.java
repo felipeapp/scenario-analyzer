@@ -162,7 +162,8 @@ public abstract class AnalyzerReportUtil {
 				sb.append(";");
 			}
 		}
-		sb.deleteCharAt(sb.length() - 1);
+		if (sb.length() > 0)
+			sb.deleteCharAt(sb.length() - 1);
 		pw.println(sb.toString());
 		
 		pw.println("Number of paths: " + path_to_upmethod.size());
