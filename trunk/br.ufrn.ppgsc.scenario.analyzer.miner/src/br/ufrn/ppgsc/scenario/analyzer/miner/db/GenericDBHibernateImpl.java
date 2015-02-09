@@ -52,11 +52,25 @@ public class GenericDBHibernateImpl extends GenericDB {
 	}
 	
 	@Override
-	public int getNumberOfMethodExecution(String signature) {
+	public int countGeneralMethodExecution(String signature) {
 		SQLQuery query = getSession().createSQLQuery(
 				"select count(node.id) total from node where member = :signature");
 
 		query.setString("signature", signature);
+		query.addScalar("total", IntegerType.INSTANCE);
+
+		return (int) query.uniqueResult();
+	}
+	
+	@Override
+	public int countMethodExecutionByScenario(String scenario, String signature) {
+		SQLQuery query = getSession().createSQLQuery(
+				"select count(node.id) as total from node inner join node_scenario on node.id = node_scenario.node_id"
+				+ " where node.time <> -1 and node.member = :signature and"
+				+ " node_scenario.scenario_id in (select id from scenario where scenario.name = :scenario)");
+
+		query.setString("signature", signature);
+		query.setString("scenario", scenario);
 		query.addScalar("total", IntegerType.INSTANCE);
 
 		return (int) query.uniqueResult();
