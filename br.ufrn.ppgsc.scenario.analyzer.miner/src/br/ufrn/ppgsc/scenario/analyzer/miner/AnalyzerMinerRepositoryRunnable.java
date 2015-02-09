@@ -43,6 +43,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String[] exclude_entry_points;
 	
 	private double avg_significance_delta;
+	private double member_significance_variation;
 	private int package_deep;
 
 	private static final String[] TARGET_FILES = {
@@ -100,6 +101,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		package_deep = properties.getIntProperty("package_deep");
 		avg_significance_delta = properties.getDoubleProperty("avg_significance_delta");
+		member_significance_variation = properties.getDoubleProperty("member_significance_variation");
 		
 		comparison_strategy = properties.getStringProperty("comparison_strategy");
 		exclude_entry_points = properties.getStringProperty("exclude_entry_points").split(";");
@@ -176,7 +178,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				Double t1 = avg_time_members_v1.get(s);
 				Double t2 = avg_time_members_v2.get(s);
 				
-				double delta = t1 == null ? t2 : t2 - t1;
+				double delta = calcExecutionTimeAbsDelta(scenario, s, t1, t2);
 				
 				StringBuilder sb = new StringBuilder();
 				
@@ -558,35 +560,48 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 	}
 	
+	private double calcExecutionTimeAbsDelta(String scenario, String signature, Double t1, Double t2) {
+		double delta;
+		
+		// The member was added
+		if (t1 == null) {
+			// Number of times the method is executed inside the scenario
+			int count = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, signature);
+			
+			// It is significant according the property
+			delta = (count * t2 > member_significance_variation)? t2 : 0;
+		}
+		else { // The member exists in both releases
+			delta = Math.abs(t2 - t1);
+		}
+		
+		return delta;
+	}
+	
 	private void countTotalOfModules(Map<String, List<String>> scenario_to_blames,
 			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep,
 			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) {
 		
 		Set<String> counted = new HashSet<String>();
 		
-		for (List<String> signatures : scenario_to_blames.values()) {
-			if (signatures.isEmpty())
-				continue;
-			
-			for (String sig : signatures) {
+		for (String scenario : scenario_to_blames.keySet()) {
+			for (String sig : scenario_to_blames.get(scenario)) {
 				Double t1 = avg_time_members_v1.get(sig);
 				Double t2 = avg_time_members_v2.get(sig);
+				double delta = calcExecutionTimeAbsDelta(scenario, sig, t1, t2);
 				
-				double delta = t1 == null ? t2 : t2 - t1;
-				
-				if (counted.contains(sig) || matchesExcludeWord(sig) || delta < avg_significance_delta)
-					continue;
-				
-				String class_name = getClassNameFromSignature(sig);
-				String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
-				
-				Integer value = total_classes.get(class_name);
-				total_classes.put(class_name, value == null ? 1 : value + 1);
-				
-				value = total_packages.get(package_prefix);
-				total_packages.put(package_prefix, value == null ? 1 : value + 1);
-				
-				counted.add(sig);
+				if (!counted.contains(sig) && !matchesExcludeWord(sig) && delta >= avg_significance_delta) {
+					String class_name = getClassNameFromSignature(sig);
+					String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
+					
+					Integer value = total_classes.get(class_name);
+					total_classes.put(class_name, value == null ? 1 : value + 1);
+					
+					value = total_packages.get(package_prefix);
+					total_packages.put(package_prefix, value == null ? 1 : value + 1);
+					
+					counted.add(sig);
+				}
 			}
 		}
 		

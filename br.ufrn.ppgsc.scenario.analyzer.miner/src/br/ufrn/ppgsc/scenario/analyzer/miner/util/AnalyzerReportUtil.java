@@ -113,7 +113,7 @@ public abstract class AnalyzerReportUtil {
 				pw.print(sig + ",");
 				pw.print(n.getExecutionTime() + ",");
 				pw.print(n.getExceptionMessage() + ",");
-				pw.println((double) failed_methods.get(sig) / db.getNumberOfMethodExecution(sig));
+				pw.println((double) failed_methods.get(sig) / db.countGeneralMethodExecution(sig));
 				
 				pw.println(n.getAnnotations().size());
 				
