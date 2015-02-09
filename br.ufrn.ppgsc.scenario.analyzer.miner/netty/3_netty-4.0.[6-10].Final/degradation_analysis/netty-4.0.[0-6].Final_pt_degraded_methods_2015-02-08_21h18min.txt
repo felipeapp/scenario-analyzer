@@ -1,0 +1,14 @@
+# Degradated methods (TTest P-Value)
+9
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+io.netty.buffer.AbstractByteBuf.ensureAccessible();0.03487578965913793;0.023889223222348877;0.004539363942136783;0.005026476359433379;27;18
+io.netty.buffer.SlicedByteBuf(io.netty.buffer.ByteBuf,int,int);5.581448471231512E-7;0.0015507254333377851;0.01718544836641693;0.01764173703256936;47;30
+io.netty.buffer.UnpooledHeapByteBuf(io.netty.buffer.ByteBufAllocator,byte[],int,int,int);0.003047269118061937;9.397813011791101E-5;0.0223463687150838;0.027121936640765093;52;39
+io.netty.buffer.AbstractByteBuf.writerIndex(int);5.287909128759634E-4;0.013242937567462088;0.0022785201204912333;0.004674306393244874;11;8
+io.netty.channel.DefaultChannelPipeline.addLast(io.netty.channel.ChannelHandler[]);0.038732228891917936;0.12753499843738503;0.4280821917808219;0.45041322314049587;36;35
+io.netty.channel.DefaultChannelPipeline.addLast(io.netty.util.concurrent.EventExecutorGroup,io.netty.channel.ChannelHandler[]);0.038732228891917936;0.12753499843738503;0.4280821917808219;0.45041322314049587;36;35
+io.netty.buffer.UnpooledHeapByteBuf.capacity();0.008448157974813134;0.0014206595674192135;0.008494500265890452;0.012705222341390975;45;48
+io.netty.channel.nio.NioEventLoop.wakeup(boolean);3.711435687083493E-8;8.510343441847645E-6;0.004638607893495466;0.012032645673777882;56;92
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho();0.037960519964108784;0.04125001659393934;2956.0;4291.5;10;10
+0.0
+0.05

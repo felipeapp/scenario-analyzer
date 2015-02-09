@@ -1,0 +1,1044 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 86
+Entry point for TestActionNewReception.testHasIcon
+Entry point for TestActionStateDiagram.testCreateDiagram
+Entry point for TestActionStateNotationUml.testGenerateRoundTrip
+Entry point for TestActionStateNotationUml.testNullBody
+Entry point for TestActionStateNotationUml.testStringGenerationNoAction
+Entry point for TestActionStateNotationUml.testStringGenerationWithAction
+Entry point for TestActivityGraphStateMachine.testDeleteStateMachineTop
+Entry point for TestAttributeAndOperationNotationUml.testAttributeParseExceptions
+Entry point for TestAttributeAndOperationNotationUml.testAttributeType
+Entry point for TestCallStateNotationUml.testChangeOperationAndClass
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleBases
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleThrows
+Entry point for TestCollaborationsFactory.testCreates
+Entry point for TestCollaborationsHelper.testGetMetaModelName
+Entry point for TestCollaborationsHelper.testIsValidStereoType
+Entry point for TestCopyHelper.testCopyClass
+Entry point for TestCoreFactory.testBuildAssociation
+Entry point for TestCoreFactory.testBuildAssociationEnd
+Entry point for TestCoreFactory.testBuildGeneralization
+Entry point for TestCoreFactory.testCreates
+Entry point for TestCoreFactory.testDeleteClassifier1
+Entry point for TestCoreHelper.testIsValidStereoType
+Entry point for TestCrNoAssociations.testUseCaseExtend
+Entry point for TestDataTypesFactory.testCreates
+Entry point for TestDefaultOclEvaluator.testCollectOperation
+Entry point for TestDefaultOclEvaluator.testExistsOperation
+Entry point for TestDefaultOclEvaluator.testForAllOperation
+Entry point for TestDefaultOclEvaluator.testSelectOperation
+Entry point for TestDiagramFactory.testCreateAndRemove
+Entry point for TestEnumerationLiteralNotationUml.testLiteralStereotype
+Entry point for TestExtensionMechanismsFactory.testDelete
+Entry point for TestExtensionMechanismsHelper.testTagDefinitions
+Entry point for TestFigClonable.testCompositeStateClonable
+Entry point for TestFigClonable.testFinalStateClonable
+Entry point for TestFigClonable.testInitialStateClonable
+Entry point for TestFigClonable.testJoinStateClonable
+Entry point for TestFigClonable.testShallowHistoryStateClonable
+Entry point for TestItemUID.testAssignIDsToObjects
+Entry point for TestMessageNotationUml.testGenerateSequenceNumbers
+Entry point for TestModelElementNameNotationJava.testToStringForRealization
+Entry point for TestModelManagementFactory.testCreates
+Entry point for TestModelManagementHelper.testGetAllModelElementsOfKindForTagDefinitionInStereotype
+Entry point for TestModelManagementHelper.testGetPathForTagDefinitionInStereotype
+Entry point for TestMyTokenizer.testConstructor1
+Entry point for TestMyTokenizer.testConstructor2
+Entry point for TestMyTokenizer.testConstructor3
+Entry point for TestMyTokenizer.testConstructor4
+Entry point for TestMyTokenizer.testConstructor6
+Entry point for TestNotation.testAddingAndRemovingNotations
+Entry point for TestNotationProvider.testToString
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile
+Entry point for TestProfileDefault.testLoadProfileModel
+Entry point for TestProfileManagerImpl.testRegisterAndRemoveDummyProfile
+Entry point for TestProject.testDeleteClassWithStateDiagram
+Entry point for TestProject.testDeleteOperationWithStateDiagram
+Entry point for TestProject.testDeletePackageWithClassDiagram
+Entry point for TestProject.testDeletePackageWithPackageWithActivityDiagram
+Entry point for TestProject.testRemove
+Entry point for TestProjectManager.testMakeEmptyProject
+Entry point for TestProjectSettings.testGuillemots
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile
+Entry point for TestResolvedCritic.testEquals
+Entry point for TestStandardCM.testDesignGoalsCM
+Entry point for TestStandardCM.testEnabledCM
+Entry point for TestStateMachinesHelper.testCompositeStates
+Entry point for TestTabs.testTabTaggedValuesIcon
+Entry point for TestTargetManager.testGetModelTarget
+Entry point for TestTransitionNotationUml.testParseTriggerChangeEvent
+Entry point for TestUmlActor.testActor
+Entry point for TestUmlFactory.testBuildConnection
+Entry point for TestUmlFactoryBuildNode.testBuildCoreNodes
+Entry point for TestUmlGeneralization.testDeleteClass
+Entry point for TestUmlModel.testNamespace
+Entry point for TestUmlUseCase.testUseCase
+Entry point for TestUseCasesFactory.testCreates
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar
+Entry point for TestUserDefinedProfile.testLoadingConstructor
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel
+Entry point for TestXmiFilePersister.testLoadBadHref
+Entry point for TestXmiFilePersister.testLoadProject
+Entry point for TestXmiFilePersister.testLoadProject13
+Entry point for TestXmiFilePersister.testSave
+118
+org.argouml.application.helpers.ApplicationVersion.getStableVersion();null;0.003800475059382423;0.003800475059382423
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String,java.lang.ClassLoader);2.765084745762712;3.037324649298597;0.2722399035358851
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean);null;0.007709130672498633;0.007709130672498633
+org.argouml.kernel.ProjectManager.updateRoots();null;0.01415929203539823;0.01415929203539823
+org.argouml.kernel.ProjectSettings.doUndoable(org.tigris.gef.undo.Memento);0.8666666666666667;1.0444444444444445;0.1777777777777778
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.buildClassifierRole(java.lang.Object);2.190909090909091;3.768181818181818;1.5772727272727272
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.buildInteraction(java.lang.Object);2.1166666666666667;2.533333333333333;0.4166666666666665
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline();null;0.6111111111111112;0.6111111111111112
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression);null;0.013559322033898305;0.013559322033898305
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.setScript(java.lang.Object,java.lang.Object);0.26477272727272727;0.28771929824561404;0.02294657097288677
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Integer[],java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object);null;4.3;4.3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEndInternal(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object);null;4.047727272727273;4.047727272727273
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String);null;1.387037037037037;1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String);null;1.762962962962963;1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity);null;0.3611111111111111;0.3611111111111111
+org.argouml.model.mdr.CoreHelperMDRImpl.setSpecification(java.lang.Object,boolean);0.0;0.16;0.16
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityInternal(int,int);null;0.9842105263157894;0.9842105263157894
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String);0.21136363636363636;0.44722222222222224;0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String);0.21136363636363636;0.8388888888888889;0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object);0.0;0.017228464419475654;0.017228464419475654
+org.argouml.model.mdr.FacadeMDRImpl.getTriggers(java.lang.Object);null;0.39375;0.39375
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object);0.021395348837209303;0.031983805668016195;0.010588456830806892
+org.argouml.model.mdr.ModelEventPumpMDRImpl.removeModelEventListener(java.beans.PropertyChangeListener,java.lang.Object);0.0;0.006944444444444444;0.006944444444444444
+org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object);5.292307692307692;5.638461538461539;0.3461538461538467
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap();0.037914691943127965;0.13314447592067988;0.09522978397755191
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int);null;2.6337078651685393;2.6337078651685393
+org.argouml.model.mdr.XmiReaderImpl.convertAndLoadUml13(java.lang.String,javax.jmi.reflect.RefPackage,org.netbeans.api.xmi.XMIReader,org.xml.sax.InputSource);839.1;949.6;110.5
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix();null;0.07079646017699115;0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap();0.0;0.22857142857142856;0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301
+org.argouml.model.mdr.XmiReaderImpl.serialTransform(java.lang.String[],org.xml.sax.InputSource);659.7;785.9;126.19999999999993
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String);null;0.002367681152271494;0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.readExternalDocument(java.lang.String);55.99230769230769;222.76190476190476;166.76959706959707
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject);0.02621967838648133;0.04603758576116138;0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject);null;0.016403280656131225;0.016403280656131225
+org.argouml.model.mdr.XmiReferenceResolverImpl.toURL(java.lang.String);66.83103448275862;834.9268292682926;768.095794785534
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]);null;0.09454545454545454;0.09454545454545454
+org.argouml.notation.NotationProvider.cleanListener();null;0.02711111111111111;0.02711111111111111
+org.argouml.notation.NotationProvider.initialiseListener(java.lang.Object);null;0.21395348837209302;0.21395348837209302
+org.argouml.notation.NotationProvider.removeAllElementListeners();null;0.02711111111111111;0.02711111111111111
+org.argouml.notation.NotationProvider.removeAllElementListeners(java.beans.PropertyChangeListener);0.006818181818181818;0.020444444444444446;0.013626262626262629
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName);0.34657534246575344;0.3947598253275109;0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName);null;0.8445414847161572;0.8445414847161572
+org.argouml.notation.providers.ActionStateNotation.initialiseListener(java.lang.Object);null;1.175;1.175
+org.argouml.notation.providers.AssociationNameNotation.initialiseListener(java.lang.Object);null;0.13333333333333333;0.13333333333333333
+org.argouml.notation.providers.AssociationRoleNotation.initialiseListener(java.lang.Object);null;0.75;0.75
+org.argouml.notation.providers.AttributeNotation.initialiseListener(java.lang.Object);null;0.17777777777777778;0.17777777777777778
+org.argouml.notation.providers.MessageNotation.initialiseListener(java.lang.Object);null;6.15;6.15
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object);null;0.1784090909090909;0.1784090909090909
+org.argouml.notation.providers.ObjectNotation.initialiseListener(java.lang.Object);null;0.8;0.8
+org.argouml.notation.providers.OperationNotation.initialiseListener(java.lang.Object);null;0.248;0.248
+org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object);null;3.6333333333333333;3.6333333333333333
+org.argouml.notation.providers.TransitionNotation.initialiseListener(java.lang.Object);null;2.05625;2.05625
+org.argouml.notation.providers.uml.AttributeNotationUml.dealWithDerived(java.lang.Object,boolean);null;0.6333333333333333;0.6333333333333333
+org.argouml.notation.providers.uml.AttributeNotationUml.toString(java.lang.Object,boolean,boolean,boolean,boolean,boolean,boolean);0.15;0.16;0.010000000000000009
+org.argouml.notation.providers.uml.ModelElementNameNotationUml.toString(java.lang.Object,org.argouml.notation.NotationSettings);0.05172413793103448;0.05517241379310345;0.0034482758620689655
+org.argouml.notation.providers.uml.NotationUtilityUml.setDerived(java.lang.Object,boolean);null;0.6333333333333333;0.6333333333333333
+org.argouml.notation.providers.uml.TransitionNotationUml.findOrBuildChangeEvent(java.lang.String,java.lang.Object);null;1.525;1.525
+org.argouml.persistence.ModelMemberFilePersister.registerDiagramsInternal(org.argouml.kernel.Project,java.util.Collection,boolean);14.133333333333333;16.166666666666668;2.033333333333335
+org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram);1.4363636363636365;12.607692307692307;11.17132867132867
+org.argouml.persistence.PGMLStackParser.getOwner(java.lang.String,java.lang.String);0.020253164556962026;0.07848101265822785;0.05822784810126583
+org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean);86.50909090909092;113.9;27.39090909090909
+org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean);86.50909090909092;113.77692307692308;27.267832167832168
+org.argouml.persistence.PGMLStackParser.setAttrs(org.tigris.gef.presentation.Fig,org.xml.sax.Attributes);0.19908256880733946;0.22035398230088496;0.0212714134935455
+org.argouml.persistence.PGMLStackParser.setStyleAttributes(org.tigris.gef.presentation.Fig,java.util.Map);0.13043478260869565;0.1673913043478261;0.036956521739130443
+org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr);962.5;1447.675;485.17499999999995
+org.argouml.persistence.UmlFilePersister.getPersistenceVersionFromFile(java.io.File);0.0;0.64;0.64
+org.argouml.persistence.UmlFilePersister.getReleaseVersion(java.io.InputStream);0.0;0.42727272727272725;0.42727272727272725
+org.argouml.persistence.XmiFilePersister.doLoad(java.io.File);517.9;550.0333333333333;32.133333333333326
+org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File);986.9666666666667;1468.85;481.8833333333332
+org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String);null;33.26470588235294;33.26470588235294
+org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044
+org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel();1.175;513.0142857142857;511.8392857142857
+org.argouml.profile.UserDefinedProfile.getCritics();null;299.3833333333333;299.3833333333333
+org.argouml.profile.UserDefinedProfile.getDisplayName();0.0;252.7;252.7
+org.argouml.profile.UserDefinedProfile.getProfilePackages();0.0;138.50689655172414;138.50689655172414
+org.argouml.profile.UserDefinedProfile.loadDependentProfiles(java.lang.Object);null;0.10344827586206896;0.10344827586206896
+org.argouml.profile.UserDefinedProfile.loadDependentProfilesUml1(java.lang.Object);null;0.05172413793103448;0.05172413793103448
+org.argouml.profile.UserDefinedProfile.loadFigNodes(java.util.Collection);null;0.04838709677419355;0.04838709677419355
+org.argouml.profile.UserDefinedProfile.loadModel();null;145.8741935483871;145.8741935483871
+org.argouml.profile.internal.ProfileManagerImpl.loadDefaultProfilesfromConfiguration();0.07272727272727272;0.16;0.08727272727272728
+org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile);7.410526315789474;61.083333333333336;53.67280701754386
+org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile);null;170.38846153846154;170.38846153846154
+org.argouml.profile.internal.ProfileMeta.getCritics();null;0.4642857142857143;0.4642857142857143
+org.argouml.profile.internal.ProfileMeta.getModel();null;38.597345132743364;38.597345132743364
+org.argouml.profile.internal.ProfileMeta.getProfilePackages();0.0;38.597345132743364;38.597345132743364
+org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174
+org.argouml.profile.internal.ocl.uml14.ModelAccessModelInterpreter.invokeFeature(java.util.Map,java.lang.Object,java.lang.String,java.lang.String,java.lang.Object[]);3.856;4.528925619834711;0.6729256198347109
+org.argouml.uml.StereotypeUtility.findStereotypeContained(java.lang.Object,java.lang.Object,java.lang.String);0.06225731296919493;0.11146245059288537;0.04920513762369044
+org.argouml.uml.UUIDHelper.getUUID(java.lang.Object);0.0;0.1875;0.1875
+org.argouml.uml.cognitive.critics.CrNoAssociations.findAssociation(java.lang.Object,int);0.11428571428571428;0.7785714285714286;0.6642857142857143
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics();null;1.2548780487804878;1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics();null;0.8719512195121951;0.8719512195121951
+org.argouml.uml.diagram.activity.ui.FigActionState.createBigPortFig();null;0.375;0.375
+org.argouml.uml.diagram.deployment.ui.AbstractFigNode.createBigPortFig();null;0.44285714285714284;0.44285714285714284
+org.argouml.uml.diagram.state.ui.FigState.createBigPortFig();null;0.5166666666666667;0.5166666666666667
+org.argouml.uml.diagram.static_structure.ui.FigClass.constructFigs(java.awt.Rectangle);2.716666666666667;4.025;1.3083333333333336
+org.argouml.uml.diagram.static_structure.ui.FigLink.updateListeners(java.lang.Object,java.lang.Object);null;1.55;1.55
+org.argouml.uml.diagram.static_structure.ui.FigPackage.createBigPortFig();null;0.3;0.3
+org.argouml.uml.diagram.static_structure.ui.FigPackage.updateBounds();null;0.21428571428571427;0.21428571428571427
+org.argouml.uml.diagram.ui.FigAssociation.propertyChange(java.beans.PropertyChangeEvent);null;0.186318407960199;0.186318407960199
+org.argouml.uml.diagram.ui.FigAssociation.removeFromDiagramImpl();null;1.45625;1.45625
+org.argouml.uml.diagram.ui.FigCompartmentBox.createCompartments();null;1.6285714285714286;1.6285714285714286
+org.argouml.uml.diagram.ui.FigCompartmentBox.initialize();0.0;0.32857142857142857;0.32857142857142857
+org.argouml.uml.diagram.ui.FigCompartmentBox.showCompartment(java.lang.Object,boolean);0.11538461538461539;0.17692307692307693;0.06153846153846154
+org.argouml.uml.diagram.ui.FigCompartmentBox.translate(int,int);0.08;0.27;0.19
+org.argouml.uml.diagram.ui.FigEdgeModelElement.computeRouteImpl();0.4096774193548387;2.6193548387096772;2.2096774193548385
+org.argouml.uml.diagram.ui.FigEdgeModelElement.removeFromDiagramImpl();0.4774193548387097;0.5032258064516129;0.02580645161290318
+org.argouml.uml.diagram.ui.FigSingleLineTextWithNotation.initNotationProviders();0.2905405405405405;0.35119047619047616;0.06064993564993565
+org.argouml.uml.diagram.use_case.ui.FigActor.constructFigs(java.awt.Rectangle);1.56;3.8;2.2399999999999998
+org.argouml.uml.diagram.use_case.ui.FigUseCase.createBigPortFig();0.0;0.25;0.25
+org.argouml.uml.ui.ActionNewDiagram.actionPerformed(java.awt.event.ActionEvent);23.05;24.98;1.9299999999999997
+org.argouml.uml.ui.ActionStateDiagram.buildMachine(java.lang.Object,java.lang.Object);4.914285714285715;6.228571428571429;1.314285714285714
+118
+	org.argouml.application.helpers.ApplicationVersion.getStableVersion()
+		Time: null;0.003800475059382423;0.003800475059382423
+			Revision: 19511
+				Issues: 0
+	org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String,java.lang.ClassLoader)
+		Time: 2.765084745762712;3.037324649298597;0.2722399035358851
+			Revision: 18319
+				Issues: 5618
+	org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object)
+		Time: 1.375;27.6131090487239;26.2381090487239
+			Revision: 19496
+				Issues: 0
+	org.argouml.kernel.ProjectImpl.setDirty(boolean)
+		Time: null;0.007709130672498633;0.007709130672498633
+			Revision: 18919
+				Issues: 0
+			Revision: 18864
+				Issues: 0
+			Revision: 18921
+				Issues: 0
+	org.argouml.kernel.ProjectManager.updateRoots()
+		Time: null;0.01415929203539823;0.01415929203539823
+			Revision: 18879
+				Issues: 0
+	org.argouml.kernel.ProjectSettings.doUndoable(org.tigris.gef.undo.Memento)
+		Time: 0.8666666666666667;1.0444444444444445;0.1777777777777778
+			Revision: 18876
+				Issues: 0
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.buildClassifierRole(java.lang.Object)
+		Time: 2.190909090909091;3.768181818181818;1.5772727272727272
+			Revision: 18760
+				Issues: 6155
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.buildInteraction(java.lang.Object)
+		Time: 2.1166666666666667;2.533333333333333;0.4166666666666665
+			Revision: 18760
+				Issues: 6155
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline()
+		Time: null;0.6111111111111112;0.6111111111111112
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression)
+		Time: null;0.013559322033898305;0.013559322033898305
+			Revision: 18759
+				Issues: 6145
+	org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.setScript(java.lang.Object,java.lang.Object)
+		Time: 0.26477272727272727;0.28771929824561404;0.02294657097288677
+			Revision: 18759
+				Issues: 6145
+			Revision: 18758
+				Issues: 6145
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Integer[],java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
+		Time: null;4.3;4.3
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEndInternal(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
+		Time: null;4.047727272727273;4.047727272727273
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String)
+		Time: null;1.387037037037037;1.387037037037037
+			Revision: 18698
+				Issues: 0
+			Revision: 18337
+				Issues: 0
+			Revision: 18760
+				Issues: 6155
+			Revision: 19236
+				Issues: 0
+			Revision: 18767
+				Issues: 6156
+	org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String)
+		Time: null;1.762962962962963;1.762962962962963
+			Revision: 18698
+				Issues: 0
+			Revision: 18337
+				Issues: 0
+			Revision: 18760
+				Issues: 6155
+			Revision: 19236
+				Issues: 0
+			Revision: 18767
+				Issues: 6156
+	org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity)
+		Time: null;0.3611111111111111;0.3611111111111111
+			Revision: 18698
+				Issues: 0
+			Revision: 18337
+				Issues: 0
+			Revision: 18760
+				Issues: 6155
+			Revision: 19236
+				Issues: 0
+			Revision: 18767
+				Issues: 6156
+	org.argouml.model.mdr.CoreHelperMDRImpl.setSpecification(java.lang.Object,boolean)
+		Time: 0.0;0.16;0.16
+			Revision: 18108
+				Issues: 0
+	org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityInternal(int,int)
+		Time: null;0.9842105263157894;0.9842105263157894
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String)
+		Time: 0.21136363636363636;0.44722222222222224;0.23585858585858588
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String)
+		Time: 0.21136363636363636;0.8388888888888889;0.6275252525252526
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object)
+		Time: 0.0;0.017228464419475654;0.017228464419475654
+			Revision: 18336
+				Issues: 6038
+	org.argouml.model.mdr.FacadeMDRImpl.getTriggers(java.lang.Object)
+		Time: null;0.39375;0.39375
+			Revision: 19420
+				Issues: 0
+			Revision: 19358
+				Issues: 0
+			Revision: 19440
+				Issues: 0
+	org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object)
+		Time: 0.021395348837209303;0.031983805668016195;0.010588456830806892
+			Revision: 19288
+				Issues: 0
+	org.argouml.model.mdr.ModelEventPumpMDRImpl.removeModelEventListener(java.beans.PropertyChangeListener,java.lang.Object)
+		Time: 0.0;0.006944444444444444;0.006944444444444444
+			Revision: 19288
+				Issues: 0
+	org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object)
+		Time: 5.292307692307692;5.638461538461539;0.3461538461538467
+			Revision: 18451
+				Issues: 4282
+	org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap()
+		Time: 0.037914691943127965;0.13314447592067988;0.09522978397755191
+			Revision: 18199
+				Issues: 0
+			Revision: 18216
+				Issues: 6048;6053
+			Revision: 18641
+				Issues: 0
+			Revision: 18218
+				Issues: 0
+			Revision: 18206
+				Issues: 0
+			Revision: 18205
+				Issues: 6021
+			Revision: 18129
+				Issues: 0
+			Revision: 18132
+				Issues: 0
+			Revision: 18125
+				Issues: 0
+			Revision: 18116
+				Issues: 0
+			Revision: 18123
+				Issues: 0
+			Revision: 18677
+				Issues: 0
+			Revision: 18213
+				Issues: 0
+			Revision: 18135
+				Issues: 0
+			Revision: 18146
+				Issues: 0
+			Revision: 18120
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+			Revision: 18099
+				Issues: 0
+	org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int)
+		Time: null;2.6337078651685393;2.6337078651685393
+			Revision: 18698
+				Issues: 0
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.XmiReaderImpl.convertAndLoadUml13(java.lang.String,javax.jmi.reflect.RefPackage,org.netbeans.api.xmi.XMIReader,org.xml.sax.InputSource)
+		Time: 839.1;949.6;110.5
+			Revision: 19716
+				Issues: 5017
+			Revision: 18269
+				Issues: 6008
+			Revision: 19797
+				Issues: 6389
+			Revision: 18232
+				Issues: 0
+	org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource)
+		Time: 10.923809523809524;23.72;12.796190476190475
+			Revision: 19716
+				Issues: 5017
+			Revision: 18269
+				Issues: 6008
+			Revision: 19797
+				Issues: 6389
+			Revision: 18232
+				Issues: 0
+	org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix()
+		Time: null;0.07079646017699115;0.07079646017699115
+			Revision: 19716
+				Issues: 5017
+	org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap()
+		Time: 0.0;0.22857142857142856;0.22857142857142856
+			Revision: 19716
+				Issues: 5017
+			Revision: 18269
+				Issues: 6008
+			Revision: 19797
+				Issues: 6389
+			Revision: 18232
+				Issues: 0
+	org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean)
+		Time: 307.2736842105263;349.9102564102564;42.6365721997301
+			Revision: 19716
+				Issues: 5017
+			Revision: 18269
+				Issues: 6008
+			Revision: 19797
+				Issues: 6389
+			Revision: 18232
+				Issues: 0
+	org.argouml.model.mdr.XmiReaderImpl.serialTransform(java.lang.String[],org.xml.sax.InputSource)
+		Time: 659.7;785.9;126.19999999999993
+			Revision: 19716
+				Issues: 5017
+			Revision: 18269
+				Issues: 6008
+			Revision: 19797
+				Issues: 6389
+			Revision: 18232
+				Issues: 0
+	org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String)
+		Time: null;432.1698113207547;432.1698113207547
+			Revision: 18269
+				Issues: 6008
+	org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String)
+		Time: null;0.002367681152271494;0.002367681152271494
+			Revision: 18269
+				Issues: 6008
+	org.argouml.model.mdr.XmiReferenceResolverImpl.readExternalDocument(java.lang.String)
+		Time: 55.99230769230769;222.76190476190476;166.76959706959707
+			Revision: 18269
+				Issues: 6008
+	org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject)
+		Time: 0.02621967838648133;0.04603758576116138;0.019817907374680054
+			Revision: 18269
+				Issues: 6008
+	org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject)
+		Time: null;0.016403280656131225;0.016403280656131225
+			Revision: 18269
+				Issues: 6008
+	org.argouml.model.mdr.XmiReferenceResolverImpl.toURL(java.lang.String)
+		Time: 66.83103448275862;834.9268292682926;768.095794785534
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[])
+		Time: null;0.09454545454545454;0.09454545454545454
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.NotationProvider.cleanListener()
+		Time: null;0.02711111111111111;0.02711111111111111
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.NotationProvider.initialiseListener(java.lang.Object)
+		Time: null;0.21395348837209302;0.21395348837209302
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.NotationProvider.removeAllElementListeners()
+		Time: null;0.02711111111111111;0.02711111111111111
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.NotationProvider.removeAllElementListeners(java.beans.PropertyChangeListener)
+		Time: 0.006818181818181818;0.020444444444444446;0.013626262626262629
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName)
+		Time: 0.34657534246575344;0.3947598253275109;0.04818448286175747
+			Revision: 18852
+				Issues: 6129
+			Revision: 18626
+				Issues: 0
+	org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName)
+		Time: null;0.8445414847161572;0.8445414847161572
+			Revision: 18852
+				Issues: 6129
+			Revision: 18626
+				Issues: 0
+	org.argouml.notation.providers.ActionStateNotation.initialiseListener(java.lang.Object)
+		Time: null;1.175;1.175
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.AssociationNameNotation.initialiseListener(java.lang.Object)
+		Time: null;0.13333333333333333;0.13333333333333333
+			Revision: 19320
+				Issues: 4252
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.AssociationRoleNotation.initialiseListener(java.lang.Object)
+		Time: null;0.75;0.75
+			Revision: 19421
+				Issues: 0
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.AttributeNotation.initialiseListener(java.lang.Object)
+		Time: null;0.17777777777777778;0.17777777777777778
+			Revision: 19264
+				Issues: 4252
+			Revision: 18852
+				Issues: 6129
+			Revision: 19659
+				Issues: 0
+	org.argouml.notation.providers.MessageNotation.initialiseListener(java.lang.Object)
+		Time: null;6.15;6.15
+			Revision: 19140
+				Issues: 0
+			Revision: 18852
+				Issues: 6129
+			Revision: 19139
+				Issues: 0
+	org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object)
+		Time: null;0.1784090909090909;0.1784090909090909
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.ObjectNotation.initialiseListener(java.lang.Object)
+		Time: null;0.8;0.8
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.OperationNotation.initialiseListener(java.lang.Object)
+		Time: null;0.248;0.248
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object)
+		Time: null;3.6333333333333333;3.6333333333333333
+			Revision: 18852
+				Issues: 6129
+			Revision: 19416
+				Issues: 0
+	org.argouml.notation.providers.TransitionNotation.initialiseListener(java.lang.Object)
+		Time: null;2.05625;2.05625
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.uml.AttributeNotationUml.dealWithDerived(java.lang.Object,boolean)
+		Time: null;0.6333333333333333;0.6333333333333333
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.AttributeNotationUml.toString(java.lang.Object,boolean,boolean,boolean,boolean,boolean,boolean)
+		Time: 0.15;0.16;0.010000000000000009
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.ModelElementNameNotationUml.toString(java.lang.Object,org.argouml.notation.NotationSettings)
+		Time: 0.05172413793103448;0.05517241379310345;0.0034482758620689655
+			Revision: 19614
+				Issues: 0
+	org.argouml.notation.providers.uml.NotationUtilityUml.setDerived(java.lang.Object,boolean)
+		Time: null;0.6333333333333333;0.6333333333333333
+			Revision: 19264
+				Issues: 4252
+			Revision: 18852
+				Issues: 6129
+	org.argouml.notation.providers.uml.TransitionNotationUml.findOrBuildChangeEvent(java.lang.String,java.lang.Object)
+		Time: null;1.525;1.525
+			Revision: 18449
+				Issues: 5988
+	org.argouml.persistence.ModelMemberFilePersister.registerDiagramsInternal(org.argouml.kernel.Project,java.util.Collection,boolean)
+		Time: 14.133333333333333;16.166666666666668;2.033333333333335
+			Revision: 19689
+				Issues: 6355
+	org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram)
+		Time: 1.4363636363636365;12.607692307692307;11.17132867132867
+			Revision: 19614
+				Issues: 0
+			Revision: 17961
+				Issues: 0
+			Revision: 17960
+				Issues: 5960
+	org.argouml.persistence.PGMLStackParser.getOwner(java.lang.String,java.lang.String)
+		Time: 0.020253164556962026;0.07848101265822785;0.05822784810126583
+			Revision: 19614
+				Issues: 0
+			Revision: 17961
+				Issues: 0
+			Revision: 17960
+				Issues: 5960
+	org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean)
+		Time: 86.50909090909092;113.9;27.39090909090909
+			Revision: 19614
+				Issues: 0
+			Revision: 17961
+				Issues: 0
+			Revision: 17960
+				Issues: 5960
+	org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean)
+		Time: 86.50909090909092;113.77692307692308;27.267832167832168
+			Revision: 19614
+				Issues: 0
+			Revision: 17961
+				Issues: 0
+			Revision: 17960
+				Issues: 5960
+	org.argouml.persistence.PGMLStackParser.setAttrs(org.tigris.gef.presentation.Fig,org.xml.sax.Attributes)
+		Time: 0.19908256880733946;0.22035398230088496;0.0212714134935455
+			Revision: 19614
+				Issues: 0
+			Revision: 17961
+				Issues: 0
+			Revision: 17960
+				Issues: 5960
+	org.argouml.persistence.PGMLStackParser.setStyleAttributes(org.tigris.gef.presentation.Fig,java.util.Map)
+		Time: 0.13043478260869565;0.1673913043478261;0.036956521739130443
+			Revision: 19614
+				Issues: 0
+			Revision: 17961
+				Issues: 0
+			Revision: 17960
+				Issues: 5960
+	org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr)
+		Time: 962.5;1447.675;485.17499999999995
+			Revision: 17962
+				Issues: 0
+	org.argouml.persistence.UmlFilePersister.getPersistenceVersionFromFile(java.io.File)
+		Time: 0.0;0.64;0.64
+			Revision: 17962
+				Issues: 0
+	org.argouml.persistence.UmlFilePersister.getReleaseVersion(java.io.InputStream)
+		Time: 0.0;0.42727272727272725;0.42727272727272725
+			Revision: 17962
+				Issues: 0
+	org.argouml.persistence.XmiFilePersister.doLoad(java.io.File)
+		Time: 517.9;550.0333333333333;32.133333333333326
+			Revision: 18917
+				Issues: 0
+	org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File)
+		Time: 986.9666666666667;1468.85;481.8833333333332
+			Revision: 17959
+				Issues: 5960
+	org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String)
+		Time: null;33.26470588235294;33.26470588235294
+			Revision: 19614
+				Issues: 0
+			Revision: 17994
+				Issues: 4997
+			Revision: 18234
+				Issues: 6008;5969
+			Revision: 17979
+				Issues: 4997
+	org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL)
+		Time: 251.00833333333333;312.26623376623377;61.25790043290044
+			Revision: 18282
+				Issues: 6008
+			Revision: 19494
+				Issues: 6280
+	org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel()
+		Time: 1.175;513.0142857142857;511.8392857142857
+			Revision: 19614
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.getCritics()
+		Time: null;299.3833333333333;299.3833333333333
+			Revision: 19614
+				Issues: 0
+			Revision: 18327
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.getDisplayName()
+		Time: 0.0;252.7;252.7
+			Revision: 19614
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.getProfilePackages()
+		Time: 0.0;138.50689655172414;138.50689655172414
+			Revision: 19614
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.loadDependentProfiles(java.lang.Object)
+		Time: null;0.10344827586206896;0.10344827586206896
+			Revision: 19614
+				Issues: 0
+			Revision: 18327
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.loadDependentProfilesUml1(java.lang.Object)
+		Time: null;0.05172413793103448;0.05172413793103448
+			Revision: 19614
+				Issues: 0
+			Revision: 18327
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.loadFigNodes(java.util.Collection)
+		Time: null;0.04838709677419355;0.04838709677419355
+			Revision: 19614
+				Issues: 0
+			Revision: 18327
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.UserDefinedProfile.loadModel()
+		Time: null;145.8741935483871;145.8741935483871
+			Revision: 19614
+				Issues: 0
+			Revision: 18327
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ProfileManagerImpl.loadDefaultProfilesfromConfiguration()
+		Time: 0.07272727272727272;0.16;0.08727272727272728
+			Revision: 17935
+				Issues: 5506
+			Revision: 17979
+				Issues: 4997
+	org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile)
+		Time: 7.410526315789474;61.083333333333336;53.67280701754386
+			Revision: 17935
+				Issues: 5506
+			Revision: 17979
+				Issues: 4997
+	org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile)
+		Time: null;170.38846153846154;170.38846153846154
+			Revision: 18321
+				Issues: 0
+			Revision: 17979
+				Issues: 4997
+	org.argouml.profile.internal.ProfileMeta.getCritics()
+		Time: null;0.4642857142857143;0.4642857142857143
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ProfileMeta.getModel()
+		Time: null;38.597345132743364;38.597345132743364
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ProfileMeta.getProfilePackages()
+		Time: 0.0;38.597345132743364;38.597345132743364
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.getCritics()
+		Time: null;5.741463414634146;5.741463414634146
+			Revision: 19111
+				Issues: 0
+			Revision: 19107
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.getModel()
+		Time: null;8.758986574274578;8.758986574274578
+			Revision: 19111
+				Issues: 0
+			Revision: 19107
+				Issues: 0
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.getProfilePackages()
+		Time: 0.0;35.18608695652174;35.18608695652174
+			Revision: 18257
+				Issues: 0
+	org.argouml.profile.internal.ocl.uml14.ModelAccessModelInterpreter.invokeFeature(java.util.Map,java.lang.Object,java.lang.String,java.lang.String,java.lang.Object[])
+		Time: 3.856;4.528925619834711;0.6729256198347109
+			Revision: 19135
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.findStereotypeContained(java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 0.06225731296919493;0.11146245059288537;0.04920513762369044
+			Revision: 19391
+				Issues: 0
+	org.argouml.uml.UUIDHelper.getUUID(java.lang.Object)
+		Time: 0.0;0.1875;0.1875
+			Revision: 19614
+				Issues: 0
+	org.argouml.uml.cognitive.critics.CrNoAssociations.findAssociation(java.lang.Object,int)
+		Time: 0.11428571428571428;0.7785714285714286;0.6642857142857143
+			Revision: 19614
+				Issues: 0
+	org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics()
+		Time: null;1.2548780487804878;1.2548780487804878
+			Revision: 19411
+				Issues: 0
+			Revision: 18258
+				Issues: 0
+	org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics()
+		Time: null;0.8719512195121951;0.8719512195121951
+			Revision: 19411
+				Issues: 0
+			Revision: 18258
+				Issues: 0
+	org.argouml.uml.diagram.activity.ui.FigActionState.createBigPortFig()
+		Time: null;0.375;0.375
+			Revision: 18725
+				Issues: 0
+	org.argouml.uml.diagram.deployment.ui.AbstractFigNode.createBigPortFig()
+		Time: null;0.44285714285714284;0.44285714285714284
+			Revision: 18726
+				Issues: 0
+	org.argouml.uml.diagram.state.ui.FigState.createBigPortFig()
+		Time: null;0.5166666666666667;0.5166666666666667
+			Revision: 18728
+				Issues: 0
+	org.argouml.uml.diagram.static_structure.ui.FigClass.constructFigs(java.awt.Rectangle)
+		Time: 2.716666666666667;4.025;1.3083333333333336
+			Revision: 19206
+				Issues: 0
+	org.argouml.uml.diagram.static_structure.ui.FigLink.updateListeners(java.lang.Object,java.lang.Object)
+		Time: null;1.55;1.55
+			Revision: 19238
+				Issues: 6105
+	org.argouml.uml.diagram.static_structure.ui.FigPackage.createBigPortFig()
+		Time: null;0.3;0.3
+			Revision: 18728
+				Issues: 0
+			Revision: 17963
+				Issues: 5961
+			Revision: 18705
+				Issues: 6135
+	org.argouml.uml.diagram.static_structure.ui.FigPackage.updateBounds()
+		Time: null;0.21428571428571427;0.21428571428571427
+			Revision: 18728
+				Issues: 0
+			Revision: 17963
+				Issues: 5961
+			Revision: 18705
+				Issues: 6135
+	org.argouml.uml.diagram.ui.FigAssociation.propertyChange(java.beans.PropertyChangeEvent)
+		Time: null;0.186318407960199;0.186318407960199
+			Revision: 19614
+				Issues: 0
+			Revision: 18724
+				Issues: 0
+			Revision: 18723
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigAssociation.removeFromDiagramImpl()
+		Time: null;1.45625;1.45625
+			Revision: 19614
+				Issues: 0
+			Revision: 18724
+				Issues: 0
+			Revision: 18723
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigCompartmentBox.createCompartments()
+		Time: null;1.6285714285714286;1.6285714285714286
+			Revision: 19206
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigCompartmentBox.initialize()
+		Time: 0.0;0.32857142857142857;0.32857142857142857
+			Revision: 19614
+				Issues: 0
+			Revision: 17926
+				Issues: 0
+			Revision: 17744
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigCompartmentBox.showCompartment(java.lang.Object,boolean)
+		Time: 0.11538461538461539;0.17692307692307693;0.06153846153846154
+			Revision: 19614
+				Issues: 0
+			Revision: 17926
+				Issues: 0
+			Revision: 17744
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigCompartmentBox.translate(int,int)
+		Time: 0.08;0.27;0.19
+			Revision: 19614
+				Issues: 0
+			Revision: 17926
+				Issues: 0
+			Revision: 17744
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigEdgeModelElement.computeRouteImpl()
+		Time: 0.4096774193548387;2.6193548387096772;2.2096774193548385
+			Revision: 18852
+				Issues: 6129
+			Revision: 17928
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigEdgeModelElement.removeFromDiagramImpl()
+		Time: 0.4774193548387097;0.5032258064516129;0.02580645161290318
+			Revision: 18852
+				Issues: 6129
+			Revision: 17928
+				Issues: 0
+	org.argouml.uml.diagram.ui.FigSingleLineTextWithNotation.initNotationProviders()
+		Time: 0.2905405405405405;0.35119047619047616;0.06064993564993565
+			Revision: 18852
+				Issues: 6129
+	org.argouml.uml.diagram.use_case.ui.FigActor.constructFigs(java.awt.Rectangle)
+		Time: 1.56;3.8;2.2399999999999998
+			Revision: 19512
+				Issues: 0
+	org.argouml.uml.diagram.use_case.ui.FigUseCase.createBigPortFig()
+		Time: 0.0;0.25;0.25
+			Revision: 17923
+				Issues: 0
+	org.argouml.uml.ui.ActionNewDiagram.actionPerformed(java.awt.event.ActionEvent)
+		Time: 23.05;24.98;1.9299999999999997
+			Revision: 18451
+				Issues: 4282
+	org.argouml.uml.ui.ActionStateDiagram.buildMachine(java.lang.Object,java.lang.Object)
+		Time: 4.914285714285715;6.228571428571429;1.314285714285714
+			Revision: 18682
+				Issues: 0
+			Revision: 19614
+				Issues: 0
+			Revision: 18451
+				Issues: 4282
+25
+0;No issue (0)
+4252;ENHANCEMENT
+4282;DEFECT
+4997;DEFECT
+5017;DEFECT
+5506;DEFECT
+5618;DEFECT
+5960;DEFECT
+5961;DEFECT
+5969;DEFECT
+5988;DEFECT
+6008;DEFECT
+6021;ENHANCEMENT
+6038;DEFECT
+6048;DEFECT
+6053;DEFECT
+6105;DEFECT
+6129;TASK
+6135;DEFECT
+6145;DEFECT
+6155;TASK
+6156;DEFECT
+6280;DEFECT
+6355;DEFECT
+6389;DEFECT
+4
+ENHANCEMENT;2
+TASK;2
+DEFECT;20
+No issue (0);1
+4
+ENHANCEMENT;4252;6021
+TASK;6129;6155
+DEFECT;4282;4997;5017;5506;5618;5960;5961;5969;5988;6008;6038;6048;6053;6105;6135;6145;6156;6280;6355;6389
+No issue (0);0
+Number of revisions (commits): 92
+Revision (Issues): 19411(0)
+Revision (Issues): 19206(0)
+Revision (Issues): 18641(0)
+Revision (Issues): 19659(0)
+Revision (Issues): 18321(0)
+Revision (Issues): 19288(0)
+Revision (Issues): 18129(0)
+Revision (Issues): 18125(0)
+Revision (Issues): 19496(0)
+Revision (Issues): 17744(0)
+Revision (Issues): 18677(0)
+Revision (Issues): 18123(0)
+Revision (Issues): 18327(0)
+Revision (Issues): 19140(0)
+Revision (Issues): 18095(0)
+Revision (Issues): 18120(0)
+Revision (Issues): 19107(0)
+Revision (Issues): 19494(6280)
+Revision (Issues): 18099(0)
+Revision (Issues): 18705(6135)
+Revision (Issues): 18269(6008)
+Revision (Issues): 19797(6389)
+Revision (Issues): 19416(0)
+Revision (Issues): 18451(4282)
+Revision (Issues): 19111(0)
+Revision (Issues): 19391(0)
+Revision (Issues): 18876(0)
+Revision (Issues): 18199(0)
+Revision (Issues): 18879(0)
+Revision (Issues): 18216(6048;6053)
+Revision (Issues): 18218(0)
+Revision (Issues): 19440(0)
+Revision (Issues): 19716(5017)
+Revision (Issues): 18682(0)
+Revision (Issues): 19614(0)
+Revision (Issues): 19511(0)
+Revision (Issues): 18319(5618)
+Revision (Issues): 19512(0)
+Revision (Issues): 18116(0)
+Revision (Issues): 18213(0)
+Revision (Issues): 19358(0)
+Revision (Issues): 17994(4997)
+Revision (Issues): 19689(6355)
+Revision (Issues): 17959(5960)
+Revision (Issues): 18257(0)
+Revision (Issues): 18258(0)
+Revision (Issues): 18728(0)
+Revision (Issues): 18108(0)
+Revision (Issues): 18726(0)
+Revision (Issues): 19264(4252)
+Revision (Issues): 18724(0)
+Revision (Issues): 17962(0)
+Revision (Issues): 18919(0)
+Revision (Issues): 17961(0)
+Revision (Issues): 18725(0)
+Revision (Issues): 18917(0)
+Revision (Issues): 17960(5960)
+Revision (Issues): 18723(0)
+Revision (Issues): 18282(6008)
+Revision (Issues): 18206(0)
+Revision (Issues): 18767(6156)
+Revision (Issues): 18205(6021)
+Revision (Issues): 18698(0)
+Revision (Issues): 19320(4252)
+Revision (Issues): 17926(0)
+Revision (Issues): 18864(0)
+Revision (Issues): 18760(6155)
+Revision (Issues): 17923(0)
+Revision (Issues): 18146(0)
+Revision (Issues): 18626(0)
+Revision (Issues): 17928(0)
+Revision (Issues): 17963(5961)
+Revision (Issues): 18449(5988)
+Revision (Issues): 19421(0)
+Revision (Issues): 19420(0)
+Revision (Issues): 18759(6145)
+Revision (Issues): 18921(0)
+Revision (Issues): 18758(6145)
+Revision (Issues): 18336(6038)
+Revision (Issues): 18132(0)
+Revision (Issues): 18337(0)
+Revision (Issues): 17935(5506)
+Revision (Issues): 18135(0)
+Revision (Issues): 18852(6129)
+Revision (Issues): 18234(6008;5969)
+Revision (Issues): 19138(0)
+Revision (Issues): 19139(0)
+Revision (Issues): 19238(6105)
+Revision (Issues): 17979(4997)
+Revision (Issues): 19236(0)
+Revision (Issues): 18232(0)
+Revision (Issues): 19135(0)
