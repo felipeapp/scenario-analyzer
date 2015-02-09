@@ -29,8 +29,6 @@ public abstract class GenericDB {
 
 	public abstract Set<String> getImpactedNodes(String signarute);
 	
-	public abstract List<String> getSignatureOfMembers();
-	
 	public abstract double[] getAllExecutionTimeByMember(String signature);
 	
 	public abstract double[] getAllExecutionTimeByScenario(String sname);
