@@ -1,8 +1,13 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
@@ -26,7 +31,13 @@ public final class AnalyzerMinerRunnable {
 	public static void main(String[] args) {
 		// Configuração básica para o log4j
 		BasicConfigurator.configure();
-		
+
+		@SuppressWarnings("unchecked")
+		List<Logger> loggers = Collections.list(LogManager.getCurrentLoggers());
+		loggers.add(LogManager.getRootLogger());
+		for (Logger logger : loggers)
+			logger.setLevel(Level.WARN);
+
 		try {
 			AnalyzerMinerRunnable.startAnalyzerMiner();
 		} catch (IOException e) {

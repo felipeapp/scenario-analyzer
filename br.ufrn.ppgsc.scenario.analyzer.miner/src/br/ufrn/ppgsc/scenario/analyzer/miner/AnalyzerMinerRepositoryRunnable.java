@@ -332,8 +332,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 				boolean file_exists_r1 = new File(paths[1]).exists();
 				boolean file_exists_r2 = new File(paths[2]).exists();
 				
-				if (!file_exists_r1 && !file_exists_r2)
+				if (!file_exists_r1 && !file_exists_r2) {
 					throw new FileNotFoundException("\n" + paths[1] + "\n" + paths[2]);
+					//System.err.println("\n" + paths[1] + "\n" + paths[2]);
+				}
 				
 				if (!file_exists_r1) {
 					System.out.println("Not found in R1 (Is it right?): " + paths[1]);
