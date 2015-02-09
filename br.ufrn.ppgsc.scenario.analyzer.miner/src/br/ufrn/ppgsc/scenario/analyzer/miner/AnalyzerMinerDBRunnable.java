@@ -27,7 +27,7 @@ public final class AnalyzerMinerDBRunnable {
 	private GenericDB database_v2;
 	
 	private double performance_rate;
-	private double significance_level;
+	private double alpha_significance_level;
 	private String system_id;
 	
 	private String strdate;
@@ -37,7 +37,7 @@ public final class AnalyzerMinerDBRunnable {
 		
 		system_id = properties.getStringProperty("system_id");
 		performance_rate = properties.getDoubleProperty("performance_rate");
-		significance_level = properties.getDoubleProperty("significance_level");
+		alpha_significance_level = properties.getDoubleProperty("alpha_significance_level");
 		
 		database_v1 = DatabaseRelease.getDatabasev1();
 		database_v2 = DatabaseRelease.getDatabasev2();
@@ -114,14 +114,14 @@ public final class AnalyzerMinerDBRunnable {
 		AnalyzerReportUtil.saveElements("# Unchanged scenarios (Rate method)", getFileName("pr_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedRate(scenario_results.values(), performance_rate), performance_rate, 0);
 		
 		// Save scenarios according their execution time variation measured by the TTest
-		AnalyzerReportUtil.saveElements("# Degradated scenarios (TTest P-Value)", getFileName("pt_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), significance_level, Tests.TTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized scenarios (TTest P-Value)", getFileName("pt_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), significance_level, Tests.TTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged scenarios (TTest P-Value)", getFileName("pt_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		AnalyzerReportUtil.saveElements("# Degradated scenarios (TTest P-Value)", getFileName("pt_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Optimized scenarios (TTest P-Value)", getFileName("pt_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Unchanged scenarios (TTest P-Value)", getFileName("pt_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
 		
 		// Save scenarios according their execution time variation measured by the UTest
-		AnalyzerReportUtil.saveElements("# Degradated scenarios (UTest P-Value)", getFileName("pu_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), significance_level, Tests.UTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized scenarios (UTest P-Value)", getFileName("pu_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), significance_level, Tests.UTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged scenarios (UTest P-Value)", getFileName("pu_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		AnalyzerReportUtil.saveElements("# Degradated scenarios (UTest P-Value)", getFileName("pu_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Optimized scenarios (UTest P-Value)", getFileName("pu_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Unchanged scenarios (UTest P-Value)", getFileName("pu_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
 		
 		System.out.println("-------------------------------------------------------------------");
 		
@@ -156,14 +156,14 @@ public final class AnalyzerMinerDBRunnable {
 		AnalyzerReportUtil.saveElements("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(method_results.values(), performance_rate), performance_rate, 0);
 		
 		// Save scenarios according their execution time variation measured by the TTest
-		AnalyzerReportUtil.saveElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), significance_level, Tests.TTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), significance_level, Tests.TTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), significance_level, Tests.TTest), 0, significance_level);
+		AnalyzerReportUtil.saveElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
 		
 		// Save scenarios according their execution time variation measured by the UTest
-		AnalyzerReportUtil.saveElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), significance_level, Tests.UTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), significance_level, Tests.UTest), 0, significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), significance_level, Tests.UTest), 0, significance_level);
+		AnalyzerReportUtil.saveElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
 		
 		System.out.println("-------------------------------------------------------------------");
 		

@@ -39,7 +39,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String workcopy_prefix_r2;
 	private String exclude_word;
 	private String comparison_strategy;
+	
 	private String[] exclude_entry_points;
+	
+	private double avg_significance_delta;
 	private int package_deep;
 
 	private static final String[] TARGET_FILES = {
@@ -94,7 +97,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		workcopy_prefix_r2 = properties.getStringProperty("workcopy_prefix_r2");
 		
 		exclude_word = properties.getStringProperty("exclude_word");
+		
 		package_deep = properties.getIntProperty("package_deep");
+		avg_significance_delta = properties.getDoubleProperty("avg_significance_delta");
 		
 		comparison_strategy = properties.getStringProperty("comparison_strategy");
 		exclude_entry_points = properties.getStringProperty("exclude_entry_points").split(";");
@@ -217,7 +222,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 					counted.add(s);
 					++total_members;
 					
-					if (!matchesExcludeWord(s) && delta >= 0.001) {
+					if (!matchesExcludeWord(s) && delta >= avg_significance_delta) {
 						++total_members_without_word;
 						members_with_information.add(sb.toString());
 						members_signature.add(s + ";" + t1 + ";" + t2 + ";" + delta);
@@ -567,7 +572,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				
 				double delta = t1 == null ? t2 : t2 - t1;
 				
-				if (counted.contains(sig) || matchesExcludeWord(sig) || delta < 0.001)
+				if (counted.contains(sig) || matchesExcludeWord(sig) || delta < avg_significance_delta)
 					continue;
 				
 				String class_name = getClassNameFromSignature(sig);
