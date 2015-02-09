@@ -63,22 +63,6 @@ public class GenericDBHibernateImpl extends GenericDB {
 	}
 	
 	@Override
-	public List<String> getSignatureOfMembers() {
-		List<String> result = new ArrayList<String>();
-
-		Session s = getSession();
-
-		SQLQuery query = s.createSQLQuery("select distinct member from node");
-
-		query.addScalar("member", StringType.INSTANCE);
-
-		for (Object o : query.list())
-			result.add((String) o);
-
-		return result;
-	}
-	
-	@Override
 	public Map<String, Double> getExecutionTimeAverageOfMembers() {
 		Map<String, Double> result = new HashMap<String, Double>();
 
@@ -146,7 +130,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 	public double[] getAllExecutionTimeByMember(String signature) {
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select time from node where time > 0 and member = :signature");
+		SQLQuery query = s.createSQLQuery("select time from node where time <> -1 and member = :signature");
 
 		query.setString("signature", signature);
 		query.addScalar("time", LongType.INSTANCE);

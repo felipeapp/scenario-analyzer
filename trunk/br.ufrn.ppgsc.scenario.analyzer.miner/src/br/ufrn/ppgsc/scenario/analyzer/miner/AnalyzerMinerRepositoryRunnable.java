@@ -457,7 +457,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 *  The removed methods might be not considered.
 			 */
 			AnalyzerReportUtil.saveFullMiningData(
-				"# Issues potentially blamed for performance optimization (remved + optimized)",
+				"# Issues potentially blamed for performance optimization (removed + optimized)",
 				getRMFilePath("issues_of_performance_optimization"), p_optimization_methods,
 				AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
 				AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
@@ -466,7 +466,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 
 			// Getting and saving the impacted elements by the blamed methods
 			AnalyzerReportUtil.saveImpactedElements(
-				"# Methods potentially blamed for performance optimization (removed + )",
+				"# Methods potentially blamed for performance optimization",
 				getRMFilePath("methods_of_performance_optimization"), p_optimization_methods.keySet());
 		}
 		

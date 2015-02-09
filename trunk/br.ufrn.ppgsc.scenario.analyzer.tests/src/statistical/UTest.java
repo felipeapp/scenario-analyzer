@@ -1,7 +1,6 @@
 package statistical;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,16 +31,8 @@ public class UTest {
 			Map<String, Double> avgs_v2 = dao_v2.getExecutionTimeAverageOfMembers();
 			System.out.println("\tTotal = " + avgs_v2.size());
 			
-			System.out.println("Collecting signatures from release 1...");
-			List<String> signatures_v1 = dao_v1.getSignatureOfMembers();
-			System.out.println("\tTotal = " + signatures_v1.size());
-			
-			System.out.println("Collecting signatures from release 2...");
-			List<String> signatures_v2 = dao_v2.getSignatureOfMembers();
-			System.out.println("\tTotal = " + signatures_v2.size());
-			
 			System.out.println("Intersection...");
-			Set<String> signatures_commons = AnalyzerCollectionUtil.intersect(signatures_v1, signatures_v2);
+			Set<String> signatures_commons = AnalyzerCollectionUtil.intersect(avgs_v1.keySet(), avgs_v2.keySet());
 			System.out.println("\tTotal = " + signatures_commons.size());
 			
 			int j = 0;
@@ -53,12 +44,13 @@ public class UTest {
 				double[] execution_time_v1 = dao_v1.getAllExecutionTimeByMember(s);
 				double[] execution_time_v2 = dao_v2.getAllExecutionTimeByMember(s);
 				
-				MannWhitneyUTest utest = new MannWhitneyUTest();
-				double pvalue_u = utest.mannWhitneyUTest(execution_time_v1, execution_time_v2);
+				double pvalue_u = 1;
 				double pvalue_t = 1;
 				
-				if (execution_time_v1.length > 1 && execution_time_v2.length > 1)
+				if (execution_time_v1.length > 1 && execution_time_v2.length > 1) {
+					pvalue_u = new MannWhitneyUTest().mannWhitneyUTest(execution_time_v1, execution_time_v2);
 					pvalue_t = TestUtils.tTest(execution_time_v1, execution_time_v2);
+				}
 				
 				double avg_v1 = avgs_v1.get(s);
 				double avg_v2 = avgs_v2.get(s);
