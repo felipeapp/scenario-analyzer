@@ -5,14 +5,14 @@ import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.git.GithubQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
-import br.ufrn.ppgsc.scenario.analyzer.miner.netty.NettyMiner;
 
 public class NettyMinerTest {
 
 	@Test
 	public void performRequestToGetIssueInfoWithValidId() {
-		NettyMiner miner = new NettyMiner();
+		GithubQueryIssue miner = new GithubQueryIssue();
 		Issue issue = miner.getIssueByNumber(2330);
 		System.out.println(issue.getIssueId());
 		System.out.println(issue.getIssueType());
@@ -21,7 +21,7 @@ public class NettyMinerTest {
 	
 	@Test
 	public void performRequestToGetIssueInfoWithValidId2() {
-		NettyMiner miner = new NettyMiner();
+		GithubQueryIssue miner = new GithubQueryIssue();
 		Issue issue = miner.getIssueByNumber(2300);
 		System.out.println(issue.getIssueId());
 		System.out.println(issue.getIssueType());
@@ -30,7 +30,7 @@ public class NettyMinerTest {
 	
 	@Test
 	public void parseIssueNumberFromMessageLogWithOneNumber() {
-		NettyMiner miner = new NettyMiner();
+		GithubQueryIssue miner = new GithubQueryIssue();
 		Collection<Long> issuesId = miner.getIssueNumbersFromMessageLog("[#2339] Reduce memory usage in ProtobufVarint32LengthFieldPrepender");
 		Assert.assertEquals(1, issuesId.size());
 	}
