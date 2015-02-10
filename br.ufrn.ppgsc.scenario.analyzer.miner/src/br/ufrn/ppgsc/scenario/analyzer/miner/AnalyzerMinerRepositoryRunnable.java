@@ -38,8 +38,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String workcopy_prefix_r1;
 	private String workcopy_prefix_r2;
 	private String exclude_word;
-	private String comparison_strategy;
 	
+	private String[] comparison_strategy;
 	private String[] exclude_entry_points;
 	
 	private double avg_significance_delta;
@@ -103,7 +103,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		avg_significance_delta = properties.getDoubleProperty("avg_significance_delta");
 		member_significance_variation = properties.getDoubleProperty("member_significance_variation");
 		
-		comparison_strategy = properties.getStringProperty("comparison_strategy");
+		comparison_strategy = properties.getStringProperty("comparison_strategy").split(";");
 		exclude_entry_points = properties.getStringProperty("exclude_entry_points").split(";");
 		
 		for (String name : TARGET_FILES)
@@ -359,10 +359,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 		RepositoryManager repository = new RepositoryManager(repository_url, repository_user, repository_password);
 		
 		// Methods that have contributed to performance degradation. The key is the method signature
-		Map<String, Map<String, Collection<UpdatedMethod>>> p_degradation_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
+		Map<String, Map<String, Collection<UpdatedMethod>>> map_of_p_degradation_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
 		
 		// Methods that have contributed to performance optimization. The key is the method signature
-		Map<String, Map<String, Collection<UpdatedMethod>>> p_optimization_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
+		Map<String, Map<String, Collection<UpdatedMethod>>> map_of_p_optimization_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
 		
 		for (String filename : active_targets) {
 			List<String> repository_paths = new ArrayList<String>();
@@ -376,6 +376,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 			Collection<String> full_signatures = new ArrayList<String>();
 			
 			String file_message = AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath(filename));
+			if (filename.startsWith("degraded_methods"))
+				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("added_methods"));
+			else if (filename.startsWith("optimized_methods"))
+				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("removed_methods"));
 			
 			for (String signature : full_signatures) {
 				String paths[] = transformer.convert(signature, repository_prefix, workcopy_prefix_r1, workcopy_prefix_r2);
@@ -470,47 +474,19 @@ public final class AnalyzerMinerRepositoryRunnable {
 						 * because their code is not in the final release anymore. I still
 						 * put the test, but I think it does not make difference.
 						 */
-//						Map<String, Collection<UpdatedMethod>> aux = new HashMap<String, Collection<UpdatedMethod>>();
-//						aux.put(matched_signature, collection);
-//						
-//						if (filename.equals("added_methods")) {
-//							for (String prefix : comparison_strategy)
-//								map_p_degradation_methods.put(prefix, aux);
-//						}
-//						else if (filename.equals("removed_methods")) {
-//							for (String prefix : comparison_strategy)
-//								map_p_optimization_methods.put(prefix, aux);
-//						}
-//						else if (filename.equals("pr_degraded_methods")) {
-//							map_p_degradation_methods.put("pr_", aux);
-//						}
-//						else if (filename.equals("pt_degraded_methods")) {
-//							map_p_degradation_methods.put("pt_", aux);
-//						}
-//						else if (filename.equals("pu_degraded_methods")) {
-//							map_p_degradation_methods.put("pu_", aux);
-//						}
-//						else if (filename.equals("pr_optimized_methods")) {
-//							map_p_optimization_methods.put("pr_", aux);
-//						}
-//						else if (filename.equals("pt_optimized_methods")) {
-//							map_p_optimization_methods.put("pt_", aux);
-//						}
-//						else if (filename.equals("pu_optimized_methods")) {
-//							map_p_optimization_methods.put("pu_", aux);
-//						}
-//						else {
-//							throw new RuntimeException("Invalid target filename, aborting...");
-//						}
-						Map<String, Collection<UpdatedMethod>> aux = new HashMap<String, Collection<UpdatedMethod>>();
-						aux.put(matched_signature, collection);
+						Map<String, Collection<UpdatedMethod>> current_sig_to_upm = new HashMap<String, Collection<UpdatedMethod>>();
+						current_sig_to_upm.put(matched_signature, collection);
 						
-						if (filename.equals("added_methods") || filename.endsWith("pu_degraded_methods")) {
-							p_degradation_methods.get(matched_signature).putAll(aux);
+						for (String prefix : comparison_strategy) {
+							if (filename.equals(prefix + "degraded_methods")) {
+								Map<String, Collection<UpdatedMethod>> current_stored = map_of_p_degradation_methods.get(prefix);
+								
+								if (current_stored == null)
+									map_of_p_degradation_methods.put(prefix, current_sig_to_upm);
+								else
+									current_stored.putAll(current_sig_to_upm);
+							}
 						}
-						
-						if (filename.equals("removed_methods") || filename.endsWith("optimized_methods"))
-							p_optimization_methods.put(matched_signature, collection);
 					}
 				}
 			}
@@ -548,111 +524,116 @@ public final class AnalyzerMinerRepositoryRunnable {
 		 * It is a loop for each comparison strategy property.
 		 * TODO: Check if the same reports for optimization are working.
 		 */
-		if (!p_degradation_methods.isEmpty()) {
-			// Saving issues
-			AnalyzerReportUtil.saveFullMiningData(
-				"# Issues potentially blamed for performance degradation (degraded + added)",
-				getRMFilePath(comparison_strategy + "issues_of_performance_degradation"), p_degradation_methods,
-				AnalyzerCollectionUtil.getTaskNumbers(p_degradation_methods),
-				AnalyzerCollectionUtil.countTaskTypes(p_degradation_methods),
-				AnalyzerCollectionUtil.getTaskMembers(p_degradation_methods)
-			);
+		for (String target_prefix : comparison_strategy) {
+			Map<String, Collection<UpdatedMethod>> p_degradation_methods = map_of_p_degradation_methods.get(target_prefix);
+			Map<String, Collection<UpdatedMethod>> p_optimization_methods = map_of_p_optimization_methods.get(target_prefix);
 			
-			// Getting and saving the impacted elements by the blamed methods
-			AnalyzerReportUtil.saveImpactedElements(
-				"# Methods potentially blamed for performance degradation",
-				getRMFilePath(comparison_strategy + "methods_of_performance_degradation"), p_degradation_methods.keySet());
-		}
-		
-		// TODO: Check if optimization is working
-		if (!p_optimization_methods.isEmpty()) {
-			/*
-			 *  Saving potentially blamed issues.
-			 *  The removed methods might be not considered.
-			 */
-			AnalyzerReportUtil.saveFullMiningData(
-				"# Issues potentially blamed for performance optimization (removed + optimized)",
-				getRMFilePath(comparison_strategy + "issues_of_performance_optimization"), p_optimization_methods,
-				AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
-				AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
-				AnalyzerCollectionUtil.getTaskMembers(p_optimization_methods)
-			);
-
-			// Getting and saving the impacted elements by the blamed methods
-			AnalyzerReportUtil.saveImpactedElements(
-				"# Methods potentially blamed for performance optimization",
-				getRMFilePath(comparison_strategy + "methods_of_performance_optimization"), p_optimization_methods.keySet());
-		}
+			if (!p_degradation_methods.isEmpty()) {
+				// Saving issues
+				AnalyzerReportUtil.saveFullMiningData(
+					"# Issues potentially blamed for performance degradation (degraded + added)",
+					getRMFilePath(target_prefix + "issues_of_performance_degradation"), p_degradation_methods,
+					AnalyzerCollectionUtil.getTaskNumbers(p_degradation_methods),
+					AnalyzerCollectionUtil.countTaskTypes(p_degradation_methods),
+					AnalyzerCollectionUtil.getTaskMembers(p_degradation_methods)
+				);
+				
+				// Getting and saving the impacted elements by the blamed methods
+				AnalyzerReportUtil.saveImpactedElements(
+					"# Methods potentially blamed for performance degradation",
+					getRMFilePath(target_prefix + "methods_of_performance_degradation"), p_degradation_methods.keySet());
+			}
+			
+			// TODO: Check if optimization is working
+			if (!p_optimization_methods.isEmpty()) {
+				/*
+				 *  Saving potentially blamed issues.
+				 *  The removed methods might be not considered.
+				 */
+				AnalyzerReportUtil.saveFullMiningData(
+					"# Issues potentially blamed for performance optimization (removed + optimized)",
+					getRMFilePath(target_prefix + "issues_of_performance_optimization"), p_optimization_methods,
+					AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
+					AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
+					AnalyzerCollectionUtil.getTaskMembers(p_optimization_methods)
+				);
 	
-		Map<String, List<String>> degraded_scenario_to_blames = null;
-		Map<String, List<String>> optimized_scenario_to_blames = null;
+				// Getting and saving the impacted elements by the blamed methods
+				AnalyzerReportUtil.saveImpactedElements(
+					"# Methods potentially blamed for performance optimization",
+					getRMFilePath(target_prefix + "methods_of_performance_optimization"), p_optimization_methods.keySet());
+			}
 		
-		// Getting the degraded scenarios and the blamed methods
-		if (!p_degradation_methods.isEmpty()) {
-			degraded_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
-				getDAFilePath(comparison_strategy + "degraded_scenarios"),
-				getRMFilePath(comparison_strategy + "methods_of_performance_degradation"));
+			Map<String, List<String>> degraded_scenario_to_blames = null;
+			Map<String, List<String>> optimized_scenario_to_blames = null;
 			
-			removeExcludedEntryPoints(degraded_scenario_to_blames);
-		}
-		
-		if (!p_optimization_methods.isEmpty()) {
-			optimized_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
-				getDAFilePath(comparison_strategy + "optimized_scenarios"),
-				getRMFilePath(comparison_strategy + "methods_of_performance_optimization"));
+			// Getting the degraded scenarios and the blamed methods
+			if (!p_degradation_methods.isEmpty()) {
+				degraded_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
+					getDAFilePath(target_prefix + "degraded_scenarios"),
+					getRMFilePath(target_prefix + "methods_of_performance_degradation"));
+				
+				removeExcludedEntryPoints(degraded_scenario_to_blames);
+			}
 			
-			removeExcludedEntryPoints(optimized_scenario_to_blames);
-		}
-		
-		if (!p_degradation_methods.isEmpty()) {
-			/*
-			 * Showing degraded scenarios and blamed methods.
-			 * Note that this save have to pass the partial name of the file.
-			 * The save method will discover the path in this case.
-			 */
-			saveScenariosAndBlames("# Methods blamed for performance degradation in each of the degraded scenarios",
-					comparison_strategy + "blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
-					avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
-		}
-		
-		// TODO: Check if optimization is working
-		if (!p_optimization_methods.isEmpty()) {
-			/*
-			 * Showing optimized scenarios and blamed methods.
-			 * Note that this save have to pass the partial name of the file.
-			 * The save method will discover the path in this case.
-			 */
-			saveScenariosAndBlames("# Methods blamed for performance optimization in each of the optimized scenarios",
-					comparison_strategy + "blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
-					avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
-		}
-		
-		// Maps to count how many times the classes and packages are blamed
-		Map<String, Integer> total_classes = new HashMap<String, Integer>();
-		Map<String, Integer> total_packages = new HashMap<String, Integer>();
-		
-		if (degraded_scenario_to_blames != null) {
-			// Count and save the results
-			countTotalOfModules(degraded_scenario_to_blames, total_classes, total_packages, package_deep,
-					avg_time_members_v1, avg_time_members_v2);
+			if (!p_optimization_methods.isEmpty()) {
+				optimized_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
+					getDAFilePath(target_prefix + "optimized_scenarios"),
+					getRMFilePath(target_prefix + "methods_of_performance_optimization"));
+				
+				removeExcludedEntryPoints(optimized_scenario_to_blames);
+			}
 			
-			// Showing statistical for classes and packages
-			AnalyzerReportUtil.saveCodeAssets("# Statistical for degraded classes and packages",
-					getRMFilePath(comparison_strategy + "total_of_degraded_classes_and_packages"), total_classes, total_packages);
-		}
-		
-		if (optimized_scenario_to_blames != null) {
-			// For optimization now
-			total_classes.clear();
-			total_packages.clear();
+			if (!p_degradation_methods.isEmpty()) {
+				/*
+				 * Showing degraded scenarios and blamed methods.
+				 * Note that this save have to pass the partial name of the file.
+				 * The save method will discover the path in this case.
+				 */
+				saveScenariosAndBlames("# Methods blamed for performance degradation in each of the degraded scenarios",
+						target_prefix + "blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
+						avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
+			}
 			
-			// Count and save the results
-			countTotalOfModules(optimized_scenario_to_blames, total_classes, total_packages, package_deep,
-					avg_time_members_v1, avg_time_members_v2);
+			// TODO: Check if optimization is working
+			if (!p_optimization_methods.isEmpty()) {
+				/*
+				 * Showing optimized scenarios and blamed methods.
+				 * Note that this save have to pass the partial name of the file.
+				 * The save method will discover the path in this case.
+				 */
+				saveScenariosAndBlames("# Methods blamed for performance optimization in each of the optimized scenarios",
+						target_prefix + "blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
+						avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
+			}
 			
-			// Showing statistical for classes and packages
-			AnalyzerReportUtil.saveCodeAssets("# Statistical for optimized classes and packages",
-					getRMFilePath(comparison_strategy + "total_of_optimized_classes_and_packages"), total_classes, total_packages);
+			// Maps to count how many times the classes and packages are blamed
+			Map<String, Integer> total_classes = new HashMap<String, Integer>();
+			Map<String, Integer> total_packages = new HashMap<String, Integer>();
+			
+			if (degraded_scenario_to_blames != null) {
+				// Count and save the results
+				countTotalOfModules(degraded_scenario_to_blames, total_classes, total_packages, package_deep,
+						avg_time_members_v1, avg_time_members_v2);
+				
+				// Showing statistical for classes and packages
+				AnalyzerReportUtil.saveCodeAssets("# Statistical for degraded classes and packages",
+						getRMFilePath(target_prefix + "total_of_degraded_classes_and_packages"), total_classes, total_packages);
+			}
+			
+			if (optimized_scenario_to_blames != null) {
+				// For optimization now
+				total_classes.clear();
+				total_packages.clear();
+				
+				// Count and save the results
+				countTotalOfModules(optimized_scenario_to_blames, total_classes, total_packages, package_deep,
+						avg_time_members_v1, avg_time_members_v2);
+				
+				// Showing statistical for classes and packages
+				AnalyzerReportUtil.saveCodeAssets("# Statistical for optimized classes and packages",
+						getRMFilePath(target_prefix + "total_of_optimized_classes_and_packages"), total_classes, total_packages);
+			}
 		}
 	}
 	
