@@ -128,10 +128,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 		Set<String> counted = new HashSet<String>();
 		
 		Map<Long, Issue> number_to_issue = new HashMap<Long, Issue>();
-		Map<String, Set<Issue>> revision_to_issue = new HashMap<String, Set<Issue>>();
+		Map<String, Set<Issue>> revision_to_issues = new HashMap<String, Set<Issue>>();
+		
+		Map<String, Set<String>> scenario_to_members_significance = new HashMap<String, Set<String>>();
+		Map<Long, Issue> number_to_issue_significance = new HashMap<Long, Issue>();
+		Map<String, Set<Issue>> revision_to_issues_significance = new HashMap<String, Set<Issue>>();
 		
 		PrintWriter pw = new PrintWriter(getRMFilePath(filename));
 		PrintWriter pw_list = new PrintWriter(getRMFilePath(filename + "_summary"));
+		PrintWriter pw_significance = new PrintWriter(getRMFilePath(filename + "_significance"));
 		
 		// We need the loop to count because some of them can be empty
 		for (List<String> list : scenario_to_blames.values())
@@ -140,6 +145,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		pw.println(message);
 		pw_list.println(message + " [summary]");
+		pw_significance.println(message + " [significance]");
 		
 		// Number of scenario that have blamed members
 		pw.println("Number of scenarios: " + total_scenarios_with_blames);
@@ -168,8 +174,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 			pw.println("\tNumber of methods: " + signatures.size());
 			pw.println("\tNumber of methods (exclude word applied): " + i);
 			
-			if (i > 0)
+			if (i > 0) {
 				pw_list.println(scenario);
+				// We will suppose it is significant
+				scenario_to_members_significance.put(scenario, new HashSet<String>());
+			}
 			
 			for (String s : signatures) {
 				Map<Long, Issue> local_number_to_issue = new HashMap<Long, Issue>();
@@ -178,7 +187,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				Double t1 = avg_time_members_v1.get(s);
 				Double t2 = avg_time_members_v2.get(s);
 				
-				double delta = calcExecutionTimeAbsDelta(scenario, s, t1, t2);
+				double delta = calcExecutionTimeAbsDelta(t1, t2);
 				
 				StringBuilder sb = new StringBuilder();
 				
@@ -225,11 +234,28 @@ public final class AnalyzerMinerRepositoryRunnable {
 					++total_members;
 					
 					if (!matchesExcludeWord(s) && delta >= avg_significance_delta) {
+						System.out.println("Counting " + s + " in R1 for " + scenario);
+						int count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, s);
+						System.out.println("\tTotal = " + count1);
+						
+						System.out.println("Counting " + s + " in R2 for " + scenario);
+						int count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, s);
+						System.out.println("\tTotal = " + count2);
+						
+						String aux = s + ";" + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2;
+						
 						++total_members_without_word;
 						members_with_information.add(sb.toString());
-						members_signature.add(s + ";" + t1 + ";" + t2 + ";" + delta);
+						members_signature.add(aux);
 						number_to_issue.putAll(local_number_to_issue);
-						revision_to_issue.putAll(local_revision_to_issues);
+						revision_to_issues.putAll(local_revision_to_issues);
+						
+						// If it is significant inside the scenario we save in another file
+						if (isExecutionTimeSignificant(count1, count2, t1, t2)) {
+							scenario_to_members_significance.get(scenario).add(aux);
+							number_to_issue_significance.putAll(local_number_to_issue);
+							revision_to_issues_significance.putAll(local_revision_to_issues);
+						}
 					}
 				}
 			}
@@ -237,6 +263,28 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		pw.println(total_members);
 		pw.println(total_members_without_word);
+		
+		StringBuilder sb_scenarios = new StringBuilder();
+		StringBuilder sb_members = new StringBuilder();
+		int count_scenarios = 0;
+		int count_members = 0;
+		for (String scenario : scenario_to_members_significance.keySet()) {
+			Set<String> members = scenario_to_members_significance.get(scenario);
+			
+			if (!members.isEmpty()) {
+				sb_scenarios.append(scenario + System.lineSeparator());
+				count_scenarios++;
+				
+				for (String m : members) {
+					sb_members.append(m + System.lineSeparator());
+					count_members++;
+				}
+			}
+		}
+		sb_scenarios.insert(0, count_scenarios + System.lineSeparator());
+		sb_members.insert(0, count_members + System.lineSeparator());
+		pw_significance.print(sb_scenarios);
+		pw_significance.print(sb_members);
 		
 		pw_list.println(members_signature.size());
 		for (String member : members_signature)
@@ -246,9 +294,19 @@ public final class AnalyzerMinerRepositoryRunnable {
 		for (String member : members_with_information)
 			pw_list.print(member);
 		
-		pw_list.println(number_to_issue.size());
+		printIssues(number_to_issue, revision_to_issues, pw_list);
+		printIssues(number_to_issue_significance, revision_to_issues_significance, pw_significance);
+		
+		pw.close();
+		pw_list.close();
+		pw_significance.close();
+	}
+	
+	// TODO: Melhorar este método depois
+	private void printIssues(Map<Long, Issue> number_to_issue, Map<String, Set<Issue>> revision_to_issues, PrintWriter pw) {
+		pw.println(number_to_issue.size());
 		for (long issue_number : new TreeSet<Long>(number_to_issue.keySet()))
-			pw_list.println(issue_number + ";" + number_to_issue.get(issue_number).getIssueType());
+			pw.println(issue_number + ";" + number_to_issue.get(issue_number).getIssueType());
 		
 		Map<String, Set<Long>> issuetype_to_number = new HashMap<String, Set<Long>>();
 		for (Issue issue  : number_to_issue.values()) {
@@ -262,31 +320,28 @@ public final class AnalyzerMinerRepositoryRunnable {
 			issue_number_list.add(issue.getNumber());
 		}
 		
-		pw_list.println(issuetype_to_number.size());
+		pw.println(issuetype_to_number.size());
 		for (String issue_type : issuetype_to_number.keySet())
-			pw_list.println(issue_type + ";" + issuetype_to_number.get(issue_type).size());
+			pw.println(issue_type + ";" + issuetype_to_number.get(issue_type).size());
 		
-		pw_list.println(issuetype_to_number.size());
+		pw.println(issuetype_to_number.size());
 		for (String issue_type : issuetype_to_number.keySet()) {
-			pw_list.print(issue_type);
+			pw.print(issue_type);
 			for (long numbers : issuetype_to_number.get(issue_type))
-				pw_list.print(";" + numbers);
-			pw_list.println();
+				pw.print(";" + numbers);
+			pw.println();
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Number of revisions (commits): " + revision_to_issue.size() + System.lineSeparator());
-		for (String revision : revision_to_issue.keySet()) {
+		sb.append("Number of revisions (commits): " + revision_to_issues.size() + System.lineSeparator());
+		for (String revision : revision_to_issues.keySet()) {
 			sb.append("Revision (Issues): " + revision + "(");
-			for (Issue issue : revision_to_issue.get(revision))
+			for (Issue issue : revision_to_issues.get(revision))
 				sb.append(issue.getNumber() + ";");
 			sb.deleteCharAt(sb.length() - 1);
 			sb.append(")" + System.lineSeparator());
 		}
-		pw_list.print(sb.toString());
-		
-		pw.close();
-		pw_list.close();
+		pw.print(sb.toString());
 	}
 	
 	// TODO: How can I move this to report util?
@@ -415,6 +470,38 @@ public final class AnalyzerMinerRepositoryRunnable {
 						 * because their code is not in the final release anymore. I still
 						 * put the test, but I think it does not make difference.
 						 */
+//						Map<String, Collection<UpdatedMethod>> aux = new HashMap<String, Collection<UpdatedMethod>>();
+//						aux.put(matched_signature, collection);
+//						
+//						if (filename.equals("added_methods")) {
+//							for (String prefix : comparison_strategy)
+//								map_p_degradation_methods.put(prefix, aux);
+//						}
+//						else if (filename.equals("removed_methods")) {
+//							for (String prefix : comparison_strategy)
+//								map_p_optimization_methods.put(prefix, aux);
+//						}
+//						else if (filename.equals("pr_degraded_methods")) {
+//							map_p_degradation_methods.put("pr_", aux);
+//						}
+//						else if (filename.equals("pt_degraded_methods")) {
+//							map_p_degradation_methods.put("pt_", aux);
+//						}
+//						else if (filename.equals("pu_degraded_methods")) {
+//							map_p_degradation_methods.put("pu_", aux);
+//						}
+//						else if (filename.equals("pr_optimized_methods")) {
+//							map_p_optimization_methods.put("pr_", aux);
+//						}
+//						else if (filename.equals("pt_optimized_methods")) {
+//							map_p_optimization_methods.put("pt_", aux);
+//						}
+//						else if (filename.equals("pu_optimized_methods")) {
+//							map_p_optimization_methods.put("pu_", aux);
+//						}
+//						else {
+//							throw new RuntimeException("Invalid target filename, aborting...");
+//						}
 						if (filename.equals("added_methods") || filename.endsWith("degraded_methods"))
 							p_degradation_methods.put(matched_signature, collection);
 						
@@ -439,15 +526,29 @@ public final class AnalyzerMinerRepositoryRunnable {
 					full_issue_numbers,	full_issuetype_to_count, full_issuetype_to_upmethod);
 			
 			// Save the results of the filtered methods (degraded and changed)
-			AnalyzerReportUtil.saveFullMiningData(file_message, getRMFilePath("filtrated_" + filename), filtered_path_to_upmethod,
+			AnalyzerReportUtil.saveFullMiningData(file_message + " (before mining phase)", getRMFilePath("filtrated_" + filename), filtered_path_to_upmethod,
 					filtered_issue_numbers,	filtered_issuetype_to_count, filtered_issuetype_to_upmethod);
 		}
 		
+		// TODO: Can I reuse it?
+		System.out.println("Getting methods and means for release 1...");
+		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
+		System.out.println("\tTotal = " + avg_time_members_v1.size());
+		
+		System.out.println("Getting methods and means for release 2...");
+		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
+		System.out.println("\tTotal = " + avg_time_members_v1.size());
+		
+		/* 
+		 * From this point, we generate more details only for degradation/optimization.
+		 * It is a loop for each comparison strategy property.
+		 * TODO: Check if the same reports for optimization are working.
+		 */
 		if (!p_degradation_methods.isEmpty()) {
 			// Saving issues
 			AnalyzerReportUtil.saveFullMiningData(
 				"# Issues potentially blamed for performance degradation (degraded + added)",
-				getRMFilePath("issues_of_performance_degradation"), p_degradation_methods,
+				getRMFilePath(comparison_strategy + "issues_of_performance_degradation"), p_degradation_methods,
 				AnalyzerCollectionUtil.getTaskNumbers(p_degradation_methods),
 				AnalyzerCollectionUtil.countTaskTypes(p_degradation_methods),
 				AnalyzerCollectionUtil.getTaskMembers(p_degradation_methods)
@@ -456,7 +557,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			// Getting and saving the impacted elements by the blamed methods
 			AnalyzerReportUtil.saveImpactedElements(
 				"# Methods potentially blamed for performance degradation",
-				getRMFilePath("methods_of_performance_degradation"), p_degradation_methods.keySet());
+				getRMFilePath(comparison_strategy + "methods_of_performance_degradation"), p_degradation_methods.keySet());
 		}
 		
 		// TODO: Check if optimization is working
@@ -467,7 +568,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 */
 			AnalyzerReportUtil.saveFullMiningData(
 				"# Issues potentially blamed for performance optimization (removed + optimized)",
-				getRMFilePath("issues_of_performance_optimization"), p_optimization_methods,
+				getRMFilePath(comparison_strategy + "issues_of_performance_optimization"), p_optimization_methods,
 				AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
 				AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
 				AnalyzerCollectionUtil.getTaskMembers(p_optimization_methods)
@@ -476,14 +577,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 			// Getting and saving the impacted elements by the blamed methods
 			AnalyzerReportUtil.saveImpactedElements(
 				"# Methods potentially blamed for performance optimization",
-				getRMFilePath("methods_of_performance_optimization"), p_optimization_methods.keySet());
+				getRMFilePath(comparison_strategy + "methods_of_performance_optimization"), p_optimization_methods.keySet());
 		}
-		
-		/* 
-		 * From this point, we generate more details only for degradation.
-		 * TODO: Implement the same reports to optimization.
-		 */
-		
+	
 		Map<String, List<String>> degraded_scenario_to_blames = null;
 		Map<String, List<String>> optimized_scenario_to_blames = null;
 		
@@ -491,7 +587,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		if (!p_degradation_methods.isEmpty()) {
 			degraded_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
 				getDAFilePath(comparison_strategy + "degraded_scenarios"),
-				getRMFilePath("methods_of_performance_degradation"));
+				getRMFilePath(comparison_strategy + "methods_of_performance_degradation"));
 			
 			removeExcludedEntryPoints(degraded_scenario_to_blames);
 		}
@@ -499,14 +595,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 		if (!p_optimization_methods.isEmpty()) {
 			optimized_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
 				getDAFilePath(comparison_strategy + "optimized_scenarios"),
-				getRMFilePath("methods_of_performance_optimization"));
+				getRMFilePath(comparison_strategy + "methods_of_performance_optimization"));
 			
 			removeExcludedEntryPoints(optimized_scenario_to_blames);
 		}
-		
-		// TODO: Can I reuse it?
-		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
-		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
 		
 		if (!p_degradation_methods.isEmpty()) {
 			/*
@@ -515,7 +607,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 * The save method will discover the path in this case.
 			 */
 			saveScenariosAndBlames("# Methods blamed for performance degradation in each of the degraded scenarios",
-					"blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
+					comparison_strategy + "blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
 					avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
 		}
 		
@@ -527,7 +619,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 * The save method will discover the path in this case.
 			 */
 			saveScenariosAndBlames("# Methods blamed for performance optimization in each of the optimized scenarios",
-					"blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
+					comparison_strategy + "blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
 					avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
 		}
 		
@@ -542,7 +634,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			// Showing statistical for classes and packages
 			AnalyzerReportUtil.saveCodeAssets("# Statistical for degraded classes and packages",
-					getRMFilePath("total_of_degraded_classes_and_packages"), total_classes, total_packages);
+					getRMFilePath(comparison_strategy + "total_of_degraded_classes_and_packages"), total_classes, total_packages);
 		}
 		
 		if (optimized_scenario_to_blames != null) {
@@ -556,26 +648,40 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			// Showing statistical for classes and packages
 			AnalyzerReportUtil.saveCodeAssets("# Statistical for optimized classes and packages",
-					getRMFilePath("total_of_optimized_classes_and_packages"), total_classes, total_packages);
+					getRMFilePath(comparison_strategy + "total_of_optimized_classes_and_packages"), total_classes, total_packages);
 		}
 	}
 	
-	private double calcExecutionTimeAbsDelta(String scenario, String signature, Double t1, Double t2) {
+	private double calcExecutionTimeAbsDelta(Double t1, Double t2) {
+		if (t1 == null)
+			return t2;
+		else if (t2 == null)
+			return t1;
+		else
+			return Math.abs(t2 - t1);
+	}
+	
+	/* 
+	 * This test is just for added or removed methods. The idea is not consider it always
+	 * degraded or optimized. For kept methods, the statistical test are enough.
+	 */
+	private boolean isExecutionTimeSignificant(int count1, int count2, Double t1, Double t2) {
 		double delta;
 		
 		// The member was added
 		if (t1 == null) {
-			// Number of times the method is executed inside the scenario
-			int count = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, signature);
-			
 			// It is significant according the property
-			delta = (count * t2 > member_significance_variation)? t2 : 0;
+			delta = (count2 * t2 >= member_significance_variation)? t2 : 0;
+		}
+		else if (t2 == null) { // The member was removed
+			// It is significant according the property
+			delta = (count1 * t1 >= member_significance_variation)? t1 : 0;
 		}
 		else { // The member exists in both releases
 			delta = Math.abs(t2 - t1);
 		}
 		
-		return delta;
+		return delta >= avg_significance_delta;
 	}
 	
 	private void countTotalOfModules(Map<String, List<String>> scenario_to_blames,
@@ -588,7 +694,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			for (String sig : scenario_to_blames.get(scenario)) {
 				Double t1 = avg_time_members_v1.get(sig);
 				Double t2 = avg_time_members_v2.get(sig);
-				double delta = calcExecutionTimeAbsDelta(scenario, sig, t1, t2);
+				double delta = calcExecutionTimeAbsDelta(t1, t2);
 				
 				if (!counted.contains(sig) && !matchesExcludeWord(sig) && delta >= avg_significance_delta) {
 					String class_name = getClassNameFromSignature(sig);

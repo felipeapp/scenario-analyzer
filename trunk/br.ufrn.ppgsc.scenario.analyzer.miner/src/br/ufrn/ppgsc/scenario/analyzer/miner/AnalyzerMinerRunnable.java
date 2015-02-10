@@ -36,7 +36,9 @@ public final class AnalyzerMinerRunnable {
 		List<Logger> loggers = Collections.list(LogManager.getCurrentLoggers());
 		loggers.add(LogManager.getRootLogger());
 		for (Logger logger : loggers)
-			logger.setLevel(Level.WARN);
+			logger.setLevel(Level.OFF);
+		
+		//Logger.getLogger("br.ufrn.ppgsc.scenario.analyzer.miner").setLevel(Level.ALL);
 
 		try {
 			AnalyzerMinerRunnable.startAnalyzerMiner();

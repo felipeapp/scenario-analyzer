@@ -28,20 +28,42 @@ public class WicketPathTransformer implements IPathTransformer {
 			name = name.substring(0, name.lastIndexOf('/'));
 
 		// Switch the directory
-		if (method_signature.startsWith("org.apache.wicket.util.tester"))
+		if (method_signature.startsWith("org.apache.wicket.util.tester")
+				|| method_signature.startsWith("org.apache.wicket.util.cookies")
+				|| method_signature.startsWith("org.apache.wicket.request.handler.render")
+				|| method_signature.startsWith("org.apache.wicket.request.cycle")
+				|| method_signature.startsWith("org.apache.wicket.request.resource")
+				|| method_signature.startsWith("org.apache.wicket.request.handler.resource"))
 			full_path += "wicket-core/src/main/java/";
-		
-		else if (method_signature.startsWith("org.apache.wicket.util"))
-			full_path += "wicket-util/src/main/java/";
 		
 		else if (method_signature.startsWith("org.apache.wicket.authroles"))
 			full_path += "wicket-auth-roles/src/main/java/";
-		
-		else if (method_signature.startsWith("org.apache.wicket.examples"))
-			if (name.endsWith("Test"))
+				
+		else if (method_signature.startsWith("org.apache.wicket.examples")
+				|| method_signature.startsWith("org.apache.wicket.filtertest")
+				|| method_signature.startsWith("org.apache.wicket.util.markup.xhtml") && name.endsWith("Test"))
+			if (name.endsWith("Test") || name.endsWith("TestCase"))
 				full_path += "wicket-examples/src/test/java/";
 			else
 				full_path += "wicket-examples/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.request"))
+			full_path += "wicket-request/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.devutils"))
+			full_path += "wicket-devutils/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.jmx"))
+			full_path += "wicket-jmx/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.velocity"))
+			full_path += "wicket-velocity/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.extensions"))
+			full_path += "wicket-extensions/src/main/java/";
+		
+		else if (method_signature.startsWith("org.apache.wicket.util"))
+			full_path += "wicket-util/src/main/java/";
 		
 		else if (method_signature.startsWith("org.apache.wicket"))
 			full_path += "wicket-core/src/main/java/";
