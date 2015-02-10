@@ -359,10 +359,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 		RepositoryManager repository = new RepositoryManager(repository_url, repository_user, repository_password);
 		
 		// Methods that have contributed to performance degradation. The key is the method signature
-		Map<String, Collection<UpdatedMethod>> p_degradation_methods = new HashMap<String, Collection<UpdatedMethod>>();
+		Map<String, Map<String, Collection<UpdatedMethod>>> p_degradation_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
 		
 		// Methods that have contributed to performance optimization. The key is the method signature
-		Map<String, Collection<UpdatedMethod>> p_optimization_methods = new HashMap<String, Collection<UpdatedMethod>>();
+		Map<String, Map<String, Collection<UpdatedMethod>>> p_optimization_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
 		
 		for (String filename : active_targets) {
 			List<String> repository_paths = new ArrayList<String>();
@@ -502,8 +502,12 @@ public final class AnalyzerMinerRepositoryRunnable {
 //						else {
 //							throw new RuntimeException("Invalid target filename, aborting...");
 //						}
-						if (filename.equals("added_methods") || filename.endsWith("degraded_methods"))
-							p_degradation_methods.put(matched_signature, collection);
+						Map<String, Collection<UpdatedMethod>> aux = new HashMap<String, Collection<UpdatedMethod>>();
+						aux.put(matched_signature, collection);
+						
+						if (filename.equals("added_methods") || filename.endsWith("pu_degraded_methods")) {
+							p_degradation_methods.get(matched_signature).putAll(aux);
+						}
 						
 						if (filename.equals("removed_methods") || filename.endsWith("optimized_methods"))
 							p_optimization_methods.put(matched_signature, collection);

@@ -80,7 +80,7 @@ public class JiraMiner implements IQueryIssue {
 			}
 			
 			// This remove the issue work and convert to a number
-			long issue_number = Long.parseLong(issueStr.replace(word, "").trim());
+			long issue_number = Long.parseLong(issueStr.toUpperCase().replace(word, "").trim());
 			result.add(issue_number);
 			
 			try {
@@ -96,6 +96,7 @@ public class JiraMiner implements IQueryIssue {
 	public static void main(String[] args) {
 		
 		String[] logs = {
+			"WICKet-6",
 			"asdas as d WICKET-5801 asd asd as a",
 			"Update the year in NOTICE to 2012",
 			"WICKET-4439 Move classes around so that there are no two packages wit…\n…h the same name in different modules\r\nMove o.a.w.serialize.ISerializer from -util to -core.",

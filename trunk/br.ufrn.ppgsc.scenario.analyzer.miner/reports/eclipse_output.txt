@@ -1,0 +1,1072 @@
+140 [main] INFO org.hibernate.annotations.common.Version - Hibernate Commons Annotations 3.2.0.Final
+150 [main] INFO org.hibernate.cfg.Environment - Hibernate 3.6.10.Final
+150 [main] INFO org.hibernate.cfg.Environment - hibernate.properties not found
+155 [main] INFO org.hibernate.cfg.Environment - Bytecode provider name : javassist
+160 [main] INFO org.hibernate.cfg.Environment - using JDK 1.4 java.sql.Timestamp handling
+256 [main] INFO org.hibernate.cfg.Configuration - configuring from resource: netty/netty_4.0.0.Final_testsuite_hibernate.cfg.xml
+256 [main] INFO org.hibernate.cfg.Configuration - Configuration resource: netty/netty_4.0.0.Final_testsuite_hibernate.cfg.xml
+417 [main] INFO org.hibernate.cfg.Configuration - Configured SessionFactory: null
+517 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution
+565 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution on table execution
+644 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario
+644 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario on table scenario
+669 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode
+669 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode on table node
+689 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation
+689 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation on table annotation
+694 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimePerformance
+704 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeSecurity
+704 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeReliability
+709 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeRobustness
+719 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode.children -> node
+724 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution.scenarios -> scenario
+724 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+729 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+734 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Using Hibernate built-in connection pool (not for production use!)
+734 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Hibernate connection pool size: 20
+734 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - autocommit mode: false
+764 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - using driver: org.postgresql.Driver at URL: jdbc:postgresql://localhost:5432/netty_4.0.0.Final_testsuite
+764 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - connection properties: {user=scenario_analyzer_user, password=****}
+895 [main] INFO org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.PostgreSQLDialect
+915 [main] INFO org.hibernate.engine.jdbc.JdbcSupportLoader - Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+915 [main] INFO org.hibernate.cfg.SettingsFactory - Database ->
+       name : PostgreSQL
+    version : 9.3.4
+      major : 9
+      minor : 3
+915 [main] INFO org.hibernate.cfg.SettingsFactory - Driver ->
+       name : PostgreSQL Native Driver
+    version : PostgreSQL 9.3 JDBC4.1 (build 1102)
+      major : 9
+      minor : 3
+915 [main] INFO org.hibernate.transaction.TransactionFactoryFactory - Using default transaction strategy (direct JDBC transactions)
+915 [main] INFO org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+915 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+920 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+920 [main] INFO org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+920 [main] INFO org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Query cache: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+920 [main] INFO org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+925 [main] INFO org.hibernate.cfg.SettingsFactory - Statistics: disabled
+925 [main] INFO org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+925 [main] INFO org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+925 [main] INFO org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+925 [main] INFO org.hibernate.cfg.SettingsFactory - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+975 [main] INFO org.hibernate.impl.SessionFactoryImpl - building session factory
+980 [main] INFO org.hibernate.type.BasicTypeRegistry - Type registration [materialized_blob] overrides previous : org.hibernate.type.MaterializedBlobType@7d7715a
+1327 [main] INFO org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+1327 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - Running schema validator
+1327 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - fetching database metadata
+1537 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.annotation
+1537 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, failure_rate, name, type, limit_time]
+1552 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.execution
+1552 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, system_name, date, system_version]
+1557 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node
+1557 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [member, id, time, exception, real_time, parent_id, constructor]
+1562 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_annotation
+1562 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [annotation_id, node_id]
+1572 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_scenario
+1572 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [scenario_id, node_id]
+1577 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario
+1577 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, root_id, name, execution_id, date, thread_id]
+1582 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario_context
+1582 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, value, key]
+1623 [main] INFO org.hibernate.cfg.Configuration - configuring from resource: netty/netty_4.0.6.Final_testsuite_hibernate.cfg.xml
+1623 [main] INFO org.hibernate.cfg.Configuration - Configuration resource: netty/netty_4.0.6.Final_testsuite_hibernate.cfg.xml
+1644 [main] INFO org.hibernate.cfg.Configuration - Configured SessionFactory: null
+1649 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution
+1649 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution on table execution
+1649 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario
+1649 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario on table scenario
+1654 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode
+1654 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode on table node
+1659 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation
+1659 [main] INFO org.hibernate.cfg.annotations.EntityBinder - Bind entity br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation on table annotation
+1664 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimePerformance
+1664 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeSecurity
+1664 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeReliability
+1664 [main] INFO org.hibernate.cfg.AnnotationBinder - Binding entity from annotated class: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeRobustness
+1664 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode.children -> node
+1664 [main] INFO org.hibernate.cfg.annotations.CollectionBinder - Mapping collection: br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution.scenarios -> scenario
+1669 [main] INFO org.hibernate.cfg.Configuration - Hibernate Validator not found: ignoring
+1669 [main] INFO org.hibernate.cfg.search.HibernateSearchEventListenerRegister - Unable to find org.hibernate.search.event.FullTextIndexEventListener on the classpath. Hibernate Search is not enabled.
+1669 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Using Hibernate built-in connection pool (not for production use!)
+1669 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - Hibernate connection pool size: 20
+1669 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - autocommit mode: false
+1669 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - using driver: org.postgresql.Driver at URL: jdbc:postgresql://localhost:5432/netty_4.0.6.Final_testsuite
+1669 [main] INFO org.hibernate.connection.DriverManagerConnectionProvider - connection properties: {user=scenario_analyzer_user, password=****}
+1694 [main] INFO org.hibernate.dialect.Dialect - Using dialect: org.hibernate.dialect.PostgreSQLDialect
+1694 [main] INFO org.hibernate.engine.jdbc.JdbcSupportLoader - Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Database ->
+       name : PostgreSQL
+    version : 9.3.4
+      major : 9
+      minor : 3
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Driver ->
+       name : PostgreSQL Native Driver
+    version : PostgreSQL 9.3 JDBC4.1 (build 1102)
+      major : 9
+      minor : 3
+1694 [main] INFO org.hibernate.transaction.TransactionFactoryFactory - Using default transaction strategy (direct JDBC transactions)
+1694 [main] INFO org.hibernate.transaction.TransactionManagerLookupFactory - No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic flush during beforeCompletion(): disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Automatic session close at end of transaction: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch size: 15
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC batch updates for versioned data: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Scrollable result sets: enabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - JDBC3 getGeneratedKeys(): enabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Connection release mode: auto
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Default batch fetch size: 1
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Generate SQL with comments: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL updates by primary key: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Order SQL inserts for batching: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+1694 [main] INFO org.hibernate.hql.ast.ASTQueryTranslatorFactory - Using ASTQueryTranslatorFactory
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Query language substitutions: {}
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - JPA-QL strict compliance: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Second-level cache: enabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Query cache: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Cache region factory : org.hibernate.cache.impl.NoCachingRegionFactory
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Optimize cache for minimal puts: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Structured second-level cache entries: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Statistics: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Deleted entity synthetic identifier rollback: disabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Default entity-mode: pojo
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Named query checking : enabled
+1694 [main] INFO org.hibernate.cfg.SettingsFactory - Check Nullability in Core (should be disabled when Bean Validation is on): enabled
+1704 [main] INFO org.hibernate.impl.SessionFactoryImpl - building session factory
+1704 [main] INFO org.hibernate.type.BasicTypeRegistry - Type registration [materialized_blob] overrides previous : org.hibernate.type.MaterializedBlobType@7d7715a
+1734 [main] INFO org.hibernate.impl.SessionFactoryObjectFactory - Not binding factory to JNDI, no JNDI name configured
+1734 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - Running schema validator
+1734 [main] INFO org.hibernate.tool.hbm2ddl.SchemaValidator - fetching database metadata
+1929 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.annotation
+1929 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, failure_rate, name, type, limit_time]
+1945 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.execution
+1945 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, system_name, date, system_version]
+1950 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node
+1950 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [member, id, time, exception, real_time, parent_id, constructor]
+1955 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_annotation
+1955 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [annotation_id, node_id]
+1960 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.node_scenario
+1960 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [scenario_id, node_id]
+1965 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario
+1965 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, root_id, name, execution_id, date, thread_id]
+1965 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - table found: public.scenario_context
+1970 [main] INFO org.hibernate.tool.hbm2ddl.TableMetadata - columns: [id, value, key]
+Getting scenarios and means for release 1...
+	Total = 22
+Getting scenarios and means for release 2...
+	Total = 22
+Determining removed scenarios...
+	Total = 0
+Determining added scenarios...
+	Total = 0
+Calculating statistical tests for common scenarios...
+1 / 22 - Calculating statistical tests for Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+2 / 22 - Calculating statistical tests for Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+3 / 22 - Calculating statistical tests for Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+4 / 22 - Calculating statistical tests for Entry point for DatagramUnicastTest.testSimpleSend
+5 / 22 - Calculating statistical tests for Entry point for SocketConnectionAttemptTest.testConnectTimeout
+6 / 22 - Calculating statistical tests for Entry point for UDTClientServerConnectionTest.connection
+7 / 22 - Calculating statistical tests for Entry point for SocketSslEchoTest.testSslEcho
+8 / 22 - Calculating statistical tests for Entry point for SocketFileRegionTest.testFileRegion
+9 / 22 - Calculating statistical tests for Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+10 / 22 - Calculating statistical tests for Entry point for DatagramMulticastTest.testMulticast
+11 / 22 - Calculating statistical tests for Entry point for SocketStringEchoTest.testStringEcho
+12 / 22 - Calculating statistical tests for Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+13 / 22 - Calculating statistical tests for Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+14 / 22 - Calculating statistical tests for Entry point for SocketEchoTest.testSimpleEcho
+15 / 22 - Calculating statistical tests for Entry point for SocketObjectEchoTest.testObjectEcho
+16 / 22 - Calculating statistical tests for Entry point for SocketSpdyEchoTest.testSpdyEcho
+17 / 22 - Calculating statistical tests for Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+18 / 22 - Calculating statistical tests for Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+19 / 22 - Calculating statistical tests for Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+20 / 22 - Calculating statistical tests for Entry point for SocketBufReleaseTest.testBufRelease
+21 / 22 - Calculating statistical tests for Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+22 / 22 - Calculating statistical tests for Entry point for SocketStartTlsTest.testStartTls
+Saving >> # Scenarios executed in both releases
+Saving >> # Scenarios executed in the first release, but not in the second
+Saving >> # Scenarios executed in the second release, but not in the first
+Saving >> # Degradated scenarios (Rate method)
+Saving >> # Optimized scenarios (Rate method)
+Saving >> # Unchanged scenarios (Rate method)
+Saving >> # Degradated scenarios (TTest P-Value)
+Saving >> # Optimized scenarios (TTest P-Value)
+Saving >> # Unchanged scenarios (TTest P-Value)
+Saving >> # Degradated scenarios (UTest P-Value)
+Saving >> # Optimized scenarios (UTest P-Value)
+Saving >> # Unchanged scenarios (UTest P-Value)
+-------------------------------------------------------------------
+Getting methods and means for release 1...
+	Total = 470
+Getting methods and means for release 2...
+	Total = 468
+Determining removed methods...
+	Total = 13
+Determining added methods...
+	Total = 11
+Calculating statistical tests for common methods...
+1 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,io.netty.channel.ChannelPromise)
+2 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.channel()
+3 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusKeyStore.asInputStream()
+4 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusKeyStore.getCertificatePassword()
+5 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest.connection()
+6 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writeMedium(int)
+7 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.config()
+8 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioMessageChannel(io.netty.channel.Channel)
+9 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writableBytes()
+10 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho()
+11 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf.setByte(int,int)
+12 / 457 - Calculating statistical tests for io.netty.channel.ChannelInitializer()
+13 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap()
+14 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.localAddress()
+15 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.newAttrArray(int)
+16 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultDatagramChannelConfig(io.netty.channel.socket.DatagramChannel,java.net.DatagramSocket)
+17 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
+18 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioServerSocketChannel.config()
+19 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.ProtocolFamilyConverter.convert(io.netty.channel.socket.InternetProtocolFamily)
+20 / 457 - Calculating statistical tests for io.netty.channel.AdaptiveRecvByteBufAllocator(int,int,int)
+21 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramUnicastTest$1(io.netty.testsuite.transport.socket.DatagramUnicastTest,java.util.concurrent.CountDownLatch)
+22 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.findContextOutbound()
+23 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketObjectEchoTest$2(io.netty.testsuite.transport.socket.SocketObjectEchoTest,io.netty.testsuite.transport.socket.SocketObjectEchoTest.EchoHandler)
+24 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest.createFrames(int)
+25 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.setSuccess()
+26 / 457 - Calculating statistical tests for io.netty.channel.ChannelHandlerAdapter()
+27 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEcho()
+28 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface,io.netty.channel.ChannelPromise)
+29 / 457 - Calculating statistical tests for io.netty.channel.ChannelMetadata(boolean)
+30 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.DefaultOioSocketChannelConfig.setTcpNoDelay(boolean)
+31 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.doBind(java.net.SocketAddress)
+32 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$2$1.toString()
+33 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion()
+34 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.newPromise()
+35 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest$BufWriterHandler()
+36 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutor()
+37 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.toString()
+38 / 457 - Calculating statistical tests for io.netty.channel.ChannelInboundHandlerAdapter()
+39 / 457 - Calculating statistical tests for io.netty.channel.DefaultAddressedEnvelope(java.lang.Object,java.net.SocketAddress)
+40 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.isActive()
+41 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler()
+42 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler()
+43 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest$2(io.netty.testsuite.transport.socket.SocketEchoTest.EchoHandler)
+44 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.ensureAccessible()
+45 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputBySelfTest.testShutdownOutput(io.netty.bootstrap.Bootstrap)
+46 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest$2(io.netty.testsuite.transport.socket.SocketSslEchoTest,javax.net.ssl.SSLEngine,boolean,io.netty.testsuite.transport.socket.SocketSslEchoTest.EchoHandler)
+47 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho()
+48 / 457 - Calculating statistical tests for io.netty.channel.SingleThreadEventLoop(io.netty.channel.EventLoopGroup,java.util.concurrent.ThreadFactory,boolean)
+49 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel$AbstractUnsafe.localAddress()
+50 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramMulticastTest$MulticastTestHandler(io.netty.testsuite.transport.socket.DatagramMulticastTest.MulticastTestHandler)
+51 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.leaveGroup(java.net.InetSocketAddress,java.net.NetworkInterface,io.netty.channel.ChannelPromise)
+52 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel$CloseFuture(io.netty.channel.AbstractChannel,io.netty.channel.AbstractChannel)
+53 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap()
+54 / 457 - Calculating statistical tests for io.netty.channel.group.DefaultChannelGroup(java.lang.String,io.netty.util.concurrent.EventExecutor)
+55 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioMessageChannel$NioMessageUnsafe(io.netty.channel.nio.AbstractNioMessageChannel)
+56 / 457 - Calculating statistical tests for io.netty.buffer.SlicedByteBuf(io.netty.buffer.ByteBuf,int,int)
+57 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.DefaultChannelHandlerContext)
+58 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel(io.netty.channel.Channel,java.nio.channels.SelectableChannel,int)
+59 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.bind()
+60 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.doConnect(java.net.SocketAddress,java.net.SocketAddress)
+61 / 457 - Calculating statistical tests for io.netty.channel.group.CombinedIterator(java.util.Iterator,java.util.Iterator)
+62 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest.access$0()
+63 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioServerSocketChannel.newServerSocket()
+64 / 457 - Calculating statistical tests for io.netty.channel.ChannelOption(java.lang.String)
+65 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannelConfig.setOption0(java.lang.Object,java.lang.Object)
+66 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.joinGroup(java.net.InetAddress,java.net.NetworkInterface,java.net.InetAddress,io.netty.channel.ChannelPromise)
+67 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultDatagramChannelConfig.setReuseAddress(boolean)
+68 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$2$1(null)
+69 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.doConnect0(io.netty.channel.ChannelFuture,io.netty.channel.Channel,java.net.SocketAddress,java.net.SocketAddress,io.netty.channel.ChannelPromise)
+70 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.isInputShutdown()
+71 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.channelFactory()
+72 / 457 - Calculating statistical tests for io.netty.channel.ThreadPerChannelEventLoop$1(io.netty.channel.ThreadPerChannelEventLoop)
+73 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.connect(java.net.SocketAddress)
+74 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel.isInputShutdown()
+75 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.shutdownOutput()
+76 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel$AbstractUnsafe.register(io.netty.channel.EventLoop,io.netty.channel.ChannelPromise)
+77 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutput()
+78 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultDatagramChannelConfig.setNetworkInterface(java.net.NetworkInterface)
+79 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.unsafe()
+80 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.option(io.netty.channel.ChannelOption,java.lang.Object)
+81 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannelConfig.setNetworkInterface(java.net.NetworkInterface)
+82 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTls()
+83 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultSocketChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+84 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation.access$0()
+85 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.DefaultOioSocketChannelConfig.setConnectTimeoutMillis(int)
+86 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.config()
+87 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler(io.netty.testsuite.transport.socket.SocketFileRegionTest.TestHandler)
+88 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+89 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation.access$1()
+90 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Client.shutdown()
+91 / 457 - Calculating statistical tests for io.netty.handler.codec.ByteToMessageDecoder()
+92 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel$1(io.netty.channel.socket.oio.OioSocketChannel,io.netty.channel.ChannelPromise)
+93 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server.waitForActive(boolean)
+94 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap$1(io.netty.bootstrap.AbstractBootstrap,io.netty.channel.Channel,java.net.SocketAddress,io.netty.channel.ChannelPromise)
+95 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.writeAndFlush(java.lang.Object)
+96 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf.alloc()
+97 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.checkDuplicateName(java.lang.String)
+98 / 457 - Calculating statistical tests for io.netty.buffer.Unpooled.wrappedBuffer(byte[])
+99 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler()
+100 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler()
+101 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.config()
+102 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho()
+103 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioServerSocketChannel()
+104 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf.copy(int,int)
+105 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionVoidPromise()
+106 / 457 - Calculating statistical tests for io.netty.buffer.EmptyByteBuf(io.netty.buffer.ByteBufAllocator,java.nio.ByteOrder)
+107 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel()
+108 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.await()
+109 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.readableBytes()
+110 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.initAndRegister()
+111 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.leaveGroup(java.net.InetSocketAddress,java.net.NetworkInterface)
+112 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.localAddress(java.net.SocketAddress)
+113 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption()
+114 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioServerSocketChannel.javaChannel()
+115 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.shutdownOutput(io.netty.channel.ChannelPromise)
+116 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.init(io.netty.channel.Channel)
+117 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+118 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.group(io.netty.channel.EventLoopGroup,io.netty.channel.EventLoopGroup)
+119 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.WriteBeforeRegisteredTest$TestHandler()
+120 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.WriteBeforeRegisteredTest$TestHandler(io.netty.testsuite.transport.socket.WriteBeforeRegisteredTest.TestHandler)
+121 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$1.getValue()
+122 / 457 - Calculating statistical tests for io.netty.buffer.AbstractReferenceCountedByteBuf(int)
+123 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap$BootstrapChannelFactory.toString()
+124 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
+125 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.get(java.lang.Class)
+126 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultDatagramChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+127 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline$HeadHandler(io.netty.channel.Channel.Unsafe)
+128 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoWithChunkHandler(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+129 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf._setByte(int,int)
+130 / 457 - Calculating statistical tests for io.netty.channel.SimpleChannelInboundHandler(boolean)
+131 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf(io.netty.buffer.ByteBufAllocator,int,int)
+132 / 457 - Calculating statistical tests for io.netty.channel.VoidChannelPromise(io.netty.channel.Channel,boolean)
+133 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel(java.nio.channels.SocketChannel)
+134 / 457 - Calculating statistical tests for io.netty.channel.group.CombinedIterator.hasNext()
+135 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel(io.netty.channel.Channel)
+136 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioServerSocketChannel(java.net.ServerSocket)
+137 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap$BootstrapChannelFactory.newChannel()
+138 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel(java.net.Socket)
+139 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketEchoTest.EchoHandler)
+140 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutput(io.netty.bootstrap.ServerBootstrap)
+141 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputBySelfTest$TestHandler(io.netty.testsuite.transport.socket.SocketShutdownOutputBySelfTest.TestHandler)
+142 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
+143 / 457 - Calculating statistical tests for io.netty.buffer.AbstractDerivedByteBuf(int)
+144 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.connect()
+145 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.isOutputShutdown()
+146 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Client.waitForShutdown()
+147 / 457 - Calculating statistical tests for io.netty.channel.group.CombinedIterator.next()
+148 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$2(io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest,io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.EchoHandler)
+149 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe(io.netty.channel.nio.AbstractNioByteChannel,io.netty.channel.nio.AbstractNioByteChannel.NioByteUnsafe)
+150 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStringEchoTest$2(io.netty.testsuite.transport.socket.SocketStringEchoTest,io.netty.testsuite.transport.socket.SocketStringEchoTest.StringEchoHandler)
+151 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server(java.lang.String,int)
+152 / 457 - Calculating statistical tests for io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel,io.netty.channel.ChannelPromise)
+153 / 457 - Calculating statistical tests for io.netty.channel.ChannelOption.validate(java.lang.Object)
+154 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.connect(java.lang.String,int)
+155 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.AbstractSocketTest.run()
+156 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.newSocket()
+157 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStringEchoTest$1(io.netty.testsuite.transport.socket.SocketStringEchoTest,io.netty.testsuite.transport.socket.SocketStringEchoTest.StringEchoHandler)
+158 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest$BufWriterHandler.check()
+159 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.toString()
+160 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler(javax.net.ssl.SSLEngine,boolean,java.util.concurrent.Executor)
+161 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+162 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramMulticastTest$MulticastTestHandler.await()
+163 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioServerSocketChannel.localAddress()
+164 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.options()
+165 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel$AbstractUnsafe(io.netty.channel.AbstractChannel)
+166 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.isActive()
+167 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.channelFactory(io.netty.bootstrap.ChannelFactory)
+168 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultSocketChannelConfig.setTcpNoDelay(boolean)
+169 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.awaitUninterruptibly()
+170 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusSslContextFactory.getServerContext()
+171 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+172 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.isOutputShutdown()
+173 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf(io.netty.buffer.ByteBufAllocator,byte[],int,int,int)
+174 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel(io.netty.channel.Channel,java.net.Socket)
+175 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.handler()
+176 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$7.newInstance()
+177 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.remoteAddress(java.net.InetAddress,int)
+178 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho()
+179 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.leaveGroup(java.net.InetAddress,java.net.NetworkInterface,java.net.InetAddress,io.netty.channel.ChannelPromise)
+180 / 457 - Calculating statistical tests for io.netty.channel.FixedRecvByteBufAllocator(int)
+181 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler(javax.net.ssl.SSLEngine,java.util.concurrent.Executor)
+182 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writeByte(int)
+183 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioMessageChannel(io.netty.channel.Channel,java.nio.channels.SelectableChannel,int)
+184 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.toString()
+185 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Client.access$0(io.netty.testsuite.transport.udt.UDTClientServerConnectionTest.Client)
+186 / 457 - Calculating statistical tests for io.netty.buffer.Unpooled.copyInt(int)
+187 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+188 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+189 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.newSocket()
+190 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.sync()
+191 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest$BufWriterHandler.access$2(io.netty.testsuite.transport.socket.SocketBufReleaseTest.BufWriterHandler)
+192 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler(io.netty.testsuite.transport.socket.SocketSpdyEchoTest.SpdyEchoTestServerHandler)
+193 / 457 - Calculating statistical tests for io.netty.buffer.ByteBuf()
+194 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.group()
+195 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest$BufWriterHandler(io.netty.testsuite.transport.socket.SocketBufReleaseTest.BufWriterHandler)
+196 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.leaveGroup(java.net.InetSocketAddress,java.net.NetworkInterface)
+197 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest$1()
+198 / 457 - Calculating statistical tests for io.netty.channel.FixedRecvByteBufAllocator$HandleImpl(int)
+199 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStartTlsTest$1(io.netty.testsuite.transport.socket.SocketStartTlsTest,io.netty.util.concurrent.EventExecutorGroup,io.netty.testsuite.transport.socket.SocketStartTlsTest.StartTlsServerHandler)
+200 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+201 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest$3()
+202 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe(io.netty.channel.nio.AbstractNioByteChannel)
+203 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.flush()
+204 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.handler(io.netty.channel.ChannelHandler)
+205 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler)
+206 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketObjectEchoTest.EchoHandler)
+207 / 457 - Calculating statistical tests for io.netty.channel.VoidChannelPromise.channel()
+208 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$4.getKey()
+209 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.DefaultOioServerSocketChannelConfig(io.netty.channel.socket.ServerSocketChannel,java.net.ServerSocket)
+210 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel.eventLoop()
+211 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption(io.netty.bootstrap.ServerBootstrap)
+212 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Client.waitForRunning(boolean)
+213 / 457 - Calculating statistical tests for io.netty.channel.group.DefaultChannelGroup.size()
+214 / 457 - Calculating statistical tests for io.netty.channel.ChannelHandlerAdapter.isSharable()
+215 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioByteChannel.newUnsafe()
+216 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultSocketChannelConfig.setConnectTimeoutMillis(int)
+217 / 457 - Calculating statistical tests for io.netty.buffer.Unpooled.buffer(int)
+218 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsServerHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine)
+219 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.addListener(io.netty.util.concurrent.GenericFutureListener)
+220 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.checkMultiplicity(io.netty.channel.ChannelHandlerContext)
+221 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutor(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+222 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout(io.netty.bootstrap.Bootstrap)
+223 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramMulticastTest.testMulticast()
+224 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel.isOpen()
+225 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.handler()
+226 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.channel(java.lang.Class)
+227 / 457 - Calculating statistical tests for io.netty.channel.MultithreadEventLoopGroup.register(io.netty.channel.Channel,io.netty.channel.ChannelPromise)
+228 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.pipeline()
+229 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest$1(io.netty.testsuite.transport.socket.SocketEchoTest.EchoHandler)
+230 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBufAllocator.validate(int,int)
+231 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.eventLoop()
+232 / 457 - Calculating statistical tests for io.netty.channel.AdaptiveRecvByteBufAllocator()
+233 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioChannel$DefaultOioUnsafe(io.netty.channel.oio.AbstractOioChannel,io.netty.channel.oio.AbstractOioChannel.DefaultOioUnsafe)
+234 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writerIndex(int)
+235 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusKeyStore.getKeyStorePassword()
+236 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline(io.netty.channel.Channel)
+237 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf._setShort(int,int)
+238 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramMulticastTest$1(io.netty.testsuite.transport.socket.DatagramMulticastTest)
+239 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$6.newInstance()
+240 / 457 - Calculating statistical tests for io.netty.buffer.Unpooled.wrappedBuffer(byte[],int,int)
+241 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.localAddress()
+242 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramMulticastTest.testMulticast(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap)
+243 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.DefaultOioSocketChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+244 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Client.waitForActive(boolean)
+245 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketObjectEchoTest$1(io.netty.testsuite.transport.socket.SocketObjectEchoTest,io.netty.testsuite.transport.socket.SocketObjectEchoTest.EchoHandler)
+246 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.config()
+247 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap$BootstrapChannelFactory(java.lang.Class)
+248 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest$BufWriterHandler.handlerAdded(io.netty.channel.ChannelHandlerContext)
+249 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline$TailHandler()
+250 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest$1(io.netty.testsuite.transport.socket.SocketSslEchoTest,javax.net.ssl.SSLEngine,boolean,io.netty.testsuite.transport.socket.SocketSslEchoTest.EchoHandler)
+251 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap$2(io.netty.channel.ChannelFuture,io.netty.channel.Channel,java.net.SocketAddress,io.netty.channel.ChannelPromise)
+252 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.ProtocolFamilyConverter.$SWITCH_TABLE$io$netty$channel$socket$InternetProtocolFamily()
+253 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface,io.netty.channel.ChannelPromise)
+254 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap$1(io.netty.bootstrap.ServerBootstrap,io.netty.channel.EventLoopGroup,io.netty.channel.ChannelHandler,java.util.Map.Entry[],java.util.Map.Entry[])
+255 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.newPromise()
+256 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$8.newInstance()
+257 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.validate()
+258 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.channel()
+259 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise(io.netty.channel.Channel)
+260 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.doBind0(io.netty.channel.ChannelFuture,io.netty.channel.Channel,java.net.SocketAddress,io.netty.channel.ChannelPromise)
+261 / 457 - Calculating statistical tests for io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel,io.netty.channel.ChannelPromise)
+262 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.newOptionArray(int)
+263 / 457 - Calculating statistical tests for io.netty.channel.ThreadPerChannelEventLoop.register(io.netty.channel.Channel,io.netty.channel.ChannelPromise)
+264 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.close(io.netty.channel.ChannelPromise)
+265 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioServerSocketChannel.config()
+266 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.shutdownOutput()
+267 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioChannel.newUnsafe()
+268 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel.isCompatible(io.netty.channel.EventLoop)
+269 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.isOpen()
+270 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+271 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler$LazyChannelPromise(io.netty.handler.ssl.SslHandler,io.netty.handler.ssl.SslHandler.LazyChannelPromise)
+272 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioServerSocketChannel.newSocket()
+273 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$3.newInstance()
+274 / 457 - Calculating statistical tests for io.netty.channel.ThreadPerChannelEventLoop(io.netty.channel.ThreadPerChannelEventLoopGroup)
+275 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioServerSocketChannel()
+276 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel(io.netty.channel.Channel,java.nio.channels.SocketChannel)
+277 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel.unsafe()
+278 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.isActive()
+279 / 457 - Calculating statistical tests for io.netty.channel.ChannelHandlerAdapter.handlerAdded(io.netty.channel.ChannelHandlerContext)
+280 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.isRegistered()
+281 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.leaveGroup(java.net.InetSocketAddress,java.net.NetworkInterface,io.netty.channel.ChannelPromise)
+282 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioServerSocketChannel.localAddress0()
+283 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelConfig.setRecvByteBufAllocator(io.netty.channel.RecvByteBufAllocator)
+284 / 457 - Calculating statistical tests for io.netty.channel.socket.DatagramPacket(io.netty.buffer.ByteBuf,java.net.InetSocketAddress)
+285 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server.shutdown()
+286 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBufAllocator.heapBuffer(int)
+287 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.voidPromise()
+288 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$2.newInstance()
+289 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.newSocket(io.netty.channel.socket.InternetProtocolFamily)
+290 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest$TestHandler()
+291 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler(javax.net.ssl.SSLEngine,boolean)
+292 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.AbstractServerSocketTest.run()
+293 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithVoidPromise(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+294 / 457 - Calculating statistical tests for io.netty.channel.group.DefaultChannelGroup$1(io.netty.channel.group.DefaultChannelGroup)
+295 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioChannel$1(io.netty.channel.oio.AbstractOioChannel)
+296 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.javaChannel()
+297 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputBySelfTest.testShutdownOutput()
+298 / 457 - Calculating statistical tests for io.netty.channel.socket.InternetProtocolFamily.values()
+299 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.AbstractDatagramTest.run()
+300 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel.javaChannel()
+301 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object)
+302 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.checkIndex(int,int)
+303 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$4.getValue()
+304 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writerIndex()
+305 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$2$1.newChannel()
+306 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Client(java.lang.String,int)
+307 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioServerSocketChannel.localAddress0()
+308 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusTrustManagerFactory$1()
+309 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultServerSocketChannelConfig(io.netty.channel.socket.ServerSocketChannel,java.net.ServerSocket)
+310 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+311 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioMessageChannel$NioMessageUnsafe(io.netty.channel.nio.AbstractNioMessageChannel,io.netty.channel.nio.AbstractNioMessageChannel.NioMessageUnsafe)
+312 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel$AbstractUnsafe$1(io.netty.channel.AbstractChannel.AbstractUnsafe,io.netty.channel.ChannelPromise)
+313 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithVoidPromise()
+314 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioMessageChannel.newUnsafe()
+315 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioChannel.isCompatible(io.netty.channel.EventLoop)
+316 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease()
+317 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf.setArray(byte[])
+318 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.setSuccess(java.lang.Void)
+319 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise()
+320 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel(java.net.MulticastSocket)
+321 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler()
+322 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$1(io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest,io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.EchoHandler)
+323 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledByteBufAllocator(boolean)
+324 / 457 - Calculating statistical tests for io.netty.buffer.EmptyByteBuf(io.netty.buffer.ByteBufAllocator)
+325 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout()
+326 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel(java.nio.channels.DatagramChannel)
+327 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.isInputShutdown()
+328 / 457 - Calculating statistical tests for io.netty.channel.ThreadPerChannelEventLoopGroup.newChild(java.lang.Object[])
+329 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel.shutdownOutput(io.netty.channel.ChannelPromise)
+330 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.addLast(io.netty.channel.ChannelHandler[])
+331 / 457 - Calculating statistical tests for io.netty.channel.group.DefaultChannelGroup.iterator()
+332 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.validate()
+333 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.context(java.lang.Class)
+334 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.executor()
+335 / 457 - Calculating statistical tests for io.netty.channel.SucceededChannelFuture(io.netty.channel.Channel,io.netty.util.concurrent.EventExecutor)
+336 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe(io.netty.channel.nio.AbstractNioChannel)
+337 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.addLast(io.netty.util.concurrent.EventExecutorGroup,io.netty.channel.ChannelHandler[])
+338 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.localAddress(int)
+339 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$1.getKey()
+340 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.writeAndFlush(java.lang.Object)
+341 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+342 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.copy()
+343 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.slice(int,int)
+344 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestClientHandler(io.netty.buffer.ByteBuf)
+345 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.close()
+346 / 457 - Calculating statistical tests for io.netty.testsuite.util.TestUtils.getFreePort()
+347 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSend()
+348 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler$LazyChannelPromise.executor()
+349 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler$LazyChannelPromise(io.netty.handler.ssl.SslHandler)
+350 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioByteChannel(io.netty.channel.Channel,java.nio.channels.SelectableChannel)
+351 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap.remoteAddress(java.net.SocketAddress)
+352 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelConfig.setOptions(java.util.Map)
+353 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest$TestHandler(io.netty.testsuite.transport.socket.SocketShutdownOutputByPeerTest.TestHandler)
+354 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioChannel(io.netty.channel.Channel)
+355 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap$2(io.netty.channel.ChannelFuture,java.net.SocketAddress,io.netty.channel.Channel,java.net.SocketAddress,io.netty.channel.ChannelPromise)
+356 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSend(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap)
+357 / 457 - Calculating statistical tests for io.netty.buffer.SlicedByteBuf.capacity()
+358 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext.executor()
+359 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+360 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.group(io.netty.channel.EventLoopGroup)
+361 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketShutdownOutputBySelfTest$TestHandler()
+362 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writeShort(int)
+363 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.validate()
+364 / 457 - Calculating statistical tests for io.netty.channel.DefaultAddressedEnvelope(java.lang.Object,java.net.SocketAddress,java.net.SocketAddress)
+365 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+366 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledByteBufAllocator.newHeapBuffer(int,int)
+367 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.setIndex(int,int)
+368 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBufAllocator.directBuffer(int,int)
+369 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.maxCapacity()
+370 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.DefaultOioSocketChannelConfig(io.netty.channel.socket.SocketChannel,java.net.Socket)
+371 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.writeInt(int)
+372 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.init(io.netty.channel.Channel)
+373 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf(io.netty.buffer.ByteBufAllocator,byte[],int)
+374 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation.access$2()
+375 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean)
+376 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+377 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannelConfig(io.netty.channel.socket.nio.NioDatagramChannel,java.nio.channels.DatagramChannel)
+378 / 457 - Calculating statistical tests for io.netty.channel.MultithreadEventLoopGroup.next()
+379 / 457 - Calculating statistical tests for io.netty.channel.group.DefaultChannelGroup.isEmpty()
+380 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusSslContextFactory.getClientContext()
+381 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramUnicastTest$2(io.netty.testsuite.transport.socket.DatagramUnicastTest)
+382 / 457 - Calculating statistical tests for io.netty.testsuite.util.TestUtils.isSctpSupported()
+383 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSpdyEchoTest$1(io.netty.testsuite.transport.socket.SocketSpdyEchoTest,io.netty.testsuite.transport.socket.SocketSpdyEchoTest.SpdyEchoTestServerHandler)
+384 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf.capacity()
+385 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBufAllocator(boolean)
+386 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel(io.netty.channel.socket.InternetProtocolFamily)
+387 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultSocketChannelConfig(io.netty.channel.socket.SocketChannel,java.net.Socket)
+388 / 457 - Calculating statistical tests for io.netty.buffer.AbstractReferenceCountedByteBuf.refCnt()
+389 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioSocketChannel()
+390 / 457 - Calculating statistical tests for io.netty.channel.oio.OioByteStreamChannel$2()
+391 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelHandlerContext(io.netty.channel.DefaultChannelPipeline,io.netty.util.concurrent.EventExecutorGroup,java.lang.String,io.netty.channel.ChannelHandler)
+392 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise(io.netty.channel.Channel,io.netty.util.concurrent.EventExecutor)
+393 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBufAllocator.buffer(int,int)
+394 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext)
+395 / 457 - Calculating statistical tests for io.netty.channel.oio.OioByteStreamChannel(io.netty.channel.Channel)
+396 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.addLast(io.netty.util.concurrent.EventExecutorGroup,java.lang.String,io.netty.channel.ChannelHandler)
+397 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsClientHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine)
+398 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler.handshakeFuture()
+399 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server.waitForRunning(boolean)
+400 / 457 - Calculating statistical tests for io.netty.channel.CompleteChannelFuture(io.netty.channel.Channel,io.netty.util.concurrent.EventExecutor)
+401 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.close()
+402 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.DatagramMulticastTest$MulticastTestHandler()
+403 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.callHandlerAdded(io.netty.channel.ChannelHandlerContext)
+404 / 457 - Calculating statistical tests for io.netty.channel.AbstractChannel.access$3(io.netty.channel.AbstractChannel,io.netty.channel.EventLoop)
+405 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.isOpen()
+406 / 457 - Calculating statistical tests for io.netty.channel.SimpleChannelInboundHandler()
+407 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPromise.checkDeadLock()
+408 / 457 - Calculating statistical tests for io.netty.channel.socket.InternetProtocolFamily(java.lang.String,int)
+409 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTls(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+410 / 457 - Calculating statistical tests for io.netty.testsuite.util.BogusTrustManagerFactory.getTrustManagers()
+411 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler(javax.net.ssl.SSLEngine)
+412 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioServerSocketChannel.localAddress()
+413 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf._setInt(int,int)
+414 / 457 - Calculating statistical tests for io.netty.channel.ThreadPerChannelEventLoopGroup.nextChild()
+415 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelPipeline.close()
+416 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoWithChunkHandler()
+417 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.ensureBound()
+418 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.childOption(io.netty.channel.ChannelOption,java.lang.Object)
+419 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioChannel$DefaultOioUnsafe(io.netty.channel.oio.AbstractOioChannel)
+420 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelConfig(io.netty.channel.Channel)
+421 / 457 - Calculating statistical tests for io.netty.channel.nio.AbstractNioChannel.javaChannel()
+422 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioByteChannel(io.netty.channel.Channel)
+423 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.WriteBeforeRegisteredTest.testWriteBeforeConnect(io.netty.bootstrap.Bootstrap)
+424 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStringEchoTest$StringEchoHandler()
+425 / 457 - Calculating statistical tests for io.netty.bootstrap.AbstractBootstrap.attrs()
+426 / 457 - Calculating statistical tests for io.netty.testsuite.util.TestUtils.nextCandidatePort()
+427 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketConnectionAttemptTest$TestHandler()
+428 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf.ensureWritable(int)
+429 / 457 - Calculating statistical tests for io.netty.bootstrap.ServerBootstrap.childHandler(io.netty.channel.ChannelHandler)
+430 / 457 - Calculating statistical tests for io.netty.channel.VoidChannelPromise.isDone()
+431 / 457 - Calculating statistical tests for io.netty.channel.oio.AbstractOioByteChannel.isInputShutdown()
+432 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelConfig.setConnectTimeoutMillis(int)
+433 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap$1(io.netty.bootstrap.Bootstrap,io.netty.channel.ChannelFuture,io.netty.channel.Channel,java.net.SocketAddress,java.net.SocketAddress,io.netty.channel.ChannelPromise)
+434 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioSocketChannel()
+435 / 457 - Calculating statistical tests for io.netty.channel.nio.NioEventLoop.wakeup(boolean)
+436 / 457 - Calculating statistical tests for io.netty.channel.DefaultChannelConfig.validate(io.netty.channel.ChannelOption,java.lang.Object)
+437 / 457 - Calculating statistical tests for io.netty.channel.socket.nio.NioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface)
+438 / 457 - Calculating statistical tests for io.netty.channel.AdaptiveRecvByteBufAllocator.getSizeTableIndex(int)
+439 / 457 - Calculating statistical tests for io.netty.handler.ssl.SslHandler.access$0(io.netty.handler.ssl.SslHandler)
+440 / 457 - Calculating statistical tests for io.netty.buffer.UnpooledHeapByteBuf._setMedium(int,int)
+441 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation.access$3()
+442 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.AbstractClientSocketTest.run()
+443 / 457 - Calculating statistical tests for io.netty.testsuite.transport.udt.UDTClientServerConnectionTest$Server.waitForShutdown()
+444 / 457 - Calculating statistical tests for io.netty.channel.socket.oio.OioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface)
+445 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.EchoHandler)
+446 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketStartTlsTest$2(io.netty.testsuite.transport.socket.SocketStartTlsTest,io.netty.util.concurrent.EventExecutorGroup,io.netty.testsuite.transport.socket.SocketStartTlsTest.StartTlsClientHandler)
+447 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
+448 / 457 - Calculating statistical tests for io.netty.channel.oio.OioByteStreamChannel$1()
+449 / 457 - Calculating statistical tests for io.netty.channel.socket.DefaultDatagramChannelConfig.setRecvByteBufAllocator(io.netty.channel.RecvByteBufAllocator)
+450 / 457 - Calculating statistical tests for io.netty.bootstrap.Bootstrap()
+451 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketConnectionAttemptTest$TestHandler(io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.TestHandler)
+452 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBufAllocator.heapBuffer(int,int)
+453 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionVoidPromise(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+454 / 457 - Calculating statistical tests for io.netty.channel.DefaultFileRegion(java.nio.channels.FileChannel,long,long)
+455 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.WriteBeforeRegisteredTest.testWriteBeforeConnect()
+456 / 457 - Calculating statistical tests for io.netty.buffer.AbstractByteBuf(int)
+457 / 457 - Calculating statistical tests for io.netty.testsuite.transport.socket.SocketTestPermutation$5.newInstance()
+Saving >> # Methods executed in both releases
+Saving >> # Methods executed in the first release, but not in the second
+Saving >> # Methods executed in the second release, but not in the first
+Saving >> # Degradated methods (Rate method)
+Saving >> # Optimized methods (Rate method)
+Saving >> # Unchanged methods (Rate method)
+Saving >> # Degradated methods (TTest P-Value)
+Saving >> # Optimized methods (TTest P-Value)
+Saving >> # Unchanged methods (TTest P-Value)
+Saving >> # Degradated methods (UTest P-Value)
+Saving >> # Optimized methods (UTest P-Value)
+Saving >> # Unchanged methods (UTest P-Value)
+-------------------------------------------------------------------
+Getting failed scenarios for release 1...
+	Total = 20
+Getting failed scenarios for release 2...
+	Total = 20
+Building map for scenario 227, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 1/20, 1 seconds
+Building map for scenario 223, Entry point for SctpEchoTest.testSimpleEcho, 2/20, 0 seconds
+Building map for scenario 195, Entry point for SctpEchoTest.testSimpleEcho, 3/20, 0 seconds
+Building map for scenario 166, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 4/20, 0 seconds
+Building map for scenario 144, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 5/20, 0 seconds
+Building map for scenario 111, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 6/20, 0 seconds
+Building map for scenario 125, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 7/20, 0 seconds
+Building map for scenario 124, Entry point for SctpEchoTest.testSimpleEcho, 8/20, 0 seconds
+Building map for scenario 100, Entry point for SctpEchoTest.testSimpleEcho, 9/20, 0 seconds
+Building map for scenario 87, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 10/20, 0 seconds
+Building map for scenario 51, Entry point for SctpEchoTest.testSimpleEcho, 11/20, 0 seconds
+Building map for scenario 168, Entry point for SctpEchoTest.testSimpleEcho, 12/20, 0 seconds
+Building map for scenario 65, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 13/20, 0 seconds
+Building map for scenario 75, Entry point for SctpEchoTest.testSimpleEcho, 14/20, 0 seconds
+Building map for scenario 26, Entry point for SctpEchoTest.testSimpleEcho, 15/20, 0 seconds
+Building map for scenario 19, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 16/20, 0 seconds
+Building map for scenario 23, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 17/20, 0 seconds
+Building map for scenario 12, Entry point for SctpEchoTest.testSimpleEcho, 18/20, 0 seconds
+Building map for scenario 207, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 19/20, 0 seconds
+Building map for scenario 159, Entry point for SctpEchoTest.testSimpleEcho, 20/20, 0 seconds
+Saving >> # Release 1 failed scenarios
+Building map for scenario 239, Entry point for SctpEchoTest.testSimpleEcho, 1/20, 1 seconds
+Building map for scenario 236, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 2/20, 0 seconds
+Building map for scenario 195, Entry point for SctpEchoTest.testSimpleEcho, 3/20, 0 seconds
+Building map for scenario 178, Entry point for SctpEchoTest.testSimpleEcho, 4/20, 0 seconds
+Building map for scenario 201, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 5/20, 0 seconds
+Building map for scenario 126, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 6/20, 0 seconds
+Building map for scenario 174, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 7/20, 0 seconds
+Building map for scenario 112, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 8/20, 0 seconds
+Building map for scenario 87, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 9/20, 0 seconds
+Building map for scenario 83, Entry point for SctpEchoTest.testSimpleEcho, 10/20, 0 seconds
+Building map for scenario 160, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 11/20, 0 seconds
+Building map for scenario 107, Entry point for SctpEchoTest.testSimpleEcho, 12/20, 0 seconds
+Building map for scenario 44, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 13/20, 0 seconds
+Building map for scenario 60, Entry point for SctpEchoTest.testSimpleEcho, 14/20, 0 seconds
+Building map for scenario 51, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 15/20, 0 seconds
+Building map for scenario 156, Entry point for SctpEchoTest.testSimpleEcho, 16/20, 0 seconds
+Building map for scenario 129, Entry point for SctpEchoTest.testSimpleEcho, 17/20, 0 seconds
+Building map for scenario 16, Entry point for SocketConnectionAttemptTest.testConnectCancellation, 18/20, 0 seconds
+Building map for scenario 4, Entry point for SctpEchoTest.testSimpleEcho, 19/20, 0 seconds
+Building map for scenario 48, Entry point for SctpEchoTest.testSimpleEcho, 20/20, 0 seconds
+Saving >> # Release 2 failed scenarios
+Getting failed methods for release 1...
+	Total = 0
+Getting failed methods for release 1...
+	Total = 0
+Getting failed methods for both releases...
+	Total = 2
+Saving >> # Methods that have failed only in release 1
+Saving >> # Methods that have failed only in release 2
+Saving >> # Methods that have failed only in both releases
+Loading >> # Methods executed in the first release, but not in the second
+	Total = 13
+Getting updated methods from repository to removed_methods [13, # Methods executed in the first release, but not in the second]
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Starting release mining, open connection now...
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (1/13):handler/src/main/java/io/netty/handler/ssl/SslHandler.java
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+365 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 2b3ac3d446c9cc9a0f080fd4aabb9bbe3906d212 in C:/Users/Felipe/git/netty/handler/src/main/java/io/netty/handler/sslSslHandler.java
+396 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Factor out the PendingWrite class and put it in internal package. Make use of it in SslHandler and ChunkedWriteHandler to reduce GC-pressure
+
+
+446 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to fa4e15e198911b8b5666a8062b0a5ac41b1aafa5 in C:/Users/Felipe/git/netty/handler/src/main/java/io/netty/handler/sslSslHandler.java
+466 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Make PendingWrites recyclable to reduce GC pressure
+
+
+471 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 67919841467360415308ceb64e0b6d88ed5168bc in C:/Users/Felipe/git/netty/handler/src/main/java/io/netty/handler/sslSslHandler.java
+501 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1608] In log message: Remove unnecessary code from SslHandler
+
+- Remove CloseNotifyListener which was used only to reduce the noisy logging.
+- Instead, simply do a string match.
+- Fixes #1608
+
+
+1491 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (2/13):transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+1491 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+1522 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to bcef796dc7cfa340ff1c26231ffbdf5eef397192 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java
+1542 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Rewrite ChannelOutboundBuffer
+
+- Merge MessageList into ChannelOutboundBuffer
+- Make ChannelOutboundBuffer a queue-like data structure so that it is nearly impossible to leak a message
+- Make ChannelOutboundBuffer public so that AbstractChannel can expose it to its subclasses.
+- TODO: Re-enable gathering write in NioSocketChannel
+
+
+1562 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to c79a3cdefe4ced7f7effc94a6862a0d1d5af0dae in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java
+1582 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1679] In log message: Fix a bug in NioSocketChannel.doWrite() where flush() triggered from a ChannelFutureListener is ignored
+
+- Fixes #1679
+
+
+2057 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 46ea0d4e7b8380cfc8c3f5508ac2a3896262e08e in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/socket/nioNioSocketChannel.java
+2092 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Implement gathering writes in NioSocketChannel
+
+- Add some support methods in ChannelOutputBuffer
+
+
+2097 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (3/13):transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+2097 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+2097 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (4/13):handler/src/main/java/io/netty/handler/ssl/SslHandler.java
+2097 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+2097 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (5/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+2097 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+2152 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to d5e202d7554f79a7a7d670e371486d66a9f75c9d in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+2182 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Better promise validation messages
+
+
+2187 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to e81368af0632b28a7ba54be49142e2b5bf78d14b in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+2212 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Simplify handler invocations in DefaultChannelHandlerContext
+
+- Sometimes we delegated executor.inEventLoop() to the next context and sometimes we did not.  Now we always check inEventLoop() before delegating.
+
+
+2217 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 81de2275e482c8954c85e67be0d2799b53ba6e6e in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+2237 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Remove unnecessary traversal of pipeline which occurs when a Channel is closed
+
+- Remove unnecessary ascending traversal of pipeline in DefaultChannelHandlerContext.freeInbound()
+- Move DefaultChannelHandlerContext.teardownAll() to DefaultChannelPipeline
+
+
+2242 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to a06295fe0ad72358f980d09feb8c971613793527 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+2262 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1664] In log message: Correctly fix problem in ByteToMessageDecoder and ReplayingDecoder which could let to have a released buffer passed to the decode methods.
+
+This fixes #1664 and revert also the original commit which was meant to fix it 3b1881b523e61496d9bc50e44927f7b58fa449e6 . The problem with the original commit was that it could delay handlerRemove(..) calls and so mess up the order or forward bytes to late.
+
+
+2907 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to d4aa5b53d6410d543834f3d54841bd5eaf95dbee in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+2933 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Simplify the validation logic proposed in 25f96b164498988439c38baf6ff4c57763464824
+
+
+2933 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 25f96b164498988439c38baf6ff4c57763464824 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+2953 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1606] In log message: [#1606] Reduce overhead during writes because of ChannelPromise validation
+
+
+3448 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 3b1881b523e61496d9bc50e44927f7b58fa449e6 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelDefaultChannelHandlerContext.java
+3523 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1664] In log message: Make sure ChannelHandler.handlerRemoved() is invoked while handler methods are not running
+
+- Fixes #1664
+
+
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (6/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (7/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (8/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (9/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (10/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (11/13):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+4023 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+4084 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 19c92ceb59b8f2c77511b49cb3e0e9f70c50a711 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4109 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Separate 'progress total' and 'pending number of bytes'
+
+- Reverted the recent changes in AbstractChannel.calculateMessageSize()
+
+
+4109 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 8178322c5cc81a4f496a5a493a7adf27d7e31540 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4129 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: A little bit of Javadoc for ChannelOutboundBuffer
+
+
+4129 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 4cd7e625556f86eb25a4a4cfae20ed0d34aaf5ed in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4154 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Make ChannelOutboundBuffer recycled
+
+
+4154 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to a89b17fa944504a00107d40ecf6043de197f34df in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4174 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Merge ChannelOutboundBuffer.failUnflushed() and recycle() into a single method and make sure it is run later on reentrance
+
+- Previously, failUnflushed() did not run when inFail is true, which made unflushed writes are not released on reentrance.   This has been fixed by this commit.
+- Also, AbstractUnsafe.outboundBuffer is set to null as early as possible to remove the chance of any write attempts made after the closure.
+
+
+4174 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to a8d67b02825d6fbb1d145c7aaee8382f5f648035 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4199 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Fix data structure corruption and resource leak in ChannelOutboundBuffer
+
+
+4199 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 6c9c151d662b7b8ca036e86d932bba4e1c4c6729 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4219 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: minor documentation cleanup
+
+
+4224 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 7f86550ef83316352d0d52c0f31836c7b3fb1506 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4244 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1619] In log message: [#1619] Fix bug in ChannelOutboundBuffer which could lead to invalid write order when fireChannelWritabilityChanged() write another message
+
+
+4749 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 7903697c36bbd79e729695e3ca35e24f7674a5bb in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4784 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Remove Arrays.fill(..., null)
+
+.. because we can just set each element to null while looping
+
+
+4794 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 0f6cc0cc7bcc546c124ed875d197f0333bca2da9 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+4824 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1630] In log message: [#1630] Fix re-entrance bug in ChannelOutboundBuffer.remove(...)
+
+
+5374 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 5e4169802f407114aa18d1b4265bf5231673b20b in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+5430 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Fix potential reentrance issue in ChannelOutboundBuffer
+
+
+5445 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to e28594952b7e9e0c7eeced17142484ceb0d5d84b in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+5465 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1601] In log message: Make the cleanup logic in ChannelOutboundBuffer more robust
+
+- Fixes #1601
+
+
+6025 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 568166d55454a079e558c66c35c867ac5ff7fcd7 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelChannelOutboundBuffer.java
+6060 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Cleanup
+
+
+6060 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (12/13):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+6060 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+6060 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (13/13):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+6060 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+6060 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Finishing mining, close connection now...
+Saving >> # Methods executed in the first release, but not in the second (after mining phase)
+Saving >> # Methods executed in the first release, but not in the second (before mining phase)
+Loading >> # Methods executed in the second release, but not in the first
+	Total = 11
+Getting updated methods from repository to added_methods [11, # Methods executed in the second release, but not in the first]
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Starting release mining, open connection now...
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (1/11):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (2/11):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (3/11):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (4/11):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (5/11):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (6/11):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (7/11):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (8/11):transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (9/11):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (10/11):transport/src/main/java/io/netty/channel/ChannelOutboundBuffer.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (11/11):transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+7000 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Finishing mining, close connection now...
+Saving >> # Methods executed in the second release, but not in the first (after mining phase)
+Saving >> # Methods executed in the second release, but not in the first (before mining phase)
+Loading >> # Degradated methods (UTest P-Value)
+	Total = 4
+Getting updated methods from repository to pu_degraded_methods [4, # Degradated methods (UTest P-Value)]
+7154 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Starting release mining, open connection now...
+7154 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (1/4):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStringEchoTest.java
+7154 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+7199 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (2/4):transport/src/main/java/io/netty/channel/AbstractChannel.java
+7199 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+7239 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 81612f8e9bc02bdb1bac6f1d6bd4d221668bb559 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+7259 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1624] In log message: [#1624] Fix resource leak when writing to a closed / not-open channel
+
+
+7739 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to cc9b9567b990ad3fa6cdf0bf42b7dd04fd0cb108 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+7809 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Make sure all write attempts made after a channel is closed are marked as failure
+
+
+7819 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 8828d5327a6a7ddb71dcd0a66ca5f262b1a26e60 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+7849 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Move inFlush0 and outboundBuffer in AbstractChannel to AbstractUnsafe
+
+.. because they are accessed by AbstractUnsafe much more often.
+
+
+7874 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 3922c518cdbeb0d8091ce06698e569bc37b54acf in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+7894 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Clean up AbstractUnsafe#bind and AbstractUnsafe#disconnect.
+
+
+7894 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to cffbba94ee476b87a3932d2d5a975e55714657f9 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+7919 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1654] In log message: [#1654] Remove AbstractChannel.doPreClose() and notify close future on register failure. Based on patch of @jpinner
+
+
+8464 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to bf2430d255956ff32307aea3a5e725ee2be16dc2 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+8535 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Change AbstractChannel#doRegister return type from Runnable to void.
+
+
+8555 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 9c8d980a74d7cf786aabaa233c692e247767aaac in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+8590 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1600] In log message: Fix a bug where a ChannelFutureListener can allow Unsafe.close() and Unsafe.flush() to overlap and reenter from flush() to close().
+
+ - Fixes #1600
+
+
+9060 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 15279b2525f694d1789ce06d74cf2d55a9a64e01 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9105 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1654] In log message: [#1654] Notify close future after the close was complete
+
+
+9650 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 241f856cc721dbf786321a94c987c5026eea5412 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9698 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: remove AbstractChannel#doPreClose
+
+
+9698 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to fef838f197ca42189f9760c4927993abd9055c01 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9718 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Make sure channelInactive() and channelDeregistered() are triggered even if outboundBuffer.recycle() fails
+
+
+9723 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 5f363e8adeef9ddd118e6906e2848ce0a0b049c7 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9743 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Revert "remove AbstractChannel#doPreClose"
+
+This reverts commit 241f856cc721dbf786321a94c987c5026eea5412.
+
+
+9743 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to ca59c1201e2ee2abe0c1548b371dcd056cbe2b56 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9763 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Change AbstractChannel#doDeregister return type from Runnable to void.
+
+
+9763 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to ada07cb9e0700dff4ecdc3d20afc46ea46f1bc38 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9788 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Fix types in javadocs
+
+
+9788 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 5e5df6bd09b30b11deb2d8ee7b12b949636cbdb2 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9808 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Fix NPE
+
+
+9808 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to faf8b76b5a5487b0308ebe021f45461881b2c568 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channelAbstractChannel.java
+9828 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1609] In log message: Fix a potential bug where AbstractUnsafe.flush0() fails to clear the inFlush0 flag
+
+- Fixes #1609
+
+
+10323 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (3/4):transport/src/main/java/io/netty/channel/nio/AbstractNioMessageChannel.java
+10323 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+10373 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to dcf78961724abf97fea9e768cca02ba65146b324 in C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/nioAbstractNioMessageChannel.java
+10393 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 1578] In log message: Do not close ServerChannel on IOException while accepting an incoming connection
+
+.. so that we can recover from 'too many open files'
+
+- Fixes #1578
+
+
+10908 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (4/4):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.java
+10908 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+10959 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Finishing mining, close connection now...
+Saving >> # Degradated methods (UTest P-Value) (after mining phase)
+Saving >> # Degradated methods (UTest P-Value) (before mining phase)
+Loading >> # Optimized methods (UTest P-Value)
+	Total = 1
+Getting updated methods from repository to pu_optimized_methods [1, # Optimized methods (UTest P-Value)]
+11069 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Starting release mining, open connection now...
+11069 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (1/1):testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketShutdownOutputByPeerTest.java
+11069 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [c5d8af446a39db10a1744d47e5a466fa1c87a374, 3f70d5caa4bf0201ff1861e8dcb111a537a4a64c]
+11104 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Finishing mining, close connection now...
+Saving >> # Optimized methods (UTest P-Value) (after mining phase)
+Saving >> # Optimized methods (UTest P-Value) (before mining phase)
+Getting methods and means for release 1...
+	Total = 470
+Getting methods and means for release 2...
+	Total = 470
+Saving >> # Issues potentially blamed for performance degradation (degraded + added)
+Saving >> # Methods potentially blamed for performance degradation
+[1/2] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+[2/2] Retrieving impacted members and scenarios by io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+Saving >> # Issues potentially blamed for performance optimization (removed + optimized)
+Saving >> # Methods potentially blamed for performance optimization
+[1/4] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.invokeFlush()
+[2/4] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.invokeClose(io.netty.channel.ChannelPromise)
+[3/4] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.invokeWrite(java.lang.Object,io.netty.channel.ChannelPromise)
+[4/4] Retrieving impacted members and scenarios by io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelFuture,boolean)
+Loading >> # Degradated scenarios (UTest P-Value)
+	Total = 2
+Processing >> # Methods potentially blamed for performance degradation
+Loading >> # Optimized scenarios (UTest P-Value)
+	Total = 1
+Processing >> # Methods potentially blamed for performance optimization
+Saving >> # Methods blamed for performance degradation in each of the degraded scenarios
+Counting io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel) in R1 for Entry point for SocketSslEchoTest.testSslEcho
+	Total = 0
+Counting io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel) in R2 for Entry point for SocketSslEchoTest.testSslEcho
+	Total = 60
+Counting io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean) in R1 for Entry point for SocketSslEchoTest.testSslEcho
+	Total = 0
+Counting io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean) in R2 for Entry point for SocketSslEchoTest.testSslEcho
+	Total = 1055
+Saving >> # Methods blamed for performance optimization in each of the optimized scenarios
+Saving >> # Statistical for degraded classes and packages
+Saving >> # Statistical for optimized classes and packages
