@@ -376,9 +376,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 			Collection<String> full_signatures = new ArrayList<String>();
 			
 			String file_message = AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath(filename));
-			if (filename.startsWith("degraded_methods"))
+			if (filename.endsWith("degraded_methods"))
 				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("added_methods"));
-			else if (filename.startsWith("optimized_methods"))
+			else if (filename.endsWith("optimized_methods"))
 				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("removed_methods"));
 			
 			for (String signature : full_signatures) {
@@ -483,6 +483,14 @@ public final class AnalyzerMinerRepositoryRunnable {
 								
 								if (current_stored == null)
 									map_of_p_degradation_methods.put(prefix, current_sig_to_upm);
+								else
+									current_stored.putAll(current_sig_to_upm);
+							}
+							else if (filename.equals(prefix + "optimized_methods")) {
+								Map<String, Collection<UpdatedMethod>> current_stored = map_of_p_optimization_methods.get(prefix);
+								
+								if (current_stored == null)
+									map_of_p_optimization_methods.put(prefix, current_sig_to_upm);
 								else
 									current_stored.putAll(current_sig_to_upm);
 							}

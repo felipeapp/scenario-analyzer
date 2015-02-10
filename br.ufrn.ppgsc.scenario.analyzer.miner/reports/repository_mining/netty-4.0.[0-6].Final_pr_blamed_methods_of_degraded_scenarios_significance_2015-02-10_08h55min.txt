@@ -1,0 +1,18 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+1
+Entry point for SocketSslEchoTest.testSslEcho
+2
+io.netty.channel.ChannelHandlerAdapter.isSharable();0.1618150684931507;0.21818181818181817;0.05636674968866748;60;60
+io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel);null;0.23217391304347826;0.23217391304347826;0;60
+2
+0;No issue (0)
+1650;none yet
+2
+none yet;1
+No issue (0);1
+2
+none yet;1650
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): 4cd7e625556f86eb25a4a4cfae20ed0d34aaf5ed(0)
+Revision (Issues): fabefba79185ce7ec143d911ae86f5ab8bb08845(1650)
