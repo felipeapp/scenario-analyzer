@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.JiraRestClientFactory;
@@ -22,18 +23,28 @@ import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientF
 public class JiraQueryIssue implements IQueryIssue {
 	
 	private String jira_system;
+	private String jira_url;
 	
-	public JiraQueryIssue(String jira_system) {
-		
+	public JiraQueryIssue() {
+		jira_system = SystemMetadataUtil.getInstance().getStringProperty("jira_system");
+		jira_url = SystemMetadataUtil.getInstance().getStringProperty("jira_url");
 	}
-	
+
+	public String getJiraSystem() {
+		return jira_system;
+	}
+
+	public String getJiraURL() {
+		return jira_url;
+	}
+
 	public br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue getIssueByNumber(long taskNumber) {
 		JiraRestClientFactory restClientFactory = new AsynchronousJiraRestClientFactory();
 		
 		URI jiraServerUri = null;
 		
 		try {
-			jiraServerUri = new URI("https://issues.apache.org/jira");
+			jiraServerUri = new URI(jira_url);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -99,8 +110,6 @@ public class JiraQueryIssue implements IQueryIssue {
 	
 	public static void main(String[] args) {
 		
-		String system_prefix = "Wicket";
-		
 		String[] logs = {
 			"WICKet-6",
 			"asdas as d WICKET-5801 asd asd as a",
@@ -115,19 +124,19 @@ public class JiraQueryIssue implements IQueryIssue {
 			"WICKET-105809"
 		};
 		
-		JiraQueryIssue miner = new JiraQueryIssue(system_prefix);
+		JiraQueryIssue miner = new JiraQueryIssue();
 		
 		for (String log : logs) {
 			System.out.println("Mining log: " + log);
 			Collection<Long> numbers = miner.getIssueNumbersFromMessageLog(log);
 			
 			for (long num : numbers) {
-				System.out.println("\tGetting issue " + system_prefix + "-" + num);
+				System.out.println("\tGetting issue " + miner.getJiraSystem() + "-" + num);
 				
 				br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue issue = miner.getIssueByNumber(num);
 				
 				System.out.println("\t\t" + issue.getIssueType());
-				System.out.println("\t\t" + system_prefix + "-" + issue.getNumber());
+				System.out.println("\t\t" + miner.getJiraSystem() + "-" + issue.getNumber());
 				System.out.println("\t\t" + issue.getIssueId());
 			}
 		}

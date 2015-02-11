@@ -1,0 +1,26 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+1
+Entry point for AjaxTest.test_1
+2
+org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;90;30
+org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+4
+0;No issue (0)
+5539;Bug
+5643;Bug
+5669;Improvement
+3
+Improvement;1
+Bug;2
+No issue (0);1
+3
+Improvement;5669
+Bug;5539;5643
+No issue (0);0
+Number of revisions (commits): 6
+Revision (Issues): 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130(5539)
+Revision (Issues): 76433a76288cf3ac336676c81c400a556f6dc5a3(5669)
+Revision (Issues): bb9c1044e5f1ba8902aa69073ef9fb236802d277(0)
+Revision (Issues): e8773fb18da2d763d62a2857335b3c73d491d064(5539)
+Revision (Issues): f3f065c267338f17b64a6b1cd0d72fb349118d68(0)
+Revision (Issues): dc635f936ea6050d3327659a047e30fa386da853(5643)
