@@ -115,7 +115,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	// TODO: How can I move this to report util?
 	private void saveScenariosAndBlames(String message, String filename, Map<String, List<String>> scenario_to_blames,
 			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2,
-			Map<String, Collection<UpdatedMethod>> p_degraded_methods) throws FileNotFoundException {
+			Map<String, Collection<UpdatedMethod>> pmap_signature_to_upmethod) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
 		
@@ -194,7 +194,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				sb.append("\t" + s + System.lineSeparator());
 				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + System.lineSeparator());
 				
-				for (UpdatedMethod um : p_degraded_methods.get(s)) {
+				for (UpdatedMethod um : pmap_signature_to_upmethod.get(s)) {
 					for (UpdatedLine ul : um.getUpdatedLines()) {
 						Set<Issue> issues_from_map = local_revision_to_issues.get(ul.getRevision());
 						
@@ -229,17 +229,20 @@ public final class AnalyzerMinerRepositoryRunnable {
 				//members_with_time.add(text);
 				//number_to_issue.putAll(local_number_to_issue);
 				
+				int count1 = -1;
+				int count2 = -1;
+				
 				if (!counted.contains(s)) {
 					counted.add(s);
 					++total_members;
 					
 					if (!matchesExcludeWord(s) && delta >= avg_significance_delta) {
-						System.out.println("Counting " + s + " in R1 for " + scenario);
-						int count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, s);
+						System.out.println("Scenarios and blames: Counting " + s + " in R1 for " + scenario);
+						count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, s);
 						System.out.println("\tTotal = " + count1);
 						
-						System.out.println("Counting " + s + " in R2 for " + scenario);
-						int count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, s);
+						System.out.println("Scenarios and blames: Counting " + s + " in R2 for " + scenario);
+						count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, s);
 						System.out.println("\tTotal = " + count2);
 						
 						String aux = s + ";" + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2;
@@ -249,14 +252,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 						members_signature.add(aux);
 						number_to_issue.putAll(local_number_to_issue);
 						revision_to_issues.putAll(local_revision_to_issues);
-						
-						// If it is significant inside the scenario we save in another file
-						if (isExecutionTimeSignificant(count1, count2, t1, t2)) {
-							scenario_to_members_significance.get(scenario).add(aux);
-							number_to_issue_significance.putAll(local_number_to_issue);
-							revision_to_issues_significance.putAll(local_revision_to_issues);
-						}
 					}
+				}
+				
+				// If it is significant inside the scenario we save in another file
+				if (!matchesExcludeWord(s) && isExecutionTimeSignificant(count1, count2, t1, t2)) {
+					String aux = s + ";" + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2;
+					
+					scenario_to_members_significance.get(scenario).add(aux);
+					number_to_issue_significance.putAll(local_number_to_issue);
+					revision_to_issues_significance.putAll(local_revision_to_issues);
 				}
 			}
 		}
@@ -621,12 +626,23 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			if (degraded_scenario_to_blames != null) {
 				// Count and save the results
-				countTotalOfModules(degraded_scenario_to_blames, total_classes, total_packages, package_deep,
+				countTotalOfModulesRelaxed(degraded_scenario_to_blames, total_classes, total_packages, package_deep,
 						avg_time_members_v1, avg_time_members_v2);
 				
 				// Showing statistical for classes and packages
 				AnalyzerReportUtil.saveCodeAssets("# Statistical for degraded classes and packages",
-						getRMFilePath(target_prefix + "total_of_degraded_classes_and_packages"), total_classes, total_packages);
+						getRMFilePath(target_prefix + "total_of_degraded_classes_and_packages_relaxed"), total_classes, total_packages);
+				
+				total_classes.clear();
+				total_packages.clear();
+				
+				// Count and save the results
+				countTotalOfSignificantModules(degraded_scenario_to_blames, total_classes, total_packages, package_deep,
+						avg_time_members_v1, avg_time_members_v2);
+				
+				// Showing statistical for classes and packages
+				AnalyzerReportUtil.saveCodeAssets("# Statistical for degraded classes and packages",
+						getRMFilePath(target_prefix + "total_of_degraded_classes_and_packages_significant"), total_classes, total_packages);
 			}
 			
 			if (optimized_scenario_to_blames != null) {
@@ -635,12 +651,23 @@ public final class AnalyzerMinerRepositoryRunnable {
 				total_packages.clear();
 				
 				// Count and save the results
-				countTotalOfModules(optimized_scenario_to_blames, total_classes, total_packages, package_deep,
+				countTotalOfModulesRelaxed(optimized_scenario_to_blames, total_classes, total_packages, package_deep,
 						avg_time_members_v1, avg_time_members_v2);
 				
 				// Showing statistical for classes and packages
 				AnalyzerReportUtil.saveCodeAssets("# Statistical for optimized classes and packages",
-						getRMFilePath(target_prefix + "total_of_optimized_classes_and_packages"), total_classes, total_packages);
+						getRMFilePath(target_prefix + "total_of_optimized_classes_and_packages_relaxed"), total_classes, total_packages);
+				
+				total_classes.clear();
+				total_packages.clear();
+				
+				// Count and save the results
+				countTotalOfSignificantModules(optimized_scenario_to_blames, total_classes, total_packages, package_deep,
+						avg_time_members_v1, avg_time_members_v2);
+				
+				// Showing statistical for classes and packages
+				AnalyzerReportUtil.saveCodeAssets("# Statistical for optimized classes and packages",
+						getRMFilePath(target_prefix + "total_of_optimized_classes_and_packages_significant"), total_classes, total_packages);
 			}
 		}
 	}
@@ -677,7 +704,43 @@ public final class AnalyzerMinerRepositoryRunnable {
 		return delta >= avg_significance_delta;
 	}
 	
-	private void countTotalOfModules(Map<String, List<String>> scenario_to_blames,
+	private void countTotalOfSignificantModules(Map<String, List<String>> scenario_to_blames,
+			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep,
+			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) {
+		
+		Set<String> counted = new HashSet<String>();
+		
+		for (String scenario : scenario_to_blames.keySet()) {
+			for (String sig : scenario_to_blames.get(scenario)) {
+				Double t1 = avg_time_members_v1.get(sig);
+				Double t2 = avg_time_members_v2.get(sig);
+				
+				System.out.println("Scenarios and blames: Counting " + sig + " in R1 for " + scenario);
+				int count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, sig);
+				System.out.println("\tTotal = " + count1);
+				
+				System.out.println("Scenarios and blames: Counting " + sig + " in R2 for " + scenario);
+				int count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, sig);
+				System.out.println("\tTotal = " + count2);
+				
+				if (!counted.contains(sig) && !matchesExcludeWord(sig) && isExecutionTimeSignificant(count1, count2, t1, t2)) {
+					String class_name = getClassNameFromSignature(sig);
+					String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
+					
+					Integer value = total_classes.get(class_name);
+					total_classes.put(class_name, value == null ? 1 : value + 1);
+					
+					value = total_packages.get(package_prefix);
+					total_packages.put(package_prefix, value == null ? 1 : value + 1);
+					
+					counted.add(sig);
+				}
+			}
+		}
+		
+	}
+	
+	private void countTotalOfModulesRelaxed(Map<String, List<String>> scenario_to_blames,
 			Map<String, Integer> total_classes, Map<String, Integer> total_packages, int package_deep,
 			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2) {
 		
