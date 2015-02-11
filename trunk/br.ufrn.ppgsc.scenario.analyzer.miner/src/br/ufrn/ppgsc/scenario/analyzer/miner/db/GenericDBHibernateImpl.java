@@ -62,18 +62,30 @@ public class GenericDBHibernateImpl extends GenericDB {
 		return (int) query.uniqueResult();
 	}
 	
+	private static Map<String, Integer> cache_scenariosignature_to_total = new HashMap<String, Integer>();
 	@Override
 	public int countMethodExecutionByScenario(String scenario, String signature) {
-		SQLQuery query = getSession().createSQLQuery(
-				"select count(node.id) as total from node inner join node_scenario on node.id = node_scenario.node_id"
-				+ " where node.time <> -1 and node.member = :signature and"
-				+ " node_scenario.scenario_id in (select id from scenario where scenario.name = :scenario)");
-
-		query.setString("signature", signature);
-		query.setString("scenario", scenario);
-		query.addScalar("total", IntegerType.INSTANCE);
-
-		return (int) query.uniqueResult();
+		String key = scenario + signature;
+		Integer total = cache_scenariosignature_to_total.get(key);
+		
+		if (total == null) {
+			SQLQuery query = getSession().createSQLQuery(
+					"select count(node.id) as total from node inner join node_scenario on node.id = node_scenario.node_id"
+					+ " where node.time <> -1 and node.member = :signature and"
+					+ " node_scenario.scenario_id in (select id from scenario where scenario.name = :scenario)");
+	
+			query.setString("signature", signature);
+			query.setString("scenario", scenario);
+			query.addScalar("total", IntegerType.INSTANCE);
+	
+			total = (int) query.uniqueResult();
+			cache_scenariosignature_to_total.put(key, total);
+		}
+		else {
+			System.out.println("[countMethodExecutionByScenario] Reused key: " + key);
+		}
+		
+		return total;
 	}
 	
 	@Override
