@@ -1,0 +1,997 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 18
+Number of scenarios (include empties): 18
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+	Number of methods: 10
+	Number of methods (exclude word applied): 6
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;160;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;160;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;240;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;40;80;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.testsuite.transport.socket.AbstractDatagramTest.configure(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;5.858333333333333;5.858333333333333;0;80;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
+		Time: null;115.03333333333333;115.03333333333333;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind()
+		Time: 5815.9;12099.5;6283.6;10;10;
+			Revision: 2712ed9cbb4bba69a8b30102ce036a0b06d41ec5
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
+		Time: null;2.6333333333333333;2.6333333333333333;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketBufReleaseTest.testBufRelease
+	Number of methods: 17
+	Number of methods (exclude word applied): 11
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long)
+		Time: null;0.0;0.0;0;60;
+			Revision: 14600167d6ddc3829831a5470d73f091fc4b9aa7
+				Issues: 2021
+			Revision: 053c512f6de708f1bb3f402cf6d911f88b1d38aa
+				Issues: 0
+	io.netty.buffer.PooledByteBuf.deallocate()
+		Time: null;0.26666666666666666;0.26666666666666666;0;60;
+			Revision: 65b522a2a75c78c977a65e15663509509b5f12e0
+				Issues: 0
+	io.netty.buffer.UnpooledUnsafeDirectByteBuf.deallocate()
+		Time: null;0.0;0.0;0;60;
+			Revision: 7231be592aa65ac1e91d0a319761f7e3df2225e9
+				Issues: 0
+	io.netty.buffer.UnpooledUnsafeDirectByteBuf.freeDirect(java.nio.ByteBuffer)
+		Time: null;0.0;0.0;0;60;
+			Revision: 7231be592aa65ac1e91d0a319761f7e3df2225e9
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;120;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease()
+		Time: 1385.3;2244.9;859.6000000000001;10;10;
+			Revision: b3d8c81557315ac5b5d4b381fe7461ce276a3f9e
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketEchoTest.testSimpleEcho
+	Number of methods: 13
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;2140;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;1001;1960;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+	Number of methods: 11
+	Number of methods (exclude word applied): 6
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;2138;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;972;1958;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+	Number of methods: 11
+	Number of methods (exclude word applied): 6
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;2140;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;965;1960;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+	Number of methods: 11
+	Number of methods (exclude word applied): 6
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;2154;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;965;1974;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketFileRegionTest.testFileRegion
+	Number of methods: 13
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;240;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;30;60;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+	Number of methods: 11
+	Number of methods (exclude word applied): 6
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;240;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;30;60;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+	Number of methods: 13
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;41075;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;20464;40895;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketObjectEchoTest.testObjectEcho
+	Number of methods: 13
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;61620;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;30720;61440;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+	Number of methods: 6
+	Number of methods (exclude word applied): 3
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;40;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;8.7875;8.7875;0;40;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
+		Time: null;85.05;85.05;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;40;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;8.7875;8.7875;0;40;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
+		Time: null;85.05;85.05;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+	Number of methods: 10
+	Number of methods (exclude word applied): 7
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;40;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;40;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;20;40;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;12.66875;12.66875;0;40;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
+		Time: null;134.125;134.125;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+	Number of methods: 14
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;360;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;240;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;120;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;60;120;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;160;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;120;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;20;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho()
+		Time: 2909.4;5569.1;2659.7000000000003;10;10;
+			Revision: 39ae2dd3f1856def09b21995ff0496b6ee59a8b8
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;20;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;20;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;20;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketSslEchoTest.testSslEcho
+	Number of methods: 14
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;2880;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;1920;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;34779;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;1003;31899;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;1280;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;640;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;960;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;160;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
+		Time: 2663.0;5372.03125;2709.03125;10;160;
+			Revision: bc21443ea904ba37f46c1fb3b9ab99322e3bbb0d
+				Issues: 2098
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;160;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;160;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;160;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketStartTlsTest.testStartTls
+	Number of methods: 12
+	Number of methods (exclude word applied): 7
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;180;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for SocketStringEchoTest.testStringEcho
+	Number of methods: 13
+	Number of methods (exclude word applied): 8
+	io.netty.buffer.AbstractByteBufAllocator.toString()
+		Time: null;0.00543859649122807;0.00543859649122807;0;180;
+			Revision: ba3bc0c0205ed37f0541e43dd747ebcc103f8ed8
+				Issues: 0
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;120;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;61620;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;30720;61440;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;80;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;40;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;3.4775862068965515;3.4775862068965515;0;60;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+		Time: null;40.9448275862069;40.9448275862069;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+		Time: null;0.46774193548387094;0.46774193548387094;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+		Time: null;1.7551724137931033;1.7551724137931033;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+	Number of methods: 10
+	Number of methods (exclude word applied): 7
+	io.netty.channel.ChannelOption.valueOf(java.lang.String)
+		Time: null;0.05976190476190476;0.05976190476190476;0;280;
+			Revision: 8986245b47e738c004e9aa9bba56b8f973dd3dc4
+				Issues: 0
+	io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+		Time: 0.0;0.03679245283018868;0.03679245283018868;0;40;
+			Revision: d2032254b7b29aca620223c672ffa244171898b5
+				Issues: 1952
+			Revision: c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+				Issues: 1952
+	io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+		Time: null;0.030967409260620877;0.030967409260620877;0;80;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.10147357667151566;0.1389855257097498;0.037511949038234155;20;40;
+			Revision: e4358ae6b8a8028de980f4fd41f0c93d3dbb40b2
+				Issues: 1947
+			Revision: 7dddbbb2bdc1a2ab5648e7d4b4b24d6f328eac6a
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+		Time: null;0.18195488721804512;0.18195488721804512;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+		Time: null;0.32066666666666666;0.32066666666666666;0;20;
+			Revision: 89a7cb8e710952e76a3a09b113fcb6ebe17acb12
+				Issues: 2060
+	io.netty.channel.nio.NioEventLoop.openSelector()
+		Time: null;3.248;3.248;0;50;
+			Revision: c9b7f1f1b570eab9eb6b61df0e94cd4dbcc5e2ec
+				Issues: 1908
+	io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+		Time: null;12.66875;12.66875;0;40;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
+		Time: null;134.125;134.125;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+		Time: null;0.5272727272727272;0.5272727272727272;0;10;
+			Revision: 2c3f02c4532583b5b4cf3258e93f81394da9cd87
+				Issues: 0
+28
+9

@@ -1,0 +1,35 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 2
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+4
+io.netty.channel.ChannelHandlerAdapter.isSharable();0.04059278350515464;0.05229403058707449;0.01170124708191985;120;120
+io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline);null;0.02464604090194022;0.02464604090194022;0;120
+io.netty.channel.DefaultChannelPipeline.addLast(io.netty.channel.ChannelHandler[]);0.11702127659574468;0.1452719877986782;0.028250711202933515;120;120
+io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext);null;0.10587188612099645;0.10587188612099645;0;120
+4
+	io.netty.channel.ChannelHandlerAdapter.isSharable()
+		Time: 0.04059278350515464;0.05229403058707449;0.01170124708191985;120;120;
+			Revision: fb538ea532d2d0e31748f04634259ebfc3c9ced1
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.02464604090194022;0.02464604090194022;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast(io.netty.channel.ChannelHandler[])
+		Time: 0.11702127659574468;0.1452719877986782;0.028250711202933515;120;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+		Time: null;0.10587188612099645;0.10587188612099645;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): fb538ea532d2d0e31748f04634259ebfc3c9ced1(0)
+Revision (Issues): 9b468bc2758ead86690f633ee071e396c482c489(0)

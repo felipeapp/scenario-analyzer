@@ -1,0 +1,40 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+6
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketStartTlsTest.testStartTls
+4
+io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;120;120
+io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;360;120
+io.netty.channel.DefaultChannelPipeline.context(java.lang.Class);0.006147540983606557;0.0;0.006147540983606557;960;960
+io.netty.buffer.AbstractByteBuf.order(java.nio.ByteOrder);0.007151177841056174;0.0060092249723900475;0.0011419528686661268;15428;15274
+14
+Entry point for SocketSpdyEchoTest.testSpdyEcho;io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;120;120
+Entry point for SocketSpdyEchoTest.testSpdyEcho;io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;360;120
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead;io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;120;120
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead;io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;360;120
+Entry point for SocketSslEchoTest.testSslEcho;io.netty.channel.DefaultChannelPipeline.context(java.lang.Class);0.006147540983606557;0.0;0.006147540983606557;960;960
+Entry point for SocketSslEchoTest.testSslEcho;io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;5760;1920
+Entry point for SocketSslEchoTest.testSslEcho;io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;1920;1920
+Entry point for SocketSslEchoTest.testSslEcho;io.netty.buffer.AbstractByteBuf.order(java.nio.ByteOrder);0.007151177841056174;0.0060092249723900475;0.0011419528686661268;15428;15274
+Entry point for SocketStringEchoTest.testStringEcho;io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;120;120
+Entry point for SocketStringEchoTest.testStringEcho;io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;360;120
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead;io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;120;108
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead;io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;360;108
+Entry point for SocketStartTlsTest.testStartTls;io.netty.channel.DefaultChannelPipeline.callHandlerAdded0(io.netty.channel.ChannelHandlerContext);0.014627659574468085;0.011820030503304525;0.00280762907116356;120;120
+Entry point for SocketStartTlsTest.testStartTls;io.netty.channel.DefaultChannelPipeline.generateName(io.netty.channel.ChannelHandler);0.004936594202898551;0.0020335536349771225;0.0029030405679214286;360;120
+2
+0;No issue (0)
+2436;improvement
+2
+improvement;1
+No issue (0);1
+2
+improvement;2436
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): 9b468bc2758ead86690f633ee071e396c482c489(0)
+Revision (Issues): 4ad3984c8b725ef59856d174d09d1209d65933fc(2436)

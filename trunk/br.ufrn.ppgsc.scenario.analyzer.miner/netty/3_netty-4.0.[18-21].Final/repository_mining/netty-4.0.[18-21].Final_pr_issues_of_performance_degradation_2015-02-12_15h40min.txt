@@ -1,0 +1,528 @@
+# Issues potentially blamed for performance degradation (degraded + added)
+Number of Issues: 2404;2375;2622;2362;2586
+Number of paths: 16
+io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+	Number of methods: 5
+	TailContext;936;938
+		Number of updated lines: 3
+		Line Number: 936
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 937
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 938
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	HeadContext;997;1000
+		Number of updated lines: 4
+		Line Number: 997
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 998
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 999
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 1000
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast0;134;146
+		Number of updated lines: 2
+		Line Number: 134
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 137
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast;122;132
+		Number of updated lines: 1
+		Line Number: 127
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	generateName0;292;294
+		Number of updated lines: 3
+		Line Number: 292
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 293
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 294
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.DefaultChannelHandlerContext.isOutbound(io.netty.channel.ChannelHandler)
+	Number of methods: 2
+	isOutbound;42;44
+		Number of updated lines: 2
+		Line Number: 42
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 43
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	isInbound;38;40
+		Number of updated lines: 2
+		Line Number: 38
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 39
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket)
+	Number of methods: 1
+	NioServerSocketChannelConfig;183;185
+		Number of updated lines: 3
+		Line Number: 183
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			2404;2404;defect
+			2375;2375;none yet
+		Line Number: 184
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			2404;2404;defect
+			2375;2375;none yet
+		Line Number: 185
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			2404;2404;defect
+			2375;2375;none yet
+io.netty.channel.AbstractChannel.write(java.lang.Object)
+	Number of methods: 1
+	write;639;653
+		Number of updated lines: 5
+		Line Number: 641
+		Commit: 5cd939f63464e9bd46c87a75134fad7e75ede9e8
+		Number of Issues: 1
+			2362;2362;improvement
+		Line Number: 642
+		Commit: 5cd939f63464e9bd46c87a75134fad7e75ede9e8
+		Number of Issues: 1
+			2362;2362;improvement
+		Line Number: 647
+		Commit: 5cd939f63464e9bd46c87a75134fad7e75ede9e8
+		Number of Issues: 1
+			2362;2362;improvement
+		Line Number: 650
+		Commit: 5cd939f63464e9bd46c87a75134fad7e75ede9e8
+		Number of Issues: 1
+			2362;2362;improvement
+		Line Number: 652
+		Commit: 5cd939f63464e9bd46c87a75134fad7e75ede9e8
+		Number of Issues: 1
+			2362;2362;improvement
+io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel)
+	Number of methods: 1
+	PendingRegistrationPromise;457;459
+		Number of updated lines: 3
+		Line Number: 457
+		Commit: 1278467fec2900bfb578f912218e746596b968ca
+		Number of Issues: 1
+			2586;2586;defect
+		Line Number: 458
+		Commit: 1278467fec2900bfb578f912218e746596b968ca
+		Number of Issues: 1
+			2586;2586;defect
+		Line Number: 459
+		Commit: 1278467fec2900bfb578f912218e746596b968ca
+		Number of Issues: 1
+			2586;2586;defect
+io.netty.buffer.CompositeByteBuf.capacity()
+	Number of methods: 2
+	checkComponentIndex;306;313
+		Number of updated lines: 2
+		Line Number: 307
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+		Line Number: 316
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+	capacity;493;542
+		Number of updated lines: 1
+		Line Number: 495
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+io.netty.channel.DefaultChannelPipeline$TailContext(io.netty.channel.DefaultChannelPipeline)
+	Number of methods: 5
+	TailContext;936;938
+		Number of updated lines: 3
+		Line Number: 936
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 937
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 938
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	HeadContext;997;1000
+		Number of updated lines: 4
+		Line Number: 997
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 998
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 999
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 1000
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast0;134;146
+		Number of updated lines: 2
+		Line Number: 134
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 137
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast;122;132
+		Number of updated lines: 1
+		Line Number: 127
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	generateName0;292;294
+		Number of updated lines: 3
+		Line Number: 292
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 293
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 294
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.DefaultChannelPipeline.addLast(io.netty.channel.ChannelHandler[])
+	Number of methods: 5
+	TailContext;936;938
+		Number of updated lines: 3
+		Line Number: 936
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 937
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 938
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	HeadContext;997;1000
+		Number of updated lines: 4
+		Line Number: 997
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 998
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 999
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 1000
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast0;134;146
+		Number of updated lines: 2
+		Line Number: 134
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 137
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast;122;132
+		Number of updated lines: 1
+		Line Number: 127
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	generateName0;292;294
+		Number of updated lines: 3
+		Line Number: 292
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 293
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 294
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.buffer.CompositeByteBuf.checkComponentIndex(int)
+	Number of methods: 2
+	checkComponentIndex;306;313
+		Number of updated lines: 2
+		Line Number: 307
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+		Line Number: 316
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+	capacity;493;542
+		Number of updated lines: 1
+		Line Number: 495
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+io.netty.channel.DefaultChannelHandlerContext.isInbound(io.netty.channel.ChannelHandler)
+	Number of methods: 2
+	isOutbound;42;44
+		Number of updated lines: 2
+		Line Number: 42
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 43
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	isInbound;38;40
+		Number of updated lines: 2
+		Line Number: 38
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 39
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket,io.netty.channel.socket.nio.NioSocketChannel.NioSocketChannelConfig)
+	Number of methods: 1
+	NioSocketChannelConfig;322;324
+		Number of updated lines: 3
+		Line Number: 322
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			2404;2404;defect
+			2375;2375;none yet
+		Line Number: 323
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			2404;2404;defect
+			2375;2375;none yet
+		Line Number: 324
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			2404;2404;defect
+			2375;2375;none yet
+io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
+	Number of methods: 1
+	incrementPendingOutboundBytes;197;215
+		Number of updated lines: 2
+		Line Number: 209
+		Commit: 917132e28d928329e06f21e3ed0ad962610d5248
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 210
+		Commit: 917132e28d928329e06f21e3ed0ad962610d5248
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+	Number of methods: 5
+	TailContext;936;938
+		Number of updated lines: 3
+		Line Number: 936
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 937
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 938
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	HeadContext;997;1000
+		Number of updated lines: 4
+		Line Number: 997
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 998
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 999
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 1000
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast0;134;146
+		Number of updated lines: 2
+		Line Number: 134
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 137
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast;122;132
+		Number of updated lines: 1
+		Line Number: 127
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	generateName0;292;294
+		Number of updated lines: 3
+		Line Number: 292
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 293
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 294
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.DefaultChannelPipeline.generateName0(java.lang.Class)
+	Number of methods: 5
+	TailContext;936;938
+		Number of updated lines: 3
+		Line Number: 936
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 937
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 938
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	HeadContext;997;1000
+		Number of updated lines: 4
+		Line Number: 997
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 998
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 999
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 1000
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast0;134;146
+		Number of updated lines: 2
+		Line Number: 134
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 137
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	addLast;122;132
+		Number of updated lines: 1
+		Line Number: 127
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+	generateName0;292;294
+		Number of updated lines: 3
+		Line Number: 292
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 293
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+		Line Number: 294
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.ChannelHandlerAdapter.isSharable()
+	Number of methods: 1
+	isSharable;32;53
+		Number of updated lines: 1
+		Line Number: 46
+		Commit: fb538ea532d2d0e31748f04634259ebfc3c9ced1
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.buffer.AbstractByteBuf.ensureWritable(int)
+	Number of methods: 1
+	ensureWritable;230;254
+		Number of updated lines: 1
+		Line Number: 232
+		Commit: 6c47cc97111146396d2daf1a97051135d2eaf69e
+		Number of Issues: 1
+			2622;2622;defect
+Number of Types of Issues: 3
+	defect;3
+	improvement;1
+	none yet;1
+Number of Types of Issues: 3
+	defect
+		Number of Methods: 6
+		NioServerSocketChannelConfig
+		PendingRegistrationPromise
+		checkComponentIndex
+		capacity
+		NioSocketChannelConfig
+		ensureWritable
+	improvement
+		Number of Methods: 1
+		write
+	none yet
+		Number of Methods: 1
+		NioServerSocketChannelConfig
