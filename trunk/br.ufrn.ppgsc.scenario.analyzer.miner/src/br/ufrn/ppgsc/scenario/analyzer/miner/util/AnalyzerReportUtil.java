@@ -292,5 +292,61 @@ public abstract class AnalyzerReportUtil {
 		
 		return message;
 	}
+	
+	public static String loadTimeOfChangedElements(Map<String, Double> signature_to_avg, String filename) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		String message = br.readLine();
+		System.out.println("Loading >> " + message);
+		
+		int number_of_registers = Integer.parseInt(br.readLine());
+		
+		// Just read the header = Name;Average
+		br.readLine();
+		
+		for (int i = 0; i < number_of_registers; i++) {
+			String[] line = br.readLine().split(";");
+			signature_to_avg.put(line[0], Double.parseDouble(line[1]));
+		}
+		
+		br.close();
+		
+		System.out.println("\tTotal = " + signature_to_avg.size());
+		
+		return message;
+	}
+	
+	public static String loadTimeOfKeptElements(
+			Map<String, Double> signature_to_avgr1, Map<String, Double> signature_to_avgr2, 
+			String filename) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		String message = br.readLine();
+		System.out.println("Loading >> " + message);
+		
+		int number_of_registers = Integer.parseInt(br.readLine());
+		
+		/*
+		 * Just read the header = Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+		 *                        0    1               2               3       4       5  6
+		 */
+		br.readLine();
+		
+		for (int i = 0; i < number_of_registers; i++) {
+			String[] line = br.readLine().split(";");
+			signature_to_avgr1.put(line[0], Double.parseDouble(line[3]));
+			signature_to_avgr2.put(line[0], Double.parseDouble(line[4]));
+		}
+		
+		/* 
+		 * This method should read the performance rate and the significance level here.
+		 * However I do not need them at this moment. So, I will just close the reader.
+		 */
+		br.close();
+		
+		System.out.println("\tTotal = " + signature_to_avgr1.size() + " and " + signature_to_avgr2.size());
+		
+		return message;
+	}
 
 }

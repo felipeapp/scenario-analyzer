@@ -1,6 +1,6 @@
 # Methods potentially blamed for performance degradation
 12
-org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
+org.apache.wicket.request.Url.getFragment()
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -22,7 +22,7 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.request.Url.getFragment()
+org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -113,20 +113,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.request.resource.PackageResource.accept(java.lang.String)
-13
-Entry point for HangManTest.testHangmanFailureWebGame
-Entry point for HangManTest.testHangmanSuccessWebGame
-Entry point for ImagesTest.testImages
-Entry point for LibraryTest.test_1
-Entry point for NiceUrlTest.testPage1
-Entry point for NiceUrlTest.testPage2
-Entry point for NiceUrlTest.testPage2PP
-Entry point for NiceUrlTest.testPage2UP
-Entry point for NiceUrlTest.testPage3
-Entry point for NiceUrlTest.testPage4
-Entry point for NiceUrlTest.testPage5
-Entry point for Signin2Test.testSignIn2
+org.apache.wicket.Component.onReAdd()
+1
 Entry point for TemplateTest.test_1
 org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
 12
@@ -142,15 +130,27 @@ Entry point for LibraryTest.test_1
 Entry point for LinkomaticTest.testLinkomatic
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.Component.onReAdd()
-1
-Entry point for TemplateTest.test_1
 org.apache.wicket.markup.html.PackageResourceGuard.accept(java.lang.String)
 6
 Entry point for HangManTest.testHangmanFailureWebGame
 Entry point for HangManTest.testHangmanSuccessWebGame
 Entry point for ImagesTest.testImages
 Entry point for LibraryTest.test_1
+Entry point for Signin2Test.testSignIn2
+Entry point for TemplateTest.test_1
+org.apache.wicket.request.resource.PackageResource.accept(java.lang.String)
+13
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for ImagesTest.testImages
+Entry point for LibraryTest.test_1
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage4
+Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
 org.apache.wicket.resource.loader.ComponentStringResourceLoader.isStopResourceSearch(org.apache.wicket.Component)

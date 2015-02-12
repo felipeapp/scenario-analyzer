@@ -35,7 +35,6 @@ public class AnalyzerStatistical {
 			double ttest_pvalue = 1;
 			double utest_pvalue = 1;
 
-			// TODO: Descomentar depois
 			if (target.equals(RuntimeScenario.class)) {
 				execs_time_v1 = database_v1.getAllExecutionTimeByScenario(key);
 				execs_time_v2 = database_v2.getAllExecutionTimeByScenario(key);
