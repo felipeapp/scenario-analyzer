@@ -189,10 +189,18 @@ public final class AnalyzerMinerRepositoryRunnable {
 				
 				double delta = calcExecutionTimeAbsDelta(t1, t2);
 				
+				System.out.println("Scenarios and blames: Counting " + s + " in R1 for " + scenario);
+				int count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, s);
+				System.out.println("\tTotal = " + count1);
+				
+				System.out.println("Scenarios and blames: Counting " + s + " in R2 for " + scenario);
+				int count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, s);
+				System.out.println("\tTotal = " + count2);
+				
 				StringBuilder sb = new StringBuilder();
 				
 				sb.append("\t" + s + System.lineSeparator());
-				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + System.lineSeparator());
+				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2 + ";" + System.lineSeparator());
 				
 				for (UpdatedMethod um : pmap_signature_to_upmethod.get(s)) {
 					for (UpdatedLine ul : um.getUpdatedLines()) {
@@ -229,22 +237,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 				//members_with_time.add(text);
 				//number_to_issue.putAll(local_number_to_issue);
 				
-				int count1 = -1;
-				int count2 = -1;
-				
 				if (!counted.contains(s)) {
 					counted.add(s);
 					++total_members;
 					
 					if (!matchesExcludeWord(s) && delta >= avg_significance_delta) {
-						System.out.println("Scenarios and blames: Counting " + s + " in R1 for " + scenario);
-						count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, s);
-						System.out.println("\tTotal = " + count1);
-						
-						System.out.println("Scenarios and blames: Counting " + s + " in R2 for " + scenario);
-						count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, s);
-						System.out.println("\tTotal = " + count2);
-						
 						String aux = s + ";" + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2;
 						
 						++total_members_without_word;
@@ -271,6 +268,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		StringBuilder sb_scenarios = new StringBuilder();
 		StringBuilder sb_members = new StringBuilder();
+		Set<String> counted_member = new HashSet<String>();
 		int count_scenarios = 0;
 		int count_members = 0;
 		for (String scenario : scenario_to_members_significance.keySet()) {
@@ -280,9 +278,14 @@ public final class AnalyzerMinerRepositoryRunnable {
 				sb_scenarios.append(scenario + System.lineSeparator());
 				count_scenarios++;
 				
-				for (String m : members) {
-					sb_members.append(m + System.lineSeparator());
-					count_members++;
+				for (String line : members) {
+					String sig = line.substring(0, line.indexOf(';'));
+					
+					if (!counted_member.contains(sig)) {
+						sb_members.append(line + System.lineSeparator());
+						count_members++;
+						counted_member.add(sig);
+					}
 				}
 			}
 		}
@@ -290,6 +293,18 @@ public final class AnalyzerMinerRepositoryRunnable {
 		sb_members.insert(0, count_members + System.lineSeparator());
 		pw_significance.print(sb_scenarios);
 		pw_significance.print(sb_members);
+		
+		// After that, print the association
+		StringBuilder sb_lines = new StringBuilder();
+		int nb_lines = 0;
+		for (String scenario : scenario_to_members_significance.keySet()) {
+			for (String member : scenario_to_members_significance.get(scenario)) {
+				sb_lines.append(scenario + ";" + member + System.lineSeparator());
+				nb_lines++;
+			}
+		}
+		sb_lines.insert(0, nb_lines + System.lineSeparator());
+		pw_significance.print(sb_lines.toString());
 		
 		pw_list.println(members_signature.size());
 		for (String member : members_signature)
@@ -357,6 +372,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 	// TODO: How can I move this to report util?
 	private String getRMFilePath(String partial_name) {
 		return "reports/repository_mining/" + system_id + "_" + partial_name + "_" + strdate + ".txt";
+	}
+	
+	private boolean isFilled(Map<?, ?> m) {
+		return m != null && !m.isEmpty();
 	}
 	
 	public void run() throws IOException {
@@ -523,14 +542,21 @@ public final class AnalyzerMinerRepositoryRunnable {
 					filtered_issue_numbers,	filtered_issuetype_to_count, filtered_issuetype_to_upmethod);
 		}
 		
-		// TODO: Can I reuse it?
-		System.out.println("Getting methods and means for release 1...");
-		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
-		System.out.println("\tTotal = " + avg_time_members_v1.size());
+//		System.out.println("Getting methods and means for release 1...");
+//		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
+//		System.out.println("\tTotal = " + avg_time_members_v1.size());
+//		
+//		System.out.println("Getting methods and means for release 2...");
+//		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
+//		System.out.println("\tTotal = " + avg_time_members_v1.size());
 		
-		System.out.println("Getting methods and means for release 2...");
-		Map<String, Double> avg_time_members_v2 = DatabaseRelease.getDatabasev2().getExecutionTimeAverageOfMembers();
-		System.out.println("\tTotal = " + avg_time_members_v1.size());
+		Map<String, Double> avg_time_members_v1 = new HashMap<String, Double>();
+		Map<String, Double> avg_time_members_v2 = new HashMap<String, Double>();
+		
+		System.out.println("Getting methods and means for target releases...");
+		AnalyzerReportUtil.loadTimeOfKeptElements(avg_time_members_v1, avg_time_members_v2, getDAFilePath("kept_methods"));
+		AnalyzerReportUtil.loadTimeOfChangedElements(avg_time_members_v1, getDAFilePath("removed_methods"));
+		AnalyzerReportUtil.loadTimeOfChangedElements(avg_time_members_v2, getDAFilePath("added_methods"));
 		
 		/* 
 		 * From this point, we generate more details only for degradation/optimization.
@@ -541,7 +567,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			Map<String, Collection<UpdatedMethod>> p_degradation_methods = map_of_p_degradation_methods.get(target_prefix);
 			Map<String, Collection<UpdatedMethod>> p_optimization_methods = map_of_p_optimization_methods.get(target_prefix);
 			
-			if (!p_degradation_methods.isEmpty()) {
+			if (isFilled(p_degradation_methods)) {
 				// Saving issues
 				AnalyzerReportUtil.saveFullMiningData(
 					"# Issues potentially blamed for performance degradation (degraded + added)",
@@ -558,7 +584,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			}
 			
 			// TODO: Check if optimization is working
-			if (!p_optimization_methods.isEmpty()) {
+			if (isFilled(p_optimization_methods)) {
 				/*
 				 *  Saving potentially blamed issues.
 				 *  The removed methods might be not considered.
@@ -581,7 +607,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			Map<String, List<String>> optimized_scenario_to_blames = null;
 			
 			// Getting the degraded scenarios and the blamed methods
-			if (!p_degradation_methods.isEmpty()) {
+			if (isFilled(p_degradation_methods)) {
 				degraded_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
 					getDAFilePath(target_prefix + "degraded_scenarios"),
 					getRMFilePath(target_prefix + "methods_of_performance_degradation"));
@@ -589,7 +615,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				removeExcludedEntryPoints(degraded_scenario_to_blames);
 			}
 			
-			if (!p_optimization_methods.isEmpty()) {
+			if (isFilled(p_optimization_methods)) {
 				optimized_scenario_to_blames = AnalyzerCollectionUtil.getScenariosWithBlames(
 					getDAFilePath(target_prefix + "optimized_scenarios"),
 					getRMFilePath(target_prefix + "methods_of_performance_optimization"));
@@ -597,7 +623,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				removeExcludedEntryPoints(optimized_scenario_to_blames);
 			}
 			
-			if (!p_degradation_methods.isEmpty()) {
+			if (isFilled(p_degradation_methods)) {
 				/*
 				 * Showing degraded scenarios and blamed methods.
 				 * Note that this save have to pass the partial name of the file.
@@ -609,7 +635,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			}
 			
 			// TODO: Check if optimization is working
-			if (!p_optimization_methods.isEmpty()) {
+			if (isFilled(p_optimization_methods)) {
 				/*
 				 * Showing optimized scenarios and blamed methods.
 				 * Note that this save have to pass the partial name of the file.

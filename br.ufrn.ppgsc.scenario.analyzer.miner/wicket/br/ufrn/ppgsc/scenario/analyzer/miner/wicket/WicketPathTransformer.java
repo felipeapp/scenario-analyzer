@@ -47,6 +47,9 @@ public class WicketPathTransformer implements IPathTransformer {
 			else
 				full_path += "wicket-examples/src/main/java/";
 		
+		else if (method_signature.startsWith("org.apache.wicket.atmosphere"))
+			full_path += "wicket-experimental/wicket-atmosphere/src/main/java/";
+		
 		else if (method_signature.startsWith("org.apache.wicket.request"))
 			full_path += "wicket-request/src/main/java/";
 		

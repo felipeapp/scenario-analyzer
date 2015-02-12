@@ -62,13 +62,15 @@ public class GenericDBHibernateImpl extends GenericDB {
 		return (int) query.uniqueResult();
 	}
 	
-	private static Map<String, Integer> cache_scenariosignature_to_total = new HashMap<String, Integer>();
+	private Map<String, Integer> cache_scenariosignature_to_total = new HashMap<String, Integer>();
 	@Override
 	public int countMethodExecutionByScenario(String scenario, String signature) {
 		String key = scenario + signature;
 		Integer total = cache_scenariosignature_to_total.get(key);
 		
 		if (total == null) {
+			double t1 = System.currentTimeMillis();
+			
 			SQLQuery query = getSession().createSQLQuery(
 					"select count(node.id) as total from node inner join node_scenario on node.id = node_scenario.node_id"
 					+ " where node.time <> -1 and node.member = :signature and"
@@ -80,6 +82,8 @@ public class GenericDBHibernateImpl extends GenericDB {
 	
 			total = (int) query.uniqueResult();
 			cache_scenariosignature_to_total.put(key, total);
+			
+			System.out.println("[countMethodExecutionByScenario] Time: " + (System.currentTimeMillis() - t1) + "ms");
 		}
 		else {
 			System.out.println("[countMethodExecutionByScenario] Reused key: " + key);
@@ -133,39 +137,65 @@ public class GenericDBHibernateImpl extends GenericDB {
 		return result;
 	}
 	
+	private Map<String, List<String>> cache_signature_to_scenarios = new HashMap<String, List<String>>();
 	@Override
 	public List<String> getScenariosByMember(String signature) {
-		List<String> result = new ArrayList<String>();
+		List<String> scenarios = cache_signature_to_scenarios.get(signature);
+		
+		if (scenarios == null) {
+			double t1 = System.currentTimeMillis();
+			
+			scenarios = new ArrayList<String>();
+	
+			Session s = getSession();
+	
+			SQLQuery query = s.createSQLQuery("select distinct scenario.name sname from node_scenario, node, scenario"
+					+ " where node_scenario.node_id = node.id and node_scenario.scenario_id = scenario.id and"
+					+ " node.time <> -1 and node.member = :signature order by scenario.name");
+	
+			query.setString("signature", signature);
+			query.addScalar("sname", StringType.INSTANCE);
+	
+			for (Object o : query.list())
+				scenarios.add((String) o);
+			
+			cache_signature_to_scenarios.put(signature, scenarios);
+			System.out.println("[getScenariosByMember] Time: " + (System.currentTimeMillis() - t1) + "ms");
+		}
+		else {
+			System.out.println("[getScenariosByMember] Reused key: " + signature);
+		}
 
-		Session s = getSession();
-
-		SQLQuery query = s.createSQLQuery("select distinct scenario.name sname from node_scenario, node, scenario"
-				+ " where node_scenario.node_id = node.id and node_scenario.scenario_id = scenario.id and"
-				+ " node.member = :signature order by scenario.name");
-
-		query.setString("signature", signature);
-		query.addScalar("sname", StringType.INSTANCE);
-
-		for (Object o : query.list())
-			result.add((String) o);
-
-		return result;
+		return scenarios;
 	}
 	
+	private Map<String, double[]> cache_signature_to_executions = new HashMap<String, double[]>();
 	@Override
 	public double[] getAllExecutionTimeByMember(String signature) {
-		Session s = getSession();
-
-		SQLQuery query = s.createSQLQuery("select time from node where time <> -1 and member = :signature");
-
-		query.setString("signature", signature);
-		query.addScalar("time", LongType.INSTANCE);
-
-		List<?> rset = query.list();
-		double[] result = new double[rset.size()];
+		double[] result = cache_signature_to_executions.get(signature);
 		
-		for (int i = 0; i < result.length; i++)
-			result[i] = (Long) rset.get(i);
+		if (result == null) {
+			double t1 = System.currentTimeMillis();
+			
+			Session s = getSession();
+	
+			SQLQuery query = s.createSQLQuery("select time from node where time <> -1 and member = :signature");
+	
+			query.setString("signature", signature);
+			query.addScalar("time", LongType.INSTANCE);
+	
+			List<?> rset = query.list();
+			result = new double[rset.size()];
+			
+			for (int i = 0; i < result.length; i++)
+				result[i] = (Long) rset.get(i);
+			
+			cache_signature_to_executions.put(signature, result);
+			System.out.println("[getAllExecutionTimeByMember] Time: " + (System.currentTimeMillis() - t1) + "ms");
+		}
+		else {
+			System.out.println("[getAllExecutionTimeByMember] Reused key: " + signature);
+		}
 
 		return result;
 	}
