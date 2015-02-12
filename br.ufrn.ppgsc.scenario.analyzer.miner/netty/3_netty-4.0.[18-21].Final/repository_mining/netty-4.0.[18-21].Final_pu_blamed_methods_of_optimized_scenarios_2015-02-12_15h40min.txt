@@ -1,0 +1,42 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 4
+Number of scenarios (include empties): 7
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.handler.codec.spdy.SpdyVersion,boolean)
+		Time: 108.55833333333334;96.0701754385965;12.488157894736844;60;60;
+			Revision: 2360142b89b1bec85e98ab05a53f7ff0b63795de
+				Issues: 0
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.handler.codec.spdy.SpdyVersion,boolean)
+		Time: 108.55833333333334;96.0701754385965;12.488157894736844;60;54;
+			Revision: 2360142b89b1bec85e98ab05a53f7ff0b63795de
+				Issues: 0
+Entry point for SocketSslEchoTest.testSslEcho
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: 518.5005208333333;493.0104166666667;25.49010416666664;960;960;
+			Revision: c58f28dfdd4a75708d6ffa909d7d1ab1e6a3fadc
+				Issues: 8;2216
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: 518.5005208333333;493.0104166666667;25.49010416666664;960;960;
+			Revision: c58f28dfdd4a75708d6ffa909d7d1ab1e6a3fadc
+				Issues: 8;2216
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for SocketStringEchoTest.testStringEcho
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+2
+0

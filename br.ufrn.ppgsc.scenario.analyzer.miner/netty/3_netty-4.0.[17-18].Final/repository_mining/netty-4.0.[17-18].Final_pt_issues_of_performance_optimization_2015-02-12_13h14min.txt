@@ -1,0 +1,119 @@
+# Issues potentially blamed for performance optimization (removed + optimized)
+Number of Issues: 2264;2311;808
+Number of paths: 6
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+	Number of methods: 2
+	testSslEcho;88;91
+		Number of updated lines: 1
+		Line Number: 88
+		Commit: eda702b6abc288ccc6055b09d74434cd6aee402f
+		Number of Issues: 1
+			0;0;No issue (0)
+	testSslEchoNotAutoRead;97;100
+		Number of updated lines: 1
+		Line Number: 97
+		Commit: eda702b6abc288ccc6055b09d74434cd6aee402f
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoNotAutoRead(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+	Number of methods: 2
+	testSslEcho;88;91
+		Number of updated lines: 1
+		Line Number: 88
+		Commit: eda702b6abc288ccc6055b09d74434cd6aee402f
+		Number of Issues: 1
+			0;0;No issue (0)
+	testSslEchoNotAutoRead;97;100
+		Number of updated lines: 1
+		Line Number: 97
+		Commit: eda702b6abc288ccc6055b09d74434cd6aee402f
+		Number of Issues: 1
+			0;0;No issue (0)
+io.netty.channel.socket.nio.NioServerSocketChannel.newSocket()
+	Number of methods: 1
+	newSocket;48;61
+		Number of updated lines: 2
+		Line Number: 48
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+		Line Number: 56
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+io.netty.channel.socket.nio.NioSocketChannel.newSocket()
+	Number of methods: 1
+	newSocket;49;61
+		Number of updated lines: 2
+		Line Number: 49
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+		Line Number: 57
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long)
+	Number of methods: 1
+	free;190;203
+		Number of updated lines: 5
+		Line Number: 190
+		Commit: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+		Number of Issues: 2
+			2264;2264;improvement
+			808;808;improvement
+		Line Number: 194
+		Commit: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+		Number of Issues: 2
+			2264;2264;improvement
+			808;808;improvement
+		Line Number: 195
+		Commit: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+		Number of Issues: 2
+			2264;2264;improvement
+			808;808;improvement
+		Line Number: 197
+		Commit: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+		Number of Issues: 2
+			2264;2264;improvement
+			808;808;improvement
+		Line Number: 198
+		Commit: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+		Number of Issues: 2
+			2264;2264;improvement
+			808;808;improvement
+io.netty.channel.socket.nio.NioDatagramChannel.newSocket(io.netty.channel.socket.InternetProtocolFamily)
+	Number of methods: 1
+	newSocket;74;86
+		Number of updated lines: 5
+		Line Number: 74
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+		Line Number: 82
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+		Line Number: 88
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+		Line Number: 90
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+		Line Number: 96
+		Commit: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+		Number of Issues: 1
+			2311;2311;feature
+Number of Types of Issues: 2
+	improvement;2
+	feature;1
+Number of Types of Issues: 2
+	improvement
+		Number of Methods: 2
+		free
+		free
+	feature
+		Number of Methods: 1
+		newSocket
