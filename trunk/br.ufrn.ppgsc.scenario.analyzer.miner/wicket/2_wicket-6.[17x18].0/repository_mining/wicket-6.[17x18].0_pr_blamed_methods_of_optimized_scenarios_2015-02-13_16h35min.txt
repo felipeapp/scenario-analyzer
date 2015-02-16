@@ -1,0 +1,111 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 6
+Number of scenarios (include empties): 10
+Entry point for HangManTest.testHangmanLoseGame
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for HangManTest.testHangmanSuccessWebGame
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Component.internalOnRemove()
+		Time: 0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+Entry point for HangManTest.test_1
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for NiceUrlTest.testHomePage
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for NiceUrlTest.testPage1
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;1100;1100;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;520;500;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;140;140;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+Entry point for NiceUrlTest.testPage2
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+Entry point for NiceUrlTest.testPage2PP
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+Entry point for NiceUrlTest.testPage2UP
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+Entry point for NiceUrlTest.testPage5
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;1150;1150;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;540;520;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;150;150;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+Entry point for WithoutCPWithoutFPTest.testWithSlash
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+4
+4

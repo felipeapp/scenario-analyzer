@@ -1,0 +1,230 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 5
+Number of scenarios (include empties): 11
+Entry point for ApacheLicenseHeaderTestCase.licenseHeaders
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for GuestbookTest.test_1
+	Number of methods: 11
+	Number of methods (exclude word applied): 11
+	org.apache.wicket.Component.fireInitialize()
+		Time: 0.10850629874025194;0.11870425914817037;0.010197960407918427;4280;4280;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
+		Time: 0.5493554327808472;0.5769429097605894;0.027587476979742176;1110;1110;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.getPageComponentInfo(org.apache.wicket.request.Url)
+		Time: 0.058823529411764705;0.3980392156862745;0.33921568627450976;40;40;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.removeMetaParameter(org.apache.wicket.request.Url)
+		Time: 0.0;0.62;0.62;30;30;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.0148148148148146;4.166666666666667;1.1518518518518523;40;40;
+			Revision: a05aa4cae6145a707698fce9ef73885656589318
+				Issues: 0
+	org.apache.wicket.markup.MarkupFragment.find(java.lang.String)
+		Time: 0.25447887323943663;0.28664788732394364;0.03216901408450701;980;980;
+			Revision: c728d8953d34b7bf34d86a8625dcb6e1109602cf
+				Issues: 0
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean)
+		Time: 0.37592592592592594;0.5518518518518518;0.17592592592592587;40;40;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 0
+	org.apache.wicket.markup.html.form.Form.getRootFormRelativeId(org.apache.wicket.Component)
+		Time: 0.0;0.2028301886792453;0.2028301886792453;400;400;
+			Revision: b82e1cab704e5a7a32df580bae48421deea69fac
+				Issues: 0
+	org.apache.wicket.page.PageAccessSynchronizer.internalUnlockPages(java.lang.Integer)
+		Time: 0.09058823529411765;0.1635294117647059;0.07294117647058825;80;80;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 0
+	org.apache.wicket.request.Url.equals(java.lang.Object)
+		Time: 0.03449781659388646;0.04104803493449782;0.006550218340611355;160;160;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;1110;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+Entry point for HangManTest.testHangmanFailureWebGame
+	Number of methods: 9
+	Number of methods (exclude word applied): 9
+	org.apache.wicket.Component.fireInitialize()
+		Time: 0.10850629874025194;0.11870425914817037;0.010197960407918427;17540;17540;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
+		Time: 0.5493554327808472;0.5769429097605894;0.027587476979742176;5670;5670;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.getPageComponentInfo(org.apache.wicket.request.Url)
+		Time: 0.058823529411764705;0.3980392156862745;0.33921568627450976;70;70;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.0148148148148146;4.166666666666667;1.1518518518518523;20;20;
+			Revision: a05aa4cae6145a707698fce9ef73885656589318
+				Issues: 0
+	org.apache.wicket.markup.MarkupFragment.find(java.lang.String)
+		Time: 0.25447887323943663;0.28664788732394364;0.03216901408450701;4000;4000;
+			Revision: c728d8953d34b7bf34d86a8625dcb6e1109602cf
+				Issues: 0
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean)
+		Time: 0.37592592592592594;0.5518518518518518;0.17592592592592587;70;70;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 0
+	org.apache.wicket.page.PageAccessSynchronizer.internalUnlockPages(java.lang.Integer)
+		Time: 0.09058823529411765;0.1635294117647059;0.07294117647058825;130;130;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 0
+	org.apache.wicket.request.Url.equals(java.lang.Object)
+		Time: 0.03449781659388646;0.04104803493449782;0.006550218340611355;280;280;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;6730;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+Entry point for HelloWorldTest.testHelloWorld
+	Number of methods: 9
+	Number of methods (exclude word applied): 9
+	org.apache.wicket.Component.fireInitialize()
+		Time: 0.10850629874025194;0.11870425914817037;0.010197960407918427;980;980;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
+		Time: 0.5493554327808472;0.5769429097605894;0.027587476979742176;300;300;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.getPageComponentInfo(org.apache.wicket.request.Url)
+		Time: 0.058823529411764705;0.3980392156862745;0.33921568627450976;10;10;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.0148148148148146;4.166666666666667;1.1518518518518523;10;10;
+			Revision: a05aa4cae6145a707698fce9ef73885656589318
+				Issues: 0
+	org.apache.wicket.markup.MarkupFragment.find(java.lang.String)
+		Time: 0.25447887323943663;0.28664788732394364;0.03216901408450701;200;200;
+			Revision: c728d8953d34b7bf34d86a8625dcb6e1109602cf
+				Issues: 0
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean)
+		Time: 0.37592592592592594;0.5518518518518518;0.17592592592592587;10;10;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 0
+	org.apache.wicket.page.PageAccessSynchronizer.internalUnlockPages(java.lang.Integer)
+		Time: 0.09058823529411765;0.1635294117647059;0.07294117647058825;10;10;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 0
+	org.apache.wicket.request.Url.equals(java.lang.Object)
+		Time: 0.03449781659388646;0.04104803493449782;0.006550218340611355;40;40;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;250;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+Entry point for NiceUrlTest.testPage3
+	Number of methods: 8
+	Number of methods (exclude word applied): 8
+	org.apache.wicket.Component.fireInitialize()
+		Time: 0.10850629874025194;0.11870425914817037;0.010197960407918427;2140;2140;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
+		Time: 0.5493554327808472;0.5769429097605894;0.027587476979742176;660;660;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.getPageComponentInfo(org.apache.wicket.request.Url)
+		Time: 0.058823529411764705;0.3980392156862745;0.33921568627450976;20;20;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.markup.MarkupFragment.find(java.lang.String)
+		Time: 0.25447887323943663;0.28664788732394364;0.03216901408450701;400;400;
+			Revision: c728d8953d34b7bf34d86a8625dcb6e1109602cf
+				Issues: 0
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean)
+		Time: 0.37592592592592594;0.5518518518518518;0.17592592592592587;20;20;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 0
+	org.apache.wicket.page.PageAccessSynchronizer.internalUnlockPages(java.lang.Integer)
+		Time: 0.09058823529411765;0.1635294117647059;0.07294117647058825;20;20;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 0
+	org.apache.wicket.request.Url.equals(java.lang.Object)
+		Time: 0.03449781659388646;0.04104803493449782;0.006550218340611355;80;80;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;660;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+Entry point for Signin2Test.testSignIn2
+	Number of methods: 11
+	Number of methods (exclude word applied): 11
+	org.apache.wicket.Component.fireInitialize()
+		Time: 0.10850629874025194;0.11870425914817037;0.010197960407918427;3560;3560;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component)
+		Time: 0.5493554327808472;0.5769429097605894;0.027587476979742176;1550;1550;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.getPageComponentInfo(org.apache.wicket.request.Url)
+		Time: 0.058823529411764705;0.3980392156862745;0.33921568627450976;40;40;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.removeMetaParameter(org.apache.wicket.request.Url)
+		Time: 0.0;0.62;0.62;10;10;
+			Revision: d25f1ee8e0103e51467f8d81da180424f025bc21
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.0148148148148146;4.166666666666667;1.1518518518518523;70;70;
+			Revision: a05aa4cae6145a707698fce9ef73885656589318
+				Issues: 0
+	org.apache.wicket.markup.MarkupFragment.find(java.lang.String)
+		Time: 0.25447887323943663;0.28664788732394364;0.03216901408450701;930;930;
+			Revision: c728d8953d34b7bf34d86a8625dcb6e1109602cf
+				Issues: 0
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean)
+		Time: 0.37592592592592594;0.5518518518518518;0.17592592592592587;40;40;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 0
+	org.apache.wicket.markup.html.form.Form.getRootFormRelativeId(org.apache.wicket.Component)
+		Time: 0.0;0.2028301886792453;0.2028301886792453;180;180;
+			Revision: b82e1cab704e5a7a32df580bae48421deea69fac
+				Issues: 0
+	org.apache.wicket.page.PageAccessSynchronizer.internalUnlockPages(java.lang.Integer)
+		Time: 0.09058823529411765;0.1635294117647059;0.07294117647058825;70;70;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 0
+	org.apache.wicket.request.Url.equals(java.lang.Object)
+		Time: 0.03449781659388646;0.04104803493449782;0.006550218340611355;310;310;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;1400;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+Entry point for WellFormedXmlTest.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WellFormedXmlTestCase.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithFPTest.testWithSlash
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithoutFPTest.testHelloWorld
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WordGeneratorTest.testSuppliedWordConstructor
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+11
+10

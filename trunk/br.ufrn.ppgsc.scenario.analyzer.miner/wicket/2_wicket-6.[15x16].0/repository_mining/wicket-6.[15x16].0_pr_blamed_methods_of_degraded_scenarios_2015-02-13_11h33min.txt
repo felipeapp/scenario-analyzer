@@ -1,0 +1,173 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 6
+Number of scenarios (include empties): 12
+Entry point for HangManTest.testHangmanLoseGame
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for HangManTest.testHangmanSuccessWebGame
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;60;60;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;230;230;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;3230;3230;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;3300;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+Entry point for NiceUrlTest.testPage2PP
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.016230366492146597;0.016230366492146597;0;320;
+			Revision: 30323a5800834760bcc0fca25bea7f81a3fb0e6d
+				Issues: 0
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;10;10;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;30;30;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;200;200;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;200;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+Entry point for NiceUrlTest.testPage2UP
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.016230366492146597;0.016230366492146597;0;320;
+			Revision: 30323a5800834760bcc0fca25bea7f81a3fb0e6d
+				Issues: 0
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;10;10;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;30;30;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;200;200;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;200;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+Entry point for NiceUrlTest.testPage4
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.016230366492146597;0.016230366492146597;0;240;
+			Revision: 30323a5800834760bcc0fca25bea7f81a3fb0e6d
+				Issues: 0
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;10;10;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;20;20;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;140;140;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;140;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+Entry point for Signin2Test.testSignIn2
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;80;80;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;40;40;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;170;170;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;200;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+Entry point for TemplateTest.test_1
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;110;110;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;30;30;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;170;170;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;190;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+Entry point for WellFormedXmlTest.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WellFormedXmlTestCase.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithFPTest.testWithSlash
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithoutFPTest.testWithSlash
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WordGeneratorTest.testWordGenerator
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+5
+5
