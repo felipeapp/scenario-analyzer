@@ -1,0 +1,43 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+6
+Entry point for NiceUrlTest.testPage2UP
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage5
+4
+org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200
+org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730
+org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600
+org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+19
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;200;200
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;760;730
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;1600;1600
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;1100;1100
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;140;140
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;520;500
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;540;520
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;150;150
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;1150;1150
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): 0adb864ff18951a9630bd2339fb9e92963867d4a(0)
+Revision (Issues): 58fa34bc8ff9b531b61e9258ac33480296cc66f6(0)
+Revision (Issues): 9bd9d3679d90ed0192f4127373d34f7c43faa660(0)

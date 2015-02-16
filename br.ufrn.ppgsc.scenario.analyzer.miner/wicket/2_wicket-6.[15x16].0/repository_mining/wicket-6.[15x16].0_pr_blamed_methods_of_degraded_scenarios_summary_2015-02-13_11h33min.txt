@@ -1,0 +1,51 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 6
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage4
+Entry point for Signin2Test.testSignIn2
+Entry point for TemplateTest.test_1
+5
+org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class);null;0.016230366492146597;0.016230366492146597;0;320
+org.apache.wicket.markup.Markup.makeImmutable();0.055952380952380955;0.075;0.019047619047619042;60;60
+org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag);0.0;0.05714285714285714;0.05714285714285714;230;230
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.4214932126696833;1.6411764705882352;0.21968325791855192;3230;3230
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.006681270536692223;0.006681270536692223;0;3300
+5
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.016230366492146597;0.016230366492146597;0;320;
+			Revision: 30323a5800834760bcc0fca25bea7f81a3fb0e6d
+				Issues: 0
+	org.apache.wicket.markup.Markup.makeImmutable()
+		Time: 0.055952380952380955;0.075;0.019047619047619042;60;60;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 0
+	org.apache.wicket.markup.html.link.AbstractLink.disableLink(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0;0.05714285714285714;0.05714285714285714;230;230;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.4214932126696833;1.6411764705882352;0.21968325791855192;3230;3230;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;3300;
+			Revision: e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8
+				Issues: 0
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 0
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 5
+Revision (Issues): bc62f8cca03573160514444291513899211dae7e(0)
+Revision (Issues): e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8(0)
+Revision (Issues): 30323a5800834760bcc0fca25bea7f81a3fb0e6d(0)
+Revision (Issues): 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea(0)
+Revision (Issues): 3c6c41f19f6d4d9a236a7d902ed62816af41c00b(0)

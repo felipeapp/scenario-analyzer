@@ -1,0 +1,45 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+7
+Entry point for NiceUrlTest.testPage2PP
+Entry point for ImagesTest.testImages
+Entry point for NiceUrlTest.testPage2
+Entry point for FormInputTest.test_1
+Entry point for NiceUrlTest.testPage1
+Entry point for AjaxTest.test_1
+Entry point for NiceUrlTest.testPage5
+4
+org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;420;420
+org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;320;320
+org.apache.wicket.protocol.http.WebApplication.getInitParameter(java.lang.String);0.0;0.08888888888888889;0.08888888888888889;30;30
+org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.040229885057471264;0.04885057471264368;0.008620689655172417;20;20
+18
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;420;420
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;320;320
+Entry point for ImagesTest.testImages;org.apache.wicket.protocol.http.WebApplication.getInitParameter(java.lang.String);0.0;0.08888888888888889;0.08888888888888889;30;30
+Entry point for ImagesTest.testImages;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.040229885057471264;0.04885057471264368;0.008620689655172417;20;20
+Entry point for ImagesTest.testImages;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;270;270
+Entry point for ImagesTest.testImages;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;90;90
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;420;420
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;320;320
+Entry point for FormInputTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;230;230
+Entry point for FormInputTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;110;110
+Entry point for FormInputTest.test_1;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.040229885057471264;0.04885057471264368;0.008620689655172417;40;40
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;280;280
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;220;220
+Entry point for AjaxTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;590;590
+Entry point for AjaxTest.test_1;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.040229885057471264;0.04885057471264368;0.008620689655172417;100;100
+Entry point for AjaxTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;90;90
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.704219948849105;1.8040281329923273;0.09980818414322234;280;280
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.10935727788279773;0.11909262759924386;0.009735349716446129;230;230
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 5
+Revision (Issues): f6eaa937d4cdda9fd04c3c5312eaca66d5fb52a2(0)
+Revision (Issues): f0eb015745d387f8051b12acf051705eea4e31c9(0)
+Revision (Issues): 0c79489b9c70a5d442b42fdb61b0384fa66065e4(0)
+Revision (Issues): 6b8439f93e1809e5fc8b5fb283a4c0ff8c0dac47(0)
+Revision (Issues): 6ce317cf9414c550e0e66fbae5e35936ee20763d(0)

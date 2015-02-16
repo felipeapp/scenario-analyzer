@@ -1,0 +1,65 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 1
+Number of scenarios (include empties): 8
+Entry point for ApacheLicenseHeaderTestCase.licenseHeaders
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for NiceUrlTest.testHomePage
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for NiceUrlTest.testPage1
+	Number of methods: 6
+	Number of methods (exclude word applied): 6
+	org.apache.wicket.Page.componentRendered(org.apache.wicket.Component)
+		Time: 0.12350486787204451;0.01536856745479833;0.10813630041724617;680;680;
+			Revision: b5e4574b1b135249dee7860e1f52b2a2af34b641
+				Issues: 0
+			Revision: eaa22123f6e169febff568d57cebf922dc08b7e4
+				Issues: 0
+			Revision: e96dab0801ab21e96472206dacd8052d385a966e
+				Issues: 0
+			Revision: 6c58037e0ca57930d9646f254b0adc3701dceea1
+				Issues: 0
+			Revision: a391ff3fe2cf3bbd9aa9afa7b2810df2b0b47d28
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.mapHandler(org.apache.wicket.request.IRequestHandler)
+		Time: 0.4137542982181932;0.16323851203501094;0.25051578618318227;2470;2470;
+			Revision: bf43914fd7f0ed5ff57a56a82420cda76d3cbaee
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractComponentMapper.getPageComponentInfo(org.apache.wicket.request.Url)
+		Time: 0.3980392156862745;0.09215686274509804;0.30588235294117644;20;20;
+			Revision: 0c1cf1a195d9b27bbe4a7538ab68e6d6b22ad8cb
+				Issues: 0
+			Revision: 825da3055e9792ae5b4b0e86f47a6b08c9e7ce0e
+				Issues: 0
+	org.apache.wicket.core.request.mapper.MountedMapper.mapHandler(org.apache.wicket.request.IRequestHandler)
+		Time: 0.24104545454545453;0.07086363636363636;0.17018181818181816;1970;1970;
+			Revision: 15403962c9d9afe0dc7c691184c6cb03ff5aae13
+				Issues: 0
+			Revision: c38c022ce461ec37fb92e7f922fe7b47fbda6017
+				Issues: 0
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.222429906542056;0.8168224299065421;0.405607476635514;20;20;
+			Revision: 53d9fae5d9886bce65c5e6f360a4294791bd762a
+				Issues: 0
+	org.apache.wicket.protocol.http.RequestUtils.getCharset(javax.servlet.http.HttpServletRequest)
+		Time: 0.006985294117647059;0.0031472081218274113;0.003838085995819648;940;940;
+			Revision: d010f32f7011c4fe6f9d94d36814cc5395703826
+				Issues: 0
+Entry point for WellFormedXmlTest.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WellFormedXmlTestCase.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithFPTest.testHelloWorld
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithoutFPTest.testHelloWorld
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WordGeneratorTest.testWordGenerator
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+6
+6

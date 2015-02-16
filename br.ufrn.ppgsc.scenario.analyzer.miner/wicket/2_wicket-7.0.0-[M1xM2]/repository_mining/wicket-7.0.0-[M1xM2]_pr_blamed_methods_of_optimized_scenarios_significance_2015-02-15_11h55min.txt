@@ -1,0 +1,30 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+6
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage4
+Entry point for EncodingTest.test_1
+3
+org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;30;30
+org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request);1.0333333333333332;0.96;0.07333333333333325;10;10
+org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10
+8
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;30;30
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request);1.0333333333333332;0.96;0.07333333333333325;10;10
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;10;10
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request);1.0333333333333332;0.96;0.07333333333333325;10;10
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): aa82ccfcff94c0a83daf86c8cfd806206e9c6a52(0)
+Revision (Issues): e613e28b860ab6d7b140c0d746ea3b7442dc1751(0)
