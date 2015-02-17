@@ -28,6 +28,9 @@ public class JiraQueryIssue implements IQueryIssue {
 	public JiraQueryIssue() {
 		jira_system = SystemMetadataUtil.getInstance().getStringProperty("jira_system");
 		jira_url = SystemMetadataUtil.getInstance().getStringProperty("jira_url");
+		
+		if (jira_system == null || jira_url == null)
+			throw new NullPointerException("Jira property is null.");
 	}
 
 	public String getJiraSystem() {
