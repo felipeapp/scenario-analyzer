@@ -1,0 +1,19 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 2
+Entry point for EncodingTest.test_1
+Entry point for NiceUrlTest.testPage2
+1
+org.apache.wicket.core.request.mapper.BookmarkableMapper.urlStartsWithAndHasPageClass(org.apache.wicket.request.Url,java.lang.String[]);null;0.017391304347826087;0.017391304347826087;0;20
+1
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.urlStartsWithAndHasPageClass(org.apache.wicket.request.Url,java.lang.String[])
+		Time: null;0.017391304347826087;0.017391304347826087;0;20;
+			Revision: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+				Issues: 5673
+1
+5673;Improvement
+1
+Improvement;1
+1
+Improvement;5673
+Number of revisions (commits): 1
+Revision (Issues): 6ce317cf9414c550e0e66fbae5e35936ee20763d(5673)

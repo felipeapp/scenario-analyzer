@@ -4,9 +4,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,29 +98,45 @@ public class GitUpdatedLinesHandler {
 	}
 
 	private UpdatedLine handleLine(String gitblameline) throws IOException {
-		
 		Scanner in = new Scanner(gitblameline);
 		
 		String commit = in.next();
-		String firstName = in.next().replace("(", "");
-		String lastName = in.next();
 		
-		@SuppressWarnings("unused") String datetime;
-		if (lastName.startsWith("20")) {
-			datetime = lastName + " " + in.next();
-			lastName = "";
-		}
-		else {
-			datetime = in.next() + " " + in.next();
+		List<String> tokens = new ArrayList<String>();
+		while (true) {
+			String t = in.next();
+			
+			if (t.endsWith(")")) {
+				t = t.substring(0, t.length() - 1);
+				tokens.add(t);
+				break;
+			}
+			
+			if (t.startsWith("("))
+				t = t.substring(1);
+
+			tokens.add(t);
 		}
 		
-		@SuppressWarnings("unused") String timezone = in.next();
-		int lineNumber = Integer.parseInt(in.next().replace(")", ""));
-		String sourceLine = in.nextLine().substring(1);
+		String source_line = in.nextLine().substring(1);
 		
 		in.close();
 		
-		sourceCode.append(sourceLine + System.lineSeparator());
+		int line_number = Integer.parseInt(tokens.get(tokens.size() - 1));
+		
+		Date commit_date = null;
+		try {
+			commit_date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(
+					tokens.get(tokens.size() - 4) + " " + tokens.get(tokens.size() - 3));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		String author_name = "";
+		for (int i = 0; i < tokens.size() - 4; i++)
+			author_name += (i == 0 ? "" : " ") + tokens.get(i);
+		
+		sourceCode.append(source_line + System.lineSeparator());
 		
 		if (!commit.startsWith("^")) {
 			List<Issue> issues = cache_commit_issues.get(commit);
@@ -159,18 +178,24 @@ public class GitUpdatedLinesHandler {
 				cache_commit_issues.put(commit, issues);
 			}
 			
-			return new UpdatedLine(null, commit, issues, firstName + " " + lastName, sourceLine, lineNumber);
+			return new UpdatedLine(commit_date, commit, issues, author_name, source_line, line_number);
 		}
 		
 		return null;
 	}
 
 	public static void main(String[] args) throws IOException {
+//		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
+//				"c5d8af446a39db10a1744d47e5a466fa1c87a374",
+//				"b562148e2d8d0f0487495fb5dd2d5de62306c5e0",
+//				"C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/",
+//				"DefaultChannelHandlerContext.java");
+		
 		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
-				"c5d8af446a39db10a1744d47e5a466fa1c87a374",
-				"b562148e2d8d0f0487495fb5dd2d5de62306c5e0",
-				"C:/Users/Felipe/git/netty/transport/src/main/java/io/netty/channel/",
-				"DefaultChannelHandlerContext.java");
+				"7f0dc74db4ed30e2831c439d10fe0244813bce3e",
+				"021348160abf428bee0be2eca770cd08142ad168",
+				"C:/Users/Felipe/git/wicket/wicket-core/src/main/java/org/apache/wicket/",
+				"MarkupContainer.java");
 		
 		gitHandler.calculateChangedLines();
 		

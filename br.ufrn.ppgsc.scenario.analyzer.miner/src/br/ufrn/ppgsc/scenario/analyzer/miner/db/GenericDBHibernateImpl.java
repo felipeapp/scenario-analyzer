@@ -72,16 +72,26 @@ public class GenericDBHibernateImpl extends GenericDB {
 			double t1 = System.currentTimeMillis();
 			
 			SQLQuery query = getSession().createSQLQuery(
-					"select count(node.id) as total from node inner join node_scenario on node.id = node_scenario.node_id"
-					+ " where node.time <> -1 and node.member = :signature and"
-					+ " node_scenario.scenario_id in (select id from scenario where scenario.name = :scenario)");
-	
+				"select scenario.name sname, count(node.id) total from "
+				+ "node inner join node_scenario on node.id = node_scenario.node_id "
+				+ "inner join scenario on node_scenario.scenario_id = scenario.id "
+				+ "where node.time <> -1 and node.member = :signature group by sname order by sname"
+			);
+			
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			query.setString("signature", signature);
-			query.setString("scenario", scenario);
+			
+			query.addScalar("sname", StringType.INSTANCE);
 			query.addScalar("total", IntegerType.INSTANCE);
 	
-			total = (int) query.uniqueResult();
-			cache_scenariosignature_to_total.put(key, total);
+			for (Object o : query.list()) {
+				Map<?, ?> elem = (Map<?, ?>) o;
+				cache_scenariosignature_to_total.put(elem.get("sname").toString() + signature, (Integer) elem.get("total"));
+			}
+			
+			total = cache_scenariosignature_to_total.get(key);
+			if (total == null)
+				total = 0;
 			
 			System.out.println("[countMethodExecutionByScenario] Time: " + (System.currentTimeMillis() - t1) + "ms");
 		}
@@ -147,17 +157,24 @@ public class GenericDBHibernateImpl extends GenericDB {
 			
 			scenarios = new ArrayList<String>();
 	
-			Session s = getSession();
+			SQLQuery query = getSession().createSQLQuery(
+				"select scenario.name sname, count(node.id) total from "
+				+ "node inner join node_scenario on node.id = node_scenario.node_id "
+				+ "inner join scenario on node_scenario.scenario_id = scenario.id "
+				+ "where node.time <> -1 and node.member = :signature group by sname order by sname"
+			);
 	
-			SQLQuery query = s.createSQLQuery("select distinct scenario.name sname from node_scenario, node, scenario"
-					+ " where node_scenario.node_id = node.id and node_scenario.scenario_id = scenario.id and"
-					+ " node.time <> -1 and node.member = :signature order by scenario.name");
-	
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			query.setString("signature", signature);
+			
 			query.addScalar("sname", StringType.INSTANCE);
+			query.addScalar("total", IntegerType.INSTANCE);
 	
-			for (Object o : query.list())
-				scenarios.add((String) o);
+			for (Object o : query.list()) {
+				Map<?, ?> elem = (Map<?, ?>) o;
+				cache_scenariosignature_to_total.put(elem.get("sname").toString() + signature, (Integer) elem.get("total"));
+				scenarios.add(elem.get("sname").toString());
+			}
 			
 			cache_signature_to_scenarios.put(signature, scenarios);
 			System.out.println("[getScenariosByMember] Time: " + (System.currentTimeMillis() - t1) + "ms");
