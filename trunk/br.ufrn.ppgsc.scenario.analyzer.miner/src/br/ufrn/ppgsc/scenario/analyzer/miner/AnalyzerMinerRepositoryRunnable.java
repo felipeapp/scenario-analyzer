@@ -115,7 +115,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 	// TODO: How can I move this to report util?
 	private void saveScenariosAndBlames(String message, String filename, Map<String, List<String>> scenario_to_blames,
 			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2,
-			Map<String, Collection<UpdatedMethod>> pmap_signature_to_upmethod) throws FileNotFoundException {
+			Map<String, UpdatedMethod> map_signature_to_upmethod) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
 		
@@ -159,7 +159,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 		 */
 		pw.println("Number of scenarios (include empties): " + scenario_to_blames.size());
 		
+		int cscenarios = 0;
 		for (String scenario : new TreeSet<String>(scenario_to_blames.keySet())) {
+			++cscenarios;
+			
 			List<String> signatures = scenario_to_blames.get(scenario);
 			
 			Collections.sort(signatures);
@@ -180,7 +183,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 				scenario_to_members_significance.put(scenario, new HashSet<String>());
 			}
 			
+			int csignatures = 0;
 			for (String s : signatures) {
+				++csignatures;
+				
 				Map<Long, Issue> local_number_to_issue = new HashMap<Long, Issue>();
 				Map<String, Set<Issue>> local_revision_to_issues = new HashMap<String, Set<Issue>>();
 				
@@ -189,11 +195,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 				
 				double delta = calcExecutionTimeAbsDelta(t1, t2);
 				
-				System.out.println("Scenarios and blames: Counting " + s + " in R1 for " + scenario);
+				System.out.println(cscenarios + "/" + scenario_to_blames.size() + "-" + csignatures + "/" + signatures.size() + " | Scenarios and blames: Counting " + s + " in R1 for " + scenario);
 				int count1 = DatabaseRelease.getDatabasev1().countMethodExecutionByScenario(scenario, s);
 				System.out.println("\tTotal = " + count1);
 				
-				System.out.println("Scenarios and blames: Counting " + s + " in R2 for " + scenario);
+				System.out.println(cscenarios + "/" + scenario_to_blames.size() + "-" + csignatures + "/" + signatures.size() + " | Scenarios and blames: Counting " + s + " in R2 for " + scenario);
 				int count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, s);
 				System.out.println("\tTotal = " + count2);
 				
@@ -202,20 +208,19 @@ public final class AnalyzerMinerRepositoryRunnable {
 				sb.append("\t" + s + System.lineSeparator());
 				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2 + ";" + System.lineSeparator());
 				
-				for (UpdatedMethod um : pmap_signature_to_upmethod.get(s)) {
-					for (UpdatedLine ul : um.getUpdatedLines()) {
-						Set<Issue> issues_from_map = local_revision_to_issues.get(ul.getRevision());
-						
-						for (Issue issue  : ul.getIssues())
-							local_number_to_issue.put(issue.getNumber(), issue);
-						
-						if (issues_from_map == null) {
-							issues_from_map = new HashSet<Issue>();
-							local_revision_to_issues.put(ul.getRevision(), issues_from_map);
-						}
-						
-						issues_from_map.addAll(ul.getIssues());
+				UpdatedMethod um = map_signature_to_upmethod.get(s);
+				for (UpdatedLine ul : um.getUpdatedLines()) {
+					Set<Issue> issues_from_map = local_revision_to_issues.get(ul.getRevision());
+					
+					for (Issue issue  : ul.getIssues())
+						local_number_to_issue.put(issue.getNumber(), issue);
+					
+					if (issues_from_map == null) {
+						issues_from_map = new HashSet<Issue>();
+						local_revision_to_issues.put(ul.getRevision(), issues_from_map);
 					}
+					
+					issues_from_map.addAll(ul.getIssues());
 				}
 				
 				for (String revision : local_revision_to_issues.keySet()) {
@@ -383,10 +388,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 		RepositoryManager repository = new RepositoryManager(repository_url, repository_user, repository_password);
 		
 		// Methods that have contributed to performance degradation. The key is the method signature
-		Map<String, Map<String, Collection<UpdatedMethod>>> map_of_p_degradation_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
+		Map<String, Map<String, UpdatedMethod>> map_of_p_degradation_methods = new HashMap<String, Map<String, UpdatedMethod>>();
 		
 		// Methods that have contributed to performance optimization. The key is the method signature
-		Map<String, Map<String, Collection<UpdatedMethod>>> map_of_p_optimization_methods = new HashMap<String, Map<String, Collection<UpdatedMethod>>>();
+		Map<String, Map<String, UpdatedMethod>> map_of_p_optimization_methods = new HashMap<String, Map<String, UpdatedMethod>>();
 		
 		for (String filename : active_targets) {
 			List<String> repository_paths = new ArrayList<String>();
@@ -473,9 +478,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 					 * methods, including their parameters.
 					 * 
 					 */
-					String matched_signature = matchesName(path, upm.getMethodLimit().getSignature(), full_signatures);
+					Collection<String> matched_signatures = matchesName(path, upm.getMethodLimit().getSignature(), full_signatures);
 					
-					if (matched_signature != null) {
+					if (!matched_signatures.isEmpty()) {
 						Collection<UpdatedMethod> collection = filtered_path_to_upmethod.get(path);
 						
 						if (collection == null) {
@@ -498,12 +503,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 						 * because their code is not in the final release anymore. I still
 						 * put the test, but I think it does not make difference.
 						 */
-						Map<String, Collection<UpdatedMethod>> current_sig_to_upm = new HashMap<String, Collection<UpdatedMethod>>();
-						current_sig_to_upm.put(matched_signature, collection);
+						Map<String, UpdatedMethod> current_sig_to_upm = new HashMap<String, UpdatedMethod>();
+						
+						for (String s : matched_signatures)
+							current_sig_to_upm.put(s, upm);
+						
 						
 						for (String prefix : comparison_strategy) {
 							if (filename.equals(prefix + "degraded_methods")) {
-								Map<String, Collection<UpdatedMethod>> current_stored = map_of_p_degradation_methods.get(prefix);
+								Map<String, UpdatedMethod> current_stored = map_of_p_degradation_methods.get(prefix);
 								
 								if (current_stored == null)
 									map_of_p_degradation_methods.put(prefix, current_sig_to_upm);
@@ -511,7 +519,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 									current_stored.putAll(current_sig_to_upm);
 							}
 							else if (filename.equals(prefix + "optimized_methods")) {
-								Map<String, Collection<UpdatedMethod>> current_stored = map_of_p_optimization_methods.get(prefix);
+								Map<String, UpdatedMethod> current_stored = map_of_p_optimization_methods.get(prefix);
 								
 								if (current_stored == null)
 									map_of_p_optimization_methods.put(prefix, current_sig_to_upm);
@@ -564,18 +572,18 @@ public final class AnalyzerMinerRepositoryRunnable {
 		 * TODO: Check if the same reports for optimization are working.
 		 */
 		for (String target_prefix : comparison_strategy) {
-			Map<String, Collection<UpdatedMethod>> p_degradation_methods = map_of_p_degradation_methods.get(target_prefix);
-			Map<String, Collection<UpdatedMethod>> p_optimization_methods = map_of_p_optimization_methods.get(target_prefix);
+			Map<String, UpdatedMethod> p_degradation_methods = map_of_p_degradation_methods.get(target_prefix);
+			Map<String, UpdatedMethod> p_optimization_methods = map_of_p_optimization_methods.get(target_prefix);
 			
 			if (isFilled(p_degradation_methods)) {
-				// Saving issues
-				AnalyzerReportUtil.saveFullMiningData(
-					"# Issues potentially blamed for performance degradation (degraded + added)",
-					getRMFilePath(target_prefix + "issues_of_performance_degradation"), p_degradation_methods,
-					AnalyzerCollectionUtil.getTaskNumbers(p_degradation_methods),
-					AnalyzerCollectionUtil.countTaskTypes(p_degradation_methods),
-					AnalyzerCollectionUtil.getTaskMembers(p_degradation_methods)
-				);
+				// Saving potentially blamed issues. TODO: is it important?
+//				AnalyzerReportUtil.saveFullMiningData(
+//					"# Issues potentially blamed for performance degradation (degraded + added)",
+//					getRMFilePath(target_prefix + "issues_of_performance_degradation"), p_degradation_methods,
+//					AnalyzerCollectionUtil.getTaskNumbers(new HashMap<String, Collection<UpdatedMethod>>().p),
+//					AnalyzerCollectionUtil.countTaskTypes(p_degradation_methods),
+//					AnalyzerCollectionUtil.getTaskMembers(p_degradation_methods)
+//				);
 				
 				// Getting and saving the impacted elements by the blamed methods
 				AnalyzerReportUtil.saveImpactedElements(
@@ -585,17 +593,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			// TODO: Check if optimization is working
 			if (isFilled(p_optimization_methods)) {
-				/*
-				 *  Saving potentially blamed issues.
+				/*  Saving potentially blamed issues. TODO: is it important?
 				 *  The removed methods might be not considered.
 				 */
-				AnalyzerReportUtil.saveFullMiningData(
-					"# Issues potentially blamed for performance optimization (removed + optimized)",
-					getRMFilePath(target_prefix + "issues_of_performance_optimization"), p_optimization_methods,
-					AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
-					AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
-					AnalyzerCollectionUtil.getTaskMembers(p_optimization_methods)
-				);
+//				AnalyzerReportUtil.saveFullMiningData(
+//					"# Issues potentially blamed for performance optimization (removed + optimized)",
+//					getRMFilePath(target_prefix + "issues_of_performance_optimization"), p_optimization_methods,
+//					AnalyzerCollectionUtil.getTaskNumbers(p_optimization_methods),
+//					AnalyzerCollectionUtil.countTaskTypes(p_optimization_methods),
+//					AnalyzerCollectionUtil.getTaskMembers(p_optimization_methods)
+//				);
 	
 				// Getting and saving the impacted elements by the blamed methods
 				AnalyzerReportUtil.saveImpactedElements(
@@ -724,7 +731,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			delta = (count1 * t1 >= member_significance_variation)? t1 : 0;
 		}
 		else { // The member exists in both releases
-			delta = Math.abs(t2 - t1);
+			delta = (count2 * Math.abs(t2 - t1) >= member_significance_variation)? Math.abs(t2 - t1) : 0;
 		}
 		
 		return delta >= avg_significance_delta;
@@ -829,15 +836,17 @@ public final class AnalyzerMinerRepositoryRunnable {
 		return (exclude_word != null && !exclude_word.isEmpty() && text.contains(exclude_word));
 	}
 	
-	private String matchesName(String path, String method_name, Collection<String> method_signatures) {
+	private Collection<String> matchesName(String path, String method_name, Collection<String> method_signatures) {
+		Collection<String> signatures = new ArrayList<String>();
+		
 		String class_name = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
 		String class_dot_method = class_name + "." + method_name;
 		
 		for (String s : method_signatures)
 			if (s.matches(".*[.]" + class_dot_method + "[(].*"))
-				return s;
+				signatures.add(s);
 		
-		return null;
+		return signatures;
 	}
 
 }
