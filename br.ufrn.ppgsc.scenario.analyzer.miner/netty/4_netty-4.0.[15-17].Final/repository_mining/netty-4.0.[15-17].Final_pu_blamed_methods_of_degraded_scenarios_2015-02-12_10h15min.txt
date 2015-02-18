@@ -1,0 +1,433 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 16
+Number of scenarios (include empties): 16
+Entry point for SocketBufReleaseTest.testBufRelease
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;183;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;50;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+Entry point for SocketEchoTest.testSimpleEcho
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;2023;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;2023;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;2023;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;2023;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;1641;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho()
+		Time: 6895.2;9085.3;2190.0999999999995;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
+		Time: null;1565.3380952380953;1565.3380952380953;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;1966;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;1966;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;1966;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;1966;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;1527;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
+		Time: null;1565.3380952380953;1565.3380952380953;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutor()
+		Time: 8629.8;10444.4;1814.6000000000004;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;1931;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;1931;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;1931;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;1931;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;1492;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
+		Time: null;1565.3380952380953;1565.3380952380953;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise()
+		Time: 8405.2;10614.6;2209.3999999999996;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;1893;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;1893;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;1893;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;1893;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;1551;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean,boolean)
+		Time: null;1565.3380952380953;1565.3380952380953;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEchoWithVoidPromise()
+		Time: 6552.0;8480.3;1928.2999999999993;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketFileRegionTest.testFileRegion
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;241;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler(boolean)
+		Time: null;0.0;0.0;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion()
+		Time: 7441.2;8695.5;1254.3000000000002;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+		Time: null;1485.6958333333334;1485.6958333333334;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;240;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler(boolean)
+		Time: null;0.0;0.0;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+		Time: null;1485.6958333333334;1485.6958333333334;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegionVoidPromise()
+		Time: 6803.2;8934.1;2130.9000000000005;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;41030;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;41030;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;41030;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;41030;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;27637;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho()
+		Time: 7564.3;8823.5;1259.1999999999998;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.testFixedLengthEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: null;1509.5583333333334;1509.5583333333334;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketObjectEchoTest.testObjectEcho
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;41160;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEcho()
+		Time: 7634.6;8804.6;1170.0;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketObjectEchoTest.testObjectEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: null;1512.9583333333333;1512.9583333333333;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;27;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;30;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+Entry point for SocketSslEchoTest.testSslEcho
+	Number of methods: 9
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;31718;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;31718;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;31718;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;31718;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;24401;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean,boolean)
+		Time: null;0.0;0.0;0;1920;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
+		Time: 5372.03125;7346.775;1974.7437499999996;160;160;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+		Time: 891.909375;1224.315625;332.40625;960;960;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: null;1222.2729166666666;1222.2729166666666;0;960;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketStartTlsTest.testStartTls
+	Number of methods: 5
+	Number of methods (exclude word applied): 1
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;205;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsClientHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine,boolean)
+		Time: null;0.0;0.0;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsServerHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine,boolean)
+		Time: null;1.7;1.7;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTls()
+		Time: 12145.8;14312.9;2167.1000000000004;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketStartTlsTest.testStartTls(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: null;2356.375;2356.375;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for SocketStringEchoTest.testStringEcho
+	Number of methods: 8
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;61440;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;41163;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketStringEchoTest$StringEchoHandler(boolean)
+		Time: null;0.0;0.0;0;120;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho()
+		Time: 7616.0;8885.7;1269.7000000000007;10;10;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+	io.netty.testsuite.transport.socket.SocketStringEchoTest.testStringEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+		Time: null;1552.7166666666667;1552.7166666666667;0;60;
+			Revision: 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+				Issues: 2254
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle)
+		Time: null;7.635599628565025E-5;7.635599628565025E-5;0;40;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$AbstractWriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.AbstractWriteTask)
+		Time: null;1.1822863941003908E-4;1.1822863941003908E-4;0;40;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle)
+		Time: null;3.696283756311405E-5;3.696283756311405E-5;0;40;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteAndFlushTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteAndFlushTask)
+		Time: null;3.9427026733988315E-5;3.9427026733988315E-5;0;40;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+	io.netty.channel.SingleThreadEventLoop.wakesUpForTask(java.lang.Runnable)
+		Time: null;3.2869740399738456E-4;3.2869740399738456E-4;0;70;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+32
+0

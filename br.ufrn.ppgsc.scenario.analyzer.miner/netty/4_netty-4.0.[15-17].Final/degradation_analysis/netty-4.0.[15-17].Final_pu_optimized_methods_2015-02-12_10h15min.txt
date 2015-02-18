@@ -1,0 +1,16 @@
+# Optimized methods (UTest P-Value)
+11
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+io.netty.testsuite.transport.AbstractComboTestsuiteTest.newAllocators();5.4761762377416784E-5;0.0014789101944181482;24.7625;15.372413793103448;320;580
+io.netty.bootstrap.AbstractBootstrap.doBind(java.net.SocketAddress);7.617015643120219E-5;1.842422732613036E-4;8.808715596330275;5.8882352941176475;2180;3740
+io.netty.bootstrap.AbstractBootstrap.bind();7.594625915795187E-5;1.587589220226615E-4;8.822935779816515;5.901069518716578;2180;3740
+io.netty.bootstrap.Bootstrap.doConnect(java.net.SocketAddress,java.net.SocketAddress);9.939411739309978E-4;5.862363145892058E-4;5.82;3.5797687861271674;1900;3460
+io.netty.testsuite.transport.TestsuitePermutation.allocator();1.0191047496240755E-5;3.5236136762850645E-4;28.352631578947367;18.4640625;380;640
+io.netty.bootstrap.AbstractBootstrap.initAndRegister();1.1267918592356386E-6;3.4860318330887097E-6;6.9810096153846155;4.623901098901099;4160;7280
+io.netty.channel.AbstractChannel(io.netty.channel.Channel);3.1527515105205124E-4;0.0448765077446146;3.55;2.360851648351648;4160;7280
+io.netty.bootstrap.AbstractBootstrap$BootstrapChannelFactory.newChannel();1.2158189073827051E-5;4.3415231501864326E-5;5.825380710659899;3.8740793201133146;3940;7060
+io.netty.bootstrap.Bootstrap.connect();0.0023362791454851766;9.890006868591428E-4;5.167032967032967;3.1668639053254437;1820;3380
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho();2.6232080344015885E-17;1.5705228423079642E-4;5569.1;5101.2;10;10
+io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories();0.0011026792575058522;0.0030199704033319064;40.9448275862069;25.274545454545454;290;550
+0.0
+0.05

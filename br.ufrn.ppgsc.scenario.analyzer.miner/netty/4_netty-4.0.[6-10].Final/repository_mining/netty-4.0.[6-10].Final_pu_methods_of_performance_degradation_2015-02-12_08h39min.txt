@@ -1,0 +1,172 @@
+# Methods potentially blamed for performance degradation
+18
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+4
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+io.netty.channel.socket.DefaultDatagramChannelConfig.getOption(io.netty.channel.ChannelOption)
+1
+Entry point for DatagramMulticastTest.testMulticast
+io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind()
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.channel.socket.DefaultDatagramChannelConfig.setActiveOnOpen(boolean)
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.channel.DefaultChannelHandlerContext.findContextInbound()
+7
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+19
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
+19
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+19
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.bootstrap.AbstractBootstrap.register()
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean)
+4
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteTask)
+19
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.AbstractChannel.estimatorHandle()
+19
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoWithChunkHandlerComposite()
+1
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoComposite()
+1
+Entry point for SocketSslEchoTest.testSslEchoComposite
+io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
+15
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoComposite
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoComposite(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketSslEchoTest.testSslEchoComposite
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEchoWithChunkHandlerComposite(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandlerComposite
+io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
