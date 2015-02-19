@@ -1,0 +1,45 @@
+# Membros responsáveis pela degradação de performance em cada cenário degradado [list]
+18
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+10
+io.netty.bootstrap.ServerBootstrap.toString() 0.02727272727272727 0.06321839080459771 0.03594566353187044 -1
+io.netty.buffer.AbstractByteBufAllocator.toString() null 0.00543859649122807 0.00543859649122807 -1
+io.netty.buffer.PooledByteBuf.deallocate() null 0.26666666666666666 0.26666666666666666 -1
+io.netty.channel.ChannelOption.valueOf(java.lang.String) null 0.05976190476190476 0.05976190476190476 -1
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object) 0.0 0.03679245283018868 0.03679245283018868 1952
+io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object) null 0.030967409260620877 0.030967409260620877 -1 1947
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise) 0.10147357667151566 0.1389855257097498 0.037511949038234155 -1
+io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel) null 0.18195488721804512 0.18195488721804512 2060
+io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel) null 0.32066666666666666 0.32066666666666666 2060
+io.netty.channel.nio.NioEventLoop.openSelector() null 3.248 3.248 1908
+5
+-1:No issue (-1)
+1908:defect
+1947:none yet
+1952:defect
+2060:defect
+3
+defect:3
+No issue (-1):1
+none yet:1
+3
+defect:1908 1952 2060 
+No issue (-1):-1 
+none yet:1947 

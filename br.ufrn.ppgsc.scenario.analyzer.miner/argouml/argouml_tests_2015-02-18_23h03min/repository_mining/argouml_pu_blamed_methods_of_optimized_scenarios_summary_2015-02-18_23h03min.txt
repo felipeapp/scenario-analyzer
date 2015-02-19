@@ -1,0 +1,119 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 21
+Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
+Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
+Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
+Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
+Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+Entry point for TestAttributeAndOperationNotationUml.testOperationType
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+Entry point for TestMessageNotationUml.testGenerateIssue5150
+Entry point for TestProfileMother.testSaveProfileModel
+Entry point for TestProject.testTrashcanClassContent
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined
+Entry point for TestStateMachinesFactory.testDeleteTransition
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
+Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
+11
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object);2.5238095238095237;1.570967741935484;0.9528417818740398;10;10
+org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object);7.484615384615385;4.453846153846154;3.0307692307692307;0;20
+org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String);7.846666666666667;4.604477611940299;3.242189054726368;0;20
+org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;30;30
+org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;40
+org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;30;50
+org.argouml.profile.ProfileMother.createSimpleProfileModel();36.2125;26.525;9.6875;10;10
+org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
+org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
+org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object);40.5;4.75;35.75;10;10
+11
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;30;30;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;30;40;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
+		Time: 12.084615384615384;7.748484848484848;4.336130536130536;30;50;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.profile.ProfileMother.createSimpleProfileModel()
+		Time: 36.2125;26.525;9.6875;10;10;
+			Revision: 19614
+				Issues: 0
+			Revision: 18234
+				Issues: 5969;6008
+			Revision: 17979
+				Issues: 4997
+	org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File)
+		Time: 208.23333333333332;135.66315789473686;72.57017543859646;10;10;
+			Revision: 18234
+				Issues: 5969;6008
+	org.argouml.profile.init.InitProfileSubsystem.init()
+		Time: 932.3;328.675;603.625;10;10;
+			Revision: 18265
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.loadWellFormednessRules()
+		Time: 211.13333333333333;117.7;93.43333333333332;10;10;
+			Revision: 18257
+				Issues: 0
+	org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object)
+		Time: 40.5;4.75;35.75;10;10;
+			Revision: 18442
+				Issues: 0
+8
+0;No issue (0)
+4252;ENHANCEMENT
+4997;DEFECT
+5969;DEFECT
+6008;DEFECT
+6145;DEFECT
+6155;TASK
+6377;DEFECT
+4
+ENHANCEMENT;1
+TASK;1
+DEFECT;5
+No issue (0);1
+4
+ENHANCEMENT;4252
+TASK;6155
+DEFECT;4997;5969;6008;6145;6377
+No issue (0);0
+Number of revisions (commits): 12
+Revision (Issues): 19614(0)
+Revision (Issues): 18770(6145)
+Revision (Issues): 18093(0)
+Revision (Issues): 19741(6377)
+Revision (Issues): 19264(4252)
+Revision (Issues): 18760(6155)
+Revision (Issues): 18442(0)
+Revision (Issues): 18095(0)
+Revision (Issues): 18265(0)
+Revision (Issues): 18234(5969;6008)
+Revision (Issues): 18257(0)
+Revision (Issues): 17979(4997)
