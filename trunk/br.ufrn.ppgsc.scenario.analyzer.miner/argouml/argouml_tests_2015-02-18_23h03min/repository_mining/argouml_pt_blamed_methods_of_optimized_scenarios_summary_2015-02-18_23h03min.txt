@@ -1,0 +1,203 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 44
+Entry point for AbstractTestActionAddDiagram.testCreateDiagram
+Entry point for AbstractTestMissingName.testHasName
+Entry point for TestActionCollaborationDiagram.testValidNamespaces
+Entry point for TestActionStateDiagram.testValidNamespaces
+Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
+Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
+Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
+Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleName
+Entry point for TestClassifierRoleNotationUml.testGetHelp
+Entry point for TestCoreFactory.testDeleteClassifierAssociation
+Entry point for TestCoreFactory.testDeleteModelelementClassSelfAssociations
+Entry point for TestCrNameConflict.testPredicate
+Entry point for TestCrNoAssociations.testUseCaseAssociation
+Entry point for TestDiagramFactory.testCreateDefaultDiagram
+Entry point for TestEnumerationLiteralNotationUml.testEnumerationLiteralName
+Entry point for TestMessageNotationUml.testGenerateIssue5150
+Entry point for TestProfileManagerImpl.testRemoveDefaultProfile
+Entry point for TestProfileMother.testSaveProfileModel
+Entry point for TestProject.testTrashcanClassContent
+Entry point for TestProjectSettings.testVisibilityEvents
+Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals
+Entry point for TestStateMachinesFactory.testDeleteTransition
+Entry point for TestStylePanel.testTargetSet
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
+Entry point for TestTargetManager.testGetTargets
+Entry point for TestTransitionNotationUml.testGetHelp
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
+Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
+Entry point for TestTransitionNotationUml.testParseTriggerTimeEvent
+Entry point for TestUMLActivityDiagram.testUMLActivityDiagram
+Entry point for TestUMLClassDiagram.testUMLClassDiagram
+Entry point for TestUMLCollaborationDiagram.testUMLCollaborationDiagram
+Entry point for TestUMLDeploymentDiagram.testUMLDeploymentDiagram
+Entry point for TestUMLFeatureOwnerScopeCheckBox.testDoClick
+Entry point for TestUMLStateDiagram.testUMLStateDiagram
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
+Entry point for TestUMLUseCaseDiagram.testUMLUseCaseDiagram
+21
+org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;240;100
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createClassifierRole();1.285;0.6111111111111112;0.6738888888888888;20;20
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object);2.5238095238095237;1.570967741935484;0.9528417818740398;10;10
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject);1.3285714285714285;0.7548387096774194;0.5737327188940091;10;10
+org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11();1.4333333333333333;0.9890909090909091;0.4442424242424242;30;30
+org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object);7.484615384615385;4.453846153846154;3.0307692307692307;0;20
+org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String);7.846666666666667;4.604477611940299;3.242189054726368;0;20
+org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition);1.1057142857142856;0.5149253731343284;0.5907889125799572;50;50
+org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object);0.05368354008067696;0.034012741549728026;0.019670798530948934;120;60
+org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;40;40
+org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;30;30
+org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;40
+org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;30;50
+org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;120;120
+org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
+org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
+org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile);4.933333333333334;1.8333333333333333;3.1000000000000005;10;10
+org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
+org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;10;10
+org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean);1.367391304347826;0.9902654867256637;0.37712581762216235;30;30
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object);40.5;4.75;35.75;10;10
+21
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;240;100;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createClassifierRole()
+		Time: 1.285;0.6111111111111112;0.6738888888888888;20;20;
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11()
+		Time: 1.4333333333333333;0.9890909090909091;0.4442424242424242;30;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;50;50;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;120;60;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;40;40;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;30;30;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;30;40;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
+		Time: 12.084615384615384;7.748484848484848;4.336130536130536;30;50;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String)
+		Time: 4.895238095238096;3.508235294117647;1.3870028011204485;120;120;
+			Revision: 18449
+				Issues: 5988
+	org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File)
+		Time: 208.23333333333332;135.66315789473686;72.57017543859646;10;10;
+			Revision: 18234
+				Issues: 5969;6008
+	org.argouml.profile.init.InitProfileSubsystem.init()
+		Time: 932.3;328.675;603.625;10;10;
+			Revision: 18265
+				Issues: 0
+	org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile)
+		Time: 4.933333333333334;1.8333333333333333;3.1000000000000005;10;10;
+			Revision: 18253
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.loadWellFormednessRules()
+		Time: 211.13333333333333;117.7;93.43333333333332;10;10;
+			Revision: 18257
+				Issues: 0
+	org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent)
+		Time: 35.845454545454544;1.2;34.64545454545454;10;10;
+			Revision: 19614
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;30;30;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+	org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object)
+		Time: 40.5;4.75;35.75;10;10;
+			Revision: 18442
+				Issues: 0
+11
+0;No issue (0)
+4252;ENHANCEMENT
+5969;DEFECT
+5988;DEFECT
+6008;DEFECT
+6048;DEFECT
+6053;DEFECT
+6145;DEFECT
+6155;TASK
+6179;DEFECT
+6377;DEFECT
+4
+ENHANCEMENT;1
+TASK;1
+DEFECT;8
+No issue (0);1
+4
+ENHANCEMENT;4252
+TASK;6155
+DEFECT;5969;5988;6008;6048;6053;6145;6179;6377
+No issue (0);0
+Number of revisions (commits): 20
+Revision (Issues): 19741(6377)
+Revision (Issues): 19264(4252)
+Revision (Issues): 19391(0)
+Revision (Issues): 18442(0)
+Revision (Issues): 18216(6053;6048)
+Revision (Issues): 19263(0)
+Revision (Issues): 19614(0)
+Revision (Issues): 18093(0)
+Revision (Issues): 18770(6145)
+Revision (Issues): 18968(6179)
+Revision (Issues): 18760(6155)
+Revision (Issues): 18095(0)
+Revision (Issues): 18253(0)
+Revision (Issues): 18265(0)
+Revision (Issues): 18234(5969;6008)
+Revision (Issues): 19138(0)
+Revision (Issues): 18257(0)
+Revision (Issues): 18449(5988)
+Revision (Issues): 18269(6008)
+Revision (Issues): 18880(0)
