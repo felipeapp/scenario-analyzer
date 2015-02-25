@@ -1,0 +1,23 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+2
+Entry point for TemplateTest.test_1
+Entry point for HangManTest.testHangmanSuccessWebGame
+2
+org.apache.wicket.request.RequestHandlerStack.detach();10.705882352941176;6.83764705882353;3.868235294117646;50;50
+org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.6;18.786666666666665;10.813333333333336;60;60
+3
+Entry point for TemplateTest.test_1;org.apache.wicket.request.RequestHandlerStack.detach();10.705882352941176;6.83764705882353;3.868235294117646;50;50
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.6;18.786666666666665;10.813333333333336;60;60
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.RequestHandlerStack.detach();10.705882352941176;6.83764705882353;3.868235294117646;150;150
+2
+0;No issue (0)
+5660;Improvement
+2
+Improvement;1
+No issue (0);1
+2
+Improvement;5660
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): 9fb48d836a5ad26f991e81222fced6cc290c41e3(5660)
+Revision (Issues): a5954823353f20a6157156704ae91d6067a1f5c8(0)

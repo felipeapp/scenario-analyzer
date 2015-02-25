@@ -1,0 +1,66 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 6
+Entry point for EncodingTest.test_1
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage4
+7
+org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag);0.12806698216235893;0.11936658172551874;0.008700400436840186;290;290
+org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag();0.016625228997644594;0.008651257980557471;0.007973971017087123;1430;1430
+org.apache.wicket.MarkupContainer.dequeueAutoComponents();8.057654723127035;7.297719869706841;0.7599348534201944;60;60
+org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10
+org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;20;20
+org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request);1.0333333333333332;0.96;0.07333333333333325;10;10
+org.apache.wicket.markup.Markup.find(java.lang.String);2.066233766233766;1.7974025974025973;0.26883116883116887;20;20
+7
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;290;290;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;1430;1430;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;60;60;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
+	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 0.42727272727272725;0.3875;0.03977272727272724;20;20;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 1.0333333333333332;0.96;0.07333333333333325;10;10;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;20;20;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+5
+0;No issue (0)
+5498;Bug
+5560;Bug
+5565;Bug
+5580;Improvement
+3
+Improvement;1
+Bug;3
+No issue (0);1
+3
+Improvement;5580
+Bug;5498;5560;5565
+No issue (0);0
+Number of revisions (commits): 6
+Revision (Issues): e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3(0)
+Revision (Issues): f854896f6a8230eb8181976b15fe09e87ac30a71(0)
+Revision (Issues): aa82ccfcff94c0a83daf86c8cfd806206e9c6a52(5560)
+Revision (Issues): e613e28b860ab6d7b140c0d746ea3b7442dc1751(5565)
+Revision (Issues): 847bff720eed8a779accb2d51ac34f446d5ab7db(5498)
+Revision (Issues): 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1(5580)

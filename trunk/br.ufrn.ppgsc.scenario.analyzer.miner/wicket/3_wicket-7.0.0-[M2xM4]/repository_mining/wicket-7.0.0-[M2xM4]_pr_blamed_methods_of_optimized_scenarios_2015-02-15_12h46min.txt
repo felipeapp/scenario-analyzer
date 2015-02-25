@@ -1,0 +1,2552 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 20
+Number of scenarios (include empties): 21
+Entry point for AjaxTest.test_1
+	Number of methods: 28
+	Number of methods (exclude word applied): 25
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;450;30;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;6190;530;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;5080;380;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;6770;540;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;1670;40;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;180;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1420;910;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;50;50;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;30;30;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;770;640;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;780;650;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;780;650;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;120;80;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;40;10;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;110;110;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;80;80;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;260;200;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;470;410;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;800;560;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;800;560;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;90;30;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;280;100;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;130;170;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.urlFor(org.apache.wicket.request.IRequestHandler)
+		Time: 0.4846153846153846;0.11538461538461539;0.36923076923076925;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for ComprefTest.test_1
+	Number of methods: 25
+	Number of methods (exclude word applied): 25
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;450;10;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;3390;970;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;3040;880;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;3750;1070;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;550;20;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;450;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1380;1210;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;10;10;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;10;10;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;2150;2020;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;2160;2030;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;2160;2030;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;340;340;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;20;10;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;10;10;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;10;10;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;330;310;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;380;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;760;680;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;760;680;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;50;50;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;360;340;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;1030;970;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;130;170;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for EncodingTest.test_1
+	Number of methods: 25
+	Number of methods (exclude word applied): 25
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;180;10;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;2330;390;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;1960;300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;2520;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;560;20;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;510;340;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;10;10;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;10;10;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;720;590;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;730;600;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;730;600;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;40;40;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;30;20;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;10;10;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;10;10;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;40;20;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;70;50;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;180;100;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;180;100;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;50;50;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;70;50;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;160;100;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;130;160;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for GuestbookTest.test_1
+	Number of methods: 34
+	Number of methods (exclude word applied): 34
+	org.apache.wicket.DequeueContext$Bookmark(org.apache.wicket.DequeueContext)
+		Time: 0.020223671947809878;0.01687116564417178;0.003352506303638099;470;50;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;880;190;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;11620;1930;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.save()
+		Time: 0.03625349487418453;0.02638036809815951;0.009873126776025018;470;50;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;9190;1350;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;12250;1880;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2890;300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;150;250;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;2100;1420;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle)
+		Time: 29.486666666666668;23.513333333333332;5.973333333333336;30;30;
+			Revision: b793f99f6b1f5787b5be0b732ddb17baec4c711b
+				Issues: 5660
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;80;80;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.core.util.lang.PropertyResolver.setValue(java.lang.String,java.lang.Object,java.lang.Object,org.apache.wicket.core.util.lang.PropertyResolverConverter)
+		Time: 0.1875;0.0;0.1875;40;40;
+			Revision: 069139412ce4b553375ac1a3006aaa9f5783091f
+				Issues: 0
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;40;40;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput()
+		Time: 0.31;0.15;0.16;60;60;
+			Revision: 16e52ff2861f36431aedf61cafd86d2c5565d449
+				Issues: 5708
+	org.apache.wicket.markup.html.form.Form.onFormSubmitted()
+		Time: 39.0;36.35;2.6499999999999986;30;30;
+			Revision: d20e568b51f9c8e4612472d143df4d49a3bd0e63
+				Issues: 5672
+	org.apache.wicket.markup.html.form.Form.onFormSubmitted(org.apache.wicket.markup.html.form.IFormSubmitter)
+		Time: 38.6;34.8;3.8000000000000043;30;30;
+			Revision: d20e568b51f9c8e4612472d143df4d49a3bd0e63
+				Issues: 5672
+	org.apache.wicket.markup.html.form.Form.process(org.apache.wicket.markup.html.form.IFormSubmitter)
+		Time: 27.625;25.7;1.9250000000000007;30;30;
+			Revision: 360e91bb9cc24913311b914a9413e6f69169e55e
+				Issues: 4344
+	org.apache.wicket.markup.html.form.FormComponent.convertInput()
+		Time: 0.3875;0.0;0.3875;40;40;
+			Revision: 16e52ff2861f36431aedf61cafd86d2c5565d449
+				Issues: 5708
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;890;760;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;870;740;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;870;740;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;120;60;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;50;10;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;110;110;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;80;80;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;310;230;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;580;500;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;1090;770;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;1090;770;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;40;40;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;360;360;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;390;310;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;910;670;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;130;280;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for HangManTest.testHangmanFailureWebGame
+	Number of methods: 37
+	Number of methods (exclude word applied): 33
+	org.apache.wicket.Application.destroyInitializers()
+		Time: 0.8;0.0;0.8;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.DequeueContext$Bookmark(org.apache.wicket.DequeueContext)
+		Time: 0.020223671947809878;0.01687116564417178;0.003352506303638099;3160;2600;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;5000;3960;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;159140;145830;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.save()
+		Time: 0.03625349487418453;0.02638036809815951;0.009873126776025018;3160;2600;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;142230;131140;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;157880;143260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;75390;71610;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;300;3010;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.getResources(java.lang.String)
+		Time: 4.383333333333333;2.875;1.5083333333333329;10;20;
+			Revision: 279cf5cee1d284b041f34783fd3d31649919d46d
+				Issues: 0
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;7100;4320;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle)
+		Time: 29.486666666666668;23.513333333333332;5.973333333333336;50;50;
+			Revision: b793f99f6b1f5787b5be0b732ddb17baec4c711b
+				Issues: 5660
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;10;10;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;140;140;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.examples.hangman.HangManTest.testHangmanFailureWebGame()
+		Time: 6600.3;5293.2;1307.1000000000004;10;10;
+			Revision: cb4590a27febd29db3bd2939fc3fb6025c4c3691
+				Issues: 5669
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;70;70;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;1230;1100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;1250;1120;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;1250;1120;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;210;130;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;1410;1340;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;200;200;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;130;130;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;2950;2810;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;3340;3200;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;6660;6100;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;6660;6100;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;70;70;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;600;600;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;4120;3980;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;6300;5880;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;1190;840;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;150;240;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;60;60;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;60;60;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.urlFor(org.apache.wicket.request.IRequestHandler)
+		Time: 0.4846153846153846;0.11538461538461539;0.36923076923076925;50;50;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for HangManTest.testHangmanSuccessWebGame
+	Number of methods: 37
+	Number of methods (exclude word applied): 33
+	org.apache.wicket.Application.destroyInitializers()
+		Time: 0.8;0.0;0.8;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.DequeueContext$Bookmark(org.apache.wicket.DequeueContext)
+		Time: 0.020223671947809878;0.01687116564417178;0.003352506303638099;3760;3120;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;5950;4740;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;190040;174730;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.save()
+		Time: 0.03625349487418453;0.02638036809815951;0.009873126776025018;3760;3120;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;169920;157180;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;188450;171640;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;90240;85910;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;330;3550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.getResources(java.lang.String)
+		Time: 4.383333333333333;2.875;1.5083333333333329;10;20;
+			Revision: 279cf5cee1d284b041f34783fd3d31649919d46d
+				Issues: 0
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;8160;4990;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle)
+		Time: 29.486666666666668;23.513333333333332;5.973333333333336;60;60;
+			Revision: b793f99f6b1f5787b5be0b732ddb17baec4c711b
+				Issues: 5660
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;10;10;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;160;160;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.examples.hangman.HangManTest.testHangmanSuccessWebGame()
+		Time: 13746.5;10615.7;3130.7999999999993;10;10;
+			Revision: cb4590a27febd29db3bd2939fc3fb6025c4c3691
+				Issues: 5669
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;80;80;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;1230;1100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;1250;1120;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;1250;1120;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;240;140;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;1690;1610;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;230;230;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;150;150;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;3480;3320;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;3930;3770;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;7840;7200;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;7840;7200;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;80;80;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;690;690;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;4860;4700;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;7420;6940;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;1360;960;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;150;240;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;70;70;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;70;70;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.urlFor(org.apache.wicket.request.IRequestHandler)
+		Time: 0.4846153846153846;0.11538461538461539;0.36923076923076925;60;60;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for HelloWorldTest.testHelloWorld
+	Number of methods: 25
+	Number of methods (exclude word applied): 25
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;160;10;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;2270;370;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;1900;280;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;2460;390;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;560;20;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;510;340;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;10;10;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;10;10;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;670;540;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;680;550;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;680;550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;30;30;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;30;20;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;10;10;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;10;10;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;40;20;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;70;50;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;180;100;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;180;100;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;50;50;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;70;50;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;160;100;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;130;160;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for ImagesTest.testImages
+	Number of methods: 29
+	Number of methods (exclude word applied): 29
+	org.apache.wicket.Application.destroyInitializers()
+		Time: 0.8;0.0;0.8;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;760;10;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;3630;450;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;3120;360;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;3950;490;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;630;20;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;130;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.getResources(java.lang.String)
+		Time: 4.383333333333333;2.875;1.5083333333333329;10;20;
+			Revision: 279cf5cee1d284b041f34783fd3d31649919d46d
+				Issues: 0
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1250;760;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;30;30;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;10;10;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;770;640;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;780;650;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;780;650;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;50;50;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;20;10;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;20;20;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;20;20;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;140;120;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;210;190;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;370;290;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;370;290;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;90;90;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;110;90;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;250;190;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;220;170;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;140;180;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for LibraryTest.test_1
+	Number of methods: 44
+	Number of methods (exclude word applied): 44
+	org.apache.wicket.Application.destroyInitializers()
+		Time: 0.8;0.0;0.8;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.DequeueContext$Bookmark(org.apache.wicket.DequeueContext)
+		Time: 0.020223671947809878;0.01687116564417178;0.003352506303638099;250;300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;1410;1680;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;11240;19680;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.save()
+		Time: 0.03625349487418453;0.02638036809815951;0.009873126776025018;250;300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;9120;14290;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;13110;21760;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2360;4040;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;200;870;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.getResources(java.lang.String)
+		Time: 4.383333333333333;2.875;1.5083333333333329;10;20;
+			Revision: 279cf5cee1d284b041f34783fd3d31649919d46d
+				Issues: 0
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1910;1080;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle)
+		Time: 29.486666666666668;23.513333333333332;5.973333333333336;10;10;
+			Revision: b793f99f6b1f5787b5be0b732ddb17baec4c711b
+				Issues: 5660
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;40;40;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.core.util.lang.PropertyResolver.setValue(java.lang.String,java.lang.Object,java.lang.Object,org.apache.wicket.core.util.lang.PropertyResolverConverter)
+		Time: 0.1875;0.0;0.1875;20;20;
+			Revision: 069139412ce4b553375ac1a3006aaa9f5783091f
+				Issues: 0
+	org.apache.wicket.markup.MergedMarkup.merge(org.apache.wicket.markup.IMarkupFragment,org.apache.wicket.markup.IMarkupFragment,int)
+		Time: 1.6;0.0;1.6;10;10;
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;20;20;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput()
+		Time: 0.31;0.15;0.16;20;20;
+			Revision: 16e52ff2861f36431aedf61cafd86d2c5565d449
+				Issues: 5708
+	org.apache.wicket.markup.html.form.Form.onFormSubmitted()
+		Time: 39.0;36.35;2.6499999999999986;10;10;
+			Revision: d20e568b51f9c8e4612472d143df4d49a3bd0e63
+				Issues: 5672
+	org.apache.wicket.markup.html.form.Form.onFormSubmitted(org.apache.wicket.markup.html.form.IFormSubmitter)
+		Time: 38.6;34.8;3.8000000000000043;10;10;
+			Revision: d20e568b51f9c8e4612472d143df4d49a3bd0e63
+				Issues: 5672
+	org.apache.wicket.markup.html.form.Form.process(org.apache.wicket.markup.html.form.IFormSubmitter)
+		Time: 27.625;25.7;1.9250000000000007;10;10;
+			Revision: 360e91bb9cc24913311b914a9413e6f69169e55e
+				Issues: 4344
+	org.apache.wicket.markup.html.form.FormComponent.convertInput()
+		Time: 0.3875;0.0;0.3875;20;20;
+			Revision: 16e52ff2861f36431aedf61cafd86d2c5565d449
+				Issues: 5708
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;2150;1900;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;2200;1950;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;2200;1950;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;80;80;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;80;60;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;50;50;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;30;30;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;390;350;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;490;450;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;930;760;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;930;760;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;160;160;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.add(java.lang.String,java.lang.Object)
+		Time: 0.023880597014925373;0.0;0.023880597014925373;60;40;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+			Revision: 76433a76288cf3ac336676c81c400a556f6dc5a3
+				Issues: 5669
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;580;540;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;1060;940;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.resource.loader.ComponentStringResourceLoader.isStopResourceSearch(java.lang.Class)
+		Time: 0.021678321678321677;0.011188811188811189;0.010489510489510488;1010;1010;
+			Revision: ea82a6b1ca8658f44d840ce74eb72252368d25ab
+				Issues: 5646
+	org.apache.wicket.util.cookies.CookieUtils.getCookie(java.lang.String)
+		Time: 0.5166666666666667;0.0;0.5166666666666667;20;20;
+			Revision: b590d19bab446b2e8983b36d4f42c71e018d4bcd
+				Issues: 5648
+			Revision: 269f6a2a5d8ed3746e1248e61aa4ee0230983819
+				Issues: 5648
+	org.apache.wicket.util.cookies.CookieUtils.getSaveKey(java.lang.String)
+		Time: 0.1875;0.0;0.1875;30;30;
+			Revision: 269f6a2a5d8ed3746e1248e61aa4ee0230983819
+				Issues: 5648
+	org.apache.wicket.util.cookies.CookieUtils.load(java.lang.String)
+		Time: 1.0333333333333332;0.0;1.0333333333333332;10;10;
+			Revision: b590d19bab446b2e8983b36d4f42c71e018d4bcd
+				Issues: 5648
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;180;460;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for LinkomaticTest.testLinkomatic
+	Number of methods: 27
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;2880;1940;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;13620;8970;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;12660;8330;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;14090;9210;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2220;1330;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;80;370;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;730;560;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;20;20;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;10;10;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;1720;1590;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;1740;1610;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;1740;1610;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;40;40;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;70;60;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;20;20;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;20;20;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;240;220;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;300;280;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;600;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;600;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;90;90;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.add(java.lang.String,java.lang.Object)
+		Time: 0.023880597014925373;0.0;0.023880597014925373;20;10;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+			Revision: 76433a76288cf3ac336676c81c400a556f6dc5a3
+				Issues: 5669
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;330;310;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;670;610;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.ResourceReferenceRegistry.createDefaultResourceReference(org.apache.wicket.request.resource.ResourceReference.Key)
+		Time: 1.55;0.0;1.55;20;20;
+			Revision: 4db7a736e7a2550f314eb00a874def76e9f9eb37
+				Issues: 5635
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;170;400;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for NiceUrlTest.testHomePage
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for NiceUrlTest.testPage1
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;650;310;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;6100;2340;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;5240;2000;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;6420;2300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;1470;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;280;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1780;1000;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;20;20;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;20;20;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;20;20;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;160;160;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;170;170;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;170;170;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;40;20;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;20;20;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;20;20;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;160;120;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;220;180;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;520;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;520;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;220;180;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;620;500;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage2
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;1050;370;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;9570;3310;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;8220;2820;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;10020;3260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2140;510;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;180;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;2660;1490;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;30;30;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;30;30;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;30;30;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;260;260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;270;270;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;90;90;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;100;70;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;30;30;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;30;30;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;230;170;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;320;260;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;760;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;760;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;330;330;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;320;260;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;1000;820;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage2PP
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;1050;370;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;9570;3310;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;8220;2820;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;10020;3260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2140;510;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;180;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;2660;1490;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;30;30;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;30;30;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;30;30;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;260;260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;270;270;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;90;90;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;100;70;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;30;30;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;30;30;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;230;170;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;320;260;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;760;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;760;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;330;330;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;320;260;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;1120;940;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage2UP
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;1050;370;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;9570;3310;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;8220;2820;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;10020;3260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2140;510;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;180;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;2660;1490;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;30;30;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;30;30;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;30;30;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;260;260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;270;270;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;90;90;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;100;70;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;30;30;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;30;30;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;230;170;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;320;260;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;760;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;760;520;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;330;330;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;320;260;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;1000;820;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage3
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;650;310;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;6100;2340;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;5240;2000;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;6420;2300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;1470;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;280;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1790;1010;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;20;20;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;20;20;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;20;20;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;160;160;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;170;170;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;170;170;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;40;20;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;20;20;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;20;20;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;160;120;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;220;180;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;520;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;520;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;220;180;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;620;500;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage4
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;650;310;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;6100;2340;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;5240;2000;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;6420;2300;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;1470;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;280;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1790;1010;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;20;20;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;20;20;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;20;20;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;160;160;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;170;170;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;170;170;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;40;20;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;20;20;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;20;20;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;160;120;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;220;180;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;520;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;520;360;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;220;180;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;620;500;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage5
+	Number of methods: 29
+	Number of methods (exclude word applied): 27
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;770;330;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;6700;2600;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;5780;2240;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;6990;2550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;1520;440;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;290;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;1800;1020;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.extractPageParameters(org.apache.wicket.request.Request,org.apache.wicket.request.Url)
+		Time: 0.41578947368421054;0.24736842105263157;0.16842105263157897;20;20;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;20;20;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;20;20;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;260;260;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;270;270;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;60;40;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;20;20;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;20;20;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;170;130;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;230;190;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;540;380;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;540;380;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;230;190;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;670;550;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for Signin2Test.testSignIn2
+	Number of methods: 36
+	Number of methods (exclude word applied): 35
+	org.apache.wicket.Application.destroyInitializers()
+		Time: 0.8;0.0;0.8;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;650;50;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;9860;2660;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;8380;1910;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;10770;2890;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;2240;190;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;330;770;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.getResources(java.lang.String)
+		Time: 4.383333333333333;2.875;1.5083333333333329;10;20;
+			Revision: 279cf5cee1d284b041f34783fd3d31649919d46d
+				Issues: 0
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;3560;1950;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;100;100;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.core.util.lang.PropertyResolver.setValue(java.lang.String,java.lang.Object,java.lang.Object,org.apache.wicket.core.util.lang.PropertyResolverConverter)
+		Time: 0.1875;0.0;0.1875;20;20;
+			Revision: 069139412ce4b553375ac1a3006aaa9f5783091f
+				Issues: 0
+	org.apache.wicket.examples.signin2.Signin2Test.testSignIn2()
+		Time: 3678.8;3152.7;526.1000000000004;10;10;
+			Revision: e0b105e5bcee89917d04c3a2164440d0ed2fc738
+				Issues: 5349
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;40;40;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput()
+		Time: 0.31;0.15;0.16;20;20;
+			Revision: 16e52ff2861f36431aedf61cafd86d2c5565d449
+				Issues: 5708
+	org.apache.wicket.markup.html.form.FormComponent.convertInput()
+		Time: 0.3875;0.0;0.3875;20;20;
+			Revision: 16e52ff2861f36431aedf61cafd86d2c5565d449
+				Issues: 5708
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;1540;1290;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;1590;1340;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;1590;1340;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;140;140;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;90;50;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;60;60;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;70;70;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;300;220;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;520;440;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;1000;640;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;1000;640;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;60;60;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;380;380;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;390;310;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;890;650;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;680;480;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.cookies.CookieUtils.getCookie(java.lang.String)
+		Time: 0.5166666666666667;0.0;0.5166666666666667;40;40;
+			Revision: b590d19bab446b2e8983b36d4f42c71e018d4bcd
+				Issues: 5648
+			Revision: 269f6a2a5d8ed3746e1248e61aa4ee0230983819
+				Issues: 5648
+	org.apache.wicket.util.cookies.CookieUtils.getSaveKey(java.lang.String)
+		Time: 0.1875;0.0;0.1875;50;50;
+			Revision: 269f6a2a5d8ed3746e1248e61aa4ee0230983819
+				Issues: 5648
+	org.apache.wicket.util.cookies.CookieUtils.load(java.lang.String)
+		Time: 1.0333333333333332;0.0;1.0333333333333332;20;20;
+			Revision: b590d19bab446b2e8983b36d4f42c71e018d4bcd
+				Issues: 5648
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;170;320;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for TemplateTest.test_1
+	Number of methods: 30
+	Number of methods (exclude word applied): 30
+	org.apache.wicket.Application.destroyInitializers()
+		Time: 0.8;0.0;0.8;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.DequeueContext.findComponentToDequeue(org.apache.wicket.markup.ComponentTag)
+		Time: 0.013697062190003816;0.0069269521410579345;0.006770110048945881;680;160;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.nextTag()
+		Time: 0.048786756521563154;0.043523119042790506;0.005263637478772648;8180;2130;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.DequeueContext.takeTag()
+		Time: 0.07275695562198206;0.0642922794117647;0.008464676210217362;6630;1570;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.0025013273553182703;0.0017247421648142586;7.765851905040116E-4;8850;2450;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext)
+		Time: 0.6991070978156687;0.5262447405329593;0.17286235728270938;1780;150;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;230;500;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.application.AbstractClassResolver.getResources(java.lang.String)
+		Time: 4.383333333333333;2.875;1.5083333333333329;10;20;
+			Revision: 279cf5cee1d284b041f34783fd3d31649919d46d
+				Issues: 0
+	org.apache.wicket.application.AbstractClassResolver.resolveClass(java.lang.String)
+		Time: 0.1397411415234458;0.12637517630465445;0.013365965218791354;2750;1530;
+			Revision: ad1b70e2fae5a8eb808dbb0fd27caf48ea0710be
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.016666666666666666;0.0;0.016666666666666666;60;60;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.markup.MergedMarkup.merge(org.apache.wicket.markup.IMarkupFragment,org.apache.wicket.markup.IMarkupFragment,int)
+		Time: 1.6;0.0;1.6;20;20;
+			Revision: fee33c62cbbd2a69e59a75eb3c8550f34b67450d
+				Issues: 5722
+	org.apache.wicket.markup.head.CssHeaderItem.internalRenderCSSReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,java.lang.String)
+		Time: 0.31666666666666665;0.20185185185185187;0.11481481481481479;30;30;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.parser.filter.HtmlHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.07083120856705763;0.05322398190045249;0.017607226666605143;2200;2070;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.04241967871485944;0.026014452473596444;0.016405226241262994;2230;2100;
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.086144578313253;0.03557531962201223;0.05056925869124078;2230;2100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+			Revision: b92591f6496c15bf5615765539017ad702c67a43
+				Issues: 5724
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 0.1507177033492823;0.12265193370165746;0.028065769647624847;130;130;
+			Revision: 8953bd2cb91f8b62d4f26395156986b19e161720
+				Issues: 5724
+	org.apache.wicket.model.Model.of(java.io.Serializable)
+		Time: 0.011002444987775062;0.004507042253521127;0.0064954027342539345;60;30;
+			Revision: 562d1ee536ebaa07206c90baebdda5280fbf68e3
+				Issues: 5350
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.029906542056075;0.9233644859813084;0.10654205607476652;50;50;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 7.48;6.165882352941177;1.3141176470588238;50;50;
+			Revision: 051c678ea61bead91d3a198f45393214d185f35a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence)
+		Time: 0.3049951028403526;0.15958378970427164;0.14541131313608094;270;210;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.2634450506625097;0.1291063829787234;0.13433866768378633;440;380;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.2266101041264944;0.2112708719851577;0.0153392321413367;810;570;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.Url.toString(java.nio.charset.Charset)
+		Time: 0.2163902815271886;0.2054730983302412;0.0109171831969474;810;570;
+			Revision: 8489bcbebfef5a5096b24c0543d2b767c98f325e
+				Issues: 5717
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;240;240;
+			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
+				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
+		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;310;250;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.mapper.parameter.PageParameters.remove(java.lang.String,java.lang.String[])
+		Time: 0.005462998837659822;0.004076207354895879;0.0013867914827639426;750;570;
+			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
+				Issues: 0
+	org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale)
+		Time: 0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;200;260;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+Entry point for WordGeneratorTest.testWordGenerator
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.02330097087378641;0.016939890710382512;0.006361080163403896;10;10;
+			Revision: 0f8a6d757367e73eaadcb0dff1372d169bcefb76
+				Issues: 5706
+52
+45

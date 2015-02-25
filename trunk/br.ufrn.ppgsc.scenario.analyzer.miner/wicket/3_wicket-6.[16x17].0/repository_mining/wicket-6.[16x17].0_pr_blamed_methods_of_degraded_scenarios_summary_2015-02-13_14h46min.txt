@@ -1,0 +1,55 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 7
+Entry point for AjaxTest.test_1
+Entry point for FormInputTest.test_1
+Entry point for ImagesTest.testImages
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage5
+6
+org.apache.wicket.core.request.mapper.BookmarkableMapper.matches(org.apache.wicket.request.Request);0.8238532110091743;0.8678899082568807;0.044036697247706424;50;50
+org.apache.wicket.core.request.mapper.BookmarkableMapper.urlStartsWithAndHasPageClass(org.apache.wicket.request.Url,java.lang.String[]);null;0.017391304347826087;0.017391304347826087;0;50
+org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String);2.55;3.6785714285714284;1.1285714285714286;140;140
+org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);20.95;26.5;5.550000000000001;20;20
+org.apache.wicket.markup.html.form.RadioChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String);0.0;0.5;0.5;30;30
+org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[]);0.003883495145631068;0.007766990291262136;0.003883495145631068;220;220
+6
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.matches(org.apache.wicket.request.Request)
+		Time: 0.8238532110091743;0.8678899082568807;0.044036697247706424;50;50;
+			Revision: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+				Issues: 5673
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.urlStartsWithAndHasPageClass(org.apache.wicket.request.Url,java.lang.String[])
+		Time: null;0.017391304347826087;0.017391304347826087;0;50;
+			Revision: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+				Issues: 5673
+	org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String)
+		Time: 2.55;3.6785714285714284;1.1285714285714286;140;140;
+			Revision: 79d9f699aeb2db05c0939a8d8088328927387e60
+				Issues: 0
+	org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 20.95;26.5;5.550000000000001;20;20;
+			Revision: 79d9f699aeb2db05c0939a8d8088328927387e60
+				Issues: 0
+	org.apache.wicket.markup.html.form.RadioChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String)
+		Time: 0.0;0.5;0.5;30;30;
+			Revision: f9668b5ea6d4dfc196409dff588a06dd5b9ea571
+				Issues: 5650
+	org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[])
+		Time: 0.003883495145631068;0.007766990291262136;0.003883495145631068;220;220;
+			Revision: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+				Issues: 5673
+3
+0;No issue (0)
+5650;Improvement
+5673;Improvement
+2
+Improvement;2
+No issue (0);1
+2
+Improvement;5650;5673
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): f9668b5ea6d4dfc196409dff588a06dd5b9ea571(5650)
+Revision (Issues): 79d9f699aeb2db05c0939a8d8088328927387e60(0)
+Revision (Issues): 6ce317cf9414c550e0e66fbae5e35936ee20763d(5673)

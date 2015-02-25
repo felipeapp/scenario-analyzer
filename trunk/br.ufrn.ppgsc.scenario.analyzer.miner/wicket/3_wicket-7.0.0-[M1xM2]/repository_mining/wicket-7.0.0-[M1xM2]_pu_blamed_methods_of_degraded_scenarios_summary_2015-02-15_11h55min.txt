@@ -1,0 +1,35 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 1
+Entry point for ComprefTest.test_1
+4
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String);null;0.001067378252168112;0.001067378252168112;0;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey);null;0.0010006671114076052;0.0010006671114076052;0;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream);null;0.13760504201680673;0.13760504201680673;0;130
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.008543263964950712;0.008543263964950712;0;320
+4
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;130;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;320;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+2
+5581;Bug
+5582;Bug
+1
+Bug;2
+1
+Bug;5581;5582
+Number of revisions (commits): 2
+Revision (Issues): 0e44f3df8b2bf1029e14babbb74af0a28d3917d4(5582)
+Revision (Issues): cd24f18a2f2667857a5e5b86744bf1e129d7bba8(5581)

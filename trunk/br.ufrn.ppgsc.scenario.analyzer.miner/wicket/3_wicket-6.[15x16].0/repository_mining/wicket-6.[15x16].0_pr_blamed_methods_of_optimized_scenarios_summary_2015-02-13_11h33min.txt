@@ -1,0 +1,41 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 6
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage5
+3
+org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.6925925925925926;3.4;0.29259259259259274;20;20
+org.apache.wicket.markup.Markup.find(java.lang.String);1.399134199134199;0.6761904761904762;0.7229437229437228;250;250
+org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;1600;1600
+3
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.6925925925925926;3.4;0.29259259259259274;20;20;
+			Revision: 30323a5800834760bcc0fca25bea7f81a3fb0e6d
+				Issues: 5560
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 1.399134199134199;0.6761904761904762;0.7229437229437228;250;250;
+			Revision: bc62f8cca03573160514444291513899211dae7e
+				Issues: 5580
+	org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+		Time: 8.370579268292683;7.580640243902439;0.789939024390244;1600;1600;
+			Revision: 3c6c41f19f6d4d9a236a7d902ed62816af41c00b
+				Issues: 0
+3
+0;No issue (0)
+5560;Bug
+5580;Improvement
+3
+Improvement;1
+Bug;1
+No issue (0);1
+3
+Improvement;5580
+Bug;5560
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): bc62f8cca03573160514444291513899211dae7e(5580)
+Revision (Issues): 30323a5800834760bcc0fca25bea7f81a3fb0e6d(5560)
+Revision (Issues): 3c6c41f19f6d4d9a236a7d902ed62816af41c00b(0)
