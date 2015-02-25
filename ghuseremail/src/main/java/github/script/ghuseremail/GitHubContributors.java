@@ -8,11 +8,11 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-public class GitHubTest {
+public class GitHubContributors {
 
 	public static void main(String[] args) throws IOException {
 
-		String github_url_contributors = "https://api.github.com/repos/netty/netty/contributors";
+		String github_url_contributors = "https://api.github.com/repos/apache/wicket/contributors";
 
 		List<JsonObject> users_with_email = new ArrayList<JsonObject>();
 		
@@ -66,7 +66,7 @@ public class GitHubTest {
 			String login = GitHubUtil.getStringProperty(u, "login");
 			String email = GitHubUtil.getStringProperty(u, "email");
 			
-			System.out.printf("%d_NettySurvey_%s;%s;%s;%s\n", ++i, login, name, login, email);
+			System.out.printf("%d_WicketSurvey_%s;%s;%s;%s\n", ++i, login, name, login, email);
 		}
 
 	}
