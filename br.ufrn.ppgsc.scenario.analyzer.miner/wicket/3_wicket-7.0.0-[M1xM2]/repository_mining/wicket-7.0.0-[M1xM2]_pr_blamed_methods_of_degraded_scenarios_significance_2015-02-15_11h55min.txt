@@ -1,0 +1,24 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+3
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for NiceUrlTest.testPage5
+Entry point for ComprefTest.test_1
+2
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.locate(java.lang.Class,java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,boolean);1.0938110749185668;1.2138436482084691;0.12003257328990236;1710;1710
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;2730;2730
+4
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.locate(java.lang.Class,java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,boolean);1.0938110749185668;1.2138436482084691;0.12003257328990236;1710;1710
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;2730;2730
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;150;150
+Entry point for ComprefTest.test_1;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;320;320
+2
+5581;Bug
+5582;Bug
+1
+Bug;2
+1
+Bug;5581;5582
+Number of revisions (commits): 3
+Revision (Issues): 1fb665336400f0f40ecbb36a642020f87e73524d(5582)
+Revision (Issues): 0e44f3df8b2bf1029e14babbb74af0a28d3917d4(5582)
+Revision (Issues): cd24f18a2f2667857a5e5b86744bf1e129d7bba8(5581)

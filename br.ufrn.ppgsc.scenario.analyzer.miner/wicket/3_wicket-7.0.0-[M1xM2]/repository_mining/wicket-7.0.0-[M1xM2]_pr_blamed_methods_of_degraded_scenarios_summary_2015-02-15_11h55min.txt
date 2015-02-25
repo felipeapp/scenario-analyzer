@@ -1,0 +1,84 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 4
+Entry point for ComprefTest.test_1
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for ImagesTest.testImages
+Entry point for NiceUrlTest.testPage5
+10
+org.apache.wicket.Component.getMarkupId();0.06019417475728155;0.12135922330097088;0.06116504854368932;10;10
+org.apache.wicket.Component.getMarkupId(boolean);0.06019417475728155;0.12135922330097088;0.06116504854368932;10;10
+org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request);null;0.07745098039215687;0.07745098039215687;0;120
+org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class);null;0.007853403141361256;0.007853403141361256;0;250
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String);null;0.001067378252168112;0.001067378252168112;0;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey);null;0.0010006671114076052;0.0010006671114076052;0;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.locate(java.lang.Class,java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,boolean);1.0938110749185668;1.2138436482084691;0.12003257328990236;160;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream);null;0.13760504201680673;0.13760504201680673;0;130
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;320;320
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.008543263964950712;0.008543263964950712;0;320
+10
+	org.apache.wicket.Component.getMarkupId()
+		Time: 0.06019417475728155;0.12135922330097088;0.06116504854368932;10;10;
+			Revision: 068d7d59693689391b2f5a89ebe9cfb021fd9231
+				Issues: 5577
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
+	org.apache.wicket.Component.getMarkupId(boolean)
+		Time: 0.06019417475728155;0.12135922330097088;0.06116504854368932;10;10;
+			Revision: 068d7d59693689391b2f5a89ebe9cfb021fd9231
+				Issues: 5577
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;120;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;250;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.locate(java.lang.Class,java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,boolean)
+		Time: 1.0938110749185668;1.2138436482084691;0.12003257328990236;160;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;130;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence)
+		Time: 1.3078054298642534;2.0874434389140273;0.7796380090497739;320;320;
+			Revision: 1fb665336400f0f40ecbb36a642020f87e73524d
+				Issues: 5582
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;320;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+5
+5560;Bug
+5565;Bug
+5577;Improvement
+5581;Bug
+5582;Bug
+2
+Improvement;1
+Bug;4
+2
+Improvement;5577
+Bug;5560;5565;5581;5582
+Number of revisions (commits): 7
+Revision (Issues): 1fb665336400f0f40ecbb36a642020f87e73524d(5582)
+Revision (Issues): 068d7d59693689391b2f5a89ebe9cfb021fd9231(5577)
+Revision (Issues): 0e44f3df8b2bf1029e14babbb74af0a28d3917d4(5582)
+Revision (Issues): ccff0802a729bc10d84ed876ec08d408efc377af(5577)
+Revision (Issues): 204849bc6046ed73f447f8daa7a1502f3e53a0fb(5565)
+Revision (Issues): cd24f18a2f2667857a5e5b86744bf1e129d7bba8(5581)
+Revision (Issues): aa82ccfcff94c0a83daf86c8cfd806206e9c6a52(5560)

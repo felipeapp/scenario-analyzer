@@ -1,0 +1,27 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+1
+Entry point for HangManTest.testHangmanFailureWebGame
+3
+org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5493554327808472;0.5769429097605894;0.027587476979742176;5670;5670
+org.apache.wicket.markup.MarkupFragment.find(java.lang.String);0.25447887323943663;0.28664788732394364;0.03216901408450701;4000;4000
+org.apache.wicket.Component.fireInitialize();0.10850629874025194;0.11870425914817037;0.010197960407918427;17540;17540
+3
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5493554327808472;0.5769429097605894;0.027587476979742176;5670;5670
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.MarkupFragment.find(java.lang.String);0.25447887323943663;0.28664788732394364;0.03216901408450701;4000;4000
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.Component.fireInitialize();0.10850629874025194;0.11870425914817037;0.010197960407918427;17540;17540
+3
+6;Improvement
+5677;New Feature
+5704;Bug
+3
+New Feature;1
+Improvement;1
+Bug;1
+3
+New Feature;5677
+Improvement;6
+Bug;5704
+Number of revisions (commits): 3
+Revision (Issues): 544e4947636c8a584eda3654f73cccb6cead296b(5677)
+Revision (Issues): c728d8953d34b7bf34d86a8625dcb6e1109602cf(5704)
+Revision (Issues): 0adb864ff18951a9630bd2339fb9e92963867d4a(5677;6)

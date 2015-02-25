@@ -1,0 +1,92 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+18
+Entry point for TemplateTest.test_1
+Entry point for Signin2Test.testSignIn2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage1
+Entry point for HelloWorldTest.testHelloWorld
+Entry point for NiceUrlTest.testPage5
+Entry point for ComprefTest.test_1
+Entry point for GuestbookTest.test_1
+Entry point for NiceUrlTest.testPage2UP
+Entry point for LibraryTest.test_1
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for ImagesTest.testImages
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for AjaxTest.test_1
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for EncodingTest.test_1
+4
+org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;840;580
+org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;230;500
+48
+Entry point for TemplateTest.test_1;org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;840;580
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;230;500
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;330;770
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;1090;850
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;60;60
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;180;410
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;180;410
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;120;280
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;120;280
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;60;100
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;120;290
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;60;450
+Entry point for GuestbookTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;150;250
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;40;40
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;180;410
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;200;870
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;1030;1290
+Entry point for LibraryTest.test_1;org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;330;3550
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;4910;6730
+Entry point for ImagesTest.testImages;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for ImagesTest.testImages;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;60;130
+Entry point for ImagesTest.testImages;org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;70;70
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;300;3010
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;4180;5670
+Entry point for AjaxTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for AjaxTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;120;180
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;80;370
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.newDequeueContext();3.7273255813953488;3.545762711864407;0.18156286953094192;470;560
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;60;100
+4
+0;No issue (0)
+5689;Bug
+5713;Improvement
+5730;Bug
+3
+Improvement;1
+Bug;2
+No issue (0);1
+3
+Improvement;5713
+Bug;5689;5730
+No issue (0);0
+Number of revisions (commits): 4
+Revision (Issues): db5be6ab05545e1bb95f566c3aeb23e05cf93437(5730)
+Revision (Issues): bb9c1044e5f1ba8902aa69073ef9fb236802d277(0)
+Revision (Issues): e4262674d6dd347fb51a1454c63e5f03ed5f135e(5713)
+Revision (Issues): 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b(5689)

@@ -76,6 +76,7 @@ public class GitUpdatedLinesHandler {
 			bf.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 	
