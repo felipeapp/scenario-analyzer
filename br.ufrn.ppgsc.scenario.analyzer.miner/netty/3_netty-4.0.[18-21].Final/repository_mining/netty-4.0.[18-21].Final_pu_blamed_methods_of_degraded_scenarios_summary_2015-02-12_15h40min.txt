@@ -1,0 +1,24 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 2
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+2
+io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline);null;0.02464604090194022;0.02464604090194022;0;120
+io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext);null;0.10587188612099645;0.10587188612099645;0;120
+2
+	io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.02464604090194022;0.02464604090194022;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+		Time: null;0.10587188612099645;0.10587188612099645;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 1
+Revision (Issues): 9b468bc2758ead86690f633ee071e396c482c489(0)
