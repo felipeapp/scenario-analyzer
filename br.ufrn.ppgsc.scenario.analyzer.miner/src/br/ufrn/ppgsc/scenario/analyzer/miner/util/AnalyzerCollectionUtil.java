@@ -150,15 +150,15 @@ public abstract class AnalyzerCollectionUtil {
 
 					for (Issue issue : line.getIssues()) {
 
-						if (issue.getIssueId() > 0 && !counted_tasks.contains(issue.getIssueId())) {
-							Integer counter = counter_task_types.get(issue.getIssueType());
+						if (issue.getId() > 0 && !counted_tasks.contains(issue.getId())) {
+							Integer counter = counter_task_types.get(issue.getType());
 
 							if (counter == null)
-								counter_task_types.put(issue.getIssueType(), 1);
+								counter_task_types.put(issue.getType(), 1);
 							else
-								counter_task_types.put(issue.getIssueType(), counter + 1);
+								counter_task_types.put(issue.getType(), counter + 1);
 							
-							counted_tasks.add(issue.getIssueId());
+							counted_tasks.add(issue.getId());
 						}
 
 					}
@@ -185,19 +185,19 @@ public abstract class AnalyzerCollectionUtil {
 
 					for (Issue issue : line.getIssues()) {
 
-						if (issue.getIssueId() > 0 && !(counted_tasks.contains(issue.getIssueId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
-							Collection<UpdatedMethod> list = task_members.get(issue.getIssueType());
+						if (issue.getId() > 0 && !(counted_tasks.contains(issue.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
+							Collection<UpdatedMethod> list = task_members.get(issue.getType());
 
 							if (list == null) {
 								list = new ArrayList<UpdatedMethod>();
 								list.add(method);
-								task_members.put(issue.getIssueType(), list);
+								task_members.put(issue.getType(), list);
 							}
 							else {
-								task_members.get(issue.getIssueType()).add(method);
+								task_members.get(issue.getType()).add(method);
 							}
 							
-							counted_tasks.add(issue.getIssueId());
+							counted_tasks.add(issue.getId());
 							counted_members.add(method.getMethodLimit().getSignature());
 						}
 

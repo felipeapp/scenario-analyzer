@@ -210,9 +210,9 @@ public class GitUpdatedLinesHandler {
 			System.out.println(up_line.getDate());
 			
 			for (Issue i : up_line.getIssues()) {
-				System.out.println("\t" + i.getIssueId());
+				System.out.println("\t" + i.getId());
 				System.out.println("\t" + i.getNumber());
-				System.out.println("\t" + i.getIssueType());
+				System.out.println("\t" + i.getType());
 			}
 			
 			System.out.println("------------------------------");

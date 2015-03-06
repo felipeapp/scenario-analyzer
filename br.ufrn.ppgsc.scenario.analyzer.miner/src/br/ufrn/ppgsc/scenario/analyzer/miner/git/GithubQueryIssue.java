@@ -37,7 +37,7 @@ public class GithubQueryIssue implements IQueryIssue {
 	private JSONObject getJSONByIssueId(Long issueId) throws IOException, JDOMException, JSONException {
 		String url = metadata.getStringProperty("host") + issueId + "?client_id=" + metadata.getStringProperty("client_id") +
 				"&client_secret=" + metadata.getStringProperty("client_secret");
-		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(url);
+		InputStream inputStream = HttpsUtil.getInputStream(url);
 		InputStreamReader isr = new InputStreamReader(inputStream);
 
 		LineNumberReader lineNumberReader = new LineNumberReader(isr);
@@ -70,10 +70,10 @@ public class GithubQueryIssue implements IQueryIssue {
 		String date = json.getString("created_at");
 		date = date.replace('T', ' ');
 		date = date.replace('Z', ' ');
-		issue.setDateCreation(sdf.parse(date));
-		issue.setIssueId(json.getInt("number"));
+		issue.setCreationDate(sdf.parse(date));
+		issue.setId(json.getInt("number"));
 		issue.setNumber(json.getInt("number"));
-		issue.setIssueStatus(json.getString("state"));
+		issue.setStatus(json.getString("state"));
 		
 		if (json.getJSONArray("labels") != null) {
 			String issueType = "";
@@ -93,7 +93,7 @@ public class GithubQueryIssue implements IQueryIssue {
 				}
 			}
 			
-			issue.setIssueType(issueType.isEmpty() ? "none yet" : issueType);
+			issue.setType(issueType.isEmpty() ? "none yet" : issueType);
 		}
 		
 		issue.setShortDescription(json.getString("title"));

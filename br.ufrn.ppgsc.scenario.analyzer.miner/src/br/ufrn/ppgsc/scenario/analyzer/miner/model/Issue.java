@@ -4,27 +4,26 @@ import java.util.Date;
 
 public class Issue {
 
-	private long issueId;
+	private long id;
 	private long number;
-	private String issueStatus;
+	private String status;
 	private String component;
 	private String affectedVersion;
-	private Date dateCreation;
-	private String issueType;
-	private long issueTypeId;
+	private Date creationDate;
+	private String type;
 	private String shortDescription;
 
 	public Issue() {
-		issueId = number = 0;
-		issueType = "No issue (0)";
+		id = number = 0;
+		type = "No issue (0)";
 	}
 
-	public long getIssueId() {
-		return issueId;
+	public long getId() {
+		return id;
 	}
 
-	public void setIssueId(long issueId) {
-		this.issueId = issueId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public long getNumber() {
@@ -35,12 +34,12 @@ public class Issue {
 		this.number = number;
 	}
 
-	public String getIssueStatus() {
-		return issueStatus;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setIssueStatus(String issueStatus) {
-		this.issueStatus = issueStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getComponent() {
@@ -59,28 +58,20 @@ public class Issue {
 		this.affectedVersion = affectedVersion;
 	}
 
-	public Date getDateCreation() {
-		return dateCreation;
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
-	public void setDateCreation(Date dateCreation) {
-		this.dateCreation = dateCreation;
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
-	public String getIssueType() {
-		return issueType;
+	public String getType() {
+		return type;
 	}
 
-	public void setIssueType(String issueType) {
-		this.issueType = issueType;
-	}
-
-	public long getIssueTypeId() {
-		return issueTypeId;
-	}
-
-	public void setIssueTypeId(long issueTypeId) {
-		this.issueTypeId = issueTypeId;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getShortDescription() {
@@ -90,7 +81,7 @@ public class Issue {
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Issue && number == ((Issue) obj).getNumber();
