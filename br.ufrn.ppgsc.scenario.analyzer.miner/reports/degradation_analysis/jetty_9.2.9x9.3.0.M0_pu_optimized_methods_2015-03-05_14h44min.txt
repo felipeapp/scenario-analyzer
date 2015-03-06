@@ -1,0 +1,20 @@
+# Optimized methods (UTest P-Value)
+15
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+org.eclipse.jetty.servlet.DefaultServletTest.testFiltered();0.020861558942696923;0.019149571500766127;40.96666666666667;34.3;30;10
+org.eclipse.jetty.servlet.ServletHandler.updateMappings();0.07433333985050297;0.0017854398520451564;1.2076719576719577;0.9851239669421488;3780;1210
+org.eclipse.jetty.servlet.ServletHandler.addServletWithMapping(java.lang.String,java.lang.String);0.3790864392563401;9.913499264754266E-4;2.8812121212121213;2.632727272727273;1650;550
+org.eclipse.jetty.servlet.ServletContextHandler.addFilter(java.lang.Class,java.lang.String,java.util.EnumSet);0.014863241466726589;0.0379163779030568;9.766666666666667;5.766666666666667;90;30
+org.eclipse.jetty.servlet.ServletContextHandler.addServlet(java.lang.Class,java.lang.String);0.3272909029695702;0.001106877221273006;3.061818181818182;2.7781818181818183;1650;550
+org.eclipse.jetty.servlet.ServletHandler.setServletMappings(org.eclipse.jetty.servlet.ServletMapping[]);0.4118134385884945;0.03545935483515383;0.8439890710382514;0.7533898305084745;3660;1180
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testFallThrough();0.002545987374020544;0.005181784451575799;52.5;46.7;30;10
+org.eclipse.jetty.servlet.ServletHandler.addFilterWithMapping(org.eclipse.jetty.servlet.FilterHolder,java.lang.String,java.util.EnumSet);0.04308057531040956;0.035067967055048554;5.68;3.46;150;50
+org.eclipse.jetty.servlet.AsyncContextTest.testStartDispatchThrow();8.029666053737052E-20;2.7966913074273236E-6;70.43333333333334;3.6;30;10
+org.eclipse.jetty.servlet.DefaultServletTest.testWelcome();0.006902711841909824;0.0392559679953155;34.56666666666667;23.1;30;10
+org.eclipse.jetty.servlet.ServletHandler.addFilterWithMapping(java.lang.Class,java.lang.String,java.util.EnumSet);0.01615808505701155;0.03876557417763726;9.71111111111111;5.766666666666667;90;30
+org.eclipse.jetty.servlet.AsyncServletTest.testNormal();4.456153923858864E-5;0.012462158294540338;6.1;0.0;30;10
+org.eclipse.jetty.util.Uptime();0.0034713323855318943;0.004262392019797945;3.5533333333333332;1.26;150;50
+org.eclipse.jetty.servlet.ServletHandler.initialize();0.27494498141501256;0.017299174026520037;1.2340909090909091;1.0670588235294118;2640;850
+org.eclipse.jetty.servlet.ServletHandler.addServletWithMapping(org.eclipse.jetty.servlet.ServletHolder,java.lang.String);0.2220678823369231;4.4318346117500074E-4;1.5573770491803278;1.3796610169491526;3660;1180
+0.0
+0.05
