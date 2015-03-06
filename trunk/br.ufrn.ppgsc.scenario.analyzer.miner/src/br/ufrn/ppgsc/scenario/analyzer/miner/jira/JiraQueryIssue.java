@@ -124,7 +124,8 @@ public class JiraQueryIssue implements IQueryIssue {
 			"  WICKET-5775   ",
 			"WICKET- 5713 ",
 			"WICKET- 58 09", // In this case the key will be WICKET-58
-			"WICKET-105809"
+			"WICKET-105809",
+			"JETTY-1564"
 		};
 		
 		JiraQueryIssue miner = new JiraQueryIssue();
