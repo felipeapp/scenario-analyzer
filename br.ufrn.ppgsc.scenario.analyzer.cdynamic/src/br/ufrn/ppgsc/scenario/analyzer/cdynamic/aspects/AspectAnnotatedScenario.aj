@@ -5,6 +5,8 @@ import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.aspectj.lang.annotation.SuppressAjWarnings;
+
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
@@ -48,6 +50,7 @@ public aspect AspectAnnotatedScenario {
 //		within(br.ufrn.sigaa.biblioteca..*) &&
 		executionFlow() && (execution(* *(..)) || execution(*.new(..)));
 	
+	@SuppressAjWarnings
 	Object around() : scenarioExecution() && !executionIgnored() {
 		long begin, end;
 		
@@ -109,6 +112,7 @@ public aspect AspectAnnotatedScenario {
 	}
 	
 	// Intercepta lançamentos de exceções
+	@SuppressAjWarnings
 	after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
 		Member member = AspectsUtil.getMember(thisJoinPoint.getSignature());
 		AspectsUtil.setException(t, member);
@@ -116,6 +120,7 @@ public aspect AspectAnnotatedScenario {
 	}
 	
 	// Intercepta capturas de exceções
+	@SuppressAjWarnings
 	before(Throwable t) : handler(Throwable+) && args(t) && executionFlow() && !executionIgnored() {
 		AspectsUtil.setException(t, AspectsUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 	}
