@@ -49,10 +49,10 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				task.setIssueId(rs.getLong("id"));
+				task.setId(rs.getLong("id"));
 				task.setNumber(rs.getLong("numero"));
 //				task.setIdType(rs.getLong("id_tipo"));
-				task.setIssueType(rs.getString("tipo_denominacao"));
+				task.setType(rs.getString("tipo_denominacao"));
 			}
 			else {
 				logger.error("Task number " + taskNumber + " wasn't found.");
@@ -95,10 +95,10 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 			while (rs.next()) {
 				Issue issue = new Issue();
 				
-				issue.setIssueId(rs.getLong("id"));
+				issue.setId(rs.getLong("id"));
 				issue.setNumber(rs.getLong("numero"));
-				issue.setIssueTypeId(rs.getLong("id_tipo"));
-				issue.setIssueType(rs.getString("tipo_denominacao"));
+				//issue.setTypeId(rs.getLong("id_tipo"));
+				issue.setType(rs.getString("tipo_denominacao"));
 				
 				tasks.add(issue);
 			}
@@ -146,8 +146,8 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	public static void main(String[] args) {
 		SINFOIProjectIssueQuery dao = new SINFOIProjectIssueQuery();
 		
-		System.out.println(dao.getIssueByNumber(124277).getIssueId());
-		System.out.println(dao.getIssueByNumber(124787).getIssueId());
+		System.out.println(dao.getIssueByNumber(124277).getId());
+		System.out.println(dao.getIssueByNumber(124787).getId());
 		
 		for (Issue t : dao.getIssuesByRevision(70315))
 			System.out.println(t.getNumber());

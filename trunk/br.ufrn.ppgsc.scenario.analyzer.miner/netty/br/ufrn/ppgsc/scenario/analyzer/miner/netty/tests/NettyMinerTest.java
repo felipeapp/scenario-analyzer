@@ -14,8 +14,6 @@ public class NettyMinerTest {
 	public void performRequestToGetIssueInfoWithValidId() {
 		GithubQueryIssue miner = new GithubQueryIssue();
 		Issue issue = miner.getIssueByNumber(2330);
-		System.out.println(issue.getIssueId());
-		System.out.println(issue.getIssueType());
 		Assert.assertNotNull(issue);
 	}
 	
@@ -23,8 +21,6 @@ public class NettyMinerTest {
 	public void performRequestToGetIssueInfoWithValidId2() {
 		GithubQueryIssue miner = new GithubQueryIssue();
 		Issue issue = miner.getIssueByNumber(2300);
-		System.out.println(issue.getIssueId());
-		System.out.println(issue.getIssueType());
 		Assert.assertNotNull(issue);
 	}
 	

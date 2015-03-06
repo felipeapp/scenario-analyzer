@@ -60,9 +60,9 @@ public class JiraQueryIssue implements IQueryIssue {
 		try {
 			issue = restClient.getIssueClient().getIssue(jira_system + "-" + taskNumber).claim();
 			
-			issue_model.setIssueType(issue.getIssueType().getName());
+			issue_model.setType(issue.getIssueType().getName());
 			issue_model.setNumber(taskNumber);
-			issue_model.setIssueId(issue.getId());
+			issue_model.setId(issue.getId());
 		} catch (RestClientException e) {
 			System.err.println(e.getMessage());
 		}
@@ -139,9 +139,9 @@ public class JiraQueryIssue implements IQueryIssue {
 				
 				br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue issue = miner.getIssueByNumber(num);
 				
-				System.out.println("\t\t" + issue.getIssueType());
+				System.out.println("\t\t" + issue.getType());
 				System.out.println("\t\t" + miner.getJiraSystem() + "-" + issue.getNumber());
-				System.out.println("\t\t" + issue.getIssueId());
+				System.out.println("\t\t" + issue.getId());
 			}
 		}
 

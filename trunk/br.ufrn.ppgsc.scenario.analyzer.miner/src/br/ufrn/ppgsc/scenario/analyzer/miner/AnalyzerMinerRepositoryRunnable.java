@@ -331,15 +331,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private void printIssues(Map<Long, Issue> number_to_issue, Map<String, Set<Issue>> revision_to_issues, PrintWriter pw) {
 		pw.println(number_to_issue.size());
 		for (long issue_number : new TreeSet<Long>(number_to_issue.keySet()))
-			pw.println(issue_number + ";" + number_to_issue.get(issue_number).getIssueType());
+			pw.println(issue_number + ";" + number_to_issue.get(issue_number).getType());
 		
 		Map<String, Set<Long>> issuetype_to_number = new HashMap<String, Set<Long>>();
 		for (Issue issue  : number_to_issue.values()) {
-			Set<Long> issue_number_list = issuetype_to_number.get(issue.getIssueType());
+			Set<Long> issue_number_list = issuetype_to_number.get(issue.getType());
 			
 			if (issue_number_list == null) {
 				issue_number_list = new TreeSet<Long>();
-				issuetype_to_number.put(issue.getIssueType(), issue_number_list);
+				issuetype_to_number.put(issue.getType(), issue_number_list);
 			}
 			
 			issue_number_list.add(issue.getNumber());

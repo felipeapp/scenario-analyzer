@@ -1,29 +1,19 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.argouml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.io.StringReader;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
-import org.xml.sax.InputSource;
-
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.HttpsUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.XMLUtil;
 
 public class ArgoUMLQueryIssue implements IQueryIssue {
 
@@ -33,87 +23,25 @@ public class ArgoUMLQueryIssue implements IQueryIssue {
 		metadata = SystemMetadataUtil.getInstance();
 	}
 
-	private Document getXMLByIssueId(Long issueId) throws IOException, JDOMException {
-		SAXBuilder builder = new SAXBuilder();
-		InputStream inputStream = HttpsUtil.getInputStreamFixHttps(metadata.getStringProperty("host") + issueId);
-		InputStreamReader isr = new InputStreamReader(inputStream);
-
-		LineNumberReader lineNumberReader = new LineNumberReader(isr);
-		String line = null;
-		StringBuilder sb = new StringBuilder();
-
-		while ((line = lineNumberReader.readLine()) != null) {
-			if (!line.contains("<!DOCTYPE")) {
-				sb.append(line);
-				sb.append(System.getProperty("line.separator"));
-			}
-		}
-
-		StringReader sr = new StringReader(sb.toString());
-		InputSource inputSource = new InputSource(sr);
-		Document doc = builder.build(inputSource);
-
-		return doc;
-	}
-
-	private boolean verifyIssueWasFound(Document document) {
-		for (Object obj : document.getRootElement().getChildren()) {
-			Element element = (Element) obj;
-			
-			if (element.getAttributeValue("status_message").trim().equals(metadata.getStringProperty("status_message")))
-				return false;
-		}
-		
-		return true;
-	}
-
-	/**
-	 * Método que verifica se o argumento passado é diferente de nulo. Se não
-	 * for, uma exceção é lançada.
-	 * 
-	 * @param issueId
-	 * @throws IllegalArgumentException
-	 */
-	private void verifyValidArguments(Long issueId) throws IllegalArgumentException {
-		if (issueId == null)
-			throw new IllegalArgumentException("O id da tarefa está nulo");
-	}
-
-	private Issue getIssueInfoFromXML(Document doc) throws ParseException {
-		Issue issue = null;
-		SimpleDateFormat sdf = new SimpleDateFormat(metadata.getStringProperty("dateFormat"));
-
-		for (Object obj : doc.getRootElement().getChildren()) {
-			Element item = (Element) obj;
-
-			issue = new Issue();
-
-			issue.setAffectedVersion(item.getChildText("version"));
-			issue.setComponent("component");
-			issue.setDateCreation(sdf.parse(item.getChildText("creation_ts")));
-			issue.setIssueId(Integer.parseInt(item.getChildText("issue_id")));
-			issue.setNumber(Integer.parseInt(item.getChildText("issue_id")));
-			issue.setIssueStatus(item.getChildText("issue_status"));
-			issue.setIssueType(item.getChildText("issue_type"));
-			issue.setShortDescription(item.getChildText("short_desc"));
-		}
-
-		return issue;
-	}
-
 	@Override
-	public Issue getIssueByNumber(long taskNumber) {
-		Issue issue = null;
+	public Issue getIssueByNumber(long number) {
+		Map<String, String> fields = new HashMap<String, String>();
+		fields.put("id", "issue_id");
+		fields.put("number", "issue_id");
+		fields.put("status", "issue_status");
+		fields.put("component", "component");
+		fields.put("affectedVersion", "version");
+		fields.put("creationDate", "creation_ts");
+		fields.put("type", "issue_type");
+		fields.put("shortDescription", "short_desc");
 		
-		try {
-			verifyValidArguments(taskNumber);
-			Document document = getXMLByIssueId(taskNumber);
-			
-			if (verifyIssueWasFound(document))
-				issue = getIssueInfoFromXML(document);
-		} catch (IOException | JDOMException | ParseException e) {
-			e.printStackTrace();
-		}
+		Issue issue = XMLUtil.getIssueFromRemoteXML(
+			metadata.getStringProperty("host") + number,
+			"status_message",
+			"NotFound",
+			new SimpleDateFormat(metadata.getStringProperty("dateFormat")),
+			fields
+		);
 		
 		return issue;
 	}
@@ -170,7 +98,7 @@ public class ArgoUMLQueryIssue implements IQueryIssue {
 		return result;
 	}
 
-	public static void main(String[] args) {
+public static void main(String[] args) {
 		
 		String texto[] = {
 			"Issue 570 -",
@@ -193,11 +121,31 @@ public class ArgoUMLQueryIssue implements IQueryIssue {
 			"This consider issue 6054, issue 4034 and 1234"
 		};
 		
+		ArgoUMLQueryIssue tracking = new ArgoUMLQueryIssue();
+		
 		for (String t : texto) {
 			System.out.println(t);
 			
-			for (long id : new ArgoUMLQueryIssue().getIssueNumbersFromMessageLog(t))
+			for (long id : tracking.getIssueNumbersFromMessageLog(t)) {
+				Issue issue = tracking.getIssueByNumber(id);
 				System.out.println("\t" + id);
+				
+				if (issue == null) {
+					System.out.println("\tNotFound");
+				}
+				else {
+					System.out.println("\t" + issue.getAffectedVersion());
+					System.out.println("\t" + issue.getComponent());
+					System.out.println("\t" + issue.getId());
+					System.out.println("\t" + issue.getNumber());
+					System.out.println("\t" + issue.getShortDescription());
+					System.out.println("\t" + issue.getStatus());
+					System.out.println("\t" + issue.getType());
+					System.out.println("\t" + issue.getCreationDate());
+				}
+				
+				System.out.println("----------------------");
+			}
 		}
 
 	}

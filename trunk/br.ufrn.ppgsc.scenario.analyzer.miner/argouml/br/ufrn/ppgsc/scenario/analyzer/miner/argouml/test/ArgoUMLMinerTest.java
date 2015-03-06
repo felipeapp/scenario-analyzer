@@ -14,7 +14,7 @@ public class ArgoUMLMinerTest {
 	public void performRequestToGetIssueInfoWithValidId() {
 		ArgoUMLQueryIssue miner = new ArgoUMLQueryIssue();
 		Issue issue = miner.getIssueByNumber(3458);
-		System.out.println(issue.getIssueId());
+		System.out.println(issue.getId());
 		Assert.assertNotNull(issue);
 	}
 

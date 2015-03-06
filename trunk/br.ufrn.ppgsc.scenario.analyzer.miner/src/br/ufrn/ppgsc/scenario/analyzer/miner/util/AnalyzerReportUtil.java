@@ -191,7 +191,7 @@ public abstract class AnalyzerReportUtil {
 					pw.println("\t\tNumber of Issues: " + issue_collection.size());
 					
 					for (Issue issue : issue_collection)
-						pw.println("\t\t\t" + issue.getIssueId() + ";" + issue.getNumber() + ";" + issue.getIssueType());
+						pw.println("\t\t\t" + issue.getId() + ";" + issue.getNumber() + ";" + issue.getType());
 				}
 			}
 		}
