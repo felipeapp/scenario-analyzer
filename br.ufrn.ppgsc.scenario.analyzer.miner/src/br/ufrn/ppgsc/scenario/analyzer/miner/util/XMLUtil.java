@@ -19,7 +19,7 @@ public abstract class XMLUtil {
 		Document doc = null;
 		
 		try {
-			doc = builder.build(HttpsUtil.getInputStream(url));
+			doc = builder.build(HTTPSUtil.getInputStream(url));
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

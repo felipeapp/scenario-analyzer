@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.sigaa;
+package br.ufrn.ppgsc.scenario.analyzer.miner.issues;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,13 +14,13 @@ import org.apache.log4j.Logger;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 
-public class SINFOIProjectIssueQuery implements IQueryIssue {
+public class IProjectIssueQuery implements IQueryIssue {
 	
-	private static final Logger logger = Logger.getLogger(SINFOIProjectIssueQuery.class);
+	private static final Logger logger = Logger.getLogger(IProjectIssueQuery.class);
 	
 	private static Connection connection;
 	
-	public SINFOIProjectIssueQuery() {
+	public IProjectIssueQuery() {
 		try {
 			if (connection == null) {
 				connection = DriverManager.getConnection(
@@ -144,7 +144,7 @@ public class SINFOIProjectIssueQuery implements IQueryIssue {
 	}
 	
 	public static void main(String[] args) {
-		SINFOIProjectIssueQuery dao = new SINFOIProjectIssueQuery();
+		IProjectIssueQuery dao = new IProjectIssueQuery();
 		
 		System.out.println(dao.getIssueByNumber(124277).getId());
 		System.out.println(dao.getIssueByNumber(124787).getId());

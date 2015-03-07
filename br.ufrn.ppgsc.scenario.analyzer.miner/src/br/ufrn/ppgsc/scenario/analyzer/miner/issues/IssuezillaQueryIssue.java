@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.argouml;
+package br.ufrn.ppgsc.scenario.analyzer.miner.issues;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -15,11 +15,11 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.XMLUtil;
 
-public class ArgoUMLQueryIssue implements IQueryIssue {
+public class IssuezillaQueryIssue implements IQueryIssue {
 
 	private SystemMetadataUtil metadata;
 
-	public ArgoUMLQueryIssue() {
+	public IssuezillaQueryIssue() {
 		metadata = SystemMetadataUtil.getInstance();
 	}
 
@@ -121,7 +121,7 @@ public static void main(String[] args) {
 			"This consider issue 6054, issue 4034 and 1234"
 		};
 		
-		ArgoUMLQueryIssue tracking = new ArgoUMLQueryIssue();
+		IssuezillaQueryIssue tracking = new IssuezillaQueryIssue();
 		
 		for (String t : texto) {
 			System.out.println(t);
