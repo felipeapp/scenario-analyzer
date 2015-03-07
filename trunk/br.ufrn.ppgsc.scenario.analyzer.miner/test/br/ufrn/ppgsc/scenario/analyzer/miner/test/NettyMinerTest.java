@@ -1,11 +1,11 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.netty.tests;
+package br.ufrn.ppgsc.scenario.analyzer.miner.test;
 
 import java.util.Collection;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.ufrn.ppgsc.scenario.analyzer.miner.git.GithubQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.issues.GithubQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 
 public class NettyMinerTest {
@@ -22,6 +22,13 @@ public class NettyMinerTest {
 		GithubQueryIssue miner = new GithubQueryIssue();
 		Issue issue = miner.getIssueByNumber(2300);
 		Assert.assertNotNull(issue);
+	}
+	
+	@Test
+	public void performRequestToGetIssueInfoWithNoValidId() {
+		GithubQueryIssue miner = new GithubQueryIssue();
+		Issue issue = miner.getIssueByNumber(1234000);
+		Assert.assertNull(issue);
 	}
 	
 	@Test

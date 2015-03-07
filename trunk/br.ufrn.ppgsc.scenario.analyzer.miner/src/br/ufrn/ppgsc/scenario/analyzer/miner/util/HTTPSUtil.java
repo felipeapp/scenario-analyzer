@@ -1,5 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,25 +17,32 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-public class HttpsUtil {
+public class HTTPSUtil {
 
 	public static InputStreamReader getInputStreamReader(String url) {
-		return new InputStreamReader(getInputStream(url));
+		InputStream is = getInputStream(url);
+		
+		if (is == null)
+			return null;
+		
+		return new InputStreamReader(is);
 	}
 
 	public static InputStream getInputStream(String url) {
 		if (url.startsWith("https://")) {
-			return HttpsUtil.getInputStreamForHTTPSIgnoreCertificateValidness(url);
+			return HTTPSUtil.getInputStreamForHTTPSIgnoreCertificateValidness(url);
 		} else {
 			try {
 				return new URL(url).openStream();
+			} catch (FileNotFoundException ex) {
+				// Just continue and return null because the URL was not found
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
+		
 		return null;
 	}
 
@@ -80,8 +88,11 @@ public class HttpsUtil {
 			connection.setDoOutput(true);
 
 			return connection.getInputStream();
-		} catch (KeyManagementException | NoSuchAlgorithmException | IOException ex) {
-			ex.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// Just continue and return null because the URL was not found
+		}
+		catch (KeyManagementException | NoSuchAlgorithmException | IOException e) {
+			e.printStackTrace();
 		}
 
 		return null;

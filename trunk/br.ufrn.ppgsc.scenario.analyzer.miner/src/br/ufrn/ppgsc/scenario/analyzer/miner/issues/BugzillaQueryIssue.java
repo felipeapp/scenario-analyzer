@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.bugzilla;
+package br.ufrn.ppgsc.scenario.analyzer.miner.issues;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;

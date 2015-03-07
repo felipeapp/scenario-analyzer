@@ -1,4 +1,4 @@
-package br.ufrn.ppgsc.scenario.analyzer.miner.jira;
+package br.ufrn.ppgsc.scenario.analyzer.miner.issues;
 
 import java.io.BufferedReader;
 import java.io.IOException;
