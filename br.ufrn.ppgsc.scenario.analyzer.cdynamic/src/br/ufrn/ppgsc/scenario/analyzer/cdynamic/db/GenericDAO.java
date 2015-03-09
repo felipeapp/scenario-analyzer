@@ -17,6 +17,10 @@ public abstract class GenericDAO<T extends Serializable> {
 
 	private static Session s;
 
+	public void clearSession() {
+		s.clear();
+	}
+	
 	public static Session getSession() {
 		if (s == null) {
 			/*
