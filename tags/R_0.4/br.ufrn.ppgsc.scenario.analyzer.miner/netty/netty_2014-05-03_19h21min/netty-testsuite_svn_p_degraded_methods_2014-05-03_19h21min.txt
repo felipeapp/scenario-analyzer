@@ -1,0 +1,243 @@
+# Métodos que tiveram performance degradada na evolução
+-1 2254 1832 1952 2128 1711 1692 1707 2349 
+5
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStringEchoTest.java
+Members 1
+testStringEcho 60 62
+Lines 5
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketConnectionAttemptTest.java
+Members 1
+testConnectTimeout 53 61
+Lines 2
+Revision dc9537e672f931a7bc26aa90263d3dd7189c386e
+Issues 1
+Revision 2746688fd7da77df0e72e2a20364a0b6803e4096
+Issues 1
+IssueID 2128 | IssueNumber 2128 | IssueType defect
+transport/src/main/java/io/netty/channel/DefaultChannelConfig.java
+Members 1
+setOption 147 177
+Lines 9
+Revision d2032254b7b29aca620223c672ffa244171898b5
+Issues 1
+IssueID 1952 | IssueNumber 1952 | IssueType defect
+Revision c7b66545b4a4b4a903f4393e08b9ba9498c19fc5
+Issues 1
+IssueID 1952 | IssueNumber 1952 | IssueType defect
+Revision f40a3f34b17633b884f3d35dc2eb43d0810a0cfa
+Issues 1
+IssueID 1692 | IssueNumber 1692 | IssueType defect
+Revision b54937ab5051004faa6c04048d6bb0410e6dcb33
+Issues 1
+IssueID 1711 | IssueNumber 1711 | IssueType defect
+testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketEchoTest.java
+Members 1
+testSimpleEchoWithAdditionalExecutor 79 82
+Lines 3
+Revision b9bae2b5e4bf32f6db783664a02e1d22ba4159db
+Issues 1
+Revision 7fe10fe6354af68db42afbed6e5cff2464b9fbb2
+Issues 1
+IssueID 2254 | IssueNumber 2254 | IssueType none yet
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+Members 2
+write 648 662
+Lines 45
+Revision e81368af0632b28a7ba54be49142e2b5bf78d14b
+Issues 1
+Revision fb619f23947aab158a11730e00f4dbd490093669
+Issues 1
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect
+Revision 013ac44d3a64d53ab9e131cb43124fcbc0873caf
+Issues 1
+IssueID 1832 | IssueNumber 1832 | IssueType none yet
+Revision b934b6009c9e7d2ed6df400698d6e6e4b550291d
+Issues 1
+IssueID 1707 | IssueNumber 1707 | IssueType improvement
+Revision 64c3f58279809141a851becba445a20badc8a610
+Issues 1
+writeAndFlush 702 717
+Lines 13
+Revision 5ef30b6d8b55441fddc8ddfdd24251f378e24e60
+Issues 1
+IssueID 1707 | IssueNumber 1707 | IssueType improvement
+Revision fb619f23947aab158a11730e00f4dbd490093669
+Issues 1
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect
+5
+defect:27
+improvement:7
+feature:1
+none yet:12
+feature,improvement:1
+3
+defect:5
+improvement:1
+none yet:2
+5
+defect
+73
+testConnectCancellation
+testConnectTimeout
+doWrite
+doWrite
+NioSocketChannelConfig
+autoReadCleared
+validatePromise
+connect
+invokeChannelRegistered
+invokeChannelReadComplete
+close
+write
+invokeChannelWritabilityChanged
+invokeBind
+invokeConnect
+invokeExceptionCaught
+invokeDisconnect
+invokeChannelUnregistered
+invokeDeregister
+invokeChannelActive
+invokeRead
+invokeUserEventTriggered
+invokeChannelRead
+invokeFlush
+invokeClose
+disconnect
+invokeWrite
+bind
+deregister
+invokeChannelInactive
+setReadPending
+isReadPending
+doBeginRead
+connect
+checkReadableBytes
+skipBytes
+readByte
+setAutoRead
+isAutoClose
+getOptions
+getOptions
+setOption
+setOption
+setAutoClose
+getWriteBufferHighWaterMark
+getOption
+fulfillConnectPromise
+fulfillConnectPromise
+finishConnect
+doBind
+initAndRegister
+operationComplete
+doWrite
+doRead
+NioServerSocketChannelConfig
+callHandlerRemoved
+setWriteBufferHighWaterMark
+processSelectedKeysOptimized
+openSelector
+testSimpleSendWithoutBind
+channelRead0
+nioBuffer
+getBytes
+capacity
+capacity
+readBytes
+DefaultOioSocketChannelConfig
+run
+run
+write
+flush0
+channelRead
+forceClose
+improvement
+8
+newSocket
+validatePromise
+write
+writeAndFlush
+DefaultChannelConfig
+register
+NioServerSocketChannel
+write
+feature
+3
+newSocket
+NioSocketChannel
+NioServerSocketChannel
+none yet
+39
+NioSocketChannelConfig
+safeExecute
+run
+run
+run
+init
+connect
+getMessageSizeEstimator
+setMessageSizeEstimator
+beginRead
+finishConnect
+removeReadOp
+DefaultChannelPipeline
+setAllocator
+setWriteBufferLowWaterMark
+setConnectTimeoutMillis
+setWriteSpinCount
+openSelector
+processSelectedKey
+rebuildSelector
+testStringEchoNotAutoRead
+channelReadComplete
+testStringEcho
+StringEchoHandler
+estimatorHandle
+invokeLater
+ensureOpen
+register0
+safeSetFailure
+safeSetSuccess
+testSimpleEcho
+testSimpleEchoWithAdditionalExecutorNotAutoRead
+testSimpleEchoWithVoidPromiseNotAutoRead
+EchoHandler
+testSimpleEchoWithAdditionalExecutorAndVoidPromise
+testSimpleEcho0
+testSimpleEchoNotAutoRead
+testSimpleEchoWithAdditionalExecutor
+testSimpleEchoWithVoidPromise
+feature,improvement
+9
+shutdownOutput
+fireChannelInactive
+fireChannelUnregistered
+fireExceptionCaught
+fireChannelActive
+fireChannelRegistered
+fireUserEventTriggered
+fireChannelRead
+newTaskQueue
+3
+defect
+5
+testConnectTimeout
+setOption
+setOption
+setOption
+write
+improvement
+2
+write
+writeAndFlush
+none yet
+3
+testStringEcho
+testSimpleEchoWithAdditionalExecutor
+write

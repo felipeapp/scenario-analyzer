@@ -1,0 +1,49 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 3
+Number of scenarios (include empties): 8
+Entry point for ApacheLicenseHeaderTestCase.licenseHeaders
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	org.apache.wicket.util.license.ApacheLicenseHeaderTestCase.licenseHeaders()
+		Time: 5876.4;4825.1;1051.2999999999993;10;10;
+			Revision: 1d6d597c1aa57ca27b0b4d9b337ad4849b093ab1
+				Issues: 0
+Entry point for NiceUrlTest.testHomePage
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for NiceUrlTest.testPage1
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.visitChildren(java.lang.Class,org.apache.wicket.util.visit.IVisitor)
+		Time: 5.492553191489361;4.104864864864865;1.3876883266244961;60;60;
+			Revision: d31415397199ecc71f8486124f02a6e983e23781
+				Issues: 5284
+	org.apache.wicket.devutils.debugbar.DebugBar.renderHead(org.apache.wicket.markup.head.IHeaderResponse)
+		Time: 3.674074074074074;2.6666666666666665;1.0074074074074075;20;20;
+			Revision: 16c81b13e6b49d1e6efc02902dfc8f01b67e23b7
+				Issues: 5388
+	org.apache.wicket.markup.renderStrategy.ChildFirstHeaderRenderStrategy.renderChildHeaders(org.apache.wicket.markup.html.internal.HtmlHeaderContainer,org.apache.wicket.Component)
+		Time: 67.90555555555555;52.42037037037037;15.48518518518518;20;20;
+			Revision: 9759e26e7558b713ed082e349cba2a6ed437725a
+				Issues: 4964
+Entry point for WellFormedXmlTest.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WellFormedXmlTestCase.markupFiles
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithFPTest.testHelloWorld
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WithoutCPWithoutFPTest.testHelloWorld
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WordGeneratorTest.testWordGenerator
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	org.apache.wicket.examples.hangman.WordGeneratorTest.testWordGenerator()
+		Time: 120.4;68.6;51.80000000000001;10;10;
+			Revision: 46651a4521167e786ca2b41523588fe5a1d21075
+				Issues: 0
+5
+3

@@ -1,0 +1,19 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+1
+Entry point for ComprefTest.test_1
+2
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;320;320
+org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;40;40
+2
+Entry point for ComprefTest.test_1;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;320;320
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;40;40
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): 1fb665336400f0f40ecbb36a642020f87e73524d(0)
+Revision (Issues): 0e44f3df8b2bf1029e14babbb74af0a28d3917d4(0)
+Revision (Issues): 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1(0)

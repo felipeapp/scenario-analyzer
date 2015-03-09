@@ -1,0 +1,611 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+13
+Entry point for TemplateTest.test_1
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage3
+Entry point for FormInputTest.test_1
+Entry point for NiceUrlTest.testPage4
+Entry point for ComprefTest.test_1
+Entry point for NiceUrlTest.testPage5
+Entry point for NiceUrlTest.testPage2UP
+Entry point for LibraryTest.test_1
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for EncodingTest.test_1
+56
+org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;50
+org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;620
+org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;30;30
+org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1780
+org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;1120;1120
+org.apache.wicket.jmx.Initializer.register(org.apache.wicket.Application,java.lang.Object,javax.management.ObjectName);null;9.637878787878789;9.637878787878789;0;110
+org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;30;30
+org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;1120;1120
+org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;710;710
+org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;30;30
+org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;940
+org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;30;30
+org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;30;30
+org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;710;710
+org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;30;30
+org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;30
+org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;790;790
+org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;2170;2170
+org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;4320;4320
+org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;110;110
+org.apache.wicket.core.request.mapper.PageInstanceMapper.getCompatibilityScore(org.apache.wicket.request.Request);0.526829268292683;2.5634146341463415;2.0365853658536586;50;50
+org.apache.wicket.jmx.Initializer.createProxy(org.apache.wicket.Application,java.lang.Object);null;9.234848484848484;9.234848484848484;0;110
+org.apache.wicket.jmx.Initializer.init(org.apache.wicket.Application);64.46666666666667;159.65;95.18333333333334;10;10
+org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;1530;1530
+org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;30
+org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;230
+org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;800
+org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;110;110
+org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;620;620
+org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;240
+org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;130;130
+org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;30;30
+org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;1090;1090
+org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;840
+org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;1090;1090
+org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters);24.36;70.56;46.2;10;10
+org.apache.wicket.Localizer.getString(java.lang.String,org.apache.wicket.Component,java.lang.String);19.864285714285714;25.392857142857142;5.5285714285714285;140;140
+org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);20.35;27.35;7.0;20;20
+org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String);2.5785714285714287;3.4642857142857144;0.8857142857142857;140;140
+org.apache.wicket.resource.PropertiesFactory.loadFromLoader(org.apache.wicket.resource.IPropertiesLoader,org.apache.wicket.util.resource.IResourceStream);40.9;58.32;17.42;20;20
+org.apache.wicket.MarkupContainer.children_get(int,boolean);0.004984971776262738;0.009339182114051225;0.004354210337788487;22780;24330
+org.apache.wicket.markup.html.navigation.paging.PagingNavigation.populateItem(org.apache.wicket.markup.html.list.LoopItem);1.0666666666666667;5.166666666666667;4.1000000000000005;30;30
+org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.10484757621189406;0.15635972176217292;0.05151214555027886;2220;2240
+org.apache.wicket.Component.internalMarkRendering(boolean);0.003497376050497266;0.008036992183199384;0.004539616132702118;65200;65200
+org.apache.wicket.core.request.mapper.PageInstanceMapper.matches(org.apache.wicket.request.Request);0.5281553398058253;2.1029126213592235;1.5747572815533983;220;220
+org.apache.wicket.request.resource.caching.FilenameWithVersionResourceCachingStrategy.decorateUrl(org.apache.wicket.request.resource.caching.ResourceUrl,org.apache.wicket.request.resource.caching.IStaticCacheableResource);0.948068669527897;1.1103004291845493;0.16223175965665226;880;880
+org.apache.wicket.markup.renderStrategy.AbstractHeaderRenderStrategy.renderRootComponent(org.apache.wicket.markup.html.internal.HtmlHeaderContainer,org.apache.wicket.markup.html.internal.HtmlHeaderContainer.HeaderStreamState,org.apache.wicket.Component);4.885185185185185;6.898148148148148;2.0129629629629626;80;80
+org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag);0.0677466326902075;0.12806698216235893;0.060320349472151424;7080;7080
+org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;2.438181818181818;2.438181818181818;0;80
+org.apache.wicket.Component.setMetaData(org.apache.wicket.MetaDataKey,java.io.Serializable);null;0.018332461189604046;0.018332461189604046;0;14470
+org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);20.786666666666665;25.186666666666667;4.400000000000002;60;60
+org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag);null;0.0018725736469513588;0.0018725736469513588;0;188450
+org.apache.wicket.MarkupContainer.children_get(int);0.008905007428121996;0.012692707668168799;0.0037877002400468034;106590;150310
+org.apache.wicket.core.util.lang.WicketObjects.cloneObject(java.lang.Object);22.55925925925926;24.807407407407407;2.2481481481481467;80;80
+org.apache.wicket.protocol.http.servlet.ServletWebRequest.getContextRelativeUrl(java.lang.String,java.lang.String);0.24088023698688107;0.2631545741324921;0.02227433714561103;14930;15000
+423
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;50
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;620
+Entry point for TemplateTest.test_1;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1780
+Entry point for TemplateTest.test_1;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;1120;1120
+Entry point for TemplateTest.test_1;org.apache.wicket.jmx.Initializer.register(org.apache.wicket.Application,java.lang.Object,javax.management.ObjectName);null;9.637878787878789;9.637878787878789;0;110
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;1120;1120
+Entry point for TemplateTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;710;710
+Entry point for TemplateTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;940
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;710;710
+Entry point for TemplateTest.test_1;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+Entry point for TemplateTest.test_1;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;30
+Entry point for TemplateTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;790;790
+Entry point for TemplateTest.test_1;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;2170;2170
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;4320;4320
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;110;110
+Entry point for TemplateTest.test_1;org.apache.wicket.core.request.mapper.PageInstanceMapper.getCompatibilityScore(org.apache.wicket.request.Request);0.526829268292683;2.5634146341463415;2.0365853658536586;50;50
+Entry point for TemplateTest.test_1;org.apache.wicket.jmx.Initializer.createProxy(org.apache.wicket.Application,java.lang.Object);null;9.234848484848484;9.234848484848484;0;110
+Entry point for TemplateTest.test_1;org.apache.wicket.jmx.Initializer.init(org.apache.wicket.Application);64.46666666666667;159.65;95.18333333333334;10;10
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;1530;1530
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;30
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;230
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;800
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;110;110
+Entry point for TemplateTest.test_1;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;620;620
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;240
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;130;130
+Entry point for TemplateTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;1090;1090
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;840
+Entry point for TemplateTest.test_1;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;1090;1090
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;180
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;1050;1050
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;1050;1050
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;720;720
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;10;10
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;870
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;690
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters);24.36;70.56;46.2;10;10
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;960
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;630;630
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;2100;2100
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;690;690
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;1420;1420
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;20;20
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;1020;1020
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;2140
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;1020;1020
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;240
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;710
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;630;630
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;10;10
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;180
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;1050;1050
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;1050;1050
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;720;720
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;10;10
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;870
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;690
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters);24.36;70.56;46.2;10;10
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;960
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;630;630
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;2100;2100
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;690;690
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;1420;1420
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;20;20
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;1020;1020
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;2140
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;1020;1020
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;240
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;710
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;630;630
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;10;10
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;660;660
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;440
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;680;680
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;560
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;420;420
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;660;660
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;480;480
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;10;10
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;420;420
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;620
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;960;960
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1470
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;480
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;160
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;440;440
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;120
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;1360;1360
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;440
+Entry point for FormInputTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;750
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;40;40
+Entry point for FormInputTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;70
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;850
+Entry point for FormInputTest.test_1;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;950;950
+Entry point for FormInputTest.test_1;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;1760;1760
+Entry point for FormInputTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;60;60
+Entry point for FormInputTest.test_1;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+Entry point for FormInputTest.test_1;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;450;450
+Entry point for FormInputTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.Localizer.getString(java.lang.String,org.apache.wicket.Component,java.lang.String);19.864285714285714;25.392857142857142;5.5285714285714285;140;140
+Entry point for FormInputTest.test_1;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;950;950
+Entry point for FormInputTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;630;630
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;80;80
+Entry point for FormInputTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;10
+Entry point for FormInputTest.test_1;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;950;950
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);20.35;27.35;7.0;20;20
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String);2.5785714285714287;3.4642857142857144;0.8857142857142857;140;140
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;4790
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;70;70
+Entry point for FormInputTest.test_1;org.apache.wicket.resource.PropertiesFactory.loadFromLoader(org.apache.wicket.resource.IPropertiesLoader,org.apache.wicket.util.resource.IResourceStream);40.9;58.32;17.42;20;20
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;1540;1540
+Entry point for FormInputTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;680;680
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;510
+Entry point for FormInputTest.test_1;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;830
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;630;630
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;3750;3750
+Entry point for FormInputTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;10;10
+Entry point for FormInputTest.test_1;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;950;950
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;660;660
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;440
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;680;680
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;560
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;420;420
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;660;660
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;480;480
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;10;10
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;420;420
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;620
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;960;960
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1470
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;480
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;160
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;440;440
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;120
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;1360;1360
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;560;560
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;240
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;40;40
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;750;750
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;60;60
+Entry point for ComprefTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;550
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;560;560
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;60
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;640;640
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;80
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;40;40
+Entry point for ComprefTest.test_1;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;550
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;3640;3640
+Entry point for ComprefTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;590;590
+Entry point for ComprefTest.test_1;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;640;640
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;10
+Entry point for ComprefTest.test_1;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;650;650
+Entry point for ComprefTest.test_1;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;270
+Entry point for ComprefTest.test_1;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;950;950
+Entry point for ComprefTest.test_1;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;180
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;10
+Entry point for ComprefTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;10;10
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;710;710
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;650
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;420;420
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;490
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;470;470
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;480;480
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;10;10
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;420;420
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;690;690
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;690;690
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;1420;1420
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;590
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;160
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;980;980
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1520
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;120
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;10;10
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;470
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;180
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;1050;1050
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;1050;1050
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;720;720
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;10;10
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;870
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;690
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters);24.36;70.56;46.2;10;10
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;960
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;630;630
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;2100;2100
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;690;690
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;1420;1420
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;20;20
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;1020;1020
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;2140
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;1020;1020
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;240
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;710
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;630;630
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;10;10
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;200
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;5800
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;600
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;2230;2230
+Entry point for LibraryTest.test_1;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;1210;1210
+Entry point for LibraryTest.test_1;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;20;20
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;830
+Entry point for LibraryTest.test_1;org.apache.wicket.resource.PropertiesFactory.loadFromLoader(org.apache.wicket.resource.IPropertiesLoader,org.apache.wicket.util.resource.IResourceStream);40.9;58.32;17.42;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.jmx.Initializer.register(org.apache.wicket.Application,java.lang.Object,javax.management.ObjectName);null;9.637878787878789;9.637878787878789;0;110
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;110;110
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.children_get(int,boolean);0.004984971776262738;0.009339182114051225;0.004354210337788487;22780;24330
+Entry point for LibraryTest.test_1;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;2980;2980
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;90;90
+Entry point for LibraryTest.test_1;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;900;900
+Entry point for LibraryTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;1070
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.html.navigation.paging.PagingNavigation.populateItem(org.apache.wicket.markup.html.list.LoopItem);1.0666666666666667;5.166666666666667;4.1000000000000005;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;1030
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;90;90
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
+Entry point for LibraryTest.test_1;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;4210;4210
+Entry point for LibraryTest.test_1;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;20;20
+Entry point for LibraryTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;1060;1070
+Entry point for LibraryTest.test_1;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;20
+Entry point for LibraryTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.10484757621189406;0.15635972176217292;0.05151214555027886;2220;2240
+Entry point for LibraryTest.test_1;org.apache.wicket.jmx.Initializer.createProxy(org.apache.wicket.Application,java.lang.Object);null;9.234848484848484;9.234848484848484;0;110
+Entry point for LibraryTest.test_1;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;1210;1210
+Entry point for LibraryTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;880;880
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;880;880
+Entry point for LibraryTest.test_1;org.apache.wicket.jmx.Initializer.init(org.apache.wicket.Application);64.46666666666667;159.65;95.18333333333334;10;10
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;30
+Entry point for LibraryTest.test_1;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;1070
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;1380;1380
+Entry point for LibraryTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;20;20
+Entry point for LibraryTest.test_1;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;1380;1380
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.internalMarkRendering(boolean);0.003497376050497266;0.008036992183199384;0.004539616132702118;65200;65200
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.mapper.PageInstanceMapper.matches(org.apache.wicket.request.Request);0.5281553398058253;2.1029126213592235;1.5747572815533983;220;220
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.resource.caching.FilenameWithVersionResourceCachingStrategy.decorateUrl(org.apache.wicket.request.resource.caching.ResourceUrl,org.apache.wicket.request.resource.caching.IStaticCacheableResource);0.948068669527897;1.1103004291845493;0.16223175965665226;880;880
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;10;10
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;140;140
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.jmx.Initializer.register(org.apache.wicket.Application,java.lang.Object,javax.management.ObjectName);null;9.637878787878789;9.637878787878789;0;110
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.renderStrategy.AbstractHeaderRenderStrategy.renderRootComponent(org.apache.wicket.markup.html.internal.HtmlHeaderContainer,org.apache.wicket.markup.html.internal.HtmlHeaderContainer.HeaderStreamState,org.apache.wicket.Component);4.885185185185185;6.898148148148148;2.0129629629629626;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.configure();0.1812760055478502;0.31757975034674063;0.13630374479889043;7300;7300
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;60;60
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;6240;6240
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters);24.36;70.56;46.2;10;10
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag);0.0677466326902075;0.12806698216235893;0.060320349472151424;7080;7080
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.10484757621189406;0.15635972176217292;0.05151214555027886;18850;18930
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;4960;4960
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;90240
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;20;20
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.mapper.PageInstanceMapper.getCompatibilityScore(org.apache.wicket.request.Request);0.526829268292683;2.5634146341463415;2.0365853658536586;150;150
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;2.438181818181818;2.438181818181818;0;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;1068;3560
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;7060
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;16840;16840
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.setMetaData(org.apache.wicket.MetaDataKey,java.io.Serializable);null;0.018332461189604046;0.018332461189604046;0;14470
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);20.786666666666665;25.186666666666667;4.400000000000002;60;60
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;4580
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;6670;6670
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;3770
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;90
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.canDequeueTag(org.apache.wicket.markup.ComponentTag);null;0.0018725736469513588;0.0018725736469513588;0;188450
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.children_get(int);0.008905007428121996;0.012692707668168799;0.0037877002400468034;106590;150310
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;4870;4870
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;6670;6670
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.util.lang.WicketObjects.cloneObject(java.lang.Object);22.55925925925926;24.807407407407407;2.2481481481481467;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;60;60
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;2290;2290
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;7300;7300
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.jmx.Initializer.createProxy(org.apache.wicket.Application,java.lang.Object);null;9.234848484848484;9.234848484848484;0;110
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.protocol.http.servlet.ServletWebRequest.getContextRelativeUrl(java.lang.String,java.lang.String);0.24088023698688107;0.2631545741324921;0.02227433714561103;14930;15000
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;330
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.jmx.Initializer.init(org.apache.wicket.Application);64.46666666666667;159.65;95.18333333333334;10;10
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.children_get(int,boolean);0.004984971776262738;0.009339182114051225;0.004354210337788487;135390;179110
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;25770;25770
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;4870;4870
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;4450
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;4910
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;250;250
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;80
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;1200;1200
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;3230;3230
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;60;60
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;600;600
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;250;250
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;470
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.Page.dirty();0.17659167065581619;0.4726663475347056;0.29607467687888944;420;420
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;60;60
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;80;80
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;470
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;920;920
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;600;600
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;600;600
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;300;300
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;80
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;540
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;390
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;2220
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.parse(java.io.InputStream,java.lang.String);10.657142857142857;13.81547619047619;3.158333333333333;40;40
+Entry point for EncodingTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor);0.9762720942688805;1.6271558650241027;0.6508837707552222;210;210
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkupAndWatchForChanges(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);37.23577981651376;49.88348623853211;12.647706422018345;60;60
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.parser.XmlPullParser.next();0.33913633894622486;0.4903041825095057;0.15116784356328083;1350;1350
+Entry point for EncodingTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class);79.9735294117647;190.55882352941177;110.58529411764707;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;60
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;80
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;200
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);623.8929824561403;774.5456140350877;150.65263157894742;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean);48.86265060240964;65.37710843373495;16.51445783132531;40;40
+Entry point for EncodingTest.test_1;org.apache.wicket.Page.onBeforeRender();64.03888888888889;229.25;165.2111111111111;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;190
+Entry point for EncodingTest.test_1;org.apache.wicket.util.collections.IntHashMap.put(int,java.lang.Object);0.023712546816479402;0.06669007490636704;0.04297752808988764;3560;3560
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.renderPage(org.apache.wicket.request.Url,org.apache.wicket.request.cycle.RequestCycle);591.9740740740741;645.0518518518519;53.07777777777778;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.Component.detach();0.6864031907179116;1.1844331641285957;0.4980299734106841;620;620
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;10
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.add(org.apache.wicket.Component[]);0.6552117863720074;5.404309392265193;4.749097605893186;300;300
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.visitChildren(org.apache.wicket.util.visit.IVisitor);0.9948580610605249;1.643867166577397;0.6490091055168721;210;210
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;250
+Entry point for EncodingTest.test_1;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;280
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;560
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.addedComponent(org.apache.wicket.Component);0.5769429097605894;5.3371639042357275;4.760220994475138;300;300
+Entry point for EncodingTest.test_1;org.apache.wicket.util.visit.Visits.visitChildren(java.lang.Iterable,org.apache.wicket.util.visit.IVisitor,org.apache.wicket.util.visit.IVisitFilter);1.3712895377128953;1.8385477582846004;0.4672582205717051;240;240
+Entry point for EncodingTest.test_1;org.apache.wicket.Component.internalBeforeRender();4.532558945908461;13.766435506241331;9.23387656033287;310;310
+Entry point for EncodingTest.test_1;org.apache.wicket.Page.renderPage();585.5055555555556;643.9888888888889;58.48333333333335;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.MarkupContainer.detachChildren();0.8530575539568346;1.4114208633093526;0.558363309352518;400;400
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.html.list.ListView.onPopulate();29.112328767123287;138.23698630136985;109.12465753424657;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;10
+Entry point for EncodingTest.test_1;org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.reflect.Constructor,org.apache.wicket.request.mapper.parameter.PageParameters);68.63846153846154;171.81025641025641;103.17179487179487;10;10
+30
+0;No issue (0)
+663;Improvement
+3335;New Feature
+3347;Improvement
+3491;New Feature
+4744;Sub-task
+4964;Bug
+5071;Bug
+5215;Improvement
+5259;Bug
+5277;Improvement
+5284;Bug
+5287;Bug
+5288;Improvement
+5294;Bug
+5309;Bug
+5387;Bug
+5398;Bug
+5410;Improvement
+5415;Improvement
+5417;Bug
+5426;Bug
+5446;Improvement
+5459;Improvement
+5460;Bug
+5466;Bug
+5484;Bug
+5498;Bug
+5522;Bug
+5535;Improvement
+5
+Sub-task;1
+New Feature;2
+Improvement;10
+Bug;16
+No issue (0);1
+5
+Sub-task;4744
+New Feature;3335;3491
+Improvement;663;3347;5215;5277;5288;5410;5415;5446;5459;5535
+Bug;4964;5071;5259;5284;5287;5294;5309;5387;5398;5417;5426;5460;5466;5484;5498;5522
+No issue (0);0
+Number of revisions (commits): 71
+Revision (Issues): f1e84a7999da0904aa7f2ef5cdbebe4fb05eb9d8(5498)
+Revision (Issues): ec84bb57fbfadce914a1af79b1c47c3267de5d4b(3335)
+Revision (Issues): 697b87eb75f663fdc9ebe06a389a026254d196d0(3491)
+Revision (Issues): 28a1637874300d3d8feefecffdb9e8565e3171e9(0)
+Revision (Issues): 6c58037e0ca57930d9646f254b0adc3701dceea1(5415;5387)
+Revision (Issues): 2e57d8db33b88889413f1396dbd4389904cf7e7f(3335)
+Revision (Issues): 8f998ce6a8003b9fd29c016b1eb682c569e2dee6(0)
+Revision (Issues): 6971b62d1a788e251e3aaabcf461fdd3e4a0eb4a(5215)
+Revision (Issues): f81ad2a53a7bcba321d3faa7f0b484b0bb431da9(0)
+Revision (Issues): 9759e26e7558b713ed082e349cba2a6ed437725a(4964)
+Revision (Issues): ac6688794a0d74a8787814370ee803c3b0efbaaf(0)
+Revision (Issues): 5b730c0b41d6261be5bdd7810cdc59ebebf1d1ef(5522)
+Revision (Issues): 7054ccc08e29553da06b0d73dba5ff18e754a39b(5535)
+Revision (Issues): 79ba33817899b5921a1864da9fc39e5f5a97395b(0)
+Revision (Issues): abb316cea0a31edea61a25ea4c192507d5c7b390(0)
+Revision (Issues): 914b18d0f81e0df9d2f02fd7f2d3d71a49c2e22a(0)
+Revision (Issues): 22f1e048923cf5b6e020a81b66e0a8512c24fe79(3347)
+Revision (Issues): 2bd223436bfb8f5993c13f8cbe37d755fec10501(0)
+Revision (Issues): 723d7d3c9ebe8336897d75d3754685384f017b3a(3335)
+Revision (Issues): dfd30907f9b008b8dfc1521c4c24d4022963dd34(663)
+Revision (Issues): e6c24a19f0ada846445cbc9a3d87a0a37617db84(5287)
+Revision (Issues): 296d552d7b0be2efd3ac7a691a8fd401e51496b6(5417)
+Revision (Issues): a49ff764b7587662c95038fdac5b09548aefbcfa(4744)
+Revision (Issues): e47e61e28b704da9829edc9941c4c9fb6b2bf551(0)
+Revision (Issues): 6f9821b81e2afeedebbe66496b85009c0c62f74c(5426)
+Revision (Issues): b5e4574b1b135249dee7860e1f52b2a2af34b641(5410)
+Revision (Issues): b54c663d01e37c51b6e773033705ab50d0a3fa77(3335)
+Revision (Issues): a9e56e1e8d75ac87a5db4a55dadb52de7d90f770(5259)
+Revision (Issues): b9ddb88862f15be28dd0a74869489a804e4cda43(3335)
+Revision (Issues): 1d6d597c1aa57ca27b0b4d9b337ad4849b093ab1(0)
+Revision (Issues): 686bc9a8abbdb15034cf8055ec7653e27929f4ce(5288)
+Revision (Issues): 156dea5b3479805eec964b905847ce8e177cd560(3335)
+Revision (Issues): eba961e585fd0fef9002a04588a96b68dc9035b5(5459)
+Revision (Issues): fea2b8e4e0feb6a7374bcfe6de2da5d1a2feba20(0)
+Revision (Issues): fb45a781c24f17d7a44658061c4f17e95c4cd1ef(5426)
+Revision (Issues): 3b288e37ca3b2ebb10e6c9ba4b5e869411cc17a4(0)
+Revision (Issues): 2bd971ad723cd9ad2c10d868149d677dcb6abab3(5446)
+Revision (Issues): af6e5eda6337c85d2de13e54a45ac29309b9eb07(5277)
+Revision (Issues): 4ab506431371e78ee5d1f5000200c74f89a97a94(5309)
+Revision (Issues): b891bb8ddff1fcd16b3deb1044f9753bd878ce36(0)
+Revision (Issues): da98a830ce75b94bd7885a759659d1bd7abcf193(3335)
+Revision (Issues): bd9bcd34d7356757fcd24a1f1a9f0520f1ea7b3f(5294)
+Revision (Issues): 1c8dc6f77027a3b3bcc68e24b427daa7effd2aa2(0)
+Revision (Issues): 4cfea09f089f7e1ae859e2bc0be560666409ec7d(0)
+Revision (Issues): 629d591630a0e70e9e7d17a3ad87c223232f7762(4744)
+Revision (Issues): 9589d9720704809ecb5a55a4ebe942a001d9bd14(0)
+Revision (Issues): fd7ab849202144b183c3cbd69c81b7e4e433be99(0)
+Revision (Issues): d31415397199ecc71f8486124f02a6e983e23781(5284)
+Revision (Issues): a2f848f250401fdcb5a0687a72ff856bdd196df8(5071)
+Revision (Issues): 7f8c6727941d51aa8d3ff8a84d37ba5bf110df92(0)
+Revision (Issues): 61b01295d0d52929178d058d48456cae4acbc3e7(3335)
+Revision (Issues): 19e7c1cdc1acca652bd1b38e11db00d2f0302d61(5398)
+Revision (Issues): 0fbd643621f99f1ff03ddd834723b8d53cfd798a(0)
+Revision (Issues): 69530253d3d5170ae5adfb3b7050786ed3b3ff90(0)
+Revision (Issues): 58daafa556ccf334bd7d03c83eab9973d83fb497(0)
+Revision (Issues): 9d726ae2f33d3988aa3bb26521717234e0d41deb(5288)
+Revision (Issues): ed8d1258740c859a3f00c08d395366e09198b6fa(0)
+Revision (Issues): c1c1f79408052235339c8696a8c3564caac8a111(5466)
+Revision (Issues): 2008dfb7044f544d7b112cf4666dfacf42406b89(3335)
+Revision (Issues): faaae8d330a8e1c386f8c87de73db9451828b64b(5071)
+Revision (Issues): 612f6fb41322fa97547d02cfb4fdd4f20ba6892c(3335)
+Revision (Issues): ecdfc124453ca614178d33d0c119d4e71872cfef(5484)
+Revision (Issues): 90fa7ed0f228a66d8867dd741fb56e743cd55f61(0)
+Revision (Issues): 788e7ed126b391359ca416c3f04ae69ea1e8c3a6(0)
+Revision (Issues): b5cb9887fecad4815849eca22441521ee35669e1(5071)
+Revision (Issues): b2d13b27676e332dede4004fdcff7df313f2e9de(5410)
+Revision (Issues): acb4360abb8398d39f36f6f94b1711a98f072fbc(0)
+Revision (Issues): 3da1d656cd4c85efe0919d1a32c33b300ef35490(0)
+Revision (Issues): ffd7e27401d851337e1c08324c94a6f9611ded59(3335)
+Revision (Issues): 4950a773dc7e3d286c67cdc4611f3b9bd2b060af(0)
+Revision (Issues): a3a5a40fcea53384554d7a8ada08ef7bb021bf1d(5460)

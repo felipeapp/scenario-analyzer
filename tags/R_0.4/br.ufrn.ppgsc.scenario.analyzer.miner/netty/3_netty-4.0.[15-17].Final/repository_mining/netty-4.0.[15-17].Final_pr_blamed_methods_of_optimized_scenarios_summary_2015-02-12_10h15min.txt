@@ -1,0 +1,24 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 1
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+2
+io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel);0.609375;0.34656593406593406;0.26280906593406594;240;120
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise);0.1389855257097498;0.13184710081208298;0.007138424897666834;120;60
+2
+	io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+		Time: 0.609375;0.34656593406593406;0.26280906593406594;240;120;
+			Revision: 11a235ffe94e75d23b7d745f8c3e47b031629e6a
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: 0.1389855257097498;0.13184710081208298;0.007138424897666834;120;60;
+			Revision: 64c3f58279809141a851becba445a20badc8a610
+				Issues: 0
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): 11a235ffe94e75d23b7d745f8c3e47b031629e6a(0)
+Revision (Issues): 64c3f58279809141a851becba445a20badc8a610(0)

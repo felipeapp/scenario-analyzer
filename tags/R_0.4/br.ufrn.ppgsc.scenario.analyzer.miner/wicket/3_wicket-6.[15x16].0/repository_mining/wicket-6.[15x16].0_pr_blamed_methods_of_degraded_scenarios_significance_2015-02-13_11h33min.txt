@@ -1,0 +1,28 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+2
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for Signin2Test.testSignIn2
+3
+org.apache.wicket.markup.MarkupFragment.find(java.lang.String);0.1692394366197183;0.30619718309859156;0.13695774647887327;4720;4720
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.locate(java.lang.Class,java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,boolean);1.0805374592833876;1.150814332247557;0.0702768729641694;1930;1930
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.4214932126696833;1.6411764705882352;0.21968325791855192;3230;3230
+4
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.MarkupFragment.find(java.lang.String);0.1692394366197183;0.30619718309859156;0.13695774647887327;4720;4720
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.locate(java.lang.Class,java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,boolean);1.0805374592833876;1.150814332247557;0.0702768729641694;1930;1930
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.4214932126696833;1.6411764705882352;0.21968325791855192;3230;3230
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.MarkupFragment.find(java.lang.String);0.1692394366197183;0.30619718309859156;0.13695774647887327;930;930
+3
+5580;Improvement
+5581;Bug
+5582;Bug
+2
+Improvement;1
+Bug;2
+2
+Improvement;5580
+Bug;5581;5582
+Number of revisions (commits): 4
+Revision (Issues): bc62f8cca03573160514444291513899211dae7e(5580)
+Revision (Issues): c49d2044b48536a22bedd5568172ac54c2f0f198(5581)
+Revision (Issues): e1f29e90ff3a35e117bb3ddc5ee2aefd900c13c8(5582)
+Revision (Issues): 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea(5582)

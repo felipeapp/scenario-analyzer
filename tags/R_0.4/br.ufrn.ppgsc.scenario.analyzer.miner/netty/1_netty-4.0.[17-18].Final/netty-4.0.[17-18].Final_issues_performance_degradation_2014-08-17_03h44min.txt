@@ -1,0 +1,895 @@
+# Issues responsáveis pela degradação de performance
+30
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,io.netty.channel.ChannelPromise)
+Members 4
+validatePromise 823 858
+Lines 6
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+close 551 572
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement | ShortDescription Write optimized Queue implementation for NioEventLoop
+writeAndFlush 702 717
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+write 648 662
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+io.netty.buffer.PoolThreadCache$SubPageMemoryRegionCache(int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+Members 4
+datagram 103 132
+Lines 23
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+serverSocket 134 152
+Lines 14
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+socket 87 101
+Lines 7
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+clientSocket 154 170
+Lines 16
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+io.netty.buffer.PooledByteBuf.deallocate()
+Members 1
+deallocate 137 146
+Lines 1
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.nio.NioEventLoop.newTaskQueue()
+Members 1
+newTaskQueue 165 169
+Lines 1
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement | ShortDescription Write optimized Queue implementation for NioEventLoop
+io.netty.buffer.PoolArena.smallIdx(int)
+Members 4
+free 190 203
+Lines 5
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+smallIdx 106 114
+Lines 9
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTiny 122 124
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTinyOrSmall 117 119
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.buffer.PoolArena.isTinyOrSmall(int)
+Members 4
+free 190 203
+Lines 5
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+smallIdx 106 114
+Lines 9
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTiny 122 124
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTinyOrSmall 117 119
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+Members 1
+newSocket 48 61
+Lines 2
+Revision 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+Issues 1
+IssueID 2311 | IssueNumber 2311 | IssueType feature | ShortDescription Allow specifying `SelectorProvider` when constructing an NIO channel
+io.netty.buffer.PoolThreadCache.cache(io.netty.buffer.PoolThreadCache.MemoryRegionCache[],int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.DefaultChannelHandlerContext.close()
+Members 4
+validatePromise 823 858
+Lines 6
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+close 551 572
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement | ShortDescription Write optimized Queue implementation for NioEventLoop
+writeAndFlush 702 717
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+write 648 662
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+io.netty.channel.DefaultChannelHandlerContext.writeAndFlush(java.lang.Object,io.netty.channel.ChannelPromise)
+Members 4
+validatePromise 823 858
+Lines 6
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+close 551 572
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement | ShortDescription Write optimized Queue implementation for NioEventLoop
+writeAndFlush 702 717
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+write 648 662
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+Members 4
+datagram 103 132
+Lines 23
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+serverSocket 134 152
+Lines 14
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+socket 87 101
+Lines 7
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+clientSocket 154 170
+Lines 16
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
+Members 4
+datagram 103 132
+Lines 23
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+serverSocket 134 152
+Lines 14
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+socket 87 101
+Lines 7
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+clientSocket 154 170
+Lines 16
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+io.netty.buffer.PoolThreadCache$MemoryRegionCache(int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.ChannelHandlerAdapter.isSharable()
+Members 1
+isSharable 47 60
+Lines 8
+Revision ef76907422d74ba9a37347c4fa0dde9975f307b7
+Issues 0
+io.netty.buffer.PoolArena.isTiny(int)
+Members 4
+free 190 203
+Lines 5
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+smallIdx 106 114
+Lines 9
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTiny 122 124
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTinyOrSmall 117 119
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+Members 4
+validatePromise 823 858
+Lines 6
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+close 551 572
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement | ShortDescription Write optimized Queue implementation for NioEventLoop
+writeAndFlush 702 717
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+write 648 662
+Lines 4
+Revision aa74f0000605ee2563f42c9434578579d2db21e6
+Issues 1
+IssueID 2349 | IssueNumber 2349 | IssueType defect | ShortDescription "Promise already done" warning when cancelling ChannelFuture returned by bootstrap.connect()
+io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int)
+Members 4
+free 190 203
+Lines 5
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+smallIdx 106 114
+Lines 9
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTiny 122 124
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+isTinyOrSmall 117 119
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+Members 4
+datagram 103 132
+Lines 23
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+serverSocket 134 152
+Lines 14
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+socket 87 101
+Lines 7
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+clientSocket 154 170
+Lines 16
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+Revision 5b13e9058b0812c9f149c2595eaafaa2a09e8f8b
+Issues 0
+io.netty.buffer.PoolThreadCache$NormalMemoryRegionCache(int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily)
+Members 1
+newSocket 74 86
+Lines 5
+Revision 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+Issues 1
+IssueID 2311 | IssueNumber 2311 | IssueType feature | ShortDescription Allow specifying `SelectorProvider` when constructing an NIO channel
+io.netty.buffer.PoolThreadCache.log2(int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+Members 1
+newSocket 49 61
+Lines 2
+Revision 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+Issues 1
+IssueID 2311 | IssueNumber 2311 | IssueType feature | ShortDescription Allow specifying `SelectorProvider` when constructing an NIO channel
+io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+Members 1
+combo 60 85
+Lines 12
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
+Members 1
+newFactories 37 40
+Lines 1
+Revision 5acb8759e47d10ea84450d353620cf74ac963e3b
+Issues 0
+io.netty.buffer.PoolThreadCache.cacheForSmall(io.netty.buffer.PoolArena,int)
+Members 9
+cache 270 275
+Lines 6
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createNormalCaches 109 124
+Lines 16
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+log2 126 133
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+add 170 190
+Lines 29
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+MemoryRegionCache 318 325
+Lines 8
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+createSubPageCaches 95 107
+Lines 12
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+cacheForSmall 253 259
+Lines 7
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+NormalMemoryRegionCache 296 298
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+SubPageMemoryRegionCache 281 283
+Lines 3
+Revision 13fd69e8712acd337570aad2c153cf4b2bc9b586
+Issues 2
+IssueID 2264 | IssueNumber 2264 | IssueType improvement | ShortDescription PooledByteBufAllocator is a performance bottleneck
+IssueID 808 | IssueNumber 808 | IssueType improvement | ShortDescription Implement thread-local cache for PooledByteBufAllocator
+io.netty.channel.AbstractChannel.close()
+Members 1
+close 523 575
+Lines 2
+Revision bdedde1294590039e5ab57196053103b2024ca9f
+Issues 1
+IssueID 1259 | IssueNumber 1259 | IssueType feature,improvement | ShortDescription Write optimized Queue implementation for NioEventLoop
+TotalOfTypes 4
+defect 1
+improvement 2
+feature 1
+feature,improvement 1
+TotalOfTypes 4
+defect
+TotalOfMembers 4
+validatePromise
+close
+writeAndFlush
+write
+improvement
+TotalOfMembers 15
+cache
+cache
+createNormalCaches
+log2
+add
+MemoryRegionCache
+createSubPageCaches
+cacheForSmall
+NormalMemoryRegionCache
+SubPageMemoryRegionCache
+deallocate
+free
+smallIdx
+isTiny
+isTinyOrSmall
+feature
+TotalOfMembers 1
+newSocket
+feature,improvement
+TotalOfMembers 2
+close
+newTaskQueue

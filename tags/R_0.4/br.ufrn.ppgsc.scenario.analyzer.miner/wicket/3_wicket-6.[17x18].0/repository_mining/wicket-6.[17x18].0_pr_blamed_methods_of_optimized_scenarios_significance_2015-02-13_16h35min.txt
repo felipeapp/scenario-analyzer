@@ -1,0 +1,26 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+1
+Entry point for HangManTest.testHangmanSuccessWebGame
+3
+org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760
+org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850
+org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+3
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+3
+6;Improvement
+5677;New Feature
+5717;Bug
+3
+New Feature;1
+Improvement;1
+Bug;1
+3
+New Feature;5677
+Improvement;6
+Bug;5717
+Number of revisions (commits): 2
+Revision (Issues): 0adb864ff18951a9630bd2339fb9e92963867d4a(5677;6)
+Revision (Issues): 58fa34bc8ff9b531b61e9258ac33480296cc66f6(5717)

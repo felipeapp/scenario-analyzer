@@ -1,0 +1,24 @@
+1
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Send File Region With Socket
+
+2
+Entry point for SocketObjectEchoTest.testObjectEcho
+Send Object Echo Message with Socket
+
+io.netty.channel.ChannelHandlerAdapter.isSharable() 0.04059278350515464 0.05229403058707449 0.01170124708191985 -1
+io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline) null 0.02464604090194022 0.02464604090194022 -1
+io.netty.channel.DefaultChannelPipeline.addLast(io.netty.util.concurrent.EventExecutorGroup,java.lang.String,io.netty.channel.ChannelHandler) 0.10651595744680852 0.1293848500254194 0.022868892578610897 -1
+io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext) null 0.10587188612099645 0.10587188612099645 -1
+
+No issues - 2
+fb538ea532d2d0e31748f04634259ebfc3c9ced1
+9b468bc2758ead86690f633ee071e396c482c489
+
+Only two degraded scenarios without issues modification. However two commits modified the indicated
+methods that affected the degraded scenarios. It was not a considerable degradation.
+
+Total of issues (considering attribute milestone):
+From 4.0.18.Final to 4.0.20.Final -> 34 closed
+From 4.0.20.Final to 4.0.21.Final -> 35 closed
+Total: 69

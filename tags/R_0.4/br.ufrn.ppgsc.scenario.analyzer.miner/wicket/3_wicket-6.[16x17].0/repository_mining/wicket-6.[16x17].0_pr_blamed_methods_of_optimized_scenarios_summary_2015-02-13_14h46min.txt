@@ -1,0 +1,58 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 4
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for HelloWorldTest.testHelloWorld
+Entry point for NiceUrlTest.testPage4
+Entry point for TemplateTest.test_1
+5
+org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.6;18.786666666666665;10.813333333333336;60;60
+org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url);0.03333333333333333;0.017777777777777778;0.015555555555555555;160;160
+org.apache.wicket.protocol.http.WebApplication.storeBufferedResponse(java.lang.String,org.apache.wicket.request.Url,org.apache.wicket.protocol.http.BufferedWebResponse);0.812;0.62;0.19200000000000006;70;70
+org.apache.wicket.request.RequestHandlerStack.detach();10.705882352941176;6.83764705882353;3.868235294117646;150;150
+org.apache.wicket.request.handler.render.WebPageRenderer.storeBufferedResponse(org.apache.wicket.request.Url,org.apache.wicket.protocol.http.BufferedWebResponse);0.812;0.74;0.07200000000000006;70;70
+5
+	org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle)
+		Time: 29.6;18.786666666666665;10.813333333333336;60;60;
+			Revision: 9fb48d836a5ad26f991e81222fced6cc290c41e3
+				Issues: 5660
+	org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.canBeHandled(org.apache.wicket.request.Url)
+		Time: 0.03333333333333333;0.017777777777777778;0.015555555555555555;160;160;
+			Revision: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+				Issues: 5673
+	org.apache.wicket.protocol.http.WebApplication.storeBufferedResponse(java.lang.String,org.apache.wicket.request.Url,org.apache.wicket.protocol.http.BufferedWebResponse)
+		Time: 0.812;0.62;0.19200000000000006;70;70;
+			Revision: f95e3130b1a0b9d40e77f90f2bf869d21fd851e0
+				Issues: 5643
+			Revision: 6b8439f93e1809e5fc8b5fb283a4c0ff8c0dac47
+				Issues: 5643
+	org.apache.wicket.request.RequestHandlerStack.detach()
+		Time: 10.705882352941176;6.83764705882353;3.868235294117646;150;150;
+			Revision: a5954823353f20a6157156704ae91d6067a1f5c8
+				Issues: 0
+	org.apache.wicket.request.handler.render.WebPageRenderer.storeBufferedResponse(org.apache.wicket.request.Url,org.apache.wicket.protocol.http.BufferedWebResponse)
+		Time: 0.812;0.74;0.07200000000000006;70;70;
+			Revision: 1064d372b48a048bdee292564ec5f45cd00fd3c4
+				Issues: 5643
+			Revision: 0b2dbaab794918c159f913b50fbfb2958deb98d9
+				Issues: 5643
+4
+0;No issue (0)
+5643;Bug
+5660;Improvement
+5673;Improvement
+3
+Improvement;2
+Bug;1
+No issue (0);1
+3
+Improvement;5660;5673
+Bug;5643
+No issue (0);0
+Number of revisions (commits): 7
+Revision (Issues): f95e3130b1a0b9d40e77f90f2bf869d21fd851e0(5643)
+Revision (Issues): 1064d372b48a048bdee292564ec5f45cd00fd3c4(5643)
+Revision (Issues): 6b8439f93e1809e5fc8b5fb283a4c0ff8c0dac47(5643)
+Revision (Issues): 9fb48d836a5ad26f991e81222fced6cc290c41e3(5660)
+Revision (Issues): 0b2dbaab794918c159f913b50fbfb2958deb98d9(5643)
+Revision (Issues): a5954823353f20a6157156704ae91d6067a1f5c8(0)
+Revision (Issues): 6ce317cf9414c550e0e66fbae5e35936ee20763d(5673)
