@@ -12,13 +12,13 @@ public class DatabaseService<T extends Serializable> {
 		GenericDAO<T> dao = new GenericDAOHibernateImpl<T>();
 		return dao;
 	}
-
+	
 	public synchronized static void saveResults(SystemExecution e) {
 		synchronized (e) {
 			GenericDAO<RuntimeScenario> dao = new DatabaseService<RuntimeScenario>().getGenericDAO();
 
 			Iterator<RuntimeScenario> it = e.getScenarios().iterator();
-
+			
 			while (it.hasNext()) {
 				RuntimeScenario rs = it.next();
 
@@ -33,6 +33,8 @@ public class DatabaseService<T extends Serializable> {
 					dao.save(rs);
 				}
 			}
+			
+			dao.clearSession();
 		}
 	}
 

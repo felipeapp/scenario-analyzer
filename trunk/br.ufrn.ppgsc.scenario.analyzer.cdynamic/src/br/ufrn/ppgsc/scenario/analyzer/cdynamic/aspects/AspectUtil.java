@@ -22,7 +22,7 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 import br.ufrn.ppgsc.scenario.analyzer.common.util.MemberUtil;
 
-public abstract class AspectsUtil {
+public abstract class AspectUtil {
 	
 	/*
 	 * Cada thread tem uma pilha de execução diferente,
@@ -34,7 +34,11 @@ public abstract class AspectsUtil {
 	private final static Map<Long, Stack<RuntimeNode>> thread_nodes_map =
 			new Hashtable<Long, Stack<RuntimeNode>>();
 	
-	protected static boolean isScenarioEntryPoint(Member member, Class<? extends Annotation> ann_cls) {
+	protected static boolean isScenarioEntryPoint(Member member,
+			Class<? extends Annotation> ann_cls, boolean isNodeStackEmpty) {
+		if (ann_cls == null)
+			return isNodeStackEmpty;
+		
 		Annotation annotation = null;
 		
 		if (member instanceof Method)
@@ -43,20 +47,11 @@ public abstract class AspectsUtil {
 		return annotation != null;
 	}
 	
-	protected static String getEntryPointName(Member member) {
-		Scenario ann_scenario = ((Method) member).getAnnotation(Scenario.class);
-		
-		if (ann_scenario == null)
-			return "Entry point for " + member.getDeclaringClass().getSimpleName() + "." + member.getName();
+	protected static String getEntryPointName(Member member, Class<? extends Annotation> ann_cls) {
+		if (ann_cls == Scenario.class)
+			return ((Method) member).getAnnotation(Scenario.class).name();
 		else
-			return ann_scenario.name();
-	}
-	
-	protected static boolean isIgnorableMBeanFlow(Member member) {
-		return (!(member instanceof Method) || member.getName().startsWith("get") ||
-				member.getName().startsWith("set") || member.getName().startsWith("is")
-				|| member.getName().startsWith("main"))
-				&& getOrCreateRuntimeNodeStack().isEmpty();
+			return "Entry point for " + member.getDeclaringClass().getSimpleName() + "." + member.getName();
 	}
 	
 	protected static Member getMember(Signature sig) {
@@ -105,8 +100,8 @@ public abstract class AspectsUtil {
 	protected static void popStacksAndPersistData(long time) {
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
-		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
-		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
+		Stack<RuntimeScenario> scenarios_stack = AspectUtil.getOrCreateRuntimeScenarioStack();
+		Stack<RuntimeNode> nodes_stack = AspectUtil.getOrCreateRuntimeNodeStack();
 		
 		try {
 			// Desempilha o último método
@@ -143,8 +138,8 @@ public abstract class AspectsUtil {
 	protected static void popStacksAndPersistData(long time, Member member, Class<? extends Annotation> annotation) {
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
-		Stack<RuntimeScenario> scenarios_stack = AspectsUtil.getOrCreateRuntimeScenarioStack();
-		Stack<RuntimeNode> nodes_stack = AspectsUtil.getOrCreateRuntimeNodeStack();
+		Stack<RuntimeScenario> scenarios_stack = AspectUtil.getOrCreateRuntimeScenarioStack();
+		Stack<RuntimeNode> nodes_stack = AspectUtil.getOrCreateRuntimeNodeStack();
 		
 		try {
 			// Desempilha o último método
@@ -169,7 +164,7 @@ public abstract class AspectsUtil {
 			 * Caso o método seja um método de entrada de um cenário,
 			 * significa que o cenário terminou de executar.
 			 */
-			if (AspectsUtil.isScenarioEntryPoint(member, annotation))
+			if (AspectUtil.isScenarioEntryPoint(member, annotation, nodes_stack.empty()))
 				scenarios_stack.pop();
 		} catch (Exception e) {
 			e.printStackTrace();

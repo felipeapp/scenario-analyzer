@@ -25,8 +25,6 @@ public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<
 				tx.rollback();
 			
 			e.printStackTrace();
-		} finally {
-			s.clear();
 		}
 
 		return instance;
