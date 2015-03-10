@@ -4,9 +4,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 
-/* TODO: Ver como juntar esses métodos com os outros de assinatura
- * sem gerar problemas com as dependências do classpath
- */
 public abstract class MemberUtil {
 
 	public static String getStandartMethodSignature(Member member) {
