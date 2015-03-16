@@ -1,0 +1,27 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+5
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+1
+org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+5
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+2
+0;No issue (0)
+439375;normal
+2
+normal;1
+No issue (0);1
+2
+normal;439375
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): 17f46665df2e0b066b40a3889dbf3f56173e0554(0)
+Revision (Issues): 4d2a580c2c8ca054841697a9d8848bdceb1c97f9(439375)

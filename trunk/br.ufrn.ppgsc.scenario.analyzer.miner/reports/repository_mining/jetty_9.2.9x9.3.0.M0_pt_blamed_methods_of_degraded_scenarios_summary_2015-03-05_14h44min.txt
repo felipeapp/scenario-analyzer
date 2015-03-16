@@ -1,0 +1,44 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 7
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for AsyncIOServletTest.testAsyncWriteClosed
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+3
+org.eclipse.jetty.http.HttpFields.put(org.eclipse.jetty.http.HttpHeader,java.lang.String);0.7277777777777777;2.3333333333333335;1.6055555555555556;10;10
+org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.1824074074074074;0.75;0.5675925925925926;60;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;0.9;0.9;10;10
+3
+	org.eclipse.jetty.http.HttpFields.put(org.eclipse.jetty.http.HttpHeader,java.lang.String)
+		Time: 0.7277777777777777;2.3333333333333335;1.6055555555555556;10;10;
+			Revision: bec34b460fc370d10b3bc92bee5a09a1787c6f8f
+				Issues: 0
+			Revision: 58ed30e7103f1c86d1da9702e918795b30b93a27
+				Issues: 0
+	org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String)
+		Time: 0.1824074074074074;0.75;0.5675925925925926;60;60;
+			Revision: 17f46665df2e0b066b40a3889dbf3f56173e0554
+				Issues: 0
+			Revision: 4d2a580c2c8ca054841697a9d8848bdceb1c97f9
+				Issues: 439375
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;0.9;0.9;10;10;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+2
+0;No issue (0)
+439375;normal
+2
+normal;1
+No issue (0);1
+2
+normal;439375
+No issue (0);0
+Number of revisions (commits): 5
+Revision (Issues): bec34b460fc370d10b3bc92bee5a09a1787c6f8f(0)
+Revision (Issues): 17f46665df2e0b066b40a3889dbf3f56173e0554(0)
+Revision (Issues): d45a5c861c88e35513b79e97fc56fd3a1fa5731d(0)
+Revision (Issues): 58ed30e7103f1c86d1da9702e918795b30b93a27(0)
+Revision (Issues): 4d2a580c2c8ca054841697a9d8848bdceb1c97f9(439375)
