@@ -1,0 +1,32 @@
+# Methods potentially blamed for performance degradation
+5
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+11
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Entry point for AsyncIOServletTest.testAsyncReadThrowsError
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException
+Entry point for AsyncIOServletTest.testAsyncWriteClosed
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsException
+Entry point for AsyncIOServletTest.testOnErrorThrows
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery()
+1
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+org.eclipse.jetty.http.HttpFields.add(org.eclipse.jetty.http.HttpField)
+6
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path)
+1
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormBeforeAndAfterForward()
+1
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormBeforeAndAfterForward
