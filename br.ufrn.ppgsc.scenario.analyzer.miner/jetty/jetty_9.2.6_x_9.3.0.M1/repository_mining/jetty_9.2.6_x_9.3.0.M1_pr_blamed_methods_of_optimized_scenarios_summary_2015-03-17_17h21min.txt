@@ -1,0 +1,95 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 16
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Entry point for AsyncIOServletTest.testAsyncReadThrowsError
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsException
+Entry point for AsyncIOServletTest.testOnErrorThrows
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithoutQuery
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormReplacedByForwardWithQuery
+Entry point for ServletContextHandlerTest.testAddServletAfterStart
+Entry point for ServletContextHandlerTest.testFallThrough
+Entry point for ServletContextHandlerTest.testFindContainer
+Entry point for ServletContextHandlerTest.testInitOrder
+Entry point for ServletContextHandlerTest.testReplaceHandler
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithServlet
+10
+org.eclipse.jetty.io.SelectorManager.doStart();6.845238095238095;5.986111111111111;0.8591269841269842;30;30
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+org.eclipse.jetty.security.SecurityHandler.doStart();3.6666666666666665;3.1;0.5666666666666664;30;30
+org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String);0.016129032258064516;0.014705882352941176;0.0014231499051233394;30;30
+org.eclipse.jetty.server.Server.doStart();50.075268817204304;45.879411764705885;4.195857052498418;30;30
+org.eclipse.jetty.servlet.ServletContextHandler.relinkHandlers();4.424242424242424;4.011711711711712;0.41253071253071205;30;30
+org.eclipse.jetty.servlet.ServletHolder.initMultiPart();0.5736842105263158;0.3194444444444444;0.2542397660818714;30;30
+org.eclipse.jetty.servlet.ServletHolder.initServlet();0.656140350877193;0.38981481481481484;0.2663255360623782;30;30
+org.eclipse.jetty.util.Uptime.getUptime();0.08425925925925926;0.06752136752136752;0.01673789173789174;30;30
+org.eclipse.jetty.util.log.Log.initialized();0.7306666666666667;0.6859903381642513;0.04467632850241543;60;60
+10
+	org.eclipse.jetty.io.SelectorManager.doStart()
+		Time: 6.845238095238095;5.986111111111111;0.8591269841269842;30;30;
+			Revision: a906aaa266352e19afff373fe353a8810532b95d
+				Issues: 0
+			Revision: 649eb7f3dc7ca8035fda8c1b33b62c3af19113be
+				Issues: 0
+	org.eclipse.jetty.io.SelectorManager.newSelector(int)
+		Time: 1.525;0.5430555555555555;0.9819444444444444;60;60;
+			Revision: 649eb7f3dc7ca8035fda8c1b33b62c3af19113be
+				Issues: 0
+	org.eclipse.jetty.security.SecurityHandler.doStart()
+		Time: 3.6666666666666665;3.1;0.5666666666666664;30;30;
+			Revision: 272e1d8da590c40cb8caa27f1614e0b7e5c63d65
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.016129032258064516;0.014705882352941176;0.0014231499051233394;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 50.075268817204304;45.879411764705885;4.195857052498418;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.servlet.ServletContextHandler.relinkHandlers()
+		Time: 4.424242424242424;4.011711711711712;0.41253071253071205;30;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.5736842105263158;0.3194444444444444;0.2542397660818714;30;30;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.656140350877193;0.38981481481481484;0.2663255360623782;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.08425925925925926;0.06752136752136752;0.01673789173789174;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.log.Log.initialized()
+		Time: 0.7306666666666667;0.6859903381642513;0.04467632850241543;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+4
+0;No issue (0)
+443652;normal
+444124;major
+447515;enhancement
+4
+normal;1
+enhancement;1
+major;1
+No issue (0);1
+4
+normal;443652
+enhancement;447515
+major;444124
+No issue (0);0
+Number of revisions (commits): 8
+Revision (Issues): a906aaa266352e19afff373fe353a8810532b95d(0)
+Revision (Issues): 0539b48b8a9311e56e99568758f798b83c2ff0f0(0)
+Revision (Issues): 649eb7f3dc7ca8035fda8c1b33b62c3af19113be(0)
+Revision (Issues): 272e1d8da590c40cb8caa27f1614e0b7e5c63d65(0)
+Revision (Issues): 49a32eb1b0da23229441cd2f199ec57caab46cbc(444124)
+Revision (Issues): 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf(443652)
+Revision (Issues): 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3(0)
+Revision (Issues): 738c47bc553d7e90a0d074b99aff5e666d26a7c2(447515)

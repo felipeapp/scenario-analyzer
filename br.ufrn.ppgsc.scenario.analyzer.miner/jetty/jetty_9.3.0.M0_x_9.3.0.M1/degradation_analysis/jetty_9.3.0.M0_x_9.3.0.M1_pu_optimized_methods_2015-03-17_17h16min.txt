@@ -1,0 +1,18 @@
+# Optimized methods (UTest P-Value)
+13
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+org.eclipse.jetty.servlet.AsyncContextTest.testStartThrow();1.9027098551690547E-5;0.0013355914259268742;8.8;1.0666666666666667;30;30
+org.eclipse.jetty.servlet.ErrorPageTest.testErrorException();0.002265878678038416;0.024625161703710985;201.8;196.63333333333333;30;30
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testFallThrough();8.274592248877791E-26;2.8719471245608474E-11;48.9;19.233333333333334;30;30
+org.eclipse.jetty.servlet.DispatcherTest.testInclude();0.012576489761171981;0.029756953000472652;17.7;10.4;30;30
+org.eclipse.jetty.io.SelectorManager.newSelector(int);9.0621932024988E-11;0.0022575349422989666;1.9958333333333333;0.5430555555555555;720;720
+org.eclipse.jetty.servlet.DefaultServletTest.testListingXSS();0.03470437150375667;0.04206682132383566;10.966666666666667;6.733333333333333;30;30
+org.eclipse.jetty.server.session.AbstractSessionManager();1.952963753917482E-4;0.01305634610542461;3.775;1.1952380952380952;120;210
+org.eclipse.jetty.server.session.AbstractSessionManager.doStart();0.0010347204909699392;0.010195848047593215;5.358333333333333;2.5933333333333333;120;150
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testReplaceServletHandlerWithServlet();0.09541325859427541;0.024625161703710985;10.533333333333333;7.166666666666667;30;30
+org.eclipse.jetty.servlet.ServletContextHandler.newSessionHandler();8.820481218043046E-4;0.004481483238955253;14.266666666666667;8.75;120;180
+org.eclipse.jetty.io.SelectorManager$ManagedSelector(org.eclipse.jetty.io.SelectorManager,int);4.63934421547129E-10;0.025351044479444584;1.2277777777777779;0.17222222222222222;720;720
+org.eclipse.jetty.servlet.DefaultServletTest.testListingContextBreakout();4.2027949428913335E-4;0.0013703325610487926;53.03333333333333;47.166666666666664;30;30
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testInitOrder();0.01182186469652696;0.03205359011068276;37.46666666666667;32.666666666666664;30;30
+0.0
+0.05

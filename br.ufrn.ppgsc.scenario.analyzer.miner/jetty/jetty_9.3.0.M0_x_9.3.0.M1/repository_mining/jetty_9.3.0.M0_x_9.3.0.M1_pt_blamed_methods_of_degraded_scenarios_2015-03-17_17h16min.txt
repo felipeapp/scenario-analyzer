@@ -1,0 +1,56 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 2
+Number of scenarios (include empties): 9
+Entry point for AsyncServletIOTest.testBigWrite
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletIOTest.testWrites
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletTest.testFiltered
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.DefaultServletTest.testFiltered()
+		Time: 35.86666666666667;67.96666666666667;32.1;30;30;
+			Revision: ec79a6f88ebdcd9f18953ffd29febc57720f691a
+				Issues: 0
+	org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int)
+		Time: 1.289655172413793;1.8215686274509804;0.5319134550371873;0;60;
+			Revision: 8a555e669a593bf073dc59e81090818c3be6895d
+				Issues: 444031
+Entry point for DefaultServletTest.testIfETagSmall
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletTest.testWelcomeServlet
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DispatcherTest.testForwardToResourceHandler
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DispatcherTest.testIncludeThenForward
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.eclipse.jetty.http.MetaData$Response(org.eclipse.jetty.http.HttpVersion,int,java.lang.String,org.eclipse.jetty.http.HttpFields,long)
+		Time: null;0.0;0.0;0;90;
+			Revision: 31e448ffd677d9360c4132a63b08fe53c860cf7c
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler()
+		Time: null;0.13162393162393163;0.13162393162393163;0;60;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler)
+		Time: null;0.5166666666666667;0.5166666666666667;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int)
+		Time: 1.289655172413793;1.8215686274509804;0.5319134550371873;30;30;
+			Revision: 8a555e669a593bf073dc59e81090818c3be6895d
+				Issues: 444031
+5
+3

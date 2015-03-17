@@ -1,0 +1,29 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+4
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+Entry point for ServletContextHandlerTest.testInitOrder
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException
+3
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+org.eclipse.jetty.servlet.ServletHolder.initServlet();0.656140350877193;0.38981481481481484;0.2663255360623782;150;150
+org.eclipse.jetty.servlet.ServletHolder.initMultiPart();0.5736842105263158;0.3194444444444444;0.2542397660818714;150;150
+5
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener;org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+Entry point for ServletContextHandlerTest.testInitOrder;org.eclipse.jetty.servlet.ServletHolder.initServlet();0.656140350877193;0.38981481481481484;0.2663255360623782;150;150
+Entry point for ServletContextHandlerTest.testInitOrder;org.eclipse.jetty.servlet.ServletHolder.initMultiPart();0.5736842105263158;0.3194444444444444;0.2542397660818714;150;150
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest;org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException;org.eclipse.jetty.io.SelectorManager.newSelector(int);1.525;0.5430555555555555;0.9819444444444444;60;60
+2
+0;No issue (0)
+444124;major
+2
+major;1
+No issue (0);1
+2
+major;444124
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): 0539b48b8a9311e56e99568758f798b83c2ff0f0(0)
+Revision (Issues): 649eb7f3dc7ca8035fda8c1b33b62c3af19113be(0)
+Revision (Issues): 49a32eb1b0da23229441cd2f199ec57caab46cbc(444124)

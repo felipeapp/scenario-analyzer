@@ -1,0 +1,529 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 22
+Number of scenarios (include empties): 44
+Entry point for AsyncContextTest.testBadExpire
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testDispatch
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testDispatchAsyncContext
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testDispatchAsyncContextEncodedPathAndQueryString
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testDispatchRequestResponse
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testDispatchWithContextAsyncContext
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testStartCompleteThrow
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testStartThrow
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncIOServletTest.testAsyncReadThrowsError
+	Number of methods: 8
+	Number of methods (exclude word applied): 8
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;0.7333333333333333;0.7333333333333333;0;30;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;30;30;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;360;360;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException
+	Number of methods: 8
+	Number of methods (exclude word applied): 8
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;0.7333333333333333;0.7333333333333333;0;30;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;30;30;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;360;360;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsException
+	Number of methods: 8
+	Number of methods (exclude word applied): 8
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;0.7333333333333333;0.7333333333333333;0;30;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;30;30;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;360;360;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for AsyncIOServletTest.testOnErrorThrows
+	Number of methods: 8
+	Number of methods (exclude word applied): 8
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;0.7333333333333333;0.7333333333333333;0;30;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;30;30;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;360;360;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for AsyncServletIOTest.testEmpty
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testFwdStartDispatch
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testSuspendTimeoutSuspendResume
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletRangesTest.testMultipleRangeRequests
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletRangesTest.testNoRangeRequests
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletRangesTest.testSingleRangeRequests
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletTest.testGzip
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DefaultServletTest.testIfModifiedLarge
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DefaultServletTest.testListingContextBreakout
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DefaultServletTest.testListingProperUrlEncoding
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DefaultServletTest.testRangeRequests
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DefaultServletTest.testWelcomeExactServlet
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DefaultServletTest.testWelcomeServlet
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormReplacedByForwardWithQuery
+	Number of methods: 8
+	Number of methods (exclude word applied): 7
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormReplacedByForwardWithQuery()
+		Time: 11.866666666666667;13.466666666666667;1.5999999999999996;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;60;60;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;300;300;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherForwardTest.testQueryMergedByForwardWithQuery
+	Number of methods: 8
+	Number of methods (exclude word applied): 7
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryMergedByForwardWithQuery()
+		Time: 6.133333333333333;6.733333333333333;0.6000000000000005;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;60;60;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;300;300;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherForwardTest.testQueryReplacedByForwardWithQuery
+	Number of methods: 8
+	Number of methods (exclude word applied): 7
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;30;30;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryReplacedByForwardWithQuery()
+		Time: 25.166666666666668;27.033333333333335;1.8666666666666671;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;60;60;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;300;300;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherTest.testForwardThenInclude
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;90;90;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherTest.testInclude
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherTest.testIncludeToResourceHandler
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherTest.testServletForwardDotDot
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherTest.testServletForwardEncodedDotDot
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for DispatcherTest.testWorkingResourceHandler
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DispatcherTest.testWrappedIncludeToResourceHandler
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for ErrorPageTest.testErrorException
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ErrorPageTest.testGlobalErrorCode
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for InvokerTest.testInvoker
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for RequestHeadersTest.testGetLowercaseHeader
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ResponseHeadersTest.testResponseHeaderFormat
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+	Number of methods: 14
+	Number of methods (exclude word applied): 14
+	org.eclipse.jetty.http.HttpFields.add(org.eclipse.jetty.http.HttpField)
+		Time: null;0.0;0.0;0;30;
+			Revision: bec34b460fc370d10b3bc92bee5a09a1787c6f8f
+				Issues: 0
+			Revision: 1666f54b50f57fd354dce2462c5ff88bee85328c
+				Issues: 0
+	org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String)
+		Time: 0.16111111111111112;0.9425925925925925;0.7814814814814814;180;180;
+			Revision: 17f46665df2e0b066b40a3889dbf3f56173e0554
+				Issues: 0
+			Revision: 4d2a580c2c8ca054841697a9d8848bdceb1c97f9
+				Issues: 439375
+	org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String,org.eclipse.jetty.http.MimeTypes.Type)
+		Time: 0.175;0.24333333333333335;0.06833333333333336;300;300;
+			Revision: 17f46665df2e0b066b40a3889dbf3f56173e0554
+				Issues: 0
+			Revision: 4d2a580c2c8ca054841697a9d8848bdceb1c97f9
+				Issues: 439375
+	org.eclipse.jetty.server.AbstractConnector.addConnectionFactory(org.eclipse.jetty.server.ConnectionFactory)
+		Time: 0.24933333333333332;0.3787878787878788;0.12945454545454546;90;90;
+			Revision: 287e86b7aa787c9836fccbe2816dd08b4b6c599e
+				Issues: 0
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+			Revision: 14dc4fade0745899b06994ec2c934a9bf38e7d2e
+				Issues: 0
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;60;60;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;0.7333333333333333;0.7333333333333333;0;60;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initMultiPart()
+		Time: 0.42583333333333334;0.5638888888888889;0.13805555555555554;60;60;
+			Revision: 0539b48b8a9311e56e99568758f798b83c2ff0f0
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.initServlet()
+		Time: 0.5291666666666667;0.6787037037037037;0.14953703703703702;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;60;60;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;1020;1020;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path)
+		Time: null;1.8166666666666667;1.8166666666666667;0;60;
+			Revision: 6048343fee5f5fd9b845ccf12d285c69d5aae182
+				Issues: 0
+			Revision: aaa2e5c6c1d6d34f8068dc9a056a6b446fd05603
+				Issues: 0
+			Revision: 33435fad3d8e1e12ab85873d842f2f8d580b567a
+				Issues: 0
+			Revision: 38501a9e978335c63ed52555f8b6d2d8e4f138f8
+				Issues: 0
+	org.eclipse.jetty.util.resource.Resource.newResource(java.lang.String)
+		Time: 3.9166666666666665;5.183333333333334;1.266666666666667;60;60;
+			Revision: 9f844383cdb528d67ec69895dd8c6117b6e36e13
+				Issues: 0
+	org.eclipse.jetty.util.resource.Resource.newResource(java.lang.String,boolean)
+		Time: 3.9166666666666665;4.933333333333334;1.016666666666667;60;60;
+			Revision: 9f844383cdb528d67ec69895dd8c6117b6e36e13
+				Issues: 0
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithServlet
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+		Time: 0.0;0.01839080459770115;0.01839080459770115;30;30;
+			Revision: 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3
+				Issues: 0
+	org.eclipse.jetty.server.Server.doStart()
+		Time: 46.93939393939394;51.52758620689655;4.588192267502613;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.Uptime.getUptime()
+		Time: 0.027192982456140352;0.03137254901960784;0.0041795665634674906;30;30;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+	org.eclipse.jetty.util.component.AbstractLifeCycle.setStarted()
+		Time: 0.014383561643835616;0.01982905982905983;0.0054454981852242144;390;390;
+			Revision: 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf
+				Issues: 443652
+Entry point for ServletHandlerTest.testAllAfterFilterMappings
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletHandlerTest.testAllBeforeFilterMappings
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+17
+13

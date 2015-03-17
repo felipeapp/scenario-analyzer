@@ -1,0 +1,203 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 19
+Number of scenarios (include empties): 34
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for AsyncContextTest.testSimpleAsyncContext
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testSimpleWithContextAsyncContext
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncContextTest.testStartFlushCompleteThrow
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletIOTest.testAsync2
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testStartDispatchEncodedPath
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testWrapStartDispatch
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletRangesTest.testOpenEndRange
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletRangesTest.testOpenStartRange
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletRangesTest.testUnsatisfiableRanges
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletTest.testFiltered
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DefaultServletTest.testIfModifiedSmall
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DefaultServletTest.testListingXSS
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DefaultServletTest.testWelcome
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithQuery
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithQuery()
+		Time: 14.166666666666666;11.833333333333334;2.333333333333332;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithoutQuery
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithoutQuery()
+		Time: 10.4;8.766666666666667;1.6333333333333329;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormBeforeAndAfterForward
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormBeforeAndAfterForward()
+		Time: 15.533333333333333;14.066666666666666;1.4666666666666668;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery()
+		Time: 23.833333333333332;20.733333333333334;3.099999999999998;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormMergedByForwardWithQuery
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormMergedByForwardWithQuery()
+		Time: 13.933333333333334;11.933333333333334;2.0;30;30;
+			Revision: eaf374fa582e07f6d49184b09d72dfe84d7ace1e
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherTest.testForward
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherTest.testForwardFilterToRogerServlet
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherTest.testForwardToResourceHandler
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;30;30;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherTest.testForwardWithParam
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for DispatcherTest.testServletForward
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for ErrorPageTest.testErrorCode
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletContextHandlerTest.testAddServletAfterStart
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;90;90;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for ServletContextHandlerTest.testInitOrder
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;240;240;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for ServletContextHandlerTest.testReplaceHandler
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+Entry point for ServletHandlerTest.testExistingFilterMappings
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletHandlerTest.testFilterMappingsMix
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletHandlerTest.testMatchAfterAndBefore
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletHandlerTest.testMatchBeforeAndAfter
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+6
+1

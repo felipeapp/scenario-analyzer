@@ -1,0 +1,36 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 19
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Entry point for DefaultServletTest.testFiltered
+Entry point for DefaultServletTest.testIfModifiedSmall
+Entry point for DefaultServletTest.testListingXSS
+Entry point for DefaultServletTest.testWelcome
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithQuery
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithoutQuery
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormBeforeAndAfterForward
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormMergedByForwardWithQuery
+Entry point for DispatcherTest.testForward
+Entry point for DispatcherTest.testForwardFilterToRogerServlet
+Entry point for DispatcherTest.testForwardToResourceHandler
+Entry point for DispatcherTest.testForwardWithParam
+Entry point for DispatcherTest.testServletForward
+Entry point for ServletContextHandlerTest.testAddServletAfterStart
+Entry point for ServletContextHandlerTest.testInitOrder
+Entry point for ServletContextHandlerTest.testReplaceHandler
+1
+org.eclipse.jetty.servlet.ServletHolder.doStart();0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60
+1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.14082687338501293;0.13305785123966943;0.0077690221453435016;60;60;
+			Revision: 49a32eb1b0da23229441cd2f199ec57caab46cbc
+				Issues: 444124
+1
+444124;major
+1
+major;1
+1
+major;444124
+Number of revisions (commits): 1
+Revision (Issues): 49a32eb1b0da23229441cd2f199ec57caab46cbc(444124)

@@ -1,0 +1,26 @@
+# Optimized methods (TTest P-Value)
+21
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+org.eclipse.jetty.servlet.InvokerTest.testInvoker();0.048579624178987334;0.23984999119107975;175.26666666666668;172.16666666666666;30;30
+org.eclipse.jetty.servlet.AsyncServletTest.testFwdStartDispatch();0.037849379751184624;0.12057499226022927;31.366666666666667;31.133333333333333;30;30
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncReadThrows(java.lang.Throwable);3.9838322634639495E-4;0.010270563374566;20.95;14.1;60;60
+org.eclipse.jetty.servlet.AsyncContextTest.testStartThrow();5.866159643621588E-10;4.744496840403123E-6;13.033333333333333;2.1;30;30
+org.eclipse.jetty.servlet.AsyncServletTest.testSuspendWaitResumeSuspendWaitResume();0.037849379751184624;0.12057499226022927;31.366666666666667;31.133333333333333;30;30
+org.eclipse.jetty.servlet.ServletContextHandler.startContext();0.037671350244799055;0.06825926674390648;6.51078431372549;5.703809523809523;1020;1050
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint(org.eclipse.jetty.server.LocalConnector);0.005194570914591446;0.8219246027677497;0.054694835680751175;0.011267605633802818;4260;4260
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryMergedByForwardWithQuery();0.03307857488918565;0.024625161703710985;10.4;6.133333333333333;30;30
+org.eclipse.jetty.servlet.AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener();0.033616258198339646;0.173777038979135;605.2666666666667;601.2333333333333;30;30
+org.eclipse.jetty.util.thread.QueuedThreadPool.execute(java.lang.Runnable);0.019085257653377763;0.7444735194515401;0.15268817204301074;0.055384615384615386;1860;1950
+org.eclipse.jetty.servlet.AsyncContextTest.testBadExpire();1.5197458095247184E-9;1.9492039349255919E-7;130.53333333333333;113.86666666666666;30;30
+org.eclipse.jetty.servlet.AsyncIOServletTest.testIsNotReadyAtEOF();7.258233749495026E-4;0.0052019215404482955;26.633333333333333;15.6;30;30
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncWriteThrowsException();1.6912720074583457E-4;5.121117284355714E-4;27.966666666666665;16.6;30;30
+org.eclipse.jetty.servlet.AsyncContextTest.testStartDispatchThrow();6.22570001344855E-8;3.7006129347538774E-6;21.933333333333334;3.7;30;30
+org.eclipse.jetty.server.handler.ContextHandler.startContext();0.012191450922302853;0.03169661117697886;4.845098039215686;4.011428571428572;1020;1050
+org.eclipse.jetty.util.BlockingArrayQueue.offer(java.lang.Object);0.014324042756858947;0.8890945398464725;0.03333333333333333;0.0;2820;2910
+org.eclipse.jetty.server.handler.ScopedHandler.doStart();0.005847955442854491;0.03468162152149579;3.2157407407407406;2.6608108108108106;2160;2220
+org.eclipse.jetty.server.ServerConnector.open();0.03867651667231333;0.23630534756505062;2.7355555555555555;1.95625;450;480
+org.eclipse.jetty.servlet.DispatcherTest.testForwardWithParam();2.8703777560069144E-4;0.0021566378212297677;20.2;10.4;30;30
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncReadThrowsException();1.0644533999794433E-8;3.4453611315043986E-6;30.533333333333335;17.8;30;30
+org.eclipse.jetty.servlet.ServletHandler.doStart();0.020650032816034034;0.10362508227056644;3.4568627450980394;2.82;1020;1050
+0.0
+0.05
