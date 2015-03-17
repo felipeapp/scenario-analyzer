@@ -1,0 +1,32 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+5
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+2
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+8
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener;org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet;org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+2
+0;No issue (0)
+439375;normal
+2
+normal;1
+No issue (0);1
+2
+normal;439375
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): 17f46665df2e0b066b40a3889dbf3f56173e0554(0)
+Revision (Issues): d45a5c861c88e35513b79e97fc56fd3a1fa5731d(0)
+Revision (Issues): 4d2a580c2c8ca054841697a9d8848bdceb1c97f9(439375)

@@ -1,0 +1,48 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 6
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+4
+org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String);0.14537037037037037;0.825;0.6796296296296296;180;180
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);null;1.652777777777778;1.652777777777778;0;30
+org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler();null;0.13162393162393163;0.13162393162393163;0;30
+org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler);null;0.5166666666666667;0.5166666666666667;0;30
+4
+	org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String)
+		Time: 0.14537037037037037;0.825;0.6796296296296296;180;180;
+			Revision: 17f46665df2e0b066b40a3889dbf3f56173e0554
+				Issues: 0
+			Revision: 4d2a580c2c8ca054841697a9d8848bdceb1c97f9
+				Issues: 439375
+	org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+		Time: null;1.652777777777778;1.652777777777778;0;30;
+			Revision: d45a5c861c88e35513b79e97fc56fd3a1fa5731d
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler()
+		Time: null;0.13162393162393163;0.13162393162393163;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler)
+		Time: null;0.5166666666666667;0.5166666666666667;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+3
+0;No issue (0)
+439375;normal
+447515;enhancement
+3
+normal;1
+enhancement;1
+No issue (0);1
+3
+normal;439375
+enhancement;447515
+No issue (0);0
+Number of revisions (commits): 4
+Revision (Issues): 17f46665df2e0b066b40a3889dbf3f56173e0554(0)
+Revision (Issues): d45a5c861c88e35513b79e97fc56fd3a1fa5731d(0)
+Revision (Issues): 738c47bc553d7e90a0d074b99aff5e666d26a7c2(447515)
+Revision (Issues): 4d2a580c2c8ca054841697a9d8848bdceb1c97f9(439375)

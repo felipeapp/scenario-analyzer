@@ -1,0 +1,24 @@
+# Optimized methods (UTest P-Value)
+19
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+org.eclipse.jetty.server.Server.doStart();0.23938185689795521;0.024041945990460167;50.075268817204304;45.879411764705885;930;1020
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncReadThrows(java.lang.Throwable);0.004260453072560829;0.03038282197657749;21.05;16.233333333333334;60;60
+org.eclipse.jetty.servlet.AsyncContextTest.testStartThrow();4.290930214709862E-4;0.010536525258653229;7.233333333333333;1.0666666666666667;30;30
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testFallThrough();2.2797176695084256E-25;2.8719471245608474E-11;52.0;19.233333333333334;30;30
+org.eclipse.jetty.server.session.HashSessionManager.doStart();0.006318267742605133;0.02048305243152848;7.633333333333333;5.073333333333333;120;150
+org.eclipse.jetty.server.handler.AbstractHandler.doStart();0.14222683785323653;0.045274069169146;7.724213836477987;7.150442477876106;3180;3390
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery();0.0041620268908737655;0.018367959471385475;26.466666666666665;20.766666666666666;30;30
+org.eclipse.jetty.io.SelectorManager.newSelector(int);3.84483472398074E-7;0.03217296739659714;1.525;0.5430555555555555;840;720
+org.eclipse.jetty.util.component.ContainerLifeCycle.start(org.eclipse.jetty.util.component.LifeCycle);0.19835822709326822;0.013467274179964517;7.194158075601375;6.509775641025641;5820;6240
+org.eclipse.jetty.servlet.AsyncContextTest.testStartDispatchThrow();1.7983350584305883E-26;2.8719471245608474E-11;34.86666666666667;0.5333333333333333;30;30
+org.eclipse.jetty.util.component.ContainerLifeCycle.doStart();0.159718950531486;0.023578302615392177;8.481888246628131;7.635115864527629;5190;5610
+org.eclipse.jetty.servlet.DefaultServletTest.testListingXSS();0.00807900843522551;0.029205409568444973;11.9;6.733333333333333;30;30
+org.eclipse.jetty.servlet.AsyncContextListenersTest.testListenerAddedFromListener();0.013343476009358405;0.021506179932511804;34.46666666666667;26.633333333333333;30;30
+org.eclipse.jetty.server.session.AbstractSessionManager.doStart();0.0020155213107539375;0.022253623469947414;5.158333333333333;2.5933333333333333;120;150
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncReadThrowsException();2.9642892305976667E-6;8.794537064725771E-4;29.066666666666666;20.4;30;30
+org.eclipse.jetty.servlet.ServletContextHandler.newSessionHandler();0.00825080991798387;0.0173348719291071;12.991666666666667;8.75;120;180
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testAddServletAfterStart();1.2869120598135086E-15;4.005532572293191E-10;55.56666666666667;20.4;30;30
+org.eclipse.jetty.servlet.AsyncContextListenersTest.testListenerClearedOnSecondRequest();5.708225539621316E-4;0.0019045321644495239;23.9;17.166666666666668;30;30
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testInitOrder();0.0024813700724448723;0.002624280064363882;38.5;32.666666666666664;30;30
+0.0
+0.05

@@ -1,0 +1,23 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 2
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+2
+org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler();null;0.13162393162393163;0.13162393162393163;0;60
+org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler);null;0.5166666666666667;0.5166666666666667;0;30
+2
+	org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler()
+		Time: null;0.13162393162393163;0.13162393162393163;0;60;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler)
+		Time: null;0.5166666666666667;0.5166666666666667;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+1
+447515;enhancement
+1
+enhancement;1
+1
+enhancement;447515
+Number of revisions (commits): 1
+Revision (Issues): 738c47bc553d7e90a0d074b99aff5e666d26a7c2(447515)

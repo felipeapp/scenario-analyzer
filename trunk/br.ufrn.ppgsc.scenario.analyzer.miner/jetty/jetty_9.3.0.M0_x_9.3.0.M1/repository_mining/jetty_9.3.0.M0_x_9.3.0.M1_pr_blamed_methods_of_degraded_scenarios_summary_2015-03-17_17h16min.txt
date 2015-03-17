@@ -1,0 +1,48 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 6
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsException
+Entry point for DefaultServletTest.testFiltered
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithQuery
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithoutQuery
+Entry point for DispatcherForwardTest.testQueryAggregatesWithFormMergedByForwardWithQuery
+Entry point for DispatcherForwardTest.testQueryMergedByForwardWithQuery
+4
+org.eclipse.jetty.server.ServerConnector.open();2.5527777777777776;2.952777777777778;0.40000000000000036;30;30
+org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler();null;0.13162393162393163;0.13162393162393163;0;30
+org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int);1.289655172413793;1.8215686274509804;0.5319134550371873;30;30
+org.eclipse.jetty.util.thread.ScheduledExecutorScheduler.doStart();0.4858585858585859;0.6128205128205129;0.12696192696192699;30;30
+4
+	org.eclipse.jetty.server.ServerConnector.open()
+		Time: 2.5527777777777776;2.952777777777778;0.40000000000000036;30;30;
+			Revision: 9189c934d926209855cfc8a50f129de68f43f818
+				Issues: 444722
+	org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler()
+		Time: null;0.13162393162393163;0.13162393162393163;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int)
+		Time: 1.289655172413793;1.8215686274509804;0.5319134550371873;30;30;
+			Revision: 8a555e669a593bf073dc59e81090818c3be6895d
+				Issues: 444031
+	org.eclipse.jetty.util.thread.ScheduledExecutorScheduler.doStart()
+		Time: 0.4858585858585859;0.6128205128205129;0.12696192696192699;30;30;
+			Revision: 149ee0104705200eaa3a2bfe240c8dabbe921788
+				Issues: 445157
+4
+444031;normal
+444722;major
+445157;major
+447515;enhancement
+3
+normal;1
+enhancement;1
+major;2
+3
+normal;444031
+enhancement;447515
+major;444722;445157
+Number of revisions (commits): 4
+Revision (Issues): 149ee0104705200eaa3a2bfe240c8dabbe921788(445157)
+Revision (Issues): 8a555e669a593bf073dc59e81090818c3be6895d(444031)
+Revision (Issues): 9189c934d926209855cfc8a50f129de68f43f818(444722)
+Revision (Issues): 738c47bc553d7e90a0d074b99aff5e666d26a7c2(447515)

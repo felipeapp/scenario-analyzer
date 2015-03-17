@@ -1,0 +1,19 @@
+# Optimized methods (TTest P-Value)
+14
+Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2
+org.eclipse.jetty.util.thread.QueuedThreadPool.newThread(java.lang.Runnable);0.03064295697617016;0.858907797669648;0.05517676767676768;0.02658045977011494;7920;6960
+org.eclipse.jetty.server.AbstractConnector.doStop();0.04601917548001709;0.3220815027253414;2.091666666666667;0.8555555555555555;120;90
+org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int);4.134762612963941E-5;0.06298041228374174;2.3545454545454545;1.289655172413793;990;870
+org.eclipse.jetty.servlet.DispatcherTest.testForwardToResourceHandler();0.004815584078293349;0.03205359011068276;7.266666666666667;2.1;30;30
+org.eclipse.jetty.servlet.ServletContextHandler(org.eclipse.jetty.server.HandlerContainer,java.lang.String,org.eclipse.jetty.server.session.SessionHandler,org.eclipse.jetty.security.SecurityHandler,org.eclipse.jetty.servlet.ServletHandler,org.eclipse.jetty.server.handler.ErrorHandler,int);0.028116339539419045;0.8517626276213591;7.709677419354839;6.328571428571428;930;840
+org.eclipse.jetty.servlet.AsyncServletTest.testSuspendTimeoutSuspendComplete();3.5044758645143645E-24;4.734024283692406E-11;46.333333333333336;31.333333333333332;30;30
+org.eclipse.jetty.util.thread.QueuedThreadPool.doStart();1.1905710289324938E-4;0.08466788253293644;2.3707070707070708;1.3620689655172413;990;870
+org.eclipse.jetty.servlet.AsyncServletIOTest.testWrites();1.1600198190150674E-5;6.036108413660646E-4;260.53333333333336;252.26666666666668;30;30
+org.eclipse.jetty.http.HttpGenerator.setJettyVersion(java.lang.String);8.105253943778287E-6;0.37363212092413356;0.7868686868686868;0.05517241379310345;990;870
+org.eclipse.jetty.server.handler.HandlerWrapper.setHandler(org.eclipse.jetty.server.Handler);0.038663167162347245;0.6282173968965139;0.37186147186147184;0.23849765258215963;2310;2130
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testAddServletAfterStart();1.6605594886568614E-19;2.8719471245608474E-11;56.36666666666667;20.8;30;30
+org.eclipse.jetty.server.handler.ContextHandlerCollection.doStart();0.03799513069636968;0.024156884642812626;13.0;9.233333333333333;30;30
+org.eclipse.jetty.servlet.AsyncServletTest.testStartDispatchEncodedPath();2.9099793536540575E-5;9.77489496784556E-4;39.0;31.6;30;30
+org.eclipse.jetty.servlet.AsyncContextListenersTest.testListenerClearedOnSecondRequest();0.03015641949244537;0.10388865931791391;22.866666666666667;18.733333333333334;30;30
+0.0
+0.05

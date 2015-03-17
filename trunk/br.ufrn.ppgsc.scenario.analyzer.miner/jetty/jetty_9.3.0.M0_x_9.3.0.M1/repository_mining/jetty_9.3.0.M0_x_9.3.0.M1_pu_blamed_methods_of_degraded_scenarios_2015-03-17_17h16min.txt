@@ -1,0 +1,42 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 2
+Number of scenarios (include empties): 7
+Entry point for AsyncServletIOTest.testWrites
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletTest.testFiltered
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	org.eclipse.jetty.servlet.DefaultServletTest.testFiltered()
+		Time: 35.86666666666667;67.96666666666667;32.1;30;30;
+			Revision: ec79a6f88ebdcd9f18953ffd29febc57720f691a
+				Issues: 0
+Entry point for DefaultServletTest.testIfETagSmall
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DefaultServletTest.testWelcomeServlet
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for DispatcherTest.testIncludeThenForward
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.eclipse.jetty.http.MetaData$Response(org.eclipse.jetty.http.HttpVersion,int,java.lang.String,org.eclipse.jetty.http.HttpFields,long)
+		Time: null;0.0;0.0;0;90;
+			Revision: 31e448ffd677d9360c4132a63b08fe53c860cf7c
+				Issues: 0
+	org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler()
+		Time: null;0.13162393162393163;0.13162393162393163;0;60;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler)
+		Time: null;0.5166666666666667;0.5166666666666667;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+4
+2
