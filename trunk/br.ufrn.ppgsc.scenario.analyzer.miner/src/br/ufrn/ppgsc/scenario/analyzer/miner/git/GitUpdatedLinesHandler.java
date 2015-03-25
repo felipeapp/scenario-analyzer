@@ -2,8 +2,10 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.git;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +31,14 @@ public class GitUpdatedLinesHandler {
 	private static final Map<String, List<Issue>> cache_commit_issues =
 			new HashMap<String, List<Issue>>();
 	
+	/* 
+	 * Todos os commits de interesse. Todos que modificaram qualquer classe que rodou
+	 * na análise (mesmo sem degradação), mas dentro do período de análise dos releases
+	 * considerados. Esse lista irá conter commits que são responsáveis pelas mudanças
+	 * de degradação e os que não são responsáveis.
+	 */
+	private PrintWriter pw_commits;
+	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
 	private IQueryIssue issueQuery;
@@ -47,6 +57,12 @@ public class GitUpdatedLinesHandler {
 		this.endRev = endRev;
 		this.filedir = filedir;
 		this.filename = filename;
+		
+		try {
+			pw_commits = new PrintWriter("reports/list_of_all_commits_of_interest.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public List<UpdatedLine> getChangedLines() {
@@ -139,6 +155,7 @@ public class GitUpdatedLinesHandler {
 		
 		sourceCode.append(source_line + System.lineSeparator());
 		
+		// Commits fora do período dos releases são desconsiderados
 		if (!commit.startsWith("^")) {
 			List<Issue> issues = cache_commit_issues.get(commit);
 			
@@ -176,7 +193,9 @@ public class GitUpdatedLinesHandler {
 					}
 				}
 				
+				// Cache do commit analisado
 				cache_commit_issues.put(commit, issues);
+				pw_commits.println(commit);
 			}
 			
 			return new UpdatedLine(commit_date, commit, issues, author_name, source_line, line_number);
