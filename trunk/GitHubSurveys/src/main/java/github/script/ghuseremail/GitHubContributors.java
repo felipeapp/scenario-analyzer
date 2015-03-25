@@ -12,7 +12,7 @@ public class GitHubContributors {
 
 	public static void main(String[] args) throws IOException {
 
-		String github_url_contributors = "https://api.github.com/repos/apache/wicket/contributors";
+		String github_url_contributors = "https://api.github.com/repos/eclipse/jetty.project/contributors";
 
 		List<JsonObject> users_with_email = new ArrayList<JsonObject>();
 		
@@ -66,7 +66,7 @@ public class GitHubContributors {
 			String login = GitHubUtil.getStringProperty(u, "login");
 			String email = GitHubUtil.getStringProperty(u, "email");
 			
-			System.out.printf("%d_WicketSurvey_%s;%s;%s;%s\n", ++i, login, name, login, email);
+			System.out.printf("%d_JettySurvey_%s;%s;%s;%s\n", ++i, login, name, login, email);
 		}
 
 	}
