@@ -1,0 +1,17 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+1
+Entry point for FormInputTest.test_1
+2
+org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String);2.55;3.6785714285714284;1.1285714285714286;140;140
+org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);20.95;26.5;5.550000000000001;20;20
+2
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String);2.55;3.6785714285714284;1.1285714285714286;140;140
+Entry point for FormInputTest.test_1;org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);20.95;26.5;5.550000000000001;20;20
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 1
+Revision (Issues): 79d9f699aeb2db05c0939a8d8088328927387e60(0)

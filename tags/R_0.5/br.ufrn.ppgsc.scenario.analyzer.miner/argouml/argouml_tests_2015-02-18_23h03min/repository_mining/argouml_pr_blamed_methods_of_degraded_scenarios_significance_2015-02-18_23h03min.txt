@@ -1,0 +1,274 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+20
+Entry point for TestUserDefinedProfile.testLoadingConstructor
+Entry point for TestItemUID.testAssignIDsToObjects
+Entry point for TestAttributeAndOperationNotationUml.testAttributeType
+Entry point for TestMessageNotationUml.testGenerateSequenceNumbers
+Entry point for TestProjectManager.testMakeEmptyProject
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration
+Entry point for TestProject.testRemove
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile
+Entry point for TestXmiFilePersister.testLoadProject
+Entry point for TestProfileManagerImpl.testRegisterAndRemoveDummyProfile
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile
+Entry point for TestXmiFilePersister.testLoadBadHref
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar
+Entry point for TestProfileDefault.testLoadProfileModel
+Entry point for TestXmiFilePersister.testSave
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
+Entry point for TestXmiFilePersister.testLoadProject13
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration
+Entry point for TestProjectSettings.testGuillemots
+42
+org.argouml.profile.UserDefinedProfile.loadModel();null;145.8741935483871;145.8741935483871;0;10
+org.argouml.profile.UserDefinedProfile.getDisplayName();0.0;252.7;252.7;10;10
+org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;10;10
+org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String);null;33.26470588235294;33.26470588235294;0;10
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;10
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName);null;0.8445414847161572;0.8445414847161572;0;210
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String);null;1.762962962962963;1.762962962962963;0;60
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,java.lang.String);null;2.558333333333333;2.558333333333333;0;60
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int);null;2.6337078651685393;2.6337078651685393;0;50
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;40;40
+org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;30;30
+org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;110
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]);null;0.09454545454545454;0.09454545454545454;0;1160
+org.argouml.notation.providers.TransitionNotation.initialiseListener(java.lang.Object);null;2.05625;2.05625;0;140
+org.argouml.uml.diagram.static_structure.ui.FigClass.constructFigs(java.awt.Rectangle);2.716666666666667;4.025;1.3083333333333336;100;100
+org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File);986.9666666666667;1468.85;481.8833333333332;10;10
+org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean);86.50909090909092;113.77692307692308;27.267832167832168;70;70
+org.argouml.notation.providers.MessageNotation.initialiseListener(java.lang.Object);null;6.15;6.15;0;20
+org.argouml.uml.diagram.ui.FigEdgeModelElement.computeRouteImpl();0.4096774193548387;2.6193548387096772;2.2096774193548385;310;310
+org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object);null;3.6333333333333333;3.6333333333333333;0;30
+org.argouml.uml.diagram.ui.FigAssociation.removeFromDiagramImpl();null;1.45625;1.45625;0;160
+org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram);1.4363636363636365;12.607692307692307;11.17132867132867;70;70
+org.argouml.uml.diagram.ui.FigCompartmentBox.createCompartments();null;1.6285714285714286;1.6285714285714286;0;130
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean);86.50909090909092;113.9;27.39090909090909;70;70
+org.argouml.uml.diagram.ui.FigAssociation.propertyChange(java.beans.PropertyChangeEvent);null;0.186318407960199;0.186318407960199;0;4020
+org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr);962.5;1447.675;485.17499999999995;10;10
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object);null;0.08092105263157895;0.08092105263157895;0;1440
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;10
+org.argouml.persistence.XmiFilePersister.doLoad(java.io.File);517.9;550.0333333333333;32.133333333333326;10;10
+org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile);null;170.38846153846154;170.38846153846154;0;10
+org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile);7.410526315789474;61.083333333333336;53.67280701754386;10;10
+org.argouml.profile.internal.ProfileMeta.getProfilePackages();0.0;38.597345132743364;38.597345132743364;80;80
+org.argouml.profile.internal.ProfileMeta.getModel();null;38.597345132743364;38.597345132743364;0;80
+org.argouml.model.mdr.XmiReferenceResolverImpl.toURL(java.lang.String);66.83103448275862;834.9268292682926;768.095794785534;30;20
+org.argouml.profile.URLModelLoader.loadModel(org.argouml.profile.ProfileReference);213.5;260.7;47.19999999999999;10;10
+org.argouml.profile.UserDefinedProfile.getProfilePackages();0.0;138.50689655172414;138.50689655172414;0;10
+org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel();1.175;513.0142857142857;511.8392857142857;10;10
+org.argouml.profile.UserDefinedProfile.getCritics();null;299.3833333333333;299.3833333333333;0;10
+org.argouml.model.mdr.XmiReaderImpl.convertAndLoadUml13(java.lang.String,javax.jmi.reflect.RefPackage,org.netbeans.api.xmi.XMIReader,org.xml.sax.InputSource);839.1;949.6;110.5;10;10
+org.argouml.model.mdr.XmiReaderImpl.serialTransform(java.lang.String[],org.xml.sax.InputSource);659.7;785.9;126.19999999999993;10;10
+157
+Entry point for TestUserDefinedProfile.testLoadingConstructor;org.argouml.profile.UserDefinedProfile.loadModel();null;145.8741935483871;145.8741935483871;0;10
+Entry point for TestUserDefinedProfile.testLoadingConstructor;org.argouml.profile.UserDefinedProfile.getDisplayName();0.0;252.7;252.7;10;10
+Entry point for TestUserDefinedProfile.testLoadingConstructor;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;10;10
+Entry point for TestUserDefinedProfile.testLoadingConstructor;org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String);null;33.26470588235294;33.26470588235294;0;10
+Entry point for TestUserDefinedProfile.testLoadingConstructor;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;10
+Entry point for TestItemUID.testAssignIDsToObjects;org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName);null;0.8445414847161572;0.8445414847161572;0;210
+Entry point for TestAttributeAndOperationNotationUml.testAttributeType;org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String);null;1.762962962962963;1.762962962962963;0;60
+Entry point for TestAttributeAndOperationNotationUml.testAttributeType;org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,java.lang.String);null;2.558333333333333;2.558333333333333;0;60
+Entry point for TestMessageNotationUml.testGenerateSequenceNumbers;org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int);null;2.6337078651685393;2.6337078651685393;0;50
+Entry point for TestMessageNotationUml.testGenerateSequenceNumbers;org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,java.lang.String);null;2.558333333333333;2.558333333333333;0;50
+Entry point for TestProjectManager.testMakeEmptyProject;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;40;40
+Entry point for TestProjectManager.testMakeEmptyProject;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;30;30
+Entry point for TestProjectManager.testMakeEmptyProject;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+Entry point for TestProjectManager.testMakeEmptyProject;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;0;10
+Entry point for TestProjectManager.testMakeEmptyProject;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;110
+Entry point for TestProjectManager.testMakeEmptyProject;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;420
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;0;10
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;160;160
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;60
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;100;100
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestProject.testRemove;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;40;40
+Entry point for TestProject.testRemove;org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]);null;0.09454545454545454;0.09454545454545454;0;1160
+Entry point for TestProject.testRemove;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;100
+Entry point for TestProject.testRemove;org.argouml.notation.providers.TransitionNotation.initialiseListener(java.lang.Object);null;2.05625;2.05625;0;140
+Entry point for TestProject.testRemove;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;10
+Entry point for TestProject.testRemove;org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName);null;0.8445414847161572;0.8445414847161572;0;1740
+Entry point for TestProject.testRemove;org.argouml.uml.diagram.static_structure.ui.FigClass.constructFigs(java.awt.Rectangle);2.716666666666667;4.025;1.3083333333333336;100;100
+Entry point for TestProject.testRemove;org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File);986.9666666666667;1468.85;481.8833333333332;10;10
+Entry point for TestProject.testRemove;org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean);86.50909090909092;113.77692307692308;27.267832167832168;70;70
+Entry point for TestProject.testRemove;org.argouml.notation.providers.MessageNotation.initialiseListener(java.lang.Object);null;6.15;6.15;0;20
+Entry point for TestProject.testRemove;org.argouml.uml.diagram.ui.FigEdgeModelElement.computeRouteImpl();0.4096774193548387;2.6193548387096772;2.2096774193548385;310;310
+Entry point for TestProject.testRemove;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+Entry point for TestProject.testRemove;org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object);null;3.6333333333333333;3.6333333333333333;0;30
+Entry point for TestProject.testRemove;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;20;20
+Entry point for TestProject.testRemove;org.argouml.uml.diagram.ui.FigAssociation.removeFromDiagramImpl();null;1.45625;1.45625;0;160
+Entry point for TestProject.testRemove;org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram);1.4363636363636365;12.607692307692307;11.17132867132867;70;70
+Entry point for TestProject.testRemove;org.argouml.uml.diagram.ui.FigCompartmentBox.createCompartments();null;1.6285714285714286;1.6285714285714286;0;130
+Entry point for TestProject.testRemove;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+Entry point for TestProject.testRemove;org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean);86.50909090909092;113.9;27.39090909090909;70;70
+Entry point for TestProject.testRemove;org.argouml.uml.diagram.ui.FigAssociation.propertyChange(java.beans.PropertyChangeEvent);null;0.186318407960199;0.186318407960199;0;4020
+Entry point for TestProject.testRemove;org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr);962.5;1447.675;485.17499999999995;10;10
+Entry point for TestProject.testRemove;org.argouml.notation.NotationProvider.addElementListener(java.lang.Object);null;0.08092105263157895;0.08092105263157895;0;1440
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;20;20
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;20;20
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;0;10
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;50;80
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;320
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;20
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;60
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;10
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.persistence.XmiFilePersister.doLoad(java.io.File);517.9;550.0333333333333;32.133333333333326;10;10
+Entry point for TestXmiFilePersister.testLoadProject;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;80;120
+Entry point for TestProfileManagerImpl.testRegisterAndRemoveDummyProfile;org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile);null;170.38846153846154;170.38846153846154;0;10
+Entry point for TestProfileManagerImpl.testRegisterAndRemoveDummyProfile;org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile);7.410526315789474;61.083333333333336;53.67280701754386;10;10
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram);1.4363636363636365;12.607692307692307;11.17132867132867;20;20
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;370
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.profile.internal.ProfileMeta.getProfilePackages();0.0;38.597345132743364;38.597345132743364;80;80
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;70;70
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File);986.9666666666667;1468.85;481.8833333333332;10;10
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean);86.50909090909092;113.9;27.39090909090909;20;20
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;20
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.profile.internal.ProfileMeta.getModel();null;38.597345132743364;38.597345132743364;0;80
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;60
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean);86.50909090909092;113.77692307692308;27.267832167832168;20;20
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;30
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;20
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr);962.5;1447.675;485.17499999999995;10;10
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;140;140
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;50;50
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;0;10
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.model.mdr.XmiReferenceResolverImpl.toURL(java.lang.String);66.83103448275862;834.9268292682926;768.095794785534;30;20
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;80;80
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;10
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;210
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestXmiFilePersister.testLoadBadHref;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;40
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.URLModelLoader.loadModel(org.argouml.profile.ProfileReference);213.5;260.7;47.19999999999999;10;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.UserDefinedProfile.getDisplayName();0.0;252.7;252.7;10;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.UserDefinedProfile.getProfilePackages();0.0;138.50689655172414;138.50689655172414;0;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;10;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String);null;33.26470588235294;33.26470588235294;0;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel();1.175;513.0142857142857;511.8392857142857;10;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.UserDefinedProfile.getCritics();null;299.3833333333333;299.3833333333333;0;10
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar;org.argouml.profile.UserDefinedProfile.loadModel();null;145.8741935483871;145.8741935483871;0;20
+Entry point for TestProfileDefault.testLoadProfileModel;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;40;40
+Entry point for TestProfileDefault.testLoadProfileModel;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+Entry point for TestProfileDefault.testLoadProfileModel;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;0;10
+Entry point for TestProfileDefault.testLoadProfileModel;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;30;40
+Entry point for TestProfileDefault.testLoadProfileModel;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;120
+Entry point for TestProfileDefault.testLoadProfileModel;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestXmiFilePersister.testSave;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;40;40
+Entry point for TestXmiFilePersister.testSave;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;30;30
+Entry point for TestXmiFilePersister.testSave;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+Entry point for TestXmiFilePersister.testSave;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;0;10
+Entry point for TestXmiFilePersister.testSave;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;110
+Entry point for TestXmiFilePersister.testSave;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.UserDefinedProfile.loadModel();null;145.8741935483871;145.8741935483871;0;70
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;420
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.UserDefinedProfile.getProfilePackages();0.0;138.50689655172414;138.50689655172414;60;70
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;20;40
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram);1.4363636363636365;12.607692307692307;11.17132867132867;20;20
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel();1.175;513.0142857142857;511.8392857142857;10;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileMeta.getProfilePackages();0.0;38.597345132743364;38.597345132743364;80;80
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile);null;170.38846153846154;170.38846153846154;0;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;10;30
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File);986.9666666666667;1468.85;481.8833333333332;10;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean);86.50909090909092;113.9;27.39090909090909;20;20
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile);7.410526315789474;61.083333333333336;53.67280701754386;10;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;170;170
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;20
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String);null;33.26470588235294;33.26470588235294;0;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;90;80
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileMeta.getModel();null;38.597345132743364;38.597345132743364;0;80
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;60
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;20;10
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean);86.50909090909092;113.77692307692308;27.267832167832168;20;20
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.profile.UserDefinedProfile.getCritics();null;299.3833333333333;299.3833333333333;0;50
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency;org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr);962.5;1447.675;485.17499999999995;10;10
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;50;50
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;20
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.model.mdr.XmiReaderImpl.convertAndLoadUml13(java.lang.String,javax.jmi.reflect.RefPackage,org.netbeans.api.xmi.XMIReader,org.xml.sax.InputSource);839.1;949.6;110.5;10;10
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.model.mdr.XmiReaderImpl.serialTransform(java.lang.String[],org.xml.sax.InputSource);659.7;785.9;126.19999999999993;10;10
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;80;80
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;210
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.persistence.XmiFilePersister.doLoad(java.io.File);517.9;550.0333333333333;32.133333333333326;10;10
+Entry point for TestXmiFilePersister.testLoadProject13;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;40
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;80;80
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;320
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;10;20
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;60
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource);10.923809523809524;23.72;12.796190476190475;10;10
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;10
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;10
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.persistence.XmiFilePersister.doLoad(java.io.File);517.9;550.0333333333333;32.133333333333326;10;10
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;120;120
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean);307.2736842105263;349.9102564102564;42.6365721997301;0;16
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;30;30
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.profile.internal.ProfileMeta.getProfilePackages();0.0;38.597345132743364;38.597345132743364;18;18
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.profile.URLModelLoader.loadModel(java.net.URL,java.net.URL);251.00833333333333;312.26623376623377;61.25790043290044;0;16
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.profile.internal.ProfileMeta.getModel();null;38.597345132743364;38.597345132743364;0;18
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String);null;432.1698113207547;432.1698113207547;0;6
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;122
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;46;46
+Entry point for TestProjectSettings.testGuillemots;org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object);1.375;27.6131090487239;26.2381090487239;40;40
+Entry point for TestProjectSettings.testGuillemots;org.argouml.profile.internal.ProfileUML.getProfilePackages();0.0;35.18608695652174;35.18608695652174;30;30
+Entry point for TestProjectSettings.testGuillemots;org.argouml.profile.internal.ProfileUML.getCritics();null;5.741463414634146;5.741463414634146;0;20
+Entry point for TestProjectSettings.testGuillemots;org.argouml.profile.internal.ProfileUML.getModel();null;8.758986574274578;8.758986574274578;0;110
+9
+0;No issue (0)
+4997;DEFECT
+5017;DEFECT
+5960;DEFECT
+5969;DEFECT
+6008;DEFECT
+6129;TASK
+6155;TASK
+6280;DEFECT
+3
+TASK;2
+DEFECT;6
+No issue (0);1
+3
+TASK;6129;6155
+DEFECT;4997;5017;5960;5969;6008;6280
+No issue (0);0
+Number of revisions (commits): 32
+Revision (Issues): 18724(0)
+Revision (Issues): 19206(0)
+Revision (Issues): 17962(0)
+Revision (Issues): 17961(0)
+Revision (Issues): 18917(0)
+Revision (Issues): 17960(5960)
+Revision (Issues): 18723(0)
+Revision (Issues): 18282(6008)
+Revision (Issues): 18321(0)
+Revision (Issues): 18698(0)
+Revision (Issues): 19496(0)
+Revision (Issues): 18760(6155)
+Revision (Issues): 18327(0)
+Revision (Issues): 19140(0)
+Revision (Issues): 19107(0)
+Revision (Issues): 18626(0)
+Revision (Issues): 17928(0)
+Revision (Issues): 19494(6280)
+Revision (Issues): 18269(6008)
+Revision (Issues): 19416(0)
+Revision (Issues): 19111(0)
+Revision (Issues): 19614(0)
+Revision (Issues): 19716(5017)
+Revision (Issues): 18337(0)
+Revision (Issues): 18852(6129)
+Revision (Issues): 18234(5969;6008)
+Revision (Issues): 19139(0)
+Revision (Issues): 17959(5960)
+Revision (Issues): 18257(0)
+Revision (Issues): 17979(4997)
+Revision (Issues): 19236(0)
+Revision (Issues): 18232(0)

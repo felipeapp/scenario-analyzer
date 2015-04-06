@@ -1,0 +1,25 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 1
+Entry point for HangManTest.testHangmanSuccessWebGame
+2
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream);null;0.0953781512605042;0.0953781512605042;0;150
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.006681270536692223;0.006681270536692223;0;3300
+2
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.0953781512605042;0.0953781512605042;0;150;
+			Revision: c49d2044b48536a22bedd5568172ac54c2f0f198
+				Issues: 5581
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;3300;
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 5582
+2
+5581;Bug
+5582;Bug
+1
+Bug;2
+1
+Bug;5581;5582
+Number of revisions (commits): 2
+Revision (Issues): c49d2044b48536a22bedd5568172ac54c2f0f198(5581)
+Revision (Issues): 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea(5582)

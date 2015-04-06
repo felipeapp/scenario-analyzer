@@ -1,0 +1,34 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 3
+Entry point for NiceUrlTest.testPage1
+3
+org.apache.wicket.MarkupContainer.visitChildren(java.lang.Class,org.apache.wicket.util.visit.IVisitor);5.492553191489361;4.104864864864865;1.3876883266244961;60;60
+org.apache.wicket.devutils.debugbar.DebugBar.renderHead(org.apache.wicket.markup.head.IHeaderResponse);3.674074074074074;2.6666666666666665;1.0074074074074075;20;20
+org.apache.wicket.markup.renderStrategy.ChildFirstHeaderRenderStrategy.renderChildHeaders(org.apache.wicket.markup.html.internal.HtmlHeaderContainer,org.apache.wicket.Component);67.90555555555555;52.42037037037037;15.48518518518518;20;20
+3
+	org.apache.wicket.MarkupContainer.visitChildren(java.lang.Class,org.apache.wicket.util.visit.IVisitor)
+		Time: 5.492553191489361;4.104864864864865;1.3876883266244961;60;60;
+			Revision: d31415397199ecc71f8486124f02a6e983e23781
+				Issues: 5284
+	org.apache.wicket.devutils.debugbar.DebugBar.renderHead(org.apache.wicket.markup.head.IHeaderResponse)
+		Time: 3.674074074074074;2.6666666666666665;1.0074074074074075;20;20;
+			Revision: 16c81b13e6b49d1e6efc02902dfc8f01b67e23b7
+				Issues: 5388
+	org.apache.wicket.markup.renderStrategy.ChildFirstHeaderRenderStrategy.renderChildHeaders(org.apache.wicket.markup.html.internal.HtmlHeaderContainer,org.apache.wicket.Component)
+		Time: 67.90555555555555;52.42037037037037;15.48518518518518;20;20;
+			Revision: 9759e26e7558b713ed082e349cba2a6ed437725a
+				Issues: 4964
+3
+4964;Bug
+5284;Bug
+5388;Improvement
+2
+Improvement;1
+Bug;2
+2
+Improvement;5388
+Bug;4964;5284
+Number of revisions (commits): 3
+Revision (Issues): d31415397199ecc71f8486124f02a6e983e23781(5284)
+Revision (Issues): 16c81b13e6b49d1e6efc02902dfc8f01b67e23b7(5388)
+Revision (Issues): 9759e26e7558b713ed082e349cba2a6ed437725a(4964)

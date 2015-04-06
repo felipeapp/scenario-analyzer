@@ -1,0 +1,388 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+19
+Entry point for TemplateTest.test_1
+Entry point for Signin2Test.testSignIn2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage4
+Entry point for HelloWorldTest.testHelloWorld
+Entry point for NiceUrlTest.testPage5
+Entry point for ComprefTest.test_1
+Entry point for GuestbookTest.test_1
+Entry point for NiceUrlTest.testPage2UP
+Entry point for LibraryTest.test_1
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for ImagesTest.testImages
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for AjaxTest.test_1
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for EncodingTest.test_1
+21
+org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;30;30
+org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;2230;2100
+org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;130;130
+org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;180;120
+org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;30;30
+org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360
+org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;2230;2100
+org.apache.wicket.markup.MergedMarkup.merge(org.apache.wicket.markup.IMarkupFragment,org.apache.wicket.markup.IMarkupFragment,int);1.6;0.0;1.6;20;20
+org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;270;210
+org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;810;570
+org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;310;250
+org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;100;40
+org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;20;20
+org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;8180;2130
+org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;290;230
+org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;620;470
+org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput();0.31;0.15;0.16;20;20
+org.apache.wicket.markup.html.form.FormComponent.convertInput();0.3875;0.0;0.3875;20;20
+org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.486666666666668;23.513333333333332;5.973333333333336;30;30
+org.apache.wicket.resource.loader.ComponentStringResourceLoader.isStopResourceSearch(java.lang.Class);0.021678321678321677;0.011188811188811189;0.010489510489510488;1010;1010
+295
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;2230;2100
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;130;130
+Entry point for TemplateTest.test_1;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;180;120
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;2230;2100
+Entry point for TemplateTest.test_1;org.apache.wicket.markup.MergedMarkup.merge(org.apache.wicket.markup.IMarkupFragment,org.apache.wicket.markup.IMarkupFragment,int);1.6;0.0;1.6;20;20
+Entry point for TemplateTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;270;210
+Entry point for TemplateTest.test_1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;810;570
+Entry point for TemplateTest.test_1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;310;250
+Entry point for TemplateTest.test_1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;100;40
+Entry point for TemplateTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for TemplateTest.test_1;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;20;20
+Entry point for TemplateTest.test_1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;8180;2130
+Entry point for TemplateTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;290;230
+Entry point for TemplateTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;620;470
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;9860;2660
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput();0.31;0.15;0.16;20;20
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;800;600
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;40;40
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;360;280
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;60;60
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;240;160
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;1590;1340
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;300;220
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;390;310
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;130;50
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;140;140
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.html.form.FormComponent.convertInput();0.3875;0.0;0.3875;20;20
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;60;60
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;40;40
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;1590;1340
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;680;480
+Entry point for Signin2Test.testSignIn2;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;1000;640
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;180;120
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;760;520
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;420;270
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;9570;3310
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;130;70
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;320;260
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;230;170
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;320;260
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;270;270
+Entry point for NiceUrlTest.testPage2PP;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;90;90
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;180;120
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;760;520
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;420;270
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;9570;3310
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;130;70
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;320;260
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;230;170
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;320;260
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;270;270
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;90;90
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;6100;2340
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;170;170
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;280;180
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;170;170
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;520;360
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;60;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;220;180
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;120;80
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;220;180
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;20;20
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;160;120
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;6100;2340
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;170;170
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;280;180
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;170;170
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;520;360
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;20;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;60;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;220;180
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;120;80
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;220;180
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;20;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;160;120
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;6100;2340
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;170;170
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;280;180
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;170;170
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;520;360
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;60;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;220;180
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;120;80
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;220;180
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;20;20
+Entry point for NiceUrlTest.testPage4;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;160;120
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;40;20
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;680;550
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;70;50
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;180;100
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;10;10
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;30;30
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;40;20
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;180;130
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;70;50
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;10;10
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;680;550
+Entry point for HelloWorldTest.testHelloWorld;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;2270;370
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;540;380
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;230;190
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;230;190
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;80;40
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;170;130
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;280;180
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;60;60
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;6700;2600
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;20;20
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;120;80
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;270;270
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;20;20
+Entry point for ComprefTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;470;420
+Entry point for ComprefTest.test_1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;30;10
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;2160;2030
+Entry point for ComprefTest.test_1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;3390;970
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;2160;2030
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;340;340
+Entry point for ComprefTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;360;340
+Entry point for ComprefTest.test_1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;360;340
+Entry point for ComprefTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;760;680
+Entry point for ComprefTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;330;310
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;10;10
+Entry point for GuestbookTest.test_1;org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput();0.31;0.15;0.16;60;60
+Entry point for GuestbookTest.test_1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;11620;1930
+Entry point for GuestbookTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;870;740
+Entry point for GuestbookTest.test_1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;40;40
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;320;240
+Entry point for GuestbookTest.test_1;org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.486666666666668;23.513333333333332;5.973333333333336;30;30
+Entry point for GuestbookTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;120;60
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;1090;770
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;390;310
+Entry point for GuestbookTest.test_1;org.apache.wicket.markup.html.form.FormComponent.convertInput();0.3875;0.0;0.3875;40;40
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;40;40
+Entry point for GuestbookTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;760;560
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;40;40
+Entry point for GuestbookTest.test_1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;90;10
+Entry point for GuestbookTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;310;230
+Entry point for GuestbookTest.test_1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;870;740
+Entry point for GuestbookTest.test_1;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;100;100
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;270;270
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;180;120
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;760;520
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;420;270
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;510;360
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;9570;3310
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;130;70
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;320;260
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;230;170
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;320;260
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;270;270
+Entry point for NiceUrlTest.testPage2UP;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;90;90
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.html.form.AbstractTextComponent.convertInput();0.31;0.15;0.16;20;20
+Entry point for LibraryTest.test_1;org.apache.wicket.resource.loader.ComponentStringResourceLoader.isStopResourceSearch(java.lang.Class);0.021678321678321677;0.011188811188811189;0.010489510489510488;1010;1010
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.MergedMarkup.merge(org.apache.wicket.markup.IMarkupFragment,org.apache.wicket.markup.IMarkupFragment,int);1.6;0.0;1.6;10;10
+Entry point for LibraryTest.test_1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;11240;19680
+Entry point for LibraryTest.test_1;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;340;240
+Entry point for LibraryTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;390;350
+Entry point for LibraryTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;360;320
+Entry point for LibraryTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;580;480
+Entry point for LibraryTest.test_1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;200;160
+Entry point for LibraryTest.test_1;org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.486666666666668;23.513333333333332;5.973333333333336;10;10
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.html.form.FormComponent.convertInput();0.3875;0.0;0.3875;20;20
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;2200;1950
+Entry point for LibraryTest.test_1;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;220;220
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;2200;1950
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;10;10
+Entry point for LibraryTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for LibraryTest.test_1;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;120;80
+Entry point for LibraryTest.test_1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;580;540
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;80;80
+Entry point for LibraryTest.test_1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;930;760
+Entry point for LibraryTest.test_1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;20;20
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;1250;1120
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;1250;1120
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;1540;1540
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;480;320
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;3480;3320
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.486666666666668;23.513333333333332;5.973333333333336;60;60
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;1360;960
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;4860;4700
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;4430;4030
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;80;80
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;190040;174730
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;3450;3290
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;1770;1610
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;7840;7200
+Entry point for HangManTest.testHangmanSuccessWebGame;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;240;140
+Entry point for ImagesTest.testImages;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;140;120
+Entry point for ImagesTest.testImages;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;270;220
+Entry point for ImagesTest.testImages;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;220;170
+Entry point for ImagesTest.testImages;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;110;90
+Entry point for ImagesTest.testImages;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;780;650
+Entry point for ImagesTest.testImages;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;60;40
+Entry point for ImagesTest.testImages;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for ImagesTest.testImages;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;3630;450
+Entry point for ImagesTest.testImages;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;780;650
+Entry point for ImagesTest.testImages;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;90;70
+Entry point for ImagesTest.testImages;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;10;10
+Entry point for ImagesTest.testImages;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;20;20
+Entry point for ImagesTest.testImages;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;70;50
+Entry point for ImagesTest.testImages;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;10;10
+Entry point for ImagesTest.testImages;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;50;50
+Entry point for ImagesTest.testImages;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;370;290
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.resource.PackageResource.internalGetResourceStream(java.lang.String,java.util.Locale);0.3140472878998609;0.2905697445972495;0.023477543302611426;1190;840
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;1250;1120
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;1480;1340
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;1250;1120
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;159140;145830
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;70;70
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.util.resource.UrlResourceStream.lastModifiedTime();0.31462450592885377;0.2964497041420118;0.018174801786841943;420;280
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.request.handler.ListenerInterfaceRequestHandler.respond(org.apache.wicket.request.IRequestCycle);29.486666666666668;23.513333333333332;5.973333333333336;50;50
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;6660;6100
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;4120;3980
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;2920;2780
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;1310;1310
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;2950;2810
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;70;70
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;3780;3430
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;70;70
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;210;130
+Entry point for AjaxTest.test_1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;70;10
+Entry point for AjaxTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;30;30
+Entry point for AjaxTest.test_1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;90;30
+Entry point for AjaxTest.test_1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;30;30
+Entry point for AjaxTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;780;650
+Entry point for AjaxTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;590;440
+Entry point for AjaxTest.test_1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;780;650
+Entry point for AjaxTest.test_1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;800;560
+Entry point for AjaxTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
+Entry point for AjaxTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;120;80
+Entry point for AjaxTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;260;200
+Entry point for AjaxTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;90;30
+Entry point for AjaxTest.test_1;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;100;100
+Entry point for AjaxTest.test_1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;6190;530
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;330;310
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.core.request.handler.PageAndComponentProvider.getComponentPath();0.06666666666666667;0.04454022988505747;0.022126436781609193;90;90
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;370;320
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;13620;8970
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;100;80
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;1740;1610
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;240;220
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;240;220
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;600;520
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;40;40
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;10;10
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;1740;1610
+Entry point for EncodingTest.test_1;org.apache.wicket.model.Model.setObject(java.io.Serializable);0.0030303030303030303;0.0;0.0030303030303030303;40;20
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.parser.filter.InlineEnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.04241967871485944;0.026014452473596444;0.016405226241262994;730;600
+Entry point for EncodingTest.test_1;org.apache.wicket.DequeueContext.nextTag();0.048786756521563154;0.043523119042790506;0.005263637478772648;2330;390
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.onComponentTag(org.apache.wicket.markup.ComponentTag);0.086144578313253;0.03557531962201223;0.05056925869124078;730;600
+Entry point for EncodingTest.test_1;org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;70;50
+Entry point for EncodingTest.test_1;org.apache.wicket.request.Url.toString();0.2266101041264944;0.2112708719851577;0.0153392321413367;180;100
+Entry point for EncodingTest.test_1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRedirectToTargetUrl(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);2.609090909090909;1.8727272727272728;0.7363636363636361;10;10
+Entry point for EncodingTest.test_1;org.apache.wicket.request.Url.parse(java.lang.CharSequence);0.3049951028403526;0.15958378970427164;0.14541131313608094;40;20
+Entry point for EncodingTest.test_1;org.apache.wicket.core.request.mapper.BasicResourceReferenceMapper.mapHandler(org.apache.wicket.request.IRequestHandler);1.8258312020460359;1.513678516228748;0.31215268581728783;180;130
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.resolve(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);0.1507177033492823;0.12265193370165746;0.028065769647624847;40;40
+Entry point for EncodingTest.test_1;org.apache.wicket.request.mapper.AbstractMapper.encodePageParameters(org.apache.wicket.request.Url,org.apache.wicket.request.mapper.parameter.PageParameters,org.apache.wicket.request.mapper.parameter.IPageParametersEncoder);0.1662570888468809;0.07336842105263158;0.09288866779424931;70;50
+Entry point for EncodingTest.test_1;org.apache.wicket.markup.head.JavaScriptHeaderItem.forReference(org.apache.wicket.request.resource.ResourceReference,org.apache.wicket.request.mapper.parameter.PageParameters,java.lang.String,boolean);0.32222222222222224;0.17222222222222222;0.15000000000000002;10;10
+15
+0;No issue (0)
+5350;Improvement
+5539;Bug
+5643;Bug
+5646;Improvement
+5660;Improvement
+5669;Improvement
+5673;Improvement
+5689;Bug
+5708;Improvement
+5715;Improvement
+5717;Bug
+5722;Test
+5724;Bug
+5730;Bug
+4
+Test;1
+Improvement;7
+Bug;6
+No issue (0);1
+4
+Test;5722
+Improvement;5350;5646;5660;5669;5673;5708;5715
+Bug;5539;5643;5689;5717;5724;5730
+No issue (0);0
+Number of revisions (commits): 22
+Revision (Issues): 8489bcbebfef5a5096b24c0543d2b767c98f325e(5717)
+Revision (Issues): ea82a6b1ca8658f44d840ce74eb72252368d25ab(5646)
+Revision (Issues): 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130(5539)
+Revision (Issues): f6ee84e5f855252a38aab6a84ae40f70017c257d(5715)
+Revision (Issues): f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2(0)
+Revision (Issues): 16e52ff2861f36431aedf61cafd86d2c5565d449(5708)
+Revision (Issues): 93d8aac7c4e962da72cf70e3e88142a302ae94d1(0)
+Revision (Issues): b793f99f6b1f5787b5be0b732ddb17baec4c711b(5660)
+Revision (Issues): 562d1ee536ebaa07206c90baebdda5280fbf68e3(5350)
+Revision (Issues): fee33c62cbbd2a69e59a75eb3c8550f34b67450d(5722)
+Revision (Issues): f3f065c267338f17b64a6b1cd0d72fb349118d68(0)
+Revision (Issues): 8953bd2cb91f8b62d4f26395156986b19e161720(5724)
+Revision (Issues): dc635f936ea6050d3327659a047e30fa386da853(5643)
+Revision (Issues): db5be6ab05545e1bb95f566c3aeb23e05cf93437(5730)
+Revision (Issues): 999182fe5cd1e116273882bfe37101493617400d(0)
+Revision (Issues): 51864c6e2273bbec2e35988ab5bbf29c6569b77e(0)
+Revision (Issues): 76433a76288cf3ac336676c81c400a556f6dc5a3(5669)
+Revision (Issues): bb9c1044e5f1ba8902aa69073ef9fb236802d277(0)
+Revision (Issues): e8773fb18da2d763d62a2857335b3c73d491d064(5539)
+Revision (Issues): 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b(5689)
+Revision (Issues): bfffed1260a37cd6c338c2495a03377c76fe99d8(5673)
+Revision (Issues): b92591f6496c15bf5615765539017ad702c67a43(5724)

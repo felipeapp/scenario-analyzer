@@ -1,0 +1,419 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 18
+Number of scenarios (include empties): 18
+Entry point for AjaxTest.test_1
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;180;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;660;200;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for ComprefTest.test_1
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;450;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;240;460;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for EncodingTest.test_1
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;250;110;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for GuestbookTest.test_1
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;150;250;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;1010;330;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;40;40;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for HangManTest.testHangmanFailureWebGame
+	Number of methods: 7
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;300;3010;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;4180;5670;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.examples.hangman.HangManTest.testHangmanFailureWebGame()
+		Time: 6600.3;5293.2;1307.1000000000004;10;10;
+			Revision: cb4590a27febd29db3bd2939fc3fb6025c4c3691
+				Issues: 5669
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;70;70;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;60;60;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;60;60;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for HangManTest.testHangmanSuccessWebGame
+	Number of methods: 7
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;330;3550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;4910;6730;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.examples.hangman.HangManTest.testHangmanSuccessWebGame()
+		Time: 13746.5;10615.7;3130.7999999999993;10;10;
+			Revision: cb4590a27febd29db3bd2939fc3fb6025c4c3691
+				Issues: 5669
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;80;80;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;70;70;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;70;70;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for HelloWorldTest.testHelloWorld
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;100;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;250;110;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for ImagesTest.testImages
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;60;130;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;320;140;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for LibraryTest.test_1
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;200;870;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;1030;1290;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for LinkomaticTest.testLinkomatic
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;80;370;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;470;560;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;10;10;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for NiceUrlTest.testPage1
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;280;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;560;380;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage2
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;180;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;870;550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage2PP
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;180;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;870;550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage2UP
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;180;410;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;870;550;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;30;30;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage3
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;280;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;560;380;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for NiceUrlTest.testPage5
+	Number of methods: 5
+	Number of methods (exclude word applied): 3
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;290;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;590;400;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;20;20;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+	org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String,boolean)
+		Time: 718.46875;522.653125;195.81562499999995;20;20;
+			Revision: 602e21b39a0ead4d5a4a7010acd3958cd0ed6130
+				Issues: 0
+Entry point for Signin2Test.testSignIn2
+	Number of methods: 5
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;330;770;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;1090;850;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.examples.signin2.Signin2Test.testSignIn2()
+		Time: 3678.8;3152.7;526.1000000000004;10;10;
+			Revision: e0b105e5bcee89917d04c3a2164440d0ed2fc738
+				Issues: 5349
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;60;60;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+Entry point for TemplateTest.test_1
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.Application.initializeComponents()
+		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;230;500;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.newDequeueContext()
+		Time: 3.7273255813953488;3.545762711864407;0.18156286953094192;840;580;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
+		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
+			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
+				Issues: 0
+			Revision: 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b
+				Issues: 5689
+9
+4

@@ -1,0 +1,38 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [significance]
+5
+Entry point for ImagesTest.testImages
+Entry point for WordGeneratorTest.testWordGenerator
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for NiceUrlTest.testPage5
+Entry point for ComprefTest.test_1
+4
+org.apache.wicket.core.util.resource.locator.ResourceStreamLocator.newResourceNameIterator(java.lang.String,java.util.Locale,java.lang.String,java.lang.String,java.lang.Iterable,boolean);0.07301401869158879;0.07990654205607477;0.006892523364485981;140;140
+org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;40;40
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;80;80
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.008543263964950712;0.008543263964950712;0;2790
+14
+Entry point for ImagesTest.testImages;org.apache.wicket.core.util.resource.locator.ResourceStreamLocator.newResourceNameIterator(java.lang.String,java.util.Locale,java.lang.String,java.lang.String,java.lang.Iterable,boolean);0.07301401869158879;0.07990654205607477;0.006892523364485981;140;140
+Entry point for ImagesTest.testImages;org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;40;40
+Entry point for ImagesTest.testImages;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;80;80
+Entry point for WordGeneratorTest.testWordGenerator;org.apache.wicket.core.util.resource.locator.ResourceStreamLocator.newResourceNameIterator(java.lang.String,java.util.Locale,java.lang.String,java.lang.String,java.lang.Iterable,boolean);0.07301401869158879;0.07990654205607477;0.006892523364485981;10;10
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;60;60
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.util.resource.locator.ResourceStreamLocator.newResourceNameIterator(java.lang.String,java.util.Locale,java.lang.String,java.lang.String,java.lang.Iterable,boolean);0.07301401869158879;0.07990654205607477;0.006892523364485981;150;150
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.008543263964950712;0.008543263964950712;0;2790
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;2730;2730
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;150;150
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;10;10
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.core.util.resource.locator.ResourceStreamLocator.newResourceNameIterator(java.lang.String,java.util.Locale,java.lang.String,java.lang.String,java.lang.Iterable,boolean);0.07301401869158879;0.07990654205607477;0.006892523364485981;10;10
+Entry point for ComprefTest.test_1;org.apache.wicket.protocol.http.servlet.ServletWebResponse.encodeURL(java.lang.CharSequence);1.3078054298642534;2.0874434389140273;0.7796380090497739;320;320
+Entry point for ComprefTest.test_1;org.apache.wicket.core.util.resource.locator.ResourceStreamLocator.newResourceNameIterator(java.lang.String,java.util.Locale,java.lang.String,java.lang.String,java.lang.Iterable,boolean);0.07301401869158879;0.07990654205607477;0.006892523364485981;130;130
+Entry point for ComprefTest.test_1;org.apache.wicket.markup.Markup.makeImmutable();0.01904761904761905;0.14761904761904762;0.12857142857142856;40;40
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 4
+Revision (Issues): 1fb665336400f0f40ecbb36a642020f87e73524d(0)
+Revision (Issues): 0e44f3df8b2bf1029e14babbb74af0a28d3917d4(0)
+Revision (Issues): d66d2e3a4f2f2e5cff7721ab2e44a72c7b018a2e(0)
+Revision (Issues): 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1(0)

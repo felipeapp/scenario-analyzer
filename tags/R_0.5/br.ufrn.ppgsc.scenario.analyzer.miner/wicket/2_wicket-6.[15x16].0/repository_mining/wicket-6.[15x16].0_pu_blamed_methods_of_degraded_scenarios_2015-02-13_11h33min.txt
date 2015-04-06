@@ -1,0 +1,30 @@
+# Methods blamed for performance degradation in each of the degraded scenarios
+Number of scenarios: 1
+Number of scenarios (include empties): 1
+Entry point for HangManTest.testHangmanSuccessWebGame
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.Application.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;80;
+			Revision: 943a874c7704f82428697f2a6c2218d00b9bff09
+				Issues: 5577
+			Revision: e9f116aa871cdccbc72c8329468154efef638e3c
+				Issues: 5577
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.0;0.0;0;1930;
+			Revision: c49d2044b48536a22bedd5568172ac54c2f0f198
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0;0.0;0;1930;
+			Revision: c49d2044b48536a22bedd5568172ac54c2f0f198
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.0953781512605042;0.0953781512605042;0;150;
+			Revision: c49d2044b48536a22bedd5568172ac54c2f0f198
+				Issues: 5581
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.006681270536692223;0.006681270536692223;0;3300;
+			Revision: 9bf298b3b7da84bdc197f61ce0f2565fbdd43cea
+				Issues: 5582
+5
+2

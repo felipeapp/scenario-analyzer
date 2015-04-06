@@ -1,0 +1,30 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 13
+Entry point for AsyncIOServletTest.testIsNotReadyAtEOF
+Entry point for DefaultServletTest.testFiltered
+Entry point for DefaultServletTest.testListingProperUrlEncoding
+Entry point for DefaultServletTest.testListingXSS
+Entry point for DefaultServletTest.testRangeRequests
+Entry point for DefaultServletTest.testResourceBase
+Entry point for DispatcherForwardTest.testContentCanBeReadViaInputStreamAfterForwardWithQuery
+Entry point for DispatcherForwardTest.testQueryMergedByForwardWithQuery
+Entry point for DispatcherTest.testForward
+Entry point for DispatcherTest.testForwardNonUTF8
+Entry point for DispatcherTest.testForwardToResourceHandler
+Entry point for DispatcherTest.testIncludeThenForward
+Entry point for ServletContextHandlerTest.testReplaceHandler
+1
+org.eclipse.jetty.servlet.ServletHolder.doStart();0.1963254593175853;0.15931758530183726;0.03700787401574804;60;60
+1
+	org.eclipse.jetty.servlet.ServletHolder.doStart()
+		Time: 0.1963254593175853;0.15931758530183726;0.03700787401574804;60;60;
+			Revision: 6097123af68784a0186337b2e01a8025d7d13d25
+				Issues: 460176
+1
+460176;normal
+1
+normal;1
+1
+normal;460176
+Number of revisions (commits): 1
+Revision (Issues): 6097123af68784a0186337b2e01a8025d7d13d25(460176)

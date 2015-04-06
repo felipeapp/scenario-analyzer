@@ -1,0 +1,33 @@
+# Methods blamed for performance degradation in each of the degraded scenarios [summary]
+Number of scenarios: 2
+Entry point for DefaultServletTest.testFiltered
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+3
+org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler();null;0.13162393162393163;0.13162393162393163;0;60
+org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler);null;0.5166666666666667;0.5166666666666667;0;30
+org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int);1.289655172413793;1.8215686274509804;0.5319134550371873;0;60
+3
+	org.eclipse.jetty.servlet.ServletContextHandler.getGzipHandler()
+		Time: null;0.13162393162393163;0.13162393162393163;0;60;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler)
+		Time: null;0.5166666666666667;0.5166666666666667;0;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+	org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int)
+		Time: 1.289655172413793;1.8215686274509804;0.5319134550371873;0;60;
+			Revision: 8a555e669a593bf073dc59e81090818c3be6895d
+				Issues: 444031
+2
+444031;normal
+447515;enhancement
+2
+normal;1
+enhancement;1
+2
+normal;444031
+enhancement;447515
+Number of revisions (commits): 2
+Revision (Issues): 8a555e669a593bf073dc59e81090818c3be6895d(444031)
+Revision (Issues): 738c47bc553d7e90a0d074b99aff5e666d26a7c2(447515)

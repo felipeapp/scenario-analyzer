@@ -1,0 +1,1064 @@
+# Membros responsáveis pela degradação de performance em cada cenário degradado
+87
+170
+Entry point for AbstractTestCrTooMany.testThreshold
+0 0
+Entry point for AbstractTestMissingName.testHasNoName
+0 0
+Entry point for TestAGHelperWithMock.testAGHelper
+0 0
+Entry point for TestActionAddDependency.testAddActions
+0 0
+Entry point for TestActionNewReception.testHasIcon
+1 1
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestActionStateDiagram.testCreateDiagram
+3 3
+org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object) 5.292307692307692 5.638461538461539 0.3461538461538467
+org.argouml.uml.ui.ActionNewDiagram.actionPerformed(java.awt.event.ActionEvent) 23.05 24.98 1.9299999999999997
+org.argouml.uml.ui.ActionStateDiagram.buildMachine(java.lang.Object,java.lang.Object) 4.914285714285715 6.228571428571429 1.314285714285714
+Entry point for TestActionStateNotationUml.testGenerateRoundTrip
+3 3
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression) null 0.013559322033898305 0.013559322033898305
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.setScript(java.lang.Object,java.lang.Object) 0.26477272727272727 0.28771929824561404 0.02294657097288677
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestActionStateNotationUml.testNullBody
+3 3
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression) null 0.013559322033898305 0.013559322033898305
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.setScript(java.lang.Object,java.lang.Object) 0.26477272727272727 0.28771929824561404 0.02294657097288677
+Entry point for TestActionStateNotationUml.testStringGenerationNoAction
+1 1
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestActionStateNotationUml.testStringGenerationWithAction
+3 3
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression) null 0.013559322033898305 0.013559322033898305
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.setScript(java.lang.Object,java.lang.Object) 0.26477272727272727 0.28771929824561404 0.02294657097288677
+Entry point for TestActivityGraphStateMachine.testDeleteStateMachineTop
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestActivityGraphsHelper.testGetMetaModelName
+0 0
+Entry point for TestAttributeAndOperationNotationUml.testAttributeParseExceptions
+6 4
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityInternal(int,int) null 0.9842105263157894 0.9842105263157894
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.checkThrows(java.lang.Object,java.lang.String,boolean) null 0.9708333333333333 0.9708333333333333
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeParseExceptions() 18.5 26.5 8.0
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestAttributeAndOperationNotationUml.testAttributeType
+16 15
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.ProjectManager.updateRoots() null 0.01415929203539823 0.01415929203539823
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression) null 0.0 0.0
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityInternal(int,int) null 0.9842105263157894 0.9842105263157894
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+org.argouml.notation.providers.uml.AttributeNotationUml.dealWithDerived(java.lang.Object,boolean) null 0.6333333333333333 0.6333333333333333
+org.argouml.notation.providers.uml.NotationUtilityUml.setDerived(java.lang.Object,boolean) null 0.6333333333333333 0.6333333333333333
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeType() 57.8 67.1 9.299999999999997
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestCallStateNotationUml.testChangeOperationAndClass
+1 1
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+Entry point for TestCallStateNotationUml.testStringGenerationNoClassName
+0 0
+Entry point for TestCheckItem.testBasics
+1 0
+org.argouml.cognitive.checklist.TestCheckItem.testBasics() 4.6 12.4 7.800000000000001
+Entry point for TestChecklist.testBasics
+0 0
+Entry point for TestChecklistStatus.testBasics
+0 0
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleBases
+2 2
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleThrows
+1 1
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+Entry point for TestCollaborationsFactory.testCreates
+2 2
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestCollaborationsHelper.testGetMetaModelName
+1 1
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+Entry point for TestCollaborationsHelper.testIsValidStereoType
+1 1
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+Entry point for TestCopyHelper.testCopyClass
+9 9
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.CoreHelperMDRImpl.setSpecification(java.lang.Object,boolean) 0.0 0.16 0.16
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+Entry point for TestCoreFactory.testBuildAssociation
+3 3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Integer[],java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.3 4.3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEndInternal(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.047727272727273 4.047727272727273
+org.argouml.model.mdr.CoreHelperMDRImpl.isValidNamespace(java.lang.Object,java.lang.Object) 1.2 1.925 0.7250000000000001
+Entry point for TestCoreFactory.testBuildAssociationEnd
+5 4
+org.argouml.model.TestCoreFactory.testBuildAssociationEnd() 9.4 12.5 3.0999999999999996
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Integer[],java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.3 4.3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEndInternal(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.047727272727273 4.047727272727273
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityInternal(int,int) null 0.9842105263157894 0.9842105263157894
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+Entry point for TestCoreFactory.testBuildGeneralization
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestCoreFactory.testBuildRealization
+0 0
+Entry point for TestCoreFactory.testBuildTemplate
+0 0
+Entry point for TestCoreFactory.testCreates
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestCoreFactory.testDeleteClassifier1
+3 3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Integer[],java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.3 4.3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEndInternal(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.047727272727273 4.047727272727273
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestCoreFactory.testDeleteComplete
+0 0
+Entry point for TestCoreFactory.testDeleteModelelementDependency
+0 0
+Entry point for TestCoreHelper.testGetChildren
+0 0
+Entry point for TestCoreHelper.testGetMetaModelName
+0 0
+Entry point for TestCoreHelper.testIsSubType
+0 0
+Entry point for TestCoreHelper.testIsValidStereoType
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestCoreProfileReference.testCtorFailsWhenFileNameIsNull
+0 0
+Entry point for TestCoreProfileReference.testCtorHappyPath
+0 0
+Entry point for TestCrAssocNameConflict.testGeneralizations
+0 0
+Entry point for TestCrInvalidHistory.testShallowHistoryKind
+0 0
+Entry point for TestCrNoAssociations.testUseCaseExtend
+1 1
+org.argouml.uml.cognitive.critics.CrNoAssociations.findAssociation(java.lang.Object,int) 0.11428571428571428 0.7785714285714286 0.6642857142857143
+Entry point for TestCrUnconventionalAttrName.testPredicate2
+0 0
+Entry point for TestCrUnconventionalClassName.testPredicate2
+0 0
+Entry point for TestCrUnconventionalOperName.testPredicate2
+0 0
+Entry point for TestCritic.testBasics
+0 0
+Entry point for TestDataTypesFactory.testCreates
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestDecision.testBasics
+0 0
+Entry point for TestDefaultOclEvaluator.testBasicValuesAndTypes
+0 0
+Entry point for TestDefaultOclEvaluator.testCollectOperation
+1 1
+org.argouml.profile.internal.ocl.uml14.ModelAccessModelInterpreter.invokeFeature(java.util.Map,java.lang.Object,java.lang.String,java.lang.String,java.lang.Object[]) 3.856 4.528925619834711 0.6729256198347109
+Entry point for TestDefaultOclEvaluator.testExistsOperation
+1 1
+org.argouml.profile.internal.ocl.uml14.ModelAccessModelInterpreter.invokeFeature(java.util.Map,java.lang.Object,java.lang.String,java.lang.String,java.lang.Object[]) 3.856 4.528925619834711 0.6729256198347109
+Entry point for TestDefaultOclEvaluator.testForAllOperation
+1 1
+org.argouml.profile.internal.ocl.uml14.ModelAccessModelInterpreter.invokeFeature(java.util.Map,java.lang.Object,java.lang.String,java.lang.String,java.lang.Object[]) 3.856 4.528925619834711 0.6729256198347109
+Entry point for TestDefaultOclEvaluator.testSelectOperation
+1 1
+org.argouml.profile.internal.ocl.uml14.ModelAccessModelInterpreter.invokeFeature(java.util.Map,java.lang.Object,java.lang.String,java.lang.String,java.lang.Object[]) 3.856 4.528925619834711 0.6729256198347109
+Entry point for TestDefaultOclEvaluator.testSequenceConstructors
+0 0
+Entry point for TestDiagramFactory.testCreateAndRemove
+3 2
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object) 5.292307692307692 5.638461538461539 0.3461538461538467
+org.argouml.uml.diagram.TestDiagramFactory.testCreateAndRemove() 117.1 123.3 6.200000000000003
+Entry point for TestEnumerationLiteralNotationUml.testGetHelpOperation
+0 0
+Entry point for TestEnumerationLiteralNotationUml.testLiteralStereotype
+4 4
+org.argouml.i18n.Translator.localize(java.lang.String,java.lang.Object[]) 0.07045454545454545 0.17777777777777778 0.10732323232323233
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.ProjectManager.updateRoots() null 0.01415929203539823 0.01415929203539823
+org.argouml.uml.StereotypeUtility.findStereotypeContained(java.lang.Object,java.lang.Object,java.lang.String) 0.06225731296919493 0.11146245059288537 0.04920513762369044
+Entry point for TestExtensionMechanismsFactory.testDelete
+9 9
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+Entry point for TestExtensionMechanismsHelper.testGetAllPossibleStereotypesStereotypeInContainingPackage
+0 0
+Entry point for TestExtensionMechanismsHelper.testGetMetaModelName
+0 0
+Entry point for TestExtensionMechanismsHelper.testTagDefinitions
+10 9
+org.argouml.model.TestExtensionMechanismsHelper.testTagDefinitions() 18.9 31.3 12.400000000000002
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+Entry point for TestFigClonable.testCompositeStateClonable
+10 10
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object) null 3.6333333333333333 3.6333333333333333
+org.argouml.notation.providers.uml.ModelElementNameNotationUml.toString(java.lang.Object,org.argouml.notation.NotationSettings) 0.05172413793103448 0.05517241379310345 0.0034482758620689655
+org.argouml.uml.diagram.state.ui.FigState.createBigPortFig() null 0.5166666666666667 0.5166666666666667
+Entry point for TestFigClonable.testFinalStateClonable
+7 7
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+Entry point for TestFigClonable.testInitialStateClonable
+8 8
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+org.argouml.uml.diagram.state.ui.FigInitialState.createBigPortFig() null 0.0 0.0
+Entry point for TestFigClonable.testJoinStateClonable
+8 8
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+org.argouml.uml.diagram.state.ui.FigJoinState.createBigPortFig() null 0.0 0.0
+Entry point for TestFigClonable.testShallowHistoryStateClonable
+8 8
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+org.argouml.uml.diagram.state.ui.FigHistoryState.createBigPortFig() null 0.0 0.0
+Entry point for TestGoalModel.testBasics
+0 0
+Entry point for TestItemUID.testAssignIDsToObjects
+35 35
+org.argouml.i18n.Translator.localize(java.lang.String,java.lang.Object[]) 0.07045454545454545 0.17777777777777778 0.10732323232323233
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+org.argouml.model.mdr.FacadeMDRImpl.getTriggers(java.lang.Object) null 0.39375 0.39375
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.initialiseListener(java.lang.Object) null 0.21395348837209302 0.21395348837209302
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ActionStateNotation.initialiseListener(java.lang.Object) null 1.175 1.175
+org.argouml.notation.providers.ClassifierRoleNotation.initialiseListener(java.lang.Object) null 0.0 0.0
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+org.argouml.notation.providers.NodeInstanceNotation.initialiseListener(java.lang.Object) null 0.0 0.0
+org.argouml.notation.providers.ObjectNotation.initialiseListener(java.lang.Object) null 0.8 0.8
+org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object) null 3.6333333333333333 3.6333333333333333
+org.argouml.notation.providers.TransitionNotation.initialiseListener(java.lang.Object) null 2.05625 2.05625
+org.argouml.notation.providers.uml.ModelElementNameNotationUml.toString(java.lang.Object,org.argouml.notation.NotationSettings) 0.05172413793103448 0.05517241379310345 0.0034482758620689655
+org.argouml.uml.diagram.activity.ui.FigActionState.createBigPortFig() null 0.375 0.375
+org.argouml.uml.diagram.collaboration.ui.FigClassifierRole.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.deployment.ui.AbstractFigNode.createBigPortFig() null 0.44285714285714284 0.44285714285714284
+org.argouml.uml.diagram.deployment.ui.FigObject.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigBranchState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigForkState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigHistoryState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigInitialState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigJoinState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigState.createBigPortFig() null 0.5166666666666667 0.5166666666666667
+org.argouml.uml.diagram.static_structure.ui.FigClass.constructFigs(java.awt.Rectangle) 2.716666666666667 4.025 1.3083333333333336
+org.argouml.uml.diagram.static_structure.ui.FigLink.updateListeners(java.lang.Object,java.lang.Object) null 1.55 1.55
+org.argouml.uml.diagram.static_structure.ui.FigPackage$PackageBackground(org.argouml.uml.diagram.static_structure.ui.FigPackage,int,int,int,int,int,int) null 0.0 0.0
+org.argouml.uml.diagram.static_structure.ui.FigPackage.createBigPortFig() null 0.3 0.3
+org.argouml.uml.diagram.ui.FigCompartmentBox.createCompartments() null 1.6285714285714286 1.6285714285714286
+org.argouml.uml.diagram.ui.FigCompartmentBox.initialize() 0.0 0.32857142857142857 0.32857142857142857
+org.argouml.uml.diagram.ui.FigCompartmentBox.translate(int,int) 0.08 0.27 0.19
+Entry point for TestItemUID.testConstructors
+0 0
+Entry point for TestMessageNotationUml.testGenerateSequenceNumbers
+12 12
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.buildClassifierRole(java.lang.Object) 2.190909090909091 3.768181818181818 1.5772727272727272
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.buildInteraction(java.lang.Object) 2.1166666666666667 2.533333333333333 0.4166666666666665
+org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createLifeline() null 0.6111111111111112 0.6111111111111112
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+Entry point for TestModel2.testCollaborationsFactoryInstance
+0 0
+Entry point for TestModelElementNameNotationJava.testParsingPathAndModify
+1 1
+org.argouml.model.mdr.CoreHelperMDRImpl.isValidNamespace(java.lang.Object,java.lang.Object) 1.2 1.925 0.7250000000000001
+Entry point for TestModelElementNameNotationJava.testToStringForRealization
+1 1
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestModelEventPump.testPropertySetClass
+0 0
+Entry point for TestModelEventPump.testRemovedClass
+0 0
+Entry point for TestModelEventPump.testRoleAddedSet
+0 0
+Entry point for TestModelEventPump.testRoleAddedSetClass
+0 0
+Entry point for TestModelEventPump.testRoleRemovedSet
+0 0
+Entry point for TestModelFacade2.testSetModelElementContainer
+0 0
+Entry point for TestModelFacade2.testSetName
+0 0
+Entry point for TestModelManagementFactory.testCreates
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestModelManagementHelper.testGetAllModelElementsOfKindForTagDefinitionInStereotype
+8 8
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+Entry point for TestModelManagementHelper.testGetPathForTagDefinitionInStereotype
+8 8
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+Entry point for TestMultiEditorPane.testTargetSet
+0 0
+Entry point for TestMyTokenizer.testConstructor1
+1 1
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestMyTokenizer.testConstructor2
+1 1
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestMyTokenizer.testConstructor3
+1 1
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestMyTokenizer.testConstructor4
+1 1
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestMyTokenizer.testConstructor6
+1 1
+org.argouml.util.CustomSeparator.addChar(char) 0.0 4.3616537937301225E-4 4.3616537937301225E-4
+Entry point for TestMyTokenizer.testLineSeparator
+0 0
+Entry point for TestNotation.testAddingAndRemovingNotations
+1 1
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestNotationProvider.testToString
+1 1
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestNotationSettings.testMultiplicities
+0 0
+Entry point for TestNotationSettings.testShowInitialValues
+0 0
+Entry point for TestNotationSettings.testShowMultiplicities
+0 0
+Entry point for TestNotationSettings.testShowTypes
+0 0
+Entry point for TestOclInterpreter.testGetTriggers
+0 0
+Entry point for TestOsUtil.testTesters
+0 0
+Entry point for TestPersistenceManager.testSetSaveFileChooserFilters
+0 0
+Entry point for TestProfileConfigurationFilePersister.testProfileConfigurationParser
+0 0
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration
+19 19
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile
+13 12
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.persistence.TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile() 789.2 883.1 93.89999999999998
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+Entry point for TestProfileDefault.testLoadProfileModel
+20 19
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.TestProfileDefault.testLoadProfileModel() 419.8 728.4 308.59999999999997
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestProfileManagerImpl.testRegisterAndRemoveDummyProfile
+5 4
+org.argouml.profile.Profile.getLoadedPackages() null 0.0 0.0
+org.argouml.profile.internal.ProfileManagerImpl.loadDefaultProfilesfromConfiguration() 0.07272727272727272 0.16 0.08727272727272728
+org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile) 7.410526315789474 61.083333333333336 53.67280701754386
+org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile) null 170.38846153846154 170.38846153846154
+org.argouml.profile.internal.TestProfileManagerImpl.testRegisterAndRemoveDummyProfile() 0.0 1.6 1.6
+Entry point for TestProfileReference.testCtorInconsistentFileNameDetected
+0 0
+Entry point for TestProfileReference.testGetPath
+0 0
+Entry point for TestProfileReference.testGetPublicReference
+0 0
+Entry point for TestProject.testDeleteClassWithStateDiagram
+3 2
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.TestProject.testDeleteClassWithStateDiagram() 28.2 42.2 14.000000000000004
+org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object) 5.292307692307692 5.638461538461539 0.3461538461538467
+Entry point for TestProject.testDeleteOperationWithStateDiagram
+2 2
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object) 5.292307692307692 5.638461538461539 0.3461538461538467
+Entry point for TestProject.testDeletePackageWithClassDiagram
+1 1
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+Entry point for TestProject.testDeletePackageWithPackageWithActivityDiagram
+1 1
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+Entry point for TestProject.testMakeUntitledProject
+0 0
+Entry point for TestProject.testRemove
+86 86
+org.argouml.i18n.Translator.localize(java.lang.String,java.lang.Object[]) 0.07045454545454545 0.17777777777777778 0.10732323232323233
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.FacadeMDRImpl.getTriggers(java.lang.Object) null 0.39375 0.39375
+org.argouml.model.mdr.FacadeMDRImpl.isAConnectorEnd(java.lang.Object) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.ModelEventPumpMDRImpl.addModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.021395348837209303 0.031983805668016195 0.010588456830806892
+org.argouml.model.mdr.ModelEventPumpMDRImpl.removeModelEventListener(java.beans.PropertyChangeListener,java.lang.Object) 0.0 0.006944444444444444 0.006944444444444444
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix() null 0.07079646017699115 0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap() 0.0 0.22857142857142856 0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getIdToObjectMaps() null 0.0 0.0
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.notation.NotationProvider.addElementListener(java.lang.Object,java.lang.String[]) null 0.09454545454545454 0.09454545454545454
+org.argouml.notation.NotationProvider.cleanListener() null 0.02711111111111111 0.02711111111111111
+org.argouml.notation.NotationProvider.initialiseListener(java.lang.Object) null 0.21395348837209302 0.21395348837209302
+org.argouml.notation.NotationProvider.removeAllElementListeners() null 0.02711111111111111 0.02711111111111111
+org.argouml.notation.NotationProvider.removeAllElementListeners(java.beans.PropertyChangeListener) 0.006818181818181818 0.020444444444444446 0.013626262626262629
+org.argouml.notation.NotationProvider.setRenderer(org.argouml.notation.NotationRenderer) null 0.0 0.0
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationName) 0.34657534246575344 0.3947598253275109 0.04818448286175747
+org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,org.argouml.notation.NotationRenderer,org.argouml.notation.NotationName) null 0.8445414847161572 0.8445414847161572
+org.argouml.notation.providers.ActionStateNotation.initialiseListener(java.lang.Object) null 1.175 1.175
+org.argouml.notation.providers.AssociationEndNameNotation.initialiseListener(java.lang.Object) null 0.0 0.0
+org.argouml.notation.providers.AssociationNameNotation.initialiseListener(java.lang.Object) null 0.13333333333333333 0.13333333333333333
+org.argouml.notation.providers.AssociationRoleNotation.initialiseListener(java.lang.Object) null 0.75 0.75
+org.argouml.notation.providers.AttributeNotation.initialiseListener(java.lang.Object) null 0.17777777777777778 0.17777777777777778
+org.argouml.notation.providers.ClassifierRoleNotation.initialiseListener(java.lang.Object) null 0.0 0.0
+org.argouml.notation.providers.MessageNotation.initialiseListener(java.lang.Object) null 6.15 6.15
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.lang.Object) null 0.1784090909090909 0.1784090909090909
+org.argouml.notation.providers.NodeInstanceNotation.initialiseListener(java.lang.Object) null 0.0 0.0
+org.argouml.notation.providers.OperationNotation.initialiseListener(java.lang.Object) null 0.248 0.248
+org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.lang.Object) null 3.6333333333333333 3.6333333333333333
+org.argouml.notation.providers.TransitionNotation.initialiseListener(java.lang.Object) null 2.05625 2.05625
+org.argouml.notation.providers.uml.AttributeNotationUml.toString(java.lang.Object,boolean,boolean,boolean,boolean,boolean,boolean) 0.15 0.16 0.010000000000000009
+org.argouml.notation.providers.uml.ModelElementNameNotationUml.toString(java.lang.Object,org.argouml.notation.NotationSettings) 0.05172413793103448 0.05517241379310345 0.0034482758620689655
+org.argouml.notation.providers.uml.NotationUtilityUml.formatNameList(java.util.Collection,java.lang.String) null 0.0 0.0
+org.argouml.persistence.ModelMemberFilePersister.load(org.argouml.kernel.Project,org.xml.sax.InputSource) 395.2 827.225 432.02500000000003
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram) 1.4363636363636365 12.607692307692307 11.17132867132867
+org.argouml.persistence.PGMLStackParser.getOwner(java.lang.String,java.lang.String) 0.020253164556962026 0.07848101265822785 0.05822784810126583
+org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean) 86.50909090909092 113.9 27.39090909090909
+org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean) 86.50909090909092 113.77692307692308 27.267832167832168
+org.argouml.persistence.PGMLStackParser.setAttrs(org.tigris.gef.presentation.Fig,org.xml.sax.Attributes) 0.19908256880733946 0.22035398230088496 0.0212714134935455
+org.argouml.persistence.PGMLStackParser.setStyleAttributes(org.tigris.gef.presentation.Fig,java.util.Map) 0.13043478260869565 0.1673913043478261 0.036956521739130443
+org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr) 962.5 1447.675 485.17499999999995
+org.argouml.persistence.UmlFilePersister.getPersistenceVersionFromFile(java.io.File) 0.0 0.64 0.64
+org.argouml.persistence.UmlFilePersister.getReleaseVersion(java.io.InputStream) 0.0 0.42727272727272725 0.42727272727272725
+org.argouml.persistence.UmlFilePersister.getReleaseVersionFromFile(java.io.File) 0.0 0.5166666666666667 0.5166666666666667
+org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File) 986.9666666666667 1468.85 481.8833333333332
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+org.argouml.uml.diagram.activity.ui.FigActionState.createBigPortFig() null 0.375 0.375
+org.argouml.uml.diagram.collaboration.ui.FigClassifierRole.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.deployment.ui.AbstractFigNode.createBigPortFig() null 0.44285714285714284 0.44285714285714284
+org.argouml.uml.diagram.state.ui.FigHistoryState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigInitialState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigJoinState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigJunctionState.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.state.ui.FigState.createBigPortFig() null 0.5166666666666667 0.5166666666666667
+org.argouml.uml.diagram.static_structure.ui.FigClass.constructFigs(java.awt.Rectangle) 2.716666666666667 4.025 1.3083333333333336
+org.argouml.uml.diagram.static_structure.ui.FigComment.createBigPortFig() null 0.0 0.0
+org.argouml.uml.diagram.static_structure.ui.FigEdgeNote.removeFromDiagram() null 0.0 0.0
+org.argouml.uml.diagram.static_structure.ui.FigLink.updateListeners(java.lang.Object,java.lang.Object) null 1.55 1.55
+org.argouml.uml.diagram.static_structure.ui.FigPackage$PackageBackground(org.argouml.uml.diagram.static_structure.ui.FigPackage,int,int,int,int,int,int) null 0.0 0.0
+org.argouml.uml.diagram.static_structure.ui.FigPackage.createBigPortFig() null 0.3 0.3
+org.argouml.uml.diagram.static_structure.ui.FigPackage.updateBounds() null 0.21428571428571427 0.21428571428571427
+org.argouml.uml.diagram.ui.FigAssociation.propertyChange(java.beans.PropertyChangeEvent) null 0.186318407960199 0.186318407960199
+org.argouml.uml.diagram.ui.FigAssociation.removeFromDiagramImpl() null 1.45625 1.45625
+org.argouml.uml.diagram.ui.FigCompartmentBox.createCompartments() null 1.6285714285714286 1.6285714285714286
+org.argouml.uml.diagram.ui.FigCompartmentBox.initialize() 0.0 0.32857142857142857 0.32857142857142857
+org.argouml.uml.diagram.ui.FigCompartmentBox.showCompartment(java.lang.Object,boolean) 0.11538461538461539 0.17692307692307693 0.06153846153846154
+org.argouml.uml.diagram.ui.FigCompartmentBox.translate(int,int) 0.08 0.27 0.19
+org.argouml.uml.diagram.ui.FigEdgeModelElement.computeRouteImpl() 0.4096774193548387 2.6193548387096772 2.2096774193548385
+org.argouml.uml.diagram.ui.FigEdgeModelElement.removeFromDiagramImpl() 0.4774193548387097 0.5032258064516129 0.02580645161290318
+org.argouml.uml.diagram.ui.FigSingleLineTextWithNotation.initNotationProviders() 0.2905405405405405 0.35119047619047616 0.06064993564993565
+org.argouml.uml.diagram.use_case.ui.FigActor.constructFigs(java.awt.Rectangle) 1.56 3.8 2.2399999999999998
+org.argouml.uml.diagram.use_case.ui.FigUseCase.createBigPortFig() 0.0 0.25 0.25
+Entry point for TestProjectManager.testMakeEmptyProject
+19 19
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestProjectSettings.testGuillemots
+9 9
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.ProjectSettings.doUndoable(org.tigris.gef.undo.Memento) 0.8666666666666667 1.0444444444444445 0.1777777777777778
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration
+22 22
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String) null 432.1698113207547 432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileMeta.getModel() null 38.597345132743364 38.597345132743364
+org.argouml.profile.internal.ProfileMeta.getProfilePackages() 0.0 38.597345132743364 38.597345132743364
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
+57 55
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.TestProjectWithProfiles.saveProject(org.argouml.kernel.Project,java.io.File) null 152.2 152.2
+org.argouml.kernel.TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency() 950.1 1230.7 280.6
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix() null 0.07079646017699115 0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap() 0.0 0.22857142857142856 0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getIdToObjectMaps() null 0.0 0.0
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String) null 432.1698113207547 432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.persistence.ModelMemberFilePersister.load(org.argouml.kernel.Project,org.xml.sax.InputSource) 395.2 827.225 432.02500000000003
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram) 1.4363636363636365 12.607692307692307 11.17132867132867
+org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean) 86.50909090909092 113.9 27.39090909090909
+org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean) 86.50909090909092 113.77692307692308 27.267832167832168
+org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr) 962.5 1447.675 485.17499999999995
+org.argouml.persistence.UmlFilePersister.getPersistenceVersionFromFile(java.io.File) 0.0 0.64 0.64
+org.argouml.persistence.UmlFilePersister.getReleaseVersion(java.io.InputStream) 0.0 0.42727272727272725 0.42727272727272725
+org.argouml.persistence.UmlFilePersister.getReleaseVersionFromFile(java.io.File) 0.0 0.5166666666666667 0.5166666666666667
+org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File) 986.9666666666667 1468.85 481.8833333333332
+org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String) null 33.26470588235294 33.26470588235294
+org.argouml.profile.UserDefinedProfile.filterPackages(java.util.Collection) null 0.0 0.0
+org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel() 1.175 513.0142857142857 511.8392857142857
+org.argouml.profile.UserDefinedProfile.getCritics() null 299.3833333333333 299.3833333333333
+org.argouml.profile.UserDefinedProfile.getProfilePackages() 0.0 138.50689655172414 138.50689655172414
+org.argouml.profile.UserDefinedProfile.loadDependentProfiles(java.lang.Object) null 0.10344827586206896 0.10344827586206896
+org.argouml.profile.UserDefinedProfile.loadDependentProfilesUml1(java.lang.Object) null 0.05172413793103448 0.05172413793103448
+org.argouml.profile.UserDefinedProfile.loadFigNodes(java.util.Collection) null 0.04838709677419355 0.04838709677419355
+org.argouml.profile.UserDefinedProfile.loadModel() null 145.8741935483871 145.8741935483871
+org.argouml.profile.internal.ProfileManagerImpl.loadDefaultProfilesfromConfiguration() 0.07272727272727272 0.16 0.08727272727272728
+org.argouml.profile.internal.ProfileManagerImpl.registerProfile(org.argouml.profile.Profile) 7.410526315789474 61.083333333333336 53.67280701754386
+org.argouml.profile.internal.ProfileManagerImpl.registerProfileInternal(org.argouml.profile.Profile) null 170.38846153846154 170.38846153846154
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileMeta.getModel() null 38.597345132743364 38.597345132743364
+org.argouml.profile.internal.ProfileMeta.getProfilePackages() 0.0 38.597345132743364 38.597345132743364
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.UUIDHelper.getUUID(java.lang.Object) 0.0 0.1875 0.1875
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile
+39 37
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.TestProjectWithProfiles.saveProject(org.argouml.kernel.Project,java.io.File) null 152.2 152.2
+org.argouml.kernel.TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile() 1177.8 1659.9 482.10000000000014
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix() null 0.07079646017699115 0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap() 0.0 0.22857142857142856 0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getIdToObjectMaps() null 0.0 0.0
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String) null 432.1698113207547 432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.persistence.ModelMemberFilePersister.load(org.argouml.kernel.Project,org.xml.sax.InputSource) 395.2 827.225 432.02500000000003
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.PGMLStackParser.attachEdges(org.tigris.gef.base.Diagram) 1.4363636363636365 12.607692307692307 11.17132867132867
+org.argouml.persistence.PGMLStackParser.readArgoDiagram(org.xml.sax.InputSource,boolean) 86.50909090909092 113.9 27.39090909090909
+org.argouml.persistence.PGMLStackParser.readDiagram(java.io.InputStream,boolean) 86.50909090909092 113.77692307692308 27.267832167832168
+org.argouml.persistence.UmlFilePersister.doLoad(java.io.File,java.io.File,org.argouml.persistence.AbstractFilePersister.ProgressMgr) 962.5 1447.675 485.17499999999995
+org.argouml.persistence.UmlFilePersister.getPersistenceVersionFromFile(java.io.File) 0.0 0.64 0.64
+org.argouml.persistence.UmlFilePersister.getReleaseVersion(java.io.InputStream) 0.0 0.42727272727272725 0.42727272727272725
+org.argouml.persistence.UmlFilePersister.getReleaseVersionFromFile(java.io.File) 0.0 0.5166666666666667 0.5166666666666667
+org.argouml.persistence.ZargoFilePersister.doLoad(java.io.File) 986.9666666666667 1468.85 481.8833333333332
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileMeta.getModel() null 38.597345132743364 38.597345132743364
+org.argouml.profile.internal.ProfileMeta.getProfilePackages() 0.0 38.597345132743364 38.597345132743364
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.UUIDHelper.getUUID(java.lang.Object) 0.0 0.1875 0.1875
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestResolvedCritic.testEquals
+2 2
+org.argouml.application.helpers.ApplicationVersion.getStableVersion() null 0.003800475059382423 0.003800475059382423
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestSourcePathController.testGetSourcePathSettings
+0 0
+Entry point for TestSourcePathController.testSimpleGetSourcePath
+0 0
+Entry point for TestStandardCM.testDesignGoalsCM
+2 2
+org.argouml.application.helpers.ApplicationVersion.getStableVersion() null 0.003800475059382423 0.003800475059382423
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestStandardCM.testEnabledCM
+2 2
+org.argouml.application.helpers.ApplicationVersion.getStableVersion() null 0.003800475059382423 0.003800475059382423
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestStateMachinesHelper.testCompositeStates
+2 2
+org.argouml.model.mdr.StateMachinesFactoryMDRImpl.buildStateMachine(java.lang.Object) 5.292307692307692 5.638461538461539 0.3461538461538467
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestStateMachinesHelper.testGetMetaModelName
+0 0
+Entry point for TestStringNamespace.testToString
+0 0
+Entry point for TestTabChecklist.testIcon
+0 0
+Entry point for TestTabDiagram.testSetTargetWithDiagram
+0 0
+Entry point for TestTabDiagram.testSetTargetWithNoDiagram
+0 0
+Entry point for TestTabText.testIcon
+0 0
+Entry point for TestTabs.testTabStyleIcon
+0 0
+Entry point for TestTabs.testTabTaggedValuesIcon
+1 1
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+Entry point for TestTargetManager.testGetInstance
+0 0
+Entry point for TestTargetManager.testGetModelTarget
+2 1
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.ui.targetmanager.TestTargetManager.testGetModelTarget() 14.1 26.5 12.4
+Entry point for TestTargetManager.testNavigate
+0 0
+Entry point for TestTargetManager.testRemoveTarget
+0 0
+Entry point for TestTargetManager.testSetTarget
+0 0
+Entry point for TestTargetManager.testSetTargets
+0 0
+Entry point for TestTransitionNotationUml.testParseTriggerChangeEvent
+4 4
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.equal(org.omg.uml.foundation.datatypes.Expression,org.omg.uml.foundation.datatypes.Expression) null 0.013559322033898305 0.013559322033898305
+org.argouml.model.mdr.CommonBehaviorHelperMDRImpl.setScript(java.lang.Object,java.lang.Object) 0.26477272727272727 0.28771929824561404 0.02294657097288677
+org.argouml.notation.providers.uml.TransitionNotationUml.findOrBuildChangeEvent(java.lang.String,java.lang.Object) null 1.525 1.525
+Entry point for TestTranslator.testSetLocaleString
+0 0
+Entry point for TestUMLExtensionPointLocationDocument.testInsertStringHalfway
+0 0
+Entry point for TestUMLExtensionPointLocationDocument.testRemoveName
+0 0
+Entry point for TestUMLExtensionPointLocationDocument.testRemoveStringHalfway
+0 0
+Entry point for TestUMLExtensionPointLocationDocument.testSetName
+0 0
+Entry point for TestUMLModelElementNameDocument.testInsertStringHalfway
+0 0
+Entry point for TestUMLModelElementNameDocument.testRemoveName
+0 0
+Entry point for TestUMLModelElementNameDocument.testRemoveStringHalfway
+0 0
+Entry point for TestUmlActor.testActor
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUmlExtend.testExtendIsCorrect
+0 0
+Entry point for TestUmlExtend.testSetExtensionPoints
+0 0
+Entry point for TestUmlExtend.testUsecasesHaveExtend
+0 0
+Entry point for TestUmlFactory.testBuildConnection
+3 3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Integer[],java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.3 4.3
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEndInternal(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object) null 4.047727272727273 4.047727272727273
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUmlFactoryBuildNode.testBuildCollaborationsNodes
+0 0
+Entry point for TestUmlFactoryBuildNode.testBuildCoreNodes
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUmlGeneralization.testDeleteClass
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUmlModel.testNamespace
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUmlUseCase.testUseCase
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUseCasesFactory.testCreates
+1 1
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+Entry point for TestUseCasesFactory.testSingleton
+0 0
+Entry point for TestUseCasesHelper.testGetMetaModelName
+0 0
+Entry point for TestUseCasesHelper.testIsValidStereoType
+0 0
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar
+29 28
+org.argouml.application.helpers.ApplicationVersion.getStableVersion() null 0.003800475059382423 0.003800475059382423
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String) null 33.26470588235294 33.26470588235294
+org.argouml.profile.TestUserDefinedProfile.testLoadingAsFromJar() 246.4 338.7 92.29999999999998
+org.argouml.profile.URLModelLoader.loadModel(org.argouml.profile.ProfileReference) 213.5 260.7 47.19999999999999
+org.argouml.profile.UserDefinedProfile.filterPackages(java.util.Collection) null 0.0 0.0
+org.argouml.profile.UserDefinedProfile.getAllCritiquesInModel() 1.175 513.0142857142857 511.8392857142857
+org.argouml.profile.UserDefinedProfile.getCritics() null 299.3833333333333 299.3833333333333
+org.argouml.profile.UserDefinedProfile.getDisplayName() 0.0 252.7 252.7
+org.argouml.profile.UserDefinedProfile.getLoadedPackages() null 0.0 0.0
+org.argouml.profile.UserDefinedProfile.getProfilePackages() 0.0 138.50689655172414 138.50689655172414
+org.argouml.profile.UserDefinedProfile.loadFigNodes(java.util.Collection) null 0.04838709677419355 0.04838709677419355
+org.argouml.profile.UserDefinedProfile.loadModel() null 145.8741935483871 145.8741935483871
+Entry point for TestUserDefinedProfile.testLoadingConstructor
+27 26
+org.argouml.model.mdr.CoreHelperMDRImpl.createMultiplicity(java.lang.String) null 1.387037037037037 1.387037037037037
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.String) null 1.762962962962963 1.762962962962963
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicityInternal(java.lang.Object,org.omg.uml.foundation.datatypes.Multiplicity) null 0.3611111111111111 0.3611111111111111
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityRange(java.lang.String) 0.21136363636363636 0.44722222222222224 0.23585858585858588
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.parseRanges(java.lang.String) 0.21136363636363636 0.8388888888888889 0.6275252525252526
+org.argouml.model.mdr.FacadeMDRImpl.getMultiplicity(java.lang.Object) 0.0 0.017228464419475654 0.017228464419475654
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,int,int) null 2.6337078651685393 2.6337078651685393
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.ProfileMother.createSimpleProfileModel(java.lang.String) null 33.26470588235294 33.26470588235294
+org.argouml.profile.TestUserDefinedProfile.testLoadingConstructor() 594.3 684.8 90.5
+org.argouml.profile.UserDefinedProfile.filterPackages(java.util.Collection) null 0.0 0.0
+org.argouml.profile.UserDefinedProfile.getDisplayName() 0.0 252.7 252.7
+org.argouml.profile.UserDefinedProfile.getLoadedPackages() null 0.0 0.0
+org.argouml.profile.UserDefinedProfile.loadDependentProfiles(java.lang.Object) null 0.10344827586206896 0.10344827586206896
+org.argouml.profile.UserDefinedProfile.loadDependentProfilesUml1(java.lang.Object) null 0.05172413793103448 0.05172413793103448
+org.argouml.profile.UserDefinedProfile.loadFigNodes(java.util.Collection) null 0.04838709677419355 0.04838709677419355
+org.argouml.profile.UserDefinedProfile.loadModel() null 145.8741935483871 145.8741935483871
+Entry point for TestUserProfileReference.testCtorFailsWhenFileNameIsEmpty
+0 0
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel
+30 30
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.ProjectImpl.updateRoots() null 0.0 0.0
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicityInternal(int,int) null 0.9842105263157894 0.9842105263157894
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getDataTypesFactoryInternal() null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix() null 0.07079646017699115 0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap() 0.0 0.22857142857142856 0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getIdToObjectMaps() null 0.0 0.0
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String) null 432.1698113207547 432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.ModelMemberFilePersister.registerDiagramsInternal(org.argouml.kernel.Project,java.util.Collection,boolean) 14.133333333333333 16.166666666666668 2.033333333333335
+org.argouml.persistence.XmiFilePersister.doLoad(java.io.File) 517.9 550.0333333333333 32.133333333333326
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestXmiFilePersister.testLoadBadHref
+23 23
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String) null 432.1698113207547 432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.readExternalDocument(java.lang.String) 55.99230769230769 222.76190476190476 166.76959706959707
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.model.mdr.XmiReferenceResolverImpl.toURL(java.lang.String) 66.83103448275862 834.9268292682926 768.095794785534
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.XmiFilePersister.doLoad(java.io.File) 517.9 550.0333333333333 32.133333333333326
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestXmiFilePersister.testLoadProject
+29 28
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.ProjectImpl.updateRoots() null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix() null 0.07079646017699115 0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap() 0.0 0.22857142857142856 0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getIdToObjectMaps() null 0.0 0.0
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReference(java.lang.String,java.lang.String) null 432.1698113207547 432.1698113207547
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.ModelMemberFilePersister.registerDiagramsInternal(org.argouml.kernel.Project,java.util.Collection,boolean) 14.133333333333333 16.166666666666668 2.033333333333335
+org.argouml.persistence.TestXmiFilePersister.testLoadProject() 350.9 706.7 355.80000000000007
+org.argouml.persistence.XmiFilePersister.doLoad(java.io.File) 517.9 550.0333333333333 32.133333333333326
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestXmiFilePersister.testLoadProject13
+27 27
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.kernel.ProjectImpl.updateRoots() null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.convertAndLoadUml13(java.lang.String,javax.jmi.reflect.RefPackage,org.netbeans.api.xmi.XMIReader,org.xml.sax.InputSource) 839.1 949.6 110.5
+org.argouml.model.mdr.XmiReaderImpl.copySource(org.xml.sax.InputSource) 10.923809523809524 23.72 12.796190476190475
+org.argouml.model.mdr.XmiReaderImpl.getTempXMIFileURIPrefix() null 0.07079646017699115 0.07079646017699115
+org.argouml.model.mdr.XmiReaderImpl.getXMIUUIDToObjectMap() 0.0 0.22857142857142856 0.22857142857142856
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReaderImpl.serialTransform(java.lang.String[],org.xml.sax.InputSource) 659.7 785.9 126.19999999999993
+org.argouml.model.mdr.XmiReferenceResolverImpl.getIdToObjectMaps() null 0.0 0.0
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.persistence.ModelMemberFilePersister.readModels(org.xml.sax.InputSource) 440.1166666666667 693.0285714285715 252.9119047619048
+org.argouml.persistence.ModelMemberFilePersister.registerDiagramsInternal(org.argouml.kernel.Project,java.util.Collection,boolean) 14.133333333333333 16.166666666666668 2.033333333333335
+org.argouml.persistence.XmiFilePersister.doLoad(java.io.File) 517.9 550.0333333333333 32.133333333333326
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+Entry point for TestXmiFilePersister.testSave
+19 19
+org.argouml.application.helpers.ResourceLoader.lookupIconResource(java.lang.String,java.lang.String) 2.7810169491525425 3.0490981963927855 0.26808124724024296
+org.argouml.kernel.ProfileConfiguration.addProfile(org.argouml.profile.Profile,java.lang.Object) 1.375 27.6131090487239 26.2381090487239
+org.argouml.kernel.ProjectImpl.setDirty(boolean) null 0.007709130672498633 0.007709130672498633
+org.argouml.model.mdr.MDRModelImplementation$Extent(org.argouml.model.mdr.MDRModelImplementation,java.lang.String,boolean) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getExtent(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.MDRModelImplementation.getIdToObject() null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.buildValidContainmentMap() 0.037914691943127965 0.13314447592067988 0.09522978397755191
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentElements(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.UmlFactoryMDRImpl.getExtentPackages(java.lang.String) null 0.0 0.0
+org.argouml.model.mdr.XmiReaderImpl.parse(org.xml.sax.InputSource,boolean) 307.2736842105263 349.9102564102564 42.6365721997301
+org.argouml.model.mdr.XmiReferenceResolverImpl.getReferenceInt(java.lang.String,java.lang.String) null 0.002367681152271494 0.002367681152271494
+org.argouml.model.mdr.XmiReferenceResolverImpl.register(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) 0.02621967838648133 0.04603758576116138 0.019817907374680054
+org.argouml.model.mdr.XmiReferenceResolverImpl.registerInt(java.lang.String,java.lang.String,javax.jmi.reflect.RefObject) null 0.016403280656131225 0.016403280656131225
+org.argouml.profile.internal.ProfileMeta.getCritics() null 0.4642857142857143 0.4642857142857143
+org.argouml.profile.internal.ProfileUML.getCritics() null 5.741463414634146 5.741463414634146
+org.argouml.profile.internal.ProfileUML.getModel() null 8.758986574274578 8.758986574274578
+org.argouml.profile.internal.ProfileUML.getProfilePackages() 0.0 35.18608695652174 35.18608695652174
+org.argouml.uml.cognitive.critics.ProfileCodeGeneration.getCritics() null 1.2548780487804878 1.2548780487804878
+org.argouml.uml.cognitive.critics.ProfileGoodPractices.getCritics() null 0.8719512195121951 0.8719512195121951
+171
+153

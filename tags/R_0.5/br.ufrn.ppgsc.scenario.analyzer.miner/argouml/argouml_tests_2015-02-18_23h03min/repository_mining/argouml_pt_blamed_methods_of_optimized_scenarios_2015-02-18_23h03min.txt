@@ -1,0 +1,968 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 44
+Number of scenarios (include empties): 45
+Entry point for AbstractTestActionAddDiagram.testCreateDiagram
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;240;100;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;120;60;
+			Revision: 18216
+				Issues: 6053;6048
+Entry point for AbstractTestMissingName.testHasName
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;80;80;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;40;40;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestActionCollaborationDiagram.testValidNamespaces
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;110;110;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;10;10;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;120;120;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent)
+		Time: 35.845454545454544;1.2;34.64545454545454;10;10;
+			Revision: 19614
+				Issues: 0
+Entry point for TestActionStateDiagram.testValidNamespaces
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;460;460;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;120;120;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;430;430;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent)
+		Time: 35.845454545454544;1.2;34.64545454545454;60;60;
+			Revision: 19614
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
+	Number of methods: 10
+	Number of methods (exclude word applied): 9
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;510;710;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11()
+		Time: 1.4333333333333333;0.9890909090909091;0.4442424242424242;30;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;50;50;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;146;170;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;620;800;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;30;30;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeMultiplicity()
+		Time: 51.4;23.5;27.9;10;10;
+			Revision: 18760
+				Issues: 6155
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;30;30;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
+	Number of methods: 7
+	Number of methods (exclude word applied): 6
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;260;290;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11()
+		Time: 1.4333333333333333;0.9890909090909091;0.4442424242424242;20;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;248;250;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;380;450;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;20;20;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace()
+		Time: 29.7;12.7;17.0;10;10;
+			Revision: 18255
+				Issues: 0
+			Revision: 18615
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;20;20;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
+	Number of methods: 11
+	Number of methods (exclude word applied): 9
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;510;710;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11()
+		Time: 1.4333333333333333;0.9890909090909091;0.4442424242424242;30;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;50;50;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;146;170;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;560;800;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;30;30;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.checkProperties(java.lang.Object,java.lang.String,java.lang.String[])
+		Time: 9.6;6.671428571428572;2.928571428571428;30;30;
+			Revision: 19264
+				Issues: 4252
+			Revision: 18615
+				Issues: 0
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeProperty()
+		Time: 48.2;23.3;24.900000000000002;10;10;
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;30;30;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
+	Number of methods: 7
+	Number of methods (exclude word applied): 6
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;480;440;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11()
+		Time: 1.4333333333333333;0.9890909090909091;0.4442424242424242;50;50;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;640;350;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;550;560;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;40;40;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeStereotype()
+		Time: 59.3;21.7;37.599999999999994;10;10;
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;40;40;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
+	Number of methods: 10
+	Number of methods (exclude word applied): 9
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;990;1200;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.getMultiplicity11()
+		Time: 1.4333333333333333;0.9890909090909091;0.4442424242424242;70;70;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;20;20;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;1244;1370;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;1050;1270;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+		Time: 8.4575;6.705555555555556;1.7519444444444439;90;90;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeValue()
+		Time: 134.3;60.8;73.50000000000001;10;10;
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;90;90;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
+	Number of methods: 5
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;60;40;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;210;210;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testGetHelpOperation()
+		Time: 15.7;3.2;12.5;10;10;
+			Revision: 18255
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+	Number of methods: 12
+	Number of methods (exclude word applied): 11
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;690;1230;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;60;100;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;60;100;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;0;30;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;1010;2450;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;826;1740;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;30;40;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
+		Time: 12.084615384615384;7.748484848484848;4.336130536130536;30;50;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationName()
+		Time: 81.1;59.1;21.999999999999993;10;10;
+			Revision: 19264
+				Issues: 4252
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;30;50;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+	Number of methods: 12
+	Number of methods (exclude word applied): 11
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;930;1500;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;70;100;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;70;100;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;0;30;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;742;2640;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;820;1730;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;50;60;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
+		Time: 12.084615384615384;7.748484848484848;4.336130536130536;50;60;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationParameters()
+		Time: 74.9;53.1;21.800000000000004;10;10;
+			Revision: 19264
+				Issues: 4252
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;50;60;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+	Number of methods: 12
+	Number of methods (exclude word applied): 11
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;1045;1540;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;80;110;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;80;110;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;30;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTaggedValue(org.omg.uml.foundation.core.TagDefinition)
+		Time: 1.1057142857142856;0.5149253731343284;0.5907889125799572;0;30;
+			Revision: 19263
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;1146;2610;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;1096;1880;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;60;70;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
+		Time: 12.084615384615384;7.748484848484848;4.336130536130536;60;70;
+			Revision: 19264
+				Issues: 4252
+	org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationVisibility()
+		Time: 251.3;79.5;171.8;10;10;
+			Revision: 19264
+				Issues: 4252
+			Revision: 18255
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;60;70;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleName
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;310;260;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createClassifierRole()
+		Time: 1.285;0.6111111111111112;0.6738888888888888;20;20;
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;440;410;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;410;410;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestClassifierRoleNotationUml.testGetHelp
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createClassifierRole()
+		Time: 1.285;0.6111111111111112;0.6738888888888888;10;10;
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;10;10;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestCoreFactory.testDeleteClassifierAssociation
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;500;420;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestCoreFactory.testDeleteModelelementClassSelfAssociations
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;740;540;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestCrNameConflict.testPredicate
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;170;170;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;830;650;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestCrNoAssociations.testUseCaseAssociation
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;80;80;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;250;190;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestDetailsPane.testTargetSet
+	Number of methods: 1
+	Number of methods (exclude word applied): 0
+	org.argouml.ui.TestDetailsPane.testTargetSet()
+		Time: 1263.7;563.2;700.5;10;10;
+			Revision: 18975
+				Issues: 0
+			Revision: 18247
+				Issues: 0
+Entry point for TestDiagramFactory.testCreateDefaultDiagram
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;110;40;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;40;10;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;20;20;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestEnumerationLiteralNotationUml.testEnumerationLiteralName
+	Number of methods: 5
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;859;810;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;3401;3380;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;370;370;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.TestEnumerationLiteralNotationUml.testEnumerationLiteralName()
+		Time: 349.6;115.6;234.00000000000003;10;10;
+			Revision: 18254
+				Issues: 0
+	org.argouml.uml.StereotypeUtility.dealWithStereotypes(java.lang.Object,java.lang.String,boolean)
+		Time: 1.367391304347826;0.9902654867256637;0.37712581762216235;200;200;
+			Revision: 19391
+				Issues: 0
+			Revision: 18880
+				Issues: 0
+Entry point for TestExtensionMechanismsHelper.testGetAllPossibleStereotypesStereotypeAndMEContainedInSubPackage
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for TestMessageNotationUml.testGenerateIssue5150
+	Number of methods: 6
+	Number of methods (exclude word applied): 6
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;0;280;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CollaborationsFactoryMDRImpl.createClassifierRole()
+		Time: 1.285;0.6111111111111112;0.6738888888888888;50;50;
+			Revision: 19138
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;110;110;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;930;960;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestProfileManagerImpl.testRemoveDefaultProfile
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile)
+		Time: 4.933333333333334;1.8333333333333333;3.1000000000000005;10;10;
+			Revision: 18253
+				Issues: 0
+Entry point for TestProfileMother.testSaveProfileModel
+	Number of methods: 6
+	Number of methods (exclude word applied): 5
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;0;10;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;0;10;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;10;20;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;170;290;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File)
+		Time: 208.23333333333332;135.66315789473686;72.57017543859646;10;10;
+			Revision: 18234
+				Issues: 5969;6008
+	org.argouml.profile.TestProfileMother.testSaveProfileModel()
+		Time: 382.2;128.0;254.2;10;10;
+			Revision: 18254
+				Issues: 0
+			Revision: 17979
+				Issues: 4997
+Entry point for TestProject.testTrashcanClassContent
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;280;280;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;20;20;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;20;20;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;750;750;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestProjectSettings.testVisibilityEvents
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;80;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;30;30;
+			Revision: 18216
+				Issues: 6053;6048
+Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;440;440;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;120;500;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;1150;1030;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String)
+		Time: 4.895238095238096;3.508235294117647;1.3870028011204485;120;120;
+			Revision: 18449
+				Issues: 5988
+Entry point for TestStateMachinesFactory.testDeleteTransition
+	Number of methods: 6
+	Number of methods (exclude word applied): 5
+	org.argouml.model.TestStateMachinesFactory.testDeleteTransition()
+		Time: 1570.9;722.2;848.7;10;10;
+			Revision: 18971
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;370;370;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.profile.init.InitProfileSubsystem.init()
+		Time: 932.3;328.675;603.625;10;10;
+			Revision: 18265
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.loadWellFormednessRules()
+		Time: 211.13333333333333;117.7;93.43333333333332;10;10;
+			Revision: 18257
+				Issues: 0
+Entry point for TestStylePanel.testTargetSet
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;10;10;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
+	org.argouml.profile.init.InitProfileSubsystem.init()
+		Time: 932.3;328.675;603.625;10;10;
+			Revision: 18265
+				Issues: 0
+	org.argouml.profile.internal.ProfileUML.loadWellFormednessRules()
+		Time: 211.13333333333333;117.7;93.43333333333332;10;10;
+			Revision: 18257
+				Issues: 0
+Entry point for TestTargetManager.testGetTargets
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;122;80;
+			Revision: 18968
+				Issues: 6179
+Entry point for TestTransitionNotationUml.testGetHelp
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;10;10;
+			Revision: 18269
+				Issues: 6008
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
+	Number of methods: 8
+	Number of methods (exclude word applied): 7
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;448;440;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;30;30;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;30;30;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;238;370;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;867;950;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;30;30;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.TestTransitionNotationUml.testParseTransitionCreate()
+		Time: 87.4;49.9;37.50000000000001;10;10;
+			Revision: 18445
+				Issues: 5983
+	org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String)
+		Time: 4.895238095238096;3.508235294117647;1.3870028011204485;70;90;
+			Revision: 18449
+				Issues: 5988
+Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
+	Number of methods: 7
+	Number of methods (exclude word applied): 7
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;36;20;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+		Time: 2.5238095238095237;1.570967741935484;0.9528417818740398;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(org.omg.uml.foundation.core.Classifier,javax.jmi.reflect.RefObject)
+		Time: 1.3285714285714285;0.7548387096774194;0.5737327188940091;10;10;
+			Revision: 18093
+				Issues: 0
+			Revision: 18095
+				Issues: 0
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;28;20;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;99;80;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+		Time: 7.355882352941176;3.58936170212766;3.7665206508135163;20;10;
+			Revision: 18770
+				Issues: 6145
+			Revision: 19741
+				Issues: 6377
+	org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String)
+		Time: 4.895238095238096;3.508235294117647;1.3870028011204485;20;20;
+			Revision: 18449
+				Issues: 5988
+Entry point for TestTransitionNotationUml.testParseTriggerTimeEvent
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;20;20;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;110;110;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String)
+		Time: 4.895238095238096;3.508235294117647;1.3870028011204485;20;20;
+			Revision: 18449
+				Issues: 5988
+Entry point for TestUMLActivityDiagram.testUMLActivityDiagram
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+Entry point for TestUMLClassDiagram.testUMLClassDiagram
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+Entry point for TestUMLCollaborationDiagram.testUMLCollaborationDiagram
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+Entry point for TestUMLDeploymentDiagram.testUMLDeploymentDiagram
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+Entry point for TestUMLFeatureOwnerScopeCheckBox.testDoClick
+	Number of methods: 3
+	Number of methods (exclude word applied): 3
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;100;30;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;10;10;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent)
+		Time: 35.845454545454544;1.2;34.64545454545454;10;10;
+			Revision: 19614
+				Issues: 0
+Entry point for TestUMLStateDiagram.testUMLStateDiagram
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
+	Number of methods: 6
+	Number of methods (exclude word applied): 6
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;150;190;
+			Revision: 18968
+				Issues: 6179
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
+		Time: 7.484615384615385;4.453846153846154;3.0307692307692307;20;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
+		Time: 7.846666666666667;4.604477611940299;3.242189054726368;20;20;
+			Revision: 18760
+				Issues: 6155
+	org.argouml.model.mdr.FacadeMDRImpl.getName(java.lang.Object)
+		Time: 0.05368354008067696;0.034012741549728026;0.019670798530948934;680;680;
+			Revision: 18216
+				Issues: 6053;6048
+	org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object)
+		Time: 0.06307283541341653;0.007242582897033159;0.05583025251638337;120;456;
+			Revision: 18269
+				Issues: 6008
+	org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object)
+		Time: 40.5;4.75;35.75;10;10;
+			Revision: 18442
+				Issues: 0
+Entry point for TestUMLUseCaseDiagram.testUMLUseCaseDiagram
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	org.argouml.kernel.ProjectManager.getCurrentProject()
+		Time: 1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;10;
+			Revision: 18968
+				Issues: 6179
+36
+21

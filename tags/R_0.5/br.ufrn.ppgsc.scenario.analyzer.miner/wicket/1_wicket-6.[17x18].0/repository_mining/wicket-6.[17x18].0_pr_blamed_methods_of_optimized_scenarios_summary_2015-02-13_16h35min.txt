@@ -1,0 +1,40 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 6
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage5
+4
+org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850
+org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760
+org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300
+4
+	org.apache.wicket.Component.internalOnRemove()
+		Time: 0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 0
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 0
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 0
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 3
+Revision (Issues): 0adb864ff18951a9630bd2339fb9e92963867d4a(0)
+Revision (Issues): 58fa34bc8ff9b531b61e9258ac33480296cc66f6(0)
+Revision (Issues): 9bd9d3679d90ed0192f4127373d34f7c43faa660(0)

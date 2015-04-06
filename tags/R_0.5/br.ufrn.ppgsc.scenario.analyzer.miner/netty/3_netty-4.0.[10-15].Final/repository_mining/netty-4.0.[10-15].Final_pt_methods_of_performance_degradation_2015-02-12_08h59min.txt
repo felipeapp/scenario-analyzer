@@ -1,0 +1,342 @@
+# Methods potentially blamed for performance degradation
+33
+io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel)
+22
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.util.TestUtils.testMethodName(org.junit.rules.TestName)
+22
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho()
+1
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+io.netty.testsuite.transport.socket.AbstractServerSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.buffer.ByteBufAllocator)
+2
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+io.netty.testsuite.transport.socket.SocketTestPermutation.serverSocket()
+15
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease()
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.DatagramUnicastTest.testSimpleSendWithoutBind()
+1
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.buffer.PooledByteBuf.deallocate()
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectCancellation()
+1
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel)
+22
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.buffer.AbstractByteBufAllocator.toString()
+16
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+io.netty.channel.DefaultChannelHandlerContext.safeExecute(io.netty.util.concurrent.EventExecutor,java.lang.Runnable,io.netty.channel.ChannelPromise,java.lang.Object)
+20
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.AbstractSocketTest.configure(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+13
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectCancellation(io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+io.netty.channel.DefaultChannelConfig.setOption(io.netty.channel.ChannelOption,java.lang.Object)
+22
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketTestPermutation.clientSocket()
+17
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketTestPermutation.datagram()
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
+1
+Entry point for SocketSslEchoTest.testSslEcho
+io.netty.testsuite.transport.socket.AbstractServerSocketTest.newFactories()
+2
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout()
+1
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+io.netty.testsuite.transport.socket.AbstractClientSocketTest.configure(io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+4
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.buffer.UnpooledUnsafeDirectByteBuf.freeDirect(java.nio.ByteBuffer)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.testsuite.transport.socket.SocketTestPermutation.socket()
+13
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long)
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.ChannelOption.valueOf(java.lang.String)
+15
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.AbstractClientSocketTest.newFactories()
+4
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketConnectionAttemptTest.testConnectTimeout(io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+io.netty.testsuite.transport.socket.AbstractSocketTest.newFactories()
+13
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+io.netty.testsuite.transport.socket.AbstractDatagramTest.newFactories()
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+16
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.buffer.UnpooledUnsafeDirectByteBuf.deallocate()
+1
+Entry point for SocketBufReleaseTest.testBufRelease
+io.netty.channel.nio.NioEventLoop.openSelector()
+15
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.AbstractDatagramTest.configure(io.netty.bootstrap.Bootstrap,io.netty.bootstrap.Bootstrap,io.netty.buffer.ByteBufAllocator)
+3
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind

@@ -1,0 +1,50 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 7
+Entry point for AsyncContextListenersTest.testListenerAddedFromListener
+Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Entry point for AsyncIOServletTest.testAsyncReadThrowsException
+Entry point for AsyncIOServletTest.testOnErrorThrows
+Entry point for ServletContextHandlerTest.testFallThrough
+Entry point for ServletContextHandlerTest.testInitOrder
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithServlet
+4
+org.eclipse.jetty.io.SelectorManager.doStart();8.452777777777778;5.986111111111111;2.466666666666667;30;30
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.9958333333333333;0.5430555555555555;1.452777777777778;60;60
+org.eclipse.jetty.server.session.HashSessionManager.doStart();6.516666666666667;5.073333333333333;1.4433333333333334;30;30
+org.eclipse.jetty.servlet.ServletContextHandler.relinkHandlers();4.542708333333334;4.011711711711712;0.5309966216216218;30;30
+4
+	org.eclipse.jetty.io.SelectorManager.doStart()
+		Time: 8.452777777777778;5.986111111111111;2.466666666666667;30;30;
+			Revision: a906aaa266352e19afff373fe353a8810532b95d
+				Issues: 0
+			Revision: 649eb7f3dc7ca8035fda8c1b33b62c3af19113be
+				Issues: 0
+	org.eclipse.jetty.io.SelectorManager.newSelector(int)
+		Time: 1.9958333333333333;0.5430555555555555;1.452777777777778;60;60;
+			Revision: 649eb7f3dc7ca8035fda8c1b33b62c3af19113be
+				Issues: 0
+	org.eclipse.jetty.server.session.HashSessionManager.doStart()
+		Time: 6.516666666666667;5.073333333333333;1.4433333333333334;30;30;
+			Revision: 149ee0104705200eaa3a2bfe240c8dabbe921788
+				Issues: 445157
+	org.eclipse.jetty.servlet.ServletContextHandler.relinkHandlers()
+		Time: 4.542708333333334;4.011711711711712;0.5309966216216218;30;30;
+			Revision: 738c47bc553d7e90a0d074b99aff5e666d26a7c2
+				Issues: 447515
+3
+0;No issue (0)
+445157;major
+447515;enhancement
+3
+enhancement;1
+major;1
+No issue (0);1
+3
+enhancement;447515
+major;445157
+No issue (0);0
+Number of revisions (commits): 4
+Revision (Issues): a906aaa266352e19afff373fe353a8810532b95d(0)
+Revision (Issues): 149ee0104705200eaa3a2bfe240c8dabbe921788(445157)
+Revision (Issues): 649eb7f3dc7ca8035fda8c1b33b62c3af19113be(0)
+Revision (Issues): 738c47bc553d7e90a0d074b99aff5e666d26a7c2(447515)

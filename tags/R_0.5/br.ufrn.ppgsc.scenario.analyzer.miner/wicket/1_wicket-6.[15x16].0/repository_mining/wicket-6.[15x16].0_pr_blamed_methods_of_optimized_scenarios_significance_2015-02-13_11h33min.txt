@@ -1,0 +1,29 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [significance]
+6
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage3
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for NiceUrlTest.testPage1
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for NiceUrlTest.testPage5
+2
+org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;230;230
+org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.6925925925925926;3.4;0.29259259259259274;20;20
+8
+Entry point for NiceUrlTest.testPage2;org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;230;230
+Entry point for NiceUrlTest.testPage3;org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;160;160
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;1600;1600
+Entry point for HangManTest.testHangmanFailureWebGame;org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.6925925925925926;3.4;0.29259259259259274;20;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;160;160
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;180;180
+Entry point for LinkomaticTest.testLinkomatic;org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.6925925925925926;3.4;0.29259259259259274;10;10
+Entry point for NiceUrlTest.testPage5;org.apache.wicket.markup.html.link.AbstractLink.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag);8.370579268292683;7.580640243902439;0.789939024390244;170;170
+1
+0;No issue (0)
+1
+No issue (0);1
+1
+No issue (0);0
+Number of revisions (commits): 2
+Revision (Issues): 30323a5800834760bcc0fca25bea7f81a3fb0e6d(0)
+Revision (Issues): 3c6c41f19f6d4d9a236a7d902ed62816af41c00b(0)

@@ -1,0 +1,157 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 6
+Number of scenarios (include empties): 8
+Entry point for EncodingTest.test_1
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;290;290;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;1430;1430;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;60;60;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;20;20;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+Entry point for NiceUrlTest.testPage1
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;640;640;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;3830;3830;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;120;120;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 0.42727272727272725;0.3875;0.03977272727272724;20;20;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;100;100;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+Entry point for NiceUrlTest.testPage2
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;990;990;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;5830;5830;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;180;180;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 0.42727272727272725;0.3875;0.03977272727272724;30;30;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;180;180;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+Entry point for NiceUrlTest.testPage2UP
+	Number of methods: 5
+	Number of methods (exclude word applied): 5
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;990;990;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;5830;5830;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;180;180;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 0.42727272727272725;0.3875;0.03977272727272724;30;30;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;180;180;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+Entry point for NiceUrlTest.testPage3
+	Number of methods: 6
+	Number of methods (exclude word applied): 6
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;640;640;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;3830;3830;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;120;120;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 0.42727272727272725;0.3875;0.03977272727272724;10;10;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 1.0333333333333332;0.96;0.07333333333333325;10;10;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;100;100;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+Entry point for NiceUrlTest.testPage4
+	Number of methods: 6
+	Number of methods (exclude word applied): 6
+	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
+		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;640;640;
+			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
+				Issues: 5498
+	org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag()
+		Time: 0.016625228997644594;0.008651257980557471;0.007973971017087123;3830;3830;
+			Revision: e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3
+				Issues: 0
+	org.apache.wicket.MarkupContainer.dequeueAutoComponents()
+		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;120;120;
+			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
+				Issues: 0
+	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 0.42727272727272725;0.3875;0.03977272727272724;10;10;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request)
+		Time: 1.0333333333333332;0.96;0.07333333333333325;10;10;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
+	org.apache.wicket.markup.Markup.find(java.lang.String)
+		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;100;100;
+			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
+				Issues: 5580
+Entry point for WithoutCPWithFPTest.testWithSlash
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+Entry point for WordGeneratorTest.testSuppliedWordConstructor
+	Number of methods: 0
+	Number of methods (exclude word applied): 0
+7
+7

@@ -1,0 +1,73 @@
+# Methods blamed for performance optimization in each of the optimized scenarios [summary]
+Number of scenarios: 6
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage5
+8
+org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem.render(org.apache.wicket.request.Response);3.783333333333333;2.762962962962963;1.0203703703703701;80;80
+org.apache.wicket.page.PageAccessSynchronizer.lockPage(int);1.3018691588785047;1.222429906542056;0.07943925233644866;230;230
+org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset);0.13061863743148003;0.12145653876272514;0.009162098668754892;3920;3920
+org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean);0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850
+org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760
+org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String);0.036893203883495145;0.030097087378640777;0.006796116504854368;150;150
+org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300
+8
+	org.apache.wicket.Component.internalOnRemove()
+		Time: 0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750;
+			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
+				Issues: 5677;6
+	org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem.render(org.apache.wicket.request.Response)
+		Time: 3.783333333333333;2.762962962962963;1.0203703703703701;80;80;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
+	org.apache.wicket.page.PageAccessSynchronizer.lockPage(int)
+		Time: 1.3018691588785047;1.222429906542056;0.07943925233644866;230;230;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 5740
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset)
+		Time: 0.13061863743148003;0.12145653876272514;0.009162098668754892;3920;3920;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 5717
+	org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset,boolean)
+		Time: 0.11081126103614859;0.10484757621189406;0.0059636848242545365;18850;18850;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 5717
+	org.apache.wicket.request.Url.toString()
+		Time: 0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 5717
+	org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String)
+		Time: 0.036893203883495145;0.030097087378640777;0.006796116504854368;150;150;
+			Revision: b5979289835a0eda988de2cb922d5ddd1914fa81
+				Issues: 5706
+	org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[])
+		Time: 0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300;
+			Revision: 9bd9d3679d90ed0192f4127373d34f7c43faa660
+				Issues: 5720
+7
+6;Improvement
+5677;New Feature
+5706;Bug
+5715;Improvement
+5717;Bug
+5720;Bug
+5740;Improvement
+3
+New Feature;1
+Improvement;3
+Bug;3
+3
+New Feature;5677
+Improvement;6;5715;5740
+Bug;5706;5717;5720
+Number of revisions (commits): 6
+Revision (Issues): 0adb864ff18951a9630bd2339fb9e92963867d4a(5677;6)
+Revision (Issues): b5979289835a0eda988de2cb922d5ddd1914fa81(5706)
+Revision (Issues): e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5(5740)
+Revision (Issues): 58fa34bc8ff9b531b61e9258ac33480296cc66f6(5717)
+Revision (Issues): ff1ad079c450d024daa637faa4e3438f3b3e88c0(5715)
+Revision (Issues): 9bd9d3679d90ed0192f4127373d34f7c43faa660(5720)
