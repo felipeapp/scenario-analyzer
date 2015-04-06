@@ -3,6 +3,7 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.git;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -13,9 +14,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -37,7 +40,8 @@ public class GitUpdatedLinesHandler {
 	 * considerados. Esse lista irá conter commits que são responsáveis pelas mudanças
 	 * de degradação e os que não são responsáveis.
 	 */
-	private PrintWriter pw_commits;
+	private static PrintWriter pw_commits;
+	private static Set<String> persisted_commits;
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
@@ -58,10 +62,13 @@ public class GitUpdatedLinesHandler {
 		this.filedir = filedir;
 		this.filename = filename;
 		
-		try {
-			pw_commits = new PrintWriter("reports/list_of_all_commits_of_interest.txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		if (pw_commits == null) {
+			try {
+				pw_commits = new PrintWriter(new FileOutputStream("reports/list_of_all_commits_of_interest.txt"), true);
+				persisted_commits = new HashSet<String>();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -195,7 +202,13 @@ public class GitUpdatedLinesHandler {
 				
 				// Cache do commit analisado
 				cache_commit_issues.put(commit, issues);
-				pw_commits.println(commit);
+			}
+			
+			// Salva o commit em um arquivo para posterior análise.
+			// TODO: Salvar sem repetição?
+			if (!persisted_commits.contains(commit)) {
+					pw_commits.println(commit);
+					persisted_commits.add(commit);
 			}
 			
 			return new UpdatedLine(commit_date, commit, issues, author_name, source_line, line_number);
