@@ -103,7 +103,7 @@ public abstract class ScenarioAnalyzerUtil {
 	}
 
 	public static CompilationUnit getCompilationUnitFromUnit(ICompilationUnit unit) {
-		ASTParser parser = ASTParser.newParser(AST.JLS4);
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
 
 		parser.setSource(unit);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
