@@ -138,6 +138,34 @@ public abstract class AnalyzerCollectionUtil {
 		return issue_numbers;
 	}
 	
+	public static Set<String> getCommitCodes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Set<String> commits = new HashSet<String>();
+
+		for (String path : map_path_methods.keySet())
+			for (UpdatedMethod method : map_path_methods.get(path))
+				for (UpdatedLine line : method.getUpdatedLines())
+					commits.add(getCommitAndIssuesFromUpdatedLine(line));
+
+		return commits;
+	}
+	
+	// Return commit code and issue numbers using the format "commit_code:issue_number1,issue_number2,..."
+	public static String getCommitAndIssuesFromUpdatedLine(UpdatedLine line) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(line.getRevision());
+		sb.append(":");
+		
+		for (Issue issue : line.getIssues()) {
+			sb.append(issue.getNumber());
+			sb.append(",");
+		}
+		
+		sb.deleteCharAt(sb.length() - 1);
+		
+		return sb.toString();
+	}
+	
 	public static Map<String, Integer> countTaskTypes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
 		Map<String, Integer> counter_task_types = new HashMap<String, Integer>();
 		Set<Long> counted_tasks = new HashSet<Long>();
