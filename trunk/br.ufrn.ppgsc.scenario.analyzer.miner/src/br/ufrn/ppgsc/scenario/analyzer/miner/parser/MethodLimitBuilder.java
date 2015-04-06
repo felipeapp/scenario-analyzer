@@ -24,7 +24,7 @@ public class MethodLimitBuilder {
 	public MethodLimitBuilder(String source) {
 		methods = new ArrayList<MethodLimit>();
 		
-		ASTParser parser = ASTParser.newParser(AST.JLS4);
+		ASTParser parser = ASTParser.newParser(AST.JLS8);
 		parser.setSource(source.toCharArray());
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		
