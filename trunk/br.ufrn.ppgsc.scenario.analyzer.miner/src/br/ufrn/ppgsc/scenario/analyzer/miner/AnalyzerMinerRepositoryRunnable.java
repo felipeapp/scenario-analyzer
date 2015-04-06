@@ -530,7 +530,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 					}
 				}
 			}
-			
+						
 			// Collect some issue information for the full list of changed methods
 			Map<String, Collection<UpdatedMethod>> full_issuetype_to_upmethod = AnalyzerCollectionUtil.getTaskMembers(full_path_to_upmethod);
 			Map<String, Integer> full_issuetype_to_count = AnalyzerCollectionUtil.countTaskTypes(full_path_to_upmethod);
@@ -549,6 +549,12 @@ public final class AnalyzerMinerRepositoryRunnable {
 			AnalyzerReportUtil.saveFullMiningData(file_message + " (before mining phase)", getRMFilePath("filtrated_" + filename), filtered_path_to_upmethod,
 					filtered_issue_numbers,	filtered_issuetype_to_count, filtered_issuetype_to_upmethod);
 		}
+		
+		// Save the list of commits found during the mining phase
+		AnalyzerReportUtil.saveCollection("# List of all commits from classes found during the repository mining phase (blamed or not)",
+				getRMFilePath("all_commits_classes"), repository.getAllCommits());
+		AnalyzerReportUtil.saveCollection("# List of all commits from changed methods found during the repository mining phase (blamed or not)",
+				getRMFilePath("all_commits_changed_methods"), repository.getCommitsFromChangedMethods());
 		
 //		System.out.println("Getting methods and means for release 1...");
 //		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();

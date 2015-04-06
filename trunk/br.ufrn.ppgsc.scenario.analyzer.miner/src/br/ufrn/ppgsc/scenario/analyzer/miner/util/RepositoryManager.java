@@ -2,9 +2,12 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -21,6 +24,18 @@ public class RepositoryManager {
 	private String url;
 	private String user;
 	private String password;
+	
+	/* 
+	 * Every commit that modified classes (any member) that were executed during dynamic analysis.
+	 * Here we have even the commits not responsible for performance deviation. 
+	 */
+	private static Set<String> set_of_all_commits = new HashSet<String>();
+	
+	/* 
+	 * Every commit that modified methods that were executed during dynamic analysis.
+	 * Here we have even the commits not responsible for performance deviation. 
+	 */
+	private static Set<String> set_of_commits_from_changed_methods = new HashSet<String>();
 
 	public RepositoryManager(String url, String user, String password) {
 		miner = SystemMetadataUtil.getInstance().newObjectFromProperties(IRepositoryMiner.class);
@@ -28,6 +43,14 @@ public class RepositoryManager {
 		this.url = url;
 		this.user = user;
 		this.password = password;
+	}
+	
+	public Set<String> getAllCommits() {
+		return Collections.unmodifiableSet(set_of_all_commits);
+	}
+	
+	public Set<String> getCommitsFromChangedMethods() {
+		return Collections.unmodifiableSet(set_of_commits_from_changed_methods);
 	}
 
 	public Map<String, Collection<UpdatedMethod>> getUpdatedMethodsFromRepository(List<String> target_paths,
@@ -74,12 +97,19 @@ public class RepositoryManager {
 			// Pega as linhas modificadas
 			List<UpdatedLine> lines = miner.getChangedLines(key);
 			
+			// Pega os commits que modificaram as linhas e salva na coleção.
+			for (UpdatedLine upline : lines)
+				set_of_all_commits.add(AnalyzerCollectionUtil.getCommitAndIssuesFromUpdatedLine(upline));
+			
 			// Parse da classe buscando os métodos (linha inicial, final, nome)
 			MethodLimitBuilder builder = new MethodLimitBuilder(miner.getSourceCode(key));
 			
 			// Pega os métodos mudados verificando as linhas mudadas e os limites dos métodos
 			changedMethods.put(key, builder.filterChangedMethods(lines));
 		}
+		
+		// Pega os commits de métodos modificados
+		set_of_commits_from_changed_methods.addAll(AnalyzerCollectionUtil.getCommitCodes(changedMethods));
 		
 		return changedMethods;
 	}

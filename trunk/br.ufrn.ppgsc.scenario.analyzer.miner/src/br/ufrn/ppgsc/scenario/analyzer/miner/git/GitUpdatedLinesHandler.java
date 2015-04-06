@@ -2,11 +2,8 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.git;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,11 +11,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -33,15 +28,6 @@ public class GitUpdatedLinesHandler {
 	
 	private static final Map<String, List<Issue>> cache_commit_issues =
 			new HashMap<String, List<Issue>>();
-	
-	/* 
-	 * Todos os commits de interesse. Todos que modificaram qualquer classe que rodou
-	 * na análise (mesmo sem degradação), mas dentro do período de análise dos releases
-	 * considerados. Esse lista irá conter commits que são responsáveis pelas mudanças
-	 * de degradação e os que não são responsáveis.
-	 */
-	private static PrintWriter pw_commits;
-	private static Set<String> persisted_commits;
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
@@ -61,15 +47,6 @@ public class GitUpdatedLinesHandler {
 		this.endRev = endRev;
 		this.filedir = filedir;
 		this.filename = filename;
-		
-		if (pw_commits == null) {
-			try {
-				pw_commits = new PrintWriter(new FileOutputStream("reports/list_of_all_commits_of_interest.txt"), true);
-				persisted_commits = new HashSet<String>();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	public List<UpdatedLine> getChangedLines() {
@@ -202,13 +179,6 @@ public class GitUpdatedLinesHandler {
 				
 				// Cache do commit analisado
 				cache_commit_issues.put(commit, issues);
-			}
-			
-			// Salva o commit em um arquivo para posterior análise.
-			// TODO: Salvar sem repetição?
-			if (!persisted_commits.contains(commit)) {
-					pw_commits.println(commit);
-					persisted_commits.add(commit);
 			}
 			
 			return new UpdatedLine(commit_date, commit, issues, author_name, source_line, line_number);
