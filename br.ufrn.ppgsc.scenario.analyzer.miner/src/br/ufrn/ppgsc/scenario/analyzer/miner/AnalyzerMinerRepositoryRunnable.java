@@ -210,17 +210,17 @@ public final class AnalyzerMinerRepositoryRunnable {
 				
 				UpdatedMethod um = map_signature_to_upmethod.get(s);
 				for (UpdatedLine ul : um.getUpdatedLines()) {
-					Set<Issue> issues_from_map = local_revision_to_issues.get(ul.getRevision());
+					Set<Issue> issues_from_map = local_revision_to_issues.get(ul.getCommit().getRevision());
 					
-					for (Issue issue  : ul.getIssues())
+					for (Issue issue  : ul.getCommit().getIssues())
 						local_number_to_issue.put(issue.getNumber(), issue);
 					
 					if (issues_from_map == null) {
 						issues_from_map = new HashSet<Issue>();
-						local_revision_to_issues.put(ul.getRevision(), issues_from_map);
+						local_revision_to_issues.put(ul.getCommit().getRevision(), issues_from_map);
 					}
 					
-					issues_from_map.addAll(ul.getIssues());
+					issues_from_map.addAll(ul.getCommit().getIssues());
 				}
 				
 				for (String revision : local_revision_to_issues.keySet()) {

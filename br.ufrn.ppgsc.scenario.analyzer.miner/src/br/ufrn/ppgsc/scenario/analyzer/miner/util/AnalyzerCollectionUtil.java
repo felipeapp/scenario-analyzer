@@ -132,7 +132,7 @@ public abstract class AnalyzerCollectionUtil {
 		for (String path : map_path_methods.keySet())
 			for (UpdatedMethod method : map_path_methods.get(path))
 				for (UpdatedLine line : method.getUpdatedLines())
-					for (Issue issue : line.getIssues())
+					for (Issue issue : line.getCommit().getIssues())
 						issue_numbers.add(issue.getNumber());
 
 		return issue_numbers;
@@ -153,10 +153,10 @@ public abstract class AnalyzerCollectionUtil {
 	public static String getCommitAndIssuesFromUpdatedLine(UpdatedLine line) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(line.getRevision());
+		sb.append(line.getCommit().getRevision());
 		sb.append(":");
 		
-		for (Issue issue : line.getIssues()) {
+		for (Issue issue : line.getCommit().getIssues()) {
 			sb.append(issue.getNumber());
 			sb.append(",");
 		}
@@ -176,7 +176,7 @@ public abstract class AnalyzerCollectionUtil {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (Issue issue : line.getIssues()) {
+					for (Issue issue : line.getCommit().getIssues()) {
 
 						if (issue.getId() > 0 && !counted_tasks.contains(issue.getId())) {
 							Integer counter = counter_task_types.get(issue.getType());
@@ -211,7 +211,7 @@ public abstract class AnalyzerCollectionUtil {
 
 				for (UpdatedLine line : method.getUpdatedLines()) {
 
-					for (Issue issue : line.getIssues()) {
+					for (Issue issue : line.getCommit().getIssues()) {
 
 						if (issue.getId() > 0 && !(counted_tasks.contains(issue.getId()) && counted_members.contains(method.getMethodLimit().getSignature()))) {
 							Collection<UpdatedMethod> list = task_members.get(issue.getType());

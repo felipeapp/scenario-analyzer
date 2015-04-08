@@ -184,10 +184,10 @@ public abstract class AnalyzerReportUtil {
 				pw.println("\t\tNumber of updated lines: " + uplines_collection.size());
 				
 				for (UpdatedLine upline : uplines_collection) {
-					Collection<Issue> issue_collection = upline.getIssues();
+					Collection<Issue> issue_collection = upline.getCommit().getIssues();
 				
 					pw.println("\t\tLine Number: " + upline.getLineNumber());
-					pw.println("\t\tCommit: " + upline.getRevision());
+					pw.println("\t\tCommit: " + upline.getCommit().getRevision());
 					pw.println("\t\tNumber of Issues: " + issue_collection.size());
 					
 					for (Issue issue : issue_collection)
