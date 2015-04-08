@@ -16,6 +16,7 @@ import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
@@ -102,7 +103,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				cache_revision_issues.put(revision, issues);
 			}
 			
-			changedLines.add(new UpdatedLine(date, String.valueOf(revision), issues, author, line, lineNumber));
+			changedLines.add(new UpdatedLine(new Commit(String.valueOf(revision), author, date, issues), line, lineNumber));
 		}
 	}
 

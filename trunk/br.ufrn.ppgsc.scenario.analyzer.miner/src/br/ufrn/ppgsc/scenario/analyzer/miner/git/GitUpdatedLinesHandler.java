@@ -18,6 +18,7 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
@@ -101,7 +102,7 @@ public class GitUpdatedLinesHandler {
 	private UpdatedLine handleLine(String gitblameline) throws IOException {
 		Scanner in = new Scanner(gitblameline);
 		
-		String commit = in.next();
+		String commit_revision = in.next();
 		
 		List<String> tokens = new ArrayList<String>();
 		while (true) {
@@ -140,17 +141,17 @@ public class GitUpdatedLinesHandler {
 		sourceCode.append(source_line + System.lineSeparator());
 		
 		// Commits fora do período dos releases são desconsiderados
-		if (!commit.startsWith("^")) {
-			List<Issue> issues = cache_commit_issues.get(commit);
+		if (!commit_revision.startsWith("^")) {
+			List<Issue> issues = cache_commit_issues.get(commit_revision);
 			
 			if (issues == null) {
 				String path = filedir + filename;
 				
-				logger.info("\tGetting issues to " + commit + " in " + path);
+				logger.info("\tGetting issues to " + commit_revision + " in " + path);
 				
 				Issue issue = null;
 				issues = new ArrayList<Issue>();
-				String logMessage = getCommitLogMessage(commit);
+				String logMessage = getCommitLogMessage(commit_revision);
 				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
 				
 				if (issue_numbers.isEmpty()) {
@@ -178,10 +179,14 @@ public class GitUpdatedLinesHandler {
 				}
 				
 				// Cache do commit analisado
-				cache_commit_issues.put(commit, issues);
+				cache_commit_issues.put(commit_revision, issues);
 			}
 			
-			return new UpdatedLine(commit_date, commit, issues, author_name, source_line, line_number);
+			// TODO: Usar cache para evitar repetição de criação de commits
+			// TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>
+			Commit commit = new Commit(commit_revision, author_name, commit_date, issues);
+			
+			return new UpdatedLine(commit, source_line, line_number);
 		}
 		
 		return null;
@@ -205,13 +210,13 @@ public class GitUpdatedLinesHandler {
 		Collection<UpdatedLine> list = gitHandler.getChangedLines();
 		
 		for (UpdatedLine up_line : list) {
-			System.out.println(up_line.getAuthor());
+			System.out.println(up_line.getCommit().getAuthor());
 			System.out.println(up_line.getLine());
 			System.out.println(up_line.getLineNumber());
-			System.out.println(up_line.getRevision());
-			System.out.println(up_line.getDate());
+			System.out.println(up_line.getCommit().getRevision());
+			System.out.println(up_line.getCommit().getDate());
 			
-			for (Issue i : up_line.getIssues()) {
+			for (Issue i : up_line.getCommit().getIssues()) {
 				System.out.println("\t" + i.getId());
 				System.out.println("\t" + i.getNumber());
 				System.out.println("\t" + i.getType());
