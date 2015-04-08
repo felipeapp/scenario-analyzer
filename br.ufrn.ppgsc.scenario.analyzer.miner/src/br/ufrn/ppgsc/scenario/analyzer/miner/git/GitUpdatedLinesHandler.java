@@ -27,8 +27,7 @@ public class GitUpdatedLinesHandler {
 
 	private final Logger logger = Logger.getLogger(GitUpdatedLinesHandler.class);
 	
-	private static final Map<String, List<Issue>> cache_commit_issues =
-			new HashMap<String, List<Issue>>();
+	private static final Map<String, Commit> cache_commits = new HashMap<String, Commit>();
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
@@ -142,32 +141,28 @@ public class GitUpdatedLinesHandler {
 		
 		// Commits fora do período dos releases são desconsiderados
 		if (!commit_revision.startsWith("^")) {
-			List<Issue> issues = cache_commit_issues.get(commit_revision);
+			Commit commit = cache_commits.get(commit_revision);
 			
-			if (issues == null) {
+			if (commit == null) {
 				String path = filedir + filename;
 				
 				logger.info("\tGetting issues to " + commit_revision + " in " + path);
 				
-				Issue issue = null;
-				issues = new ArrayList<Issue>();
 				String logMessage = getCommitLogMessage(commit_revision);
 				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
+				Collection<Issue> issues = new ArrayList<Issue>();
 				
 				if (issue_numbers.isEmpty()) {
 					logger.warn("\t[Empty] No issues for log message: " + logMessage);
-					
-					issue = new Issue();
-					issue.setNumber(0);
-					
-					issues.add(issue);
+					issues.add(new Issue());
 				}
 				else {
 					for (Long issue_number : issue_numbers) {
-						if (issue_number < 0) {
+						Issue issue = null;
+						
+						if (issue_number <= 0) {
 							logger.warn("\t[Invalid: " + issue_number + "] No issues for log message: " + logMessage);
 							issue = new Issue();
-							issue.setNumber(0);
 						}
 						else {
 							logger.info("\t[Found: " + issue_number + "] In log message: " + logMessage);
@@ -178,13 +173,12 @@ public class GitUpdatedLinesHandler {
 					}
 				}
 				
+				// TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>
+				commit = new Commit(commit_revision, author_name, commit_date, issues);
+				
 				// Cache do commit analisado
-				cache_commit_issues.put(commit_revision, issues);
+				cache_commits.put(commit_revision, commit);
 			}
-			
-			// TODO: Usar cache para evitar repetição de criação de commits
-			// TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>
-			Commit commit = new Commit(commit_revision, author_name, commit_date, issues);
 			
 			return new UpdatedLine(commit, source_line, line_number);
 		}
