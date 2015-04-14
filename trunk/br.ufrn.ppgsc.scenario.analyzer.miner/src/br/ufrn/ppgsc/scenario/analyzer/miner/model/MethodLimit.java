@@ -16,24 +16,12 @@ public class MethodLimit {
 		return signature;
 	}
 
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-
 	public int getStartLine() {
 		return startLine;
 	}
 
-	public void setStartLine(int startLine) {
-		this.startLine = startLine;
-	}
-
 	public int getEndLine() {
 		return endLine;
-	}
-
-	public void setEndLine(int endLine) {
-		this.endLine = endLine;
 	}
 
 }

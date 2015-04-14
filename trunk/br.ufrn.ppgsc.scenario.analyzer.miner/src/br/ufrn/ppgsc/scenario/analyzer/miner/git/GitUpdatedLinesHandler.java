@@ -19,8 +19,10 @@ import org.apache.log4j.Logger;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.CommitStat;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
+import br.ufrn.ppgsc.scenario.analyzer.miner.parser.PackageDeclarationParser;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class GitUpdatedLinesHandler {
@@ -96,6 +98,61 @@ public class GitUpdatedLinesHandler {
 		}
 		
 		return result.toString();
+	}
+	
+	private String getSourceCodeByCommit(String filepath, String revision) throws IOException {
+		String so_prefix = "cmd /c ";
+		String command = so_prefix + "git show " + revision + ":" + filepath;
+		
+		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
+		BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		
+		StringBuilder result = new StringBuilder();
+		
+		String line = null;
+		while ((line = bf.readLine()) != null) {
+			result.append(line);
+			result.append(System.lineSeparator());
+		}
+		
+		return result.toString();
+	}
+	
+	private Collection<CommitStat> getCommitStats(String commit) throws IOException {
+		String so_prefix = "cmd /c ";
+		String command = so_prefix + "git show --numstat --oneline " + commit;
+		
+		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		
+		Collection<CommitStat> stats = new ArrayList<CommitStat>();
+		
+		// A primeira linha é o comentário, será lido e ignorado.
+		String line = br.readLine();
+		
+		while ((line = br.readLine()) != null) {
+			Scanner sc = new Scanner(line);
+			
+			int insertions = sc.nextInt();
+			int deletions = sc.nextInt();
+			String path = sc.next();
+			
+			sc.close();
+			
+			String package_name = null;
+			
+			if (path.endsWith(".java")) {
+				PackageDeclarationParser parser = new PackageDeclarationParser(getSourceCodeByCommit(path, commit));
+				package_name = parser.getPackageName();
+				
+				if (package_name == null)
+					System.out.println("$$$$$$$$$$$$$$$$$ - " + parser.getPackageName() + " - " + commit + " - " + path);
+			}
+			
+			stats.add(new CommitStat(path, package_name, insertions, deletions));
+		}
+		
+		return stats;
 	}
 
 	private UpdatedLine handleLine(String gitblameline) throws IOException {
@@ -173,8 +230,13 @@ public class GitUpdatedLinesHandler {
 					}
 				}
 				
-				// TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>
-				commit = new Commit(commit_revision, author_name, commit_date, issues);
+				/*
+				 *  TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>.
+				 *  O parse do resultado será mais complicado, mas será apenas uma requisição remota no lugar de duas.
+				 */
+				Collection<CommitStat> stats = getCommitStats(commit_revision);
+				
+				commit = new Commit(commit_revision, author_name, commit_date, issues, stats);
 				
 				// Cache do commit analisado
 				cache_commits.put(commit_revision, commit);
@@ -222,6 +284,11 @@ public class GitUpdatedLinesHandler {
 		System.out.println("####################");
 		System.out.println(gitHandler.getSourceCode());
 		System.out.println("####################");
+		
+		Collection<CommitStat> stats = gitHandler.getCommitStats("3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128");
+		System.out.println(stats.size());
+		for (CommitStat s: stats)
+			System.out.println(s.getInsertions() + ", " + s.getDeletions() + ", " + s.getPath());
 	}
 
 }

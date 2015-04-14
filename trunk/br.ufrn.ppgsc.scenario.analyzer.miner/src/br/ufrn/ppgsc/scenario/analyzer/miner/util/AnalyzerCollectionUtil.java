@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
@@ -162,6 +164,35 @@ public abstract class AnalyzerCollectionUtil {
 		}
 		
 		sb.deleteCharAt(sb.length() - 1);
+		
+		return sb.toString();
+	}
+	
+	public static String getCommitProperties(Commit commit) {
+		StringBuilder sb = new StringBuilder();
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(commit.getDate());
+		
+		sb.append(commit.getRevision());
+		sb.append(";");
+		sb.append(commit.getAuthor());
+		sb.append(";");
+		sb.append(commit.getDate());
+		sb.append(";");
+		sb.append(c.get(Calendar.DAY_OF_WEEK));
+		sb.append(";");
+		sb.append(c.get(Calendar.HOUR_OF_DAY));
+		sb.append(";");
+		sb.append(commit.getPackages().size());
+		sb.append(";");
+		sb.append(commit.getIssues().size());
+		sb.append(";");
+		sb.append(commit.getStats().size());
+		sb.append(";");
+		sb.append(commit.getNumberOfInsertions());
+		sb.append(";");
+		sb.append(commit.getNumberOfDeletions());
 		
 		return sb.toString();
 	}
