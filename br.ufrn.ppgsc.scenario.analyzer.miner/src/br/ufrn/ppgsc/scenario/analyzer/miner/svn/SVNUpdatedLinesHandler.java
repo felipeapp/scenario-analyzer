@@ -95,7 +95,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 					}
 				}
 				
-				commit = new Commit(String.valueOf(revision), author, date, issues);
+				commit = new Commit(String.valueOf(revision), author, date, issues, null);
 				cache_revisions.put(revision, commit);
 			}
 			

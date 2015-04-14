@@ -33,14 +33,14 @@ public class TestMiner {
 			System.out.println("Method: " + m.getMethodLimit().getSignature());
 
 			for (UpdatedLine l : m.getUpdatedLines()) {
-				System.out.println("\tAuthor: " + l.getAuthor());
+				System.out.println("\tAuthor: " + l.getCommit().getAuthor());
 				System.out.println("\tLineNumber: " + l.getLineNumber());
 				System.out.println("\tLine: " + l.getLine());
-				System.out.println("\tRevision: " + l.getRevision());
-				System.out.println("\tDate: " + l.getDate());
+				System.out.println("\tRevision: " + l.getCommit().getRevision());
+				System.out.println("\tDate: " + l.getCommit().getDate());
 				System.out.print("\tTasks: ");
 				
-				for (Issue issue : l.getIssues())
+				for (Issue issue : l.getCommit().getIssues())
 					System.out.print(issue.getNumber() + " ");
 				
 				System.out.println("\n\t-------------------------------------");

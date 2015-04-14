@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IRepositoryMiner;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
-import br.ufrn.ppgsc.scenario.analyzer.miner.parser.MethodLimitBuilder;
+import br.ufrn.ppgsc.scenario.analyzer.miner.parser.MethodLimitParser;
 
 public class RepositoryManager {
 
@@ -97,15 +97,18 @@ public class RepositoryManager {
 			// Pega as linhas modificadas
 			List<UpdatedLine> lines = miner.getChangedLines(key);
 			
-			// Pega os commits que modificaram as linhas e salva na coleção.
-			for (UpdatedLine upline : lines)
-				set_of_all_commits.add(AnalyzerCollectionUtil.getCommitAndIssuesFromUpdatedLine(upline));
-			
 			// Parse da classe buscando os métodos (linha inicial, final, nome)
-			MethodLimitBuilder builder = new MethodLimitBuilder(miner.getSourceCode(key));
+			MethodLimitParser builder = new MethodLimitParser(miner.getSourceCode(key));
 			
 			// Pega os métodos mudados verificando as linhas mudadas e os limites dos métodos
 			changedMethods.put(key, builder.filterChangedMethods(lines));
+			
+			/*
+			 * Pega os commits que modificaram as linhas e salva na coleção. 
+			 * Tem que ser feito por último, pois depende do filter acima.
+			 */
+			for (UpdatedLine upline : lines)
+				set_of_all_commits.add(AnalyzerCollectionUtil.getCommitProperties(upline.getCommit()));
 		}
 		
 		// Pega os commits de métodos modificados

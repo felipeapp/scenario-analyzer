@@ -15,7 +15,7 @@ public class Issue {
 
 	public Issue() {
 		id = number = 0;
-		type = "No issue (0)";
+		type = "No issue type";
 	}
 
 	public long getId() {

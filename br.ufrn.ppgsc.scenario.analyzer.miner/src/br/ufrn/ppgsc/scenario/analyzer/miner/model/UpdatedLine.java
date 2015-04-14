@@ -16,24 +16,12 @@ public class UpdatedLine {
 		return commit;
 	}
 
-	public void setCommit(Commit commit) {
-		this.commit = commit;
-	}
-
 	public String getLine() {
 		return line;
 	}
 
-	public void setLine(String line) {
-		this.line = line;
-	}
-
 	public int getLineNumber() {
 		return lineNumber;
-	}
-
-	public void setLineNumber(int lineNumber) {
-		this.lineNumber = lineNumber;
 	}
 
 }
