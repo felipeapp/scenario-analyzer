@@ -77,7 +77,7 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 		try {
 			client.getLogClient().doAnnotate(
 					SVNURL.parseURIEncoded(url + path),
-					null,
+					SVNRevision.UNDEFINED,
 					SVNRevision.create(Long.parseLong(startRevision)),
 					SVNRevision.create(Long.parseLong(endRevision)),
 					handler);

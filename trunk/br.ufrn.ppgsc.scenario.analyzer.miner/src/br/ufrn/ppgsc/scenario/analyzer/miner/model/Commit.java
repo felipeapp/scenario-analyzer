@@ -1,5 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -28,12 +29,17 @@ public class Commit {
 		this.packages = new HashSet<String>();
 		this.insertions = this.deletions = 0;
 
-		for (CommitStat s : stats) {
-			if (s.getPackageName() != null)
-				this.packages.add(s.getPackageName());
-			
-			this.insertions += s.getInsertions();
-			this.deletions += s.getDeletions();
+		if (stats == null) {
+			this.stats = new ArrayList<CommitStat>();
+		}
+		else {
+			for (CommitStat s : stats) {
+				if (s.getPackageName() != null)
+					this.packages.add(s.getPackageName());
+				
+				this.insertions += s.getInsertions();
+				this.deletions += s.getDeletions();
+			}
 		}
 	}
 
