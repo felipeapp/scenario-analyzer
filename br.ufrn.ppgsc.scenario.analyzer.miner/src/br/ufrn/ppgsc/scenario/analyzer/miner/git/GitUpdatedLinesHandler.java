@@ -144,9 +144,6 @@ public class GitUpdatedLinesHandler {
 			if (path.endsWith(".java")) {
 				PackageDeclarationParser parser = new PackageDeclarationParser(getSourceCodeByCommit(path, commit));
 				package_name = parser.getPackageName();
-				
-				if (package_name == null)
-					System.out.println("$$$$$$$$$$$$$$$$$ - " + parser.getPackageName() + " - " + commit + " - " + path);
 			}
 			
 			stats.add(new CommitStat(path, package_name, insertions, deletions));

@@ -1,24 +1,40 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.svn;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.log4j.Logger;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
+import org.tmatesoft.svn.core.SVNLogEntry;
+import org.tmatesoft.svn.core.SVNLogEntryPath;
 import org.tmatesoft.svn.core.SVNRevisionProperty;
+import org.tmatesoft.svn.core.SVNURL;
+import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
+import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.io.SVNRepository;
+import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
+import org.tmatesoft.svn.core.wc.SVNClientManager;
+import org.tmatesoft.svn.core.wc.SVNRevision;
+import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.CommitStat;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
+import br.ufrn.ppgsc.scenario.analyzer.miner.parser.PackageDeclarationParser;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
@@ -33,6 +49,10 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 	
 	private String path;
 	private SVNRepository repository;
+
+	public SVNUpdatedLinesHandler() {
+
+	}
 	
 	public SVNUpdatedLinesHandler(SVNRepository repository, String path) {
 		changedLines = new ArrayList<UpdatedLine>();
@@ -110,6 +130,130 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 //		System.out.println("contents: " + contents.getName());
 //		System.out.println("************************");
 		return false;
+	}
+	
+	public static int[] getNumberOfChangedLines(SVNRepository repository, SVNLogEntryPath entryPath, long revision) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		String rep_url = repository.getLocation().toDecodedString();
+		
+		String new_url = rep_url + entryPath.getPath();
+		long new_revision = revision;
+		
+		String old_url;
+		long old_revision;
+		
+		if (entryPath.getCopyPath() == null) {
+			old_url = new_url;
+			old_revision = new_revision - 1;
+		}
+		else {
+			old_url = rep_url + entryPath.getCopyPath();
+			old_revision = entryPath.getCopyRevision();
+		}
+		
+		try {
+			SVNClientManager.newInstance().getDiffClient().doDiff(
+					SVNURL.parseURIEncoded(old_url),
+					SVNRevision.create(old_revision),
+					SVNURL.parseURIEncoded(new_url),
+					SVNRevision.create(new_revision),
+					SVNDepth.INFINITY,
+					true,
+					baos);
+		} catch (SVNException e) {
+			e.printStackTrace();
+		}
+		
+		Scanner in = new Scanner(new ByteArrayInputStream(baos.toByteArray()));
+		int insertions = 0;
+		int deletions = 0;
+		
+		while (in.hasNext()) {
+			// Elimina espaços em branco no final da linha
+			String line = in.nextLine().replaceFirst("\\s+$", "");
+			
+			// Após eliminar os espaços no final da string, desconsidera linhas modificadas em branco
+			if (line.length() > 1) {
+				if (line.startsWith("+"))
+					++insertions;
+				else if (line.startsWith("-"))
+					++deletions;
+			}
+		}
+		
+		in.close();
+		
+		return new int[]{insertions - 1, deletions - 1};
+	}
+	
+	public static String getFileFromRepository(SVNRepository repository, String filepath, long revision) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		try {
+			repository.getFile(filepath, revision, null, baos);
+		} catch (SVNException e) {
+			e.printStackTrace();
+		}
+		
+		return new String(baos.toByteArray());
+	}
+	
+	// TODO: Testar e tranformar em método privado.
+	public static void main(String[] args) throws Exception {
+
+		Collection<CommitStat> stats = new ArrayList<CommitStat>();
+		
+		DAVRepositoryFactory.setup();
+
+		String url = "http://scenario-analyzer.googlecode.com/svn";
+		String name = "";
+		String password = "";
+		long revision = 690;
+
+		SVNRepository repository = null;
+
+		repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
+		ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(name, password);
+		repository.setAuthenticationManager(authManager);
+
+		Collection<?> logEntries = repository.log(new String[] { "" }, null, revision, revision, true, true);
+
+		for (Iterator<?> entries = logEntries.iterator(); entries.hasNext();) {
+			SVNLogEntry logEntry = (SVNLogEntry) entries.next();
+
+			for (String key : logEntry.getChangedPaths().keySet()) {
+				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
+				
+				System.out.println("Analyzing " + entryPath.getPath() + "...");
+				
+				int[] counts;
+				String package_name = null;
+				
+				if (entryPath.getType() == SVNLogEntryPath.TYPE_DELETED) {
+					counts = new int[] {0, 0};
+				}
+				else {
+					if (entryPath.getPath().endsWith(".java")) {
+						String source_code = getFileFromRepository(repository, entryPath.getPath(), revision);
+						package_name = new PackageDeclarationParser(source_code).getPackageName();
+					}
+					
+					counts = getNumberOfChangedLines(repository, entryPath, revision);
+				}
+				
+				stats.add(new CommitStat(entryPath.getPath(), package_name, counts[0], counts[1]));
+			}
+		}
+		
+		for (CommitStat s : stats) {
+			System.out.println("Path: " + s.getPath());
+			System.out.println("Package: " + s.getPackageName());
+			System.out.println("Insertions: " + s.getInsertions());
+			System.out.println("Deletions: " + s.getDeletions());
+			System.out.println("----------------------------");
+		}
+
 	}
 
 }
