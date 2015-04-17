@@ -20,14 +20,10 @@ import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNLogEntryPath;
 import org.tmatesoft.svn.core.SVNRevisionProperty;
 import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
-import org.tmatesoft.svn.core.internal.io.dav.DAVRepositoryFactory;
 import org.tmatesoft.svn.core.io.SVNRepository;
-import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNRevision;
-import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IQueryIssue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
@@ -115,7 +111,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 					}
 				}
 				
-				commit = new Commit(String.valueOf(revision), author, date, issues, null);
+				commit = new Commit(String.valueOf(revision), author, date, issues, getCommitStats(revision));
 				cache_revisions.put(revision, commit);
 			}
 			
@@ -124,15 +120,10 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 	}
 
 	public boolean handleRevision(Date date, long revision, String author, File contents) throws SVNException {
-//		System.out.println("date: " + date);
-//		System.out.println("revision: " + revision);
-//		System.out.println("author: " + author);
-//		System.out.println("contents: " + contents.getName());
-//		System.out.println("************************");
 		return false;
 	}
 	
-	public static int[] getNumberOfChangedLines(SVNRepository repository, SVNLogEntryPath entryPath, long revision) {
+	private int[] getNumberOfChangedLines(SVNLogEntryPath entryPath, long revision) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		String rep_url = repository.getLocation().toDecodedString();
@@ -153,7 +144,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		}
 		
 		try {
-			SVNClientManager.newInstance().getDiffClient().doDiff(
+			SVNClientManager.newInstance(null, repository.getAuthenticationManager()).getDiffClient().doDiff(
 					SVNURL.parseURIEncoded(old_url),
 					SVNRevision.create(old_revision),
 					SVNURL.parseURIEncoded(new_url),
@@ -187,7 +178,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		return new int[]{insertions - 1, deletions - 1};
 	}
 	
-	public static String getFileFromRepository(SVNRepository repository, String filepath, long revision) {
+	private String getFileFromRepository(String filepath, long revision) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		try {
@@ -199,24 +190,9 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		return new String(baos.toByteArray());
 	}
 	
-	// TODO: Testar e tranformar em método privado.
-	public static void main(String[] args) throws Exception {
+	private Collection<CommitStat> getCommitStats(long revision) throws SVNException {
 
 		Collection<CommitStat> stats = new ArrayList<CommitStat>();
-		
-		DAVRepositoryFactory.setup();
-
-		String url = "http://scenario-analyzer.googlecode.com/svn";
-		String name = "";
-		String password = "";
-		long revision = 690;
-
-		SVNRepository repository = null;
-
-		repository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
-		ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(name, password);
-		repository.setAuthenticationManager(authManager);
-
 		Collection<?> logEntries = repository.log(new String[] { "" }, null, revision, revision, true, true);
 
 		for (Iterator<?> entries = logEntries.iterator(); entries.hasNext();) {
@@ -225,7 +201,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 			for (String key : logEntry.getChangedPaths().keySet()) {
 				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
 				
-				System.out.println("Analyzing " + entryPath.getPath() + "...");
+				logger.info("\tGetting stats for " + entryPath.getPath());
 				
 				int[] counts;
 				String package_name = null;
@@ -235,24 +211,18 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				}
 				else {
 					if (entryPath.getPath().endsWith(".java")) {
-						String source_code = getFileFromRepository(repository, entryPath.getPath(), revision);
+						String source_code = getFileFromRepository(entryPath.getPath(), revision);
 						package_name = new PackageDeclarationParser(source_code).getPackageName();
 					}
 					
-					counts = getNumberOfChangedLines(repository, entryPath, revision);
+					counts = getNumberOfChangedLines(entryPath, revision);
 				}
 				
 				stats.add(new CommitStat(entryPath.getPath(), package_name, counts[0], counts[1]));
 			}
 		}
 		
-		for (CommitStat s : stats) {
-			System.out.println("Path: " + s.getPath());
-			System.out.println("Package: " + s.getPackageName());
-			System.out.println("Insertions: " + s.getInsertions());
-			System.out.println("Deletions: " + s.getDeletions());
-			System.out.println("----------------------------");
-		}
+		return stats;
 
 	}
 
