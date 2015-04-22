@@ -120,33 +120,90 @@ public class GitUpdatedLinesHandler {
 	
 	private Collection<CommitStat> getCommitStats(String commit) throws IOException {
 		String so_prefix = "cmd /c ";
-		String command = so_prefix + "git show --numstat --oneline " + commit;
+		String command = so_prefix + "git show -C --oneline " + commit;
 		
 		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 		
 		Collection<CommitStat> stats = new ArrayList<CommitStat>();
 		
-		// A primeira linha é o comentário, será lido e ignorado.
+		// The first line contains only commit information
 		String line = br.readLine();
 		
-		while ((line = br.readLine()) != null) {
-			Scanner sc = new Scanner(line);
+		// Reading the first diff command
+		line = br.readLine();
+		
+		// It will be null at the end of the file
+		while (line != null) {
+			// Reading next line. It will indicate the operation (rename, added, deleted)
+			line = br.readLine();
 			
-			int insertions = sc.nextInt();
-			int deletions = sc.nextInt();
-			String path = sc.next();
+			CommitStat.Operation operation = null;
+			String updated_path = null;
 			
-			sc.close();
+			// Reading extra lines when it was a rename/copy (similarity line)
+			if (line.startsWith("similarity index")) {
+				br.readLine(); // rename from
+				br.readLine(); // rename to
+				br.readLine(); // Reading index line
+				br.readLine(); // Reading --- line (old path): --- a/old_path
+				updated_path = br.readLine().substring(5); // Reading +++ line (new path): +++ b/new_path
+				operation = CommitStat.Operation.RENAME;
+			}
+			// Reading extra lines when it was an addition
+			else if (line.startsWith("new file mode")) {
+				br.readLine(); // Reading index line
+				br.readLine(); // Reading --- line (old path): --- a/old_path
+				updated_path = br.readLine().substring(5); // Reading +++ line (new path): +++ b/new_path
+				operation = CommitStat.Operation.ADDED;
+			}
+			// Reading extra lines when it was a deletion
+			else if (line.startsWith("deleted file mode")) {
+				br.readLine(); // Reading index line
+				updated_path = br.readLine().substring(5); // Reading --- line (old path): --- a/old_path
+				br.readLine(); // Reading +++ line (new path): +++ b/new_path
+				operation = CommitStat.Operation.DELETED;
+			}
+			// The line variable is already the index line
+			else {
+				br.readLine(); // Reading --- line (old path): --- a/old_path
+				updated_path = br.readLine().substring(5); // Reading +++ line (new path): +++ b/new_path
+				operation = CommitStat.Operation.MODIFIED;
+			}
+			
+			int insertions = 0;
+			int deletions = 0;
+			int hunks = 0;
+			
+			// It will be null at the end of the file
+			// It will be diff command when finishing a set of stats 
+			while (line != null && !line.startsWith("diff --git")) {
+				// Counting
+				if (line.startsWith("+"))
+					++insertions;
+				else if (line.startsWith("-"))
+					++deletions;
+				else if (line.startsWith("@@"))
+					++hunks;
+				
+				// Reading a source code line
+				line = br.readLine();
+			}
+			
+			// Probably a no-text file
+			if (hunks == 0)
+				insertions = deletions = hunks = 0;
 			
 			String package_name = null;
 			
-			if (path.endsWith(".java")) {
-				PackageDeclarationParser parser = new PackageDeclarationParser(getSourceCodeByCommit(path, commit));
+			// Getting the package name if it is a java file
+			if (updated_path.endsWith(".java")) {
+				PackageDeclarationParser parser = new PackageDeclarationParser(getSourceCodeByCommit(updated_path, commit));
 				package_name = parser.getPackageName();
 			}
 			
-			stats.add(new CommitStat(path, package_name, insertions, deletions));
+			// Adding the commit stat to the result list
+			stats.add(new CommitStat(updated_path, package_name, insertions, deletions, hunks, operation));
 		}
 		
 		return stats;
@@ -279,13 +336,24 @@ public class GitUpdatedLinesHandler {
 		}
 		
 		System.out.println("####################");
-		System.out.println(gitHandler.getSourceCode());
+		//System.out.println(gitHandler.getSourceCode());
 		System.out.println("####################");
 		
+		// 3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128 -> com mudança de diretório
+		// 0bd6020eb5e1d3c029075e6a78efa6c16040cef8 -> com renomeação e adição
+		// cb5da57c846bb24a291df2d864fa0ea7d3298015 -> com remoção
 		Collection<CommitStat> stats = gitHandler.getCommitStats("3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128");
-		System.out.println(stats.size());
+		
+		Commit commit = new Commit(null, null, null, null, stats);
+		
+		System.out.println(commit.getStats().size());
+		System.out.println(commit.getNumberOfInsertions());
+		System.out.println(commit.getNumberOfDeletions());
+		System.out.println(commit.getNumberOfHunks());
+		
 		for (CommitStat s: stats)
-			System.out.println(s.getInsertions() + ", " + s.getDeletions() + ", " + s.getPath());
+			System.out.println(s.getInsertions() + ", " + s.getDeletions()
+					+ ", " + s.getHunks() + ", " + s.getOperation() + ", " + s.getPath());
 	}
 
 }

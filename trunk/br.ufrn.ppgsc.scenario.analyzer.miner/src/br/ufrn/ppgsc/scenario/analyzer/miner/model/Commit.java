@@ -18,6 +18,7 @@ public class Commit {
 
 	private int insertions;
 	private int deletions;
+	private int hunks;
 
 	public Commit(String revision, String author, Date date, Collection<Issue> issues, Collection<CommitStat> stats) {
 		this.revision = revision;
@@ -27,18 +28,18 @@ public class Commit {
 		this.stats = stats;
 
 		this.packages = new HashSet<String>();
-		this.insertions = this.deletions = 0;
+		this.insertions = this.deletions = this.hunks = 0;
 
 		if (stats == null) {
 			this.stats = new ArrayList<CommitStat>();
-		}
-		else {
+		} else {
 			for (CommitStat s : stats) {
 				if (s.getPackageName() != null)
 					this.packages.add(s.getPackageName());
-				
+
 				this.insertions += s.getInsertions();
 				this.deletions += s.getDeletions();
+				this.hunks += s.getHunks();
 			}
 		}
 	}
@@ -73,6 +74,10 @@ public class Commit {
 
 	public int getNumberOfDeletions() {
 		return deletions;
+	}
+
+	public int getNumberOfHunks() {
+		return hunks;
 	}
 
 }
