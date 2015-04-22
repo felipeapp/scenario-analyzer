@@ -2,16 +2,25 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
 public class CommitStat {
 
+	public enum Operation {
+		RENAME, ADDED, DELETED, MODIFIED
+	}
+
 	private String path;
-	private String package_name;
+	private String packageName;
 	private int insertions;
 	private int deletions;
+	private int hunks;
+	private Operation operation;
 
-	public CommitStat(String path, String package_name, int insertions, int deletions) {
+	public CommitStat(String path, String packageName, int insertions,
+			int deletions, int hunks, Operation operation) {
 		this.path = path;
-		this.package_name = package_name;
+		this.packageName = packageName;
 		this.insertions = insertions;
 		this.deletions = deletions;
+		this.hunks = hunks;
+		this.operation = operation;
 	}
 
 	public String getPath() {
@@ -19,7 +28,11 @@ public class CommitStat {
 	}
 
 	public String getPackageName() {
-		return package_name;
+		return packageName;
+	}
+
+	public Operation getOperation() {
+		return operation;
 	}
 
 	public int getInsertions() {
@@ -28,6 +41,10 @@ public class CommitStat {
 
 	public int getDeletions() {
 		return deletions;
+	}
+
+	public int getHunks() {
+		return hunks;
 	}
 
 }

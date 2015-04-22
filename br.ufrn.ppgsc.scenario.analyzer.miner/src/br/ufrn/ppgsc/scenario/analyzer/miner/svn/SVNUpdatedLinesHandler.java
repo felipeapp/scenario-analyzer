@@ -8,10 +8,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.tmatesoft.svn.core.SVNDepth;
@@ -159,23 +161,29 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		Scanner in = new Scanner(new ByteArrayInputStream(baos.toByteArray()));
 		int insertions = 0;
 		int deletions = 0;
+		int hunks = 0;
 		
 		while (in.hasNext()) {
 			// Elimina espaços em branco no final da linha
-			String line = in.nextLine().replaceFirst("\\s+$", "");
+			String line = in.nextLine();//.replaceFirst("\\s+$", "");
 			
 			// Após eliminar os espaços no final da string, desconsidera linhas modificadas em branco
-			if (line.length() > 1) {
+			//if (line.length() > 1) {
 				if (line.startsWith("+"))
 					++insertions;
 				else if (line.startsWith("-"))
 					++deletions;
-			}
+				else if (line.startsWith("@@"))
+					++hunks;
+			//}
 		}
 		
 		in.close();
 		
-		return new int[]{insertions - 1, deletions - 1};
+		if (hunks == 0) // Probably a no-text file
+			return new int[]{0, 0, 0};
+		
+		return new int[]{insertions - 1, deletions - 1, hunks};
 	}
 	
 	private String getFileFromRepository(String filepath, long revision) {
@@ -197,33 +205,91 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 
 		for (Iterator<?> entries = logEntries.iterator(); entries.hasNext();) {
 			SVNLogEntry logEntry = (SVNLogEntry) entries.next();
-
+			Set<String> set_of_copy_path = new HashSet<String>();
+			
 			for (String key : logEntry.getChangedPaths().keySet()) {
 				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
 				
+				System.out.println("Checking copy paths for " + entryPath.getPath());
+				
+				if (entryPath.getCopyPath() != null)
+					set_of_copy_path.add(entryPath.getCopyPath());
+			}
+			
+			for (String key : logEntry.getChangedPaths().keySet()) {
+				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
+				
+				System.out.println("Getting stats for " + entryPath.getPath());
 				logger.info("\tGetting stats for " + entryPath.getPath());
 				
 				int[] counts;
 				String package_name = null;
+				CommitStat.Operation operation = null;
 				
-				if (entryPath.getType() == SVNLogEntryPath.TYPE_DELETED) {
-					counts = new int[] {0, 0};
+				if (entryPath.getType() == SVNLogEntryPath.TYPE_ADDED) {
+					if (entryPath.getCopyPath() == null)
+						operation = CommitStat.Operation.ADDED;
+					else
+						operation = CommitStat.Operation.RENAME;
+				}
+				else if (entryPath.getType() == SVNLogEntryPath.TYPE_DELETED) {
+					operation = CommitStat.Operation.DELETED;
+					
+					// Actually, the file was renamed. Ignoring becase the new name will be considered added. 
+					if (set_of_copy_path.contains(entryPath.getPath()))
+						continue;
 				}
 				else {
-					if (entryPath.getPath().endsWith(".java")) {
-						String source_code = getFileFromRepository(entryPath.getPath(), revision);
-						package_name = new PackageDeclarationParser(source_code).getPackageName();
-					}
-					
-					counts = getNumberOfChangedLines(entryPath, revision);
+					operation = CommitStat.Operation.MODIFIED;
 				}
 				
-				stats.add(new CommitStat(entryPath.getPath(), package_name, counts[0], counts[1]));
+				if (entryPath.getPath().endsWith(".java")) {
+					String source_code = getFileFromRepository(entryPath.getPath(), revision);
+					package_name = new PackageDeclarationParser(source_code).getPackageName();
+				}
+				
+				counts = getNumberOfChangedLines(entryPath, revision);
+				
+				stats.add(new CommitStat(entryPath.getPath(), package_name, counts[0], counts[1], counts[2], operation));
 			}
 		}
 		
 		return stats;
 
+	}
+	
+	public static void main(String[] args) {
+		
+		SVNUpdatedMethodsMiner miner = new SVNUpdatedMethodsMiner();
+		
+		miner.connect("http://scenario-analyzer.googlecode.com/svn", "", "");
+
+		SVNUpdatedLinesHandler handler = new SVNUpdatedLinesHandler(miner.getRepository(), null);
+		
+		// 690 -> com renomeação e adição
+		// 683 -> com deleção
+		// 687 -> com binário
+		Collection<CommitStat> stats = null;
+		
+		try {
+			stats = handler.getCommitStats(690);
+		} catch (SVNException e) {
+			e.printStackTrace();
+		}
+		
+		Commit commit = new Commit(null, null, null, null, stats);
+		
+		System.out.println(commit.getStats().size());
+		System.out.println(commit.getNumberOfInsertions());
+		System.out.println(commit.getNumberOfDeletions());
+		System.out.println(commit.getNumberOfHunks());
+		
+		for (CommitStat s: stats)
+			System.out.println(s.getInsertions() + ", " + s.getDeletions()
+					+ ", " + s.getHunks() + ", " + s.getOperation() + ", " + s.getPath());
+		
+		miner.close();
+		
 	}
 
 }

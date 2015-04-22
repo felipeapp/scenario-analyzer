@@ -120,6 +120,10 @@ public class SVNUpdatedMethodsMiner implements IRepositoryMiner {
 		return handlers.get(path).getSourceCode();
 	}
 	
+	public SVNRepository getRepository() {
+		return repository;
+	}
+	
 	// Path indica um caminho local
 	public String getCommittedRevisionNumber(String path) {
 		long revision = -1;
