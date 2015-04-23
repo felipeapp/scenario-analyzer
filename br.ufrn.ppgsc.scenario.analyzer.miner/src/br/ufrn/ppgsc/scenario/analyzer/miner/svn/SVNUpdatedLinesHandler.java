@@ -210,8 +210,6 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 			for (String key : logEntry.getChangedPaths().keySet()) {
 				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
 				
-				System.out.println("Checking copy paths for " + entryPath.getPath());
-				
 				if (entryPath.getCopyPath() != null)
 					set_of_copy_path.add(entryPath.getCopyPath());
 			}
@@ -219,7 +217,6 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 			for (String key : logEntry.getChangedPaths().keySet()) {
 				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
 				
-				System.out.println("Getting stats for " + entryPath.getPath());
 				logger.info("\tGetting stats for " + entryPath.getPath());
 				
 				int[] counts;
