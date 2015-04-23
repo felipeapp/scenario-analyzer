@@ -193,6 +193,8 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(commit.getNumberOfInsertions());
 		sb.append(";");
 		sb.append(commit.getNumberOfDeletions());
+		sb.append(";");
+		sb.append(commit.getNumberOfHunks());
 		
 		return sb.toString();
 	}
