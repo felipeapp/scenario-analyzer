@@ -168,6 +168,15 @@ public abstract class AnalyzerCollectionUtil {
 		return sb.toString();
 	}
 	
+	public static Collection<String> getCommitProperties(Collection<Commit> commits) {
+		Collection<String> result = new ArrayList<String>();
+		
+		for (Commit commit : commits)
+			result.add(getCommitProperties(commit));
+		
+		return result;
+	}
+	
 	public static String getCommitProperties(Commit commit) {
 		StringBuilder sb = new StringBuilder();
 		
@@ -195,6 +204,31 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(commit.getNumberOfDeletions());
 		sb.append(";");
 		sb.append(commit.getNumberOfHunks());
+		
+		return sb.toString();
+	}
+	
+	public static String getCommitSelectedProperties(Commit commit) {
+		StringBuilder sb = new StringBuilder();
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(commit.getDate());
+		
+		sb.append(commit.getPackages().size());
+		sb.append(";");
+		sb.append(commit.getStats().size());
+		sb.append(";");
+		sb.append(commit.getIssues().size());
+		sb.append(";");
+		sb.append(commit.getNumberOfInsertions());
+		sb.append(";");
+		sb.append(commit.getNumberOfDeletions());
+		sb.append(";");
+		sb.append(commit.getNumberOfHunks());
+		sb.append(c.get(Calendar.HOUR_OF_DAY));
+		sb.append(";");
+		sb.append(c.get(Calendar.DAY_OF_WEEK));
+		sb.append(";");
 		
 		return sb.toString();
 	}

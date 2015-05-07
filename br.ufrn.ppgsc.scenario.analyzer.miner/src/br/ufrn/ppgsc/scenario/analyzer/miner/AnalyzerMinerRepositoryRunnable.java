@@ -16,6 +16,7 @@ import java.util.TreeSet;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IPathTransformer;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
@@ -112,8 +113,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 	}
 	
-	// TODO: How can I move this to report util?
-	private void saveScenariosAndBlames(String message, String filename, Map<String, List<String>> scenario_to_blames,
+	/*
+	 * TODO: How can I move this to report util?
+	 * It returns the set of commits significantly blamed for performance variation
+	 */
+	private Set<String> saveScenariosAndBlames(String message, String filename, Map<String, List<String>> scenario_to_blames,
 			Map<String, Double> avg_time_members_v1, Map<String, Double> avg_time_members_v2,
 			Map<String, UpdatedMethod> map_signature_to_upmethod) throws FileNotFoundException {
 		
@@ -322,9 +326,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 		printIssues(number_to_issue, revision_to_issues, pw_list);
 		printIssues(number_to_issue_significance, revision_to_issues_significance, pw_significance);
 		
+		AnalyzerReportUtil.saveCollection(message, getRMFilePath(filename + "_significance_only_commits"), revision_to_issues_significance.keySet());
+		
 		pw.close();
 		pw_list.close();
 		pw_significance.close();
+		
+		return revision_to_issues_significance.keySet();
 	}
 	
 	// TODO: Melhorar este método depois
@@ -552,7 +560,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		// Save the list of commits found during the mining phase
 		AnalyzerReportUtil.saveCollection("# List of all commits from classes found during the repository mining phase (blamed or not)",
-				getRMFilePath("all_commits_classes"), repository.getAllCommits());
+				getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits()));
 		AnalyzerReportUtil.saveCollection("# List of all commits from changed methods found during the repository mining phase (blamed or not)",
 				getRMFilePath("all_commits_changed_methods"), repository.getCommitsFromChangedMethods());
 		
@@ -642,9 +650,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 				 * Note that this save have to pass the partial name of the file.
 				 * The save method will discover the path in this case.
 				 */
-				saveScenariosAndBlames("# Methods blamed for performance degradation in each of the degraded scenarios",
+				Set<String> blamed_commits = saveScenariosAndBlames(
+						"# Methods blamed for performance degradation in each of the degraded scenarios",
 						target_prefix + "blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
 						avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
+				
+				Set<Commit> set_of_all_commits = repository.getAllCommits();
+				
+				AnalyzerReportUtil.saveCommitsForRAnalysis(set_of_all_commits, blamed_commits,
+						getRMFilePath(target_prefix + "r_degraded_commits"));
 			}
 			
 			// TODO: Check if optimization is working
@@ -654,9 +668,15 @@ public final class AnalyzerMinerRepositoryRunnable {
 				 * Note that this save have to pass the partial name of the file.
 				 * The save method will discover the path in this case.
 				 */
-				saveScenariosAndBlames("# Methods blamed for performance optimization in each of the optimized scenarios",
+				Set<String> blamed_commits = saveScenariosAndBlames(
+						"# Methods blamed for performance optimization in each of the optimized scenarios",
 						target_prefix + "blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
 						avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
+				
+				Set<Commit> set_of_all_commits = repository.getAllCommits();
+				
+				AnalyzerReportUtil.saveCommitsForRAnalysis(set_of_all_commits, blamed_commits,
+						getRMFilePath(target_prefix + "r_optimized_commits"));
 			}
 			
 			// Maps to count how many times the classes and packages are blamed

@@ -80,4 +80,9 @@ public class Commit {
 		return hunks;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Commit && revision.equals(((Commit) obj).getRevision());
+	}
+
 }

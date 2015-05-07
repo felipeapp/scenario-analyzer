@@ -232,7 +232,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				else if (entryPath.getType() == SVNLogEntryPath.TYPE_DELETED) {
 					operation = CommitStat.Operation.DELETED;
 					
-					// Actually, the file was renamed. Ignoring becase the new name will be considered added. 
+					// Actually, the file was renamed. Ignoring because the new name will be considered added. 
 					if (set_of_copy_path.contains(entryPath.getPath()))
 						continue;
 				}
@@ -240,7 +240,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 					operation = CommitStat.Operation.MODIFIED;
 				}
 				
-				if (entryPath.getPath().endsWith(".java")) {
+				if (entryPath.getPath().endsWith(".java") && entryPath.getType() != SVNLogEntryPath.TYPE_DELETED) {
 					String source_code = getFileFromRepository(entryPath.getPath(), revision);
 					package_name = new PackageDeclarationParser(source_code).getPackageName();
 				}
@@ -269,7 +269,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		Collection<CommitStat> stats = null;
 		
 		try {
-			stats = handler.getCommitStats(690);
+			stats = handler.getCommitStats(683);
 		} catch (SVNException e) {
 			e.printStackTrace();
 		}

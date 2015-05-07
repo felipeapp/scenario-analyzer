@@ -12,6 +12,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.ifaces.IRepositoryMiner;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 import br.ufrn.ppgsc.scenario.analyzer.miner.parser.MethodLimitParser;
@@ -29,7 +30,7 @@ public class RepositoryManager {
 	 * Every commit that modified classes (any member) that were executed during dynamic analysis.
 	 * Here we have even the commits not responsible for performance deviation. 
 	 */
-	private static Set<String> set_of_all_commits = new HashSet<String>();
+	private static Set<Commit> set_of_all_commits = new HashSet<Commit>();
 	
 	/* 
 	 * Every commit that modified methods that were executed during dynamic analysis.
@@ -45,7 +46,7 @@ public class RepositoryManager {
 		this.password = password;
 	}
 	
-	public Set<String> getAllCommits() {
+	public Set<Commit> getAllCommits() {
 		return Collections.unmodifiableSet(set_of_all_commits);
 	}
 	
@@ -108,7 +109,7 @@ public class RepositoryManager {
 			 * Tem que ser feito por último, pois depende do filter acima.
 			 */
 			for (UpdatedLine upline : lines)
-				set_of_all_commits.add(AnalyzerCollectionUtil.getCommitProperties(upline.getCommit()));
+				set_of_all_commits.add(upline.getCommit());
 		}
 		
 		// Pega os commits de métodos modificados
