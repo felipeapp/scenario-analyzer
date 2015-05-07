@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
@@ -347,6 +349,38 @@ public abstract class AnalyzerReportUtil {
 		System.out.println("\tTotal = " + signature_to_avgr1.size() + " and " + signature_to_avgr2.size());
 		
 		return message;
+	}
+	
+	public static List<String> loadFile(String filename) throws IOException {
+		List<String> result = new ArrayList<String>();
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		String line = null;
+		while ((line = br.readLine()) != null)
+			result.add(line);
+		
+		br.close();
+		return result;
+	}
+
+	public static void saveCommitsForRAnalysis(Set<Commit> set_of_all_commits, Set<String> blamed_commits, String filename) throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter(filename);
+		Set<String> lines = new TreeSet<String>(); // Just to keep the order
+		
+		for (Commit commit : set_of_all_commits)
+			lines.add(blamed_commits.contains(commit.getRevision()) + ";" + AnalyzerCollectionUtil.getCommitSelectedProperties(commit));
+		
+		// Number of commits
+		pw.println(lines.size());
+		
+		// Header
+		pw.println("Degradation;Number of Packages;Number of Files;Number of Issues;"
+				+ "Number of Insertions;Number of Deletions;Number of Hunks;Hour of Day;Day of Week");
+		
+		for (String line : lines)
+			pw.println(line);
+		
+		pw.close();
 	}
 
 }
