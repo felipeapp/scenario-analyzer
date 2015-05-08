@@ -197,9 +197,9 @@ public final class AnalyzerMinerDBRunnable {
 		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
 		System.out.println("\tTotal = " + failed_methods_both.size());
 		
-		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 1", getFileName("failed_methods_only_r1"),failed_methods_only_v1);
-		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 2", getFileName("failed_methods_only_r2"), failed_methods_only_v2);
-		AnalyzerReportUtil.saveCollection("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both);
+		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 1", getFileName("failed_methods_only_r1"),failed_methods_only_v1, false);
+		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 2", getFileName("failed_methods_only_r2"), failed_methods_only_v2, false);
+		AnalyzerReportUtil.saveCollection("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both, false);
 		
 		return strdate;
 	}

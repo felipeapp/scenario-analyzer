@@ -325,7 +325,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 		printIssues(number_to_issue, revision_to_issues, pw_list);
 		printIssues(number_to_issue_significance, revision_to_issues_significance, pw_significance);
 		
-		AnalyzerReportUtil.saveCollection(message, getRMFilePath(filename + "_significance_only_commits"), revision_to_issues_significance.keySet());
+		AnalyzerReportUtil.saveCollection(message, getRMFilePath(filename + "_significance_only_commits"),
+				revision_to_issues_significance.keySet(), false);
 		
 		pw.close();
 		pw_list.close();
@@ -559,9 +560,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		// Save the list of commits found during the mining phase
 		AnalyzerReportUtil.saveCollection("# List of all commits from classes found during the repository mining phase (blamed or not)",
-				getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits(), ","));
+				getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits(), ","), true);
 		AnalyzerReportUtil.saveCollection("# List of all commits from changed methods found during the repository mining phase (blamed or not)",
-				getRMFilePath("all_commits_changed_methods"), AnalyzerCollectionUtil.getCommitProperties(repository.getCommitsFromChangedMethods(), ","));
+				getRMFilePath("all_commits_changed_methods"), AnalyzerCollectionUtil.getCommitProperties(repository.getCommitsFromChangedMethods(), ","), true);
 		
 //		System.out.println("Getting methods and means for release 1...");
 //		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
