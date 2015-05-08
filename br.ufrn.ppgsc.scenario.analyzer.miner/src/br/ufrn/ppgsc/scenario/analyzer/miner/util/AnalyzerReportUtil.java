@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -364,22 +363,28 @@ public abstract class AnalyzerReportUtil {
 		return result;
 	}
 
-	public static void saveCommitsForRAnalysis(Set<Commit> all_commits, Set<String> blamed_commits, String filename) throws FileNotFoundException {
+	public static void saveCommitsForRAnalysis(Set<Commit> all_commits, Set<String> blamed_commits, String filename, String separator) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(filename);
-		List<String> lines = new ArrayList<String>();
+		Set<String> lines = new TreeSet<String>(); // A TreeSet, just to keep the order
 		
 		for (Commit commit : all_commits)
-			lines.add(blamed_commits.contains(commit.getRevision()) + ";" + AnalyzerCollectionUtil.getCommitSelectedProperties(commit));
-		
-		// Just to keep the order
-		Collections.sort(lines);		
+			lines.add(blamed_commits.contains(commit.getRevision()) + separator + AnalyzerCollectionUtil.getCommitSelectedProperties(commit, separator));
 		
 		// Number of commits
 		pw.println(lines.size());
 		
 		// Header
-		pw.println("Degradation;Number of Packages;Number of Files;Number of Issues;"
-				+ "Number of Insertions;Number of Deletions;Number of Hunks;Hour of Day;Day of Week");
+		pw.print("Degradation" + separator);
+		pw.print("Revision" + separator);
+		pw.print("Bug Fixing" + separator);
+		pw.print("Number of Packages" + separator);
+		pw.print("Number of Files" + separator);
+		pw.print("Number of Issues" + separator);
+		pw.print("Number of Insertions" + separator);
+		pw.print("Number of Deletions" + separator);
+		pw.print("Number of Hunks" + separator);
+		pw.print("Hour of Day" + separator);
+		pw.println("Day of Week");
 		
 		for (String line : lines)
 			pw.println(line);

@@ -58,7 +58,7 @@ public class GithubQueryIssue implements IQueryIssue {
 			if (message != null && message.equals("Not Found"))
 				issue_exists = false;
 		} catch (JSONException e) {
-			// Just continue because message was not found and the issue exists
+			// Just continue because message was not found, but the issue exists
 		}
 		
 		if (issue_exists) {
@@ -81,6 +81,9 @@ public class GithubQueryIssue implements IQueryIssue {
 				for (int i = 0; i < json.getJSONArray("labels").length(); i++) {
 					String type = json.getJSONArray("labels").getJSONObject(i).getString("name");
 	
+					if (type.equalsIgnoreCase("defect"))
+						issue.setBugFixing(true);
+					
 					if (issueType.isEmpty())
 						issueType = type;
 					else

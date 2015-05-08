@@ -60,9 +60,10 @@ public class JiraQueryIssue implements IQueryIssue {
 		try {
 			issue = restClient.getIssueClient().getIssue(jira_system + "-" + taskNumber).claim();
 			
-			issue_model.setType(issue.getIssueType().getName());
-			issue_model.setNumber(taskNumber);
 			issue_model.setId(issue.getId());
+			issue_model.setNumber(taskNumber);
+			issue_model.setType(issue.getIssueType().getName());
+			issue_model.setBugFixing(issue_model.getType().equalsIgnoreCase("Bug"));
 		} catch (RestClientException e) {
 			System.err.println(e.getMessage());
 		}

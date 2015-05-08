@@ -43,6 +43,8 @@ public class IssuezillaQueryIssue implements IQueryIssue {
 			fields
 		);
 		
+		issue.setBugFixing(issue.getType().equalsIgnoreCase("DEFECT"));
+		
 		return issue;
 	}
 

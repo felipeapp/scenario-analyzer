@@ -559,9 +559,9 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		// Save the list of commits found during the mining phase
 		AnalyzerReportUtil.saveCollection("# List of all commits from classes found during the repository mining phase (blamed or not)",
-				getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits()));
+				getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits(), ","));
 		AnalyzerReportUtil.saveCollection("# List of all commits from changed methods found during the repository mining phase (blamed or not)",
-				getRMFilePath("all_commits_changed_methods"), AnalyzerCollectionUtil.getCommitProperties(repository.getCommitsFromChangedMethods()));
+				getRMFilePath("all_commits_changed_methods"), AnalyzerCollectionUtil.getCommitProperties(repository.getCommitsFromChangedMethods(), ","));
 		
 //		System.out.println("Getting methods and means for release 1...");
 //		Map<String, Double> avg_time_members_v1 = DatabaseRelease.getDatabasev1().getExecutionTimeAverageOfMembers();
@@ -654,10 +654,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 						target_prefix + "blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
 						avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
 				
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(),
-						blamed_commits, getRMFilePath(target_prefix + "r_degraded_all_commits"));
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(),
-						blamed_commits, getRMFilePath(target_prefix + "r_degraded_method_commits"));
+				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(), blamed_commits,
+						getRMFilePath(target_prefix + "r_degraded_all_commits"), ",");
+				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(), blamed_commits,
+						getRMFilePath(target_prefix + "r_degraded_method_commits"), ",");
 			}
 			
 			// TODO: Check if optimization is working
@@ -672,10 +672,10 @@ public final class AnalyzerMinerRepositoryRunnable {
 						target_prefix + "blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
 						avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
 				
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(),
-						blamed_commits, getRMFilePath(target_prefix + "r_optimized_all_commits"));
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(),
-						blamed_commits, getRMFilePath(target_prefix + "r_optimized_method_commits"));
+				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(), blamed_commits,
+						getRMFilePath(target_prefix + "r_optimized_all_commits"), ",");
+				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(), blamed_commits,
+						getRMFilePath(target_prefix + "r_optimized_method_commits"), ",");
 			}
 			
 			// Maps to count how many times the classes and packages are blamed

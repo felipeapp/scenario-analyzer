@@ -108,10 +108,10 @@ public class AnalyzerMinerFull {
 
 		// Save the list of commits found during the mining phase
 		AnalyzerReportUtil.saveCollection("# List of all commits from classes found during the repository mining phase (blamed or not)",
-			getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits()));
+			getRMFilePath("all_commits_classes"), AnalyzerCollectionUtil.getCommitProperties(repository.getAllCommits(), ","));
 		
 		AnalyzerReportUtil.saveCollection("# List of all commits from changed methods found during the repository mining phase (blamed or not)",
-			getRMFilePath("all_commits_changed_methods"), AnalyzerCollectionUtil.getCommitProperties(repository.getCommitsFromChangedMethods()));
+			getRMFilePath("all_commits_changed_methods"), AnalyzerCollectionUtil.getCommitProperties(repository.getCommitsFromChangedMethods(), ","));
 		
 	}
 

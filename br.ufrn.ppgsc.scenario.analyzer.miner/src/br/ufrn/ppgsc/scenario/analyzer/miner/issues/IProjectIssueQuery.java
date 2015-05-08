@@ -51,8 +51,8 @@ public class IProjectIssueQuery implements IQueryIssue {
 			if (rs.next()) {
 				task.setId(rs.getLong("id"));
 				task.setNumber(rs.getLong("numero"));
-//				task.setIdType(rs.getLong("id_tipo"));
 				task.setType(rs.getString("tipo_denominacao"));
+				task.setBugFixing(task.getType().startsWith("ERRO"));
 			}
 			else {
 				logger.error("Task number " + taskNumber + " wasn't found.");
