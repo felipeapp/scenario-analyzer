@@ -130,13 +130,17 @@ public abstract class AnalyzerReportUtil {
 		
 	}
 	
-	public static void saveCollection(String message, String filename, Collection<String> collection) throws FileNotFoundException {
+	public static void saveCollection(String message, String filename, Collection<String> collection, boolean hasHeader) throws FileNotFoundException {
 		System.out.println("Saving >> " + message);
 		
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
 		
 		pw.println(message);
-		pw.println(collection.size());
+		
+		if (hasHeader)
+			pw.println(collection.size() - 1);
+		else
+			pw.println(collection.size());
 		
 		for (String elem : collection)
 			pw.println(elem);
