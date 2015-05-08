@@ -140,25 +140,11 @@ public abstract class AnalyzerCollectionUtil {
 		return issue_numbers;
 	}
 	
-	public static Set<String> getCommitCodes(Map<String, Collection<UpdatedMethod>> map_path_methods) {
-		Set<String> commits = new HashSet<String>();
-
-		for (String path : map_path_methods.keySet())
-			for (UpdatedMethod method : map_path_methods.get(path))
-				for (UpdatedLine line : method.getUpdatedLines())
-					commits.add(getCommitAndIssuesFromUpdatedLine(line));
-
-		return commits;
-	}
-	
-	// Return commit code and issue numbers using the format "commit_code:issue_number1,issue_number2,..."
-	public static String getCommitAndIssuesFromUpdatedLine(UpdatedLine line) {
+	// Return the issue numbers using the format "issue_number1,issue_number2,..."
+	public static String getLineOfIssues(Commit commit) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(line.getCommit().getRevision());
-		sb.append(":");
-		
-		for (Issue issue : line.getCommit().getIssues()) {
+		for (Issue issue : commit.getIssues()) {
 			sb.append(issue.getNumber());
 			sb.append(",");
 		}
@@ -166,6 +152,17 @@ public abstract class AnalyzerCollectionUtil {
 		sb.deleteCharAt(sb.length() - 1);
 		
 		return sb.toString();
+	}
+	
+	public static Collection<Commit> getCommitsFromUpMethods(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+		Collection<Commit> commits = new HashSet<Commit>();
+
+		for (String path : map_path_methods.keySet())
+			for (UpdatedMethod method : map_path_methods.get(path))
+				for (UpdatedLine line : method.getUpdatedLines())
+					commits.add(line.getCommit());
+
+		return commits;
 	}
 	
 	public static Collection<String> getCommitProperties(Collection<Commit> commits) {
@@ -204,6 +201,8 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(commit.getNumberOfDeletions());
 		sb.append(";");
 		sb.append(commit.getNumberOfHunks());
+		sb.append(";");
+		sb.append(getLineOfIssues(commit));
 		
 		return sb.toString();
 	}
@@ -228,7 +227,6 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(c.get(Calendar.HOUR_OF_DAY));
 		sb.append(";");
 		sb.append(c.get(Calendar.DAY_OF_WEEK));
-		sb.append(";");
 		
 		return sb.toString();
 	}

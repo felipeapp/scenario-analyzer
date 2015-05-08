@@ -36,7 +36,7 @@ public class RepositoryManager {
 	 * Every commit that modified methods that were executed during dynamic analysis.
 	 * Here we have even the commits not responsible for performance deviation. 
 	 */
-	private static Set<String> set_of_commits_from_changed_methods = new HashSet<String>();
+	private static Set<Commit> set_of_commits_from_changed_methods = new HashSet<Commit>();
 
 	public RepositoryManager(String url, String user, String password) {
 		miner = SystemMetadataUtil.getInstance().newObjectFromProperties(IRepositoryMiner.class);
@@ -50,7 +50,7 @@ public class RepositoryManager {
 		return Collections.unmodifiableSet(set_of_all_commits);
 	}
 	
-	public Set<String> getCommitsFromChangedMethods() {
+	public Set<Commit> getCommitsFromChangedMethods() {
 		return Collections.unmodifiableSet(set_of_commits_from_changed_methods);
 	}
 
@@ -113,7 +113,7 @@ public class RepositoryManager {
 		}
 		
 		// Pega os commits de métodos modificados
-		set_of_commits_from_changed_methods.addAll(AnalyzerCollectionUtil.getCommitCodes(changedMethods));
+		set_of_commits_from_changed_methods.addAll(AnalyzerCollectionUtil.getCommitsFromUpMethods(changedMethods));
 		
 		return changedMethods;
 	}
