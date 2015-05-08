@@ -12,10 +12,12 @@ public class Issue {
 	private Date creationDate;
 	private String type;
 	private String shortDescription;
+	private boolean isBugFixing;
 
 	public Issue() {
 		id = number = 0;
 		type = "No issue type";
+		isBugFixing = false;
 	}
 
 	public long getId() {
@@ -80,6 +82,14 @@ public class Issue {
 
 	public void setShortDescription(String shortDescription) {
 		this.shortDescription = shortDescription;
+	}
+
+	public boolean isBugFixing() {
+		return isBugFixing;
+	}
+
+	public void setBugFixing(boolean isBugFixing) {
+		this.isBugFixing = isBugFixing;
 	}
 
 	@Override

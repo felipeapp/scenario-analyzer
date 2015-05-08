@@ -19,6 +19,8 @@ public class Commit {
 	private int insertions;
 	private int deletions;
 	private int hunks;
+	
+	private boolean bug;
 
 	public Commit(String revision, String author, Date date, Collection<Issue> issues, Collection<CommitStat> stats) {
 		this.revision = revision;
@@ -29,6 +31,8 @@ public class Commit {
 
 		this.packages = new HashSet<String>();
 		this.insertions = this.deletions = this.hunks = 0;
+		
+		this.bug = false;
 
 		if (stats == null) {
 			this.stats = new ArrayList<CommitStat>();
@@ -40,6 +44,18 @@ public class Commit {
 				this.insertions += s.getInsertions();
 				this.deletions += s.getDeletions();
 				this.hunks += s.getHunks();
+			}
+		}
+		
+		if (issues == null) {
+			this.issues = new ArrayList<Issue>();
+		}
+		else {
+			for (Issue i : issues) {
+				if (i.isBugFixing()) {
+					this.bug = true;
+					break;
+				}
 			}
 		}
 	}
@@ -78,6 +94,10 @@ public class Commit {
 
 	public int getNumberOfHunks() {
 		return hunks;
+	}
+
+	public boolean isBugFixing() {
+		return bug;
 	}
 
 	@Override

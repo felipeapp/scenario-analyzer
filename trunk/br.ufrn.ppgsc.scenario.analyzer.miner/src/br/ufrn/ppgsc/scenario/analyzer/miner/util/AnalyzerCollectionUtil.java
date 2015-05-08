@@ -140,13 +140,12 @@ public abstract class AnalyzerCollectionUtil {
 		return issue_numbers;
 	}
 	
-	// Return the issue numbers using the format "issue_number1,issue_number2,..."
-	public static String getLineOfIssues(Commit commit) {
+	public static String getLineOfIssues(Commit commit, char separator) {
 		StringBuilder sb = new StringBuilder();
 		
 		for (Issue issue : commit.getIssues()) {
 			sb.append(issue.getNumber());
-			sb.append(",");
+			sb.append(separator);
 		}
 		
 		if (sb.length() > 0)
@@ -166,67 +165,94 @@ public abstract class AnalyzerCollectionUtil {
 		return commits;
 	}
 	
-	public static Collection<String> getCommitProperties(Collection<Commit> commits) {
+	public static Collection<String> getCommitProperties(Collection<Commit> commits, String separator) {
 		Collection<String> result = new ArrayList<String>();
 		
+		// Building the header
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Revision" + separator);
+		sb.append("Bug Fixing" + separator);
+		sb.append("Author" + separator);
+		sb.append("Date" + separator);
+		sb.append("Day of Week" + separator);
+		sb.append("Hour of Day" + separator);
+		sb.append("Number of Packages" + separator);
+		sb.append("Number of Files" + separator);
+		sb.append("Number of Insertions" + separator);
+		sb.append("Number of Deletions" + separator);
+		sb.append("Number of Hunks" + separator);
+		sb.append("Number of Issues" + separator);
+		sb.append("Issues");
+		
+		result.add(sb.toString());
+		
+		// Getting properties
 		for (Commit commit : commits)
-			result.add(getCommitProperties(commit));
+			result.add(getCommitProperties(commit, separator));
 		
 		return result;
 	}
 	
-	public static String getCommitProperties(Commit commit) {
+	public static String getCommitProperties(Commit commit, String separator) {
 		StringBuilder sb = new StringBuilder();
 		
 		Calendar c = Calendar.getInstance();
 		c.setTime(commit.getDate());
 		
 		sb.append(commit.getRevision());
-		sb.append(";");
+		sb.append(separator);
+		sb.append(commit.isBugFixing());
+		sb.append(separator);
 		sb.append(commit.getAuthor());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getDate());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(c.get(Calendar.DAY_OF_WEEK));
-		sb.append(";");
+		sb.append(separator);
 		sb.append(c.get(Calendar.HOUR_OF_DAY));
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getPackages().size());
-		sb.append(";");
-		sb.append(commit.getIssues().size());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getStats().size());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getNumberOfInsertions());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getNumberOfDeletions());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getNumberOfHunks());
-		sb.append(";");
-		sb.append(getLineOfIssues(commit));
+		sb.append(separator);
+		sb.append(commit.getIssues().size());
+		sb.append(separator);
+		sb.append(getLineOfIssues(commit, ':'));
 		
 		return sb.toString();
 	}
 	
-	public static String getCommitSelectedProperties(Commit commit) {
+	public static String getCommitSelectedProperties(Commit commit, String separator) {
 		StringBuilder sb = new StringBuilder();
 		
 		Calendar c = Calendar.getInstance();
 		c.setTime(commit.getDate());
 		
+		sb.append(commit.getRevision());
+		sb.append(separator);
+		sb.append(commit.isBugFixing());
+		sb.append(separator);
 		sb.append(commit.getPackages().size());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getStats().size());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getIssues().size());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getNumberOfInsertions());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getNumberOfDeletions());
-		sb.append(";");
+		sb.append(separator);
 		sb.append(commit.getNumberOfHunks());
+		sb.append(separator);
 		sb.append(c.get(Calendar.HOUR_OF_DAY));
-		sb.append(";");
+		sb.append(separator);
 		sb.append(c.get(Calendar.DAY_OF_WEEK));
 		
 		return sb.toString();
