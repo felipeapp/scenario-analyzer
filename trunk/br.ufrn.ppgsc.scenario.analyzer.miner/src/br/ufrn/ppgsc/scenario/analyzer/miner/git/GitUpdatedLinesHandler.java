@@ -147,27 +147,27 @@ public class GitUpdatedLinesHandler {
 				br.readLine(); // rename to
 				br.readLine(); // Reading index line
 				br.readLine(); // Reading --- line (old path): --- a/old_path
-				updated_path = br.readLine().substring(5); // Reading +++ line (new path): +++ b/new_path
+				updated_path = br.readLine().substring(6); // Reading +++ line (new path): +++ b/new_path
 				operation = CommitStat.Operation.RENAME;
 			}
 			// Reading extra lines when it was an addition
 			else if (line.startsWith("new file mode")) {
 				br.readLine(); // Reading index line
 				br.readLine(); // Reading --- line (old path): --- a/old_path
-				updated_path = br.readLine().substring(5); // Reading +++ line (new path): +++ b/new_path
+				updated_path = br.readLine().substring(6); // Reading +++ line (new path): +++ b/new_path
 				operation = CommitStat.Operation.ADDED;
 			}
 			// Reading extra lines when it was a deletion
 			else if (line.startsWith("deleted file mode")) {
 				br.readLine(); // Reading index line
-				updated_path = br.readLine().substring(5); // Reading --- line (old path): --- a/old_path
+				updated_path = br.readLine().substring(6); // Reading --- line (old path): --- a/old_path
 				br.readLine(); // Reading +++ line (new path): +++ b/new_path
 				operation = CommitStat.Operation.DELETED;
 			}
 			// The line variable is already the index line
 			else {
 				br.readLine(); // Reading --- line (old path): --- a/old_path
-				updated_path = br.readLine().substring(5); // Reading +++ line (new path): +++ b/new_path
+				updated_path = br.readLine().substring(6); // Reading +++ line (new path): +++ b/new_path
 				operation = CommitStat.Operation.MODIFIED;
 			}
 			
@@ -198,8 +198,8 @@ public class GitUpdatedLinesHandler {
 			
 			// Getting the package name if it is a java file
 			if (updated_path.endsWith(".java")) {
-				PackageDeclarationParser parser = new PackageDeclarationParser(getSourceCodeByCommit(updated_path, commit));
-				package_name = parser.getPackageName();
+				PackageDeclarationParser parse = new PackageDeclarationParser(getSourceCodeByCommit(updated_path, commit));
+				package_name = parse.getPackageName();
 			}
 			
 			// Adding the commit stat to the result list
@@ -315,25 +315,25 @@ public class GitUpdatedLinesHandler {
 				"C:/Users/Felipe/git/wicket/wicket-core/src/main/java/org/apache/wicket/",
 				"MarkupContainer.java");
 		
-		gitHandler.calculateChangedLines();
-		
-		Collection<UpdatedLine> list = gitHandler.getChangedLines();
-		
-		for (UpdatedLine up_line : list) {
-			System.out.println(up_line.getCommit().getAuthor());
-			System.out.println(up_line.getLine());
-			System.out.println(up_line.getLineNumber());
-			System.out.println(up_line.getCommit().getRevision());
-			System.out.println(up_line.getCommit().getDate());
-			
-			for (Issue i : up_line.getCommit().getIssues()) {
-				System.out.println("\t" + i.getId());
-				System.out.println("\t" + i.getNumber());
-				System.out.println("\t" + i.getType());
-			}
-			
-			System.out.println("------------------------------");
-		}
+//		gitHandler.calculateChangedLines();
+//		
+//		Collection<UpdatedLine> list = gitHandler.getChangedLines();
+//		
+//		for (UpdatedLine up_line : list) {
+//			System.out.println(up_line.getCommit().getAuthor());
+//			System.out.println(up_line.getLine());
+//			System.out.println(up_line.getLineNumber());
+//			System.out.println(up_line.getCommit().getRevision());
+//			System.out.println(up_line.getCommit().getDate());
+//			
+//			for (Issue i : up_line.getCommit().getIssues()) {
+//				System.out.println("\t" + i.getId());
+//				System.out.println("\t" + i.getNumber());
+//				System.out.println("\t" + i.getType());
+//			}
+//			
+//			System.out.println("------------------------------");
+//		}
 		
 		System.out.println("####################");
 		//System.out.println(gitHandler.getSourceCode());
@@ -347,13 +347,16 @@ public class GitUpdatedLinesHandler {
 		Commit commit = new Commit(null, null, null, null, stats);
 		
 		System.out.println(commit.getStats().size());
+		System.out.println(commit.getPackages().size());
 		System.out.println(commit.getNumberOfInsertions());
 		System.out.println(commit.getNumberOfDeletions());
 		System.out.println(commit.getNumberOfHunks());
 		
-		for (CommitStat s: stats)
-			System.out.println(s.getInsertions() + ", " + s.getDeletions()
+		int i = 0;
+		for (CommitStat s: stats) {
+			System.out.println(++i + " - " + s.getPackageName() + ", " + s.getInsertions() + ", " + s.getDeletions()
 					+ ", " + s.getHunks() + ", " + s.getOperation() + ", " + s.getPath());
+		}
 	}
 
 }
