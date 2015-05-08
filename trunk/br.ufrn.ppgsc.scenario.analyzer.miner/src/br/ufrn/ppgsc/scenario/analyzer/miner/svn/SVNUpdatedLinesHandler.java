@@ -20,7 +20,6 @@ import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNLogEntryPath;
-import org.tmatesoft.svn.core.SVNRevisionProperty;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.ISVNAnnotateHandler;
@@ -86,34 +85,35 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 			Commit commit = cache_revisions.get(revision);
 			
 			if (commit == null) {
-				logger.info("\tGetting issues to revision " + revision + " in " + path);
-
-				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
-				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
+//				logger.info("\tGetting issues to revision " + revision + " in " + path);
+//
+//				String logMessage = repository.getRevisionPropertyValue(revision, SVNRevisionProperty.LOG).getString();
+//				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
 				Collection<Issue> issues = new ArrayList<Issue>();
+//				
+//				if (issue_numbers.isEmpty()) {
+//					logger.warn("\t[Empty] No issues for log message: " + logMessage);
+//					issues.add(new Issue());
+//				}
+//				else {
+//					for (Long issue_number : issue_numbers) {
+//						Issue issue = null;
+//						
+//						if (issue_number <= 0) {
+//							logger.warn("\t[Invalid: " + issue_number + "] No issues for log message: " + logMessage);
+//							issue = new Issue();
+//						}
+//						else {
+//							logger.info("\t[Found: " + issue_number + "] In log message: " + logMessage);
+//							issue = issueQuery.getIssueByNumber(issue_number);
+//						}
+//						
+//						issues.add(issue);
+//					}
+//				}
 				
-				if (issue_numbers.isEmpty()) {
-					logger.warn("\t[Empty] No issues for log message: " + logMessage);
-					issues.add(new Issue());
-				}
-				else {
-					for (Long issue_number : issue_numbers) {
-						Issue issue = null;
-						
-						if (issue_number <= 0) {
-							logger.warn("\t[Invalid: " + issue_number + "] No issues for log message: " + logMessage);
-							issue = new Issue();
-						}
-						else {
-							logger.info("\t[Found: " + issue_number + "] In log message: " + logMessage);
-							issue = issueQuery.getIssueByNumber(issue_number);
-						}
-						
-						issues.add(issue);
-					}
-				}
-				
-				commit = new Commit(String.valueOf(revision), author, date, issues, getCommitStats(revision));
+				//commit = new Commit(String.valueOf(revision), author, date, issues, getCommitStats(revision));
+				commit = new Commit(String.valueOf(revision), author, date, issues, new ArrayList<CommitStat>());
 				cache_revisions.put(revision, commit);
 			}
 			

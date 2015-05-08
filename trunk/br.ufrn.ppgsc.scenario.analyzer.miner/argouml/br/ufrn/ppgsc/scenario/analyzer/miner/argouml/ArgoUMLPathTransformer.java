@@ -66,6 +66,24 @@ public class ArgoUMLPathTransformer implements IPathTransformer {
 			name = "org/argouml/ui/FindDialog";
 		else if (name.equals("org/argouml/uml/diagram/ui/FigRole"))
 			name = "org/argouml/uml/diagram/ui/FigAssociation";
+		else if (name.equals("org/argouml/cognitive/DesignGoalsCM"))
+			name = "org/argouml/cognitive/StandardCM";
+		else if (name.equals("org/argouml/cognitive/AndCM"))
+			name = "org/argouml/cognitive/StandardCM";
+		else if (name.equals("org/argouml/uml/diagram/ui/FigMultiplicity"))
+			name = "org/argouml/uml/diagram/ui/FigAssociation";
+		else if (name.equals("org/argouml/util/LineSeparator"))
+			name = "org/argouml/util/MyTokenizer";
+		else if (name.equals("org/argouml/uml/ui/Seperator"))
+			name = "org/argouml/uml/ui/LabelledLayout";
+		else if (name.equals("org/argouml/uml/ui/ActionRemoveTaggedValue"))
+			name = "org/argouml/uml/ui/TabTaggedValues";
+		else if (name.equals("org/argouml/cognitive/CurDecisionCM"))
+			name = "org/argouml/cognitive/StandardCM";
+		else if (name.equals("org/argouml/cognitive/CompositeCM"))
+			name = "org/argouml/cognitive/StandardCM";
+		else if (name.equals("org/argouml/uml/diagram/ui/FigOrdering"))
+			name = "org/argouml/uml/diagram/ui/FigAssociation";
 		// ---------------------------------------
 
 		// Redirecionando para o projeto correto de acordo com pacote
@@ -105,7 +123,8 @@ public class ArgoUMLPathTransformer implements IPathTransformer {
 				name.equals("AbstractUMLModelElementListModel2Test") ||
 				name.equals("InitializeModel") || name.startsWith("Test") ||
 				name.startsWith("AbstractTest") || name.startsWith("GenericUmlObjectTest") ||
-				name.startsWith("GUITest") || name.equals("CheckMain");
+				name.startsWith("GUITest") || name.equals("CheckMain") ||
+				name.startsWith("Mock");
 	}
 	
 }

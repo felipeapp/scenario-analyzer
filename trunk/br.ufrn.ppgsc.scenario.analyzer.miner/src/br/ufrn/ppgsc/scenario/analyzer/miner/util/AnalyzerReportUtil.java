@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -363,12 +364,15 @@ public abstract class AnalyzerReportUtil {
 		return result;
 	}
 
-	public static void saveCommitsForRAnalysis(Set<Commit> set_of_all_commits, Set<String> blamed_commits, String filename) throws FileNotFoundException {
+	public static void saveCommitsForRAnalysis(Set<Commit> all_commits, Set<String> blamed_commits, String filename) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(filename);
-		Set<String> lines = new TreeSet<String>(); // Just to keep the order
+		List<String> lines = new ArrayList<String>();
 		
-		for (Commit commit : set_of_all_commits)
+		for (Commit commit : all_commits)
 			lines.add(blamed_commits.contains(commit.getRevision()) + ";" + AnalyzerCollectionUtil.getCommitSelectedProperties(commit));
+		
+		// Just to keep the order
+		Collections.sort(lines);		
 		
 		// Number of commits
 		pw.println(lines.size());
