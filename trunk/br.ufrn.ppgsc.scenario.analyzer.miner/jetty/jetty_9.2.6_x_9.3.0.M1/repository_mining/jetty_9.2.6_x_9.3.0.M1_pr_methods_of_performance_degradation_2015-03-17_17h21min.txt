@@ -24,12 +24,12 @@ Entry point for AsyncIOServletTest.testAsyncWriteThrowsException
 Entry point for AsyncIOServletTest.testOnErrorThrows
 Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
 Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
-org.eclipse.jetty.servlet.DefaultServletTest.testFiltered()
-1
-Entry point for DefaultServletTest.testFiltered
 org.eclipse.jetty.servlet.ServletContextHandlerTest.testHandlerBeforeServletHandler()
 1
 Entry point for ServletContextHandlerTest.testHandlerBeforeServletHandler
+org.eclipse.jetty.servlet.DefaultServletTest.testFiltered()
+1
+Entry point for DefaultServletTest.testFiltered
 org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path)
 1
 Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
@@ -97,10 +97,10 @@ org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty
 2
 Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
 Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithServlet
-org.eclipse.jetty.util.resource.Resource.newResource(java.lang.String)
+org.eclipse.jetty.util.resource.Resource.newResource(java.lang.String,boolean)
 1
 Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
-org.eclipse.jetty.util.resource.Resource.newResource(java.lang.String,boolean)
+org.eclipse.jetty.util.resource.Resource.newResource(java.lang.String)
 1
 Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
 org.eclipse.jetty.http.HttpFields.add(org.eclipse.jetty.http.HttpField)
@@ -198,7 +198,7 @@ Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
 org.eclipse.jetty.server.handler.HandlerWrapper.insertHandler(org.eclipse.jetty.server.handler.HandlerWrapper)
 1
 Entry point for ServletContextHandlerTest.testHandlerBeforeServletHandler
-org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String,org.eclipse.jetty.http.MimeTypes.Type)
+org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String,java.nio.charset.Charset)
 6
 Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
 Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
@@ -206,7 +206,7 @@ Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherR
 Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
 Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
 Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
-org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String,java.nio.charset.Charset)
+org.eclipse.jetty.http.MimeTypes$Type(java.lang.String,int,java.lang.String,org.eclipse.jetty.http.MimeTypes.Type)
 6
 Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
 Entry point for AsyncIOServletTest.testAsyncWriteThrowsError

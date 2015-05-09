@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -370,6 +371,9 @@ public abstract class AnalyzerReportUtil {
 	public static void saveCommitsForRAnalysis(Set<Commit> all_commits, Set<String> blamed_commits, String filename, String separator) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(filename);
 		Set<String> lines = new TreeSet<String>(); // A TreeSet, just to keep the order
+
+		if (blamed_commits == null)
+			blamed_commits = new HashSet<String>();
 		
 		for (Commit commit : all_commits)
 			lines.add(blamed_commits.contains(commit.getRevision()) + separator + AnalyzerCollectionUtil.getCommitSelectedProperties(commit, separator));

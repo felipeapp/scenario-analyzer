@@ -643,22 +643,26 @@ public final class AnalyzerMinerRepositoryRunnable {
 				removeExcludedEntryPoints(optimized_scenario_to_blames);
 			}
 			
+			Set<String> blamed_commits = null;
+			
 			if (isFilled(p_degradation_methods)) {
 				/*
 				 * Showing degraded scenarios and blamed methods.
 				 * Note that this save have to pass the partial name of the file.
 				 * The save method will discover the path in this case.
 				 */
-				Set<String> blamed_commits = saveScenariosAndBlames(
+				blamed_commits = saveScenariosAndBlames(
 						"# Methods blamed for performance degradation in each of the degraded scenarios",
 						target_prefix + "blamed_methods_of_degraded_scenarios", degraded_scenario_to_blames,
 						avg_time_members_v1, avg_time_members_v2, p_degradation_methods);
-				
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(), blamed_commits,
-						getRMFilePath(target_prefix + "r_degraded_all_commits"), ",");
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(), blamed_commits,
-						getRMFilePath(target_prefix + "r_degraded_method_commits"), ",");
 			}
+			
+			AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(), blamed_commits,
+					getRMFilePath(target_prefix + "r_degraded_all_commits"), ",");
+			AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(), blamed_commits,
+					getRMFilePath(target_prefix + "r_degraded_method_commits"), ",");
+			
+			blamed_commits = null;
 			
 			// TODO: Check if optimization is working
 			if (isFilled(p_optimization_methods)) {
@@ -667,16 +671,19 @@ public final class AnalyzerMinerRepositoryRunnable {
 				 * Note that this save have to pass the partial name of the file.
 				 * The save method will discover the path in this case.
 				 */
-				Set<String> blamed_commits = saveScenariosAndBlames(
+				blamed_commits = saveScenariosAndBlames(
 						"# Methods blamed for performance optimization in each of the optimized scenarios",
 						target_prefix + "blamed_methods_of_optimized_scenarios", optimized_scenario_to_blames,
 						avg_time_members_v1, avg_time_members_v2, p_optimization_methods);
-				
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(), blamed_commits,
-						getRMFilePath(target_prefix + "r_optimized_all_commits"), ",");
-				AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(), blamed_commits,
-						getRMFilePath(target_prefix + "r_optimized_method_commits"), ",");
+
 			}
+			
+			AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getAllCommits(), blamed_commits,
+					getRMFilePath(target_prefix + "r_optimized_all_commits"), ",");
+			AnalyzerReportUtil.saveCommitsForRAnalysis(repository.getCommitsFromChangedMethods(), blamed_commits,
+					getRMFilePath(target_prefix + "r_optimized_method_commits"), ",");
+			
+			blamed_commits = null;
 			
 			// Maps to count how many times the classes and packages are blamed
 			Map<String, Integer> total_classes = new HashMap<String, Integer>();
