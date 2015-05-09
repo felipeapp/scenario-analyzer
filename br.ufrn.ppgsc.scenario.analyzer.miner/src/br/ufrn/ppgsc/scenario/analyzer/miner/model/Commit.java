@@ -10,6 +10,7 @@ public class Commit {
 
 	private String revision;
 	private Date date;
+	private String timezone;
 	private String author;
 
 	private Collection<String> packages;
@@ -19,21 +20,22 @@ public class Commit {
 	private int insertions;
 	private int deletions;
 	private int hunks;
-	
+
 	private boolean bug;
 
-	public Commit(String revision, String author, Date date, Collection<Issue> issues, Collection<CommitStat> stats) {
+	public Commit(String revision, String author, Date date, String timezone, Collection<Issue> issues, Collection<CommitStat> stats) {
 		this.revision = revision;
 		this.author = author;
 		this.date = date;
+		this.timezone = timezone;
 		this.issues = issues;
 		this.stats = stats;
 
 		this.packages = new HashSet<String>();
 		this.insertions = this.deletions = this.hunks = 0;
-		
-		this.bug = false;
 
+		this.bug = false;
+		
 		if (stats == null) {
 			this.stats = new ArrayList<CommitStat>();
 		} else {
@@ -46,11 +48,10 @@ public class Commit {
 				this.hunks += s.getHunks();
 			}
 		}
-		
+
 		if (issues == null) {
 			this.issues = new ArrayList<Issue>();
-		}
-		else {
+		} else {
 			for (Issue i : issues) {
 				if (i.isBugFixing()) {
 					this.bug = true;
@@ -66,6 +67,10 @@ public class Commit {
 
 	public Date getDate() {
 		return date;
+	}
+
+	public String getTimezone() {
+		return timezone;
 	}
 
 	public String getAuthor() {

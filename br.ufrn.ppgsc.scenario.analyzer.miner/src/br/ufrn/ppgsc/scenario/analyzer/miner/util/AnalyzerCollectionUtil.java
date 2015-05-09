@@ -3,9 +3,12 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -174,8 +177,6 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append("Bug Fixing" + separator);
 		sb.append("Author" + separator);
 		sb.append("Date" + separator);
-		sb.append("Day of Week" + separator);
-		sb.append("Hour of Day" + separator);
 		sb.append("Number of Packages" + separator);
 		sb.append("Number of Files" + separator);
 		sb.append("Number of Insertions" + separator);
@@ -196,8 +197,7 @@ public abstract class AnalyzerCollectionUtil {
 	public static String getCommitProperties(Commit commit, String separator) {
 		StringBuilder sb = new StringBuilder();
 		
-		Calendar c = Calendar.getInstance();
-		c.setTime(commit.getDate());
+		DateFormat formatter = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss");
 		
 		sb.append(commit.getRevision());
 		sb.append(separator);
@@ -205,11 +205,7 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(separator);
 		sb.append(commit.getAuthor());
 		sb.append(separator);
-		sb.append(commit.getDate());
-		sb.append(separator);
-		sb.append(c.get(Calendar.DAY_OF_WEEK));
-		sb.append(separator);
-		sb.append(c.get(Calendar.HOUR_OF_DAY));
+		sb.append(formatter.format(commit.getDate()) + " " + commit.getTimezone());
 		sb.append(separator);
 		sb.append(commit.getPackages().size());
 		sb.append(separator);
@@ -231,7 +227,7 @@ public abstract class AnalyzerCollectionUtil {
 	public static String getCommitSelectedProperties(Commit commit, String separator) {
 		StringBuilder sb = new StringBuilder();
 		
-		Calendar c = Calendar.getInstance();
+		Calendar c = new GregorianCalendar();
 		c.setTime(commit.getDate());
 		
 		sb.append(commit.getRevision());

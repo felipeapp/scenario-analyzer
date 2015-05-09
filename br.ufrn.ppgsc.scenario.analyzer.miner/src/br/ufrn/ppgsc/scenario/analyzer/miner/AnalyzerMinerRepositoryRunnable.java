@@ -410,9 +410,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 			Collection<String> full_signatures = new ArrayList<String>();
 			
 			String file_message = AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath(filename));
-			if (filename.endsWith("degraded_methods"))
+			
+			if (filename.endsWith("degraded_methods") || filename.equals("kept_methods"))
 				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("added_methods"));
-			else if (filename.endsWith("optimized_methods"))
+			
+			if (filename.endsWith("optimized_methods") || filename.equals("kept_methods"))
 				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("removed_methods"));
 			
 			for (String signature : full_signatures) {
