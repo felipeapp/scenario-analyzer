@@ -237,9 +237,11 @@ public class GitUpdatedLinesHandler {
 		int line_number = Integer.parseInt(tokens.get(tokens.size() - 1));
 		
 		Date commit_date = null;
+		String commit_tz = null;
 		try {
-			commit_date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(
+			commit_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
 					tokens.get(tokens.size() - 4) + " " + tokens.get(tokens.size() - 3));
+			commit_tz = tokens.get(tokens.size() - 2);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -290,7 +292,7 @@ public class GitUpdatedLinesHandler {
 				 */
 				Collection<CommitStat> stats = getCommitStats(commit_revision);
 				
-				commit = new Commit(commit_revision, author_name, commit_date, issues, stats);
+				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats);
 				
 				// Cache do commit analisado
 				cache_commits.put(commit_revision, commit);
@@ -344,7 +346,7 @@ public class GitUpdatedLinesHandler {
 		// cb5da57c846bb24a291df2d864fa0ea7d3298015 -> com remoção
 		Collection<CommitStat> stats = gitHandler.getCommitStats("3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128");
 		
-		Commit commit = new Commit(null, null, null, null, stats);
+		Commit commit = new Commit(null, null, null, null, null, stats);
 		
 		System.out.println(commit.getStats().size());
 		System.out.println(commit.getPackages().size());
