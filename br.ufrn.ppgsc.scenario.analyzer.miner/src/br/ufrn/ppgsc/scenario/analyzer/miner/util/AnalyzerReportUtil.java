@@ -386,6 +386,8 @@ public abstract class AnalyzerReportUtil {
 		pw.print("Number of Issues" + separator);
 		pw.print("Number of Insertions" + separator);
 		pw.print("Number of Deletions" + separator);
+		pw.print("Number of Churns" + separator);
+		pw.print("Delta of Lines" + separator);
 		pw.print("Number of Hunks" + separator);
 		pw.print("Hour of Day" + separator);
 		pw.println("Day of Week");

@@ -3,8 +3,6 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -181,6 +179,8 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append("Number of Files" + separator);
 		sb.append("Number of Insertions" + separator);
 		sb.append("Number of Deletions" + separator);
+		sb.append("Number of Churns" + separator);
+		sb.append("Delta of Lines" + separator);
 		sb.append("Number of Hunks" + separator);
 		sb.append("Number of Issues" + separator);
 		sb.append("Issues");
@@ -197,15 +197,13 @@ public abstract class AnalyzerCollectionUtil {
 	public static String getCommitProperties(Commit commit, String separator) {
 		StringBuilder sb = new StringBuilder();
 		
-		DateFormat formatter = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss");
-		
 		sb.append(commit.getRevision());
 		sb.append(separator);
 		sb.append(commit.isBugFixing());
 		sb.append(separator);
 		sb.append(commit.getAuthor());
 		sb.append(separator);
-		sb.append(formatter.format(commit.getDate()) + " " + commit.getTimezone());
+		sb.append(commit.getFormatedDate());
 		sb.append(separator);
 		sb.append(commit.getPackages().size());
 		sb.append(separator);
@@ -214,6 +212,10 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(commit.getNumberOfInsertions());
 		sb.append(separator);
 		sb.append(commit.getNumberOfDeletions());
+		sb.append(separator);
+		sb.append(commit.getNumberOfChurns());
+		sb.append(separator);
+		sb.append(commit.getDeltaOfLines());
 		sb.append(separator);
 		sb.append(commit.getNumberOfHunks());
 		sb.append(separator);
@@ -244,11 +246,15 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append(separator);
 		sb.append(commit.getNumberOfDeletions());
 		sb.append(separator);
+		sb.append(commit.getNumberOfChurns());
+		sb.append(separator);
+		sb.append(commit.getDeltaOfLines());
+		sb.append(separator);
 		sb.append(commit.getNumberOfHunks());
 		sb.append(separator);
-		sb.append(c.get(Calendar.HOUR_OF_DAY));
+		sb.append(commit.getDateProperty(Calendar.HOUR_OF_DAY));
 		sb.append(separator);
-		sb.append(c.get(Calendar.DAY_OF_WEEK));
+		sb.append(commit.getDateProperty(Calendar.DAY_OF_WEEK));
 		
 		return sb.toString();
 	}
