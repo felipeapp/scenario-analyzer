@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -113,9 +114,14 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 					}
 				}
 				
-				commit = new Commit(String.valueOf(revision), author, date, null, issues, getCommitStats(revision));
+				commit = new Commit(String.valueOf(revision), author, date, "UTC", issues, getCommitStats(revision));
 				cache_revisions.put(revision, commit);
 			}
+			
+			System.out.println("############# - " + commit.getDate());
+			System.out.println("############# - " + commit.getFormatedDate());
+			System.out.println("############# - " + commit.getDateProperty(Calendar.HOUR_OF_DAY));
+			System.out.println("############# - " + commit.getDateProperty(Calendar.DAY_OF_WEEK));
 			
 			changedLines.add(new UpdatedLine(commit, line, lineNumber));
 		}

@@ -1,10 +1,15 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.TimeZone;
 
 public class Commit {
 
@@ -103,6 +108,34 @@ public class Commit {
 
 	public boolean isBugFixing() {
 		return bug;
+	}
+	
+	public String getFormatedDate() {
+		DateFormat formatter = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss");
+		
+		if (timezone.equals("UTC"))
+			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		return formatter.format(date) + " " + timezone;
+	}
+	
+	public int getDateProperty(int property) {
+		Calendar c = new GregorianCalendar();
+		
+		c.setTime(date);
+		
+		if (timezone.equals("UTC"))
+			c.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		return c.get(property);
+	}
+	
+	public int getNumberOfChurns() {
+		return insertions + deletions;
+	}
+	
+	public int getDeltaOfLines() {
+		return insertions - deletions;
 	}
 
 	@Override
