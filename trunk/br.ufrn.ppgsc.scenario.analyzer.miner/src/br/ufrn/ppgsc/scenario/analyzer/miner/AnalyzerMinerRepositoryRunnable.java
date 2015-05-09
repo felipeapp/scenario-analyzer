@@ -37,7 +37,6 @@ public final class AnalyzerMinerRepositoryRunnable {
 	private String strdate;
 	private String workcopy_prefix_r1;
 	private String workcopy_prefix_r2;
-	private String exclude_word;
 	
 	private String[] comparison_strategy;
 	private String[] exclude_entry_points;
@@ -96,8 +95,6 @@ public final class AnalyzerMinerRepositoryRunnable {
 		
 		workcopy_prefix_r1 = properties.getStringProperty("workcopy_prefix_r1");
 		workcopy_prefix_r2 = properties.getStringProperty("workcopy_prefix_r2");
-		
-		exclude_word = properties.getStringProperty("exclude_word");
 		
 		package_deep = properties.getIntProperty("package_deep");
 		avg_significance_delta = properties.getDoubleProperty("avg_significance_delta");
@@ -174,7 +171,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 			
 			int i = 0;
 			for (String s : signatures)
-				if (!matchesExcludeWord(s))
+				if (!AnalyzerCollectionUtil.matchesExcludeWord(s))
 					++i;
 			
 			pw.println("\tNumber of methods: " + signatures.size());
@@ -249,7 +246,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 					counted.add(s);
 					++total_members;
 					
-					if (!matchesExcludeWord(s) && delta >= avg_significance_delta) {
+					if (!AnalyzerCollectionUtil.matchesExcludeWord(s) && delta >= avg_significance_delta) {
 						String aux = s + ";" + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2;
 						
 						++total_members_without_word;
@@ -261,7 +258,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				}
 				
 				// If it is significant inside the scenario we save in another file
-				if (!matchesExcludeWord(s) && isExecutionTimeSignificant(count1, count2, t1, t2)) {
+				if (!AnalyzerCollectionUtil.matchesExcludeWord(s) && isExecutionTimeSignificant(count1, count2, t1, t2)) {
 					String aux = s + ";" + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2;
 					
 					scenario_to_members_significance.get(scenario).add(aux);
@@ -782,7 +779,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				int count2 = DatabaseRelease.getDatabasev2().countMethodExecutionByScenario(scenario, sig);
 				System.out.println("\tTotal = " + count2);
 				
-				if (!counted.contains(sig) && !matchesExcludeWord(sig) && isExecutionTimeSignificant(count1, count2, t1, t2)) {
+				if (!counted.contains(sig) && !AnalyzerCollectionUtil.matchesExcludeWord(sig) && isExecutionTimeSignificant(count1, count2, t1, t2)) {
 					String class_name = getClassNameFromSignature(sig);
 					String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
 					
@@ -811,7 +808,7 @@ public final class AnalyzerMinerRepositoryRunnable {
 				Double t2 = avg_time_members_v2.get(sig);
 				double delta = calcExecutionTimeAbsDelta(t1, t2);
 				
-				if (!counted.contains(sig) && !matchesExcludeWord(sig) && delta >= avg_significance_delta) {
+				if (!counted.contains(sig) && !AnalyzerCollectionUtil.matchesExcludeWord(sig) && delta >= avg_significance_delta) {
 					String class_name = getClassNameFromSignature(sig);
 					String package_prefix = getPackagePrefixFromSignature(sig, package_deep);
 					
@@ -856,10 +853,6 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 		
 		return signature.substring(0, i);
-	}
-	
-	private boolean matchesExcludeWord(String text) {
-		return (exclude_word != null && !exclude_word.isEmpty() && text.contains(exclude_word));
 	}
 	
 	private Collection<String> matchesName(String path, String method_name, Collection<String> method_signatures) {

@@ -94,26 +94,32 @@ public class RepositoryManager {
 		logger.info("Finishing mining, close connection now...");
 		miner.close();
 		
-		for (String key : miner.getAllLinesHandlerKeys()) {
+		for (String path : miner.getAllLinesHandlerKeys()) {
 			// Pega as linhas modificadas
-			List<UpdatedLine> lines = miner.getChangedLines(key);
+			List<UpdatedLine> lines = miner.getChangedLines(path);
 			
 			// Parse da classe buscando os métodos (linha inicial, final, nome)
-			MethodLimitParser builder = new MethodLimitParser(miner.getSourceCode(key));
+			MethodLimitParser builder = new MethodLimitParser(miner.getSourceCode(path));
 			
 			// Pega os métodos mudados verificando as linhas mudadas e os limites dos métodos
-			changedMethods.put(key, builder.filterChangedMethods(lines));
+			Collection<UpdatedMethod> up_methods = builder.filterChangedMethods(lines);
+			
+			// Guarda no mapa usando o path como chave
+			changedMethods.put(path, up_methods);
 			
 			/*
 			 * Pega os commits que modificaram as linhas e salva na coleção. 
 			 * Tem que ser feito por último, pois depende do filter acima.
+			 * Paths que casam com a palavra de exclusão são desconsiderados.
 			 */
-			for (UpdatedLine upline : lines)
-				set_of_all_commits.add(upline.getCommit());
+			if (!AnalyzerCollectionUtil.matchesExcludeWord(path)) {
+				for (UpdatedLine upline : lines)
+					set_of_all_commits.add(upline.getCommit());
+				
+				// Pega os commits de métodos modificados
+				set_of_commits_from_changed_methods.addAll(AnalyzerCollectionUtil.getCommitsFromUpMethods(up_methods));
+			}
 		}
-		
-		// Pega os commits de métodos modificados
-		set_of_commits_from_changed_methods.addAll(AnalyzerCollectionUtil.getCommitsFromUpMethods(changedMethods));
 		
 		return changedMethods;
 	}

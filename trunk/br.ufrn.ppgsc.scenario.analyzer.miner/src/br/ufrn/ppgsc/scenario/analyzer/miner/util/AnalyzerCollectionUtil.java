@@ -154,13 +154,12 @@ public abstract class AnalyzerCollectionUtil {
 		return sb.toString();
 	}
 	
-	public static Collection<Commit> getCommitsFromUpMethods(Map<String, Collection<UpdatedMethod>> map_path_methods) {
+	public static Collection<Commit> getCommitsFromUpMethods(Collection<UpdatedMethod> up_methods) {
 		Collection<Commit> commits = new HashSet<Commit>();
 
-		for (String path : map_path_methods.keySet())
-			for (UpdatedMethod method : map_path_methods.get(path))
-				for (UpdatedLine line : method.getUpdatedLines())
-					commits.add(line.getCommit());
+		for (UpdatedMethod method : up_methods)
+			for (UpdatedLine line : method.getUpdatedLines())
+				commits.add(line.getCommit());
 
 		return commits;
 	}
@@ -363,6 +362,11 @@ public abstract class AnalyzerCollectionUtil {
 		br.close();
 		
 		return scenario_to_blame;
+	}
+	
+	public static boolean matchesExcludeWord(String text) {
+		String exclude_word = SystemMetadataUtil.getInstance().getStringProperty("exclude_word");
+		return (exclude_word != null && !exclude_word.isEmpty() && text.contains(exclude_word));
 	}
 	
 }
