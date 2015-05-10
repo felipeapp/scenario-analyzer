@@ -22,6 +22,9 @@ Entry point for SocketStringEchoTest.testStringEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
 io.netty.channel.ThreadPerChannelEventLoopGroup.register(io.netty.channel.Channel,io.netty.channel.ChannelPromise)
 0
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
+Entry point for SocketSpdyEchoTest.testSpdyEcho
 io.netty.channel.SingleThreadEventLoop.register(io.netty.channel.Channel,io.netty.channel.ChannelPromise)
 22
 Entry point for DatagramMulticastTest.testMulticast
@@ -46,9 +49,6 @@ Entry point for SocketSslEchoTest.testSslEcho
 Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketSpdyEchoTest.testSpdyEcho
 io.netty.testsuite.transport.socket.SocketSpdyEchoTest.createFrames(int)
 1
 Entry point for SocketSpdyEchoTest.testSpdyEcho
@@ -86,6 +86,26 @@ Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSslEchoTest.testSslEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelHandlerContext.close(io.netty.channel.ChannelPromise)
+18
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
 io.netty.bootstrap.AbstractBootstrap.initAndRegister()
 22
 Entry point for DatagramMulticastTest.testMulticast
@@ -110,26 +130,9 @@ Entry point for SocketSslEchoTest.testSslEcho
 Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.DefaultChannelHandlerContext.close(io.netty.channel.ChannelPromise)
-18
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
+1
 Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketConnectionAttemptTest.testConnectCancellation
-Entry point for SocketConnectionAttemptTest.testConnectTimeout
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketFileRegionTest.testFileRegion
-Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketObjectEchoTest.testObjectEcho
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketStartTlsTest.testStartTls
-Entry point for SocketStringEchoTest.testStringEcho
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
 io.netty.bootstrap.AbstractBootstrap.toString()
 16
 Entry point for DatagramMulticastTest.testMulticast
@@ -162,6 +165,3 @@ Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSslEchoTest.testSslEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.SocketBufReleaseTest.testBufRelease(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap)
-1
-Entry point for SocketBufReleaseTest.testBufRelease
