@@ -5,8 +5,17 @@ io.netty.testsuite.transport.socket.SocketSpdyEchoTest.testSpdyEcho()
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketObjectEchoTest.EchoHandler)
 0
+io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketEchoTest.EchoHandler)
+0
+io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsServerHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine)
+0
 io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestClientHandler(io.netty.buffer.ByteBuf)
 0
+io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsClientHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine)
+0
+io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+1
+Entry point for SocketCancelWriteTest.testCancelWrite
 io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler()
 0
 io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler()
@@ -14,49 +23,9 @@ io.netty.testsuite.transport.socket.SocketObjectEchoTest$EchoHandler()
 io.netty.channel.socket.nio.NioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface)
 1
 Entry point for DatagramMulticastTest.testMulticast
-io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler()
-0
-io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean)
-0
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler()
-0
-io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.EchoHandler)
-0
-io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler()
-0
-io.netty.buffer.AbstractReferenceCountedByteBuf.refCnt()
-20
-Entry point for DatagramMulticastTest.testMulticast
-Entry point for DatagramUnicastTest.testSimpleSend
-Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
-Entry point for SocketBufReleaseTest.testBufRelease
-Entry point for SocketCancelWriteTest.testCancelWrite
-Entry point for SocketEchoTest.testSimpleEcho
-Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-Entry point for SocketSpdyEchoTest.testSpdyEcho
-Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-Entry point for SocketSslEchoTest.testSslEcho
-Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler(io.netty.testsuite.transport.socket.SocketSpdyEchoTest.SpdyEchoTestServerHandler)
-0
-io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketEchoTest.EchoHandler)
-0
-io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsServerHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine)
-0
-io.netty.testsuite.transport.socket.SocketStartTlsTest$StartTlsClientHandler(io.netty.testsuite.transport.socket.SocketStartTlsTest,javax.net.ssl.SSLEngine)
-0
-io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+io.netty.channel.socket.nio.NioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface,io.netty.channel.ChannelPromise)
 1
-Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for DatagramMulticastTest.testMulticast
 io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
 27
 Entry point for DatagramMulticastTest.testMulticast
@@ -86,19 +55,24 @@ Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
-io.netty.channel.socket.nio.NioDatagramChannel.joinGroup(java.net.InetSocketAddress,java.net.NetworkInterface,io.netty.channel.ChannelPromise)
-1
-Entry point for DatagramMulticastTest.testMulticast
 io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler(io.netty.testsuite.transport.socket.SocketFileRegionTest.TestHandler)
 0
+io.netty.testsuite.transport.socket.SocketFileRegionTest$TestHandler()
+0
 io.netty.testsuite.transport.socket.SocketStringEchoTest$StringEchoHandler()
+0
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler()
 0
 io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteTask)
 1
 Entry point for SocketCancelWriteTest.testCancelWrite
+io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean)
+0
 io.netty.testsuite.transport.socket.SocketEchoTest.testSimpleEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
 0
 io.netty.testsuite.transport.socket.SocketFileRegionTest.testFileRegion0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
+0
+io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketFixedLengthEchoTest.EchoHandler)
 0
 io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
 34
@@ -135,6 +109,32 @@ Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.testsuite.transport.socket.SocketEchoTest$EchoHandler()
+0
+io.netty.testsuite.transport.socket.SocketSpdyEchoTest$SpdyEchoTestServerHandler(io.netty.testsuite.transport.socket.SocketSpdyEchoTest.SpdyEchoTestServerHandler)
+0
+io.netty.buffer.AbstractReferenceCountedByteBuf.refCnt()
+20
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
 io.netty.channel.AbstractChannel.close()
 29
