@@ -118,6 +118,34 @@ public class GitUpdatedLinesHandler {
 		return result.toString();
 	}
 	
+	private String readAndCheckLine(BufferedReader in, String prefix) throws IOException {
+		return readAndCheckLine(in, new String[]{prefix});
+	}
+	
+	private String readAndCheckLine(BufferedReader in, String[] prefixes) throws IOException {
+		String line = "";
+		String msg = "";
+		boolean match = false;
+		
+		// Ignore blank lines
+		while (line.isEmpty())
+			line = in.readLine();
+		
+		for (String p : prefixes) {
+			msg += p + ",";
+			
+			if (line.startsWith(p)) {
+				match = true;
+				break;
+			}
+		}
+		
+		if (!match)
+			throw new RuntimeException("Prefix(es) " + msg.substring(0, msg.lastIndexOf(',')) + " do(es) not match with " + line);
+		
+		return line;
+	}
+	
 	private Collection<CommitStat> getCommitStats(String commit) throws IOException {
 		String so_prefix = "cmd /c ";
 		String command = so_prefix + "git show -C --oneline " + commit;
@@ -131,57 +159,93 @@ public class GitUpdatedLinesHandler {
 		String line = br.readLine();
 		
 		// Reading the first diff command
-		line = br.readLine();
+		line = readAndCheckLine(br, "diff --");
 		
 		// It will be null at the end of the file
 		while (line != null) {
+			// In case of null path in new mode file if below
+			String diff_line = line;
+			
 			// Reading next line. It will indicate the operation (rename, added, deleted)
 			line = br.readLine();
+			
+			// It is not the operation yet
+			if (line.startsWith("old mode")) {
+				line = readAndCheckLine(br, "new mode"); // Reading new mode line
+				line = readAndCheckLine(br, "similarity index"); // Reading operation now (in this case a similarity line)
+			}
 			
 			CommitStat.Operation operation = null;
 			String updated_path = null;
 			
 			// Reading extra lines when it was a rename/copy (similarity line)
 			if (line.startsWith("similarity index")) {
-				br.readLine(); // rename from
-				br.readLine(); // rename to
-				br.readLine(); // Reading index line
-				br.readLine(); // Reading --- line (old path): --- a/old_path
-				updated_path = br.readLine().substring(6); // Reading +++ line (new path): +++ b/new_path
-				operation = CommitStat.Operation.RENAME;
+				readAndCheckLine(br, new String[]{"rename from", "copy from"});
+				String line_to = readAndCheckLine(br, new String[]{"rename to", "copy to"});
+				
+				line = br.readLine(); // It should be the index line
+				
+				// This similarity has no diff
+				if (line == null || line.startsWith("diff --")) {
+					updated_path = line_to.substring(10);
+				}
+				else {
+					readAndCheckLine(br, "---"); // Reading --- line (old path): --- a/old_path
+					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
+				}
+				
+				if (line_to.startsWith("rename to"))
+					operation = CommitStat.Operation.RENAME;
+				else
+					operation = CommitStat.Operation.ADDED;
 			}
 			// Reading extra lines when it was an addition
 			else if (line.startsWith("new file mode")) {
-				br.readLine(); // Reading index line
-				br.readLine(); // Reading --- line (old path): --- a/old_path
-				updated_path = br.readLine().substring(6); // Reading +++ line (new path): +++ b/new_path
+				readAndCheckLine(br, "index"); // Reading index line
+				
+				// Sometimes it is null
+				if (br.readLine() == null) { // Reading --- line (old path): --- a/old_path
+					if (diff_line.startsWith("diff --git"))
+						updated_path = diff_line.substring(13, diff_line.lastIndexOf(' '));
+					else if (diff_line.startsWith("diff --cc"))
+						updated_path = diff_line.substring(10, diff_line.lastIndexOf(' '));
+					else // Nunca deveria entrar
+						throw new RuntimeException("Invalid diff type.");
+				}
+				else {
+					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
+				}
+				
 				operation = CommitStat.Operation.ADDED;
 			}
 			// Reading extra lines when it was a deletion
 			else if (line.startsWith("deleted file mode")) {
-				br.readLine(); // Reading index line
-				updated_path = br.readLine().substring(6); // Reading --- line (old path): --- a/old_path
-				br.readLine(); // Reading +++ line (new path): +++ b/new_path
+				readAndCheckLine(br, "index"); // Reading index line
+				updated_path = readAndCheckLine(br, "---").substring(6); // Reading --- line (old path): --- a/old_path
+				readAndCheckLine(br, "+++"); // Reading +++ line (new path): +++ b/new_path
 				operation = CommitStat.Operation.DELETED;
 			}
 			// The line variable is already the index line
 			else {
-				br.readLine(); // Reading --- line (old path): --- a/old_path
-				updated_path = br.readLine().substring(6); // Reading +++ line (new path): +++ b/new_path
+				readAndCheckLine(br, "---"); // Reading --- line (old path): --- a/old_path
+				updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
 				operation = CommitStat.Operation.MODIFIED;
 			}
 			
 			int insertions = 0;
 			int deletions = 0;
 			int hunks = 0;
+			boolean no_new_line_eof = false;
 			
 			// It will be null at the end of the file
 			// It will be diff command when finishing a set of stats 
-			while (line != null && !line.startsWith("diff --git")) {
+			while (line != null && !line.startsWith("diff --")) {
 				// Counting
-				if (line.startsWith("+"))
+				if (line.equals("\\ No newline at end of file"))
+					no_new_line_eof = true;
+				else if (line.startsWith("+") || line.startsWith(" +"))
 					++insertions;
-				else if (line.startsWith("-"))
+				else if (line.startsWith("-") || line.startsWith("-"))
 					++deletions;
 				else if (line.startsWith("@@"))
 					++hunks;
@@ -189,6 +253,13 @@ public class GitUpdatedLinesHandler {
 				// Reading a source code line
 				line = br.readLine();
 			}
+			
+			// Correcting the issue when there is no new line at the end of the file
+			if (no_new_line_eof)
+				if (operation == CommitStat.Operation.ADDED)
+					deletions = 0;
+				else if (operation == CommitStat.Operation.DELETED)
+					insertions = 0;
 			
 			// Probably a no-text file
 			if (hunks == 0)
@@ -344,7 +415,12 @@ public class GitUpdatedLinesHandler {
 		// 3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128 -> com mudança de diretório
 		// 0bd6020eb5e1d3c029075e6a78efa6c16040cef8 -> com renomeação e adição
 		// cb5da57c846bb24a291df2d864fa0ea7d3298015 -> com remoção
-		Collection<CommitStat> stats = gitHandler.getCommitStats("3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128");
+		// 3b288e37ca3b2ebb10e6c9ba4b5e869411cc17a4 -> estranha situação, apenas teste
+		// e4262674d6dd347fb51a1454c63e5f03ed5f135e -> Outra situação estranha, apenas teste
+		// 95c2579ace678903b2e63023ced97be4877b6889 -> Usa a palavra copy no lugar de rename
+		// d06f84d1b87011e5c152c5fb3f05ae50c1c58cda -> Situação estranha, no new line at the end of the file
+		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Usa diff --cc
+		Collection<CommitStat> stats = gitHandler.getCommitStats("7e032d211feecf00b93f72fd0ee49c42abf08c61");
 		
 		Commit commit = new Commit(null, null, null, null, null, stats);
 		
