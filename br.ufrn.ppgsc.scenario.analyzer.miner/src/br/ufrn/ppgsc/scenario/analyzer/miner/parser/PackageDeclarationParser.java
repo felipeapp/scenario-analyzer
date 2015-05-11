@@ -30,6 +30,13 @@ public class PackageDeclarationParser {
 	}
 
 	public String getPackageName() {
+		if (package_name != null && !package_name.equals("$"))
+			return package_name;
+		
+		return null;
+	}
+	
+	public String getPackageNameDeclaredText() {
 		return package_name;
 	}
 
