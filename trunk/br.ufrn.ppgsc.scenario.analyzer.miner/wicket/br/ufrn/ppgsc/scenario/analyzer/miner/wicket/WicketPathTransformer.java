@@ -30,6 +30,7 @@ public class WicketPathTransformer implements IPathTransformer {
 		// Switch the directory
 		if (method_signature.startsWith("org.apache.wicket.util.tester")
 				|| method_signature.startsWith("org.apache.wicket.util.cookies")
+				|| method_signature.startsWith("org.apache.wicket.util.reference")
 				|| method_signature.startsWith("org.apache.wicket.request.handler.render")
 				|| method_signature.startsWith("org.apache.wicket.request.cycle")
 				|| method_signature.startsWith("org.apache.wicket.request.resource")

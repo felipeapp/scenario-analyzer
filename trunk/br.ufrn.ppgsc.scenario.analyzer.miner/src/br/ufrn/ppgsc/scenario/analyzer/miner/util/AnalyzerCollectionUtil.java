@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -166,7 +168,8 @@ public abstract class AnalyzerCollectionUtil {
 	}
 	
 	public static Collection<String> getCommitProperties(Collection<Commit> commits, String separator) {
-		Collection<String> result = new ArrayList<String>();
+		// Use a TreeSet to keep the order. Revision is always different.
+		LinkedList<String> result = new LinkedList<String>();
 		
 		// Building the header
 		StringBuilder sb = new StringBuilder();
@@ -185,11 +188,13 @@ public abstract class AnalyzerCollectionUtil {
 		sb.append("Number of Issues" + separator);
 		sb.append("Issues");
 		
-		result.add(sb.toString());
-		
 		// Getting properties
 		for (Commit commit : commits)
-			result.add(getCommitProperties(commit, separator));
+			result.addLast(getCommitProperties(commit, separator));
+		
+		Collections.sort(result);
+		
+		result.addFirst(sb.toString());
 		
 		return result;
 	}
