@@ -100,7 +100,7 @@ public class GitUpdatedLinesHandler {
 		return result.toString();
 	}
 	
-	private String getSourceCodeByCommit(String filepath, String revision) throws IOException {
+	private String getSourceCodeByCommit(String filepath, String revision, CommitStat.Operation operation) throws IOException {
 		String so_prefix = "cmd /c ";
 		String command = so_prefix + "git show " + revision + ":" + filepath;
 		
@@ -115,7 +115,13 @@ public class GitUpdatedLinesHandler {
 			result.append(System.lineSeparator());
 		}
 		
-		return result.toString();
+		String source_code = result.toString();
+		
+		// It should never happen
+		if (operation != CommitStat.Operation.DELETED && (source_code.isEmpty() || source_code.startsWith("fatal:")))
+			throw new RuntimeException("Impossible to download source code of " + filepath);
+		
+		return source_code;
 	}
 	
 	private String readAndCheckLine(BufferedReader in, String prefix) throws IOException {
@@ -145,10 +151,10 @@ public class GitUpdatedLinesHandler {
 		
 		return line;
 	}
-	
+
 	private Collection<CommitStat> getCommitStats(String commit) throws IOException {
 		String so_prefix = "cmd /c ";
-		String command = so_prefix + "git show -C --oneline " + commit;
+		String command = so_prefix + "git show -m -C100% --oneline " + commit;
 		
 		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
 		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -159,93 +165,141 @@ public class GitUpdatedLinesHandler {
 		String line = br.readLine();
 		
 		// Reading the first diff command
-		line = readAndCheckLine(br, "diff --");
+		line = readAndCheckLine(br, "diff --git");
 		
 		// It will be null at the end of the file
 		while (line != null) {
-			// In case of null path in new mode file if below
+			// Backup of diff line
 			String diff_line = line;
 			
 			// Reading next line. It will indicate the operation (rename, added, deleted)
 			line = br.readLine();
 			
-			// It is not the operation yet
+			// In this case, it is not the operation yet
 			if (line.startsWith("old mode")) {
 				line = readAndCheckLine(br, "new mode"); // Reading new mode line
-				line = readAndCheckLine(br, "similarity index"); // Reading operation now (in this case a similarity line)
+				line = readAndCheckLine(br, "similarity index"); // Reading operation now (in this case it should be a similarity line)
 			}
 			
 			CommitStat.Operation operation = null;
 			String updated_path = null;
 			
-			// Reading extra lines when it was a rename/copy (similarity line)
+			// Deal with commit when it was a rename/copy (similarity line)
 			if (line.startsWith("similarity index")) {
-				readAndCheckLine(br, new String[]{"rename from", "copy from"});
-				String line_to = readAndCheckLine(br, new String[]{"rename to", "copy to"});
+				readAndCheckLine(br, new String[]{"rename from", "copy from"}); // rename or copy (from line)
+				String line_to = readAndCheckLine(br, new String[]{"rename to", "copy to"}); // rename or copy (to line)
 				
 				line = br.readLine(); // It should be the index line
 				
-				// This similarity has no diff
-				if (line == null || line.startsWith("diff --")) {
-					updated_path = line_to.substring(10);
+				/*
+				 * If it was not the index line, we do not have a diff comparison.
+				 * In this case we are in a new diff (diff --git).
+				 */
+				if (line.startsWith("diff --git")) {
+					updated_path = line_to.substring(line_to.indexOf("to") + 3); // Getting the updated path from the "to line" (after the first to word) 
 				}
-				else {
+				else if (line.startsWith("index")) {
 					readAndCheckLine(br, "---"); // Reading --- line (old path): --- a/old_path
 					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
 				}
+				else { // It should never happen
+					throw new RuntimeException("Invalid similarity index format: " + line);
+				}
 				
-				if (line_to.startsWith("rename to"))
-					operation = CommitStat.Operation.RENAME;
-				else
-					operation = CommitStat.Operation.ADDED;
+				operation = CommitStat.Operation.RENAME;
 			}
 			// Reading extra lines when it was an addition
 			else if (line.startsWith("new file mode")) {
 				readAndCheckLine(br, "index"); // Reading index line
 				
-				// Sometimes it is null
-				if (br.readLine() == null) { // Reading --- line (old path): --- a/old_path
-					if (diff_line.startsWith("diff --git"))
-						updated_path = diff_line.substring(13, diff_line.lastIndexOf(' '));
-					else if (diff_line.startsWith("diff --cc"))
-						updated_path = diff_line.substring(10, diff_line.lastIndexOf(' '));
-					else // Nunca deveria entrar
-						throw new RuntimeException("Invalid diff type.");
-				}
-				else {
+				/*
+				 * end of the file (null)
+				 * --- line;
+				 * binary line
+				 */
+				line = br.readLine();
+				
+				/*
+				 * If it was not the "--- line", we do not have a diff comparison.
+				 * In this case, we are at the end of the file (null),
+				 * or we are in a binary line.
+				 */
+				if (line == null || line.startsWith("Binary files"))
+					updated_path = diff_line.substring(13, diff_line.lastIndexOf(' ')); // Getting the updated path from the "diif line"
+				else if (line.startsWith("---"))
 					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
-				}
+				else // It should never happen
+					throw new RuntimeException("Invalid new file mode: " + line);
 				
 				operation = CommitStat.Operation.ADDED;
 			}
 			// Reading extra lines when it was a deletion
 			else if (line.startsWith("deleted file mode")) {
 				readAndCheckLine(br, "index"); // Reading index line
-				updated_path = readAndCheckLine(br, "---").substring(6); // Reading --- line (old path): --- a/old_path
-				readAndCheckLine(br, "+++"); // Reading +++ line (new path): +++ b/new_path
+				
+				// It should be a "--- line" or a "binary line"
+				line = readAndCheckLine(br, new String[]{"---", "Binary files"}); 
+				
+				/*
+				 * If it was not the "--- line", we do not have a diff comparison.
+				 * In this case, we are at the end of the file (null),
+				 * or we are in a binary line.
+				 */
+				if (line == null || line.startsWith("Binary files")) {
+					updated_path = diff_line.substring(13, diff_line.lastIndexOf(' ')); // Getting the updated path from the "diif line"
+				}
+				else if (line.startsWith("---")) {
+					updated_path = line.substring(6); // Reading --- line (old path): --- a/old_path
+					readAndCheckLine(br, "+++"); // Reading +++ line (new path): +++ b/new_path
+				}
+				else { // It should never happen
+					throw new RuntimeException("Invalid deleted file mode: " + line);
+				}
+				
 				operation = CommitStat.Operation.DELETED;
 			}
 			// The line variable is already the index line
-			else {
-				readAndCheckLine(br, "---"); // Reading --- line (old path): --- a/old_path
-				updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
+			else if (line.startsWith("index")) {
+				// It should be a "--- line" or a "binary line"
+				line = readAndCheckLine(br, new String[]{"---", "Binary files"});
+				
+				/*
+				 * If it was not the "--- line", we do not have a diff comparison.
+				 * In this case, we are at the end of the file (null),
+				 * or we are in a binary line.
+				 */
+				if (line == null || line.startsWith("Binary files"))
+					updated_path = diff_line.substring(13, diff_line.lastIndexOf(' ')); // Getting the updated path from the "diif line"
+				else if (line.startsWith("---"))
+					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
+				else // It should never happen
+					throw new RuntimeException("Invalid index mode: " + line);
+				
 				operation = CommitStat.Operation.MODIFIED;
+			}
+			// It should never happen
+			else {
+				throw new RuntimeException("Invalid operation: " + line);
 			}
 			
 			int insertions = 0;
 			int deletions = 0;
 			int hunks = 0;
-			boolean no_new_line_eof = false;
+			String package_name = null;
 			
-			// It will be null at the end of the file
-			// It will be diff command when finishing a set of stats 
-			while (line != null && !line.startsWith("diff --")) {
+			// Value to start the loop
+			if (line == null || !line.startsWith("diff --git"))
+				line = "";
+			
+			/*
+			 * It will be null at the end of the file
+			 * It will be diff command when finishing a set of stats
+			 */
+			while (line != null && !line.startsWith("diff --git")) {
 				// Counting
-				if (line.equals("\\ No newline at end of file"))
-					no_new_line_eof = true;
-				else if (line.startsWith("+") || line.startsWith(" +"))
+				if (line.startsWith("+"))
 					++insertions;
-				else if (line.startsWith("-") || line.startsWith("-"))
+				else if (line.startsWith("-"))
 					++deletions;
 				else if (line.startsWith("@@"))
 					++hunks;
@@ -254,22 +308,15 @@ public class GitUpdatedLinesHandler {
 				line = br.readLine();
 			}
 			
-			// Correcting the issue when there is no new line at the end of the file
-			if (no_new_line_eof)
-				if (operation == CommitStat.Operation.ADDED)
-					deletions = 0;
-				else if (operation == CommitStat.Operation.DELETED)
-					insertions = 0;
-			
-			// Probably a no-text file
-			if (hunks == 0)
-				insertions = deletions = hunks = 0;
-			
-			String package_name = null;
+			// It should never happen
+			if (operation == CommitStat.Operation.ADDED && deletions != 0 ||
+					operation == CommitStat.Operation.DELETED && insertions != 0 ||
+					hunks == 0 && (insertions != 0 || deletions != 0))
+				throw new RuntimeException("Wrong number of lines for " + commit + ":" + updated_path);
 			
 			// Getting the package name if it is a java file
 			if (updated_path.endsWith(".java")) {
-				PackageDeclarationParser parse = new PackageDeclarationParser(getSourceCodeByCommit(updated_path, commit));
+				PackageDeclarationParser parse = new PackageDeclarationParser(getSourceCodeByCommit(updated_path, commit, operation));
 				package_name = parse.getPackageName();
 			}
 			
@@ -376,6 +423,17 @@ public class GitUpdatedLinesHandler {
 	}
 
 	public static void main(String[] args) throws IOException {
+		String line = "copy to wicket-cdi/src/main/resources/META-INF/beans.xml";
+		System.out.println(line.substring(line.indexOf("to") + 3));
+		
+		line = "rename to wicket-examples/src/main/java/org/apache/wicket/examples/niceurl/Page2UP.html";
+		System.out.println(line.substring(line.indexOf("to") + 3));
+		
+		System.out.println("+++ b/wicket-examples/src/main/java/org/apache/wicket/examples/niceurl/Page2UP.java".substring(6));
+		
+		line = "diff --git a/wicket-core/src/test/java/org/apache/wicket/markup/html/border/BoxBorderTestPage_ExpectedResult_10.html b/wicket-experimental/wicket-cdi-1.1/wicket-cdi-1.1-core/src/main/resources/META-INF/beans.xml";
+		System.out.println(line.substring(13, line.lastIndexOf(' ')));
+		
 //		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
 //				"c5d8af446a39db10a1744d47e5a466fa1c87a374",
 //				"b562148e2d8d0f0487495fb5dd2d5de62306c5e0",
@@ -419,22 +477,26 @@ public class GitUpdatedLinesHandler {
 		// e4262674d6dd347fb51a1454c63e5f03ed5f135e -> Outra situação estranha, apenas teste
 		// 95c2579ace678903b2e63023ced97be4877b6889 -> Usa a palavra copy no lugar de rename
 		// d06f84d1b87011e5c152c5fb3f05ae50c1c58cda -> Situação estranha, no new line at the end of the file
-		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Usa diff --cc
+		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Commit merge gigante, tem todos os casos, testar este principalmente
 		Collection<CommitStat> stats = gitHandler.getCommitStats("7e032d211feecf00b93f72fd0ee49c42abf08c61");
 		
 		Commit commit = new Commit(null, null, null, null, null, stats);
 		
-		System.out.println(commit.getStats().size());
-		System.out.println(commit.getPackages().size());
-		System.out.println(commit.getNumberOfInsertions());
-		System.out.println(commit.getNumberOfDeletions());
-		System.out.println(commit.getNumberOfHunks());
+		System.out.println("Files: " + commit.getStats().size());
+		System.out.println("Java: " + commit.getNumberOfJavaFiles());
+		System.out.println("Packages: " + commit.getPackages().size());
+		System.out.println("Insertions:" + commit.getNumberOfInsertions());
+		System.out.println("Deletions: " + commit.getNumberOfDeletions());
+		System.out.println("Hunks: " + commit.getNumberOfHunks());
 		
 		int i = 0;
 		for (CommitStat s: stats) {
-			System.out.println(++i + " - " + s.getPackageName() + ", " + s.getInsertions() + ", " + s.getDeletions()
+			System.out.println(++i + " - " + s.getPackageName() + ", +" + s.getInsertions() + ", -" + s.getDeletions()
 					+ ", " + s.getHunks() + ", " + s.getOperation() + ", " + s.getPath());
 		}
+		
+		for (CommitStat s : stats)
+			System.out.printf("%d\t%d\t%s%s", s.getInsertions(), s.getDeletions(), s.getPath(), System.getProperty("line.separator"));
 	}
 
 }

@@ -25,6 +25,7 @@ public class Commit {
 	private int insertions;
 	private int deletions;
 	private int hunks;
+	private int java;
 
 	private boolean bug;
 
@@ -37,7 +38,7 @@ public class Commit {
 		this.stats = stats;
 
 		this.packages = new HashSet<String>();
-		this.insertions = this.deletions = this.hunks = 0;
+		this.insertions = this.deletions = this.hunks = this.java = 0;
 
 		this.bug = false;
 		
@@ -48,6 +49,9 @@ public class Commit {
 				if (s.getPackageName() != null)
 					this.packages.add(s.getPackageName());
 
+				if (s.getPath().endsWith(".java"))
+					++this.java;
+				
 				this.insertions += s.getInsertions();
 				this.deletions += s.getDeletions();
 				this.hunks += s.getHunks();
@@ -136,6 +140,10 @@ public class Commit {
 	
 	public int getDeltaOfLines() {
 		return insertions - deletions;
+	}
+	
+	public int getNumberOfJavaFiles() {
+		return java;
 	}
 
 	@Override
