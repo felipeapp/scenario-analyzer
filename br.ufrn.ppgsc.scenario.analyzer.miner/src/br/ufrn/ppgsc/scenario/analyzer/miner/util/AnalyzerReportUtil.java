@@ -273,7 +273,7 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
-	public static String loadCollection(Collection<String> collection, String filename) throws IOException {
+	public static String loadCollection(Collection<String> collection, String filename, boolean header) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		
 		String message = br.readLine();
@@ -281,13 +281,11 @@ public abstract class AnalyzerReportUtil {
 		
 		int number_of_registers = Integer.parseInt(br.readLine());
 		
-		br.readLine();
+		if (header)
+			br.readLine();
 		
-		for (int i = 0; i < number_of_registers; i++) {
-			String[] line = br.readLine().split(";");
-			// I just need the first token: element name
-			collection.add(line[0]);
-		}
+		for (int i = 0; i < number_of_registers; i++)
+			collection.add(br.readLine().split(";")[0]); // I just need the first token: element name
 		
 		/* 
 		 * This method should read the performance rate and the significance level here.

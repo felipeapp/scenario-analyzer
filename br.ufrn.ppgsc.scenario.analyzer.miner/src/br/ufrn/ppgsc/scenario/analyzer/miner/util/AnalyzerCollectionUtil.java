@@ -343,7 +343,7 @@ public abstract class AnalyzerCollectionUtil {
 		Map<String, List<String>> scenario_to_blame = new HashMap<String, List<String>>();
 		Collection<String> degraded_scenarios = new HashSet<String>();
 		
-		AnalyzerReportUtil.loadCollection(degraded_scenarios, degraded_scenarios_filename);
+		AnalyzerReportUtil.loadCollection(degraded_scenarios, degraded_scenarios_filename, true);
 		BufferedReader br = new BufferedReader(new FileReader(degraded_methods_filename));
 		
 		for (String sname : degraded_scenarios)

@@ -1,37 +1,85 @@
 # Methods potentially blamed for performance optimization
 66
-org.argouml.notation.providers.OperationNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationVisibility()
+1
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object)
+2
+Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeVisibility()
+1
+Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
+org.argouml.uml.diagram.static_structure.ui.FigPackage.setFillColor(java.awt.Color)
 0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.checkMultiplicity(java.lang.Object,java.lang.String,java.lang.Object)
-0
-org.argouml.model.mdr.ActivityGraphsFactoryMDRImpl.buildActivityGraph(java.lang.Object)
-8
-Entry point for TestActionActivityGraphDiagram.testCreateDiagram
-Entry point for TestActivityGraphStateMachine.testDeleteStateMachineTop
-Entry point for TestDiagramFactory.testCreateAndRemove
-Entry point for TestProject.testDeletePackageWithClassWithActivityDiagram
-Entry point for TestProject.testDeletePackageWithPackageWithActivityDiagram
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeMultiplicity()
+1
+Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
+org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
+26
+Entry point for AbstractTestCrTooMany.testPredicate2
+Entry point for TestActionStateNotationUml.testActionType
+Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+Entry point for TestAttributeAndOperationNotationUml.testOperationParseExceptions
+Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
+Entry point for TestAttributeAndOperationNotationUml.testOperationStereotype
+Entry point for TestAttributeAndOperationNotationUml.testOperationType
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+Entry point for TestCollaborationsHelper.testAllAvailable
+Entry point for TestMessageNotationUml.testGenerateIssue5150
+Entry point for TestProject.testDeleteOperationWithStateDiagram
+Entry point for TestProject.testTrashcanClassContent
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined
+Entry point for TestStateMachinesFactory.testDeleteTransition
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
+Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation2
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation4
 Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation5
 Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation6
 Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation7
+Entry point for TestTransitionNotationUml.testRoundTrip
+Entry point for TestXmiFilePersister.testLoadProject
+Entry point for TestXmiFilePersister.testSave
+org.argouml.uml.ui.InitUmlUI.getDetailsTabs()
+0
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationName()
+1
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+org.argouml.notation.providers.AssociationRoleNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.notation.providers.OperationNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicity(java.lang.String)
+0
+org.argouml.ui.TestDetailsPane.testTargetSet()
+1
+Entry point for TestDetailsPane.testTargetSet
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationParameters()
+1
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+org.argouml.uml.ui.UMLModelElementListModel2.setAllElements(java.util.Collection)
+0
+org.argouml.uml.ui.UMLModelElementListModel2.addAll(java.util.Collection)
+0
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.checkMultiplicity(java.lang.Object,java.lang.String,java.lang.Object)
+0
 org.argouml.notation.NotationProviderFactory2.getNotationProvider(int,java.lang.Object,java.beans.PropertyChangeListener,org.argouml.notation.NotationName)
 0
-org.argouml.uml.ui.foundation.core.UMLModelElementVisibilityRadioButtonPanel.buildModel()
+org.argouml.uml.ui.TabProps.createPropPanel(java.lang.Object)
 0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace()
-1
-Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
-org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
-9
-Entry point for TestAttributeAndOperationNotationUml.testAttributeDerived
-Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
-Entry point for TestAttributeAndOperationNotationUml.testAttributeName
-Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
-Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
-Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
-Entry point for TestAttributeAndOperationNotationUml.testAttributeType
-Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
-Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
+org.argouml.profile.internal.ProfileUML.loadWellFormednessRules()
+4
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
+Entry point for TestStateMachinesFactory.testDeleteTransition
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
+Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
+org.argouml.notation.providers.ObjectNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicity(int,int)
+0
 org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object)
 39
 Entry point for TestAttributeAndOperationNotationUml.testAttributeDerived
@@ -73,149 +121,20 @@ Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinition
 Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
 Entry point for TestUserDefinedProfile.testLoadingAsFromJar
 Entry point for TestUserDefinedProfile.testLoadingConstructor
-org.argouml.uml.ui.UMLModelElementListModel2.setAllElements(java.util.Collection)
-0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeProperty()
-1
-Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
-org.argouml.notation.providers.MessageNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.notation.NotationProvider.updateListener(java.beans.PropertyChangeListener,java.lang.Object,java.beans.PropertyChangeEvent)
-0
-org.argouml.uml.ui.TabProps.createPropPanel(java.lang.Object)
-0
-org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
-6
-Entry point for TestAttributeAndOperationNotationUml.testOperationName
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
-Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
-Entry point for TestAttributeAndOperationNotationUml.testOperationStereotype
-Entry point for TestAttributeAndOperationNotationUml.testOperationType
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
-org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object)
-26
-Entry point for AbstractTestCrTooMany.testPredicate2
-Entry point for TestActionStateNotationUml.testActionType
-Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
-Entry point for TestAttributeAndOperationNotationUml.testOperationName
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
-Entry point for TestAttributeAndOperationNotationUml.testOperationParseExceptions
-Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
-Entry point for TestAttributeAndOperationNotationUml.testOperationStereotype
-Entry point for TestAttributeAndOperationNotationUml.testOperationType
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
-Entry point for TestCollaborationsHelper.testAllAvailable
-Entry point for TestMessageNotationUml.testGenerateIssue5150
-Entry point for TestProject.testDeleteOperationWithStateDiagram
-Entry point for TestProject.testTrashcanClassContent
-Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined
-Entry point for TestStateMachinesFactory.testDeleteTransition
-Entry point for TestTransitionNotationUml.testParseTransitionCreate
-Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation2
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation4
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation5
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation6
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation7
-Entry point for TestTransitionNotationUml.testRoundTrip
-Entry point for TestXmiFilePersister.testLoadProject
-Entry point for TestXmiFilePersister.testSave
-org.argouml.profile.ProfileMother.createSimpleProfileModel()
-11
-Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInOneCall
-Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInTwoCalls
-Entry point for TestProfileMother.testCreateProfileModel
-Entry point for TestProfileMother.testCreateProfilePairWith2ndDependingOn1stViaXmi
-Entry point for TestProfileMother.testCreateSimpleProfileModel
-Entry point for TestProfileMother.testCreateXmiDependentProfile
-Entry point for TestProfileMother.testSaveProfileModel
-Entry point for TestProfileMother.testXmiDependentProfile
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
-Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
-Entry point for TestReaderModelLoader.testLoad
-org.argouml.notation.providers.AssociationNameNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
 0
 org.argouml.model.mdr.CoreFactoryMDRImpl.buildAssociationEnd(java.lang.Object,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,boolean,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object)
 0
-org.argouml.profile.internal.ProfileUML.loadWellFormednessRules()
-4
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
-Entry point for TestStateMachinesFactory.testDeleteTransition
-Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
-Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
-org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
-18
-Entry point for TestAttributeAndOperationNotationUml.testOperationName
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
-Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
-Entry point for TestAttributeAndOperationNotationUml.testOperationStereotype
-Entry point for TestAttributeAndOperationNotationUml.testOperationType
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
-Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined
-Entry point for TestTransitionNotationUml.testParseEventsReuse
-Entry point for TestTransitionNotationUml.testParseTransitionCreate
-Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation1
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation2
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation3
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation4
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation5
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation6
-Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation7
-Entry point for TestTransitionNotationUml.testRoundTrip
-org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,java.lang.Object)
+org.argouml.notation.NotationProvider.updateListener(java.beans.PropertyChangeListener,java.lang.Object,java.beans.PropertyChangeEvent)
+0
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.checkThrows(java.lang.Object,java.lang.String,boolean,boolean,boolean)
+0
+org.argouml.kernel.DefaultUndoManager.getInstance()
 0
 org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeStereotype()
 1
 Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationVisibility()
-1
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
-org.argouml.uml.ui.InitUmlUI.getDetailsTabs()
-0
-org.argouml.model.mdr.FacadeMDRImpl.getAggregation(java.lang.Object)
-0
-org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.Object)
-0
-org.argouml.notation.providers.AssociationEndNameNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.uml.ui.UMLListCellRenderer2.getListCellRendererComponent(javax.swing.JList,java.lang.Object,int,boolean,boolean)
-0
-org.argouml.model.mdr.MDRModelImplementation.createExtent(java.lang.String,boolean)
-26
-Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration
-Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile
-Entry point for TestProfileDefault.testLoadProfileModel
-Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInOneCall
-Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInTwoCalls
-Entry point for TestProfileMother.testCreateProfilePairWith2ndDependingOn1stViaXmi
-Entry point for TestProfileMother.testCreateUnloadedSimpleProfile
-Entry point for TestProfileMother.testCreateXmiDependentProfile
-Entry point for TestProfileMother.testXmiDependentProfile
-Entry point for TestProject.testRemove
-Entry point for TestProjectManager.testMakeEmptyProject
-Entry point for TestProjectSettings.testProjectSettingsCreation
-Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
-Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
-Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile
-Entry point for TestReaderModelLoader.testLoad
-Entry point for TestStereotypeUtility.testGetAvailableStereotypesForAModelElementIssue5969
-Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
-Entry point for TestUserDefinedProfile.testLoadingAsFromJar
-Entry point for TestUserDefinedProfile.testLoadingConstructor
-Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel
-Entry point for TestXmiFilePersister.testLoadBadHref
-Entry point for TestXmiFilePersister.testLoadProject
-Entry point for TestXmiFilePersister.testLoadProject13
-Entry point for TestXmiFilePersister.testSave
-org.argouml.uml.diagram.static_structure.ui.FigPackage.setFilled(boolean)
-0
-org.argouml.uml.ui.ActionNavigateNamespace.navigateTo(java.lang.Object)
-0
 org.argouml.notation.NotationProvider.cleanListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.notation.providers.ActionStateNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
 0
 org.argouml.model.mdr.ExtensionMechanismsFactoryMDRImpl.buildTagDefinition(java.lang.String,java.lang.Object,java.lang.Object,java.lang.String)
 40
@@ -259,24 +178,24 @@ Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinition
 Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
 Entry point for TestUserDefinedProfile.testLoadingAsFromJar
 Entry point for TestUserDefinedProfile.testLoadingConstructor
-org.argouml.profile.ProfileMother.getProfileStereotype()
+org.argouml.profile.UserDefinedProfile.filterPackages()
 0
-org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object)
+org.argouml.model.mdr.UseCasesFactoryMDRImpl.buildExtensionPoint(java.lang.Object)
 2
-Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
-Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
-org.argouml.uml.ui.UMLModelElementListModel2.addAll(java.util.Collection)
-0
+Entry point for TestCrNoAssociations.testUseCaseExtend
+Entry point for TestUseCasesFactory.testBuildExtend1
+org.argouml.notation.providers.uml.TestTransitionNotationUml.testParseTransitionCreate()
+1
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
 org.argouml.uml.ui.TabProps.findPanelFor(java.lang.Object)
 0
-org.argouml.notation.providers.AssociationRoleNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
 0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationName()
+org.argouml.notation.providers.ClassifierRoleNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.model.TestStateMachinesFactory.testDeleteTransition()
 1
-Entry point for TestAttributeAndOperationNotationUml.testOperationName
-org.argouml.profile.TestProfileMother.testSaveProfileModel()
-1
-Entry point for TestProfileMother.testSaveProfileModel
+Entry point for TestStateMachinesFactory.testDeleteTransition
 org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File)
 14
 Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInOneCall
@@ -293,66 +212,147 @@ Entry point for TestStereotypeUtility.testGetAvailableStereotypesForAModelElemen
 Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
 Entry point for TestUserDefinedProfile.testLoadingAsFromJar
 Entry point for TestUserDefinedProfile.testLoadingConstructor
-org.argouml.ui.DetailsPane.stateChanged(javax.swing.event.ChangeEvent)
-0
-org.argouml.notation.providers.uml.TestTransitionNotationUml.testParseTransitionCreate()
-1
-Entry point for TestTransitionNotationUml.testParseTransitionCreate
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeVisibility()
-1
-Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
-org.argouml.model.TestStateMachinesFactory.testDeleteTransition()
-1
-Entry point for TestStateMachinesFactory.testDeleteTransition
-org.argouml.notation.NotationProvider.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeMultiplicity()
-1
-Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
-org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicity(java.lang.String)
-0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testGetHelpOperation()
-1
-Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
-org.argouml.model.mdr.DataTypesFactoryMDRImpl.createMultiplicity(int,int)
-0
+org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object)
+6
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
+Entry point for TestAttributeAndOperationNotationUml.testOperationStereotype
+Entry point for TestAttributeAndOperationNotationUml.testOperationType
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
 org.argouml.notation.providers.AttributeNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeValue()
-1
-Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
-org.argouml.notation.providers.ModelElementNameNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.notation.providers.StateBodyNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
-0
-org.argouml.model.mdr.UseCasesFactoryMDRImpl.buildExtensionPoint(java.lang.Object)
-2
-Entry point for TestCrNoAssociations.testUseCaseExtend
-Entry point for TestUseCasesFactory.testBuildExtend1
-org.argouml.uml.diagram.static_structure.ui.FigPackage.setFillColor(java.awt.Color)
-0
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.checkThrows(java.lang.Object,java.lang.String,boolean,boolean,boolean)
 0
 org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationType()
 1
 Entry point for TestAttributeAndOperationNotationUml.testOperationType
-org.argouml.profile.UserDefinedProfile.filterPackages()
+org.argouml.profile.ProfileMother.getProfileStereotype()
 0
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace()
+1
+Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
+org.argouml.profile.ProfileMother.createSimpleProfileModel()
+11
+Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInOneCall
+Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInTwoCalls
+Entry point for TestProfileMother.testCreateProfileModel
+Entry point for TestProfileMother.testCreateProfilePairWith2ndDependingOn1stViaXmi
+Entry point for TestProfileMother.testCreateSimpleProfileModel
+Entry point for TestProfileMother.testCreateXmiDependentProfile
+Entry point for TestProfileMother.testSaveProfileModel
+Entry point for TestProfileMother.testXmiDependentProfile
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
+Entry point for TestReaderModelLoader.testLoad
+org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int)
+18
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
+Entry point for TestAttributeAndOperationNotationUml.testOperationStereotype
+Entry point for TestAttributeAndOperationNotationUml.testOperationType
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined
+Entry point for TestTransitionNotationUml.testParseEventsReuse
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
+Entry point for TestTransitionNotationUml.testParseTriggerCallEvent
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation1
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation2
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation3
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation4
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation5
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation6
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation7
+Entry point for TestTransitionNotationUml.testRoundTrip
+org.argouml.uml.ui.ActionNavigateNamespace.navigateTo(java.lang.Object)
+0
+org.argouml.notation.NotationProvider.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeProperty()
+1
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
+org.argouml.model.mdr.UndoCoreHelperDecorator.setMultiplicity(java.lang.Object,java.lang.Object)
+0
+org.argouml.notation.providers.ActionStateNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.model.mdr.MDRModelImplementation.createExtent(java.lang.String,boolean)
+26
+Entry point for TestProfileConfigurationFilePersister.testSaveLoadDefaultConfiguration
+Entry point for TestProfileConfigurationFilePersister.testWritePreviouslyLoadedProfile
+Entry point for TestProfileDefault.testLoadProfileModel
+Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInOneCall
+Entry point for TestProfileManagerImpl.testXmiProfileDependencyResolutionWithProfilesHandedInReverseOrderOfDependencyInTwoCalls
+Entry point for TestProfileMother.testCreateProfilePairWith2ndDependingOn1stViaXmi
+Entry point for TestProfileMother.testCreateUnloadedSimpleProfile
+Entry point for TestProfileMother.testCreateXmiDependentProfile
+Entry point for TestProfileMother.testXmiDependentProfile
+Entry point for TestProject.testRemove
+Entry point for TestProjectManager.testMakeEmptyProject
+Entry point for TestProjectSettings.testProjectSettingsCreation
+Entry point for TestProjectWithProfiles.testCreatedProjectContainsProfileConfiguration
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
+Entry point for TestProjectWithProfiles.testProjectWithUserDefinedProfilePersistency
+Entry point for TestProjectWithProfiles.testRemoveProfileWithModelThatRefersToProfile
+Entry point for TestReaderModelLoader.testLoad
+Entry point for TestStereotypeUtility.testGetAvailableStereotypesForAModelElementIssue5969
+Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
+Entry point for TestUserDefinedProfile.testLoadingAsFromJar
+Entry point for TestUserDefinedProfile.testLoadingConstructor
+Entry point for TestXmiFilePersister.testCreateSaveAndLoadYieldsCorrectModel
+Entry point for TestXmiFilePersister.testLoadBadHref
+Entry point for TestXmiFilePersister.testLoadProject
+Entry point for TestXmiFilePersister.testLoadProject13
+Entry point for TestXmiFilePersister.testSave
+org.argouml.model.mdr.ActivityGraphsFactoryMDRImpl.buildActivityGraph(java.lang.Object)
+8
+Entry point for TestActionActivityGraphDiagram.testCreateDiagram
+Entry point for TestActivityGraphStateMachine.testDeleteStateMachineTop
+Entry point for TestDiagramFactory.testCreateAndRemove
+Entry point for TestProject.testDeletePackageWithClassWithActivityDiagram
+Entry point for TestProject.testDeletePackageWithPackageWithActivityDiagram
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation5
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation6
+Entry point for TestTransitionNotationUml.testParseTriggerCallEventOperation7
+org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object)
+9
+Entry point for TestAttributeAndOperationNotationUml.testAttributeDerived
+Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
+Entry point for TestAttributeAndOperationNotationUml.testAttributeName
+Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
+Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
+Entry point for TestAttributeAndOperationNotationUml.testAttributeType
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
+Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
 org.argouml.profile.init.InitProfileSubsystem.init()
 4
 Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
 Entry point for TestStateMachinesFactory.testDeleteTransition
 Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
 Entry point for TestUMLTagDefinitionComboBoxModel.testGetApplicableTagDefinitionsIssue6008
-org.argouml.kernel.DefaultUndoManager.getInstance()
+org.argouml.uml.diagram.static_structure.ui.FigPackage.setFilled(boolean)
 0
-org.argouml.ui.TestDetailsPane.testTargetSet()
-1
-Entry point for TestDetailsPane.testTargetSet
-org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testOperationParameters()
-1
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
-org.argouml.notation.providers.ObjectNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+org.argouml.notation.providers.AssociationEndNameNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
 0
-org.argouml.notation.providers.ClassifierRoleNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testGetHelpOperation()
+1
+Entry point for TestAttributeAndOperationNotationUml.testGetHelpOperation
+org.argouml.notation.providers.uml.TestAttributeAndOperationNotationUml.testAttributeValue()
+1
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
+org.argouml.ui.DetailsPane.stateChanged(javax.swing.event.ChangeEvent)
+0
+org.argouml.notation.providers.AssociationNameNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.notation.providers.MessageNotation.initialiseListener(java.beans.PropertyChangeListener,java.lang.Object)
+0
+org.argouml.model.mdr.FacadeMDRImpl.getAggregation(java.lang.Object)
+0
+org.argouml.profile.TestProfileMother.testSaveProfileModel()
+1
+Entry point for TestProfileMother.testSaveProfileModel
+org.argouml.uml.ui.foundation.core.UMLModelElementVisibilityRadioButtonPanel.buildModel()
+0
+org.argouml.model.mdr.CoreHelperMDRImpl.setMultiplicity(java.lang.Object,java.lang.Object)
+0
+org.argouml.uml.ui.UMLListCellRenderer2.getListCellRendererComponent(javax.swing.JList,java.lang.Object,int,boolean,boolean)
 0

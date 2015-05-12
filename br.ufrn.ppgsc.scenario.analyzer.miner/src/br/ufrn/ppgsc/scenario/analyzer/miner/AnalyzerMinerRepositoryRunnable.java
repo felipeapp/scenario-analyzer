@@ -409,13 +409,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 			 */
 			Collection<String> full_signatures = new ArrayList<String>();
 			
-			String file_message = AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath(filename));
+			String file_message = AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath(filename), true);
 			
 			if (filename.endsWith("degraded_methods") || filename.equals("kept_methods"))
-				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("added_methods"));
+				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("added_methods"), true);
 			
 			if (filename.endsWith("optimized_methods") || filename.equals("kept_methods"))
-				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("removed_methods"));
+				AnalyzerReportUtil.loadCollection(full_signatures, getDAFilePath("removed_methods"), true);
 			
 			for (String signature : full_signatures) {
 				String paths[] = transformer.convert(signature, repository_prefix, workcopy_prefix_r1, workcopy_prefix_r2);
