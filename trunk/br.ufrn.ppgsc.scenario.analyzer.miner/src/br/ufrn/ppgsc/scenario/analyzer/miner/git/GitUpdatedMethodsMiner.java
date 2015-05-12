@@ -46,14 +46,8 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 	}
 	
 	public Object mine(String path, String startRevision, String endRevision) {
-		GitUpdatedLinesHandler handler  = new GitUpdatedLinesHandler(
-				startRevision,
-				endRevision,
-				url + path.substring(0, path.lastIndexOf('/')),
-				path.substring(path.lastIndexOf('/') + 1));
-		
+		GitUpdatedLinesHandler handler  = new GitUpdatedLinesHandler(startRevision, endRevision, url, path);
 		handler.calculateChangedLines();
-		
 		return handler;
 	}
 	
