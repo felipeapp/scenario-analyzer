@@ -11,16 +11,17 @@ public class CommitStat {
 	private int insertions;
 	private int deletions;
 	private int hunks;
+	private boolean binary;
 	private Operation operation;
 
-	public CommitStat(String path, String packageName, int insertions,
-			int deletions, int hunks, Operation operation) {
+	public CommitStat(String path, String packageName, int insertions, int deletions, int hunks, Operation operation, boolean binary) {
 		this.path = path;
 		this.packageName = packageName;
 		this.insertions = insertions;
 		this.deletions = deletions;
 		this.hunks = hunks;
 		this.operation = operation;
+		this.binary = binary;
 	}
 
 	public String getPath() {
@@ -45,6 +46,20 @@ public class CommitStat {
 
 	public int getHunks() {
 		return hunks;
+	}
+
+	public boolean isBinary() {
+		return binary;
+	}
+
+	@Override
+	public int hashCode() {
+		return path.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof CommitStat && path.equals(((CommitStat) obj).getPath());
 	}
 
 }

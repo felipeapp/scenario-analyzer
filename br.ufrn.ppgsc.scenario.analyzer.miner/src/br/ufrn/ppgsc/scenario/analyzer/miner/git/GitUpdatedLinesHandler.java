@@ -3,6 +3,7 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.git;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,9 +12,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -152,25 +155,62 @@ public class GitUpdatedLinesHandler {
 		return line;
 	}
 
+	private InputStream executeGitCommand(String command) throws IOException {
+		Process p = Runtime.getRuntime().exec("cmd /c " + command, null, new File(filedir));
+		return p.getInputStream();
+	}
+	
+	private int getNumberOfParents(String commit) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand("git show --format=\"%P\" " + commit)));
+		
+		String line = br.readLine();
+		int n = line.split(" ").length;
+		
+		if (n <= 0 || line.startsWith("fatal:"))
+			throw new RuntimeException("Invalid number of parents: " + commit + " --> " + line);
+		
+		return n;
+	}
+	
 	private Collection<CommitStat> getCommitStats(String commit) throws IOException {
-		String so_prefix = "cmd /c ";
-		String command = so_prefix + "git show -m -C100% --oneline " + commit;
+		Set<CommitStat> stats = null;
+		int number_of_parents = getNumberOfParents(commit);
+
+		if (number_of_parents > 1)
+			stats = getCommitStatsMerge("git show -c -C100% --oneline", commit, "--combined");
+		else
+			stats = new HashSet<CommitStat>();
 		
-		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
-		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		stats.addAll(getCommitStatsMerge("git show -m -C100% --oneline", commit, "--git"));
 		
-		Collection<CommitStat> stats = new ArrayList<CommitStat>();
+		return stats;
+	}
+	
+	private Set<CommitStat> getCommitStatsMerge(String command, String commit, String flag) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand(command + " " + commit)));
+		
+		Set<CommitStat> stats = new HashSet<CommitStat>();
 		
 		// The first line contains only commit information
-		String line = br.readLine();
+		String line = readAndCheckLine(br, commit.substring(0, 7));
 		
 		// Reading the first diff command
-		line = readAndCheckLine(br, "diff --git");
+		line = readAndCheckLine(br, "diff " + flag);
 		
 		// It will be null at the end of the file
 		while (line != null) {
-			// Backup of diff line
-			String diff_line = line;
+			// First we calculate a backup of path from diff line
+			String path_from_diff = null;
+			
+			// Testing the flag
+			if (flag.equals("--git"))
+				path_from_diff = line.substring(8 + "--git".length(), line.lastIndexOf(' '));
+			else if (flag.equals("--combined"))
+				path_from_diff = line.substring(6 + "--combined".length());
+			
+			// It should never happen
+			if (path_from_diff == null || !line.startsWith("diff " + flag))
+				throw new RuntimeException("Invalid diff line in " + commit + ":" + line);
 			
 			// Reading next line. It will indicate the operation (rename, added, deleted)
 			line = br.readLine();
@@ -193,9 +233,9 @@ public class GitUpdatedLinesHandler {
 				
 				/*
 				 * If it was not the index line, we do not have a diff comparison.
-				 * In this case we are in a new diff (diff --git).
+				 * In this case we are in a new diff.
 				 */
-				if (line.startsWith("diff --git")) {
+				if (line.startsWith("diff " + flag)) {
 					updated_path = line_to.substring(line_to.indexOf("to") + 3); // Getting the updated path from the "to line" (after the first to word) 
 				}
 				else if (line.startsWith("index")) {
@@ -225,7 +265,7 @@ public class GitUpdatedLinesHandler {
 				 * or we are in a binary line.
 				 */
 				if (line == null || line.startsWith("Binary files"))
-					updated_path = diff_line.substring(13, diff_line.lastIndexOf(' ')); // Getting the updated path from the "diif line"
+					updated_path = path_from_diff; // Getting the updated path from the "diff line"
 				else if (line.startsWith("---"))
 					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
 				else // It should never happen
@@ -246,7 +286,7 @@ public class GitUpdatedLinesHandler {
 				 * or we are in a binary line.
 				 */
 				if (line == null || line.startsWith("Binary files")) {
-					updated_path = diff_line.substring(13, diff_line.lastIndexOf(' ')); // Getting the updated path from the "diif line"
+					updated_path = path_from_diff; // Getting the updated path from the "diif line"
 				}
 				else if (line.startsWith("---")) {
 					updated_path = line.substring(6); // Reading --- line (old path): --- a/old_path
@@ -269,7 +309,7 @@ public class GitUpdatedLinesHandler {
 				 * or we are in a binary line.
 				 */
 				if (line == null || line.startsWith("Binary files"))
-					updated_path = diff_line.substring(13, diff_line.lastIndexOf(' ')); // Getting the updated path from the "diif line"
+					updated_path = path_from_diff; // Getting the updated path from the "diif line"
 				else if (line.startsWith("---"))
 					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
 				else // It should never happen
@@ -286,16 +326,19 @@ public class GitUpdatedLinesHandler {
 			int deletions = 0;
 			int hunks = 0;
 			String package_name = null;
+			boolean binary = false;
+			
+			binary = line.startsWith("Binary files");
 			
 			// Value to start the loop
-			if (line == null || !line.startsWith("diff --git"))
+			if (line == null || !line.startsWith("diff " + flag))
 				line = "";
 			
 			/*
 			 * It will be null at the end of the file
 			 * It will be diff command when finishing a set of stats
 			 */
-			while (line != null && !line.startsWith("diff --git")) {
+			while (line != null && !line.startsWith("diff " + flag)) {
 				// Counting
 				if (line.startsWith("+"))
 					++insertions;
@@ -321,7 +364,7 @@ public class GitUpdatedLinesHandler {
 			}
 			
 			// Adding the commit stat to the result list
-			stats.add(new CommitStat(updated_path, package_name, insertions, deletions, hunks, operation));
+			stats.add(new CommitStat(updated_path, package_name, insertions, deletions, hunks, operation, binary));
 		}
 		
 		return stats;
@@ -423,6 +466,8 @@ public class GitUpdatedLinesHandler {
 	}
 
 	public static void main(String[] args) throws IOException {
+		System.out.println(" +".startsWith("+"));
+		
 		String line = "copy to wicket-cdi/src/main/resources/META-INF/beans.xml";
 		System.out.println(line.substring(line.indexOf("to") + 3));
 		
@@ -431,8 +476,10 @@ public class GitUpdatedLinesHandler {
 		
 		System.out.println("+++ b/wicket-examples/src/main/java/org/apache/wicket/examples/niceurl/Page2UP.java".substring(6));
 		
-		line = "diff --git a/wicket-core/src/test/java/org/apache/wicket/markup/html/border/BoxBorderTestPage_ExpectedResult_10.html b/wicket-experimental/wicket-cdi-1.1/wicket-cdi-1.1-core/src/main/resources/META-INF/beans.xml";
-		System.out.println(line.substring(13, line.lastIndexOf(' ')));
+		String line_git = "diff --git a/wicket-core/src/test/java/org/apache/wicket/markup/html/border/BoxBorderTestPage_ExpectedResult_10.html b/wicket-experimental/wicket-cdi-1.1/wicket-cdi-1.1-core/src/main/resources/META-INF/beans.xml";
+		String line_c = "diff --combined wicket-core/src/main/java/org/apache/wicket/core/request/handler/PageProvider.java";
+		System.out.println("A: " + line_git.substring(8 + "--git".length(), line_git.lastIndexOf(' ')));
+		System.out.println("B: " + line_c.substring(6 + "--combined".length()));
 		
 //		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
 //				"c5d8af446a39db10a1744d47e5a466fa1c87a374",
@@ -491,12 +538,12 @@ public class GitUpdatedLinesHandler {
 		
 		int i = 0;
 		for (CommitStat s: stats) {
-			System.out.println(++i + " - " + s.getPackageName() + ", +" + s.getInsertions() + ", -" + s.getDeletions()
+			System.out.println(++i + " - " + s.getPackageName() + ", +" + (s.isBinary()? "-" : s.getInsertions()) + ", -" + s.getDeletions()
 					+ ", " + s.getHunks() + ", " + s.getOperation() + ", " + s.getPath());
 		}
 		
-		for (CommitStat s : stats)
-			System.out.printf("%d\t%d\t%s%s", s.getInsertions(), s.getDeletions(), s.getPath(), System.getProperty("line.separator"));
+//		for (CommitStat s : stats)
+//			System.out.printf("%d\t%d\t%s%s", s.getInsertions(), s.getDeletions(), s.getPath(), System.getProperty("line.separator"));
 	}
 
 }

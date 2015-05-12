@@ -247,7 +247,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 				
 				counts = getNumberOfChangedLines(entryPath, revision);
 				
-				stats.add(new CommitStat(entryPath.getPath(), package_name, counts[0], counts[1], counts[2], operation));
+				stats.add(new CommitStat(entryPath.getPath(), package_name, counts[0], counts[1], counts[2], operation, counts[2] == 0));
 			}
 		}
 		
@@ -269,7 +269,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		Collection<CommitStat> stats = null;
 		
 		try {
-			stats = handler.getCommitStats(683);
+			stats = handler.getCommitStats(687);
 		} catch (SVNException e) {
 			e.printStackTrace();
 		}
@@ -282,7 +282,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		System.out.println(commit.getNumberOfHunks());
 		
 		for (CommitStat s: stats)
-			System.out.println(s.getInsertions() + ", " + s.getDeletions()
+			System.out.println(s.isBinary() + ", " + s.getInsertions() + ", " + s.getDeletions()
 					+ ", " + s.getHunks() + ", " + s.getOperation() + ", " + s.getPath());
 		
 		miner.close();
