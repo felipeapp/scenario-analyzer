@@ -147,6 +147,11 @@ public class Commit {
 	}
 
 	@Override
+	public int hashCode() {
+		return revision.hashCode();
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof Commit && revision.equals(((Commit) obj).getRevision());
 	}

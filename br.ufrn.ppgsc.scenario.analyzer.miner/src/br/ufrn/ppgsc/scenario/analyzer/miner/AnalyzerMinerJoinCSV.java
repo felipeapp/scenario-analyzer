@@ -68,8 +68,71 @@ public class AnalyzerMinerJoinCSV {
 			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_pu_r_optimized_method_commits_2015-02-15_12h46min.txt"
 		}
 	};
+	
+	/*
+	private static final String[][] DEGRADED_TARGETS = {
+		{
+			"argouml/e1_argouml_degraded_method_commits.txt"
+		},
+		{
+			"netty/e1_netty_degraded_method_commits.txt",
+			"netty/e2_netty_degraded_method_commits.txt",
+			"netty/e3_netty_degraded_method_commits.txt",
+			"netty/e4_netty_degraded_method_commits.txt",
+			"netty/e5_netty_degraded_method_commits.txt",
+			"netty/e6_netty_degraded_method_commits.txt",
+		},
+		{
+			"jetty/e1_jetty_degraded_method_commits.txt",
+			"jetty/e2_jetty_degraded_method_commits.txt",
+			"jetty/e3_jetty_degraded_method_commits.txt",
+			"jetty/e4_jetty_degraded_method_commits.txt",
+			"jetty/e5_jetty_degraded_method_commits.txt",
+			"jetty/e6_jetty_degraded_method_commits.txt"
+		},
+		{
+			"wicket/e1_wicket_degraded_method_commits.txt",
+			"wicket/e2_wicket_degraded_method_commits.txt",
+			"wicket/e3_wicket_degraded_method_commits.txt",
+			"wicket/e4_wicket_degraded_method_commits.txt",
+			"wicket/e5_wicket_degraded_method_commits.txt",
+			"wicket/e6_wicket_degraded_method_commits.txt"
+		}
+	};
+	
+	private static final String[][] OPTIMIZED_TARGETS = {
+		{
+			"argouml/e1_argouml_optimized_method_commits.txt"
+		},
+		{
+			"netty/e1_netty_optimized_method_commits.txt",
+			"netty/e2_netty_optimized_method_commits.txt",
+			"netty/e3_netty_optimized_method_commits.txt",
+			"netty/e4_netty_optimized_method_commits.txt",
+			"netty/e5_netty_optimized_method_commits.txt",
+			"netty/e6_netty_optimized_method_commits.txt",
+		},
+		{
+			"jetty/e1_jetty_optimized_method_commits.txt",
+			"jetty/e2_jetty_optimized_method_commits.txt",
+			"jetty/e3_jetty_optimized_method_commits.txt",
+			"jetty/e4_jetty_optimized_method_commits.txt",
+			"jetty/e5_jetty_optimized_method_commits.txt",
+			"jetty/e6_jetty_optimized_method_commits.txt"
+		},
+		{
+			"wicket/e1_wicket_optimized_method_commits.txt",
+			"wicket/e2_wicket_optimized_method_commits.txt",
+			"wicket/e3_wicket_optimized_method_commits.txt",
+			"wicket/e4_wicket_optimized_method_commits.txt",
+			"wicket/e5_wicket_optimized_method_commits.txt",
+			"wicket/e6_wicket_optimized_method_commits.txt"
+		}
+	};
+	*/
 
-	private static void saveJoinedCSV(String[][] input_systems, String deviation_type, String output_folter) throws IOException {
+	private static void saveJoinedCSV(String[][] input_systems, String deviation_type,
+			String input_folter, String output_folter, boolean save_local) throws IOException {
 		for (String[] system_files : input_systems) {
 
 			String system_name = null;
@@ -83,7 +146,7 @@ public class AnalyzerMinerJoinCSV {
 				
 				if (evolution == 0) {
 					system_name = input_path.substring(0, input_path.indexOf('/'));
-					String output_path = output_folter + "/" + system_name + "/all_" + system_name + "_pu_r_" + deviation_type + "_method.txt";
+					String output_path = output_folter + "/" + system_name + "/all_" + system_name + "_" + deviation_type + "_method_commits.txt";
 					
 					joined_out = new PrintWriter(output_path);
 					
@@ -91,8 +154,14 @@ public class AnalyzerMinerJoinCSV {
 					System.out.println("\tOutput: " + output_path);
 				}
 				
-				BufferedReader local_in = new BufferedReader(new FileReader(input_path));
-				PrintWriter local_out = new PrintWriter(output_folter + "/" + system_name + "/e" + ++evolution + "_" + input_path.substring(input_path.lastIndexOf('/') + 1));
+				if (!input_folter.isEmpty() && !input_folter.endsWith("/"))
+					input_folter += "/";
+				
+				BufferedReader local_in = new BufferedReader(new FileReader(input_folter + input_path));
+				PrintWriter local_out = null;
+				
+				if (save_local)
+					local_out = new PrintWriter(output_folter + "/" + system_name + "/e" + ++evolution + "_" + input_path.substring(input_path.lastIndexOf('/') + 1));
 				
 				System.out.println("\tPath: " + input_path);
 				
@@ -102,14 +171,21 @@ public class AnalyzerMinerJoinCSV {
 				System.out.println("\t\tEntries: " + number_of_entries);
 				
 				header = local_in.readLine(); // The header
+				if (save_local) {
+					local_out.println(number_of_entries);
+					local_out.println(header);
+				}
 				
 				String line = null;
 				while ((line = local_in.readLine()) != null) {
 					set_of_entries.add(line);
-					local_out.println(line);
+					
+					if (save_local)
+						local_out.println(line);
 				}
 
-				local_out.close();
+				if (save_local)
+					local_out.close();
 				local_in.close();
 				
 			}
@@ -131,8 +207,8 @@ public class AnalyzerMinerJoinCSV {
 	
 	public static void main(String[] args) throws IOException {
 		
-		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis");
-		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis");
+		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", false);
+		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", false);
 		
 	}
 
