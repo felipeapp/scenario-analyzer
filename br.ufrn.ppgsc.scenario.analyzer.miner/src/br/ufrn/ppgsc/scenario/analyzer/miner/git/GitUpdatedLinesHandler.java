@@ -40,17 +40,17 @@ public class GitUpdatedLinesHandler {
 	
 	private String startRev;
 	private String endRev;
-	private String filedir;
+	private String gitdir;
 	private String filename;
 	
-	public GitUpdatedLinesHandler(String startRev, String endRev, String filedir, String filename) {
+	public GitUpdatedLinesHandler(String startRev, String endRev, String gitdir, String filename) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		issueQuery = SystemMetadataUtil.getInstance().newObjectFromProperties(IQueryIssue.class);
 		
 		this.startRev = startRev;
 		this.endRev = endRev;
-		this.filedir = filedir;
+		this.gitdir = gitdir;
 		this.filename = filename;
 	}
 	
@@ -63,22 +63,19 @@ public class GitUpdatedLinesHandler {
 	}
 	
 	public void calculateChangedLines() {
-		String so_prefix = "cmd /c ";
-		String command = so_prefix + "git blame -l " + startRev + ".." + endRev + " " + filename;
-		
 		try {
-			Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
-			BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					executeGitCommand("git blame -l " + startRev + ".." + endRev + " " + filename)));
 			
 			String line = null;
-			while ((line = bf.readLine()) != null) {
+			while ((line = br.readLine()) != null) {
 				UpdatedLine up = handleLine(line);
 				
 				if (up != null)
 					changedLines.add(up);
 			}
 			
-			bf.close();
+			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -86,43 +83,36 @@ public class GitUpdatedLinesHandler {
 	}
 	
 	private String getCommitLogMessage(String commit) throws IOException {
-		String so_prefix = "cmd /c ";
-		String command = so_prefix + "git log --format=%B -n 1 " + commit;
-		
-		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
-		BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		
-		StringBuilder result = new StringBuilder();
+		BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand("git log --format=%B -n 1 " + commit)));
+		StringBuilder sb = new StringBuilder();
 		
 		String line = null;
-		while ((line = bf.readLine()) != null) {
-			result.append(line);
-			result.append(System.lineSeparator());
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+			sb.append(System.lineSeparator());
 		}
 		
-		return result.toString();
+		br.close();
+		return sb.toString();
 	}
 	
 	private String getSourceCodeByCommit(String filepath, String revision, CommitStat.Operation operation) throws IOException {
-		String so_prefix = "cmd /c ";
-		String command = so_prefix + "git show " + revision + ":" + filepath;
-		
-		Process p = Runtime.getRuntime().exec(command, null, new File(filedir));
-		BufferedReader bf = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		
-		StringBuilder result = new StringBuilder();
+		BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand("git show " + revision + ":" + filepath)));
+		StringBuilder sb = new StringBuilder();
 		
 		String line = null;
-		while ((line = bf.readLine()) != null) {
-			result.append(line);
-			result.append(System.lineSeparator());
+		while ((line = br.readLine()) != null) {
+			sb.append(line);
+			sb.append(System.lineSeparator());
 		}
 		
-		String source_code = result.toString();
+		br.close();
+		
+		String source_code = sb.toString();
 		
 		// It should never happen
 		if (operation != CommitStat.Operation.DELETED && (source_code.isEmpty() || source_code.startsWith("fatal:")))
-			throw new RuntimeException("Impossible to download source code of " + filepath);
+			throw new RuntimeException(revision + ", Impossible to download source code of " + filepath + "\n" + source_code + "\n" + operation);
 		
 		return source_code;
 	}
@@ -156,14 +146,17 @@ public class GitUpdatedLinesHandler {
 	}
 
 	private InputStream executeGitCommand(String command) throws IOException {
-		Process p = Runtime.getRuntime().exec("cmd /c " + command, null, new File(filedir));
+		String torun = "cmd /c " + command;
+		//System.out.println(torun);
+		Process p = Runtime.getRuntime().exec(torun, null, new File(gitdir));
 		return p.getInputStream();
 	}
 	
 	private int getNumberOfParents(String commit) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand("git show --format=\"%P\" " + commit)));
-		
 		String line = br.readLine();
+		br.close();
+		
 		int n = line.split(" ").length;
 		
 		if (n <= 0 || line.startsWith("fatal:"))
@@ -218,7 +211,7 @@ public class GitUpdatedLinesHandler {
 			// In this case, it is not the operation yet
 			if (line.startsWith("old mode")) {
 				line = readAndCheckLine(br, "new mode"); // Reading new mode line
-				line = readAndCheckLine(br, "similarity index"); // Reading operation now (in this case it should be a similarity line)
+				line = br.readLine(); // Reading operation now
 			}
 			
 			CommitStat.Operation operation = null;
@@ -300,20 +293,27 @@ public class GitUpdatedLinesHandler {
 			}
 			// The line variable is already the index line
 			else if (line.startsWith("index")) {
-				// It should be a "--- line" or a "binary line"
-				line = readAndCheckLine(br, new String[]{"---", "Binary files"});
+				// It should be a "--- line", "binary line" or mode
+				line = readAndCheckLine(br, new String[]{"---", "Binary files", "mode"});
 				
 				/*
 				 * If it was not the "--- line", we do not have a diff comparison.
 				 * In this case, we are at the end of the file (null),
 				 * or we are in a binary line.
 				 */
-				if (line == null || line.startsWith("Binary files"))
+				if (line == null || line.startsWith("Binary files")) {
 					updated_path = path_from_diff; // Getting the updated path from the "diif line"
-				else if (line.startsWith("---"))
+				}
+				else if (line.startsWith("---")) {
 					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
-				else // It should never happen
+				}
+				else if (line.startsWith("mode")) {
+					readAndCheckLine(br, "---"); // Reading --- line (old path): --- a/old_path
+					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
+				}
+				else { // It should never happen
 					throw new RuntimeException("Invalid index mode: " + line);
+				}
 				
 				operation = CommitStat.Operation.MODIFIED;
 			}
@@ -326,9 +326,8 @@ public class GitUpdatedLinesHandler {
 			int deletions = 0;
 			int hunks = 0;
 			String package_name = null;
-			boolean binary = false;
 			
-			binary = line.startsWith("Binary files");
+			boolean binary = line != null && line.startsWith("Binary files");
 			
 			// Value to start the loop
 			if (line == null || !line.startsWith("diff " + flag))
@@ -366,6 +365,8 @@ public class GitUpdatedLinesHandler {
 			// Adding the commit stat to the result list
 			stats.add(new CommitStat(updated_path, package_name, insertions, deletions, hunks, operation, binary));
 		}
+		
+		br.close();
 		
 		return stats;
 	}
@@ -418,9 +419,7 @@ public class GitUpdatedLinesHandler {
 			Commit commit = cache_commits.get(commit_revision);
 			
 			if (commit == null) {
-				String path = filedir + filename;
-				
-				logger.info("\tGetting issues to " + commit_revision + " in " + path);
+				logger.info("\tGetting issues to " + commit_revision + " in " + filename);
 				
 				String logMessage = getCommitLogMessage(commit_revision);
 				Collection<Long> issue_numbers = issueQuery.getIssueNumbersFromMessageLog(logMessage);
@@ -490,8 +489,8 @@ public class GitUpdatedLinesHandler {
 		GitUpdatedLinesHandler gitHandler = new GitUpdatedLinesHandler(
 				"7f0dc74db4ed30e2831c439d10fe0244813bce3e",
 				"021348160abf428bee0be2eca770cd08142ad168",
-				"C:/Users/Felipe/git/wicket/wicket-core/src/main/java/org/apache/wicket/",
-				"MarkupContainer.java");
+				"C:/Users/Felipe/git/wicket",
+				"wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java");
 		
 //		gitHandler.calculateChangedLines();
 //		
@@ -514,7 +513,7 @@ public class GitUpdatedLinesHandler {
 //		}
 		
 		System.out.println("####################");
-		//System.out.println(gitHandler.getSourceCode());
+//		System.out.println(gitHandler.getSourceCode());
 		System.out.println("####################");
 		
 		// 3ecbe996ed8adc6f20fc42e5e50e0f189bc2c128 -> com mudança de diretório
@@ -522,10 +521,12 @@ public class GitUpdatedLinesHandler {
 		// cb5da57c846bb24a291df2d864fa0ea7d3298015 -> com remoção
 		// 3b288e37ca3b2ebb10e6c9ba4b5e869411cc17a4 -> estranha situação, apenas teste
 		// e4262674d6dd347fb51a1454c63e5f03ed5f135e -> Outra situação estranha, apenas teste
+		// ed64e166dcba6715eafcbb7ca460d2b87e84cffc -> old mode and new mode with index
 		// 95c2579ace678903b2e63023ced97be4877b6889 -> Usa a palavra copy no lugar de rename
 		// d06f84d1b87011e5c152c5fb3f05ae50c1c58cda -> Situação estranha, no new line at the end of the file
+		// 22f1e048923cf5b6e020a81b66e0a8512c24fe79 -> mode line que não pensei
 		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Commit merge gigante, tem todos os casos, testar este principalmente
-		Collection<CommitStat> stats = gitHandler.getCommitStats("7e032d211feecf00b93f72fd0ee49c42abf08c61");
+		Collection<CommitStat> stats = gitHandler.getCommitStats("22f1e048923cf5b6e020a81b66e0a8512c24fe79");
 		
 		Commit commit = new Commit(null, null, null, null, null, stats);
 		
