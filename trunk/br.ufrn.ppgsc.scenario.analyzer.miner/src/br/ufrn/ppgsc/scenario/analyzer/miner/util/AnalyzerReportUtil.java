@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -366,6 +367,26 @@ public abstract class AnalyzerReportUtil {
 		return result;
 	}
 
+	public static String getSelectedCommitHeaderForRAnalysis(String separator) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("Degradation" + separator);
+		sb.append("Revision" + separator);
+		sb.append("Bug Fixing" + separator);
+		sb.append("Number of Packages" + separator);
+		sb.append("Number of Files" + separator);
+		sb.append("Number of Issues" + separator);
+		sb.append("Number of Insertions" + separator);
+		sb.append("Number of Deletions" + separator);
+		sb.append("Number of Churns" + separator);
+		sb.append("Delta of Lines" + separator);
+		sb.append("Number of Hunks" + separator);
+		sb.append("Hour of Day" + separator);
+		sb.append("Day of Week");
+		
+		return sb.toString();
+	}
+
 	public static void saveCommitsForRAnalysis(Set<Commit> all_commits, Set<String> blamed_commits, String filename, String separator) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter(filename);
 		Set<String> lines = new TreeSet<String>(); // A TreeSet, just to keep the order
@@ -380,24 +401,49 @@ public abstract class AnalyzerReportUtil {
 		pw.println(lines.size());
 		
 		// Header
-		pw.print("Degradation" + separator);
-		pw.print("Revision" + separator);
-		pw.print("Bug Fixing" + separator);
-		pw.print("Number of Packages" + separator);
-		pw.print("Number of Files" + separator);
-		pw.print("Number of Issues" + separator);
-		pw.print("Number of Insertions" + separator);
-		pw.print("Number of Deletions" + separator);
-		pw.print("Number of Churns" + separator);
-		pw.print("Delta of Lines" + separator);
-		pw.print("Number of Hunks" + separator);
-		pw.print("Hour of Day" + separator);
-		pw.println("Day of Week");
+		pw.println(getSelectedCommitHeaderForRAnalysis(separator));
 		
+		// Values
 		for (String line : lines)
 			pw.println(line);
 		
 		pw.close();
+	}
+	
+	/*
+	 * # List of all commits from changed methods found during the repository mining phase (blamed or not)
+	 * 264
+	 * Revision,Bug Fixing,Author,Date,Number of Packages,Number of Files,Number of Insertions,Number of Deletions,Number of Churns,Delta of Lines,Number of Hunks,Number of Issues,Issues
+	 * 17727,false,tfmorris,Sáb 02-jan-2010 22:23:40 UTC,4,6,272,7,279,265,13,1,0
+	 */
+	public static List<Map<String, String>> loadCommitReport(String filename, String separator) throws IOException {
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		String line = br.readLine(); // Comment
+		int total = Integer.parseInt(br.readLine()); // Number of entries
+		String[] header_tokens = br.readLine().split(separator); // Header of the file
+		
+		System.out.println("Loading " + total + " commits: " + line);
+		
+		while ((line = br.readLine()) != null) {
+			String[] value_tokens = line.split(separator);
+			Map<String, String> map = new HashMap<String, String>();
+			
+			// It should never happen.
+			if (value_tokens.length != header_tokens.length) {
+				br.close();
+				throw new RuntimeException("value_tokens.length != header_tokens.length.");
+			}
+			
+			for (int i = 0; i < value_tokens.length; i++)
+				map.put(header_tokens[i], value_tokens[i]);
+			
+			list.add(map);
+		}
+		
+		br.close();
+		return list;
 	}
 
 }
