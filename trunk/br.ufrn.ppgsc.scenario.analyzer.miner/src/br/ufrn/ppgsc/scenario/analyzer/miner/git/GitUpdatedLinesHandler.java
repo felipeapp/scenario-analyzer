@@ -226,9 +226,9 @@ public class GitUpdatedLinesHandler {
 				
 				/*
 				 * If it was not the index line, we do not have a diff comparison.
-				 * In this case we are in a new diff.
+				 * In this case we are at the end of the file (null) or in a new diff.
 				 */
-				if (line.startsWith("diff " + flag)) {
+				if (line == null || line.startsWith("diff " + flag)) {
 					updated_path = line_to.substring(line_to.indexOf("to") + 3); // Getting the updated path from the "to line" (after the first to word) 
 				}
 				else if (line.startsWith("index")) {
@@ -526,7 +526,7 @@ public class GitUpdatedLinesHandler {
 		// d06f84d1b87011e5c152c5fb3f05ae50c1c58cda -> Situação estranha, no new line at the end of the file
 		// 22f1e048923cf5b6e020a81b66e0a8512c24fe79 -> mode line que não pensei
 		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Commit merge gigante, tem todos os casos, testar este principalmente
-		Collection<CommitStat> stats = gitHandler.getCommitStats("22f1e048923cf5b6e020a81b66e0a8512c24fe79");
+		Collection<CommitStat> stats = gitHandler.getCommitStats("e4262674d6dd347fb51a1454c63e5f03ed5f135e");
 		
 		Commit commit = new Commit(null, null, null, null, null, stats);
 		
