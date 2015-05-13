@@ -207,8 +207,8 @@ public class AnalyzerMinerJoinCSV {
 	
 	public static void main(String[] args) throws IOException {
 		
-		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", false);
-		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", false);
+		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
+		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
 		
 	}
 
