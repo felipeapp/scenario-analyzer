@@ -370,19 +370,19 @@ public abstract class AnalyzerReportUtil {
 	public static String getSelectedCommitHeaderForRAnalysis(String separator) {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Degradation" + separator);
-		sb.append("Revision" + separator);
-		sb.append("Bug Fixing" + separator);
-		sb.append("Number of Packages" + separator);
-		sb.append("Number of Files" + separator);
-		sb.append("Number of Issues" + separator);
-		sb.append("Number of Insertions" + separator);
-		sb.append("Number of Deletions" + separator);
-		sb.append("Number of Churns" + separator);
-		sb.append("Delta of Lines" + separator);
-		sb.append("Number of Hunks" + separator);
-		sb.append("Hour of Day" + separator);
-		sb.append("Day of Week");
+		sb.append("degradation" + separator); // Degradation
+		sb.append("revision" + separator); // Revision
+		sb.append("bug" + separator); // Bug Fixing
+		sb.append("packages" + separator); // Number of Packages
+		sb.append("files" + separator); // Number of Files
+		sb.append("issues" + separator); // Number of Issues
+		sb.append("insertions" + separator); // Number of Insertions
+		sb.append("deletions" + separator); // Number of Deletions
+		sb.append("churns" + separator); // Number of Churns
+		sb.append("lines" + separator); // Delta of Lines
+		sb.append("hunks" + separator); // Number of Hunks
+		sb.append("hour" + separator); // Hour of Day
+		sb.append("day"); // Day of Week
 		
 		return sb.toString();
 	}
