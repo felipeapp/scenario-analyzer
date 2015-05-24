@@ -452,7 +452,7 @@ public class GitUpdatedLinesHandler {
 				 */
 				Collection<CommitStat> stats = getCommitStats(commit_revision);
 				
-				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats);
+				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats, 0, 0);
 				
 				// Cache do commit analisado
 				cache_commits.put(commit_revision, commit);
@@ -528,7 +528,7 @@ public class GitUpdatedLinesHandler {
 		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Commit merge gigante, tem todos os casos, testar este principalmente
 		Collection<CommitStat> stats = gitHandler.getCommitStats("e4262674d6dd347fb51a1454c63e5f03ed5f135e");
 		
-		Commit commit = new Commit(null, null, null, null, null, stats);
+		Commit commit = new Commit(null, null, null, null, null, stats, 0, 0);
 		
 		System.out.println("Files: " + commit.getStats().size());
 		System.out.println("Java: " + commit.getNumberOfJavaFiles());
