@@ -372,6 +372,8 @@ public abstract class AnalyzerReportUtil {
 		
 		sb.append("degradation" + separator); // Degradation
 		sb.append("revision" + separator); // Revision
+		sb.append("authorexpertise" + separator); // Number of author's commits before the commit
+		sb.append("daysbeforerelease" + separator); // Days from the commit date to the release date
 		sb.append("bug" + separator); // Bug Fixing
 		sb.append("packages" + separator); // Number of Packages
 		sb.append("files" + separator); // Number of Files
@@ -379,7 +381,7 @@ public abstract class AnalyzerReportUtil {
 		sb.append("insertions" + separator); // Number of Insertions
 		sb.append("deletions" + separator); // Number of Deletions
 		sb.append("churns" + separator); // Number of Churns
-		sb.append("lines" + separator); // Delta of Lines
+		sb.append("deltalines" + separator); // Delta of Lines
 		sb.append("hunks" + separator); // Number of Hunks
 		sb.append("hour" + separator); // Hour of Day
 		sb.append("day"); // Day of Week

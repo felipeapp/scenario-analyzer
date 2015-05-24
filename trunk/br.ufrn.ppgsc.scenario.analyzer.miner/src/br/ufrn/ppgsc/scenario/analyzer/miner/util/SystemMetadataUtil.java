@@ -43,6 +43,10 @@ public class SystemMetadataUtil {
 	public int getIntProperty(String name) {
 		return Integer.parseInt(properties.getProperty(name));
 	}
+	
+	public long getLongProperty(String name) {
+		return Long.parseLong(properties.getProperty(name));
+	}
 
 	public boolean getBooleanProperty(String name) {
 		return Boolean.parseBoolean(properties.getProperty(name));

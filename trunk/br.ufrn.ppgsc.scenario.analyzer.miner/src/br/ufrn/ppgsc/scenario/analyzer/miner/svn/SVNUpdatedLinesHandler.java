@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -33,6 +32,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.CommitStat;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.parser.PackageDeclarationParser;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
@@ -41,22 +41,22 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 	
 	private static final Map<Long, Commit> cache_revisions = new HashMap<Long, Commit>();
 	
+	private Map<Long, SVNLogEntry> indexRevisions;
+	private Set<Long> releaseRevisions;
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
 	private IQueryIssue issueQuery;
 	
 	private String path;
 	private SVNRepository repository;
-
-	public SVNUpdatedLinesHandler() {
-
-	}
 	
-	public SVNUpdatedLinesHandler(SVNRepository repository, String path) {
+	public SVNUpdatedLinesHandler(SVNRepository repository, String path, Map<Long, SVNLogEntry> indexRevisions, Set<Long> releaseRevisions) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		issueQuery = SystemMetadataUtil.getInstance().newObjectFromProperties(IQueryIssue.class);
 		
+		this.indexRevisions = indexRevisions;
+		this.releaseRevisions = releaseRevisions;
 		this.path = path;
 		this.repository = repository;
 	}
@@ -113,7 +113,14 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 					}
 				}
 				
-				commit = new Commit(String.valueOf(revision), author, date, "UTC", issues, getCommitStats(revision));
+				commit = new Commit(String.valueOf(revision), author, date, "UTC", issues, getCommitStats(revision),
+						getUserRevisionsFromIndex(author, revision).size(),
+						AnalyzerCollectionUtil.diffDays(date, getDateOfNextRelease(revision)));
+				
+//				System.out.printf("############## | %d (%s - %s = %d) | %d\n",
+//						revision, getDateOfNextRelease(revision), commit.getDate(),
+//						commit.getDaysBeforeRelease(), commit.getAuthorPreviousRevisions());
+				
 				cache_revisions.put(revision, commit);
 			}
 			
@@ -123,6 +130,31 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 
 	public boolean handleRevision(Date date, long revision, String author, File contents) throws SVNException {
 		return false;
+	}
+	
+	private Date getDateOfNextRelease(long current_revision) {
+		for (long next_revision : releaseRevisions) {
+			// In this case, the next_revision was found, or they are the same
+			if (next_revision >= current_revision)
+				return indexRevisions.get(next_revision).getDate();
+		}
+		
+		// It should never be here
+		throw new RuntimeException("Can't find revision of next release!");
+	}
+	
+	private Collection<SVNLogEntry> getUserRevisionsFromIndex(String user, long revision) {
+		
+		Collection<SVNLogEntry> result = new ArrayList<SVNLogEntry>();
+		
+		for (long i = revision - 1; i >= 0; i--) {
+			SVNLogEntry logEntry = indexRevisions.get(i);
+			
+			if (logEntry != null && logEntry.getAuthor() != null && logEntry.getAuthor().equals(user))
+				result.add(logEntry);
+		}
+		
+		return result;
 	}
 	
 	private int[] getNumberOfChangedLines(SVNLogEntryPath entryPath, long revision) {
@@ -201,12 +233,11 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 	private Collection<CommitStat> getCommitStats(long revision) throws SVNException {
 
 		Collection<CommitStat> stats = new ArrayList<CommitStat>();
-		Collection<?> logEntries = repository.log(new String[] { "" }, null, revision, revision, true, true);
-
-		for (Iterator<?> entries = logEntries.iterator(); entries.hasNext();) {
-			SVNLogEntry logEntry = (SVNLogEntry) entries.next();
-			Set<String> set_of_copy_path = new HashSet<String>();
-			
+		Set<String> set_of_copy_path = new HashSet<String>();
+		SVNLogEntry logEntry = indexRevisions.get(revision);
+		
+		// It will be null when it does not have changed paths
+		if (logEntry != null) {
 			for (String key : logEntry.getChangedPaths().keySet()) {
 				SVNLogEntryPath entryPath = (SVNLogEntryPath) logEntry.getChangedPaths().get(key);
 				
@@ -261,7 +292,8 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 		
 		miner.connect("http://scenario-analyzer.googlecode.com/svn", "", "");
 
-		SVNUpdatedLinesHandler handler = new SVNUpdatedLinesHandler(miner.getRepository(), null);
+		SVNUpdatedLinesHandler handler = new SVNUpdatedLinesHandler(
+				miner.getRepository(), null, miner.buildRevisionIndex(0, -1), miner.loadRevisionsOfReleases());
 		
 		// 690 -> com renomeação e adição
 		// 683 -> com deleção
@@ -274,7 +306,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 			e.printStackTrace();
 		}
 		
-		Commit commit = new Commit(null, null, null, null, null, stats);
+		Commit commit = new Commit(null, null, null, null, null, stats, 0, 0);
 		
 		System.out.println(commit.getStats().size());
 		System.out.println(commit.getNumberOfInsertions());

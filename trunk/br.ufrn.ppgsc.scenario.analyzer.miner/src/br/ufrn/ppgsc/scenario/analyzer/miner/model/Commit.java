@@ -13,6 +13,12 @@ import java.util.TimeZone;
 
 public class Commit {
 
+	// Number of previous revision of the author of this commit
+	private int authorPreviousRevisions;
+
+	// Number of days from this commit to the day the evolution was released
+	private int daysBeforeRelease;
+
 	private String revision;
 	private Date date;
 	private String timezone;
@@ -29,7 +35,11 @@ public class Commit {
 
 	private boolean bug;
 
-	public Commit(String revision, String author, Date date, String timezone, Collection<Issue> issues, Collection<CommitStat> stats) {
+	public Commit(String revision, String author, Date date, String timezone, Collection<Issue> issues,
+			Collection<CommitStat> stats, int authorPreviousRevisions, int daysBeforeRelease) {
+		this.authorPreviousRevisions = authorPreviousRevisions;
+		this.daysBeforeRelease = daysBeforeRelease;
+
 		this.revision = revision;
 		this.author = author;
 		this.date = date;
@@ -41,7 +51,7 @@ public class Commit {
 		this.insertions = this.deletions = this.hunks = this.java = 0;
 
 		this.bug = false;
-		
+
 		if (stats == null) {
 			this.stats = new ArrayList<CommitStat>();
 		} else {
@@ -51,7 +61,7 @@ public class Commit {
 
 				if (s.getPath().endsWith(".java"))
 					++this.java;
-				
+
 				this.insertions += s.getInsertions();
 				this.deletions += s.getDeletions();
 				this.hunks += s.getHunks();
@@ -68,6 +78,14 @@ public class Commit {
 				}
 			}
 		}
+	}
+
+	public int getAuthorPreviousRevisions() {
+		return authorPreviousRevisions;
+	}
+
+	public int getDaysBeforeRelease() {
+		return daysBeforeRelease;
 	}
 
 	public String getRevision() {
@@ -113,35 +131,35 @@ public class Commit {
 	public boolean isBugFixing() {
 		return bug;
 	}
-	
+
 	public String getFormatedDate() {
 		DateFormat formatter = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss");
-		
+
 		if (timezone.equals("UTC"))
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-		
+
 		return formatter.format(date) + " " + timezone;
 	}
-	
+
 	public int getDateProperty(int property) {
 		Calendar c = new GregorianCalendar();
-		
+
 		c.setTime(date);
-		
+
 		if (timezone.equals("UTC"))
 			c.setTimeZone(TimeZone.getTimeZone("UTC"));
-		
+
 		return c.get(property);
 	}
-	
+
 	public int getNumberOfChurns() {
 		return insertions + deletions;
 	}
-	
+
 	public int getDeltaOfLines() {
 		return insertions - deletions;
 	}
-	
+
 	public int getNumberOfJavaFiles() {
 		return java;
 	}
@@ -150,10 +168,11 @@ public class Commit {
 	public int hashCode() {
 		return revision.hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof Commit && revision.equals(((Commit) obj).getRevision());
+		return obj instanceof Commit
+				&& revision.equals(((Commit) obj).getRevision());
 	}
 
 }

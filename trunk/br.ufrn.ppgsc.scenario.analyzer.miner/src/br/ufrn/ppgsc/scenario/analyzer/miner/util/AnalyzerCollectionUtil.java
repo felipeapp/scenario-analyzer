@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
@@ -175,6 +177,8 @@ public abstract class AnalyzerCollectionUtil {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("Revision" + separator);
+		sb.append("Author Expertise" + separator);
+		sb.append("Days Before Release" + separator);
 		sb.append("Bug Fixing" + separator);
 		sb.append("Author" + separator);
 		sb.append("Date" + separator);
@@ -203,6 +207,10 @@ public abstract class AnalyzerCollectionUtil {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append(commit.getRevision());
+		sb.append(separator);
+		sb.append(commit.getAuthorPreviousRevisions());
+		sb.append(separator);
+		sb.append(commit.getDaysBeforeRelease());
 		sb.append(separator);
 		sb.append(commit.isBugFixing());
 		sb.append(separator);
@@ -238,6 +246,10 @@ public abstract class AnalyzerCollectionUtil {
 		c.setTime(commit.getDate());
 		
 		sb.append(commit.getRevision());
+		sb.append(separator);
+		sb.append(commit.getAuthorPreviousRevisions());
+		sb.append(separator);
+		sb.append(commit.getDaysBeforeRelease());
 		sb.append(separator);
 		sb.append(commit.isBugFixing());
 		sb.append(separator);
@@ -374,6 +386,10 @@ public abstract class AnalyzerCollectionUtil {
 	public static boolean matchesExcludeWord(String text) {
 		String exclude_word = SystemMetadataUtil.getInstance().getStringProperty("exclude_word");
 		return (exclude_word != null && !exclude_word.isEmpty() && text.contains(exclude_word));
+	}
+	
+	public static int diffDays(Date date1, Date date2) {
+		return (int) TimeUnit.DAYS.convert(date2.getTime() - date1.getTime(), TimeUnit.MILLISECONDS);
 	}
 	
 }
