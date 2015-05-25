@@ -1,150 +1,150 @@
 # Methods blamed for performance optimization in each of the optimized scenarios [significance]
 44
-Entry point for TestProject.testTrashcanPackageContent
-Entry point for TestProfileMother.testSaveProfileModel
-Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
+Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestActionCollaborationDiagram.testValidNamespaces
 Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals
 Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency
-Entry point for TestActionStateDiagram.testValidNamespaces
-Entry point for TestStateBodyNotationUml.testParseStateBodyRemove
-Entry point for TestMessageNotationUml.testParseMessage
-Entry point for TestTransitionNotationUml.testParseTransitionCreate
-Entry point for TestProject.testDeleteStateDiagram
-Entry point for AbstractTestCrTooMany.testPredicate2
-Entry point for TestEnumerationLiteralNotationUml.testGenerateLiteral
-Entry point for TestProject.testDeletePackageWithClass
-Entry point for TestProject.testDeletePackageWithStateDiagram
-Entry point for TestAttributeAndOperationNotationUml.testOperationType
-Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
-Entry point for TestClassifierRoleNotationUml.testClassifierRoleName
-Entry point for TestTargetManager.testGetTargets
-Entry point for TestStateMachinesFactory.testDeleteTransition
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade
 Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity
-Entry point for TestProjectSettings.testMultiplicity
-Entry point for TestProject.testDeletePackageWithClassWithActivityDiagram
-Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
-Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
-Entry point for TestProject.testDeleteClassWithInnerClass
-Entry point for TestProjectSettings.testAssociationNames
-Entry point for TestTransitionNotationUml.testRoundTrip
-Entry point for TestUMLFeatureOwnerScopeCheckBox.testDoClick
-Entry point for TestItemUID.testUseCaseIDs
-Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
-Entry point for TestAttributeAndOperationNotationUml.testAttributeName
-Entry point for TestProject.testTrashcanClassContent
-Entry point for TestActionCollaborationDiagram.testValidNamespaces
-Entry point for TestMessageNotationUml.testGenerateIssue5150
-Entry point for AbstractTestActionAddDiagram.testCreateDiagram
-Entry point for TestEnumerationLiteralNotationUml.testEnumerationLiteralName
-Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
-Entry point for TestProjectSettings.testVisibilityEvents
 Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined
-Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
-Entry point for TestAttributeAndOperationNotationUml.testOperationName
+Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility
+Entry point for TestProfileMother.testSaveProfileModel
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue
 Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace
+Entry point for TestEnumerationLiteralNotationUml.testEnumerationLiteralName
+Entry point for TestActionStateDiagram.testValidNamespaces
+Entry point for TestProject.testTrashcanClassContent
+Entry point for TestTargetManager.testGetTargets
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty
+Entry point for AbstractTestActionAddDiagram.testCreateDiagram
+Entry point for TestProjectSettings.testMultiplicity
+Entry point for TestProject.testTrashcanPackageContent
+Entry point for TestTransitionNotationUml.testRoundTrip
+Entry point for TestProject.testDeleteStateDiagram
+Entry point for TestProject.testDeletePackageWithStateDiagram
+Entry point for TestStateBodyNotationUml.testParseStateBodyRemove
+Entry point for TestProject.testDeletePackageWithClass
+Entry point for TestProject.testDeletePackageWithClassWithActivityDiagram
+Entry point for TestMessageNotationUml.testGenerateIssue5150
+Entry point for AbstractTestCrTooMany.testPredicate2
+Entry point for TestAttributeAndOperationNotationUml.testOperationType
+Entry point for TestItemUID.testUseCaseIDs
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters
+Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype
+Entry point for TestEnumerationLiteralNotationUml.testGenerateLiteral
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass
+Entry point for TestProject.testDeleteClassWithInnerClass
+Entry point for TestAttributeAndOperationNotationUml.testOperationProperties
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleName
+Entry point for TestProjectSettings.testAssociationNames
+Entry point for TestTransitionNotationUml.testParseTransitionCreate
+Entry point for TestUMLFeatureOwnerScopeCheckBox.testDoClick
+Entry point for TestMessageNotationUml.testParseMessage
+Entry point for TestAttributeAndOperationNotationUml.testAttributeName
+Entry point for TestStateMachinesFactory.testDeleteTransition
+Entry point for TestProjectSettings.testVisibilityEvents
 17
-org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;270;270
-org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
-org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
-org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
-org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;120;120
+org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;30;50
+org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;40
+org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;690;1230
+org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;10;10
 org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;120;120
-org.argouml.model.mdr.UmlFactoryMDRImpl.deleteExtent(java.lang.Object);168.2875;150.86153846153846;17.425961538461536;10;10
-org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile);4.933333333333334;1.8333333333333333;3.1000000000000005;10;34
+org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;120;120
+org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
 org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;8492;6822
 org.argouml.model.mdr.MDRModelImplementation.initializeFactories(org.omg.uml.UmlPackage);164.65;121.8;42.85000000000001;10;10
-org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;60;60
-org.argouml.util.MyTokenizer.nextToken();0.2129202871174915;0.1779910867329448;0.034929200384546694;6000;6000
-org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;30
-org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;40;50
-org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;90;90
-org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object);40.5;4.75;35.75;10;10
+org.argouml.model.mdr.UmlFactoryMDRImpl.deleteExtent(java.lang.Object);168.2875;150.86153846153846;17.425961538461536;10;10
+org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
+org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
+org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile);4.933333333333334;1.8333333333333333;3.1000000000000005;10;34
+org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;90;100
 org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object);2.5238095238095237;1.570967741935484;0.9528417818740398;80;110
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object);40.5;4.75;35.75;10;10
+org.argouml.util.MyTokenizer.nextToken();0.2129202871174915;0.1779910867329448;0.034929200384546694;6000;6000
 82
-Entry point for TestProject.testTrashcanPackageContent;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;270;270
-Entry point for TestProfileMother.testSaveProfileModel;org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
-Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade;org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
-Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade;org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
-Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;120;120
+Entry point for TestAttributeAndOperationNotationUml.testOperationName;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;30;50
+Entry point for TestAttributeAndOperationNotationUml.testOperationName;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;40
+Entry point for TestAttributeAndOperationNotationUml.testOperationName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;690;1230
+Entry point for TestActionCollaborationDiagram.testValidNamespaces;org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;10;10
+Entry point for TestActionCollaborationDiagram.testValidNamespaces;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;110;110
 Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;120;120
+Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;120;120
 Entry point for TestStateBodyNotationUml.testParseStateBodyRemoveInternals;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;440;440
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.model.mdr.UmlFactoryMDRImpl.deleteExtent(java.lang.Object);168.2875;150.86153846153846;17.425961538461536;10;10
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
 Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile);4.933333333333334;1.8333333333333333;3.1000000000000005;10;34
 Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;8492;6822
-Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;280;380
 Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.model.mdr.MDRModelImplementation.initializeFactories(org.omg.uml.UmlPackage);164.65;121.8;42.85000000000001;10;10
-Entry point for TestActionStateDiagram.testValidNamespaces;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;460;460
-Entry point for TestActionStateDiagram.testValidNamespaces;org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;60;60
-Entry point for TestStateBodyNotationUml.testParseStateBodyRemove;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;340;340
-Entry point for TestMessageNotationUml.testParseMessage;org.argouml.util.MyTokenizer.nextToken();0.2129202871174915;0.1779910867329448;0.034929200384546694;6000;6000
-Entry point for TestMessageNotationUml.testParseMessage;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;0;440
-Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;110;130
-Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;448;440
-Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;30
-Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;70;90
-Entry point for TestProject.testDeleteStateDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;119
-Entry point for AbstractTestCrTooMany.testPredicate2;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;2500;2150
-Entry point for TestEnumerationLiteralNotationUml.testGenerateLiteral;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;120
-Entry point for TestProject.testDeletePackageWithClass;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;80
-Entry point for TestProject.testDeletePackageWithStateDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;140;140
-Entry point for TestAttributeAndOperationNotationUml.testOperationType;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;40;50
-Entry point for TestAttributeAndOperationNotationUml.testOperationType;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;40;50
-Entry point for TestAttributeAndOperationNotationUml.testOperationType;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;765;1330
-Entry point for TestAttributeAndOperationNotationUml.testAttributeValue;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;990;1200
-Entry point for TestAttributeAndOperationNotationUml.testAttributeValue;org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;90;90
-Entry point for TestClassifierRoleNotationUml.testClassifierRoleName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;310;260
-Entry point for TestTargetManager.testGetTargets;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;122;80
-Entry point for TestStateMachinesFactory.testDeleteTransition;org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
-Entry point for TestStateMachinesFactory.testDeleteTransition;org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;280;380
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.model.mdr.UmlFactoryMDRImpl.deleteExtent(java.lang.Object);168.2875;150.86153846153846;17.425961538461536;10;10
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
+Entry point for TestProjectWithProfiles.testProjectWithRemovedUserDefinedProfilePersistency;org.argouml.profile.internal.ProfileManagerImpl.removeProfile(org.argouml.profile.Profile);4.933333333333334;1.8333333333333333;3.1000000000000005;10;34
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade;org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
+Entry point for TestSubsystemInit.testInitMakesManagerAvailableInFacade;org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
 Entry point for TestAttributeAndOperationNotationUml.testAttributeMultiplicity;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;510;710
-Entry point for TestProjectSettings.testMultiplicity;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;120
-Entry point for TestProject.testDeletePackageWithClassWithActivityDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;140;140
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;2180;2510
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;820;940
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;250;250
+Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;250;250
 Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility;org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;90;100
 Entry point for TestAttributeAndOperationNotationUml.testAttributeVisibility;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;860;1260
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;50;60
-Entry point for TestAttributeAndOperationNotationUml.testOperationParameters;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;50;60
+Entry point for TestProfileMother.testSaveProfileModel;org.argouml.profile.ProfileMother.saveProfileModel(java.lang.Object,java.io.File);208.23333333333332;135.66315789473686;72.57017543859646;10;10
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue;org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;90;90
+Entry point for TestAttributeAndOperationNotationUml.testAttributeValue;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;990;1200
+Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;260;290
+Entry point for TestEnumerationLiteralNotationUml.testEnumerationLiteralName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;859;810
+Entry point for TestActionStateDiagram.testValidNamespaces;org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;60;60
+Entry point for TestActionStateDiagram.testValidNamespaces;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;460;460
+Entry point for TestProject.testTrashcanClassContent;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;280;280
+Entry point for TestTargetManager.testGetTargets;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;122;80
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;60;70
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;1096;1880
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;60;70
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object);2.5238095238095237;1.570967741935484;0.9528417818740398;80;110
+Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;1045;1540
+Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;510;710
+Entry point for AbstractTestActionAddDiagram.testCreateDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;240;100
+Entry point for TestProjectSettings.testMultiplicity;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;120
+Entry point for TestProject.testTrashcanPackageContent;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;270;270
+Entry point for TestTransitionNotationUml.testRoundTrip;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;110;130
+Entry point for TestTransitionNotationUml.testRoundTrip;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;60;80
+Entry point for TestTransitionNotationUml.testRoundTrip;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;516;540
+Entry point for TestProject.testDeleteStateDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;119
+Entry point for TestProject.testDeletePackageWithStateDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;140;140
+Entry point for TestStateBodyNotationUml.testParseStateBodyRemove;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;340;340
+Entry point for TestProject.testDeletePackageWithClass;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;80
+Entry point for TestProject.testDeletePackageWithClassWithActivityDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;140;140
+Entry point for TestMessageNotationUml.testGenerateIssue5150;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;0;280
+Entry point for AbstractTestCrTooMany.testPredicate2;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;2500;2150
+Entry point for TestAttributeAndOperationNotationUml.testOperationType;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;40;50
+Entry point for TestAttributeAndOperationNotationUml.testOperationType;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;765;1330
+Entry point for TestAttributeAndOperationNotationUml.testOperationType;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;40;50
+Entry point for TestItemUID.testUseCaseIDs;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;210;230
 Entry point for TestAttributeAndOperationNotationUml.testOperationParameters;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;930;1500
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;50;60
+Entry point for TestAttributeAndOperationNotationUml.testOperationParameters;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;50;60
+Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;480;440
+Entry point for TestEnumerationLiteralNotationUml.testGenerateLiteral;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;120
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass;org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object);40.5;4.75;35.75;10;10
+Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;150;190
+Entry point for TestProject.testDeleteClassWithInnerClass;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;100;100
 Entry point for TestAttributeAndOperationNotationUml.testOperationProperties;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;30;40
 Entry point for TestAttributeAndOperationNotationUml.testOperationProperties;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;40
 Entry point for TestAttributeAndOperationNotationUml.testOperationProperties;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;650;1210
-Entry point for TestProject.testDeleteClassWithInnerClass;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;100;100
+Entry point for TestClassifierRoleNotationUml.testClassifierRoleName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;310;260
 Entry point for TestProjectSettings.testAssociationNames;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;120;120
-Entry point for TestTransitionNotationUml.testRoundTrip;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;110;130
-Entry point for TestTransitionNotationUml.testRoundTrip;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;516;540
-Entry point for TestTransitionNotationUml.testRoundTrip;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;60;80
+Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;30
+Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;110;130
+Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;70;90
+Entry point for TestTransitionNotationUml.testParseTransitionCreate;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;448;440
 Entry point for TestUMLFeatureOwnerScopeCheckBox.testDoClick;org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;10;10
-Entry point for TestItemUID.testUseCaseIDs;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;210;230
-Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass;org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionComboBoxModel.getApplicableTagDefinitions(java.lang.Object);40.5;4.75;35.75;10;10
-Entry point for TestUMLTagDefinitionComboBoxModel.testTagDefinitionFromStereotypeApplicableToStereotypedClass;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;150;190
-Entry point for TestAttributeAndOperationNotationUml.testAttributeName;org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;60;90
+Entry point for TestMessageNotationUml.testParseMessage;org.argouml.util.MyTokenizer.nextToken();0.2129202871174915;0.1779910867329448;0.034929200384546694;6000;6000
+Entry point for TestMessageNotationUml.testParseMessage;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;0;440
 Entry point for TestAttributeAndOperationNotationUml.testAttributeName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;850;1150
-Entry point for TestProject.testTrashcanClassContent;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;280;280
-Entry point for TestActionCollaborationDiagram.testValidNamespaces;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;110;110
-Entry point for TestActionCollaborationDiagram.testValidNamespaces;org.argouml.ui.UndoableAction.actionPerformed(java.awt.event.ActionEvent);35.845454545454544;1.2;34.64545454545454;10;10
-Entry point for TestMessageNotationUml.testGenerateIssue5150;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;0;280
-Entry point for AbstractTestActionAddDiagram.testCreateDiagram;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;240;100
-Entry point for TestEnumerationLiteralNotationUml.testEnumerationLiteralName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;859;810
-Entry point for TestAttributeAndOperationNotationUml.testAttributeProperty;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;510;710
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;60;70
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;1096;1880
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;1045;1540
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.model.mdr.CoreFactoryMDRImpl.buildParameter(java.lang.Object,java.lang.Object);2.5238095238095237;1.570967741935484;0.9528417818740398;80;110
-Entry point for TestAttributeAndOperationNotationUml.testOperationVisibility;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;60;70
+Entry point for TestAttributeAndOperationNotationUml.testAttributeName;org.argouml.notation.providers.uml.AttributeNotationUml.parseAttribute(java.lang.String,java.lang.Object);8.4575;6.705555555555556;1.7519444444444439;60;90
+Entry point for TestStateMachinesFactory.testDeleteTransition;org.argouml.profile.init.InitProfileSubsystem.init();932.3;328.675;603.625;10;10
+Entry point for TestStateMachinesFactory.testDeleteTransition;org.argouml.profile.internal.ProfileUML.loadWellFormednessRules();211.13333333333333;117.7;93.43333333333332;10;10
 Entry point for TestProjectSettings.testVisibilityEvents;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;80;80
-Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.notation.providers.uml.TransitionNotationUml.parseTransition(java.lang.Object,java.lang.String);5.797297297297297;4.728125;1.069172297297297;250;250
-Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.notation.providers.uml.TransitionNotationUml.parseTrigger(java.lang.Object,java.lang.String);4.895238095238096;3.508235294117647;1.3870028011204485;250;250
-Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;820;940
-Entry point for TestStateBodyNotationUml.testParseStateBodyCreateCombined;org.argouml.model.mdr.MDRModelImplementation.isReadOnly(java.lang.Object);0.06307283541341653;0.007242582897033159;0.05583025251638337;2180;2510
-Entry point for TestAttributeAndOperationNotationUml.testAttributeStereotype;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;480;440
-Entry point for TestAttributeAndOperationNotationUml.testOperationName;org.argouml.notation.providers.uml.OperationNotationUml.parseOperation(java.lang.String,java.lang.Object);12.084615384615384;7.748484848484848;4.336130536130536;30;50
-Entry point for TestAttributeAndOperationNotationUml.testOperationName;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;690;1230
-Entry point for TestAttributeAndOperationNotationUml.testOperationName;org.argouml.notation.providers.uml.NotationUtilityUml.parseParamList(java.lang.Object,java.lang.String,int);7.355882352941176;3.58936170212766;3.7665206508135163;30;40
-Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespace;org.argouml.kernel.ProjectManager.getCurrentProject();1.6568959539113968;3.401823377330249E-4;1.6565557715736638;260;290
 9
 0;No issue type
 4252;ENHANCEMENT
@@ -156,30 +156,30 @@ Entry point for TestAttributeAndOperationNotationUml.testAttributeNewTypeNamespa
 6179;DEFECT
 6377;DEFECT
 3
-DEFECT;7
 ENHANCEMENT;1
 No issue type;1
+DEFECT;7
 3
-DEFECT;5969;5983;5988;6008;6145;6179;6377
 ENHANCEMENT;4252
 No issue type;0
+DEFECT;5969;5983;5988;6008;6145;6179;6377
 Number of revisions (commits): 19
-Revision (Issues): 18234(5969;6008)
-Revision (Issues): 19137(0)
-Revision (Issues): 18443(5983)
-Revision (Issues): 19741(6377)
-Revision (Issues): 18257(0)
-Revision (Issues): 18444(5983)
-Revision (Issues): 18269(6008)
 Revision (Issues): 18445(5983)
+Revision (Issues): 18443(5983)
 Revision (Issues): 19264(4252)
-Revision (Issues): 18770(6145)
-Revision (Issues): 18253(0)
-Revision (Issues): 18265(0)
+Revision (Issues): 19741(6377)
+Revision (Issues): 18444(5983)
 Revision (Issues): 18442(0)
-Revision (Issues): 18095(0)
 Revision (Issues): 18282(6008)
+Revision (Issues): 19614(0)
+Revision (Issues): 18770(6145)
 Revision (Issues): 18093(0)
 Revision (Issues): 18968(6179)
-Revision (Issues): 19614(0)
+Revision (Issues): 18095(0)
+Revision (Issues): 18253(0)
+Revision (Issues): 18234(5969;6008)
+Revision (Issues): 19137(0)
+Revision (Issues): 18265(0)
+Revision (Issues): 18257(0)
 Revision (Issues): 18449(5988)
+Revision (Issues): 18269(6008)
