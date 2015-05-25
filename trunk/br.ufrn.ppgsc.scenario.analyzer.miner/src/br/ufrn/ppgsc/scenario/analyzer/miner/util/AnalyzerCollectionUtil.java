@@ -178,21 +178,21 @@ public abstract class AnalyzerCollectionUtil {
 		// Building the header
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("Revision" + separator);
-		sb.append("Author Expertise" + separator);
-		sb.append("Days Before Release" + separator);
-		sb.append("Bug Fixing" + separator);
-		sb.append("Author" + separator);
-		sb.append("Date" + separator);
-		sb.append("Number of Packages" + separator);
-		sb.append("Number of Files" + separator);
-		sb.append("Number of Insertions" + separator);
-		sb.append("Number of Deletions" + separator);
-		sb.append("Number of Churns" + separator);
-		sb.append("Delta of Lines" + separator);
-		sb.append("Number of Hunks" + separator);
-		sb.append("Number of Issues" + separator);
-		sb.append("Issues");
+		sb.append("revision" + separator);
+		sb.append("authorexpertise" + separator);
+		sb.append("daysbeforerelease" + separator);
+		sb.append("bug" + separator);
+		sb.append("author" + separator);
+		sb.append("date" + separator);
+		sb.append("packages" + separator);
+		sb.append("files" + separator);
+		sb.append("insertions" + separator);
+		sb.append("deletions" + separator);
+		sb.append("churns" + separator);
+		sb.append("deltalines" + separator);
+		sb.append("hunks" + separator);
+		sb.append("issues" + separator);
+		sb.append("listissues");
 		
 		// Getting properties
 		for (Commit commit : commits)
