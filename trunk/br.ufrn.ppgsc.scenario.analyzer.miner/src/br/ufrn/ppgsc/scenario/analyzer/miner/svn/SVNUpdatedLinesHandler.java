@@ -144,7 +144,6 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 	}
 	
 	private Collection<SVNLogEntry> getUserRevisionsFromIndex(String user, long revision) {
-		
 		Collection<SVNLogEntry> result = new ArrayList<SVNLogEntry>();
 		
 		for (long i = revision - 1; i >= 0; i--) {

@@ -17,6 +17,7 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 	private Properties gitcommits;
 	
 	private static Map<String, GitUpdatedLinesHandler> handlers;
+	private static String[] releases;
 	
 	private String url;
     private String user;
@@ -43,12 +44,22 @@ public class GitUpdatedMethodsMiner implements IRepositoryMiner {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		if (releases == null)
+			releases = getReleases();
 	}
 	
 	public Object mine(String path, String startRevision, String endRevision) {
-		GitUpdatedLinesHandler handler  = new GitUpdatedLinesHandler(startRevision, endRevision, url, path);
+		GitUpdatedLinesHandler handler = new GitUpdatedLinesHandler(startRevision, endRevision, url, path, releases);
 		handler.calculateChangedLines();
 		return handler;
+	}
+	
+	public String[] getReleases() {
+		if (handlers == null)
+			initialize();
+		
+		return gitcommits.getProperty("list_of_sorted_releases").split(",");
 	}
 	
 	public String getUrl() {

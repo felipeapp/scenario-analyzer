@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -26,6 +27,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.CommitStat;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.parser.PackageDeclarationParser;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
 
 public class GitUpdatedLinesHandler {
@@ -33,6 +35,10 @@ public class GitUpdatedLinesHandler {
 	private final Logger logger = Logger.getLogger(GitUpdatedLinesHandler.class);
 	
 	private static final Map<String, Commit> cache_commits = new HashMap<String, Commit>();
+	private static final Map<String, Collection<String>> release_to_commits = new LinkedHashMap<String, Collection<String>>();
+	
+	// Using format yyyy-MM-dd HH:mm:ss Z
+	private static final Map<String, String> release_to_dates = new LinkedHashMap<String, String>();
 	
 	private List<UpdatedLine> changedLines;
 	private StringBuilder sourceCode;
@@ -43,7 +49,7 @@ public class GitUpdatedLinesHandler {
 	private String gitdir;
 	private String filename;
 	
-	public GitUpdatedLinesHandler(String startRev, String endRev, String gitdir, String filename) {
+	public GitUpdatedLinesHandler(String startRev, String endRev, String gitdir, String filename, String[] releases) {
 		changedLines = new ArrayList<UpdatedLine>();
 		sourceCode = new StringBuilder();
 		issueQuery = SystemMetadataUtil.getInstance().newObjectFromProperties(IQueryIssue.class);
@@ -52,6 +58,50 @@ public class GitUpdatedLinesHandler {
 		this.endRev = endRev;
 		this.gitdir = gitdir;
 		this.filename = filename;
+		
+		if (release_to_commits.isEmpty() || release_to_dates.isEmpty()) {
+			// It should never happen here
+			if (!release_to_commits.isEmpty() || !release_to_dates.isEmpty())
+				throw new RuntimeException("Maps should be both empty!");
+			
+			try {
+				loadCommitsOfReleases(releases);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+//		for (String release : release_to_commits.keySet()) {
+//			Collection<String> commits = release_to_commits.get(release);
+//			
+//			System.out.println(release + " - " + commits.size());
+//			
+//			for (String commit : commits)
+//				System.out.println("\t" + commit);
+//		}
+	}
+	
+	private void loadCommitsOfReleases(String[] releases) throws IOException {
+		for (int i = 0; i < releases.length - 1; i++) {
+			Collection<String> commits = new ArrayList<String>();
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand(
+					"git log " + releases[i] + ".." + releases[i + 1] + " --format=%H")));
+			
+			String line = null;
+			while ((line = br.readLine()) != null)
+				commits.add(line);
+			
+			br.close();
+			
+			br = new BufferedReader(new InputStreamReader(executeGitCommand(
+					"git log " + releases[i + 1] + " -n 1 --format=%ai")));
+			
+			release_to_commits.put(releases[i + 1], commits);
+			release_to_dates.put(releases[i + 1], br.readLine());
+			
+			br.close();
+		}
 	}
 	
 	public List<UpdatedLine> getChangedLines() {
@@ -398,11 +448,13 @@ public class GitUpdatedLinesHandler {
 		
 		int line_number = Integer.parseInt(tokens.get(tokens.size() - 1));
 		
+		// Using format yyyy-MM-dd HH:mm:ss
+		String string_date = tokens.get(tokens.size() - 4) + " " + tokens.get(tokens.size() - 3);
+		
 		Date commit_date = null;
 		String commit_tz = null;
 		try {
-			commit_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(
-					tokens.get(tokens.size() - 4) + " " + tokens.get(tokens.size() - 3));
+			commit_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(string_date);
 			commit_tz = tokens.get(tokens.size() - 2);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -448,11 +500,13 @@ public class GitUpdatedLinesHandler {
 				
 				/*
 				 *  TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>.
-				 *  O parse do resultado será mais complicado, mas será apenas uma requisição remota no lugar de duas.
+				 *  O parse do resultado será mais complicado, mas será apenas uma requisição no lugar de duas.
 				 */
 				Collection<CommitStat> stats = getCommitStats(commit_revision);
 				
-				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats, 0, 0);
+				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats,
+						getAuthorCommitsBeforeDate(author_name, string_date + " " + commit_tz).size(),
+						AnalyzerCollectionUtil.diffDays(string_date + " " + commit_tz, getDateOfNextRelease(commit_revision)));
 				
 				// Cache do commit analisado
 				cache_commits.put(commit_revision, commit);
@@ -464,6 +518,32 @@ public class GitUpdatedLinesHandler {
 		return null;
 	}
 
+	private Collection<String> getAuthorCommitsBeforeDate(String author, String date) throws IOException {
+		String command = "git log --author=\"" + author + "\" --before=\"" + date + "\" --format=%H";
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(executeGitCommand(command)));
+		
+		Collection<String> result = new ArrayList<String>();
+		
+		String line = null;
+		while ((line = br.readLine()) != null)
+			result.add(line);
+		
+		br.close();
+		
+		return result;
+	}
+	
+	// Using format yyyy-MM-dd HH:mm:ss Z
+	private String getDateOfNextRelease(String current_commit) {
+		for (String release : release_to_commits.keySet())
+			if (release_to_commits.get(release).contains(current_commit))
+				return release_to_dates.get(release);
+		
+		// It should never be here
+		throw new RuntimeException("Can't find revision of next release!");
+	}
+	
 	public static void main(String[] args) throws IOException {
 		System.out.println(" +".startsWith("+"));
 		
@@ -490,10 +570,17 @@ public class GitUpdatedLinesHandler {
 				"7f0dc74db4ed30e2831c439d10fe0244813bce3e",
 				"021348160abf428bee0be2eca770cd08142ad168",
 				"C:/Users/Felipe/git/wicket",
-				"wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java");
+				"wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java",
+				new GitUpdatedMethodsMiner().getReleases());
 		
-//		gitHandler.calculateChangedLines();
-//		
+		Collection<String> hashes = gitHandler.getAuthorCommitsBeforeDate("Martijn Dashorst", "2014-04-20 20:00:00");
+		System.out.println("hashes size: " + hashes.size());
+		int ihash = 0;
+		for (String hash : hashes)
+			System.out.println(++ihash + " - " + hash);
+		
+		gitHandler.calculateChangedLines();
+		
 //		Collection<UpdatedLine> list = gitHandler.getChangedLines();
 //		
 //		for (UpdatedLine up_line : list) {
