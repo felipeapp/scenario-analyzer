@@ -3,6 +3,8 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.util;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -390,6 +392,18 @@ public abstract class AnalyzerCollectionUtil {
 	
 	public static int diffDays(Date date1, Date date2) {
 		return (int) TimeUnit.DAYS.convert(date2.getTime() - date1.getTime(), TimeUnit.MILLISECONDS);
+	}
+	
+	public static int diffDays(String date1, String date2) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
+		
+		try {
+			return diffDays(format.parse(date1), format.parse(date2));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 	
 }
