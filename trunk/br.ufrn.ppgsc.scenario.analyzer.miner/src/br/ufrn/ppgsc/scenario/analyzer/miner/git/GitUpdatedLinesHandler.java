@@ -541,7 +541,7 @@ public class GitUpdatedLinesHandler {
 				return release_to_dates.get(release);
 		
 		// It should never be here
-		throw new RuntimeException("Can't find revision of next release!");
+		throw new RuntimeException("Can't find commit of next release!");
 	}
 	
 	public static void main(String[] args) throws IOException {
