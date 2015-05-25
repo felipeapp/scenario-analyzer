@@ -210,6 +210,9 @@ public class AnalyzerMinerJoinCSV {
 		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
 		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
 		
+		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false);
+		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false);
+		
 	}
 
 }

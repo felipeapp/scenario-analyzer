@@ -174,22 +174,22 @@ public class AnalyzerMinerGenerateCSV {
 					StringBuilder sb_optimized = new StringBuilder();
 					
 					for (int i = 0; i < header_keys.length; i++) {
-						if (header_keys[i].equals("Degradation")) {
-							String revision = map.get("Revision");
+						if (header_keys[i].equals("degradation")) {
+							String revision = map.get("revision");
 							
 							sb_degraded.append(set_degraded_commits.contains(revision));
 							sb_optimized.append(set_optimized_commits.contains(revision));
 						}
-						else if (header_keys[i].equals("Hour of Day")) {
+						else if (header_keys[i].equals("hour")) {
 							Calendar c = new GregorianCalendar();
-							c.setTime(new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss").parse(map.get("Date")));
+							c.setTime(new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss").parse(map.get("date")));
 							
 							sb_degraded.append(c.get(Calendar.HOUR_OF_DAY));
 							sb_optimized.append(c.get(Calendar.HOUR_OF_DAY));
 						}
-						else if (header_keys[i].equals("Day of Week")) {
+						else if (header_keys[i].equals("day")) {
 							Calendar c = new GregorianCalendar();
-							c.setTime(new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss").parse(map.get("Date")));
+							c.setTime(new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss").parse(map.get("date")));
 							
 							sb_degraded.append(c.get(Calendar.DAY_OF_WEEK));
 							sb_optimized.append(c.get(Calendar.DAY_OF_WEEK));
