@@ -1,14 +1,18 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class AnalyzerMinerJoinCSV {
-	
+	/*
 	private static final String[][] DEGRADED_TARGETS = {
 		{
 			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_r_degraded_method_commits_2015-02-18_23h03min.txt"
@@ -69,7 +73,7 @@ public class AnalyzerMinerJoinCSV {
 		}
 	};
 	
-	/*
+	*/
 	private static final String[][] DEGRADED_TARGETS = {
 		{
 			"argouml/e1_argouml_degraded_method_commits.txt"
@@ -129,26 +133,29 @@ public class AnalyzerMinerJoinCSV {
 			"wicket/e6_wicket_optimized_method_commits.txt"
 		}
 	};
-	*/
 
 	private static void saveJoinedCSV(String[][] input_systems, String deviation_type,
 			String input_folter, String output_folter, boolean save_local) throws IOException {
+		
+		// For all systems
+		List<String> set_of_all_commits = new ArrayList<String>();
+		
+		// The header of the output csv file
+		String header = null;
+		
 		for (String[] system_files : input_systems) {
 
 			String system_name = null;
-			String header = null;
-			PrintWriter joined_out = null;
 			int total_of_entries = 0;
 			int evolution = 0;
+			String output_path = null;
 			Set<String> set_of_entries = new TreeSet<String>();
 			
 			for (String input_path : system_files) {
 				
 				if (evolution == 0) {
 					system_name = input_path.substring(0, input_path.indexOf('/'));
-					String output_path = output_folter + "/" + system_name + "/all_" + system_name + "_" + deviation_type + "_method_commits.txt";
-					
-					joined_out = new PrintWriter(output_path);
+					output_path = output_folter + "/" + system_name + "/all_" + system_name + "_" + deviation_type + "_method_commits.txt";
 					
 					System.out.println("System: " + system_name);
 					System.out.println("\tOutput: " + output_path);
@@ -194,24 +201,35 @@ public class AnalyzerMinerJoinCSV {
 			
 			if (total_of_entries != set_of_entries.size())
 				System.err.println("\tNumber of entries are different. Is it ok?");
+		
+			saveCSV(set_of_entries, output_path, header);
 			
-			joined_out.println(header);
-			for (String entry : set_of_entries)
-				joined_out.println(entry);
+			set_of_all_commits.addAll(set_of_entries);
 			
-			joined_out.close();
 			System.out.println("-----------------------------------------------");
 
 		}
+		
+		saveCSV(set_of_all_commits, output_folter + "/csv_of_all_commits_" + deviation_type + ".txt", header);
+	}
+	
+	public static void saveCSV(Collection<String> collection, String filepath, String header) throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter(filepath);
+		
+		pw.println(header);
+		for (String entry : collection)
+			pw.println(entry);
+		
+		pw.close();
 	}
 	
 	public static void main(String[] args) throws IOException {
 		
-		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
-		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
+		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
+		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
 		
-		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false);
-		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false);
+		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false);
+		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false);
 		
 	}
 

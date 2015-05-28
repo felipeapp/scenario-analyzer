@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 import org.apache.commons.math3.stat.inference.TestUtils;
 
@@ -56,6 +57,18 @@ public class AnalyzerStatistical {
 		}
 
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		double[] execs_time_v1 = {100, 101, 102, 99, 100};
+		double[] execs_time_v2 = {110, 107, 101, 105, 110};
+		
+		double utest_pvalue = new MannWhitneyUTest().mannWhitneyUTest(execs_time_v1, execs_time_v2);
+		
+		System.out.println("P-Value: " + utest_pvalue);
+		System.out.println("AVG 1: " + new DescriptiveStatistics(execs_time_v1).getMean());
+		System.out.println("AVG 2: " + new DescriptiveStatistics(execs_time_v2).getMean());
+		
 	}
 
 }
