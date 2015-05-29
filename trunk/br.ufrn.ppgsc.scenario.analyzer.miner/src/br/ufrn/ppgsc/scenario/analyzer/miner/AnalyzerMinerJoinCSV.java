@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class AnalyzerMinerJoinCSV {
-	/*
+	
 	private static final String[][] DEGRADED_TARGETS = {
 		{
 			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_r_degraded_method_commits_2015-02-18_23h03min.txt"
@@ -73,7 +73,7 @@ public class AnalyzerMinerJoinCSV {
 		}
 	};
 	
-	*/
+	/*
 	private static final String[][] DEGRADED_TARGETS = {
 		{
 			"argouml/e1_argouml_degraded_method_commits.txt"
@@ -133,6 +133,7 @@ public class AnalyzerMinerJoinCSV {
 			"wicket/e6_wicket_optimized_method_commits.txt"
 		}
 	};
+	*/
 
 	private static void saveJoinedCSV(String[][] input_systems, String deviation_type,
 			String input_folter, String output_folter, boolean save_local) throws IOException {
@@ -225,11 +226,11 @@ public class AnalyzerMinerJoinCSV {
 	
 	public static void main(String[] args) throws IOException {
 		
-		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
-		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
+		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
+		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
 		
-		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false);
-		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false);
+		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false);
+		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false);
 		
 	}
 
