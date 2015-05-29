@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -179,6 +180,13 @@ public class AnalyzerMinerGenerateCSV {
 							
 							sb_degraded.append(set_degraded_commits.contains(revision));
 							sb_optimized.append(set_optimized_commits.contains(revision));
+						}
+						else if (header_keys[i].equals("date")) {
+							Date date = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss").parse(map.get("date"));
+							String format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+							
+							sb_degraded.append(format);
+							sb_optimized.append(format);
 						}
 						else if (header_keys[i].equals("hour")) {
 							Calendar c = new GregorianCalendar();
