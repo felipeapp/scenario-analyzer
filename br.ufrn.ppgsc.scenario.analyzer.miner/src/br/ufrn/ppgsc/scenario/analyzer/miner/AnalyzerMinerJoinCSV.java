@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class AnalyzerMinerJoinCSV {
 	
+	/*
 	private static final String[][] DEGRADED_TARGETS = {
 		{
 			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_r_degraded_method_commits_2015-02-18_23h03min.txt"
@@ -72,8 +75,8 @@ public class AnalyzerMinerJoinCSV {
 			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_pu_r_optimized_method_commits_2015-02-15_12h46min.txt"
 		}
 	};
-	
-	/*
+	*/
+
 	private static final String[][] DEGRADED_TARGETS = {
 		{
 			"argouml/e1_argouml_degraded_method_commits.txt"
@@ -133,10 +136,9 @@ public class AnalyzerMinerJoinCSV {
 			"wicket/e6_wicket_optimized_method_commits.txt"
 		}
 	};
-	*/
 
-	private static void saveJoinedCSV(String[][] input_systems, String deviation_type,
-			String input_folter, String output_folter, boolean save_local) throws IOException {
+	private static String saveJoinedCSV(String[][] input_systems, String deviation_type,
+			String input_folter, String output_folter, boolean save_local, Map<String, String> commit_to_line) throws IOException {
 		
 		// For all systems
 		List<String> set_of_all_commits = new ArrayList<String>();
@@ -212,6 +214,12 @@ public class AnalyzerMinerJoinCSV {
 		}
 		
 		saveCSV(set_of_all_commits, output_folter + "/csv_of_all_commits_" + deviation_type + ".txt", header);
+		
+		if (commit_to_line != null)
+			for (String line : set_of_all_commits)
+				commit_to_line.put(line.split(",")[1], line);
+		
+		return header;
 	}
 	
 	public static void saveCSV(Collection<String> collection, String filepath, String header) throws FileNotFoundException {
@@ -226,11 +234,50 @@ public class AnalyzerMinerJoinCSV {
 	
 	public static void main(String[] args) throws IOException {
 		
-		saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
-		saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
+		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "", "reports/commit_analysis", true);
+		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "", "reports/commit_analysis", true);
 		
-		//saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false);
-		//saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false);
+		String h1, h2;
+		Map<String, String> degraded_commit_to_line = new HashMap<String, String>();
+		Map<String, String> optimized_commit_to_line = new HashMap<String, String>();
+		Collection<String> degraded_and_optimized = new TreeSet<String>();
+		
+		h1 = saveJoinedCSV(DEGRADED_TARGETS, "degraded", "reports/commit_analysis", "reports/commit_analysis", false, degraded_commit_to_line);
+		h2 = saveJoinedCSV(OPTIMIZED_TARGETS, "optimized", "reports/commit_analysis", "reports/commit_analysis", false, optimized_commit_to_line);
+		
+		// It should never happen
+		if (!h1.equals(h2) || degraded_commit_to_line.size() != optimized_commit_to_line.size())
+			throw new RuntimeException("Invalid headers!");
+		
+		for (String commit : degraded_commit_to_line.keySet()) {
+			String degraded_line = degraded_commit_to_line.get(commit);
+			String optimized_line = optimized_commit_to_line.get(commit);
+			
+			String[] degraded_tokens = degraded_line.split(",");
+			String[] optimized_tokens = optimized_line.split(",");
+			
+			boolean inserted = false;
+			
+			if (degraded_tokens[0].equals("true") || degraded_tokens[0].equals("1")) {
+				degraded_and_optimized.add(degraded_line);
+				inserted = true;
+			}
+			
+			if (optimized_tokens[0].equals("true") || optimized_tokens[0].equals("3")) {
+				degraded_and_optimized.add(optimized_line);
+				inserted = true;
+			}
+			
+			if (!inserted) {
+				if (degraded_tokens[0].equals("false") || degraded_tokens[0].equals("2")
+						&& optimized_tokens[0].equals("false") || optimized_tokens[0].equals("2"))
+					degraded_and_optimized.add(degraded_line);
+				else // It should never happen
+					throw new RuntimeException("Invalid value of the result!");
+			}
+		}
+		
+		saveCSV(degraded_and_optimized, "reports/commit_analysis/csv_of_all_commits_degraded_and_optimized.txt", h1);
 		
 	}
 

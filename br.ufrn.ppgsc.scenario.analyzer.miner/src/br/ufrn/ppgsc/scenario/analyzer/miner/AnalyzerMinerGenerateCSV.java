@@ -21,8 +21,8 @@ public class AnalyzerMinerGenerateCSV {
 		{
 			{
 			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_all_commits_changed_methods_2015-02-18_23h03min.txt",
-			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-18_23h03min.txt",
-			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_blamed_methods_of_optimized_scenarios_significance_only_commits_2015-02-18_23h03min.txt"
+			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-18_23h03min.txt",
+			"argouml/argouml_tests_2015-02-18_23h03min/repository_mining/argouml_pu_blamed_methods_of_optimized_scenarios_summary_only_commits_2015-02-18_23h03min.txt"
 			}
 		},
 		{
@@ -92,38 +92,60 @@ public class AnalyzerMinerGenerateCSV {
 		{
 			{
 			"wicket/3_wicket-6.[15x16].0/repository_mining/wicket-6.[15x16].0_all_commits_changed_methods_2015-02-13_11h33min.txt",
-			"wicket/3_wicket-6.[15x16].0/repository_mining/wicket-6.[15x16].0_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-13_11h33min.txt",
-			"wicket/3_wicket-6.[15x16].0/repository_mining/wicket-6.[15x16].0_pu_blamed_methods_of_optimized_scenarios_significance_only_commits_2015-02-13_11h33min.txt"
+			"wicket/3_wicket-6.[15x16].0/repository_mining/wicket-6.[15x16].0_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-13_11h33min.txt",
+			"wicket/3_wicket-6.[15x16].0/repository_mining/wicket-6.[15x16].0_pu_blamed_methods_of_optimized_scenarios_summary_only_commits_2015-02-13_11h33min.txt"
 			},
 			{
 			"wicket/3_wicket-6.[16x17].0/repository_mining/wicket-6.[16x17].0_all_commits_changed_methods_2015-02-13_14h46min.txt",
-			"wicket/3_wicket-6.[16x17].0/repository_mining/wicket-6.[16x17].0_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-13_14h46min.txt",
+			"wicket/3_wicket-6.[16x17].0/repository_mining/wicket-6.[16x17].0_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-13_14h46min.txt",
 			""
 			},
 			{
 			"wicket/3_wicket-6.[17x18].0/repository_mining/wicket-6.[17x18].0_all_commits_changed_methods_2015-02-13_16h35min.txt",
-			"wicket/3_wicket-6.[17x18].0/repository_mining/wicket-6.[17x18].0_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-13_16h35min.txt",
-			"wicket/3_wicket-6.[17x18].0/repository_mining/wicket-6.[17x18].0_pu_blamed_methods_of_optimized_scenarios_significance_only_commits_2015-02-13_16h35min.txt"
+			"wicket/3_wicket-6.[17x18].0/repository_mining/wicket-6.[17x18].0_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-13_16h35min.txt",
+			"wicket/3_wicket-6.[17x18].0/repository_mining/wicket-6.[17x18].0_pu_blamed_methods_of_optimized_scenarios_summary_only_commits_2015-02-13_16h35min.txt"
 			},
 			{
 			"wicket/3_wicket-6.18.0x7.0.0-M1/repository_mining/wicket-6.18.0x7.0.0-M1_all_commits_changed_methods_2015-02-13_21h21min.txt",
-			"wicket/3_wicket-6.18.0x7.0.0-M1/repository_mining/wicket-6.18.0x7.0.0-M1_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-13_21h21min.txt",
-			"wicket/3_wicket-6.18.0x7.0.0-M1/repository_mining/wicket-6.18.0x7.0.0-M1_pu_blamed_methods_of_optimized_scenarios_significance_only_commits_2015-02-13_21h21min.txt"
+			"wicket/3_wicket-6.18.0x7.0.0-M1/repository_mining/wicket-6.18.0x7.0.0-M1_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-13_21h21min.txt",
+			"wicket/3_wicket-6.18.0x7.0.0-M1/repository_mining/wicket-6.18.0x7.0.0-M1_pu_blamed_methods_of_optimized_scenarios_summary_only_commits_2015-02-13_21h21min.txt"
 			},
 			{
 			"wicket/3_wicket-7.0.0-[M1xM2]/repository_mining/wicket-7.0.0-[M1xM2]_all_commits_changed_methods_2015-02-15_11h55min.txt",
-			"wicket/3_wicket-7.0.0-[M1xM2]/repository_mining/wicket-7.0.0-[M1xM2]_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-15_11h55min.txt",
-			"wicket/3_wicket-7.0.0-[M1xM2]/repository_mining/wicket-7.0.0-[M1xM2]_pu_blamed_methods_of_optimized_scenarios_significance_only_commits_2015-02-15_11h55min.txt"
+			"wicket/3_wicket-7.0.0-[M1xM2]/repository_mining/wicket-7.0.0-[M1xM2]_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-15_11h55min.txt",
+			"wicket/3_wicket-7.0.0-[M1xM2]/repository_mining/wicket-7.0.0-[M1xM2]_pu_blamed_methods_of_optimized_scenarios_summary_only_commits_2015-02-15_11h55min.txt"
 			},
 			{
 			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_all_commits_changed_methods_2015-02-15_12h46min.txt",
-			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_pu_blamed_methods_of_degraded_scenarios_significance_only_commits_2015-02-15_12h46min.txt",
-			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_pu_blamed_methods_of_optimized_scenarios_significance_only_commits_2015-02-15_12h46min.txt"
+			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_pu_blamed_methods_of_degraded_scenarios_summary_only_commits_2015-02-15_12h46min.txt",
+			"wicket/3_wicket-7.0.0-[M2xM4]/repository_mining/wicket-7.0.0-[M2xM4]_pu_blamed_methods_of_optimized_scenarios_summary_only_commits_2015-02-15_12h46min.txt"
 			}
 		}
 	};
 	
+	public static String getResultColumnValue(String deviationtype, String datatype, boolean bool) {
+		if (datatype.equals("boolean")) {
+			return String.valueOf(bool);
+		}
+		else if (datatype.equals("int")) {
+			if (bool && deviationtype.equals("degradation"))
+				return "1";
+			else if (bool && deviationtype.equals("optimization"))
+				return "3";
+			else if (!bool)
+				return "2";
+		}
+		
+		// It should never happen
+		throw new RuntimeException("Wrong arguments!");
+	}
+	
 	public static void main(String[] args) throws IOException, ParseException {
+		
+		if (args.length != 1) {
+			System.out.println("Missing arguments\n\tUse: boolean or int!");
+			return;
+		}
 		
 		for (String[][] target_systems : TARGET_FILES) {
 			
@@ -178,10 +200,10 @@ public class AnalyzerMinerGenerateCSV {
 						if (header_keys[i].equals("degradation")) {
 							String revision = map.get("revision");
 							
-							sb_degraded.append(set_degraded_commits.contains(revision));
-							sb_optimized.append(set_optimized_commits.contains(revision));
+							sb_degraded.append(getResultColumnValue("degradation", args[0], set_degraded_commits.contains(revision)));
+							sb_optimized.append(getResultColumnValue("optimization", args[0], set_optimized_commits.contains(revision)));
 						}
-						else if (header_keys[i].equals("date")) {
+						else if (header_keys[i].equals("date")) {// Por enquanto não aparece porque não está no cabeçalho selecionado
 							Date date = new SimpleDateFormat("EEE dd-MMM-yyyy HH:mm:ss").parse(map.get("date"));
 							String format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
 							
