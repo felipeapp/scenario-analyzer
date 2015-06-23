@@ -6,8 +6,11 @@ Entry point for NiceUrlTest.testPage2
 Entry point for NiceUrlTest.testPage2PP
 Entry point for NiceUrlTest.testPage2UP
 Entry point for NiceUrlTest.testPage5
-8
+11
 org.apache.wicket.Component.internalOnRemove();0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750
+org.apache.wicket.Session.newPageAccessSynchronizer(org.apache.wicket.util.time.Duration);null;4.515384615384615;4.515384615384615;0;10
+org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String,boolean);null;0.05740740740740741;0.05740740740740741;0;80
+org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean);null;0.8962962962962963;0.8962962962962963;0;80
 org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem.render(org.apache.wicket.request.Response);3.783333333333333;2.762962962962963;1.0203703703703701;80;80
 org.apache.wicket.page.PageAccessSynchronizer.lockPage(int);1.3018691588785047;1.222429906542056;0.07943925233644866;230;230
 org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Charset);0.13061863743148003;0.12145653876272514;0.009162098668754892;3920;3920
@@ -15,11 +18,23 @@ org.apache.wicket.request.Url.parse(java.lang.CharSequence,java.nio.charset.Char
 org.apache.wicket.request.Url.toString();0.20590050134978788;0.18480662983425414;0.02109387151553374;7840;7760
 org.apache.wicket.util.resource.ResourceUtils.getLocaleFromFilename(java.lang.String);0.036893203883495145;0.030097087378640777;0.006796116504854368;150;150
 org.apache.wicket.util.string.Strings.join(java.lang.String,java.lang.String[]);0.01005464480874317;0.0017486338797814208;0.008306010928961749;3300;3300
-8
+11
 	org.apache.wicket.Component.internalOnRemove()
 		Time: 0.1095890410958904;0.08166491043203372;0.027924130663856683;4750;4750;
 			Revision: 0adb864ff18951a9630bd2339fb9e92963867d4a
 				Issues: 6;5677
+	org.apache.wicket.Session.newPageAccessSynchronizer(org.apache.wicket.util.time.Duration)
+		Time: null;4.515384615384615;4.515384615384615;0;10;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 5740
+	org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String,boolean)
+		Time: null;0.05740740740740741;0.05740740740740741;0;80;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean)
+		Time: null;0.8962962962962963;0.8962962962962963;0;80;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
 	org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem.render(org.apache.wicket.request.Response)
 		Time: 3.783333333333333;2.762962962962963;1.0203703703703701;80;80;
 			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0

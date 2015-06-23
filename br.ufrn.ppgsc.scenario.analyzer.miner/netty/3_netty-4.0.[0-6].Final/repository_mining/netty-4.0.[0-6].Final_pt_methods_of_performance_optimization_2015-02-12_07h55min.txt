@@ -1,5 +1,5 @@
 # Methods potentially blamed for performance optimization
-7
+9
 io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,io.netty.channel.ChannelPromise)
 16
 Entry point for DatagramMulticastTest.testMulticast
@@ -16,6 +16,28 @@ Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
 Entry point for SocketSpdyEchoTest.testSpdyEcho
 Entry point for SocketSslEchoTest.testSslEcho
 Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelPromise,boolean)
+20
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketStartTlsTest.testStartTls
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
 io.netty.channel.DefaultChannelHandlerContext.findContextOutbound()
@@ -66,3 +88,27 @@ Entry point for SocketStringEchoTest.testStringEcho
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
 io.netty.channel.DefaultChannelHandlerContext.validatePromise(io.netty.channel.ChannelFuture,boolean)
 0
+io.netty.channel.ChannelOutboundBuffer.newInstance(io.netty.channel.AbstractChannel)
+22
+Entry point for DatagramMulticastTest.testMulticast
+Entry point for DatagramUnicastTest.testSimpleSend
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketConnectionAttemptTest.testConnectTimeout
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoWithChunkHandler
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect

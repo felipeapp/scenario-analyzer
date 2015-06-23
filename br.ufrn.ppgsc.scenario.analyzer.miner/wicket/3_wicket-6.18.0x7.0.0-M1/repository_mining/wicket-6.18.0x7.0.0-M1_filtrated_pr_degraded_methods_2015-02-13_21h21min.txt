@@ -1,6 +1,6 @@
 # Degradated methods (Rate method) (before mining phase)
-Number of Issues: 5500;4744;5498;5359;5012;5219;5366;5484;5001;4762;5237;4994;5235;5466;5460;5191;5459;5322;5215;5446;5206;663;4905;4904;5202;5286;5287;5165;5284;5558;5291;5288;5426;5294;5295;5429;3335;4686;5417;5416;5179;5177;5070;4585;5071;5068;3347;5410;5415;5309;5522;5128;5521;5400;5250;3491;5531;5257;5259;5398;5535;5387;4964;5389;5508;5388;5277
-Number of paths: 79
+Number of Issues: 5500;4744;5498;5359;5012;5219;5366;5484;5001;4762;5237;4994;5235;5466;5460;5191;5459;5322;5215;5446;5206;663;4905;4904;5202;5286;5287;5165;5284;5558;5291;5288;5426;5294;5295;5429;3335;4686;5417;5416;5179;5177;5070;5182;4585;5071;5068;3347;5410;5415;5309;5522;5128;5521;5400;5250;3491;5531;5257;5259;5398;5535;5387;4964;5389;5508;5388;5277
+Number of paths: 83
 wicket-core/src/main/java/org/apache/wicket/core/request/mapper/MountedMapper.java
 	Number of methods: 1
 	buildUrl;205;226
@@ -471,6 +471,20 @@ wicket-core/src/main/java/org/apache/wicket/core/request/handler/ListenerInterfa
 		Commit: c1c1f79408052235339c8696a8c3564caac8a111
 		Number of Issues: 1
 			12687922;5466;Bug
+wicket-core/src/main/java/org/apache/wicket/markup/html/list/ListView.java
+	Number of methods: 2
+	getListItemModel;432;449
+		Number of updated lines: 1
+		Line Number: 448
+		Commit: ebf7beeffa3a44c7926c731ee30c17d69a3b599f
+		Number of Issues: 1
+			0;0;No issue type
+	onPopulate;464;532
+		Number of updated lines: 1
+		Line Number: 485
+		Commit: 0fbd643621f99f1ff03ddd834723b8d53cfd798a
+		Number of Issues: 1
+			0;0;No issue type
 wicket-util/src/main/java/org/apache/wicket/util/io/BOMInputStream.java
 	Number of methods: 4
 	matches;279;297
@@ -657,20 +671,6 @@ wicket-util/src/main/java/org/apache/wicket/util/io/BOMInputStream.java
 		Commit: 87fa630f240fb3e5234477c2fcf60831610fe7d5
 		Number of Issues: 1
 			12679096;5416;Bug
-wicket-core/src/main/java/org/apache/wicket/markup/html/list/ListView.java
-	Number of methods: 2
-	getListItemModel;432;449
-		Number of updated lines: 1
-		Line Number: 448
-		Commit: ebf7beeffa3a44c7926c731ee30c17d69a3b599f
-		Number of Issues: 1
-			0;0;No issue type
-	onPopulate;464;532
-		Number of updated lines: 1
-		Line Number: 485
-		Commit: 0fbd643621f99f1ff03ddd834723b8d53cfd798a
-		Number of Issues: 1
-			0;0;No issue type
 wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java
 	Number of methods: 12
 	shouldPreserveClientUrl;308;311
@@ -1428,6 +1428,44 @@ wicket-core/src/main/java/org/apache/wicket/markup/html/SecurePackageResourceGua
 		Commit: 217758e4fb25e7d9b775a26dc707d028f736800a
 		Number of Issues: 1
 			0;0;No issue type
+wicket-request/src/main/java/org/apache/wicket/request/mapper/mount/Mount.java
+	Number of methods: 2
+	getUrl;65;72
+		Number of updated lines: 4
+		Line Number: 69
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 70
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 71
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 72
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+	getMountParameters;56;63
+		Number of updated lines: 4
+		Line Number: 60
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 61
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 62
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 63
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
 wicket-core/src/main/java/org/apache/wicket/markup/html/form/TextField.java
 	Number of methods: 2
 	onComponentTag;81;112
@@ -1450,6 +1488,14 @@ wicket-core/src/main/java/org/apache/wicket/markup/html/form/TextField.java
 		Commit: d72990d4a24fdbaae34e14f4074d6145a9099fd3
 		Number of Issues: 1
 			12659705;5286;Improvement
+wicket-util/src/main/java/org/apache/wicket/util/lang/Args.java
+	Number of methods: 1
+	withinRange;103;125
+		Number of updated lines: 1
+		Line Number: 113
+		Commit: 69042ca514124d60440980cf96d2d93fc6259be5
+		Number of Issues: 1
+			12646384;5182;Bug
 wicket-examples/src/main/java/org/apache/wicket/examples/source/SourcesPage.java
 	Number of methods: 1
 	generatePageParameters;444;459
@@ -4789,7 +4835,7 @@ wicket-core/src/main/java/org/apache/wicket/Session.java
 		Number of Issues: 1
 			0;0;No issue type
 wicket-core/src/main/java/org/apache/wicket/util/tester/BaseWicketTester.java
-	Number of methods: 4
+	Number of methods: 5
 	processRequest;609;732
 		Number of updated lines: 10
 		Line Number: 653
@@ -4832,6 +4878,18 @@ wicket-core/src/main/java/org/apache/wicket/util/tester/BaseWicketTester.java
 		Commit: 80d8f91e7716d78d82effe6f751e5bc7ab15b9fa
 		Number of Issues: 1
 			0;0;No issue type
+	getMessages;2053;2072
+		Number of updated lines: 2
+		Line Number: 2064
+		Commit: 0c412482dfba45570fe7b7b0116383e59b3245f6
+		Number of Issues: 2
+			12640240;5128;Improvement
+			12559112;4585;Bug
+		Line Number: 2067
+		Commit: 0c412482dfba45570fe7b7b0116383e59b3245f6
+		Number of Issues: 2
+			12640240;5128;Improvement
+			12559112;4585;Bug
 	getFeedbackMessages;2074;2085
 		Number of updated lines: 4
 		Line Number: 2082
@@ -5040,6 +5098,296 @@ wicket-core/src/main/java/org/apache/wicket/markup/WicketTag.java
 		Commit: cc5d56a504cb6603afacd7f7d37ae971d996e971
 		Number of Issues: 1
 			0;0;No issue type
+wicket-request/src/main/java/org/apache/wicket/request/mapper/mount/MountMapper.java
+	Number of methods: 4
+	getCompatibilityScore;85;99
+		Number of updated lines: 12
+		Line Number: 88
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 89
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 90
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 91
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 92
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 93
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 94
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 95
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 96
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 97
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 98
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 99
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+	mapHandler;141;173
+		Number of updated lines: 30
+		Line Number: 144
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 145
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 146
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 147
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 148
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 149
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 150
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 151
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 152
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 153
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 154
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 155
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 156
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 157
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 158
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 159
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 160
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 161
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 162
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 163
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 164
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 165
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 166
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 167
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 168
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 169
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 170
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 171
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 172
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 173
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+	dismountRequest;101;113
+		Number of updated lines: 6
+		Line Number: 108
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 109
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 110
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 111
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 112
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 113
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+	mapRequest;115;139
+		Number of updated lines: 22
+		Line Number: 118
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 119
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 120
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 121
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 122
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 123
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 124
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 125
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 126
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 127
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 128
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 129
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 130
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 131
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 132
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 133
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 134
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 135
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 136
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 137
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 138
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 139
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
 wicket-examples/src/main/java/org/apache/wicket/examples/WicketExampleApplication.java
 	Number of methods: 1
 	init;50;68
@@ -5048,6 +5396,94 @@ wicket-examples/src/main/java/org/apache/wicket/examples/WicketExampleApplicatio
 		Commit: a5b34d75fa82d7d522ff8516f4cbb3082d9ed587
 		Number of Issues: 1
 			12678335;5410;Improvement
+wicket-request/src/main/java/org/apache/wicket/request/mapper/mount/UnmountedMapperAdapter.java
+	Number of methods: 3
+	getCompatibilityScore;48;55
+		Number of updated lines: 5
+		Line Number: 51
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 52
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 53
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 54
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 55
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+	mapHandler;57;69
+		Number of updated lines: 10
+		Line Number: 60
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 61
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 62
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 63
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 64
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 65
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 66
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 67
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 68
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 69
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+	mapRequest;71;79
+		Number of updated lines: 5
+		Line Number: 75
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 76
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 77
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 78
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 79
+		Commit: 972c71522caddfa3c6836dafab6831a9643cbd08
+		Number of Issues: 1
+			0;0;No issue type
 wicket-core/src/main/java/org/apache/wicket/core/util/resource/UrlResourceStream.java
 	Number of methods: 1
 	getData;105;145
@@ -5466,7 +5902,7 @@ Number of Types of Issues: 4
 	Sub-task;1
 	New Feature;2
 	Improvement;28
-	Bug;36
+	Bug;37
 Number of Types of Issues: 4
 	Sub-task
 		Number of Methods: 3
@@ -5488,7 +5924,7 @@ Number of Types of Issues: 4
 		copyPropertiesTo
 		getAutoComponentFactory
 	Improvement
-		Number of Methods: 44
+		Number of Methods: 45
 		decorateUrl
 		newPage
 		merge
@@ -5521,6 +5957,7 @@ Number of Types of Issues: 4
 		getLocale
 		getStyle
 		processRequest
+		getMessages
 		getFeedbackMessages
 		clickLink
 		getData
@@ -5534,7 +5971,7 @@ Number of Types of Issues: 4
 		assertErrorMessages
 		getContributors
 	Bug
-		Number of Methods: 57
+		Number of Methods: 58
 		buildUrl
 		merge
 		internalAdd
@@ -5559,6 +5996,7 @@ Number of Types of Issues: 4
 		parse
 		removeCompressFlagIfUnnecessary
 		accept
+		withinRange
 		generatePageParameters
 		visitChildren
 		equals

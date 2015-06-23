@@ -1,22 +1,68 @@
 # Methods blamed for performance optimization in each of the optimized scenarios [significance]
 1
 Entry point for NiceUrlTest.testPage1
-2
+12
+org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;480
+org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;20
+org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;160
+org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;120
+org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;440
+org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1470
+org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
 org.apache.wicket.Component.internalRender();34.26373092926491;31.489667128987517;2.7740638002773927;680;680
 org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.mapHandler(org.apache.wicket.request.IRequestHandler);0.4137542982181932;0.16323851203501094;0.25051578618318227;2470;2470
-2
+org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;620
+org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;20
+org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;560
+12
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.MarkupContainer.onInitialize();null;1.309281594126901;1.309281594126901;0;480
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.serialize.java.JavaSerializer.deserialize(byte[]);null;6.633333333333333;6.633333333333333;0;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.markup.repeater.AbstractRepeater.dequeue(org.apache.wicket.DequeueContext);null;3.9138475021910604;3.9138475021910604;0;160
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.MarkupContainer.dequeueAutoComponents();null;8.057654723127035;8.057654723127035;0;120
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.MarkupContainer.dequeue();null;6.596188850967008;6.596188850967008;0;440
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);null;0.5597312441116675;0.5597312441116675;0;1470
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.handler.render.WebPageRenderer.isPageStateless();null;141.8047619047619;141.8047619047619;0;20
 Entry point for NiceUrlTest.testPage1;org.apache.wicket.Component.internalRender();34.26373092926491;31.489667128987517;2.7740638002773927;680;680
 Entry point for NiceUrlTest.testPage1;org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.mapHandler(org.apache.wicket.request.IRequestHandler);0.4137542982181932;0.16323851203501094;0.25051578618318227;2470;2470
-2
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.Component.internalRenderHead(org.apache.wicket.markup.html.internal.HtmlHeaderContainer);null;0.8770690964312832;0.8770690964312832;0;620
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url);null;154.9859649122807;154.9859649122807;0;20
+Entry point for NiceUrlTest.testPage1;org.apache.wicket.MarkupContainer.newDequeueContext();null;3.474127906976744;3.474127906976744;0;560
+7
 0;No issue type
+3335;New Feature
+4964;Bug
 4997;Bug
-2
+5426;Bug
+5484;Bug
+5522;Bug
+3
 No issue type;1
-Bug;1
-2
+New Feature;1
+Bug;5
+3
 No issue type;0
-Bug;4997
-Number of revisions (commits): 3
+New Feature;3335
+Bug;4964;4997;5426;5484;5522
+Number of revisions (commits): 22
+Revision (Issues): abb316cea0a31edea61a25ea4c192507d5c7b390(0)
+Revision (Issues): 914b18d0f81e0df9d2f02fd7f2d3d71a49c2e22a(0)
+Revision (Issues): 723d7d3c9ebe8336897d75d3754685384f017b3a(3335)
+Revision (Issues): b891bb8ddff1fcd16b3deb1044f9753bd878ce36(0)
 Revision (Issues): ed8d1258740c859a3f00c08d395366e09198b6fa(0)
-Revision (Issues): bf43914fd7f0ed5ff57a56a82420cda76d3cbaee(4997)
+Revision (Issues): 28a1637874300d3d8feefecffdb9e8565e3171e9(0)
+Revision (Issues): 2008dfb7044f544d7b112cf4666dfacf42406b89(3335)
+Revision (Issues): 6f9821b81e2afeedebbe66496b85009c0c62f74c(5426)
+Revision (Issues): 612f6fb41322fa97547d02cfb4fdd4f20ba6892c(3335)
+Revision (Issues): 1c8dc6f77027a3b3bcc68e24b427daa7effd2aa2(0)
+Revision (Issues): ecdfc124453ca614178d33d0c119d4e71872cfef(5484)
 Revision (Issues): 63d529ae752c0f9c1ad8006bf6740cd5c8229bfc(0)
+Revision (Issues): 2e57d8db33b88889413f1396dbd4389904cf7e7f(3335)
+Revision (Issues): fd7ab849202144b183c3cbd69c81b7e4e433be99(0)
+Revision (Issues): b54c663d01e37c51b6e773033705ab50d0a3fa77(3335)
+Revision (Issues): f81ad2a53a7bcba321d3faa7f0b484b0bb431da9(0)
+Revision (Issues): b9ddb88862f15be28dd0a74869489a804e4cda43(3335)
+Revision (Issues): ffd7e27401d851337e1c08324c94a6f9611ded59(3335)
+Revision (Issues): 9759e26e7558b713ed082e349cba2a6ed437725a(4964)
+Revision (Issues): bf43914fd7f0ed5ff57a56a82420cda76d3cbaee(4997)
+Revision (Issues): 156dea5b3479805eec964b905847ce8e177cd560(3335)
+Revision (Issues): 5b730c0b41d6261be5bdd7810cdc59ebebf1d1ef(5522)

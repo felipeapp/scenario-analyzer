@@ -18,14 +18,42 @@ Entry point for NiceUrlTest.testPage3
 Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for TemplateTest.test_1
-6
+24
+org.apache.wicket.Application.collectWicketProperties();null;5.216666666666667;5.216666666666667;0;10
 org.apache.wicket.Application.initializeComponents();348.18333333333334;5.75;342.43333333333334;10;10
 org.apache.wicket.MarkupContainer.dequeue(org.apache.wicket.DequeueContext);0.6991070978156687;0.5262447405329593;0.17286235728270938;1670;40
 org.apache.wicket.MarkupContainer.dequeueAutoComponents();7.297719869706841;2.1067961165048543;5.190923753201986;120;180
+org.apache.wicket.MarkupContainer.dequeueChild(org.apache.wicket.Component,org.apache.wicket.markup.ComponentTag,org.apache.wicket.DequeueContext);null;0.4694004349176763;0.4694004349176763;0;80
+org.apache.wicket.MarkupContainer.dequeuePreamble(org.apache.wicket.DequeueContext);null;6.578398983481575;6.578398983481575;0;20
+org.apache.wicket.MarkupContainer.removedComponent(org.apache.wicket.Component);null;1.6;1.6;0;10
+org.apache.wicket.Session.newPageAccessSynchronizer(org.apache.wicket.util.time.Duration);null;2.646153846153846;2.646153846153846;0;10
+org.apache.wicket.core.util.string.CssUtils.writeLinkUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.CharSequence,java.lang.String);null;0.20185185185185187;0.20185185185185187;0;30
+org.apache.wicket.markup.ComponentTag.containsWicketId();null;0.008725602755453503;0.008725602755453503;0;320
+org.apache.wicket.markup.ComponentTag.setContainsWicketId(boolean);null;0.001935483870967742;0.001935483870967742;0;320
+org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean);null;0.6611111111111111;0.6611111111111111;0;30
+org.apache.wicket.markup.html.SecurePackageResourceGuard.accept(java.lang.String);null;0.02711198428290766;0.02711198428290766;0;840
+org.apache.wicket.markup.html.form.Form.internalOnValidateModelObjects();null;0.62;0.62;0;30
+org.apache.wicket.markup.parser.filter.HtmlHandler.setContainsWicketIdFlag(org.apache.wicket.markup.ComponentTag);null;0.016216216216216217;0.016216216216216217;0;290
+org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.postProcess(org.apache.wicket.markup.Markup);null;0.15070422535211267;0.15070422535211267;0;30
 org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle);810.3140350877193;605.7649122807018;204.5491228070175;30;30
 org.apache.wicket.request.mapper.AbstractMapper.urlStartsWith(org.apache.wicket.request.Url,java.lang.String[]);0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220
+org.apache.wicket.request.mapper.parameter.PageParameters.add(java.lang.String,java.lang.Object,int,org.apache.wicket.request.mapper.parameter.INamedParameters.Type);null;0.05732984293193717;0.05732984293193717;0;10
 org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596491228070176;0.0011904761904761906;0.012406015037593986;90;30
-6
+org.apache.wicket.request.mapper.parameter.PageParameters.set(java.lang.String,java.lang.Object,int,org.apache.wicket.request.mapper.parameter.INamedParameters.Type);null;0.07642276422764227;0.07642276422764227;0;10
+org.apache.wicket.request.mapper.parameter.PageParameters.set(java.lang.String,java.lang.Object,org.apache.wicket.request.mapper.parameter.INamedParameters.Type);null;0.08509485094850948;0.08509485094850948;0;10
+org.apache.wicket.request.resource.PackageResource.accept(java.lang.String);null;0.04538310412573674;0.04538310412573674;0;840
+org.apache.wicket.util.cookies.CookieUtils.save(java.lang.String,java.lang.String);null;3.1;3.1;0;10
+24
+	org.apache.wicket.Application.collectWicketProperties()
+		Time: null;5.216666666666667;5.216666666666667;0;10;
+			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+				Issues: 5713
+			Revision: 46684ffdf5fa925976e1c10b89b8b754af152b6f
+				Issues: 5713
+			Revision: d106598d4e244122eb330ae84de9cdc6f0ac1413
+				Issues: 5713
+			Revision: fa10aef39e23c0258738079e1d1ff90885175dc1
+				Issues: 5713
 	org.apache.wicket.Application.initializeComponents()
 		Time: 348.18333333333334;5.75;342.43333333333334;10;10;
 			Revision: e4262674d6dd347fb51a1454c63e5f03ed5f135e
@@ -38,6 +66,54 @@ org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596
 		Time: 7.297719869706841;2.1067961165048543;5.190923753201986;120;180;
 			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
 				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeueChild(org.apache.wicket.Component,org.apache.wicket.markup.ComponentTag,org.apache.wicket.DequeueContext)
+		Time: null;0.4694004349176763;0.4694004349176763;0;80;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.dequeuePreamble(org.apache.wicket.DequeueContext)
+		Time: null;6.578398983481575;6.578398983481575;0;20;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.MarkupContainer.removedComponent(org.apache.wicket.Component)
+		Time: null;1.6;1.6;0;10;
+			Revision: 3cc3fe95cbb3ebd72ff37817dd1860d828181b5e
+				Issues: 5728
+	org.apache.wicket.Session.newPageAccessSynchronizer(org.apache.wicket.util.time.Duration)
+		Time: null;2.646153846153846;2.646153846153846;0;10;
+			Revision: 2aa64cd5067c03723c3dcc28fb002fc322be6f69
+				Issues: 5740
+	org.apache.wicket.core.util.string.CssUtils.writeLinkUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.CharSequence,java.lang.String)
+		Time: null;0.20185185185185187;0.20185185185185187;0;30;
+			Revision: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
+				Issues: 5617
+	org.apache.wicket.markup.ComponentTag.containsWicketId()
+		Time: null;0.008725602755453503;0.008725602755453503;0;320;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.ComponentTag.setContainsWicketId(boolean)
+		Time: null;0.001935483870967742;0.001935483870967742;0;320;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean)
+		Time: null;0.6611111111111111;0.6611111111111111;0;30;
+			Revision: f6ee84e5f855252a38aab6a84ae40f70017c257d
+				Issues: 5715
+	org.apache.wicket.markup.html.SecurePackageResourceGuard.accept(java.lang.String)
+		Time: null;0.02711198428290766;0.02711198428290766;0;840;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.markup.html.form.Form.internalOnValidateModelObjects()
+		Time: null;0.62;0.62;0;30;
+			Revision: 360e91bb9cc24913311b914a9413e6f69169e55e
+				Issues: 4344
+	org.apache.wicket.markup.parser.filter.HtmlHandler.setContainsWicketIdFlag(org.apache.wicket.markup.ComponentTag)
+		Time: null;0.016216216216216217;0.016216216216216217;0;290;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
+	org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.postProcess(org.apache.wicket.markup.Markup)
+		Time: null;0.15070422535211267;0.15070422535211267;0;30;
+			Revision: db5be6ab05545e1bb95f566c3aeb23e05cf93437
+				Issues: 5730
 	org.apache.wicket.request.handler.render.WebPageRenderer.respond(org.apache.wicket.request.cycle.RequestCycle)
 		Time: 810.3140350877193;605.7649122807018;204.5491228070175;30;30;
 			Revision: bb9c1044e5f1ba8902aa69073ef9fb236802d277
@@ -48,28 +124,74 @@ org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed();0.013596
 		Time: 0.050809716599190285;0.015587044534412956;0.03522267206477733;220;220;
 			Revision: bfffed1260a37cd6c338c2495a03377c76fe99d8
 				Issues: 5673
+	org.apache.wicket.request.mapper.parameter.PageParameters.add(java.lang.String,java.lang.Object,int,org.apache.wicket.request.mapper.parameter.INamedParameters.Type)
+		Time: null;0.05732984293193717;0.05732984293193717;0;10;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+			Revision: 76433a76288cf3ac336676c81c400a556f6dc5a3
+				Issues: 5669
 	org.apache.wicket.request.mapper.parameter.PageParameters.getAllNamed()
 		Time: 0.013596491228070176;0.0011904761904761906;0.012406015037593986;90;30;
 			Revision: f3f065c267338f17b64a6b1cd0d72fb349118d68
 				Issues: 0
-5
+	org.apache.wicket.request.mapper.parameter.PageParameters.set(java.lang.String,java.lang.Object,int,org.apache.wicket.request.mapper.parameter.INamedParameters.Type)
+		Time: null;0.07642276422764227;0.07642276422764227;0;10;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+			Revision: 76433a76288cf3ac336676c81c400a556f6dc5a3
+				Issues: 5669
+	org.apache.wicket.request.mapper.parameter.PageParameters.set(java.lang.String,java.lang.Object,org.apache.wicket.request.mapper.parameter.INamedParameters.Type)
+		Time: null;0.08509485094850948;0.08509485094850948;0;10;
+			Revision: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
+				Issues: 5539
+			Revision: 76433a76288cf3ac336676c81c400a556f6dc5a3
+				Issues: 5669
+	org.apache.wicket.request.resource.PackageResource.accept(java.lang.String)
+		Time: null;0.04538310412573674;0.04538310412573674;0;840;
+			Revision: f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2
+				Issues: 0
+	org.apache.wicket.util.cookies.CookieUtils.save(java.lang.String,java.lang.String)
+		Time: null;3.1;3.1;0;10;
+			Revision: 304e0f427e3e01f182e1f916834a209281127448
+				Issues: 5648
+13
 0;No issue type
+4344;Improvement
+5539;Bug
+5617;Improvement
+5648;Improvement
+5669;Improvement
 5673;Improvement
 5689;Bug
 5713;Improvement
+5715;Improvement
+5728;Bug
 5730;Bug
+5740;Improvement
 3
 No issue type;1
-Improvement;2
-Bug;2
+Improvement;8
+Bug;4
 3
 No issue type;0
-Improvement;5673;5713
-Bug;5689;5730
-Number of revisions (commits): 6
+Improvement;4344;5617;5648;5669;5673;5713;5715;5740
+Bug;5539;5689;5728;5730
+Number of revisions (commits): 18
+Revision (Issues): 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130(5539)
+Revision (Issues): 304e0f427e3e01f182e1f916834a209281127448(5648)
+Revision (Issues): f6ee84e5f855252a38aab6a84ae40f70017c257d(5715)
+Revision (Issues): f1586b3cf5fcbdb59caa68806cd01bb51d0be6b2(0)
+Revision (Issues): 46684ffdf5fa925976e1c10b89b8b754af152b6f(5713)
+Revision (Issues): f3f065c267338f17b64a6b1cd0d72fb349118d68(0)
+Revision (Issues): fa10aef39e23c0258738079e1d1ff90885175dc1(5713)
+Revision (Issues): 2aa64cd5067c03723c3dcc28fb002fc322be6f69(5740)
+Revision (Issues): 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc(5617)
 Revision (Issues): db5be6ab05545e1bb95f566c3aeb23e05cf93437(5730)
 Revision (Issues): bb9c1044e5f1ba8902aa69073ef9fb236802d277(0)
+Revision (Issues): 76433a76288cf3ac336676c81c400a556f6dc5a3(5669)
+Revision (Issues): 360e91bb9cc24913311b914a9413e6f69169e55e(4344)
 Revision (Issues): e4262674d6dd347fb51a1454c63e5f03ed5f135e(5713)
-Revision (Issues): f3f065c267338f17b64a6b1cd0d72fb349118d68(0)
 Revision (Issues): 2ac29d3065a448c00a2ba7ac4b8cd53ae6c2b91b(5689)
+Revision (Issues): 3cc3fe95cbb3ebd72ff37817dd1860d828181b5e(5728)
 Revision (Issues): bfffed1260a37cd6c338c2495a03377c76fe99d8(5673)
+Revision (Issues): d106598d4e244122eb330ae84de9cdc6f0ac1413(5713)

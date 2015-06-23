@@ -1,5 +1,5 @@
 # Methods potentially blamed for performance degradation
-171
+188
 org.apache.wicket.markup.WicketTag.isFragmentTag()
 20
 Entry point for AjaxTest.test_1
@@ -204,6 +204,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.mapper.mount.MountMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+0
 org.apache.wicket.markup.html.navigation.paging.PagingNavigation.populateItem(org.apache.wicket.markup.html.list.LoopItem)
 1
 Entry point for LibraryTest.test_1
@@ -310,6 +312,13 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters)
+5
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
 org.apache.wicket.util.io.BOMInputStream.find()
 20
 Entry point for AjaxTest.test_1
@@ -332,19 +341,16 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.session.DefaultPageFactory.newPage(java.lang.Class,org.apache.wicket.request.mapper.parameter.PageParameters)
-5
-Entry point for HangManTest.testHangmanFailureWebGame
-Entry point for HangManTest.testHangmanSuccessWebGame
-Entry point for NiceUrlTest.testPage2
-Entry point for NiceUrlTest.testPage2PP
-Entry point for NiceUrlTest.testPage2UP
 org.apache.wicket.util.tester.WicketTester.assertErrorMessages(java.io.Serializable[])
 1
 Entry point for GuestbookTest.test_1
 org.apache.wicket.Component.urlFor(org.apache.wicket.request.IRequestHandler)
 1
 Entry point for FormInputTest.test_1
+org.apache.wicket.request.mapper.mount.UnmountedMapperAdapter.mapHandler(org.apache.wicket.request.IRequestHandler)
+0
+org.apache.wicket.request.mapper.mount.Mount.getUrl()
+0
 org.apache.wicket.jmx.Initializer.createProxy(org.apache.wicket.Application,java.lang.Object)
 6
 Entry point for HangManTest.testHangmanFailureWebGame
@@ -966,6 +972,10 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.Component.setMetaData(org.apache.wicket.MetaDataKey,java.lang.Object)
+0
+org.apache.wicket.request.mapper.mount.UnmountedMapperAdapter.mapRequest(org.apache.wicket.request.Request,org.apache.wicket.request.mapper.mount.MountParameters)
+0
 org.apache.wicket.markup.parser.XmlTag.toXmlString(java.lang.String)
 2
 Entry point for EncodingTest.test_1
@@ -1029,10 +1039,7 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
-1
-Entry point for FormInputTest.test_1
-org.apache.wicket.Application.getHeaderContributorListeners()
+org.apache.wicket.markup.html.panel.AssociatedMarkupSourcingStrategy.findStartTag(org.apache.wicket.markup.IMarkupFragment)
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -1054,7 +1061,10 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.markup.html.panel.AssociatedMarkupSourcingStrategy.findStartTag(org.apache.wicket.markup.IMarkupFragment)
+org.apache.wicket.markup.html.form.AbstractChoice.onComponentTagBody(org.apache.wicket.markup.MarkupStream,org.apache.wicket.markup.ComponentTag)
+1
+Entry point for FormInputTest.test_1
+org.apache.wicket.Application.getHeaderContributorListeners()
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -1102,6 +1112,8 @@ org.apache.wicket.resource.PropertiesFactory.loadFromLoader(org.apache.wicket.re
 2
 Entry point for FormInputTest.test_1
 Entry point for LibraryTest.test_1
+org.apache.wicket.util.tester.WicketTester.assertErrorMessages(java.lang.String[])
+0
 org.apache.wicket.util.string.StringValue.equals(java.lang.Object)
 11
 Entry point for AjaxTest.test_1
@@ -1269,6 +1281,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.mapper.mount.MountMapper.dismountRequest(org.apache.wicket.request.Request)
+0
 org.apache.wicket.util.tester.BaseWicketTester.processRequest()
 19
 Entry point for ComprefTest.test_1
@@ -1371,6 +1385,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.mapper.mount.MountMapper.mapHandler(org.apache.wicket.request.IRequestHandler)
+0
 org.apache.wicket.request.handler.render.WebPageRenderer.isNewPageInstance()
 20
 Entry point for AjaxTest.test_1
@@ -1500,18 +1516,6 @@ Entry point for ImagesTest.testImages
 Entry point for LibraryTest.test_1
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
-10
-Entry point for AjaxTest.test_1
-Entry point for HangManTest.testHangmanFailureWebGame
-Entry point for HangManTest.testHangmanSuccessWebGame
-Entry point for NiceUrlTest.testPage1
-Entry point for NiceUrlTest.testPage2
-Entry point for NiceUrlTest.testPage2PP
-Entry point for NiceUrlTest.testPage2UP
-Entry point for NiceUrlTest.testPage3
-Entry point for NiceUrlTest.testPage4
-Entry point for NiceUrlTest.testPage5
 org.apache.wicket.ConverterLocator$DefaultConverter(java.lang.Class)
 20
 Entry point for AjaxTest.test_1
@@ -1534,6 +1538,18 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.util.tester.BaseWicketTester.clickLink(java.lang.String)
+10
+Entry point for AjaxTest.test_1
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage4
+Entry point for NiceUrlTest.testPage5
 org.apache.wicket.request.handler.render.WebPageRenderer.shouldRenderPageAndWriteResponse(org.apache.wicket.request.cycle.RequestCycle,org.apache.wicket.request.Url,org.apache.wicket.request.Url)
 20
 Entry point for AjaxTest.test_1
@@ -1643,6 +1659,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.util.lang.Args.withinRange(java.lang.Comparable,java.lang.Comparable,java.lang.Comparable,java.lang.String)
+0
 org.apache.wicket.markup.html.form.PasswordTextField.getInputTypes()
 2
 Entry point for LibraryTest.test_1
@@ -1801,6 +1819,10 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.mapper.mount.UnmountedMapperAdapter.getCompatibilityScore(org.apache.wicket.request.Request)
+0
+org.apache.wicket.request.mapper.mount.Mount.getMountParameters()
+0
 org.apache.wicket.request.handler.render.PageRenderer.isOnePassRender()
 20
 Entry point for AjaxTest.test_1
@@ -2241,6 +2263,10 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.Component.setResponsePage(org.apache.wicket.Page)
+0
+org.apache.wicket.Component.checkComponentTagAttribute(org.apache.wicket.markup.ComponentTag,java.lang.String,java.lang.String)
+0
 org.apache.wicket.markup.renderStrategy.AbstractHeaderRenderStrategy.renderApplicationLevelHeaders(org.apache.wicket.markup.html.internal.HtmlHeaderContainer)
 20
 Entry point for AjaxTest.test_1
@@ -2454,6 +2480,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.jmx.Initializer.register(java.lang.Object,javax.management.ObjectName)
+0
 org.apache.wicket.util.resource.ResourceStreamWrapper.getLocale()
 13
 Entry point for HangManTest.testHangmanFailureWebGame
@@ -2583,6 +2611,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.util.tester.BaseWicketTester.getMessages(int)
+0
 org.apache.wicket.request.cycle.RequestCycle.setMetaData(org.apache.wicket.MetaDataKey,java.lang.Object)
 20
 Entry point for AjaxTest.test_1
@@ -2672,6 +2702,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.atmosphere.Initializer.init(org.apache.wicket.Application)
+0
 org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.isFixedSegment(java.lang.String)
 6
 Entry point for HangManTest.testHangmanFailureWebGame
@@ -2688,7 +2720,31 @@ Entry point for Signin2Test.testSignIn2
 org.apache.wicket.markup.html.form.AbstractChoice.appendOptionHtml(org.apache.wicket.util.string.AppendingStringBuffer,java.lang.Object,int,java.lang.String)
 1
 Entry point for FormInputTest.test_1
+org.apache.wicket.request.mapper.mount.MountMapper.mapRequest(org.apache.wicket.request.Request)
+0
 org.apache.wicket.markup.MarkupCache.loadMarkup(org.apache.wicket.MarkupContainer,org.apache.wicket.markup.MarkupResourceStream,boolean)
+20
+Entry point for AjaxTest.test_1
+Entry point for ComprefTest.test_1
+Entry point for EncodingTest.test_1
+Entry point for FormInputTest.test_1
+Entry point for GuestbookTest.test_1
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for HelloWorldTest.testHelloWorld
+Entry point for ImagesTest.testImages
+Entry point for LibraryTest.test_1
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for NiceUrlTest.testPage1
+Entry point for NiceUrlTest.testPage2
+Entry point for NiceUrlTest.testPage2PP
+Entry point for NiceUrlTest.testPage2UP
+Entry point for NiceUrlTest.testPage3
+Entry point for NiceUrlTest.testPage4
+Entry point for NiceUrlTest.testPage5
+Entry point for Signin2Test.testSignIn2
+Entry point for TemplateTest.test_1
+org.apache.wicket.util.tester.BaseWicketTester.setupNextRequestCycle()
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -2716,28 +2772,6 @@ Entry point for HangManTest.testHangmanFailureWebGame
 Entry point for HangManTest.testHangmanSuccessWebGame
 Entry point for ImagesTest.testImages
 Entry point for LibraryTest.test_1
-Entry point for NiceUrlTest.testPage1
-Entry point for NiceUrlTest.testPage2
-Entry point for NiceUrlTest.testPage2PP
-Entry point for NiceUrlTest.testPage2UP
-Entry point for NiceUrlTest.testPage3
-Entry point for NiceUrlTest.testPage4
-Entry point for NiceUrlTest.testPage5
-Entry point for Signin2Test.testSignIn2
-Entry point for TemplateTest.test_1
-org.apache.wicket.util.tester.BaseWicketTester.setupNextRequestCycle()
-20
-Entry point for AjaxTest.test_1
-Entry point for ComprefTest.test_1
-Entry point for EncodingTest.test_1
-Entry point for FormInputTest.test_1
-Entry point for GuestbookTest.test_1
-Entry point for HangManTest.testHangmanFailureWebGame
-Entry point for HangManTest.testHangmanSuccessWebGame
-Entry point for HelloWorldTest.testHelloWorld
-Entry point for ImagesTest.testImages
-Entry point for LibraryTest.test_1
-Entry point for LinkomaticTest.testLinkomatic
 Entry point for NiceUrlTest.testPage1
 Entry point for NiceUrlTest.testPage2
 Entry point for NiceUrlTest.testPage2PP

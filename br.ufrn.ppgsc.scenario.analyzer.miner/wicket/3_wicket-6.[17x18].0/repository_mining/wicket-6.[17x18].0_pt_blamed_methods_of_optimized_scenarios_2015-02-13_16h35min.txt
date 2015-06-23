@@ -1,11 +1,43 @@
 # Methods blamed for performance optimization in each of the optimized scenarios
-Number of scenarios: 0
+Number of scenarios: 2
 Number of scenarios (include empties): 2
 Entry point for NiceUrlTest.testPage1
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String,boolean)
+		Time: null;0.05740740740740741;0.05740740740740741;0;20;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean)
+		Time: null;0.8962962962962963;0.8962962962962963;0;20;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
+	org.apache.wicket.page.PageAccessSynchronizer.getTimeout(int)
+		Time: null;0.0;0.0;0;20;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 5740
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;660;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 5717
 Entry point for NiceUrlTest.testPage2PP
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
-0
-0
+	Number of methods: 4
+	Number of methods (exclude word applied): 4
+	org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String,boolean)
+		Time: null;0.05740740740740741;0.05740740740740741;0;30;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
+	org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean)
+		Time: null;0.8962962962962963;0.8962962962962963;0;30;
+			Revision: ff1ad079c450d024daa637faa4e3438f3b3e88c0
+				Issues: 5715
+	org.apache.wicket.page.PageAccessSynchronizer.getTimeout(int)
+		Time: null;0.0;0.0;0;30;
+			Revision: e87b7bcf23ff5feaaf1bd67589dc25f2e0130cd5
+				Issues: 5740
+	org.apache.wicket.request.Url.getFragment()
+		Time: null;0.0;0.0;0;970;
+			Revision: 58fa34bc8ff9b531b61e9258ac33480296cc66f6
+				Issues: 5717
+4
+2
