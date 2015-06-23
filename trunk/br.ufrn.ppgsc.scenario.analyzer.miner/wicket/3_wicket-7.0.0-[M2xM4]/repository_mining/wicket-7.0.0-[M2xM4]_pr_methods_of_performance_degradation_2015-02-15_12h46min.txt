@@ -1,5 +1,5 @@
 # Methods potentially blamed for performance degradation
-72
+83
 org.apache.wicket.request.Url.getFragment()
 20
 Entry point for AjaxTest.test_1
@@ -22,6 +22,10 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.markup.html.PackageResourceGuard.accept(java.lang.Class,java.lang.String)
+0
+org.apache.wicket.request.mapper.parameter.INamedParameters$NamedPair(java.lang.String,java.lang.String)
+0
 org.apache.wicket.Component.fireInitialize()
 20
 Entry point for AjaxTest.test_1
@@ -132,6 +136,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.velocity.Initializer.getVelocityProperties(org.apache.wicket.Application)
+0
 org.apache.wicket.markup.head.JavaScriptHeaderItem.setId(java.lang.String)
 20
 Entry point for AjaxTest.test_1
@@ -243,6 +249,12 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.Component.internalOnRemove()
+4
+Entry point for GuestbookTest.test_1
+Entry point for HangManTest.testHangmanFailureWebGame
+Entry point for HangManTest.testHangmanSuccessWebGame
+Entry point for TemplateTest.test_1
 org.apache.wicket.DequeueContext.pushContainer(org.apache.wicket.MarkupContainer)
 20
 Entry point for AjaxTest.test_1
@@ -265,12 +277,6 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.Component.internalOnRemove()
-4
-Entry point for GuestbookTest.test_1
-Entry point for HangManTest.testHangmanFailureWebGame
-Entry point for HangManTest.testHangmanSuccessWebGame
-Entry point for TemplateTest.test_1
 org.apache.wicket.resource.loader.ComponentStringResourceLoader.isStopResourceSearch(org.apache.wicket.Component)
 2
 Entry point for FormInputTest.test_1
@@ -286,7 +292,7 @@ org.apache.wicket.markup.html.form.Form.internalOnValidateModelObjects()
 Entry point for GuestbookTest.test_1
 Entry point for LibraryTest.test_1
 Entry point for Signin2Test.testSignIn2
-org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String,boolean)
+org.apache.wicket.markup.html.list.ListView.getList()
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -308,7 +314,7 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.markup.html.list.ListView.getList()
+org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String,boolean)
 20
 Entry point for AjaxTest.test_1
 Entry point for ComprefTest.test_1
@@ -457,6 +463,10 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String)
+0
+org.apache.wicket.util.cookies.CookieUtils.save(java.lang.String,java.lang.String[])
+0
 org.apache.wicket.MarkupContainer.dequeueChild(org.apache.wicket.Component,org.apache.wicket.markup.ComponentTag,org.apache.wicket.DequeueContext)
 20
 Entry point for AjaxTest.test_1
@@ -560,6 +570,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.devutils.debugbar.InspectorDebugPanel.getLinkPageParameters()
+0
 org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String,boolean)
 20
 Entry point for AjaxTest.test_1
@@ -662,6 +674,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String)
+0
 org.apache.wicket.markup.html.list.ListView.getModelObject()
 7
 Entry point for FormInputTest.test_1
@@ -686,6 +700,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.mapper.parameter.PageParameters.add(java.lang.String,java.lang.Object,int)
+0
 org.apache.wicket.markup.html.form.Form.getRootFormRelativeId(org.apache.wicket.Component)
 5
 Entry point for FormInputTest.test_1
@@ -737,9 +753,6 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.request.resource.ResourceReferenceRegistry.getResourceReferenceFactory()
-1
-Entry point for LinkomaticTest.testLinkomatic
 org.apache.wicket.markup.parser.filter.RelativePathPrefixHandler.postProcess(org.apache.wicket.markup.Markup)
 20
 Entry point for AjaxTest.test_1
@@ -761,6 +774,18 @@ Entry point for NiceUrlTest.testPage3
 Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
+Entry point for TemplateTest.test_1
+org.apache.wicket.request.resource.ResourceReferenceRegistry.getResourceReferenceFactory()
+1
+Entry point for LinkomaticTest.testLinkomatic
+org.apache.wicket.Component.setDefaultModel(org.apache.wicket.model.IModel)
+4
+Entry point for FormInputTest.test_1
+Entry point for LibraryTest.test_1
+Entry point for LinkomaticTest.testLinkomatic
+Entry point for Signin2Test.testSignIn2
+org.apache.wicket.Component.onReAdd()
+1
 Entry point for TemplateTest.test_1
 org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem.render(org.apache.wicket.request.Response)
 20
@@ -784,15 +809,6 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
-org.apache.wicket.Component.onReAdd()
-1
-Entry point for TemplateTest.test_1
-org.apache.wicket.Component.setDefaultModel(org.apache.wicket.model.IModel)
-4
-Entry point for FormInputTest.test_1
-Entry point for LibraryTest.test_1
-Entry point for LinkomaticTest.testLinkomatic
-Entry point for Signin2Test.testSignIn2
 org.apache.wicket.protocol.http.WebApplication.storeBufferedResponse(java.lang.String,org.apache.wicket.request.Url,org.apache.wicket.protocol.http.BufferedWebResponse)
 8
 Entry point for AjaxTest.test_1
@@ -833,6 +849,8 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.core.util.string.CssUtils.writeLinkUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.CharSequence)
+0
 org.apache.wicket.markup.parser.filter.EnclosureHandler.onComponentTag(org.apache.wicket.markup.ComponentTag)
 20
 Entry point for AjaxTest.test_1
@@ -985,6 +1003,8 @@ Entry point for HangManTest.testHangmanSuccessWebGame
 Entry point for ImagesTest.testImages
 Entry point for LinkomaticTest.testLinkomatic
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.resource.PackageResource.accept(java.lang.Class,java.lang.String)
+0
 org.apache.wicket.request.mapper.parameter.PageParameters.add(java.lang.String,java.lang.Object,int,org.apache.wicket.request.mapper.parameter.INamedParameters.Type)
 20
 Entry point for AjaxTest.test_1
@@ -1093,6 +1113,8 @@ Entry point for ImagesTest.testImages
 Entry point for LibraryTest.test_1
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.mapper.parameter.PageParameters.set(java.lang.String,java.lang.Object,int)
+0
 org.apache.wicket.core.util.string.CssUtils.key(java.lang.Class,java.lang.String)
 7
 Entry point for FormInputTest.test_1

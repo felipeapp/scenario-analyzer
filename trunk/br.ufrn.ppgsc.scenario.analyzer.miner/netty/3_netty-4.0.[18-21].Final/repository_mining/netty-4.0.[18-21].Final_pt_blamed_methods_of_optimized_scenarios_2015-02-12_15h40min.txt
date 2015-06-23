@@ -1,18 +1,162 @@
 # Methods blamed for performance optimization in each of the optimized scenarios
-Number of scenarios: 1
+Number of scenarios: 3
 Number of scenarios (include empties): 3
 Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 12
+	Number of methods (exclude word applied): 12
+	io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel)
+		Time: null;0.0;0.0;0;51;
+			Revision: 1278467fec2900bfb578f912218e746596b968ca
+				Issues: 2586
+	io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel,io.netty.bootstrap.AbstractBootstrap.PendingRegistrationPromise)
+		Time: null;0.0;0.0;0;51;
+			Revision: 1278467fec2900bfb578f912218e746596b968ca
+				Issues: 2586
+	io.netty.channel.DefaultChannelHandlerContext.isInbound(io.netty.channel.ChannelHandler)
+		Time: null;0.0;0.0;0;108;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.isOutbound(io.netty.channel.ChannelHandler)
+		Time: null;0.0;0.0;0;108;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.02464604090194022;0.02464604090194022;0;108;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$TailContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.0;0.0;0;108;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+		Time: null;0.10587188612099645;0.10587188612099645;0;108;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.generateName0(java.lang.Class)
+		Time: null;0.0;0.0;0;18;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket)
+		Time: null;0.0;0.0;0;36;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket,io.netty.channel.socket.nio.NioServerSocketChannel.NioServerSocketChannelConfig)
+		Time: null;0.0;0.0;0;36;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket)
+		Time: null;0.0;0.0;0;36;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket,io.netty.channel.socket.nio.NioSocketChannel.NioSocketChannelConfig)
+		Time: null;0.0;0.0;0;36;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
 Entry point for SocketSslEchoTest.testSslEcho
-	Number of methods: 1
-	Number of methods (exclude word applied): 0
+	Number of methods: 13
+	Number of methods (exclude word applied): 12
+	io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel)
+		Time: null;0.0;0.0;0;950;
+			Revision: 1278467fec2900bfb578f912218e746596b968ca
+				Issues: 2586
+	io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel,io.netty.bootstrap.AbstractBootstrap.PendingRegistrationPromise)
+		Time: null;0.0;0.0;0;950;
+			Revision: 1278467fec2900bfb578f912218e746596b968ca
+				Issues: 2586
+	io.netty.channel.DefaultChannelHandlerContext.isInbound(io.netty.channel.ChannelHandler)
+		Time: null;0.0;0.0;0;1920;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.isOutbound(io.netty.channel.ChannelHandler)
+		Time: null;0.0;0.0;0;1920;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.02464604090194022;0.02464604090194022;0;1920;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$TailContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.0;0.0;0;1920;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+		Time: null;0.10587188612099645;0.10587188612099645;0;1920;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.generateName0(java.lang.Class)
+		Time: null;0.0;0.0;0;40;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket)
+		Time: null;0.0;0.0;0;640;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket,io.netty.channel.socket.nio.NioServerSocketChannel.NioServerSocketChannelConfig)
+		Time: null;0.0;0.0;0;640;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket)
+		Time: null;0.0;0.0;0;640;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket,io.netty.channel.socket.nio.NioSocketChannel.NioSocketChannelConfig)
+		Time: null;0.0;0.0;0;640;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
 	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
 		Time: 3137.89375;2916.33125;221.5625;160;160;
 			Revision: c58f28dfdd4a75708d6ffa909d7d1ab1e6a3fadc
-				Issues: 8;2216
+				Issues: 2216;8
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
-1
-0
+	Number of methods: 12
+	Number of methods (exclude word applied): 12
+	io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel)
+		Time: null;0.0;0.0;0;59;
+			Revision: 1278467fec2900bfb578f912218e746596b968ca
+				Issues: 2586
+	io.netty.bootstrap.AbstractBootstrap$PendingRegistrationPromise(io.netty.channel.Channel,io.netty.bootstrap.AbstractBootstrap.PendingRegistrationPromise)
+		Time: null;0.0;0.0;0;59;
+			Revision: 1278467fec2900bfb578f912218e746596b968ca
+				Issues: 2586
+	io.netty.channel.DefaultChannelHandlerContext.isInbound(io.netty.channel.ChannelHandler)
+		Time: null;0.0;0.0;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.isOutbound(io.netty.channel.ChannelHandler)
+		Time: null;0.0;0.0;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.02464604090194022;0.02464604090194022;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline$TailContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.0;0.0;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+		Time: null;0.10587188612099645;0.10587188612099645;0;120;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.generateName0(java.lang.Class)
+		Time: null;0.0;0.0;0;40;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket)
+		Time: null;0.0;0.0;0;40;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioServerSocketChannel$NioServerSocketChannelConfig(io.netty.channel.socket.nio.NioServerSocketChannel,io.netty.channel.socket.nio.NioServerSocketChannel,java.net.ServerSocket,io.netty.channel.socket.nio.NioServerSocketChannel.NioServerSocketChannelConfig)
+		Time: null;0.0;0.0;0;40;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket)
+		Time: null;0.0;0.0;0;40;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+	io.netty.channel.socket.nio.NioSocketChannel$NioSocketChannelConfig(io.netty.channel.socket.nio.NioSocketChannel,io.netty.channel.socket.nio.NioSocketChannel,java.net.Socket,io.netty.channel.socket.nio.NioSocketChannel.NioSocketChannelConfig)
+		Time: null;0.0;0.0;0;40;
+			Revision: c2dc993c424904d0717c0388cf2690c49155d2e7
+				Issues: 2375;2404
+13
+2

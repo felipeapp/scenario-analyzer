@@ -1,6 +1,6 @@
 # Degradated methods (Rate method) (before mining phase)
-Number of Issues: 5704;5677;6;5740;5712;5715;5717
-Number of paths: 11
+Number of Issues: 5704;5677;6;5740;5689;5712;5715;5717
+Number of paths: 12
 wicket-core/src/main/java/org/apache/wicket/Component.java
 	Number of methods: 1
 	fireInitialize;868;902
@@ -234,6 +234,14 @@ wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java
 		Commit: b82e1cab704e5a7a32df580bae48421deea69fac
 		Number of Issues: 1
 			0;0;No issue type
+wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java
+	Number of methods: 1
+	getAndRemoveBufferedResponse;90;103
+		Number of updated lines: 1
+		Line Number: 99
+		Commit: b5b2c9d10e6ae1df0e44a5448558da285d0cea99
+		Number of Issues: 1
+			12737828;5689;Bug
 wicket-core/src/main/java/org/apache/wicket/Session.java
 	Number of methods: 1
 	newPageAccessSynchronizer;945;955
@@ -297,7 +305,7 @@ wicket-core/src/main/java/org/apache/wicket/page/PageAccessSynchronizer.java
 Number of Types of Issues: 3
 	New Feature;1
 	Improvement;3
-	Bug;3
+	Bug;4
 Number of Types of Issues: 3
 	New Feature
 		Number of Methods: 2
@@ -311,8 +319,9 @@ Number of Types of Issues: 3
 		newPageAccessSynchronizer
 		getTimeout
 	Bug
-		Number of Methods: 4
+		Number of Methods: 5
 		equals
 		getFragment
 		parseRequest
+		getAndRemoveBufferedResponse
 		find

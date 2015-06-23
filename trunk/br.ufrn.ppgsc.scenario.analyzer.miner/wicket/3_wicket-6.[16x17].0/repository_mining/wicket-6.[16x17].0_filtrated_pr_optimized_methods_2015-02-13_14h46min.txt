@@ -1,30 +1,46 @@
 # Optimized methods (Rate method) (before mining phase)
-Number of Issues: 5660;5646;5643;5673;5655
-Number of paths: 9
-wicket-core/src/main/java/org/apache/wicket/core/request/mapper/BasicResourceReferenceMapper.java
+Number of Issues: 5660;5646;5452;5539;5673;5643;4344;5655;5635
+Number of paths: 14
+wicket-core/src/main/java/org/apache/wicket/core/request/mapper/AbstractBookmarkableMapper.java
 	Number of methods: 1
-	canBeHandled;272;287
-		Number of updated lines: 5
-		Line Number: 281
-		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+	getPageParametersForListener;282;302
+		Number of updated lines: 9
+		Line Number: 293
+		Commit: a01a674b57fdc274f68fe7e9acfda1914190c878
 		Number of Issues: 1
-			12733438;5673;Improvement
-		Line Number: 282
-		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+			12702749;5539;Bug
+		Line Number: 294
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
 		Number of Issues: 1
-			12733438;5673;Improvement
-		Line Number: 283
-		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+			12702749;5539;Bug
+		Line Number: 295
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
 		Number of Issues: 1
-			12733438;5673;Improvement
-		Line Number: 284
-		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+			12702749;5539;Bug
+		Line Number: 296
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
 		Number of Issues: 1
-			12733438;5673;Improvement
-		Line Number: 285
-		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+			12702749;5539;Bug
+		Line Number: 297
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
 		Number of Issues: 1
-			12733438;5673;Improvement
+			12702749;5539;Bug
+		Line Number: 299
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
+		Number of Issues: 1
+			12702749;5539;Bug
+		Line Number: 300
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
+		Number of Issues: 1
+			12702749;5539;Bug
+		Line Number: 301
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
+		Number of Issues: 1
+			12702749;5539;Bug
+		Line Number: 302
+		Commit: 46b9ed395b562a82880ffcc6e6cfc1f01e8b172d
+		Number of Issues: 1
+			12702749;5539;Bug
 wicket-core/src/main/java/org/apache/wicket/protocol/http/WebApplication.java
 	Number of methods: 1
 	storeBufferedResponse;887;905
@@ -61,6 +77,30 @@ wicket-core/src/main/java/org/apache/wicket/protocol/http/WebApplication.java
 		Commit: f95e3130b1a0b9d40e77f90f2bf869d21fd851e0
 		Number of Issues: 1
 			12727445;5643;Bug
+wicket-core/src/main/java/org/apache/wicket/core/request/mapper/BasicResourceReferenceMapper.java
+	Number of methods: 1
+	canBeHandled;272;287
+		Number of updated lines: 5
+		Line Number: 281
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 282
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 283
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 284
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 285
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
 wicket-core/src/main/java/org/apache/wicket/model/AbstractPropertyModel.java
 	Number of methods: 1
 	getObjectClass;136;180
@@ -73,6 +113,26 @@ wicket-core/src/main/java/org/apache/wicket/model/AbstractPropertyModel.java
 		Commit: 7b0d8ea0c981d6cdff2a12f5b7317f7170ecec43
 		Number of Issues: 1
 			0;0;No issue type
+wicket-core/src/main/java/org/apache/wicket/request/resource/ResourceReferenceRegistry.java
+	Number of methods: 1
+	getResourceReferenceFactory;475;482
+		Number of updated lines: 4
+		Line Number: 479
+		Commit: 6154fd6aae702ec5c23d39f6ac3ae9593da4d3b9
+		Number of Issues: 1
+			12726407;5635;Improvement
+		Line Number: 480
+		Commit: 6154fd6aae702ec5c23d39f6ac3ae9593da4d3b9
+		Number of Issues: 1
+			12726407;5635;Improvement
+		Line Number: 481
+		Commit: 6154fd6aae702ec5c23d39f6ac3ae9593da4d3b9
+		Number of Issues: 1
+			12726407;5635;Improvement
+		Line Number: 482
+		Commit: 6154fd6aae702ec5c23d39f6ac3ae9593da4d3b9
+		Number of Issues: 1
+			12726407;5635;Improvement
 wicket-core/src/main/java/org/apache/wicket/Component.java
 	Number of methods: 1
 	setDefaultModel;2918;2957
@@ -101,6 +161,182 @@ wicket-core/src/main/java/org/apache/wicket/core/request/handler/ListenerInterfa
 		Commit: 9fb48d836a5ad26f991e81222fced6cc290c41e3
 		Number of Issues: 1
 			12731703;5660;Improvement
+wicket-core/src/main/java/org/apache/wicket/core/request/mapper/BookmarkableMapper.java
+	Number of methods: 1
+	urlStartsWithAndHasPageClass;239;271
+		Number of updated lines: 23
+		Line Number: 249
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 250
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 251
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 252
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 253
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 254
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 255
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 256
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 257
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 258
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 259
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 260
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 261
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 262
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 263
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 264
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 265
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 266
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 267
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 268
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 269
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 270
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+		Line Number: 271
+		Commit: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+		Number of Issues: 1
+			12733438;5673;Improvement
+wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java
+	Number of methods: 1
+	internalOnValidateModelObjects;1846;1868
+		Number of updated lines: 19
+		Line Number: 1850
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1851
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1852
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1853
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1854
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1855
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1856
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1857
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1858
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1859
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1860
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1861
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1862
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1863
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1864
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1865
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1866
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1867
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
+		Line Number: 1868
+		Commit: e193f4f4d5ef6ef9778a150a337236f208e2b060
+		Number of Issues: 1
+			12538770;4344;Improvement
 wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java
 	Number of methods: 1
 	storeBufferedResponse;73;88
@@ -129,8 +365,28 @@ wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRender
 		Commit: 1064d372b48a048bdee292564ec5f45cd00fd3c4
 		Number of Issues: 1
 			12727445;5643;Bug
-wicket-core/src/main/java/org/apache/wicket/resource/loader/ComponentStringResourceLoader.java
+wicket-core/src/main/java/org/apache/wicket/util/tester/BaseWicketTester.java
 	Number of methods: 1
+	setLastResponse;512;518
+		Number of updated lines: 4
+		Line Number: 515
+		Commit: 77d0a46ef018a1bb35282fbb374d9de56ac51c39
+		Number of Issues: 1
+			12685430;5452;Improvement
+		Line Number: 516
+		Commit: 77d0a46ef018a1bb35282fbb374d9de56ac51c39
+		Number of Issues: 1
+			12685430;5452;Improvement
+		Line Number: 517
+		Commit: 77d0a46ef018a1bb35282fbb374d9de56ac51c39
+		Number of Issues: 1
+			12685430;5452;Improvement
+		Line Number: 518
+		Commit: 77d0a46ef018a1bb35282fbb374d9de56ac51c39
+		Number of Issues: 1
+			12685430;5452;Improvement
+wicket-core/src/main/java/org/apache/wicket/resource/loader/ComponentStringResourceLoader.java
+	Number of methods: 2
 	getComponentTrail;298;319
 		Number of updated lines: 4
 		Line Number: 312
@@ -149,6 +405,24 @@ wicket-core/src/main/java/org/apache/wicket/resource/loader/ComponentStringResou
 		Commit: 9a123fa341da10bd2af0f1eede568d968820b26d
 		Number of Issues: 1
 			12727752;5646;Improvement
+	isStopResourceSearch;321;332
+		Number of updated lines: 4
+		Line Number: 329
+		Commit: 9a123fa341da10bd2af0f1eede568d968820b26d
+		Number of Issues: 1
+			12727752;5646;Improvement
+		Line Number: 330
+		Commit: 9a123fa341da10bd2af0f1eede568d968820b26d
+		Number of Issues: 1
+			12727752;5646;Improvement
+		Line Number: 331
+		Commit: 9a123fa341da10bd2af0f1eede568d968820b26d
+		Number of Issues: 1
+			12727752;5646;Improvement
+		Line Number: 332
+		Commit: 9a123fa341da10bd2af0f1eede568d968820b26d
+		Number of Issues: 1
+			12727752;5646;Improvement
 wicket-core/src/main/java/org/apache/wicket/core/util/lang/PropertyResolver.java
 	Number of methods: 1
 	setValue;106;146
@@ -158,15 +432,21 @@ wicket-core/src/main/java/org/apache/wicket/core/util/lang/PropertyResolver.java
 		Number of Issues: 1
 			0;0;No issue type
 Number of Types of Issues: 2
-	Improvement;3
-	Bug;2
+	Improvement;6
+	Bug;3
 Number of Types of Issues: 2
 	Improvement
-		Number of Methods: 3
+		Number of Methods: 8
 		canBeHandled
+		getResourceReferenceFactory
 		respond
+		urlStartsWithAndHasPageClass
+		internalOnValidateModelObjects
+		setLastResponse
 		getComponentTrail
+		isStopResourceSearch
 	Bug
-		Number of Methods: 2
+		Number of Methods: 3
+		getPageParametersForListener
 		storeBufferedResponse
 		setDefaultModel

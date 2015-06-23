@@ -1,8 +1,88 @@
 # Methods blamed for performance optimization in each of the optimized scenarios [summary]
-Number of scenarios: 2
-0
-0
-0
-0
-0
-Number of revisions (commits): 0
+Number of scenarios: 31
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+Entry point for SocketCancelWriteTest.testCancelWrite
+Entry point for SocketConnectionAttemptTest.testConnectCancellation
+Entry point for SocketEchoTest.testSimpleEcho
+Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
+Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegion
+Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
+Entry point for SocketFileRegionTest.testFileRegionVoidPromise
+Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
+Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
+Entry point for SocketObjectEchoTest.testObjectEcho
+Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
+Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
+Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketStartTlsTest.testStartTls
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
+Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+8
+io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int);null;56.13333333333333;56.13333333333333;0;60
+io.netty.buffer.PoolThreadCache$MemoryRegionCache(int);null;4.17;4.17;0;800
+io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int);null;0.26666666666666666;0.26666666666666666;0;60
+io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena);null;18.05;18.05;0;20
+io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int);null;74.375;74.375;0;40
+io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily);null;0.13636363636363635;0.13636363636363635;0;80
+io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.027678571428571427;0.027678571428571427;0;40
+io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.033771929824561404;0.033771929824561404;0;40
+8
+	io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int)
+		Time: null;56.13333333333333;56.13333333333333;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache$MemoryRegionCache(int)
+		Time: null;4.17;4.17;0;800;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int)
+		Time: null;0.26666666666666666;0.26666666666666666;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena)
+		Time: null;18.05;18.05;0;20;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int)
+		Time: null;74.375;74.375;0;40;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily)
+		Time: null;0.13636363636363635;0.13636363636363635;0;80;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+3
+808;improvement
+2264;improvement
+2311;feature
+2
+improvement;2
+feature;1
+2
+improvement;808;2264
+feature;2311
+Number of revisions (commits): 2
+Revision (Issues): 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8(2311)
+Revision (Issues): 13fd69e8712acd337570aad2c153cf4b2bc9b586(2264;808)

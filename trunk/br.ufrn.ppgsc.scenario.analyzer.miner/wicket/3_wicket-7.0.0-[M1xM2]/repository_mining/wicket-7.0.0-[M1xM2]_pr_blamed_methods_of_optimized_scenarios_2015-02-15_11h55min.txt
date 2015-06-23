@@ -2,8 +2,8 @@
 Number of scenarios: 6
 Number of scenarios (include empties): 8
 Entry point for EncodingTest.test_1
-	Number of methods: 5
-	Number of methods (exclude word applied): 5
+	Number of methods: 10
+	Number of methods (exclude word applied): 10
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;290;290;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -20,13 +20,33 @@ Entry point for EncodingTest.test_1
 		Time: 3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10;
 			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
 				Issues: 5560
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;130;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;20;20;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;30;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.settings.MarkupSettings.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;10;
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
 Entry point for NiceUrlTest.testPage1
-	Number of methods: 5
-	Number of methods (exclude word applied): 5
+	Number of methods: 13
+	Number of methods (exclude word applied): 13
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;640;640;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -39,17 +59,49 @@ Entry point for NiceUrlTest.testPage1
 		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;120;120;
 			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
 				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;120;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.urlStartsWithMountedSegments(org.apache.wicket.request.Url)
+		Time: null;0.0;0.0;0;20;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
 	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 0.42727272727272725;0.3875;0.03977272727272724;20;20;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;220;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;490;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;490;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;10;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;100;100;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;140;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.settings.MarkupSettings.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;20;
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
 Entry point for NiceUrlTest.testPage2
-	Number of methods: 5
-	Number of methods (exclude word applied): 5
+	Number of methods: 13
+	Number of methods (exclude word applied): 13
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;990;990;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -62,17 +114,49 @@ Entry point for NiceUrlTest.testPage2
 		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;180;180;
 			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
 				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;180;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.urlStartsWithMountedSegments(org.apache.wicket.request.Url)
+		Time: null;0.0;0.0;0;30;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
 	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 0.42727272727272725;0.3875;0.03977272727272724;30;30;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;320;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;730;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;730;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;10;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;180;180;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;200;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.settings.MarkupSettings.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;30;
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
 Entry point for NiceUrlTest.testPage2UP
-	Number of methods: 5
-	Number of methods (exclude word applied): 5
+	Number of methods: 13
+	Number of methods (exclude word applied): 13
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;990;990;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -85,17 +169,49 @@ Entry point for NiceUrlTest.testPage2UP
 		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;180;180;
 			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
 				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;180;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.urlStartsWithMountedSegments(org.apache.wicket.request.Url)
+		Time: null;0.0;0.0;0;30;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
 	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 0.42727272727272725;0.3875;0.03977272727272724;30;30;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;320;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;730;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;730;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;10;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;180;180;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;200;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.settings.MarkupSettings.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;30;
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
 Entry point for NiceUrlTest.testPage3
-	Number of methods: 6
-	Number of methods (exclude word applied): 6
+	Number of methods: 14
+	Number of methods (exclude word applied): 14
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;640;640;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -108,21 +224,53 @@ Entry point for NiceUrlTest.testPage3
 		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;120;120;
 			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
 				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;120;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.urlStartsWithMountedSegments(org.apache.wicket.request.Url)
+		Time: null;0.0;0.0;0;20;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
 	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 0.42727272727272725;0.3875;0.03977272727272724;10;10;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;240;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
 	org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 1.0333333333333332;0.96;0.07333333333333325;10;10;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;490;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;490;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;10;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;100;100;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;140;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.settings.MarkupSettings.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;20;
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
 Entry point for NiceUrlTest.testPage4
-	Number of methods: 6
-	Number of methods (exclude word applied): 6
+	Number of methods: 14
+	Number of methods (exclude word applied): 14
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;640;640;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -135,23 +283,55 @@ Entry point for NiceUrlTest.testPage4
 		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;120;120;
 			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
 				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;120;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.urlStartsWithMountedSegments(org.apache.wicket.request.Url)
+		Time: null;0.0;0.0;0;20;
+			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
+				Issues: 5565
 	org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 0.42727272727272725;0.3875;0.03977272727272724;10;10;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;240;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
 	org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 1.0333333333333332;0.96;0.07333333333333325;10;10;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;490;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;490;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;10;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;100;100;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;140;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+	org.apache.wicket.settings.MarkupSettings.getMarkupIdGenerator()
+		Time: null;0.0;0.0;0;20;
+			Revision: ccff0802a729bc10d84ed876ec08d408efc377af
+				Issues: 5577
 Entry point for WithoutCPWithFPTest.testWithSlash
 	Number of methods: 0
 	Number of methods (exclude word applied): 0
 Entry point for WordGeneratorTest.testSuppliedWordConstructor
 	Number of methods: 0
 	Number of methods (exclude word applied): 0
-7
-7
+15
+13

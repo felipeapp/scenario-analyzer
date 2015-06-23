@@ -6,15 +6,21 @@ Entry point for NiceUrlTest.testPage2
 Entry point for NiceUrlTest.testPage2UP
 Entry point for NiceUrlTest.testPage3
 Entry point for NiceUrlTest.testPage4
-7
+13
 org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag);0.12806698216235893;0.11936658172551874;0.008700400436840186;290;290
 org.apache.wicket.DequeueContext.isAtOpenOrOpenCloseTag();0.016625228997644594;0.008651257980557471;0.007973971017087123;1430;1430
 org.apache.wicket.MarkupContainer.dequeueAutoComponents();8.057654723127035;7.297719869706841;0.7599348534201944;60;60
+org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request);null;0.07745098039215687;0.07745098039215687;0;120
 org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request);3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10
 org.apache.wicket.core.request.mapper.MountedMapper.parseRequest(org.apache.wicket.request.Request);0.42727272727272725;0.3875;0.03977272727272724;20;20
+org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class);null;0.007853403141361256;0.007853403141361256;0;220
 org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request);1.0333333333333332;0.96;0.07333333333333325;10;10
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String);null;0.001067378252168112;0.001067378252168112;0;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey);null;0.0010006671114076052;0.0010006671114076052;0;160
+org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream);null;0.13760504201680673;0.13760504201680673;0;130
 org.apache.wicket.markup.Markup.find(java.lang.String);2.066233766233766;1.7974025974025973;0.26883116883116887;20;20
-7
+org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer();null;0.008543263964950712;0.008543263964950712;0;30
+13
 	org.apache.wicket.Component.onComponentTag(org.apache.wicket.markup.ComponentTag)
 		Time: 0.12806698216235893;0.11936658172551874;0.008700400436840186;290;290;
 			Revision: 847bff720eed8a779accb2d51ac34f446d5ab7db
@@ -27,6 +33,10 @@ org.apache.wicket.markup.Markup.find(java.lang.String);2.066233766233766;1.79740
 		Time: 8.057654723127035;7.297719869706841;0.7599348534201944;60;60;
 			Revision: f854896f6a8230eb8181976b15fe09e87ac30a71
 				Issues: 0
+	org.apache.wicket.core.request.mapper.AbstractBookmarkableMapper.getCompatibilityScore(org.apache.wicket.request.Request)
+		Time: null;0.07745098039215687;0.07745098039215687;0;120;
+			Revision: 204849bc6046ed73f447f8daa7a1502f3e53a0fb
+				Issues: 5565
 	org.apache.wicket.core.request.mapper.BookmarkableMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 3.7074074074074073;3.1259259259259258;0.5814814814814815;10;10;
 			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
@@ -35,31 +45,56 @@ org.apache.wicket.markup.Markup.find(java.lang.String);2.066233766233766;1.79740
 		Time: 0.42727272727272725;0.3875;0.03977272727272724;20;20;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.request.mapper.PackageMapper.checkPageClass(java.lang.Class)
+		Time: null;0.007853403141361256;0.007853403141361256;0;220;
+			Revision: aa82ccfcff94c0a83daf86c8cfd806206e9c6a52
+				Issues: 5560
 	org.apache.wicket.core.request.mapper.PackageMapper.parseRequest(org.apache.wicket.request.Request)
 		Time: 1.0333333333333332;0.96;0.07333333333333325;10;10;
 			Revision: e613e28b860ab6d7b140c0d746ea3b7442dc1751
 				Issues: 5565
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String)
+		Time: null;0.001067378252168112;0.001067378252168112;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator$CacheKey(java.lang.String,java.lang.String,java.lang.String,java.util.Locale,java.lang.String,java.lang.String,org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey)
+		Time: null;0.0010006671114076052;0.0010006671114076052;0;160;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
+	org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.updateCache(org.apache.wicket.core.util.resource.locator.caching.CachingResourceStreamLocator.CacheKey,org.apache.wicket.util.resource.IResourceStream)
+		Time: null;0.13760504201680673;0.13760504201680673;0;130;
+			Revision: cd24f18a2f2667857a5e5b86744bf1e129d7bba8
+				Issues: 5581
 	org.apache.wicket.markup.Markup.find(java.lang.String)
 		Time: 2.066233766233766;1.7974025974025973;0.26883116883116887;20;20;
 			Revision: 2f458d8cd8a20cba394cf5a2fae6e7fe3da04bd1
 				Issues: 5580
-5
+	org.apache.wicket.protocol.http.servlet.ServletWebResponse.getUrlRenderer()
+		Time: null;0.008543263964950712;0.008543263964950712;0;30;
+			Revision: 0e44f3df8b2bf1029e14babbb74af0a28d3917d4
+				Issues: 5582
+7
 0;No issue type
 5498;Bug
 5560;Bug
 5565;Bug
 5580;Improvement
+5581;Bug
+5582;Bug
 3
 No issue type;1
 Improvement;1
-Bug;3
+Bug;5
 3
 No issue type;0
 Improvement;5580
-Bug;5498;5560;5565
-Number of revisions (commits): 6
+Bug;5498;5560;5565;5581;5582
+Number of revisions (commits): 9
 Revision (Issues): e2376fe5e84c7e4d6ed91fe2463b08adc8bb58a3(0)
+Revision (Issues): 0e44f3df8b2bf1029e14babbb74af0a28d3917d4(5582)
 Revision (Issues): f854896f6a8230eb8181976b15fe09e87ac30a71(0)
+Revision (Issues): 204849bc6046ed73f447f8daa7a1502f3e53a0fb(5565)
+Revision (Issues): cd24f18a2f2667857a5e5b86744bf1e129d7bba8(5581)
 Revision (Issues): aa82ccfcff94c0a83daf86c8cfd806206e9c6a52(5560)
 Revision (Issues): e613e28b860ab6d7b140c0d746ea3b7442dc1751(5565)
 Revision (Issues): 847bff720eed8a779accb2d51ac34f446d5ab7db(5498)

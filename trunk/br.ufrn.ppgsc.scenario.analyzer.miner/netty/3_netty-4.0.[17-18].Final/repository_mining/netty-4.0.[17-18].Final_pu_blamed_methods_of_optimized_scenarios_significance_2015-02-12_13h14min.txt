@@ -1,8 +1,39 @@
 # Methods blamed for performance optimization in each of the optimized scenarios [significance]
-0
-0
-0
-0
-0
-0
-Number of revisions (commits): 0
+4
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketBufReleaseTest.testBufRelease
+8
+io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.033771929824561404;0.033771929824561404;0;640
+io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.027678571428571427;0.027678571428571427;0;640
+io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily);null;0.13636363636363635;0.13636363636363635;0;80
+io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int);null;74.375;74.375;0;40
+io.netty.buffer.PoolThreadCache$MemoryRegionCache(int);null;4.17;4.17;0;800
+io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena);null;18.05;18.05;0;20
+io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int);null;0.26666666666666666;0.26666666666666666;0;60
+io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int);null;56.13333333333333;56.13333333333333;0;60
+10
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead;io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.033771929824561404;0.033771929824561404;0;640
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead;io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.027678571428571427;0.027678571428571427;0;640
+Entry point for SocketSslEchoTest.testSslEcho;io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.033771929824561404;0.033771929824561404;0;640
+Entry point for SocketSslEchoTest.testSslEcho;io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider);null;0.027678571428571427;0.027678571428571427;0;640
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind;io.netty.channel.socket.nio.NioDatagramChannel.newSocket(java.nio.channels.spi.SelectorProvider,io.netty.channel.socket.InternetProtocolFamily);null;0.13636363636363635;0.13636363636363635;0;80
+Entry point for SocketBufReleaseTest.testBufRelease;io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int);null;74.375;74.375;0;40
+Entry point for SocketBufReleaseTest.testBufRelease;io.netty.buffer.PoolThreadCache$MemoryRegionCache(int);null;4.17;4.17;0;800
+Entry point for SocketBufReleaseTest.testBufRelease;io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena);null;18.05;18.05;0;20
+Entry point for SocketBufReleaseTest.testBufRelease;io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int);null;0.26666666666666666;0.26666666666666666;0;60
+Entry point for SocketBufReleaseTest.testBufRelease;io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int);null;56.13333333333333;56.13333333333333;0;60
+3
+808;improvement
+2264;improvement
+2311;feature
+2
+improvement;2
+feature;1
+2
+improvement;808;2264
+feature;2311
+Number of revisions (commits): 2
+Revision (Issues): 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8(2311)
+Revision (Issues): 13fd69e8712acd337570aad2c153cf4b2bc9b586(2264;808)

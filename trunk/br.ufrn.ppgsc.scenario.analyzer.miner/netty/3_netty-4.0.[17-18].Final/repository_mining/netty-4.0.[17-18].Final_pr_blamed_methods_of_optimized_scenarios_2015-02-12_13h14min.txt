@@ -1,111 +1,411 @@
 # Methods blamed for performance optimization in each of the optimized scenarios
-Number of scenarios: 13
+Number of scenarios: 28
 Number of scenarios (include empties): 28
 Entry point for SocketBufReleaseTest.testBufRelease
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 17
+	Number of methods (exclude word applied): 16
+	io.netty.buffer.PoolArena.free(io.netty.buffer.PoolChunk,long,int)
+		Time: null;56.13333333333333;56.13333333333333;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolArena.isTiny(int)
+		Time: null;0.0;0.0;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolArena.isTinyOrSmall(int)
+		Time: null;0.0;0.0;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolArena.smallIdx(int)
+		Time: null;0.0;0.0;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache$MemoryRegionCache(int)
+		Time: null;4.17;4.17;0;800;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache$NormalMemoryRegionCache(int)
+		Time: null;0.0;0.0;0;80;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache$SubPageMemoryRegionCache(int)
+		Time: null;0.0;0.0;0;720;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.add(io.netty.buffer.PoolArena,io.netty.buffer.PoolChunk,long,int)
+		Time: null;0.26666666666666666;0.26666666666666666;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.cache(io.netty.buffer.PoolThreadCache.MemoryRegionCache[],int)
+		Time: null;0.0;0.0;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.cacheForSmall(io.netty.buffer.PoolArena,int)
+		Time: null;0.0;0.0;0;60;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.createNormalCaches(int,int,io.netty.buffer.PoolArena)
+		Time: null;18.05;18.05;0;20;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.createSubPageCaches(int,int)
+		Time: null;74.375;74.375;0;40;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
+	io.netty.buffer.PoolThreadCache.log2(int)
+		Time: null;0.0;0.0;0;20;
+			Revision: 13fd69e8712acd337570aad2c153cf4b2bc9b586
+				Issues: 2264;808
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketCancelWriteTest.testCancelWrite
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketEchoTest.testSimpleEcho
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketEchoTest.testSimpleEchoNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutor
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorAndVoidPromise
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketEchoTest.testSimpleEchoWithAdditionalExecutorNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketEchoTest.testSimpleEchoWithVoidPromise
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketEchoTest.testSimpleEchoWithVoidPromiseNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketFileRegionTest.testFileRegion
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketFileRegionTest.testFileRegionNotAutoRead
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketFileRegionTest.testFileRegionVoidPromise
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketFileRegionTest.testFileRegionVoidPromiseNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEcho
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketFixedLengthEchoTest.testFixedLengthEchoNotAutoRead
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketObjectEchoTest.testObjectEcho
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketObjectEchoTest.testObjectEchoNotAutoRead
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketShutdownOutputByPeerTest.testShutdownOutput
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 1
+	Number of methods (exclude word applied): 1
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;20;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
 Entry point for SocketShutdownOutputByPeerTest.testShutdownOutputWithoutOption
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
 				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;20;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
 Entry point for SocketShutdownOutputBySelfTest.testShutdownOutput
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 2
+	Number of methods (exclude word applied): 2
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
 				Issues: 0
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;20;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
 Entry point for SocketSpdyEchoTest.testSpdyEcho
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
-Entry point for SocketSslEchoTest.testSslEcho
 	Number of methods: 3
-	Number of methods (exclude word applied): 0
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
+Entry point for SocketSslEchoTest.testSslEcho
+	Number of methods: 6
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;640;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;640;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
 	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
 		Time: 7346.775;3137.89375;4208.881249999999;160;160;
 			Revision: eda702b6abc288ccc6055b09d74434cd6aee402f
@@ -118,13 +418,25 @@ Entry point for SocketSslEchoTest.testSslEcho
 		Time: 1222.2729166666666;518.5005208333333;703.7723958333332;960;960;
 			Revision: eda702b6abc288ccc6055b09d74434cd6aee402f
 				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;160;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
-	Number of methods: 4
-	Number of methods (exclude word applied): 1
+	Number of methods: 7
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
 				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;640;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;640;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
 	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean)
 		Time: 1222.2729166666666;518.5005208333333;703.7723958333332;960;960;
 			Revision: eda702b6abc288ccc6055b09d74434cd6aee402f
@@ -137,25 +449,77 @@ Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
 		Time: 1220.2302083333334;514.196875;706.0333333333334;960;960;
 			Revision: eda702b6abc288ccc6055b09d74434cd6aee402f
 				Issues: 0
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;160;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketStartTlsTest.testStartTls
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
+				Issues: 0
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
 				Issues: 0
 Entry point for SocketStringEchoTest.testStringEcho
-	Number of methods: 0
-	Number of methods (exclude word applied): 0
+	Number of methods: 3
+	Number of methods (exclude word applied): 2
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
-	Number of methods: 1
-	Number of methods (exclude word applied): 1
+	Number of methods: 4
+	Number of methods (exclude word applied): 3
 	io.netty.buffer.PooledByteBufAllocator.validateAndCalculatePageShifts(int)
 		Time: 0.75;0.45;0.3;20;20;
 			Revision: 17ba35b6d0bcb70aa38a3ae4cfd37efdec72943c
 				Issues: 0
-6
-1
+	io.netty.channel.socket.nio.NioServerSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.027678571428571427;0.027678571428571427;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.channel.socket.nio.NioSocketChannel.newSocket(java.nio.channels.spi.SelectorProvider)
+		Time: null;0.033771929824561404;0.033771929824561404;0;40;
+			Revision: 68670ba19506f2f3ef24181ecc4fbb4961c7d8a8
+				Issues: 2311
+	io.netty.testsuite.transport.socket.SocketTestPermutation.combo(java.util.List,java.util.List)
+		Time: null;0.4879310344827586;0.4879310344827586;0;10;
+			Revision: 5acb8759e47d10ea84450d353620cf74ac963e3b
+				Issues: 0
+22
+8

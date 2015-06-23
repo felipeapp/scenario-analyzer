@@ -1,6 +1,6 @@
 # Degradated methods (Rate method) (before mining phase)
 Number of Issues: 5350;5704;5349;5646;5617;6;5643;5635;5720;5539;5724;4344;5712;5713;5655;5715;5648;5717;5677;5673;5740;5730;5669;5728;5452;5340
-Number of paths: 42
+Number of paths: 44
 wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/RelativePathPrefixHandler.java
 	Number of methods: 1
 	postProcess;195;224
@@ -141,6 +141,26 @@ wicket-core/src/main/java/org/apache/wicket/core/util/string/JavaScriptUtils.jav
 		Commit: f6ee84e5f855252a38aab6a84ae40f70017c257d
 		Number of Issues: 1
 			12745483;5715;Improvement
+wicket-velocity/src/main/java/org/apache/wicket/velocity/Initializer.java
+	Number of methods: 1
+	getVelocityProperties;75;144
+		Number of updated lines: 4
+		Line Number: 96
+		Commit: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+		Number of Issues: 1
+			12745454;5713;Improvement
+		Line Number: 104
+		Commit: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+		Number of Issues: 1
+			12745454;5713;Improvement
+		Line Number: 107
+		Commit: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+		Number of Issues: 1
+			12745454;5713;Improvement
+		Line Number: 111
+		Commit: b93624f490da2af2df698902a0ca4da797b15014
+		Number of Issues: 1
+			0;0;No issue type
 wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/HtmlHandler.java
 	Number of methods: 1
 	setContainsWicketIdFlag;173;192
@@ -768,6 +788,14 @@ wicket-core/src/main/java/org/apache/wicket/markup/head/CssHeaderItem.java
 		Commit: 16e908b54916d3bf9c62a85ba20ee6e7016fe7dc
 		Number of Issues: 1
 			12721248;5617;Improvement
+wicket-devutils/src/main/java/org/apache/wicket/devutils/debugbar/InspectorDebugPanel.java
+	Number of methods: 1
+	getLinkPageParameters;79;85
+		Number of updated lines: 1
+		Line Number: 83
+		Commit: cb4590a27febd29db3bd2939fc3fb6025c4c3691
+		Number of Issues: 1
+			12733227;5669;Improvement
 wicket-core/src/main/java/org/apache/wicket/resource/loader/ComponentStringResourceLoader.java
 	Number of methods: 1
 	isStopResourceSearch;321;332
@@ -2046,8 +2074,9 @@ Number of Types of Issues: 4
 		internalOnRemove
 		fireInitialize
 	Improvement
-		Number of Methods: 26
+		Number of Methods: 28
 		writeJavaScriptUrl
+		getVelocityProperties
 		getCurrentMessages
 		onReAdd
 		set
@@ -2063,6 +2092,7 @@ Number of Types of Issues: 4
 		link
 		newPageAccessSynchronizer
 		setLastResponse
+		getLinkPageParameters
 		isStopResourceSearch
 		render
 		getTimeout

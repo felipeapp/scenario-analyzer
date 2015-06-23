@@ -1,8 +1,40 @@
 # Optimized methods (Rate method) (before mining phase)
-Number of Issues: 2390;2216;8;2436
-Number of paths: 6
+Number of Issues: 2404;2390;2375;2216;8;2586;2436
+Number of paths: 10
 transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
-	Number of methods: 4
+	Number of methods: 7
+	TailContext;936;938
+		Number of updated lines: 3
+		Line Number: 936
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 937
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 938
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+	HeadContext;997;1000
+		Number of updated lines: 4
+		Line Number: 997
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 998
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 999
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 1000
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
 	addLast0;134;146
 		Number of updated lines: 2
 		Line Number: 134
@@ -22,6 +54,20 @@ transport/src/main/java/io/netty/channel/DefaultChannelPipeline.java
 	generateName;262;290
 		Number of updated lines: 1
 		Line Number: 269
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+	generateName0;292;294
+		Number of updated lines: 3
+		Line Number: 292
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 293
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 294
 		Commit: 9b468bc2758ead86690f633ee071e396c482c489
 		Number of Issues: 1
 			0;0;No issue type
@@ -51,6 +97,25 @@ buffer/src/main/java/io/netty/buffer/AbstractByteBuf.java
 		Commit: 4ad3984c8b725ef59856d174d09d1209d65933fc
 		Number of Issues: 1
 			32423850;2436;improvement
+transport/src/main/java/io/netty/channel/socket/nio/NioSocketChannel.java
+	Number of methods: 1
+	NioSocketChannelConfig;322;324
+		Number of updated lines: 3
+		Line Number: 322
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			31702436;2404;defect
+			31218130;2375;none yet
+		Line Number: 323
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			31702436;2404;defect
+			31218130;2375;none yet
+		Line Number: 324
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			31702436;2404;defect
+			31218130;2375;none yet
 transport/src/main/java/io/netty/channel/socket/nio/NioDatagramChannel.java
 	Number of methods: 1
 	joinGroup;376;419
@@ -103,6 +168,22 @@ testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketSslEchoTest.ja
 		Number of Issues: 2
 			27184812;2216;defect
 			588995;8;none yet
+transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java
+	Number of methods: 1
+	PendingRegistrationPromise;457;459
+		Number of updated lines: 3
+		Line Number: 457
+		Commit: 1278467fec2900bfb578f912218e746596b968ca
+		Number of Issues: 1
+			36173526;2586;defect
+		Line Number: 458
+		Commit: 1278467fec2900bfb578f912218e746596b968ca
+		Number of Issues: 1
+			36173526;2586;defect
+		Line Number: 459
+		Commit: 1278467fec2900bfb578f912218e746596b968ca
+		Number of Issues: 1
+			36173526;2586;defect
 testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.java
 	Number of methods: 1
 	testStartTls;146;223
@@ -117,19 +198,64 @@ testsuite/src/test/java/io/netty/testsuite/transport/socket/SocketStartTlsTest.j
 		Number of Issues: 2
 			27184812;2216;defect
 			588995;8;none yet
+transport/src/main/java/io/netty/channel/DefaultChannelHandlerContext.java
+	Number of methods: 2
+	isOutbound;42;44
+		Number of updated lines: 2
+		Line Number: 42
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 43
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+	isInbound;38;40
+		Number of updated lines: 2
+		Line Number: 38
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+		Line Number: 39
+		Commit: 9b468bc2758ead86690f633ee071e396c482c489
+		Number of Issues: 1
+			0;0;No issue type
+transport/src/main/java/io/netty/channel/socket/nio/NioServerSocketChannel.java
+	Number of methods: 1
+	NioServerSocketChannelConfig;183;185
+		Number of updated lines: 3
+		Line Number: 183
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			31702436;2404;defect
+			31218130;2375;none yet
+		Line Number: 184
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			31702436;2404;defect
+			31218130;2375;none yet
+		Line Number: 185
+		Commit: c2dc993c424904d0717c0388cf2690c49155d2e7
+		Number of Issues: 2
+			31702436;2404;defect
+			31218130;2375;none yet
 Number of Types of Issues: 3
-	defect;1
+	defect;3
 	improvement;2
-	none yet;1
+	none yet;2
 Number of Types of Issues: 3
 	defect
-		Number of Methods: 2
+		Number of Methods: 5
+		NioSocketChannelConfig
 		testSslEcho
+		PendingRegistrationPromise
 		testStartTls
+		NioServerSocketChannelConfig
 	improvement
 		Number of Methods: 2
 		order
 		joinGroup
 	none yet
-		Number of Methods: 1
+		Number of Methods: 2
+		NioSocketChannelConfig
 		testSslEcho

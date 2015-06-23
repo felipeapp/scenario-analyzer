@@ -1,8 +1,29 @@
 # Methods blamed for performance optimization in each of the optimized scenarios [summary]
-Number of scenarios: 4
-0
-0
-0
-0
-0
-Number of revisions (commits): 0
+Number of scenarios: 7
+Entry point for DatagramUnicastTest.testSimpleSendWithoutBind
+Entry point for SocketSpdyEchoTest.testSpdyEcho
+Entry point for SocketSpdyEchoTest.testSpdyEchoNotAutoRead
+Entry point for SocketSslEchoTest.testSslEcho
+Entry point for SocketSslEchoTest.testSslEchoNotAutoRead
+Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
+Entry point for SocketStringEchoTest.testStringEcho
+2
+io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline);null;0.02464604090194022;0.02464604090194022;0;160
+io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext);null;0.10587188612099645;0.10587188612099645;0;160
+2
+	io.netty.channel.DefaultChannelPipeline$HeadContext(io.netty.channel.DefaultChannelPipeline)
+		Time: null;0.02464604090194022;0.02464604090194022;0;160;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+	io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
+		Time: null;0.10587188612099645;0.10587188612099645;0;160;
+			Revision: 9b468bc2758ead86690f633ee071e396c482c489
+				Issues: 0
+1
+0;No issue type
+1
+No issue type;1
+1
+No issue type;0
+Number of revisions (commits): 1
+Revision (Issues): 9b468bc2758ead86690f633ee071e396c482c489(0)

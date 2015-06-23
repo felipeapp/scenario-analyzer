@@ -1,5 +1,5 @@
 # Methods potentially blamed for performance degradation
-5
+8
 org.apache.wicket.page.PageAccessSynchronizer.getTimeout(int)
 20
 Entry point for AjaxTest.test_1
@@ -88,6 +88,12 @@ Entry point for NiceUrlTest.testPage4
 Entry point for NiceUrlTest.testPage5
 Entry point for Signin2Test.testSignIn2
 Entry point for TemplateTest.test_1
+org.apache.wicket.request.handler.render.WebPageRenderer.getAndRemoveBufferedResponse(org.apache.wicket.request.Url)
+0
+org.apache.wicket.core.util.string.JavaScriptUtils.writeJavaScriptUrl(org.apache.wicket.request.Response,java.lang.CharSequence,java.lang.String,boolean,java.lang.String)
+0
+org.apache.wicket.markup.head.JavaScriptHeaderItem.internalRenderJavaScriptReference(org.apache.wicket.request.Response,java.lang.String,java.lang.String,boolean,java.lang.String,java.lang.String)
+0
 org.apache.wicket.Session.newPageAccessSynchronizer(org.apache.wicket.util.time.Duration)
 13
 Entry point for AjaxTest.test_1

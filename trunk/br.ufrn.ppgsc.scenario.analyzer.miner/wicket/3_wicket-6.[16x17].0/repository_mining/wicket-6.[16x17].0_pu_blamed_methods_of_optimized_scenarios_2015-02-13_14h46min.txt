@@ -1,0 +1,16 @@
+# Methods blamed for performance optimization in each of the optimized scenarios
+Number of scenarios: 1
+Number of scenarios (include empties): 1
+Entry point for HelloWorldTest.testHelloWorld
+	Number of methods: 2
+	Number of methods (exclude word applied): 1
+	org.apache.wicket.core.request.mapper.BookmarkableMapper.urlStartsWithAndHasPageClass(org.apache.wicket.request.Url,java.lang.String[])
+		Time: null;0.017391304347826087;0.017391304347826087;0;20;
+			Revision: 6ce317cf9414c550e0e66fbae5e35936ee20763d
+				Issues: 5673
+	org.apache.wicket.util.tester.BaseWicketTester.setLastResponse(org.apache.wicket.protocol.http.mock.MockHttpServletResponse)
+		Time: null;0.0;0.0;0;10;
+			Revision: 77d0a46ef018a1bb35282fbb374d9de56ac51c39
+				Issues: 5452
+2
+1

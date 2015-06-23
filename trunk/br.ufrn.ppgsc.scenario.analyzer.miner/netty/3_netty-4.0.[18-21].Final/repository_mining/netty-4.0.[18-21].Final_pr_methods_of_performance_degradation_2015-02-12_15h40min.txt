@@ -1,5 +1,5 @@
 # Methods potentially blamed for performance degradation
-21
+22
 io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.AbstractChannelHandlerContext)
 37
 Entry point for DatagramMulticastTest.testMulticast
@@ -301,6 +301,8 @@ Entry point for SocketStartTlsTest.testStartTlsNotAutoRead
 Entry point for SocketStringEchoTest.testStringEcho
 Entry point for SocketStringEchoTest.testStringEchoNotAutoRead
 Entry point for WriteBeforeRegisteredTest.testWriteBeforeConnect
+io.netty.channel.DefaultChannelPipeline.addLast0(java.lang.String,io.netty.channel.DefaultChannelHandlerContext)
+0
 io.netty.buffer.CompositeByteBuf.checkComponentIndex(int)
 2
 Entry point for SocketSslEchoTest.testSslEcho

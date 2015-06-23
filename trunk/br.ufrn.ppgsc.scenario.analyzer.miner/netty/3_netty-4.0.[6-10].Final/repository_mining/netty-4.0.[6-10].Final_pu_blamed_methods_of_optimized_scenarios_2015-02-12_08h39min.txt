@@ -5,8 +5,48 @@ Entry point for SocketBufReleaseTest.testBufRelease
 	Number of methods: 0
 	Number of methods (exclude word applied): 0
 Entry point for SocketSslEchoTest.testSslEcho
-	Number of methods: 2
-	Number of methods (exclude word applied): 0
+	Number of methods: 11
+	Number of methods (exclude word applied): 7
+	io.netty.channel.AbstractChannel.estimatorHandle()
+		Time: null;8.772611684230398E-4;8.772611684230398E-4;0;1003;
+			Revision: 48a7a21541b96eba74b493d8a2ce4a678a6bc9db
+				Issues: 1697
+	io.netty.channel.ChannelOutboundBuffer.incrementPendingOutboundBytes(int)
+		Time: null;0.018605466012613876;0.018605466012613876;0;1003;
+			Revision: 013ac44d3a64d53ab9e131cb43124fcbc0873caf
+				Issues: 1832
+			Revision: fc6213604dc3a1a596b5a6fb25fd9cf0759e0fc7
+				Issues: 0
+			Revision: 48a7a21541b96eba74b493d8a2ce4a678a6bc9db
+				Issues: 1697
+	io.netty.channel.DefaultChannelConfig.getMessageSizeEstimator()
+		Time: null;0.0;0.0;0;28;
+			Revision: 48a7a21541b96eba74b493d8a2ce4a678a6bc9db
+				Issues: 1697
+	io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle)
+		Time: null;3.442417243179017E-4;3.442417243179017E-4;0;1003;
+			Revision: de44917e62c6ccadb2ae4cf62009f3fa0ad71827
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext$WriteTask(io.netty.util.Recycler.Handle,io.netty.channel.DefaultChannelHandlerContext.WriteTask)
+		Time: null;3.331371525657113E-4;3.331371525657113E-4;0;1003;
+			Revision: de44917e62c6ccadb2ae4cf62009f3fa0ad71827
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.findContextInbound()
+		Time: null;0.0;0.0;0;4;
+			Revision: b8866aef330403353285486bbf5c0342b6c6a998
+				Issues: 0
+	io.netty.channel.DefaultChannelHandlerContext.write(java.lang.Object,boolean,io.netty.channel.ChannelPromise)
+		Time: null;0.10147357667151566;0.10147357667151566;0;1003;
+			Revision: 013ac44d3a64d53ab9e131cb43124fcbc0873caf
+				Issues: 1832
+			Revision: b934b6009c9e7d2ed6df400698d6e6e4b550291d
+				Issues: 1707
+			Revision: fb619f23947aab158a11730e00f4dbd490093669
+				Issues: 0
+	io.netty.testsuite.transport.socket.SocketSslEchoTest$EchoHandler(io.netty.testsuite.transport.socket.SocketSslEchoTest,boolean,boolean)
+		Time: null;0.0;0.0;0;60;
+			Revision: a857994d82cadfce21ab34434c3523a8e8653141
+				Issues: 1825
 	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho()
 		Time: 4291.5;2663.0;1628.5;10;10;
 			Revision: a857994d82cadfce21ab34434c3523a8e8653141
@@ -15,5 +55,9 @@ Entry point for SocketSslEchoTest.testSslEcho
 		Time: 1430.5;887.6666666666666;542.8333333333334;30;30;
 			Revision: a857994d82cadfce21ab34434c3523a8e8653141
 				Issues: 1825
+	io.netty.testsuite.transport.socket.SocketSslEchoTest.testSslEcho0(io.netty.bootstrap.ServerBootstrap,io.netty.bootstrap.Bootstrap,boolean,boolean)
+		Time: null;1195.3583333333333;1195.3583333333333;0;30;
+			Revision: a857994d82cadfce21ab34434c3523a8e8653141
+				Issues: 1825
+11
 2
-0

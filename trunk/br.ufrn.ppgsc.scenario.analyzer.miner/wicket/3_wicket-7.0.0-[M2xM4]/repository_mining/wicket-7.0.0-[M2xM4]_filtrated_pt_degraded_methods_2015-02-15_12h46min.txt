@@ -1,6 +1,6 @@
 # Degradated methods (TTest P-Value) (before mining phase)
 Number of Issues: 5350;5677;5646;5617;5673;6;5740;5730;5669;5728;5635;5452;5539;5724;4344;5712;5713;5715;5648;5717
-Number of paths: 25
+Number of paths: 27
 wicket-core/src/main/java/org/apache/wicket/request/resource/PackageResource.java
 	Number of methods: 1
 	accept;512;529
@@ -153,6 +153,26 @@ wicket-core/src/main/java/org/apache/wicket/core/util/string/JavaScriptUtils.jav
 		Commit: f6ee84e5f855252a38aab6a84ae40f70017c257d
 		Number of Issues: 1
 			12745483;5715;Improvement
+wicket-velocity/src/main/java/org/apache/wicket/velocity/Initializer.java
+	Number of methods: 1
+	getVelocityProperties;75;144
+		Number of updated lines: 4
+		Line Number: 96
+		Commit: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+		Number of Issues: 1
+			12745454;5713;Improvement
+		Line Number: 104
+		Commit: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+		Number of Issues: 1
+			12745454;5713;Improvement
+		Line Number: 107
+		Commit: e4262674d6dd347fb51a1454c63e5f03ed5f135e
+		Number of Issues: 1
+			12745454;5713;Improvement
+		Line Number: 111
+		Commit: b93624f490da2af2df698902a0ca4da797b15014
+		Number of Issues: 1
+			0;0;No issue type
 wicket-core/src/main/java/org/apache/wicket/markup/parser/filter/HtmlHandler.java
 	Number of methods: 1
 	setContainsWicketIdFlag;173;192
@@ -331,6 +351,26 @@ wicket-core/src/main/java/org/apache/wicket/Component.java
 		Number of Issues: 2
 			12734716;5677;New Feature
 			12353321;6;Improvement
+wicket-core/src/main/java/org/apache/wicket/request/resource/ResourceReferenceRegistry.java
+	Number of methods: 1
+	getResourceReferenceFactory;475;482
+		Number of updated lines: 4
+		Line Number: 479
+		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
+		Number of Issues: 1
+			12726407;5635;Improvement
+		Line Number: 480
+		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
+		Number of Issues: 1
+			12726407;5635;Improvement
+		Line Number: 481
+		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
+		Number of Issues: 1
+			12726407;5635;Improvement
+		Line Number: 482
+		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
+		Number of Issues: 1
+			12726407;5635;Improvement
 wicket-request/src/main/java/org/apache/wicket/request/mapper/parameter/PageParameters.java
 	Number of methods: 2
 	set;324;327
@@ -449,26 +489,6 @@ wicket-request/src/main/java/org/apache/wicket/request/mapper/parameter/INamedPa
 		Commit: 5f0e63c8a91ea74c57ed6ba65a9f8a60d30eb130
 		Number of Issues: 1
 			12702749;5539;Bug
-wicket-core/src/main/java/org/apache/wicket/request/resource/ResourceReferenceRegistry.java
-	Number of methods: 1
-	getResourceReferenceFactory;475;482
-		Number of updated lines: 4
-		Line Number: 479
-		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
-		Number of Issues: 1
-			12726407;5635;Improvement
-		Line Number: 480
-		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
-		Number of Issues: 1
-			12726407;5635;Improvement
-		Line Number: 481
-		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
-		Number of Issues: 1
-			12726407;5635;Improvement
-		Line Number: 482
-		Commit: 4db7a736e7a2550f314eb00a874def76e9f9eb37
-		Number of Issues: 1
-			12726407;5635;Improvement
 wicket-core/src/main/java/org/apache/wicket/MarkupContainer.java
 	Number of methods: 6
 	dequeuePreamble;1996;2029
@@ -1421,6 +1441,14 @@ wicket-core/src/main/java/org/apache/wicket/util/tester/BaseWicketTester.java
 		Commit: 16fca60fee3ade5c2522f838f6ac4919bda71871
 		Number of Issues: 1
 			12685430;5452;Improvement
+wicket-devutils/src/main/java/org/apache/wicket/devutils/debugbar/InspectorDebugPanel.java
+	Number of methods: 1
+	getLinkPageParameters;79;85
+		Number of updated lines: 1
+		Line Number: 83
+		Commit: cb4590a27febd29db3bd2939fc3fb6025c4c3691
+		Number of Issues: 1
+			12733227;5669;Improvement
 wicket-core/src/main/java/org/apache/wicket/resource/loader/ComponentStringResourceLoader.java
 	Number of methods: 1
 	isStopResourceSearch;321;332
@@ -1489,13 +1517,14 @@ Number of Types of Issues: 3
 		onReAdd
 		fireInitialize
 	Improvement
-		Number of Methods: 18
+		Number of Methods: 20
 		writeJavaScriptUrl
+		getVelocityProperties
 		getTimeout
 		onReAdd
+		getResourceReferenceFactory
 		set
 		add
-		getResourceReferenceFactory
 		save
 		internalRenderJavaScriptReference
 		setId
@@ -1507,6 +1536,7 @@ Number of Types of Issues: 3
 		internalOnValidateModelObjects
 		newPageAccessSynchronizer
 		setLastResponse
+		getLinkPageParameters
 		isStopResourceSearch
 	Bug
 		Number of Methods: 15

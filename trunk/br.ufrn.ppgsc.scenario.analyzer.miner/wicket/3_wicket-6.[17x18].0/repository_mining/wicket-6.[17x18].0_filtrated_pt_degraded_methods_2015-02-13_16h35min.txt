@@ -1,6 +1,6 @@
 # Degradated methods (TTest P-Value) (before mining phase)
-Number of Issues: 5740;5715;5717
-Number of paths: 7
+Number of Issues: 5740;5689;5715;5717
+Number of paths: 8
 wicket-core/src/main/java/org/apache/wicket/core/util/string/JavaScriptUtils.java
 	Number of methods: 1
 	writeJavaScriptUrl;99;113
@@ -137,6 +137,14 @@ wicket-core/src/main/java/org/apache/wicket/markup/html/form/Form.java
 		Commit: b82e1cab704e5a7a32df580bae48421deea69fac
 		Number of Issues: 1
 			0;0;No issue type
+wicket-core/src/main/java/org/apache/wicket/request/handler/render/WebPageRenderer.java
+	Number of methods: 1
+	getAndRemoveBufferedResponse;90;103
+		Number of updated lines: 1
+		Line Number: 99
+		Commit: b5b2c9d10e6ae1df0e44a5448558da285d0cea99
+		Number of Issues: 1
+			12737828;5689;Bug
 wicket-core/src/main/java/org/apache/wicket/Session.java
 	Number of methods: 1
 	newPageAccessSynchronizer;945;955
@@ -179,7 +187,7 @@ wicket-core/src/main/java/org/apache/wicket/page/PageAccessSynchronizer.java
 			12751271;5740;Improvement
 Number of Types of Issues: 2
 	Improvement;2
-	Bug;1
+	Bug;2
 Number of Types of Issues: 2
 	Improvement
 		Number of Methods: 4
@@ -188,5 +196,6 @@ Number of Types of Issues: 2
 		newPageAccessSynchronizer
 		getTimeout
 	Bug
-		Number of Methods: 1
+		Number of Methods: 2
 		getFragment
+		getAndRemoveBufferedResponse
