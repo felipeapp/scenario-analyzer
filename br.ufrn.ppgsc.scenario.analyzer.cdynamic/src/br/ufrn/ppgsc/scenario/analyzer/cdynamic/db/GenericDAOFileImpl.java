@@ -23,7 +23,8 @@ public class GenericDAOFileImpl<T extends Serializable> implements
 		RuntimeScenario rs = (RuntimeScenario) instance;
 
 		try {
-			PrintStream ps = new PrintStream("scenario_" + ++count + ".txt");
+			PrintStream ps = new PrintStream("scenario_" + ++count +
+					"_" + rs.getRoot().getMemberSignature() + ".txt");
 			RuntimeCallGraphPrintUtil.logScenarioTree(rs, ps);
 			ps.close();
 		} catch (IOException e) {

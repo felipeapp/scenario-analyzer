@@ -13,9 +13,10 @@ public class MainMBean {
 
 		TestMBean bean = new TestMBean();
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 2; i++) {
 			bean.setAtivo(true);
 			bean.imprimir();
+			bean.notificar();
 			bean.getIdade();
 		}
 
