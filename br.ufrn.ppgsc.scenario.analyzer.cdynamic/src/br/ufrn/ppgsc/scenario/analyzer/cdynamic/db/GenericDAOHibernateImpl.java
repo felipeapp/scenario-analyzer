@@ -5,10 +5,32 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
-public class GenericDAOHibernateImpl<T extends Serializable> extends GenericDAO<T> {
+public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
 
+	private static Session s;
+	
+	public Session getSession() {
+		if (s == null) {
+			/*
+			 *  AnnotationConfiguration is deprecated. We should use Configuration
+			 *  AnnotationConfiguration should be used with SIGAA
+			 */
+			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			s = sf.openSession();
+		}
+
+		return s;
+	}
+	
+	@Override
+	public void clearSession() {
+		s.clear();
+	}
+	
 	@Override
 	public T save(T instance) {
 		Session s = getSession();

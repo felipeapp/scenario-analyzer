@@ -9,7 +9,8 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 public class DatabaseService<T extends Serializable> {
 
 	private GenericDAO<T> getGenericDAO() {
-		GenericDAO<T> dao = new GenericDAOHibernateImpl<T>();
+//		GenericDAO<T> dao = new GenericDAOHibernateImpl<T>();
+		GenericDAO<T> dao = new GenericDAOFileImpl<T>();
 		return dao;
 	}
 	

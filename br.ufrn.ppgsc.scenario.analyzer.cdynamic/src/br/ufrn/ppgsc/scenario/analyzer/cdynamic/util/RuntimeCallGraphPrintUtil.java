@@ -1,6 +1,7 @@
 package br.ufrn.ppgsc.scenario.analyzer.cdynamic.util;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -31,6 +32,16 @@ public abstract class RuntimeCallGraphPrintUtil {
 		printInOrder(tree.getRoot(), buffer);
 		buffer.append(System.lineSeparator());
 		printTreeNode(tree.getRoot(), "   ", buffer);
+	}
+	
+	public static void logScenarioTree(RuntimeScenario tree, PrintStream ps) throws IOException {
+		logTreeNode(tree.getRoot(), "", ps);
+	}
+	
+	private static void logTreeNode(RuntimeNode root, String tabs, PrintStream ps) throws IOException {
+		ps.println(tabs + root.getMemberSignature());
+		for (RuntimeNode node : root.getChildren())
+			logTreeNode(node, tabs + ">", ps);
 	}
 	
 	private static void printInOrder(RuntimeNode root, Appendable buffer) throws IOException {
