@@ -6,7 +6,10 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class AspectMBeanEntryPoint extends AbstractAspectEntryPoint {
 
-	@Pointcut("within(@org.springframework.stereotype.Component *) && !execution(* get*(..)) && !execution(* set*(..)) && !execution(* is*(..))")
+	// @Pointcut("execution(* (@org.springframework.stereotype.Component *).*(..)) || execution((@org.springframework.stereotype.Component *).new(..))")
+	@Pointcut("within(@org.springframework.stereotype.Component *) && "
+			+ "(execution(* *(..)) || execution(*.new(..))) && "
+			+ "!execution(* set*(..)) && !execution(* get*(..)) && !execution(* is*(..))")
 	public void entryPoint() {
 	}
 
