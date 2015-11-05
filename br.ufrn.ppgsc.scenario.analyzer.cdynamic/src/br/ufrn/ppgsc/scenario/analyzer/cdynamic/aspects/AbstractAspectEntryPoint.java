@@ -45,10 +45,10 @@ public abstract class AbstractAspectEntryPoint {
 	public abstract void entryPoint();
 	
 	@Pointcut("within(br.ufrn.ppgsc.scenario.analyzer..*)")
-	private void ignore() { }
+	public void ignore() { }
 	
 	@Pointcut("cflow(entryPoint()) && (execution(* *(..)) || execution(*.new(..)))")
-	private void entryPointFlow() {	}
+	private final void entryPointFlow() {	}
 	
 	@SuppressAjWarnings
 	@Around("entryPointFlow() && !ignore()")
