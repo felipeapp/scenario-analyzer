@@ -9,17 +9,17 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 public class DatabaseService<T extends Serializable> {
 
 	private GenericDAO<T> getGenericDAO() {
-//		GenericDAO<T> dao = new GenericDAOHibernateImpl<T>();
-		GenericDAO<T> dao = new GenericDAOFileImpl<T>();
+		GenericDAO<T> dao = new GenericDAOHibernateImpl<T>();
+		// GenericDAO<T> dao = new GenericDAOFileImpl<T>();
 		return dao;
 	}
-	
+
 	public synchronized static void saveResults(SystemExecution e) {
 		synchronized (e) {
 			GenericDAO<RuntimeScenario> dao = new DatabaseService<RuntimeScenario>().getGenericDAO();
 
 			Iterator<RuntimeScenario> it = e.getScenarios().iterator();
-			
+
 			while (it.hasNext()) {
 				RuntimeScenario rs = it.next();
 
@@ -34,7 +34,7 @@ public class DatabaseService<T extends Serializable> {
 					dao.save(rs);
 				}
 			}
-			
+
 			dao.clearSession();
 		}
 	}
