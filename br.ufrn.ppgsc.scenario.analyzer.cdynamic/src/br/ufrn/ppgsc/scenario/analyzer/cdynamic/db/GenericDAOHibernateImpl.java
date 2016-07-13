@@ -12,12 +12,12 @@ import org.hibernate.cfg.Configuration;
 public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
 
 	private static Session s;
-	
+
 	public Session getSession() {
 		if (s == null) {
 			/*
-			 *  AnnotationConfiguration is deprecated. We should use Configuration
-			 *  AnnotationConfiguration should be used with SIGAA
+			 * AnnotationConfiguration is deprecated. We should use
+			 * Configuration. AnnotationConfiguration should be used with SIGAA
 			 */
 			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
@@ -25,18 +25,22 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 
 		return s;
 	}
-	
+
 	@Override
 	public void clearSession() {
-		s.clear();
+		try {
+			s.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	public T save(T instance) {
 		Session s = getSession();
 		Transaction tx = null;
-		
-		try { 
+
+		try {
 			tx = s.beginTransaction();
 			System.out.println("Saving " + instance.toString());
 			s.save(instance);
@@ -45,7 +49,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 		} catch (RuntimeException e) {
 			if (tx != null)
 				tx.rollback();
-			
+
 			e.printStackTrace();
 		}
 
