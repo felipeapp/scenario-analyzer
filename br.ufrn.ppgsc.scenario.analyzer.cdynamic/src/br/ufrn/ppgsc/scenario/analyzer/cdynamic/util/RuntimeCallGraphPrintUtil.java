@@ -30,7 +30,7 @@ public abstract class RuntimeCallGraphPrintUtil {
 		buffer.append(")\n");
 
 		printInOrder(tree.getRoot(), buffer);
-		buffer.append(System.lineSeparator());
+		buffer.append(System.getProperty("line.separator"));
 		printTreeNode(tree.getRoot(), "   ", buffer);
 	}
 	
@@ -77,7 +77,7 @@ public abstract class RuntimeCallGraphPrintUtil {
 			for (RuntimeGenericAnnotation ann : annotations)
 				buffer.append(" | " + ann.getClass().getSimpleName() + ": " + ann.getName());
 		
-		buffer.append(System.lineSeparator());
+		buffer.append(System.getProperty("line.separator"));
 		
 		for (RuntimeNode node : root.getChildren())
 			printTreeNode(node, tabs + "   ", buffer);

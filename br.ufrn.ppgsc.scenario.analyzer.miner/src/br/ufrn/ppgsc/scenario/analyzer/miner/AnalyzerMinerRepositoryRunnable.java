@@ -205,8 +205,8 @@ public final class AnalyzerMinerRepositoryRunnable {
 				
 				StringBuilder sb = new StringBuilder();
 				
-				sb.append("\t" + s + System.lineSeparator());
-				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2 + ";" + System.lineSeparator());
+				sb.append("\t" + s + System.getProperty("line.separator"));
+				sb.append("\t\tTime: " + t1 + ";" + t2 + ";" + delta + ";" + count1 + ";" + count2 + ";" + System.getProperty("line.separator"));
 				
 				UpdatedMethod um = map_signature_to_upmethod.get(s);
 				for (UpdatedLine ul : um.getUpdatedLines()) {
@@ -224,16 +224,16 @@ public final class AnalyzerMinerRepositoryRunnable {
 				}
 				
 				for (String revision : local_revision_to_issues.keySet()) {
-					sb.append("\t\t\tRevision: " + revision + System.lineSeparator());
+					sb.append("\t\t\tRevision: " + revision + System.getProperty("line.separator"));
 					
 					sb.append("\t\t\t\tIssues: ");
 					for (Issue issue : local_revision_to_issues.get(revision))
 						sb.append(issue.getNumber() + ";");
 					sb.deleteCharAt(sb.length() - 1);
-					sb.append(System.lineSeparator());
+					sb.append(System.getProperty("line.separator"));
 				}
 				
-//				text += System.lineSeparator() + "\t\t";
+//				text += System.getProperty("line.separator") + "\t\t";
 //				for (Issue issue : local_number_to_issue.values())
 //					text += ";" + issue.getNumber();
 				
@@ -280,22 +280,22 @@ public final class AnalyzerMinerRepositoryRunnable {
 			Set<String> members = scenario_to_members_significance.get(scenario);
 			
 			if (!members.isEmpty()) {
-				sb_scenarios.append(scenario + System.lineSeparator());
+				sb_scenarios.append(scenario + System.getProperty("line.separator"));
 				count_scenarios++;
 				
 				for (String line : members) {
 					String sig = line.substring(0, line.indexOf(';'));
 					
 					if (!counted_member.contains(sig)) {
-						sb_members.append(line + System.lineSeparator());
+						sb_members.append(line + System.getProperty("line.separator"));
 						count_members++;
 						counted_member.add(sig);
 					}
 				}
 			}
 		}
-		sb_scenarios.insert(0, count_scenarios + System.lineSeparator());
-		sb_members.insert(0, count_members + System.lineSeparator());
+		sb_scenarios.insert(0, count_scenarios + System.getProperty("line.separator"));
+		sb_members.insert(0, count_members + System.getProperty("line.separator"));
 		pw_significance.print(sb_scenarios);
 		pw_significance.print(sb_members);
 		
@@ -304,11 +304,11 @@ public final class AnalyzerMinerRepositoryRunnable {
 		int nb_lines = 0;
 		for (String scenario : scenario_to_members_significance.keySet()) {
 			for (String member : scenario_to_members_significance.get(scenario)) {
-				sb_lines.append(scenario + ";" + member + System.lineSeparator());
+				sb_lines.append(scenario + ";" + member + System.getProperty("line.separator"));
 				nb_lines++;
 			}
 		}
-		sb_lines.insert(0, nb_lines + System.lineSeparator());
+		sb_lines.insert(0, nb_lines + System.getProperty("line.separator"));
 		pw_significance.print(sb_lines.toString());
 		
 		pw_list.println(members_signature.size());
@@ -363,13 +363,13 @@ public final class AnalyzerMinerRepositoryRunnable {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("Number of revisions (commits): " + revision_to_issues.size() + System.lineSeparator());
+		sb.append("Number of revisions (commits): " + revision_to_issues.size() + System.getProperty("line.separator"));
 		for (String revision : revision_to_issues.keySet()) {
 			sb.append("Revision (Issues): " + revision + "(");
 			for (Issue issue : revision_to_issues.get(revision))
 				sb.append(issue.getNumber() + ";");
 			sb.deleteCharAt(sb.length() - 1);
-			sb.append(")" + System.lineSeparator());
+			sb.append(")" + System.getProperty("line.separator"));
 		}
 		pw.print(sb.toString());
 	}

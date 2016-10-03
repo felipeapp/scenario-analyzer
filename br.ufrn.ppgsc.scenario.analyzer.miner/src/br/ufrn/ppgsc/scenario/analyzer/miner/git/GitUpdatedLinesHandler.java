@@ -139,7 +139,7 @@ public class GitUpdatedLinesHandler {
 		String line = null;
 		while ((line = br.readLine()) != null) {
 			sb.append(line);
-			sb.append(System.lineSeparator());
+			sb.append(System.getProperty("line.separator"));
 		}
 		
 		br.close();
@@ -153,7 +153,7 @@ public class GitUpdatedLinesHandler {
 		String line = null;
 		while ((line = br.readLine()) != null) {
 			sb.append(line);
-			sb.append(System.lineSeparator());
+			sb.append(System.getProperty("line.separator"));
 		}
 		
 		br.close();
@@ -464,7 +464,7 @@ public class GitUpdatedLinesHandler {
 		for (int i = 0; i < tokens.size() - 4; i++)
 			author_name += (i == 0 ? "" : " ") + tokens.get(i);
 		
-		sourceCode.append(source_line + System.lineSeparator());
+		sourceCode.append(source_line + System.getProperty("line.separator"));
 		
 		// Commits fora do período dos releases são desconsiderados
 		if (!commit_revision.startsWith("^")) {

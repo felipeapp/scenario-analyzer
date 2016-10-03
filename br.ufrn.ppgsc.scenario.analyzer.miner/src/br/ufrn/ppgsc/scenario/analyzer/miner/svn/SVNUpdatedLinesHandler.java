@@ -80,7 +80,7 @@ public class SVNUpdatedLinesHandler implements ISVNAnnotateHandler {
 	public void handleLine(Date date, long revision, String author, String line, Date mergedDate,
 			long mergedRevision, String mergedAuthor, String mergedPath, int lineNumber) throws SVNException {
 		
-		sourceCode.append(line + System.lineSeparator());
+		sourceCode.append(line + System.getProperty("line.separator"));
 		
 		if (revision != -1) {
 			Commit commit = cache_revisions.get(revision);
