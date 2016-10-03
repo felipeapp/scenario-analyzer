@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
 
@@ -19,8 +19,12 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 			 * AnnotationConfiguration is deprecated. We should use
 			 * Configuration. AnnotationConfiguration should be used with SIGAA
 			 */
-			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
+
+			// This is the best way, but it does not work with old sinfo libs.
+			// SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			// s = sf.openSession();
 		}
 
 		return s;
