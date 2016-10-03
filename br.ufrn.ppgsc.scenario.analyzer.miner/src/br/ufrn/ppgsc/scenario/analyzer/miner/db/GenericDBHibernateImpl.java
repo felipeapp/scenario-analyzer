@@ -59,7 +59,7 @@ public class GenericDBHibernateImpl extends GenericDB {
 		query.setString("signature", signature);
 		query.addScalar("total", IntegerType.INSTANCE);
 
-		return (int) query.uniqueResult();
+		return (Integer) query.uniqueResult();
 	}
 	
 	private Map<String, Integer> cache_scenariosignature_to_total = new HashMap<String, Integer>();

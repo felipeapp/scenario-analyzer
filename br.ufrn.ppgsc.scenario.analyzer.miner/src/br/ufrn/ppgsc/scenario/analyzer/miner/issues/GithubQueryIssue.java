@@ -103,10 +103,16 @@ public class GithubQueryIssue implements IQueryIssue {
 	public Issue getIssueByNumber(long number) {
 		try {
 			return getIssueInfoFromJSON(getJSONByIssueId(number));
-		} catch (JSONException | ParseException | IOException | JDOMException e) {
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JDOMException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 

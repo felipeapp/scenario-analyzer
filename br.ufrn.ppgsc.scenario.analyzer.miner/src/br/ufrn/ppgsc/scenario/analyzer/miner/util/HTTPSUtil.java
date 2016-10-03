@@ -90,8 +90,11 @@ public class HTTPSUtil {
 			return connection.getInputStream();
 		} catch (FileNotFoundException e) {
 			// Just continue and return null because the URL was not found
-		}
-		catch (KeyManagementException | NoSuchAlgorithmException | IOException e) {
+		} catch (KeyManagementException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
