@@ -73,17 +73,17 @@ public abstract class ScenarioAnalyzerUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void setDataStructureBuilder(Class<? extends IDataStructure> cls) {
 		dataStructureBuilder = cls;
 	}
 
 	public static IDataStructure createDataStructure(String version) {
 		IDataStructure ds = null;
-		
+
 		if (data == null)
 			data = new HashMap<String, IDataStructure>();
-		
+
 		try {
 			ds = dataStructureBuilder.newInstance();
 		} catch (InstantiationException e) {
@@ -91,7 +91,7 @@ public abstract class ScenarioAnalyzerUtil {
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		
+
 		ds.setVersion(version);
 		data.put(ds.getVersion(), ds);
 
@@ -178,28 +178,26 @@ public abstract class ScenarioAnalyzerUtil {
 	}
 
 	public static String convertTypeSignatureToName(String type) {
-		switch (type) {
-		case "Z":
+		if (type.equals("Z"))
 			return "boolean";
-		case "B":
+		else if (type.equals("B"))
 			return "byte";
-		case "C":
+		else if (type.equals("C"))
 			return "char";
-		case "D":
+		else if (type.equals("D"))
 			return "double";
-		case "F":
+		else if (type.equals("F"))
 			return "float";
-		case "I":
+		else if (type.equals("I"))
 			return "int";
-		case "J":
+		else if (type.equals("J"))
 			return "long";
-		case "S":
+		else if (type.equals("S"))
 			return "short";
-		case "V":
+		else if (type.equals("V"))
 			return "void";
-		default:
+		else
 			return type;
-		}
 	}
 
 	public static Object getAnnotationValue(IAnnotationBinding annotation_binding, String attribute) {
@@ -252,7 +250,7 @@ public abstract class ScenarioAnalyzerUtil {
 
 			for (int i = 0; i < list1.size(); i++) {
 				System.out.println(i);
-				
+
 				if (!checkSameInvocations(list1.get(i), list2.get(i)))
 					return false;
 			}
@@ -261,7 +259,7 @@ public abstract class ScenarioAnalyzerUtil {
 		}
 
 		System.out.println("false");
-		
+
 		return false;
 	}
 

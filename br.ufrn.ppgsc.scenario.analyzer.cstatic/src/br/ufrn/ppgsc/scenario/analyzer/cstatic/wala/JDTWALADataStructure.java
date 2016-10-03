@@ -28,6 +28,7 @@ import com.ibm.wala.ipa.callgraph.CGNode;
 import com.ibm.wala.ipa.callgraph.CallGraph;
 import com.ibm.wala.ipa.callgraph.CallGraphStats;
 import com.ibm.wala.ipa.callgraph.Entrypoint;
+import com.ibm.wala.ipa.callgraph.propagation.InstanceKey;
 import com.ibm.wala.ipa.cha.IClassHierarchy;
 import com.ibm.wala.util.CancelException;
 import com.ibm.wala.util.collections.Pair;
@@ -198,11 +199,11 @@ public class JDTWALADataStructure implements IDataStructure {
 		}
 	}
 	
-	private AbstractAnalysisEngine makeAnalysisEngine(IJavaProject project) {
-		AbstractAnalysisEngine engine = null;
+	private AbstractAnalysisEngine<InstanceKey> makeAnalysisEngine(IJavaProject project) {
+		AbstractAnalysisEngine<InstanceKey> engine = null;
 		
 		try {
-			engine = new JDTJavaSourceAnalysisEngine(project) {
+			engine = new JDTJavaSourceAnalysisEngine<InstanceKey>(project) {
 				@Override
 				public void buildAnalysisScope() throws IOException {
 					setExclusionsFile((new EclipseFileProvider()).getFileFromPlugin(

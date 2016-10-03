@@ -19,10 +19,10 @@ public class PerformanceProcessor extends AbstractProcessorQA {
 	public Class<? extends Annotation> getAnnotationClass() {
 		return Performance.class;
 	}
-	
+
 	public void setExtraFields(AbstractQAData qa_data, IAnnotationBinding ann_binding) {
 		Object limitTime = ScenarioAnalyzerUtil.getAnnotationValue(ann_binding, "limitTime");
-		((PerformanceData) qa_data).setLimit((long) limitTime);
+		((PerformanceData) qa_data).setLimit((Long) limitTime);
 	}
 
 }

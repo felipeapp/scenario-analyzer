@@ -19,10 +19,10 @@ public class ReliabilityProcessor extends AbstractProcessorQA {
 	public Class<? extends Annotation> getAnnotationClass() {
 		return Reliability.class;
 	}
-	
+
 	public void setExtraFields(AbstractQAData qa_data, IAnnotationBinding ann_binding) {
 		Object failureRate = ScenarioAnalyzerUtil.getAnnotationValue(ann_binding, "failureRate");
-		((ReliabilityData) qa_data).setFailureRate((double) failureRate);
+		((ReliabilityData) qa_data).setFailureRate((Double) failureRate);
 	}
 
 }
