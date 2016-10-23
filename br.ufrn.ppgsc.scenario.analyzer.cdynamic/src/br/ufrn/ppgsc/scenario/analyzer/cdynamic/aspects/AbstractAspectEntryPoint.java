@@ -100,9 +100,9 @@ public abstract class AbstractAspectEntryPoint {
 		node.setScenarios(new ArrayList<RuntimeScenario>(scenarios_stack));
 		nodes_stack.push(node);
 		
-		begin = System.currentTimeMillis();
+		begin = System.nanoTime();
 		Object o = thisJoinPoint.proceed();
-		end = System.currentTimeMillis();
+		end = System.nanoTime();
 		
 		/* 
 		 * Retira os elementos das pilhas e salva as informações no banco de dados

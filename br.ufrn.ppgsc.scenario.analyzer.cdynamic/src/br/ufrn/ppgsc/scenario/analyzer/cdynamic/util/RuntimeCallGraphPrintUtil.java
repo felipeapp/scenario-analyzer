@@ -55,7 +55,7 @@ public abstract class RuntimeCallGraphPrintUtil {
 	
 	private static void printTreeNode(RuntimeNode root, String tabs, Appendable buffer) throws IOException {
 		buffer.append(tabs + root.getMemberSignature() + " - " + root.getId() +
-				" (" + root.getExecutionTime() + "ms, " +
+				" (" + root.getExecutionTime() / 1000000.0 + "ms, " +
 				(root.getExecutionTime() == -1 ? true : false) + ") Parent: " + 
 				(root.getParent() == null ? "-" : root.getParent().getId()));
 		
