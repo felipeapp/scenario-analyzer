@@ -17,6 +17,7 @@ import org.hibernate.type.StringType;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 
 public class GenericDBHibernateImpl extends GenericDB {
 
@@ -125,23 +126,25 @@ public class GenericDBHibernateImpl extends GenericDB {
 	}
 	
 	@Override
-	public Map<String, Double> getExecutionTimeAverageOfScenarios() {
-		Map<String, Double> result = new HashMap<String, Double>();
+	public Map<String, SimpleStatElement> getSimpleStatOfScenarios() {
+		Map<String, SimpleStatElement> result = new HashMap<String, SimpleStatElement>();
 
 		Session s = getSession();
 
-		SQLQuery query = s.createSQLQuery("select scenario.name sname, avg(node.time) saverage"
+		SQLQuery query = s.createSQLQuery("select scenario.name sname, count(scenario.id) sexecutions, avg(node.time) saverage"
 				+ " from scenario inner join node on scenario.root_id = node.id and node.time <> -1"
 				+ " group by sname order by sname");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 
 		query.addScalar("sname", StringType.INSTANCE);
+		query.addScalar("sexecutions", IntegerType.INSTANCE);
 		query.addScalar("saverage", DoubleType.INSTANCE);
 
 		for (Object o : query.list()) {
 			Map<?, ?> elem = (Map<?, ?>) o;
-			result.put(elem.get("sname").toString(), (Double) elem.get("saverage"));
+			SimpleStatElement stat = new SimpleStatElement(elem.get("sname").toString(), (Double) elem.get("saverage"), (Integer) elem.get("sexecutions"));
+			result.put(stat.getElementName(), stat);
 		}
 
 		return result;

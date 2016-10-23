@@ -1,6 +1,6 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
-public class StatElement {
+public class DoubleStatElement {
 	private String elementName;
 	private double TTestPvalue;
 	private double UTestPvalue;
@@ -9,7 +9,7 @@ public class StatElement {
 	private int N1;
 	private int N2;
 
-	public StatElement(String elementName, double TTestPvalue, double UTestPvalue, double AVGv1, double AVGv2, int N1, int N2) {
+	public DoubleStatElement(String elementName, double TTestPvalue, double UTestPvalue, double AVGv1, double AVGv2, int N1, int N2) {
 		this.elementName = elementName;
 		this.UTestPvalue = UTestPvalue;
 		this.TTestPvalue = TTestPvalue;

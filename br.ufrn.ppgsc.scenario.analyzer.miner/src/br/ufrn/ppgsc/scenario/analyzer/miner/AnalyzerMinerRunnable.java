@@ -22,7 +22,7 @@ public final class AnalyzerMinerRunnable {
 		String type = SystemMetadataUtil.getInstance().getStringProperty("mining_type");
 		
 		if (type.equals(MinerType.Database.name()) || type.equals(MinerType.Both.name()))
-			date = new AnalyzerMinerDBRunnable().run();
+			date = new AnalyzerMinerByScenarioDBRunnable().run();
 
 		if (type.equals(MinerType.Repository.name()) || type.equals(MinerType.Both.name()))
 			new AnalyzerMinerRepositoryRunnable(date).run();

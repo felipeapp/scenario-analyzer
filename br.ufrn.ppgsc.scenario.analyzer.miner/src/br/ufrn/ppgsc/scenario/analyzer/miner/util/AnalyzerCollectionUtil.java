@@ -20,8 +20,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.DoubleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
-import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
@@ -40,10 +40,10 @@ public abstract class AnalyzerCollectionUtil {
 	}
 
 	/** It uses the rate method to determine if there was performance degradation */
-	public static List<StatElement> degradatedRate(Collection<StatElement> elements, double rate) {
-		List<StatElement> result = new ArrayList<StatElement>();
+	public static List<DoubleStatElement> degradedRate(Collection<DoubleStatElement> elements, double rate) {
+		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
-		for (StatElement e : elements)
+		for (DoubleStatElement e : elements)
 			if (e.getAVGv2() > e.getAVGv1() * (1 + rate))
 				result.add(e);
 
@@ -51,10 +51,10 @@ public abstract class AnalyzerCollectionUtil {
 	}
 
 	/** It uses the rate method to determine if there was performance optimization */
-	public static List<StatElement> optimizedRate(Collection<StatElement> elements, double rate) {
-		List<StatElement> result = new ArrayList<StatElement>();
+	public static List<DoubleStatElement> optimizedRate(Collection<DoubleStatElement> elements, double rate) {
+		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
-		for (StatElement e : elements)
+		for (DoubleStatElement e : elements)
 			if (e.getAVGv2() < e.getAVGv1() * (1 - rate))
 				result.add(e);
 
@@ -62,10 +62,10 @@ public abstract class AnalyzerCollectionUtil {
 	}
 
 	/** It uses the rate method to determine unchanged performance */
-	public static List<StatElement> unchangedRate(Collection<StatElement> elements, double rate) {
-		List<StatElement> result = new ArrayList<StatElement>();
+	public static List<DoubleStatElement> unchangedRate(Collection<DoubleStatElement> elements, double rate) {
+		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
-		for (StatElement e : elements)
+		for (DoubleStatElement e : elements)
 			if (e.getAVGv2() >= e.getAVGv1() * (1 - rate) && e.getAVGv2() <= e.getAVGv1() * (1 + rate))
 				result.add(e);
 
@@ -73,10 +73,10 @@ public abstract class AnalyzerCollectionUtil {
 	}
 
 	/** It uses the pvalue to determine performance degradation */
-	public static List<StatElement> degradatedPValue(Collection<StatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
-		List<StatElement> result = new ArrayList<StatElement>();
+	public static List<DoubleStatElement> degradedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
-		for (StatElement e : elements) {
+		for (DoubleStatElement e : elements) {
 			double pvalue;
 			
 			if (test == AnalyzerStatistical.Tests.TTest)
@@ -94,10 +94,10 @@ public abstract class AnalyzerCollectionUtil {
 	}
 	
 	/** It uses the pvalue to determine if there was performance optimization */
-	public static List<StatElement> optimizedPValue(Collection<StatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
-		List<StatElement> result = new ArrayList<StatElement>();
+	public static List<DoubleStatElement> optimizedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
-		for (StatElement e : elements) {
+		for (DoubleStatElement e : elements) {
 			double pvalue;
 			
 			if (test == AnalyzerStatistical.Tests.TTest)
@@ -115,10 +115,10 @@ public abstract class AnalyzerCollectionUtil {
 	}
 	
 	/** It uses the pvalue to determine unchanged performance */
-	public static List<StatElement> unchangedPValue(Collection<StatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
-		List<StatElement> result = new ArrayList<StatElement>();
+	public static List<DoubleStatElement> unchangedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
-		for (StatElement e : elements) {
+		for (DoubleStatElement e : elements) {
 			double pvalue;
 			
 			if (test == AnalyzerStatistical.Tests.TTest)

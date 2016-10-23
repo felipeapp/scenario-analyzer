@@ -21,35 +21,39 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.DoubleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
-import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public abstract class AnalyzerReportUtil {
 
-	public static void saveAVGs(
+	public static void saveSimpleElements(
 			String message, String filename,
-			Map<String, Double> avgs, Collection<String> elements) throws FileNotFoundException {
+			Map<String, SimpleStatElement> elements,
+			Collection<String> target_keys) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
 
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
 
 		pw.println(message);
-		pw.println(elements.size());
-		pw.println("Name;Average");
+		pw.println(target_keys.size());
+		pw.println("Name;Average;N");
 
-		for (String key : elements)
-			pw.println(key + ";" + avgs.get(key));
+		for (String key : target_keys) {
+			SimpleStatElement e = elements.get(key);
+			pw.println(e.getElementName() + ";" + e.getAverage() + ";" + e.getNumberOfExecutions());
+		}
 		
 		pw.close();
 		
 	}
 	
-	public static void saveElements(
+	public static void saveDoubleElements(
 			String message, String filename,
-			Collection<StatElement> collection,
+			Collection<DoubleStatElement> results,
 			double rate, double alpha) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
@@ -57,10 +61,10 @@ public abstract class AnalyzerReportUtil {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
 
 		pw.println(message);
-		pw.println(collection.size());
+		pw.println(results.size());
 		pw.println("Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2");
 
-		for (StatElement e : collection) {
+		for (DoubleStatElement e : results) {
 			pw.println(e.getElementName() + ";"
 					+ e.getTTestPvalue() + ";" + e.getUTestPvalue() + ";"
 					+ e.getAVGv1() + ";" + e.getAVGv2() + ";"
