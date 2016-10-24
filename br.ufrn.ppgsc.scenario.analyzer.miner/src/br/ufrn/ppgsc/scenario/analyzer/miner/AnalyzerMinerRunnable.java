@@ -22,7 +22,7 @@ public final class AnalyzerMinerRunnable {
 		String type = SystemMetadataUtil.getInstance().getStringProperty("mining_type");
 		
 		if (type.equals(MinerType.Database.name()) || type.equals(MinerType.Both.name()))
-			date = new AnalyzerMinerDBRunnable().run();
+			date = new AnalyzerMinerByScenarioDBRunnable().run();
 
 		if (type.equals(MinerType.Repository.name()) || type.equals(MinerType.Both.name()))
 			new AnalyzerMinerRepositoryRunnable(date).run();
@@ -41,7 +41,9 @@ public final class AnalyzerMinerRunnable {
 		Logger.getLogger("br.ufrn.ppgsc.scenario.analyzer.miner").setLevel(Level.ALL);
 
 		try {
+			long start = System.currentTimeMillis();
 			AnalyzerMinerRunnable.startAnalyzerMiner();
+			System.out.println("Total time: " + (System.currentTimeMillis() - start) / 60000.0 + " min");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

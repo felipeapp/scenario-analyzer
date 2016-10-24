@@ -136,7 +136,6 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		
 		System.out.println("-------------------------------------------------------------------");
 		
-		
 		// Here, we start the treatment of the methods
 		System.out.println("Getting general members and means for release 1...");
 		Map<String, SimpleStatElement> general_simple_members_v1 = database_v1.getSimpleStatOfMembers();
@@ -161,17 +160,6 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		System.out.println("Calculating statistical tests for common methods...");
 		Map<String, DoubleStatElement> general_member_results = as.executeStatisticalTests(kept_members, general_simple_members_v1, general_simple_members_v2);
 		
-//		Map<String, Map<String, DoubleStatElement>> from_scenario_to_members = new HashMap<String, Map<String, DoubleStatElement>>();
-//		
-//		for (DoubleStatElement elem : degraded_scenarios) {
-//			Map<String, SimpleStatElement> simple_members_v1 = database_v1.getSimpleStatOfMembersByScenario(elem.getElementName());
-//			Map<String, SimpleStatElement> simple_members_v2 = database_v2.getSimpleStatOfMembersByScenario(elem.getElementName());
-//			
-//			Map<String, DoubleStatElement> member_results = as.executeStatisticalTests(kept_members, simple_members_v1, simple_members_v2, RuntimeNode.class);
-//			
-//			
-//		}
-		
 		// Save methods in separated files
 		AnalyzerReportUtil.saveDoubleElements("# Methods executed in both releases", getFileName("kept_members"), general_member_results.values(), 0, 0);
 		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the first release, but not in the second", getFileName("removed_members"), general_simple_members_v1, removed_members);
@@ -191,6 +179,29 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
 		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
 		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		
+		System.out.println("-------------------------------------------------------------------");
+		
+//		Map<String, Map<String, DoubleStatElement>> from_scenario_to_members = new HashMap<String, Map<String, DoubleStatElement>>();
+		int i = 0;
+		for (String scenario : kept_scenarios) {
+			System.out.println(++i + " / " + kept_scenarios.size() + " - Getting members of the scenario " + scenario);
+			Map<String, SimpleStatElement> simple_members_v1_by_scenario = database_v1.getSimpleStatOfMembersByScenario(scenario);
+			System.out.println("\tTotal V1 = " + simple_members_v1_by_scenario.size());
+			Map<String, SimpleStatElement> simple_members_v2_by_scenario = database_v2.getSimpleStatOfMembersByScenario(scenario);
+			System.out.println("\tTotal V2 = " + simple_members_v2_by_scenario.size());
+			
+			Set<String> removed_members_by_scenario = AnalyzerCollectionUtil.except(simple_members_v1_by_scenario.keySet(), simple_members_v2_by_scenario.keySet());
+			Set<String> added_members_by_scenario = AnalyzerCollectionUtil.except(simple_members_v2_by_scenario.keySet(), simple_members_v1_by_scenario.keySet());
+			Set<String> kept_members_by_scenario = AnalyzerCollectionUtil.intersect(simple_members_v1_by_scenario.keySet(), simple_members_v2_by_scenario.keySet());
+			
+			Map<String, DoubleStatElement> member_results_by_scenario = as.executeStatisticalTests(kept_members_by_scenario, simple_members_v1_by_scenario, simple_members_v2_by_scenario);
+			
+			// Save methods in separated files
+			AnalyzerReportUtil.saveDoubleElements("# Members executed in both releases by:", getFileName("kept_members_by_scenario"), scenario, member_results_by_scenario.values());
+			AnalyzerReportUtil.saveSimpleElements("# Members executed in the first release, but not in the second by:", getFileName("removed_members_by_scenario"), scenario, simple_members_v1_by_scenario, removed_members_by_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# Members executed in the second release, but not in the first by:", getFileName("added_members_by_scenario"), scenario, simple_members_v2_by_scenario, added_members_by_scenario);
+		}
 		
 		System.out.println("-------------------------------------------------------------------");
 		

@@ -30,6 +30,29 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 public abstract class AnalyzerReportUtil {
 
 	public static void saveSimpleElements(
+			String message, String filename, String scenario,
+			Map<String, SimpleStatElement> elements,
+			Collection<String> target_keys) throws FileNotFoundException {
+		
+		System.out.println("Saving >> " + message + " " + scenario);
+
+		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
+
+		pw.println(message);
+		pw.println(scenario);
+		pw.println(target_keys.size());
+		pw.println("Name;Average;N");
+
+		for (String key : target_keys) {
+			SimpleStatElement e = elements.get(key);
+			pw.println(e.getElementName() + ";" + e.getAverage() + ";" + e.getNumberOfExecutions());
+		}
+		
+		pw.close();
+		
+	}
+	
+	public static void saveSimpleElements(
 			String message, String filename,
 			Map<String, SimpleStatElement> elements,
 			Collection<String> target_keys) throws FileNotFoundException {
@@ -45,6 +68,30 @@ public abstract class AnalyzerReportUtil {
 		for (String key : target_keys) {
 			SimpleStatElement e = elements.get(key);
 			pw.println(e.getElementName() + ";" + e.getAverage() + ";" + e.getNumberOfExecutions());
+		}
+		
+		pw.close();
+		
+	}
+	
+	public static void saveDoubleElements(
+			String message, String filename, String scenario,
+			Collection<DoubleStatElement> results) throws FileNotFoundException {
+		
+		System.out.println("Saving >> " + message + " " + scenario);
+
+		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
+
+		pw.println(message);
+		pw.println(scenario);
+		pw.println(results.size());
+		pw.println("Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2");
+
+		for (DoubleStatElement e : results) {
+			pw.println(e.getElementName() + ";"
+					+ e.getTTestPvalue() + ";" + e.getUTestPvalue() + ";"
+					+ e.getAverageV1() + ";" + e.getAverageV2() + ";"
+					+ e.getNumberOfExecutionsV1() + ";" + e.getNumberOfExecutionsV2());
 		}
 		
 		pw.close();
