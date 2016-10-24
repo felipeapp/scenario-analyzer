@@ -14,7 +14,8 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
-import br.ufrn.ppgsc.scenario.analyzer.miner.model.StatElement;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.DoubleStatElement;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerReportUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical;
@@ -85,85 +86,99 @@ public final class AnalyzerMinerDBRunnable {
 		
 		// Here, we start the treatment of the failed scenarios and methods
 		System.out.println("Getting scenarios and means for release 1...");
-		Map<String, Double> avg_scenarios_v1 = database_v1.getExecutionTimeAverageOfScenarios();
-		System.out.println("\tTotal = " + avg_scenarios_v1.size());
+		Map<String, SimpleStatElement> simple_scenarios_v1 = database_v1.getSimpleStatOfScenarios();
+		System.out.println("\tTotal = " + simple_scenarios_v1.size());
 		
 		System.out.println("Getting scenarios and means for release 2...");
-		Map<String, Double> avg_scenarios_v2 = database_v2.getExecutionTimeAverageOfScenarios();
-		System.out.println("\tTotal = " + avg_scenarios_v2.size());
+		Map<String, SimpleStatElement> simple_scenarios_v2 = database_v2.getSimpleStatOfScenarios();
+		System.out.println("\tTotal = " + simple_scenarios_v2.size());
 		
 		System.out.println("Determining removed scenarios...");
-		Set<String> removed_scenarios = AnalyzerCollectionUtil.except(avg_scenarios_v1.keySet(), avg_scenarios_v2.keySet());
+		Set<String> removed_scenarios = AnalyzerCollectionUtil.except(simple_scenarios_v1.keySet(), simple_scenarios_v2.keySet());
 		System.out.println("\tTotal = " + removed_scenarios.size());
 		
 		System.out.println("Determining added scenarios...");
-		Set<String> added_scenarios = AnalyzerCollectionUtil.except(avg_scenarios_v2.keySet(), avg_scenarios_v1.keySet());
+		Set<String> added_scenarios = AnalyzerCollectionUtil.except(simple_scenarios_v2.keySet(), simple_scenarios_v1.keySet());
 		System.out.println("\tTotal = " + added_scenarios.size());
 		
+		System.out.println("Determining kept scenarios...");
+		Set<String> kept_scenarios = AnalyzerCollectionUtil.intersect(simple_scenarios_v1.keySet(), simple_scenarios_v2.keySet());
+		System.out.println("\tTotal = " + kept_scenarios.size());
+		
 		System.out.println("Calculating statistical tests for common scenarios...");
-		Map<String, StatElement> scenario_results = as.executeStatisticalTests(avg_scenarios_v1, avg_scenarios_v2, RuntimeScenario.class);
+		Map<String, DoubleStatElement> scenario_results = as.executeStatisticalTests(kept_scenarios, simple_scenarios_v1, simple_scenarios_v2);
+		System.out.println("Calculating statistical tests for common scenarios...");
+		
+		// Calculating degraded, optimized and unchanged scenarios
+		List<DoubleStatElement> degraded_scenarios = AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		List<DoubleStatElement> optimized_scenarios = AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		List<DoubleStatElement> unchanged_scenarios = AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
 		
 		// Save scenarios in separated files
-		AnalyzerReportUtil.saveElements("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);
-		AnalyzerReportUtil.saveAVGs("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), avg_scenarios_v1, removed_scenarios);
-		AnalyzerReportUtil.saveAVGs("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), avg_scenarios_v2, added_scenarios);
+		AnalyzerReportUtil.saveDoubleElements("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);
+		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), simple_scenarios_v1, removed_scenarios);
+		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), simple_scenarios_v2, added_scenarios);
 		
 		// Save scenarios according their execution time variation measured by the performance rate
-		AnalyzerReportUtil.saveElements("# Degradated scenarios (Rate method)", getFileName("pr_degraded_scenarios"), AnalyzerCollectionUtil.degradatedRate(scenario_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveElements("# Optimized scenarios (Rate method)", getFileName("pr_optimized_scenarios"), AnalyzerCollectionUtil.optimizedRate(scenario_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveElements("# Unchanged scenarios (Rate method)", getFileName("pr_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedRate(scenario_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (Rate method)", getFileName("pr_degraded_scenarios"), AnalyzerCollectionUtil.degradedRate(scenario_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (Rate method)", getFileName("pr_optimized_scenarios"), AnalyzerCollectionUtil.optimizedRate(scenario_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (Rate method)", getFileName("pr_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedRate(scenario_results.values(), performance_rate), performance_rate, 0);
 		
 		// Save scenarios according their execution time variation measured by the TTest
-		AnalyzerReportUtil.saveElements("# Degradated scenarios (TTest P-Value)", getFileName("pt_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized scenarios (TTest P-Value)", getFileName("pt_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged scenarios (TTest P-Value)", getFileName("pt_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (TTest P-Value)", getFileName("pt_degraded_scenarios"), AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (TTest P-Value)", getFileName("pt_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (TTest P-Value)", getFileName("pt_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
 		
 		// Save scenarios according their execution time variation measured by the UTest
-		AnalyzerReportUtil.saveElements("# Degradated scenarios (UTest P-Value)", getFileName("pu_degraded_scenarios"), AnalyzerCollectionUtil.degradatedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized scenarios (UTest P-Value)", getFileName("pu_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged scenarios (UTest P-Value)", getFileName("pu_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (UTest P-Value)", getFileName("pu_degraded_scenarios"), degraded_scenarios, 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (UTest P-Value)", getFileName("pu_optimized_scenarios"), optimized_scenarios, 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (UTest P-Value)", getFileName("pu_unchanged_scenarios"), unchanged_scenarios, 0, alpha_significance_level);
 		
 		System.out.println("-------------------------------------------------------------------");
 		
 		// Here, we start the treatment of the methods
 		System.out.println("Getting methods and means for release 1...");
-		Map<String, Double> avg_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
-		System.out.println("\tTotal = " + avg_members_v1.size());
+		Map<String, SimpleStatElement> simple_members_v1 = database_v1.getSimpleStatOfMembers();
+		System.out.println("\tTotal = " + simple_members_v1.size());
 		
 		System.out.println("Getting methods and means for release 2...");
-		Map<String, Double> avg_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
-		System.out.println("\tTotal = " + avg_members_v2.size());
+		Map<String, SimpleStatElement> simple_members_v2 = database_v2.getSimpleStatOfMembers();
+		System.out.println("\tTotal = " + simple_members_v2.size());
 
 		System.out.println("Determining removed methods...");
-		Set<String> removed_methods = AnalyzerCollectionUtil.except(avg_members_v1.keySet(), avg_members_v2.keySet());
+		Set<String> removed_methods = AnalyzerCollectionUtil.except(simple_members_v1.keySet(), simple_members_v2.keySet());
 		System.out.println("\tTotal = " + removed_methods.size());
 		
 		System.out.println("Determining added methods...");
-		Set<String> added_methods = AnalyzerCollectionUtil.except(avg_members_v2.keySet(), avg_members_v1.keySet());
+		Set<String> added_methods = AnalyzerCollectionUtil.except(simple_members_v2.keySet(), simple_members_v1.keySet());
 		System.out.println("\tTotal = " + added_methods.size());
 		
+		System.out.println("Determining kept methods...");
+		Set<String> kept_methods = AnalyzerCollectionUtil.intersect(simple_members_v1.keySet(), simple_members_v2.keySet());
+		System.out.println("\tTotal = " + kept_methods.size());
+		
 		System.out.println("Calculating statistical tests for common methods...");
-		Map<String, StatElement> method_results = as.executeStatisticalTests(avg_members_v1, avg_members_v2, RuntimeNode.class);
+		Map<String, DoubleStatElement> method_results = as.executeStatisticalTests(kept_methods, simple_members_v1, simple_members_v2);
 		
 		// Save methods in separated files
-		AnalyzerReportUtil.saveElements("# Methods executed in both releases", getFileName("kept_methods"), method_results.values(), 0, 0);
-		AnalyzerReportUtil.saveAVGs("# Methods executed in the first release, but not in the second", getFileName("removed_methods"), avg_members_v1, removed_methods);
-		AnalyzerReportUtil.saveAVGs("# Methods executed in the second release, but not in the first", getFileName("added_methods"), avg_members_v2, added_methods);
+		AnalyzerReportUtil.saveDoubleElements("# Methods executed in both releases", getFileName("kept_methods"), method_results.values(), 0, 0);
+		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the first release, but not in the second", getFileName("removed_methods"), simple_members_v1, removed_methods);
+		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the second release, but not in the first", getFileName("added_methods"), simple_members_v2, added_methods);
 		
 		// Save methods according their execution time variation measured by the performance rate
-		AnalyzerReportUtil.saveElements("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradatedRate(method_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveElements("# Optimized methods (Rate method)", getFileName("pr_optimized_methods"), AnalyzerCollectionUtil.optimizedRate(method_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveElements("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(method_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradedRate(method_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (Rate method)", getFileName("pr_optimized_methods"), AnalyzerCollectionUtil.optimizedRate(method_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(method_results.values(), performance_rate), performance_rate, 0);
 		
 		// Save scenarios according their execution time variation measured by the TTest
-		AnalyzerReportUtil.saveElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
 		
 		// Save scenarios according their execution time variation measured by the UTest
-		AnalyzerReportUtil.saveElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
 		
 		System.out.println("-------------------------------------------------------------------");
 		

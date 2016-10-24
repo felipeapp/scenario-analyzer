@@ -44,7 +44,7 @@ public abstract class AnalyzerCollectionUtil {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
 		for (DoubleStatElement e : elements)
-			if (e.getAVGv2() > e.getAVGv1() * (1 + rate))
+			if (e.getAverageV2() > e.getAverageV1() * (1 + rate))
 				result.add(e);
 
 		return result;
@@ -55,7 +55,7 @@ public abstract class AnalyzerCollectionUtil {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
 		for (DoubleStatElement e : elements)
-			if (e.getAVGv2() < e.getAVGv1() * (1 - rate))
+			if (e.getAverageV2() < e.getAverageV1() * (1 - rate))
 				result.add(e);
 
 		return result;
@@ -66,7 +66,7 @@ public abstract class AnalyzerCollectionUtil {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
 		for (DoubleStatElement e : elements)
-			if (e.getAVGv2() >= e.getAVGv1() * (1 - rate) && e.getAVGv2() <= e.getAVGv1() * (1 + rate))
+			if (e.getAverageV2() >= e.getAverageV1() * (1 - rate) && e.getAverageV2() <= e.getAverageV1() * (1 + rate))
 				result.add(e);
 
 		return result;
@@ -86,7 +86,7 @@ public abstract class AnalyzerCollectionUtil {
 			else
 				throw new RuntimeException("Target test invalid at runtime");
 			
-			if (pvalue <= alpha && e.getAVGv2() - e.getAVGv1() > 0)
+			if (pvalue <= alpha && e.getAverageV2() - e.getAverageV1() > 0)
 				result.add(e);
 		}
 
@@ -107,7 +107,7 @@ public abstract class AnalyzerCollectionUtil {
 			else
 				throw new RuntimeException("Target test invalid at runtime");
 			
-			if (pvalue <= alpha && e.getAVGv2() - e.getAVGv1() < 0)
+			if (pvalue <= alpha && e.getAverageV2() - e.getAverageV1() < 0)
 				result.add(e);
 		}
 

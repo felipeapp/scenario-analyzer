@@ -106,7 +106,7 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		System.out.println("\tTotal = " + kept_scenarios.size());
 		
 		System.out.println("Calculating statistical tests for common scenarios...");
-		Map<String, DoubleStatElement> scenario_results = as.executeStatisticalTests(kept_scenarios, simple_scenarios_v1, simple_scenarios_v2, RuntimeScenario.class);
+		Map<String, DoubleStatElement> scenario_results = as.executeStatisticalTests(kept_scenarios, simple_scenarios_v1, simple_scenarios_v2);
 		System.out.println("Calculating statistical tests for common scenarios...");
 		
 		// Calculating degraded, optimized and unchanged scenarios
@@ -136,81 +136,97 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		
 		System.out.println("-------------------------------------------------------------------");
 		
-//		// Here, we start the treatment of the methods
-//		System.out.println("Getting methods and means for release 1...");
-//		Map<String, Double> avg_members_v1 = database_v1.getExecutionTimeAverageOfMembers();
-//		System.out.println("\tTotal = " + avg_members_v1.size());
+		
+		// Here, we start the treatment of the methods
+		System.out.println("Getting general members and means for release 1...");
+		Map<String, SimpleStatElement> general_simple_members_v1 = database_v1.getSimpleStatOfMembers();
+		System.out.println("\tTotal = " + general_simple_members_v1.size());
+		
+		System.out.println("Getting general members and means for release 2...");
+		Map<String, SimpleStatElement> general_simple_members_v2 = database_v2.getSimpleStatOfMembers();
+		System.out.println("\tTotal = " + general_simple_members_v2.size());
+
+		System.out.println("Determining removed members...");
+		Set<String> removed_members = AnalyzerCollectionUtil.except(general_simple_members_v1.keySet(), general_simple_members_v2.keySet());
+		System.out.println("\tTotal = " + removed_members.size());
+		
+		System.out.println("Determining added members...");
+		Set<String> added_members = AnalyzerCollectionUtil.except(general_simple_members_v2.keySet(), general_simple_members_v1.keySet());
+		System.out.println("\tTotal = " + added_members.size());
+		
+		System.out.println("Determining kept members...");
+		Set<String> kept_members = AnalyzerCollectionUtil.intersect(general_simple_members_v1.keySet(), general_simple_members_v2.keySet());
+		System.out.println("\tTotal = " + kept_members.size());
+		
+		System.out.println("Calculating statistical tests for common methods...");
+		Map<String, DoubleStatElement> general_member_results = as.executeStatisticalTests(kept_members, general_simple_members_v1, general_simple_members_v2);
+		
+//		Map<String, Map<String, DoubleStatElement>> from_scenario_to_members = new HashMap<String, Map<String, DoubleStatElement>>();
 //		
-//		System.out.println("Getting methods and means for release 2...");
-//		Map<String, Double> avg_members_v2 = database_v2.getExecutionTimeAverageOfMembers();
-//		System.out.println("\tTotal = " + avg_members_v2.size());
-//
-//		System.out.println("Determining removed methods...");
-//		Set<String> removed_methods = AnalyzerCollectionUtil.except(avg_members_v1.keySet(), avg_members_v2.keySet());
-//		System.out.println("\tTotal = " + removed_methods.size());
-//		
-//		System.out.println("Determining added methods...");
-//		Set<String> added_methods = AnalyzerCollectionUtil.except(avg_members_v2.keySet(), avg_members_v1.keySet());
-//		System.out.println("\tTotal = " + added_methods.size());
-//		
-//		System.out.println("Calculating statistical tests for common methods...");
-//		Map<String, StatElement> method_results = as.executeStatisticalTests(avg_members_v1, avg_members_v2, RuntimeNode.class);
-//		
-//		// Save methods in separated files
-//		AnalyzerReportUtil.saveElements("# Methods executed in both releases", getFileName("kept_methods"), method_results.values(), 0, 0);
-//		AnalyzerReportUtil.saveAVGs("# Methods executed in the first release, but not in the second", getFileName("removed_methods"), avg_members_v1, removed_methods);
-//		AnalyzerReportUtil.saveAVGs("# Methods executed in the second release, but not in the first", getFileName("added_methods"), avg_members_v2, added_methods);
-//		
-//		// Save methods according their execution time variation measured by the performance rate
-//		AnalyzerReportUtil.saveElements("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradatedRate(method_results.values(), performance_rate), performance_rate, 0);
-//		AnalyzerReportUtil.saveElements("# Optimized methods (Rate method)", getFileName("pr_optimized_methods"), AnalyzerCollectionUtil.optimizedRate(method_results.values(), performance_rate), performance_rate, 0);
-//		AnalyzerReportUtil.saveElements("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(method_results.values(), performance_rate), performance_rate, 0);
-//		
-//		// Save scenarios according their execution time variation measured by the TTest
-//		AnalyzerReportUtil.saveElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-//		AnalyzerReportUtil.saveElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-//		AnalyzerReportUtil.saveElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-//		
-//		// Save scenarios according their execution time variation measured by the UTest
-//		AnalyzerReportUtil.saveElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradatedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-//		AnalyzerReportUtil.saveElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-//		AnalyzerReportUtil.saveElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(method_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-//		
-//		System.out.println("-------------------------------------------------------------------");
-//		
-//		// Here, we start the treatment of the failed scenarios and methods
-//		System.out.println("Getting failed scenarios for release 1...");
-//		List<RuntimeScenario> failed_scenarios_v1 = database_v1.getFailedScenarios();
-//		System.out.println("\tTotal = " + failed_scenarios_v1.size());
-//		
-//		System.out.println("Getting failed scenarios for release 2...");
-//		List<RuntimeScenario> failed_scenarios_v2 = database_v2.getFailedScenarios();
-//		System.out.println("\tTotal = " + failed_scenarios_v2.size());
-//		
-//		Map<String, Integer> failed_methods_v1 = new HashMap<String, Integer>();
-//		Map<String, Integer> failed_methods_v2 = new HashMap<String, Integer>();
-//		
-//		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
-//		AnalyzerReportUtil.saveFails("# Release 1 failed scenarios", getFileName("failed_scenarios_r1"), failed_scenario_to_node_v1, failed_methods_v1, 1);
-//		
-//		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
-//		AnalyzerReportUtil.saveFails("# Release 2 failed scenarios", getFileName("failed_scenarios_r2"), failed_scenario_to_node_v2, failed_methods_v2, 2);
-//		
-//		System.out.println("Getting failed methods for release 1...");
-//		Set<String> failed_methods_only_v1 = AnalyzerCollectionUtil.except(failed_methods_v1.keySet(), failed_methods_v2.keySet());
-//		System.out.println("\tTotal = " + failed_methods_only_v1.size());
-//		
-//		System.out.println("Getting failed methods for release 1...");
-//		Set<String> failed_methods_only_v2 = AnalyzerCollectionUtil.except(failed_methods_v2.keySet(), failed_methods_v1.keySet());
-//		System.out.println("\tTotal = " + failed_methods_only_v2.size());
-//		
-//		System.out.println("Getting failed methods for both releases...");
-//		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
-//		System.out.println("\tTotal = " + failed_methods_both.size());
-//		
-//		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 1", getFileName("failed_methods_only_r1"),failed_methods_only_v1, false);
-//		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 2", getFileName("failed_methods_only_r2"), failed_methods_only_v2, false);
-//		AnalyzerReportUtil.saveCollection("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both, false);
+//		for (DoubleStatElement elem : degraded_scenarios) {
+//			Map<String, SimpleStatElement> simple_members_v1 = database_v1.getSimpleStatOfMembersByScenario(elem.getElementName());
+//			Map<String, SimpleStatElement> simple_members_v2 = database_v2.getSimpleStatOfMembersByScenario(elem.getElementName());
+//			
+//			Map<String, DoubleStatElement> member_results = as.executeStatisticalTests(kept_members, simple_members_v1, simple_members_v2, RuntimeNode.class);
+//			
+//			
+//		}
+		
+		// Save methods in separated files
+		AnalyzerReportUtil.saveDoubleElements("# Methods executed in both releases", getFileName("kept_members"), general_member_results.values(), 0, 0);
+		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the first release, but not in the second", getFileName("removed_members"), general_simple_members_v1, removed_members);
+		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the second release, but not in the first", getFileName("added_members"), general_simple_members_v2, added_members);
+		
+		// Save methods according their execution time variation measured by the performance rate
+		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradedRate(general_member_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (Rate method)", getFileName("pr_optimized_methods"), AnalyzerCollectionUtil.optimizedRate(general_member_results.values(), performance_rate), performance_rate, 0);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(general_member_results.values(), performance_rate), performance_rate, 0);
+		
+		// Save scenarios according their execution time variation measured by the TTest
+		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(general_member_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(general_member_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(general_member_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
+		
+		// Save scenarios according their execution time variation measured by the UTest
+		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
+		
+		System.out.println("-------------------------------------------------------------------");
+		
+		// Here, we start the treatment of the failed scenarios and methods
+		System.out.println("Getting failed scenarios for release 1...");
+		List<RuntimeScenario> failed_scenarios_v1 = database_v1.getFailedScenarios();
+		System.out.println("\tTotal = " + failed_scenarios_v1.size());
+		
+		System.out.println("Getting failed scenarios for release 2...");
+		List<RuntimeScenario> failed_scenarios_v2 = database_v2.getFailedScenarios();
+		System.out.println("\tTotal = " + failed_scenarios_v2.size());
+		
+		Map<String, Integer> failed_methods_v1 = new HashMap<String, Integer>();
+		Map<String, Integer> failed_methods_v2 = new HashMap<String, Integer>();
+		
+		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
+		AnalyzerReportUtil.saveFails("# Release 1 failed scenarios", getFileName("failed_scenarios_r1"), failed_scenario_to_node_v1, failed_methods_v1, 1);
+		
+		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
+		AnalyzerReportUtil.saveFails("# Release 2 failed scenarios", getFileName("failed_scenarios_r2"), failed_scenario_to_node_v2, failed_methods_v2, 2);
+		
+		System.out.println("Getting failed methods for release 1...");
+		Set<String> failed_methods_only_v1 = AnalyzerCollectionUtil.except(failed_methods_v1.keySet(), failed_methods_v2.keySet());
+		System.out.println("\tTotal = " + failed_methods_only_v1.size());
+		
+		System.out.println("Getting failed methods for release 1...");
+		Set<String> failed_methods_only_v2 = AnalyzerCollectionUtil.except(failed_methods_v2.keySet(), failed_methods_v1.keySet());
+		System.out.println("\tTotal = " + failed_methods_only_v2.size());
+		
+		System.out.println("Getting failed methods for both releases...");
+		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
+		System.out.println("\tTotal = " + failed_methods_both.size());
+		
+		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 1", getFileName("failed_methods_only_r1"),failed_methods_only_v1, false);
+		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 2", getFileName("failed_methods_only_r2"), failed_methods_only_v2, false);
+		AnalyzerReportUtil.saveCollection("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both, false);
 		
 		return strdate;
 	}

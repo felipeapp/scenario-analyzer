@@ -22,7 +22,9 @@ public abstract class GenericDB {
 
 	public abstract int countMethodExecutionByScenario(String scenario, String signature);
 
-	public abstract Map<String, Double> getExecutionTimeAverageOfMembers();
+	public abstract Map<String, SimpleStatElement> getSimpleStatOfMembers();
+	
+	public abstract Map<String, SimpleStatElement> getSimpleStatOfMembersByScenario(String sname);
 
 	public abstract Map<String, SimpleStatElement> getSimpleStatOfScenarios();
 
@@ -32,9 +34,11 @@ public abstract class GenericDB {
 
 	public abstract Set<String> getImpactedNodes(String signarute);
 
-	public abstract double[] getAllExecutionTimeByMember(String signature);
+	public abstract double[] getAllExecutionTimeOfMember(String signature);
+	
+	public abstract double[] getAllExecutionTimeOfMemberInScenario(String sname, String signature);
 
-	public abstract double[] getAllExecutionTimeByScenario(String sname);
+	public abstract double[] getAllExecutionTimeOfScenario(String sname);
 
 	private Session s;
 

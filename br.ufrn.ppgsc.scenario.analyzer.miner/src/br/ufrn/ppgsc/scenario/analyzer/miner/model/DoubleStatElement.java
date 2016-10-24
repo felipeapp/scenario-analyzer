@@ -1,50 +1,72 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.StatisticsUtil;
+
 public class DoubleStatElement {
 	private String elementName;
-	private double TTestPvalue;
-	private double UTestPvalue;
-	private double AVGv1;
-	private double AVGv2;
-	private int N1;
-	private int N2;
 
-	public DoubleStatElement(String elementName, double TTestPvalue, double UTestPvalue, double AVGv1, double AVGv2, int N1, int N2) {
+	private double tTestPvalue;
+	private double uTestPvalue;
+
+	private double[] timeMeasurementsV1;
+	private double[] timeMeasurementsV2;
+
+	private double averageV1;
+	private double averageV2;
+
+	public DoubleStatElement(String elementName, double tTestPvalue, double uTestPvalue, double[] timeMeasurementsV1,
+			double[] timeMeasurementsV2) {
 		this.elementName = elementName;
-		this.UTestPvalue = UTestPvalue;
-		this.TTestPvalue = TTestPvalue;
-		this.AVGv1 = AVGv1;
-		this.AVGv2 = AVGv2;
-		this.N1 = N1;
-		this.N2 = N2;
+
+		this.tTestPvalue = tTestPvalue;
+		this.uTestPvalue = uTestPvalue;
+
+		this.timeMeasurementsV1 = timeMeasurementsV1;
+		this.timeMeasurementsV2 = timeMeasurementsV2;
+
+		averageV1 = averageV2 = -1;
 	}
 
 	public String getElementName() {
 		return elementName;
 	}
 
-	public double getUTestPvalue() {
-		return UTestPvalue;
-	}
-
 	public double getTTestPvalue() {
-		return TTestPvalue;
+		return tTestPvalue;
 	}
 
-	public double getAVGv1() {
-		return AVGv1;
+	public double getUTestPvalue() {
+		return uTestPvalue;
 	}
 
-	public double getAVGv2() {
-		return AVGv2;
+	public double[] getTimeMeasurementsV1() {
+		return timeMeasurementsV1;
 	}
 
-	public int getN1() {
-		return N1;
+	public double[] getTimeMeasurementsV2() {
+		return timeMeasurementsV2;
 	}
 
-	public int getN2() {
-		return N2;
+	public int getNumberOfExecutionsV1() {
+		return timeMeasurementsV1.length;
+	}
+
+	public int getNumberOfExecutionsV2() {
+		return timeMeasurementsV2.length;
+	}
+
+	public double getAverageV1() {
+		if (averageV1 < 0)
+			averageV1 = StatisticsUtil.mean(timeMeasurementsV1);
+
+		return averageV1;
+	}
+
+	public double getAverageV2() {
+		if (averageV2 < 0)
+			averageV2 = StatisticsUtil.mean(timeMeasurementsV2);
+
+		return averageV2;
 	}
 
 }

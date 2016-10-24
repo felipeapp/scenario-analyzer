@@ -67,8 +67,8 @@ public abstract class AnalyzerReportUtil {
 		for (DoubleStatElement e : results) {
 			pw.println(e.getElementName() + ";"
 					+ e.getTTestPvalue() + ";" + e.getUTestPvalue() + ";"
-					+ e.getAVGv1() + ";" + e.getAVGv2() + ";"
-					+ e.getN1() + ";" + e.getN2());
+					+ e.getAverageV1() + ";" + e.getAverageV2() + ";"
+					+ e.getNumberOfExecutionsV1() + ";" + e.getNumberOfExecutionsV2());
 		}
 		
 		pw.println(rate);

@@ -1,5 +1,7 @@
 package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.StatisticsUtil;
+
 public class SimpleStatElement {
 
 	// Element name (scenario name or method name)
@@ -8,26 +10,32 @@ public class SimpleStatElement {
 	// Average execution time
 	private double average;
 
-	// Number of executions
-	private int numberOfExecutions;
+	// Every time of the element
+	private double[] timeMeasurements;
 
-	public SimpleStatElement(String elementName, double average, int numberOfExecutions) {
-		super();
+	public SimpleStatElement(String elementName, double[] timeMeasurements) {
 		this.elementName = elementName;
-		this.average = average;
-		this.numberOfExecutions = numberOfExecutions;
+		this.timeMeasurements = timeMeasurements;
+		this.average = -1;
 	}
 
 	public String getElementName() {
 		return elementName;
 	}
 
-	public double getAverage() {
-		return average;
+	public double[] getTimeMeasurements() {
+		return timeMeasurements;
 	}
 
 	public int getNumberOfExecutions() {
-		return numberOfExecutions;
+		return timeMeasurements.length;
+	}
+
+	public double getAverage() {
+		if (average < 0)
+			average = StatisticsUtil.mean(timeMeasurements);
+
+		return average;
 	}
 
 }
