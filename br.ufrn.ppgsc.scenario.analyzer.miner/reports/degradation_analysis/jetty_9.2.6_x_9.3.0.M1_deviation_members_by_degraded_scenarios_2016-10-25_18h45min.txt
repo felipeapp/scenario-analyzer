@@ -1,0 +1,405 @@
+# Members with deviation for scenario Entry point for AsyncServletTest.testSuspendTimeoutSuspendResume | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletTest.testSuspendTimeoutSuspendResume;1.2972939633257904E-8;1.067005555688283E-6;200.7;212.3;30;30;11.600000000000023;1
+7
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.util.IO.copy(java.io.Reader,java.io.Writer);5.7272358083234334E-9;9.533208511491864E-7;183.03333333333333;196.1;30;30;13.066666666666663;1
+org.eclipse.jetty.util.IO.copy(java.io.Reader,java.io.Writer,long);1.8673032750758618E-8;2.4025281379902452E-6;183.03333333333333;195.56666666666666;30;30;12.533333333333331;1
+org.eclipse.jetty.servlet.AsyncServletTest.testSuspendTimeoutSuspendResume();1.2972939633257904E-8;1.067005555688283E-6;200.7;212.3;30;30;11.600000000000023;1
+org.eclipse.jetty.util.IO.toString(java.io.InputStream);5.7272358083234334E-9;9.533208511491864E-7;183.03333333333333;196.1;30;30;13.066666666666663;1
+org.eclipse.jetty.util.IO.toString(java.io.InputStream,java.nio.charset.Charset);5.7272358083234334E-9;9.533208511491864E-7;183.03333333333333;196.1;30;30;13.066666666666663;1
+org.eclipse.jetty.servlet.AsyncServletTest.process(java.lang.String,java.lang.String);1.2972939633257904E-8;1.067005555688283E-6;200.7;212.3;30;30;11.600000000000023;1
+org.eclipse.jetty.servlet.AsyncServletTest.process(java.lang.String,java.lang.String,java.lang.String);1.2972939633257904E-8;1.067005555688283E-6;200.7;212.3;30;30;11.600000000000023;1
+# Added members to the execution of scenario Entry point for AsyncServletTest.testSuspendTimeoutSuspendResume
+0
+# Removed members from the execution of scenario Entry point for AsyncServletTest.testSuspendTimeoutSuspendResume
+0
+# Members with deviation for scenario Entry point for InvokerTest.testInvoker | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for InvokerTest.testInvoker;5.683640493184402E-11;5.316742601735314E-10;173.1;188.13333333333333;30;30;15.033333333333331;1
+6
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.InvokerTest.testInvoker();5.683640493184402E-11;5.316742601735314E-10;173.1;188.13333333333333;30;30;15.033333333333331;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String);2.870930678002576E-19;6.695521914679148E-11;171.56666666666666;187.1;30;30;15.533333333333331;1
+org.eclipse.jetty.io.AbstractEndPoint(org.eclipse.jetty.util.thread.Scheduler,java.net.InetSocketAddress,java.net.InetSocketAddress);0.017789050076432337;0.03450050814412253;13.566666666666666;9.333333333333332;30;30;-4.233333333333334;-1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String,long,java.util.concurrent.TimeUnit);2.870930678002576E-19;6.695521914679148E-11;171.56666666666666;187.1;30;30;15.533333333333331;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);5.870519927774343E-16;5.461746610535556E-9;171.56666666666666;185.5;30;30;13.933333333333337;1
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint.waitUntilClosedOrIdleFor(long,java.util.concurrent.TimeUnit);2.4966411986172637E-14;1.3690186762005396E-8;139.8;153.4;30;30;13.599999999999994;1
+# Added members to the execution of scenario Entry point for InvokerTest.testInvoker
+0
+# Removed members from the execution of scenario Entry point for InvokerTest.testInvoker
+0
+# Members with deviation for scenario Entry point for DefaultServletTest.testFiltered | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DefaultServletTest.testFiltered;9.44891140350904E-15;2.8719471245608474E-11;37.93333333333333;67.96666666666667;30;30;30.03333333333334;1
+3
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.util.component.AbstractLifeCycle.start();5.390355691153791E-19;0.001886191909656998;0.04848484848484835;1.9257575757575764;330;660;1.877272727272728;1
+org.eclipse.jetty.servlet.DefaultServletTest.testFiltered();9.44891140350904E-15;2.8719471245608474E-11;37.93333333333333;67.96666666666667;30;30;30.03333333333334;1
+org.eclipse.jetty.servlet.ServletHandler.setFilterMappings(org.eclipse.jetty.servlet.FilterMapping[]);7.57661067183557E-5;0.04023829129630285;2.9555555555555557;0.17777777777777795;90;90;-2.7777777777777777;-1
+# Added members to the execution of scenario Entry point for DefaultServletTest.testFiltered
+41
+Name;Average;N
+org.eclipse.jetty.server.handler.ScopedHandler.doStart();0.6500000000000002;120
+org.eclipse.jetty.util.Uptime.getUptime();0.2666666666666666;60
+org.eclipse.jetty.servlet.FilterHolder.doStop();0.5333333333333333;30
+org.eclipse.jetty.util.component.AbstractLifeCycle.setStopping();0.02631578947368427;570
+org.eclipse.jetty.http.HttpGenerator.setJettyVersion(java.lang.String);0.5333333333333332;60
+org.eclipse.jetty.util.AttributesMap.map();0.06666666666666674;240
+org.eclipse.jetty.server.AbstractConnector.shutdown();0.25;60
+org.eclipse.jetty.server.AbstractConnector.doStart();2.283333333333333;60
+org.eclipse.jetty.servlet.ServletHolder.destroyInstance(java.lang.Object);0.26666666666666633;60
+org.eclipse.jetty.servlet.ServletContextHandler.startContext();3.1;60
+org.eclipse.jetty.servlet.ServletContextHandler.doStop();1.8333333333333333;60
+org.eclipse.jetty.server.handler.AbstractHandler.doStart();2.5999999999999996;180
+org.eclipse.jetty.server.ShutdownMonitor$ShutdownMonitorRunnable(org.eclipse.jetty.server.ShutdownMonitor);0.25;60
+org.eclipse.jetty.util.thread.QueuedThreadPool.execute(java.lang.Runnable);0.25;60
+org.eclipse.jetty.util.component.ContainerLifeCycle.start(org.eclipse.jetty.util.component.LifeCycle);1.503333333333333;300
+org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int);1.3333333333333333;60
+org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String);0.25;60
+org.eclipse.jetty.server.Server.start(org.eclipse.jetty.util.component.LifeCycle);1.994444444444445;180
+org.eclipse.jetty.server.handler.ContextHandler.doStart();3.6166666666666663;60
+org.eclipse.jetty.util.AttributesMap.ensureMap();0.2666666666666666;60
+org.eclipse.jetty.util.thread.QueuedThreadPool.doStart();1.3333333333333333;60
+org.eclipse.jetty.server.handler.AbstractHandler.doStop();1.4777777777777792;180
+org.eclipse.jetty.server.handler.ContextHandler.shutdown();0.26666666666666666;60
+org.eclipse.jetty.util.thread.QueuedThreadPool.newThread(java.lang.Runnable);0.03333333333333341;480
+org.eclipse.jetty.server.Server.doStart();11.366666666666667;60
+org.eclipse.jetty.server.Server.doStop();6.283333333333334;60
+org.eclipse.jetty.util.thread.QueuedThreadPool.doStop();0.5;60
+org.eclipse.jetty.util.StringUtil.getBytes(java.lang.String);0.08888888888888903;180
+org.eclipse.jetty.util.component.ContainerLifeCycle.doStop();1.0966666666666676;300
+org.eclipse.jetty.servlet.ServletHandler.doStop();1.2999999999999996;60
+org.eclipse.jetty.server.handler.ContextHandler.doStop();1.8333333333333333;60
+org.eclipse.jetty.servlet.ServletHolder.doStop();0.13333333333333347;120
+org.eclipse.jetty.server.handler.ContextHandler.startContext();1.0333333333333334;60
+org.eclipse.jetty.server.ShutdownMonitor.start();0.5;60
+org.eclipse.jetty.server.AbstractConnector.doStop();1.3166666666666664;60
+org.eclipse.jetty.servlet.ServletHandler.doStart();0.7666666666666666;60
+org.eclipse.jetty.util.component.ContainerLifeCycle.stop(org.eclipse.jetty.util.component.LifeCycle);0.6309523809523817;420
+org.eclipse.jetty.util.component.ContainerLifeCycle.doStart();1.7099999999999995;300
+org.eclipse.jetty.util.component.AbstractLifeCycle.stop();1.1347826086956532;690
+org.eclipse.jetty.util.AttributesMap.setAttribute(java.lang.String,java.lang.Object);0.2666666666666666;60
+org.eclipse.jetty.util.thread.ScheduledExecutorScheduler.doStop();0.2666666666666664;60
+# Removed members from the execution of scenario Entry point for DefaultServletTest.testFiltered
+0
+# Members with deviation for scenario Entry point for AsyncServletIOTest.testWrites | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletIOTest.testWrites;0.017955663038989458;0.040595000536692516;256.3333333333333;261.1;30;30;4.766666666666708;1
+3
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.AsyncServletIOTest.process(int[]);0.008866302118410817;0.028662685818345413;255.83333333333334;261.1;30;30;5.26666666666668;1
+org.eclipse.jetty.servlet.AsyncServletIOTest.testWrites();0.017955663038989458;0.040595000536692516;256.3333333333333;261.1;30;30;4.766666666666708;1
+org.eclipse.jetty.servlet.AsyncServletIOTest.process(byte[],int[]);0.0015148405075418709;0.00712883007556131;254.76666666666668;261.1;30;30;6.333333333333343;1
+# Added members to the execution of scenario Entry point for AsyncServletIOTest.testWrites
+0
+# Removed members from the execution of scenario Entry point for AsyncServletIOTest.testWrites
+0
+# Members with deviation for scenario Entry point for DispatcherTest.testServletForwardDotDot | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DispatcherTest.testServletForwardDotDot;1.2169700365023786E-9;1.9492039349255919E-7;207.86666666666667;222.16666666666666;30;30;14.299999999999983;1
+5
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String);3.84541463979735E-10;2.894412287623993E-7;180.9;196.1;30;30;15.199999999999989;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String,long,java.util.concurrent.TimeUnit);3.84541463979735E-10;2.894412287623993E-7;180.9;196.1;30;30;15.199999999999989;1
+org.eclipse.jetty.servlet.DispatcherTest.testServletForwardDotDot();1.2169700365023786E-9;1.9492039349255919E-7;207.86666666666667;222.16666666666666;30;30;14.299999999999983;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);1.1888539229392047E-9;6.281623784465395E-7;180.9;195.56666666666666;30;30;14.666666666666657;1
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint.waitUntilClosedOrIdleFor(long,java.util.concurrent.TimeUnit);1.378327819507281E-10;4.989799650134685E-7;151.9;166.5;30;30;14.599999999999994;1
+# Added members to the execution of scenario Entry point for DispatcherTest.testServletForwardDotDot
+0
+# Removed members from the execution of scenario Entry point for DispatcherTest.testServletForwardDotDot
+0
+# Members with deviation for scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener;1.8652471181764403E-6;3.8020878667666125E-8;601.8333333333334;622.9666666666667;30;30;21.133333333333326;1
+10
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.ServerConnector(org.eclipse.jetty.server.Server,java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,org.eclipse.jetty.io.ByteBufferPool,int,int,org.eclipse.jetty.server.ConnectionFactory[]);0.0028995705538543996;0.011958983568951531;3.1333333333333337;8.933333333333334;30;30;5.8;1
+org.eclipse.jetty.servlet.ServletContextHandler(org.eclipse.jetty.server.HandlerContainer,java.lang.String,org.eclipse.jetty.server.session.SessionHandler,org.eclipse.jetty.security.SecurityHandler,org.eclipse.jetty.servlet.ServletHandler,org.eclipse.jetty.server.handler.ErrorHandler,int);5.568935647151151E-8;2.7725719451310304E-5;29.566666666666666;19.633333333333333;30;30;-9.933333333333334;-1
+org.eclipse.jetty.server.handler.ContextHandler.doStart();2.9524383297093235E-4;0.0021038931094179425;53.6;60.4;30;30;6.799999999999997;1
+org.eclipse.jetty.servlet.ServletContextHandler.newServletHandler();0.03200910326045853;0.0308869505469348;13.6;9.833333333333334;30;30;-3.7666666666666657;-1
+org.eclipse.jetty.server.AbstractConnector.doStart();0.0035039161170769945;0.013271804739910298;27.533333333333335;21.766666666666666;30;30;-5.766666666666669;-1
+org.eclipse.jetty.servlet.AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener();1.8652471181764403E-6;3.8020878667666125E-8;601.8333333333334;622.9666666666667;30;30;21.133333333333326;1
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.8533329887565073E-5;0.004444458491894676;5.2;0.5166666666666665;60;60;-4.683333333333334;-1
+org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler.ContextHandler.Context);3.1596659971763665E-6;3.8778212957102376E-4;0.0;8.333333333333334;30;30;8.333333333333334;1
+org.eclipse.jetty.server.AbstractConnector(org.eclipse.jetty.server.Server,java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,org.eclipse.jetty.io.ByteBufferPool,int,org.eclipse.jetty.server.ConnectionFactory[]);0.02288530964921391;0.018005351025415672;14.133333333333333;10.333333333333334;30;30;-3.799999999999999;-1
+org.eclipse.jetty.servlet.AsyncContextListenersTest.prepare(java.lang.String,javax.servlet.http.HttpServlet);0.007386769775196081;0.013831619802975426;429.03333333333336;435.8666666666667;30;30;6.833333333333314;1
+# Added members to the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+3
+Name;Average;N
+org.eclipse.jetty.server.AbstractConnector.setAcceptorPriorityDelta(int);0.5;30
+org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();5.950000000000001;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);6.333333333333334;30
+# Removed members from the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+4
+Name;Average;N
+org.eclipse.jetty.util.ConcurrentArrayQueue(int);0.5166666666666663;60
+org.eclipse.jetty.http.HttpGenerator$ResponseInfo(org.eclipse.jetty.http.HttpVersion,org.eclipse.jetty.http.HttpFields,long,int,java.lang.String,boolean);0.17777777777777798;90
+org.eclipse.jetty.http.HttpGenerator$CachedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String);0.029629629629629523;540
+org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.5166666666666663;60
+# Members with deviation for scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery;1.8301680188083889E-6;2.8719471245608474E-11;569.2666666666667;597.3333333333334;30;30;28.06666666666672;1
+10
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String);4.433949788752628E-8;3.368139881243515E-5;163.8;176.23333333333332;30;30;12.433333333333309;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String,long,java.util.concurrent.TimeUnit);4.433949788752628E-8;3.368139881243515E-5;163.8;176.23333333333332;30;30;12.433333333333309;1
+org.eclipse.jetty.servlet.ServletContextHandler(org.eclipse.jetty.server.HandlerContainer,java.lang.String,org.eclipse.jetty.server.session.SessionHandler,org.eclipse.jetty.security.SecurityHandler,org.eclipse.jetty.servlet.ServletHandler,org.eclipse.jetty.server.handler.ErrorHandler,int);4.965875128032434E-8;1.4787063641774623E-5;27.6;17.8;30;30;-9.8;-1
+org.eclipse.jetty.server.handler.ContextHandler.doStart();0.0014962616827714967;0.04514620838079508;55.166666666666664;62.733333333333334;30;30;7.56666666666667;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);8.141418573372854E-8;4.493865560051269E-5;163.8;175.7;30;30;11.899999999999977;1
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint.waitUntilClosedOrIdleFor(long,java.util.concurrent.TimeUnit);6.139687864551161E-11;1.067005555688283E-6;135.13333333333333;150.7;30;30;15.566666666666663;1
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery();1.8301680188083889E-6;2.8719471245608474E-11;569.2666666666667;597.3333333333334;30;30;28.06666666666672;1
+org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler.ContextHandler.Context);1.0500692139945004E-11;1.9492039349255919E-7;0.5;12.466666666666667;30;30;11.966666666666667;1
+org.eclipse.jetty.server.Server.doStart();2.0675777606959673E-4;2.1264638274531844E-4;150.23333333333332;162.86666666666667;30;30;12.633333333333354;1
+org.eclipse.jetty.servlet.DispatcherForwardTest.prepare();0.003388510140615721;3.956103395985622E-7;392.03333333333336;407.8333333333333;30;30;15.799999999999955;1
+# Added members to the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+2
+Name;Average;N
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.029629629629629572;540
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.08703703703703705;540
+# Removed members from the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+1
+Name;Average;N
+org.eclipse.jetty.http.HttpGenerator$CachedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String);0.027777777777777714;540
+# Members with deviation for scenario Entry point for DefaultServletTest.testWelcomeServlet | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DefaultServletTest.testWelcomeServlet;1.6384808989926694E-15;2.0337964645733564E-9;252.63333333333333;276.7;30;30;24.066666666666663;1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);0.602201651935331;0.048213768146745606;71.94444444444444;79.05555555555556;90;90;7.111111111111114;1
+org.eclipse.jetty.servlet.DefaultServletTest.testWelcomeServlet();1.6384808989926694E-15;2.0337964645733564E-9;252.63333333333333;276.7;30;30;24.066666666666663;1
+# Added members to the execution of scenario Entry point for DefaultServletTest.testWelcomeServlet
+0
+# Removed members from the execution of scenario Entry point for DefaultServletTest.testWelcomeServlet
+0
+# Members with deviation for scenario Entry point for DefaultServletTest.testIfETagSmall | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DefaultServletTest.testIfETagSmall;4.392993672014259E-4;0.012469625319240007;23.866666666666667;30.2;30;30;6.333333333333332;1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.DefaultServletTest.testIfETag(java.lang.String);4.392993672014259E-4;0.012469625319240007;23.866666666666667;30.2;30;30;6.333333333333332;1
+org.eclipse.jetty.servlet.DefaultServletTest.testIfETagSmall();4.392993672014259E-4;0.012469625319240007;23.866666666666667;30.2;30;30;6.333333333333332;1
+# Added members to the execution of scenario Entry point for DefaultServletTest.testIfETagSmall
+0
+# Removed members from the execution of scenario Entry point for DefaultServletTest.testIfETagSmall
+0
+# Members with deviation for scenario Entry point for DefaultServletRangesTest.testNoRangeRequests | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DefaultServletRangesTest.testNoRangeRequests;8.645410037450677E-12;2.6015113729904726E-8;209.56666666666666;226.76666666666668;30;30;17.200000000000017;1
+5
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String);8.760062666182135E-20;2.8719471245608474E-11;200.2;221.06666666666666;30;30;20.866666666666674;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String,long,java.util.concurrent.TimeUnit);8.760062666182135E-20;2.8719471245608474E-11;200.2;221.06666666666666;30;30;20.866666666666674;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);2.0931388173072133E-18;2.8719471245608474E-11;199.7;219.0;30;30;19.30000000000001;1
+org.eclipse.jetty.servlet.DefaultServletRangesTest.testNoRangeRequests();8.645410037450677E-12;2.6015113729904726E-8;209.56666666666666;226.76666666666668;30;30;17.200000000000017;1
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint.waitUntilClosedOrIdleFor(long,java.util.concurrent.TimeUnit);2.704891474128717E-16;1.6931345214743487E-10;165.4;185.76666666666668;30;30;20.366666666666674;1
+# Added members to the execution of scenario Entry point for DefaultServletRangesTest.testNoRangeRequests
+0
+# Removed members from the execution of scenario Entry point for DefaultServletRangesTest.testNoRangeRequests
+0
+# Members with deviation for scenario Entry point for AsyncServletIOTest.testEmpty | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletIOTest.testEmpty;1.5156056474389389E-62;2.8719471245608474E-11;6.799999999999999;179.83333333333334;30;30;173.03333333333333;1
+3
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.AsyncServletIOTest.testEmpty();1.5156056474389389E-62;2.8719471245608474E-11;6.799999999999999;179.83333333333334;30;30;173.03333333333333;1
+org.eclipse.jetty.servlet.AsyncServletIOTest.process(int[]);1.5156056474389389E-62;2.8719471245608474E-11;6.799999999999999;179.83333333333334;30;30;173.03333333333333;1
+org.eclipse.jetty.servlet.AsyncServletIOTest.process(byte[],int[]);1.5156056474389389E-62;2.8719471245608474E-11;6.799999999999999;179.83333333333334;30;30;173.03333333333333;1
+# Added members to the execution of scenario Entry point for AsyncServletIOTest.testEmpty
+0
+# Removed members from the execution of scenario Entry point for AsyncServletIOTest.testEmpty
+0
+# Members with deviation for scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet;3.8301093803137676E-14;4.615909876548585E-10;429.6;453.96666666666664;30;30;24.366666666666617;1
+6
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet();3.8301093803137676E-14;4.615909876548585E-10;429.6;453.96666666666664;30;30;24.366666666666617;1
+org.eclipse.jetty.servlet.ServletContextHandler(org.eclipse.jetty.server.HandlerContainer,java.lang.String,org.eclipse.jetty.server.session.SessionHandler,org.eclipse.jetty.security.SecurityHandler,org.eclipse.jetty.servlet.ServletHandler,org.eclipse.jetty.server.handler.ErrorHandler,int);5.9357327794193E-14;2.894412287623993E-7;29.0;16.6;30;30;-12.399999999999999;-1
+org.eclipse.jetty.util.thread.QueuedThreadPool.startThreads(int);2.6195583255229977E-6;3.005888378447841E-4;11.3;2.6;30;30;-8.700000000000001;-1
+org.eclipse.jetty.util.thread.QueuedThreadPool.doStart();4.738346083979319E-7;1.1747191610489427E-4;11.833333333333334;2.6;30;30;-9.233333333333334;-1
+org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler.ContextHandler.Context);3.545751424023345E-14;8.1210731472936E-9;0.0;13.466666666666667;30;30;13.466666666666667;1
+org.eclipse.jetty.server.Server.doStart();3.2230436750553333E-7;6.5575086672931E-5;156.0;165.36666666666667;30;30;9.366666666666674;1
+# Added members to the execution of scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+3
+Name;Average;N
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.08888888888888909;540
+org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler);0.5333333333333333;30
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.02962962962962956;540
+# Removed members from the execution of scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+0
+# Members with deviation for scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncIOServletTest.testAsyncWriteThrowsError;0.019067665916440976;1.2555706918604415E-8;599.1;611.0;30;30;11.899999999999977;1
+9
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.ServletContextHandler(org.eclipse.jetty.server.HandlerContainer,java.lang.String,org.eclipse.jetty.server.session.SessionHandler,org.eclipse.jetty.security.SecurityHandler,org.eclipse.jetty.servlet.ServletHandler,org.eclipse.jetty.server.handler.ErrorHandler,int);3.8625045112267654E-8;6.505728436412284E-6;29.6;19.666666666666668;30;30;-9.933333333333334;-1
+org.eclipse.jetty.io.SelectorManager.doStart();0.0023574373135621415;0.01501413279818975;20.833333333333332;16.066666666666666;30;30;-4.766666666666666;-1
+org.eclipse.jetty.server.AbstractNetworkConnector.doStart();0.005028172751630283;0.026077477308078634;34.36666666666667;30.566666666666666;30;30;-3.8000000000000007;-1
+org.eclipse.jetty.server.AbstractConnector.doStart();6.821335631878739E-4;0.0037585319247780413;29.066666666666666;22.766666666666666;30;30;-6.300000000000001;-1
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncWriteThrows(java.lang.Throwable);0.014363790812361972;3.497111489281224E-9;598.1;610.5;30;30;12.399999999999977;1
+org.eclipse.jetty.io.SelectorManager.newSelector(int);1.833644461293594E-4;0.020064101576491855;4.416666666666666;0.5333333333333334;60;60;-3.883333333333333;-1
+org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler.ContextHandler.Context);2.7520234812041534E-7;5.786218181613734E-5;1.0333333333333328;10.4;30;30;9.366666666666667;1
+org.eclipse.jetty.server.ServerConnector.doStart();0.005028172751630283;0.026077477308078634;34.36666666666667;30.566666666666666;30;30;-3.8000000000000007;-1
+org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncWriteThrowsError();0.019067665916440976;1.2555706918604415E-8;599.1;611.0;30;30;11.899999999999977;1
+# Added members to the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+4
+Name;Average;N
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.2333333333333325;30
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.029629629629629693;540
+org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();5.416666666666666;60
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.08888888888888916;540
+# Removed members from the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+2
+Name;Average;N
+org.eclipse.jetty.util.ConcurrentArrayQueue(int);0.7999999999999998;60
+org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.26666666666666666;60
+# Members with deviation for scenario Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete;5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+7
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.util.IO.copy(java.io.Reader,java.io.Writer,long);5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+org.eclipse.jetty.servlet.AsyncServletTest.testSuspendTimeoutSuspendComplete();5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+org.eclipse.jetty.util.IO.toString(java.io.InputStream,java.nio.charset.Charset);5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+org.eclipse.jetty.servlet.AsyncServletTest.process(java.lang.String,java.lang.String);5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+org.eclipse.jetty.servlet.AsyncServletTest.process(java.lang.String,java.lang.String,java.lang.String);5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+org.eclipse.jetty.util.IO.copy(java.io.Reader,java.io.Writer);5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+org.eclipse.jetty.util.IO.toString(java.io.InputStream);5.842089441896509E-19;2.4878743509759715E-10;31.233333333333334;45.8;30;30;14.566666666666663;1
+# Added members to the execution of scenario Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete
+0
+# Removed members from the execution of scenario Entry point for AsyncServletTest.testSuspendTimeoutSuspendComplete
+0
+# Members with deviation for scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation;0.08897935013292968;2.305666058788347E-5;549.2166666666667;587.55;60;60;38.33333333333326;1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation();0.08897935013292968;2.305666058788347E-5;549.2166666666667;587.55;60;60;38.33333333333326;1
+org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler.ContextHandler.Context);3.2616724947029396E-5;0.00192253325391456;1.2833333333333334;6.3;60;60;5.016666666666667;1
+# Added members to the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+7
+Name;Average;N
+org.eclipse.jetty.util.resource.PathResource(java.nio.file.Path);1.0166666666666668;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);2.083333333333333;60
+org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path);1.0166666666666668;60
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.1425925925925928;540
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.11481481481481483;540
+org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();2.0833333333333335;120
+org.eclipse.jetty.util.resource.PathResource.getInputStream();0.2666666666666664;60
+# Removed members from the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+4
+Name;Average;N
+org.eclipse.jetty.util.resource.FileResource.normalizeURI(java.io.File,java.net.URI);0.25;60
+org.eclipse.jetty.util.resource.FileResource(java.io.File);0.5166666666666666;60
+org.eclipse.jetty.util.ConcurrentArrayQueue(int);0.6666666666666662;120
+org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.6666666666666662;120
+# Members with deviation for scenario Entry point for ResponseHeadersTest.testResponseHeaderFormat | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ResponseHeadersTest.testResponseHeaderFormat;5.712397106392818E-19;6.373035432716279E-11;171.96666666666667;189.86666666666667;30;30;17.900000000000006;1
+2
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.ResponseHeadersTest.readResponseHeader(java.io.InputStream);1.564897098749914E-18;2.8719471245608474E-11;154.43333333333334;171.7;30;30;17.26666666666665;1
+org.eclipse.jetty.servlet.ResponseHeadersTest.testResponseHeaderFormat();5.712397106392818E-19;6.373035432716279E-11;171.96666666666667;189.86666666666667;30;30;17.900000000000006;1
+# Added members to the execution of scenario Entry point for ResponseHeadersTest.testResponseHeaderFormat
+0
+# Removed members from the execution of scenario Entry point for ResponseHeadersTest.testResponseHeaderFormat
+0
+# Members with deviation for scenario Entry point for DispatcherTest.testIncludeThenForward | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DispatcherTest.testIncludeThenForward;3.306710208881774E-9;3.2070402775641327E-6;15.233333333333333;29.566666666666666;30;30;14.333333333333334;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.DispatcherTest.testIncludeThenForward();3.306710208881774E-9;3.2070402775641327E-6;15.233333333333333;29.566666666666666;30;30;14.333333333333334;1
+# Added members to the execution of scenario Entry point for DispatcherTest.testIncludeThenForward
+0
+# Removed members from the execution of scenario Entry point for DispatcherTest.testIncludeThenForward
+0
+# Members with deviation for scenario Entry point for AsyncServletTest.testFwdStartDispatch | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletTest.testFwdStartDispatch;0.0014274936164038678;0.04132536157251043;31.133333333333333;35.8;30;30;4.666666666666664;1
+6
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.util.IO.copy(java.io.Reader,java.io.Writer,long);0.0027235291527950823;0.04435907160393182;31.133333333333333;35.3;30;30;4.166666666666664;1
+org.eclipse.jetty.util.IO.toString(java.io.InputStream,java.nio.charset.Charset);0.0027235291527950823;0.04435907160393182;31.133333333333333;35.3;30;30;4.166666666666664;1
+org.eclipse.jetty.servlet.AsyncServletTest.process(java.lang.String,java.lang.String,java.lang.String);0.0014274936164038678;0.04132536157251043;31.133333333333333;35.8;30;30;4.666666666666664;1
+org.eclipse.jetty.util.IO.copy(java.io.Reader,java.io.Writer);0.0027235291527950823;0.04435907160393182;31.133333333333333;35.3;30;30;4.166666666666664;1
+org.eclipse.jetty.servlet.AsyncServletTest.testFwdStartDispatch();0.0014274936164038678;0.04132536157251043;31.133333333333333;35.8;30;30;4.666666666666664;1
+org.eclipse.jetty.util.IO.toString(java.io.InputStream);0.0027235291527950823;0.04435907160393182;31.133333333333333;35.3;30;30;4.166666666666664;1
+# Added members to the execution of scenario Entry point for AsyncServletTest.testFwdStartDispatch
+0
+# Removed members from the execution of scenario Entry point for AsyncServletTest.testFwdStartDispatch
+0
+# Members with deviation for scenario Entry point for ErrorPageTest.testErrorException | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for ErrorPageTest.testErrorException;5.387630473787696E-6;1.0541422260867961E-5;186.63333333333333;196.63333333333333;30;30;10.0;1
+5
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String);1.997485405206587E-5;1.7290312624984594E-6;179.4;189.96666666666667;30;30;10.566666666666663;1
+org.eclipse.jetty.servlet.ErrorPageTest.testErrorException();5.387630473787696E-6;1.0541422260867961E-5;186.63333333333333;196.63333333333333;30;30;10.0;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String,long,java.util.concurrent.TimeUnit);1.997485405206587E-5;1.7290312624984594E-6;179.4;189.96666666666667;30;30;10.566666666666663;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);1.6605754455521495E-5;1.6062129083449506E-6;178.9;189.43333333333334;30;30;10.533333333333331;1
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint.waitUntilClosedOrIdleFor(long,java.util.concurrent.TimeUnit);4.706118247773437E-10;1.0241093895135833E-7;143.43333333333334;156.0;30;30;12.566666666666663;1
+# Added members to the execution of scenario Entry point for ErrorPageTest.testErrorException
+0
+# Removed members from the execution of scenario Entry point for ErrorPageTest.testErrorException
+0
+# Members with deviation for scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest;2.349075803701639E-10;7.31597272540796E-7;620.3666666666667;634.6;30;30;14.233333333333348;1
+6
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.ServletContextHandler(org.eclipse.jetty.server.HandlerContainer,java.lang.String,org.eclipse.jetty.server.session.SessionHandler,org.eclipse.jetty.security.SecurityHandler,org.eclipse.jetty.servlet.ServletHandler,org.eclipse.jetty.server.handler.ErrorHandler,int);6.406074516336926E-10;5.657027307703899E-6;28.566666666666666;17.866666666666667;30;30;-10.7;-1
+org.eclipse.jetty.server.handler.ContextHandler.startContext();0.031178541538946083;0.019112396759828565;6.666666666666666;10.966666666666667;30;30;4.300000000000001;1
+org.eclipse.jetty.servlet.ServletHandler.initialize();0.03283006301798168;0.023243447053671207;9.933333333333334;5.633333333333334;30;30;-4.3;-1
+org.eclipse.jetty.server.AbstractConnector.doStart();2.822282096973817E-6;0.005084221723644089;30.1;21.5;30;30;-8.600000000000001;-1
+org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler.ContextHandler.Context);2.9673214713595704E-7;7.899078213757793E-5;1.0333333333333332;10.233333333333333;30;30;9.2;1
+org.eclipse.jetty.servlet.AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest();2.349075803701639E-10;7.31597272540796E-7;620.3666666666667;634.6;30;30;14.233333333333348;1
+# Added members to the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+4
+Name;Average;N
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.17407407407407394;540
+org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();3.95;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.6;30
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.11666666666666653;540
+# Removed members from the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+4
+Name;Average;N
+org.eclipse.jetty.http.HttpGenerator$CachedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String);0.05740740740740749;540
+org.eclipse.jetty.util.ConcurrentArrayQueue(int);0.25;60
+org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.25;60
+org.eclipse.jetty.util.ConcurrentArrayQueue$Block(int);0.25;60
+# Members with deviation for scenario Entry point for AsyncContextTest.testStartCompleteThrow | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for AsyncContextTest.testStartCompleteThrow;7.62694984885074E-12;1.7723908452005332E-8;174.73333333333332;187.23333333333332;30;30;12.5;1
+5
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String);7.62694984885074E-12;1.7723908452005332E-8;174.73333333333332;187.23333333333332;30;30;12.5;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.lang.String,long,java.util.concurrent.TimeUnit);5.255849265480628E-13;6.518273143463205E-9;174.2;187.23333333333332;30;30;13.033333333333331;1
+org.eclipse.jetty.server.LocalConnector.getResponses(java.nio.ByteBuffer,long,java.util.concurrent.TimeUnit);2.8191558541188623E-16;8.101361803625196E-10;173.16666666666666;187.23333333333332;30;30;14.066666666666663;1
+org.eclipse.jetty.server.LocalConnector$LocalEndPoint.waitUntilClosedOrIdleFor(long,java.util.concurrent.TimeUnit);4.3803343885261617E-16;3.196740205879678E-9;140.43333333333334;154.43333333333334;30;30;14.0;1
+org.eclipse.jetty.servlet.AsyncContextTest.testStartCompleteThrow();7.62694984885074E-12;1.7723908452005332E-8;174.73333333333332;187.23333333333332;30;30;12.5;1
+# Added members to the execution of scenario Entry point for AsyncContextTest.testStartCompleteThrow
+0
+# Removed members from the execution of scenario Entry point for AsyncContextTest.testStartCompleteThrow
+0
+# Members with deviation for scenario Entry point for RequestHeadersTest.testGetLowercaseHeader | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for RequestHeadersTest.testGetLowercaseHeader;5.5561897198779164E-5;1.365242843328618E-4;183.1;197.56666666666666;30;30;14.466666666666669;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.RequestHeadersTest.testGetLowercaseHeader();5.5561897198779164E-5;1.365242843328618E-4;183.1;197.56666666666666;30;30;14.466666666666669;1
+# Added members to the execution of scenario Entry point for RequestHeadersTest.testGetLowercaseHeader
+0
+# Removed members from the execution of scenario Entry point for RequestHeadersTest.testGetLowercaseHeader
+0
+# Members with deviation for scenario Entry point for DefaultServletTest.testWelcomeExactServlet | Test = UTest, Value = 0.05
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+Entry point for DefaultServletTest.testWelcomeExactServlet;6.42560522599317E-4;0.014710444453394755;23.433333333333334;29.633333333333333;30;30;6.199999999999999;1
+1
+Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+org.eclipse.jetty.servlet.DefaultServletTest.testWelcomeExactServlet();6.42560522599317E-4;0.014710444453394755;23.433333333333334;29.633333333333333;30;30;6.199999999999999;1
+# Added members to the execution of scenario Entry point for DefaultServletTest.testWelcomeExactServlet
+0
+# Removed members from the execution of scenario Entry point for DefaultServletTest.testWelcomeExactServlet
+0
