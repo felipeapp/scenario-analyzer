@@ -3,33 +3,29 @@ package br.ufrn.ppgsc.scenario.analyzer.miner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.DatabaseRelease;
 import br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDB;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.DoubleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil.Deviation;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerReportUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.Tests;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
-import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil.Deviation;
 
 public final class AnalyzerMinerByScenarioDBRunnable {
 
 	private GenericDB database_v1;
 	private GenericDB database_v2;
 	
-	private double performance_rate;
 	private double alpha_significance_level;
 	private String system_id;
 	
@@ -39,43 +35,12 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		SystemMetadataUtil properties = SystemMetadataUtil.getInstance();
 		
 		system_id = properties.getStringProperty("system_id");
-		performance_rate = properties.getDoubleProperty("performance_rate");
 		alpha_significance_level = properties.getDoubleProperty("alpha_significance_level");
 		
 		database_v1 = DatabaseRelease.getDatabasev1();
 		database_v2 = DatabaseRelease.getDatabasev2();
 		
 		strdate = new SimpleDateFormat("yyyy-MM-dd_HH'h'mm'min'").format(new Date());
-	}
-	
-	private Map<RuntimeScenario, List<RuntimeNode>> buildMapOfFailedScenarios(
-			Collection<RuntimeScenario> failed_scenarios, Map<String, Integer> node_signatures,
-			GenericDB db) {
-		int i = 0;
-		Map<RuntimeScenario, List<RuntimeNode>> map = new HashMap<RuntimeScenario, List<RuntimeNode>>();
-		
-		for (RuntimeScenario s : failed_scenarios) {
-			long start = System.currentTimeMillis();
-			
-			System.out.print("Building map for scenario " + s.getId() + ", " + s.getName() + ", " + ++i + "/" + failed_scenarios.size());
-			
-			List<RuntimeNode> failed_nodes = db.getFailedNodes(s);
-			
-			map.put(s, failed_nodes);
-			
-			for (RuntimeNode n : failed_nodes) {
-				Integer count = node_signatures.get(n.getMemberSignature());
-				
-				if (count == null)
-					count = 0;
-				
-				node_signatures.put(n.getMemberSignature(), count + 1);
-			}
-			
-			System.out.println(", " + (int)((System.currentTimeMillis() - start) / 1000.0) + " seconds");
-		}
-		
-		return map;
 	}
 	
 	private String getFileName(String partial_name) {
@@ -88,182 +53,117 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		
 		// Here, we start the treatment of the failed scenarios and methods
 		System.out.println("Getting scenarios and means for release 1...");
-		Map<String, SimpleStatElement> simple_scenarios_v1 = database_v1.getSimpleStatOfScenarios();
-		System.out.println("\tTotal = " + simple_scenarios_v1.size());
+		Map<String, SimpleStatElement> scenarios_v1 = database_v1.getSimpleStatOfScenarios();
+		System.out.println("\tTotal = " + scenarios_v1.size());
 		
 		System.out.println("Getting scenarios and means for release 2...");
-		Map<String, SimpleStatElement> simple_scenarios_v2 = database_v2.getSimpleStatOfScenarios();
-		System.out.println("\tTotal = " + simple_scenarios_v2.size());
+		Map<String, SimpleStatElement> scenarios_v2 = database_v2.getSimpleStatOfScenarios();
+		System.out.println("\tTotal = " + scenarios_v2.size());
 		
 		System.out.println("Determining removed scenarios...");
-		Set<String> removed_scenarios = AnalyzerCollectionUtil.except(simple_scenarios_v1.keySet(), simple_scenarios_v2.keySet());
+		Set<String> removed_scenarios = AnalyzerCollectionUtil.except(scenarios_v1.keySet(), scenarios_v2.keySet());
 		System.out.println("\tTotal = " + removed_scenarios.size());
 		
 		System.out.println("Determining added scenarios...");
-		Set<String> added_scenarios = AnalyzerCollectionUtil.except(simple_scenarios_v2.keySet(), simple_scenarios_v1.keySet());
+		Set<String> added_scenarios = AnalyzerCollectionUtil.except(scenarios_v2.keySet(), scenarios_v1.keySet());
 		System.out.println("\tTotal = " + added_scenarios.size());
 		
 		System.out.println("Determining kept scenarios...");
-		Set<String> kept_scenarios = AnalyzerCollectionUtil.intersect(simple_scenarios_v1.keySet(), simple_scenarios_v2.keySet());
+		Set<String> kept_scenarios = AnalyzerCollectionUtil.intersect(scenarios_v1.keySet(), scenarios_v2.keySet());
 		System.out.println("\tTotal = " + kept_scenarios.size());
 		
 		System.out.println("Calculating statistical tests for common scenarios...");
-		Map<String, DoubleStatElement> scenario_results = as.executeStatisticalTests(kept_scenarios, simple_scenarios_v1, simple_scenarios_v2);
-		System.out.println("Calculating statistical tests for common scenarios...");
+		Map<String, DoubleStatElement> scenario_results = as.executeStatisticalTests(kept_scenarios, scenarios_v1, scenarios_v2);
 		
 		// Calculating degraded, optimized and unchanged scenarios
-		List<DoubleStatElement> degraded_scenarios = AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
-		List<DoubleStatElement> optimized_scenarios = AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
-		List<DoubleStatElement> unchanged_scenarios = AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
-		
-		// Save scenarios in separated files
-		AnalyzerReportUtil.saveDoubleElements("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);
-		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), simple_scenarios_v1, removed_scenarios);
-		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), simple_scenarios_v2, added_scenarios);
-		
-		// Save scenarios according their execution time variation measured by the performance rate
-		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (Rate method)", getFileName("pr_degraded_scenarios"), AnalyzerCollectionUtil.degradedRate(scenario_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (Rate method)", getFileName("pr_optimized_scenarios"), AnalyzerCollectionUtil.optimizedRate(scenario_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (Rate method)", getFileName("pr_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedRate(scenario_results.values(), performance_rate), performance_rate, 0);
-		
-		// Save scenarios according their execution time variation measured by the TTest
-		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (TTest P-Value)", getFileName("pt_degraded_scenarios"), AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (TTest P-Value)", getFileName("pt_optimized_scenarios"), AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (TTest P-Value)", getFileName("pt_unchanged_scenarios"), AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		
-		// Save scenarios according their execution time variation measured by the UTest
-		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (UTest P-Value)", getFileName("pu_degraded_scenarios"), degraded_scenarios, 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (UTest P-Value)", getFileName("pu_optimized_scenarios"), optimized_scenarios, 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (UTest P-Value)", getFileName("pu_unchanged_scenarios"), unchanged_scenarios, 0, alpha_significance_level);
+		Collection<DoubleStatElement> degraded_scenarios = AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		Collection<DoubleStatElement> optimized_scenarios = AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		Collection<DoubleStatElement> unchanged_scenarios = AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
 		
 		System.out.println("-------------------------------------------------------------------");
 		
-		// Here, we start the treatment of the methods
-		System.out.println("Getting general members and means for release 1...");
-		Map<String, SimpleStatElement> general_simple_members_v1 = database_v1.getSimpleStatOfMembers();
-		System.out.println("\tTotal = " + general_simple_members_v1.size());
+		// Essas estruturas armazenarão os métodos comuns (com variação), adicionados e removidos de cada cenário
+		Map<String, Collection<DoubleStatElement>> from_scenario_to_kept_members = new HashMap<String, Collection<DoubleStatElement>>();
+		Map<String, Collection<SimpleStatElement>> from_scenario_to_added_members = new HashMap<String, Collection<SimpleStatElement>>();
+		Map<String, Collection<SimpleStatElement>> from_scenario_to_removed_members = new HashMap<String, Collection<SimpleStatElement>>();
 		
-		System.out.println("Getting general members and means for release 2...");
-		Map<String, SimpleStatElement> general_simple_members_v2 = database_v2.getSimpleStatOfMembers();
-		System.out.println("\tTotal = " + general_simple_members_v2.size());
-
-		System.out.println("Determining removed members...");
-		Set<String> removed_members = AnalyzerCollectionUtil.except(general_simple_members_v1.keySet(), general_simple_members_v2.keySet());
-		System.out.println("\tTotal = " + removed_members.size());
-		
-		System.out.println("Determining added members...");
-		Set<String> added_members = AnalyzerCollectionUtil.except(general_simple_members_v2.keySet(), general_simple_members_v1.keySet());
-		System.out.println("\tTotal = " + added_members.size());
-		
-		System.out.println("Determining kept members...");
-		Set<String> kept_members = AnalyzerCollectionUtil.intersect(general_simple_members_v1.keySet(), general_simple_members_v2.keySet());
-		System.out.println("\tTotal = " + kept_members.size());
-		
-		System.out.println("Calculating statistical tests for common methods...");
-		Map<String, DoubleStatElement> general_member_results = as.executeStatisticalTests(kept_members, general_simple_members_v1, general_simple_members_v2);
-		
-		// Save methods in separated files
-		AnalyzerReportUtil.saveDoubleElements("# Methods executed in both releases", getFileName("kept_members"), general_member_results.values(), 0, 0);
-		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the first release, but not in the second", getFileName("removed_members"), general_simple_members_v1, removed_members);
-		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the second release, but not in the first", getFileName("added_members"), general_simple_members_v2, added_members);
-		
-		// Save methods according their execution time variation measured by the performance rate
-		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradedRate(general_member_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (Rate method)", getFileName("pr_optimized_methods"), AnalyzerCollectionUtil.optimizedRate(general_member_results.values(), performance_rate), performance_rate, 0);
-		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (Rate method)", getFileName("pr_unchanged_methods"), AnalyzerCollectionUtil.unchangedRate(general_member_results.values(), performance_rate), performance_rate, 0);
-		
-		// Save scenarios according their execution time variation measured by the TTest
-		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (TTest P-Value)", getFileName("pt_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(general_member_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (TTest P-Value)", getFileName("pt_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(general_member_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (TTest P-Value)", getFileName("pt_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(general_member_results.values(), alpha_significance_level, Tests.TTest), 0, alpha_significance_level);
-		
-		// Save scenarios according their execution time variation measured by the UTest
-		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (UTest P-Value)", getFileName("pu_degraded_methods"), AnalyzerCollectionUtil.degradedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Optimized methods (UTest P-Value)", getFileName("pu_optimized_methods"), AnalyzerCollectionUtil.optimizedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		AnalyzerReportUtil.saveDoubleElements("# Unchanged methods (UTest P-Value)", getFileName("pu_unchanged_methods"), AnalyzerCollectionUtil.unchangedPValue(general_member_results.values(), alpha_significance_level, Tests.UTest), 0, alpha_significance_level);
-		
-		System.out.println("-------------------------------------------------------------------");
-		
-		Map<String, Collection<DoubleStatElement>> from_scenario_to_members = new HashMap<String, Collection<DoubleStatElement>>();
 		int i = 0;
+		
+		/*
+		 * Esse for gera três arquivos organizados por cenários. O primeiro com todos os métodos comuns de cada cenários.
+		 * O segundo com todos os métodos removidos de cada cenário. O terceiro com todos os métodos adicionados de cada cenário.
+		 */
 		for (String scenario : kept_scenarios) {
+			// TODO: Como otimizar a consulta do método "getSimpleStatOfMembersByScenario"?
 			System.out.println(++i + " / " + kept_scenarios.size() + " - Getting members of the scenario " + scenario);
-			Map<String, SimpleStatElement> simple_members_v1_by_scenario = database_v1.getSimpleStatOfMembersByScenario(scenario);
-			System.out.println("\tTotal V1 = " + simple_members_v1_by_scenario.size());
-			Map<String, SimpleStatElement> simple_members_v2_by_scenario = database_v2.getSimpleStatOfMembersByScenario(scenario);
-			System.out.println("\tTotal V2 = " + simple_members_v2_by_scenario.size());
 			
-			Set<String> removed_members_by_scenario = AnalyzerCollectionUtil.except(simple_members_v1_by_scenario.keySet(), simple_members_v2_by_scenario.keySet());
-			Set<String> added_members_by_scenario = AnalyzerCollectionUtil.except(simple_members_v2_by_scenario.keySet(), simple_members_v1_by_scenario.keySet());
-			Set<String> kept_members_by_scenario = AnalyzerCollectionUtil.intersect(simple_members_v1_by_scenario.keySet(), simple_members_v2_by_scenario.keySet());
+			Map<String, SimpleStatElement> members_v1_by_scenario = database_v1.getSimpleStatOfMembersByScenario(scenario);
+			System.out.println("\tTotal V1 = " + members_v1_by_scenario.size());
 			
-			Map<String, DoubleStatElement> member_results_by_scenario = as.executeStatisticalTests(kept_members_by_scenario, simple_members_v1_by_scenario, simple_members_v2_by_scenario);
-			from_scenario_to_members.put(scenario, member_results_by_scenario.values());
+			Map<String, SimpleStatElement> members_v2_by_scenario = database_v2.getSimpleStatOfMembersByScenario(scenario);
+			System.out.println("\tTotal V2 = " + members_v2_by_scenario.size());
+			
+			Set<String> removed_members_by_scenario = AnalyzerCollectionUtil.except(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
+			Set<String> added_members_by_scenario = AnalyzerCollectionUtil.except(members_v2_by_scenario.keySet(), members_v1_by_scenario.keySet());
+			Set<String> kept_members_by_scenario = AnalyzerCollectionUtil.intersect(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
+			
+			Map<String, DoubleStatElement> member_results_by_scenario = as.executeStatisticalTests(kept_members_by_scenario, members_v1_by_scenario, members_v2_by_scenario);
+			
+			from_scenario_to_kept_members.put(scenario, member_results_by_scenario.values());
+			from_scenario_to_added_members.put(scenario, AnalyzerCollectionUtil.getAll(members_v2_by_scenario, added_members_by_scenario));
+			from_scenario_to_removed_members.put(scenario, AnalyzerCollectionUtil.getAll(members_v1_by_scenario, removed_members_by_scenario));
 			
 			DoubleStatElement double_scenario_stat = scenario_results.get(scenario);
 			
-			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Common members from scenario execution of " + scenario, getFileName("kept_members_by_scenario_utest"), double_scenario_stat, Tests.UTest, alpha_significance_level, member_results_by_scenario.values());
-			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Common members from scenario execution of " + scenario, getFileName("kept_members_by_scenario_ttest"), double_scenario_stat, Tests.TTest, alpha_significance_level, member_results_by_scenario.values());
-			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Common members from scenario execution of " + scenario, getFileName("kept_members_by_scenario_rate"), double_scenario_stat, Tests.Rate, performance_rate, member_results_by_scenario.values());
-			
-			AnalyzerReportUtil.saveSimpleElements("# Removed members from the scenario execution of " + scenario, getFileName("removed_members_by_scenario"), simple_scenarios_v1.get(scenario), simple_members_v1_by_scenario, removed_members_by_scenario);
-			AnalyzerReportUtil.saveSimpleElements("# Added members to the scenario execution of " + scenario, getFileName("added_members_by_scenario"), simple_scenarios_v2.get(scenario), simple_members_v2_by_scenario, added_members_by_scenario);
+			AnalyzerReportUtil.saveDoubleElementsOfScenario("# Common members from the execution of scenario " + scenario, getFileName("kept_members_by_scenario"), double_scenario_stat, Tests.UTest, alpha_significance_level, member_results_by_scenario.values());
+			AnalyzerReportUtil.saveSimpleElements("# Removed members from the execution of scenario " + scenario, getFileName("removed_members_by_scenario"), scenarios_v1.get(scenario), members_v1_by_scenario, removed_members_by_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# Added members to the execution of scenario " + scenario, getFileName("added_members_by_scenario"), scenarios_v2.get(scenario), members_v2_by_scenario, added_members_by_scenario);
 		}
 		
-		i = 0;
-		for (DoubleStatElement sdegraded: degraded_scenarios) {
-			System.out.println(++i + " / " + degraded_scenarios.size() + " - Filtrating members with deviation for degraded scenario " + sdegraded.getElementName());
-			
-			Collection<DoubleStatElement> every_member_of_scenario = from_scenario_to_members.get(sdegraded.getElementName());
-			Collection<DoubleStatElement> deviation_members_of_scenario = new ArrayList<DoubleStatElement>();
-			
-			for (DoubleStatElement member : every_member_of_scenario) {
-				Deviation deviation_type = AnalyzerCollectionUtil.getDeviationType(member, Tests.UTest, alpha_significance_level);
-				
-				if (deviation_type == Deviation.OPTIMIZATION || deviation_type == Deviation.DEGRADATION)
-					deviation_members_of_scenario.add(member);
-			}
-			
-			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Members with deviation for degraded scenario " + sdegraded.getElementName(), getFileName("degraded_members_by_scenario_utest"), sdegraded, Tests.UTest, alpha_significance_level, deviation_members_of_scenario);
-		}
+		generateDAReport("deviation_members_by_degraded_scenarios", degraded_scenarios,
+				from_scenario_to_kept_members, from_scenario_to_added_members, from_scenario_to_removed_members);
+		
+		generateDAReport("deviation_members_by_optimized_scenarios", optimized_scenarios,
+				from_scenario_to_kept_members, from_scenario_to_added_members, from_scenario_to_removed_members);
+		
+		generateDAReport("deviation_members_by_unchanged_scenarios", unchanged_scenarios,
+				from_scenario_to_kept_members, from_scenario_to_added_members, from_scenario_to_removed_members);
 		
 		System.out.println("-------------------------------------------------------------------");
 		
-		// Here, we start the treatment of the failed scenarios and methods
-		System.out.println("Getting failed scenarios for release 1...");
-		List<RuntimeScenario> failed_scenarios_v1 = database_v1.getFailedScenarios();
-		System.out.println("\tTotal = " + failed_scenarios_v1.size());
-		
-		System.out.println("Getting failed scenarios for release 2...");
-		List<RuntimeScenario> failed_scenarios_v2 = database_v2.getFailedScenarios();
-		System.out.println("\tTotal = " + failed_scenarios_v2.size());
-		
-		Map<String, Integer> failed_methods_v1 = new HashMap<String, Integer>();
-		Map<String, Integer> failed_methods_v2 = new HashMap<String, Integer>();
-		
-		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v1 = buildMapOfFailedScenarios(failed_scenarios_v1, failed_methods_v1, database_v1);
-		AnalyzerReportUtil.saveFails("# Release 1 failed scenarios", getFileName("failed_scenarios_r1"), failed_scenario_to_node_v1, failed_methods_v1, 1);
-		
-		Map<RuntimeScenario, List<RuntimeNode>> failed_scenario_to_node_v2 = buildMapOfFailedScenarios(failed_scenarios_v2, failed_methods_v2, database_v2);
-		AnalyzerReportUtil.saveFails("# Release 2 failed scenarios", getFileName("failed_scenarios_r2"), failed_scenario_to_node_v2, failed_methods_v2, 2);
-		
-		System.out.println("Getting failed methods for release 1...");
-		Set<String> failed_methods_only_v1 = AnalyzerCollectionUtil.except(failed_methods_v1.keySet(), failed_methods_v2.keySet());
-		System.out.println("\tTotal = " + failed_methods_only_v1.size());
-		
-		System.out.println("Getting failed methods for release 1...");
-		Set<String> failed_methods_only_v2 = AnalyzerCollectionUtil.except(failed_methods_v2.keySet(), failed_methods_v1.keySet());
-		System.out.println("\tTotal = " + failed_methods_only_v2.size());
-		
-		System.out.println("Getting failed methods for both releases...");
-		Set<String> failed_methods_both = AnalyzerCollectionUtil.intersect(failed_methods_v1.keySet(), failed_methods_v2.keySet());
-		System.out.println("\tTotal = " + failed_methods_both.size());
-		
-		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 1", getFileName("failed_methods_only_r1"),failed_methods_only_v1, false);
-		AnalyzerReportUtil.saveCollection("# Methods that have failed only in release 2", getFileName("failed_methods_only_r2"), failed_methods_only_v2, false);
-		AnalyzerReportUtil.saveCollection("# Methods that have failed only in both releases", getFileName("failed_methods_both"), failed_methods_both, false);
-		
 		return strdate;
+	}
+
+	private void generateDAReport(String filename, Collection<DoubleStatElement> target_scenarios,
+			Map<String, Collection<DoubleStatElement>> from_scenario_to_kept_members,
+			Map<String, Collection<SimpleStatElement>> from_scenario_to_added_members,
+			Map<String, Collection<SimpleStatElement>> from_scenario_to_removed_members) throws FileNotFoundException {
+		int i = 0;
+		
+		/*
+		 * Esse for gera três arquivos organizados por cenários. O primeiro com todos os métodos comuns (e que possuem variação) de cada cenários.
+		 * O segundo com todos os métodos removidos de cada cenário. O terceiro com todos os métodos adicionados de cada cenário.
+		 */
+		for (DoubleStatElement sdegraded: target_scenarios) {
+			System.out.println(++i + " / " + target_scenarios.size() + " - Filtrating members with deviation for degraded scenario " + sdegraded.getElementName());
+			
+			String scenario = sdegraded.getElementName();
+			
+			Collection<DoubleStatElement> deviation_members_of_scenario = AnalyzerCollectionUtil.filterDoubleElementByDeviation(
+					from_scenario_to_kept_members.get(sdegraded.getElementName()),
+					Arrays.asList(new Deviation[]{Deviation.OPTIMIZATION, Deviation.DEGRADATION}),
+					Tests.UTest, alpha_significance_level);
+			
+			Collection<SimpleStatElement> significant_added_members_of_scenario = AnalyzerCollectionUtil.filterSimpleElementByTimeLimite(
+					from_scenario_to_added_members.get(sdegraded.getElementName()), 0);
+			
+			Collection<SimpleStatElement> significant_removed_members_of_scenario = AnalyzerCollectionUtil.filterSimpleElementByTimeLimite(
+					from_scenario_to_removed_members.get(sdegraded.getElementName()), 0);
+			
+			AnalyzerReportUtil.saveDoubleElementsOfScenario("# Members with deviation for scenario " + scenario, getFileName(filename), sdegraded, Tests.UTest, alpha_significance_level, deviation_members_of_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# Added members to the execution of scenario " + scenario, getFileName(filename), significant_added_members_of_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# Removed members from the execution of scenario " + scenario, getFileName(filename), significant_removed_members_of_scenario);
+		}
 	}
 
 }

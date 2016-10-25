@@ -110,9 +110,9 @@ public final class AnalyzerMinerDBRunnable {
 		System.out.println("Calculating statistical tests for common scenarios...");
 		
 		// Calculating degraded, optimized and unchanged scenarios
-		List<DoubleStatElement> degraded_scenarios = AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
-		List<DoubleStatElement> optimized_scenarios = AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
-		List<DoubleStatElement> unchanged_scenarios = AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		Collection<DoubleStatElement> degraded_scenarios = AnalyzerCollectionUtil.degradedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		Collection<DoubleStatElement> optimized_scenarios = AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
+		Collection<DoubleStatElement> unchanged_scenarios = AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
 		
 		// Save scenarios in separated files
 		AnalyzerReportUtil.saveDoubleElements("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);

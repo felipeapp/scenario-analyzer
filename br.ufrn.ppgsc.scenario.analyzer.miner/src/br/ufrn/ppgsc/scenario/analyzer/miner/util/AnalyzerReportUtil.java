@@ -29,6 +29,24 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public abstract class AnalyzerReportUtil {
 
+	public static void saveSimpleElements(String message, String filename, Collection<SimpleStatElement> elements) throws FileNotFoundException {
+		System.out.println("Saving >> " + message);
+
+		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
+
+		pw.println(message);
+		pw.println(elements.size());
+		
+		if (elements.size() > 0) {
+			pw.println(SimpleStatElement.HEADER);
+			
+			for (SimpleStatElement e : elements)
+				pw.println(e);
+		}
+		
+		pw.close();
+	}
+	
 	public static void saveSimpleElements(
 			String message, String filename, SimpleStatElement scenario,
 			Map<String, SimpleStatElement> elements,
@@ -73,11 +91,11 @@ public abstract class AnalyzerReportUtil {
 		
 	}
 	
-	public static void saveDoubleElementsWithVariation(
-			String message, String filename, DoubleStatElement scenario, AnalyzerStatistical.Tests method, double parameter,
-			Collection<DoubleStatElement> results) throws FileNotFoundException {
+	public static void saveDoubleElementsOfScenario(
+			String message, String filename, DoubleStatElement scenario, AnalyzerStatistical.Tests stat_method, double parameter,
+			Collection<DoubleStatElement> members) throws FileNotFoundException {
 		
-		message = message + " | Test = " + method + ", Value = " + parameter;
+		message = message + " | Test = " + stat_method + ", Value = " + parameter;
 		
 		System.out.println("Saving >> " + message);
 
@@ -86,13 +104,13 @@ public abstract class AnalyzerReportUtil {
 		pw.println(message);
 		
 		pw.println(DoubleStatElement.HEADER + ";Variation");
-		pw.println(scenario + ";" + AnalyzerCollectionUtil.getDeviationType(scenario, method, parameter));
+		pw.println(scenario + ";" + AnalyzerCollectionUtil.getDeviationType(scenario, stat_method, parameter));
 		
-		pw.println(results.size());
+		pw.println(members.size());
 		pw.println(DoubleStatElement.HEADER + ";Variation");
 
-		for (DoubleStatElement e : results)
-			pw.println(e + ";" + AnalyzerCollectionUtil.getDeviationType(e, method, parameter));
+		for (DoubleStatElement m : members)
+			pw.println(m + ";" + AnalyzerCollectionUtil.getDeviationType(m, stat_method, parameter));
 		
 		pw.close();
 		
@@ -100,7 +118,7 @@ public abstract class AnalyzerReportUtil {
 	
 	public static void saveDoubleElements(
 			String message, String filename,
-			Collection<DoubleStatElement> results,
+			Collection<DoubleStatElement> elements,
 			double rate, double alpha) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
@@ -108,10 +126,10 @@ public abstract class AnalyzerReportUtil {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
 
 		pw.println(message);
-		pw.println(results.size());
+		pw.println(elements.size());
 		pw.println(DoubleStatElement.HEADER);
 
-		for (DoubleStatElement e : results)
+		for (DoubleStatElement e : elements)
 			pw.println(e);
 		
 		pw.println(rate);

@@ -22,8 +22,10 @@ import java.util.concurrent.TimeUnit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Commit;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.DoubleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.Issue;
+import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedLine;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.Tests;
 
 public abstract class AnalyzerCollectionUtil {
 
@@ -45,6 +47,15 @@ public abstract class AnalyzerCollectionUtil {
 			return String.valueOf(value);
 		}
 	};
+	
+	public static <K, V> Collection<V> getAll(Map<K, V> map, Collection<K> keys) {
+		Collection<V> result = new HashSet<V>();
+		
+		for (K key : keys)
+			result.add(map.get(key));
+		
+		return result;
+	}
 	
 	public static <T> Set<T> except(Collection<T> setA, Collection<T> setB) {
 		Set<T> except = new HashSet<T>(setA);
@@ -132,7 +143,7 @@ public abstract class AnalyzerCollectionUtil {
 	}
 	
 	/** It uses the pvalue to determine performance degradation */
-	public static List<DoubleStatElement> degradedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+	public static Collection<DoubleStatElement> degradedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
 		for (DoubleStatElement e : elements) {
@@ -153,7 +164,7 @@ public abstract class AnalyzerCollectionUtil {
 	}
 	
 	/** It uses the pvalue to determine if there was performance optimization */
-	public static List<DoubleStatElement> optimizedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+	public static Collection<DoubleStatElement> optimizedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
 		for (DoubleStatElement e : elements) {
@@ -174,7 +185,7 @@ public abstract class AnalyzerCollectionUtil {
 	}
 	
 	/** It uses the pvalue to determine unchanged performance */
-	public static List<DoubleStatElement> unchangedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
+	public static Collection<DoubleStatElement> unchangedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();
 
 		for (DoubleStatElement e : elements) {
@@ -192,6 +203,30 @@ public abstract class AnalyzerCollectionUtil {
 		}
 
 		return result;
+	}
+	
+	public static Collection<DoubleStatElement> filterDoubleElementByDeviation(
+			Collection<DoubleStatElement> complete, Collection<Deviation> expected_deviations, Tests stat_method, double alpha_or_rate) {
+		Collection<DoubleStatElement> filtered = new ArrayList<DoubleStatElement>();
+		
+		for (DoubleStatElement member : complete) {
+			Deviation deviation_type = AnalyzerCollectionUtil.getDeviationType(member, stat_method, alpha_or_rate);
+			
+			if (expected_deviations.contains(deviation_type))
+				filtered.add(member);
+		}
+
+		return filtered;
+	}
+	
+	public static Collection<SimpleStatElement> filterSimpleElementByTimeLimite(Collection<SimpleStatElement> complete, double limit) {
+		Collection<SimpleStatElement> filtered = new ArrayList<SimpleStatElement>();
+
+		for (SimpleStatElement member : complete)
+			if (member.getAverage() > limit)
+				filtered.add(member);
+
+		return filtered;
 	}
 	
 	public static Set<Long> getTaskNumbers(Map<String, Collection<UpdatedMethod>> map_path_methods) {

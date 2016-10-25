@@ -133,10 +133,11 @@ public class GenericDBHibernateImpl extends GenericDB {
 	@Override
 	public Map<String, SimpleStatElement> getSimpleStatOfMembersByScenario(String scenario_name) {
 		Map<String, SimpleStatElement> result = new HashMap<String, SimpleStatElement>();
-
-		SQLQuery query = getSession().createSQLQuery("select distinct node.member signature from scenario, node, node_scenario"
-				+ " where scenario.id = node_scenario.scenario_id and node.id = node_scenario.node_id and node.time <> -1"
-				+ " and scenario.name = :sname order by signature");
+		
+		SQLQuery query = getSession().createSQLQuery("select distinct node.member signature from"
+				+ " node inner join node_scenario on node.id = node_scenario.node_id"
+				+ " inner join scenario on node_scenario.scenario_id = scenario.id "
+				+ " where node.time <> -1 and scenario.name = :sname order by signature");
 
 		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		query.setString("sname", scenario_name);
@@ -243,9 +244,10 @@ public class GenericDBHibernateImpl extends GenericDB {
 	
 	@Override
 	public double[] getAllExecutionTimeOfMemberInScenario(String scenario, String signature) {
-		SQLQuery query = getSession().createSQLQuery("select node.time execution_time from scenario, node, node_scenario"
-				+ " where scenario.id = node_scenario.scenario_id and node.id = node_scenario.node_id and node.time <> -1 and"
-				+ " scenario.name = :sname and node.member = :signature");
+		SQLQuery query = getSession().createSQLQuery("select node.time execution_time from "
+				+ "node inner join node_scenario on node.id = node_scenario.node_id "
+				+ "inner join scenario on node_scenario.scenario_id = scenario.id "
+				+ "where node.time <> -1 and scenario.name = :sname and node.member = :signature");
 
 		query.setString("sname", scenario);
 		query.setString("signature", signature);
