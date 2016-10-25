@@ -3,6 +3,8 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.StatisticsUtil;
 
 public class DoubleStatElement {
+	public static final String HEADER = "Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta";
+	
 	private String elementName;
 
 	private double tTestPvalue;
@@ -67,6 +69,13 @@ public class DoubleStatElement {
 			averageV2 = StatisticsUtil.mean(timeMeasurementsV2);
 
 		return averageV2;
+	}
+
+	@Override
+	public String toString() {
+		return getElementName() + ";" + getTTestPvalue() + ";" + getUTestPvalue() + ";" + getAverageV1() + ";"
+				+ getAverageV2() + ";" + getNumberOfExecutionsV1() + ";" + getNumberOfExecutionsV2() + ";"
+				+ (getAverageV2() - getAverageV1());
 	}
 
 }

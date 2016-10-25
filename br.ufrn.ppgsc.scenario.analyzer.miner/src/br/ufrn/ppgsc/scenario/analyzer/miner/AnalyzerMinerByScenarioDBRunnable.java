@@ -3,6 +3,7 @@ package br.ufrn.ppgsc.scenario.analyzer.miner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerReportUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.Tests;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.SystemMetadataUtil;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil.Deviation;
 
 public final class AnalyzerMinerByScenarioDBRunnable {
 
@@ -182,7 +184,7 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		
 		System.out.println("-------------------------------------------------------------------");
 		
-//		Map<String, Map<String, DoubleStatElement>> from_scenario_to_members = new HashMap<String, Map<String, DoubleStatElement>>();
+		Map<String, Collection<DoubleStatElement>> from_scenario_to_members = new HashMap<String, Collection<DoubleStatElement>>();
 		int i = 0;
 		for (String scenario : kept_scenarios) {
 			System.out.println(++i + " / " + kept_scenarios.size() + " - Getting members of the scenario " + scenario);
@@ -196,11 +198,33 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 			Set<String> kept_members_by_scenario = AnalyzerCollectionUtil.intersect(simple_members_v1_by_scenario.keySet(), simple_members_v2_by_scenario.keySet());
 			
 			Map<String, DoubleStatElement> member_results_by_scenario = as.executeStatisticalTests(kept_members_by_scenario, simple_members_v1_by_scenario, simple_members_v2_by_scenario);
+			from_scenario_to_members.put(scenario, member_results_by_scenario.values());
 			
-			// Save methods in separated files
-			AnalyzerReportUtil.saveDoubleElements("# Members executed in both releases by:", getFileName("kept_members_by_scenario"), scenario, member_results_by_scenario.values());
-			AnalyzerReportUtil.saveSimpleElements("# Members executed in the first release, but not in the second by:", getFileName("removed_members_by_scenario"), scenario, simple_members_v1_by_scenario, removed_members_by_scenario);
-			AnalyzerReportUtil.saveSimpleElements("# Members executed in the second release, but not in the first by:", getFileName("added_members_by_scenario"), scenario, simple_members_v2_by_scenario, added_members_by_scenario);
+			DoubleStatElement double_scenario_stat = scenario_results.get(scenario);
+			
+			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Common members from scenario execution of " + scenario, getFileName("kept_members_by_scenario_utest"), double_scenario_stat, Tests.UTest, alpha_significance_level, member_results_by_scenario.values());
+			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Common members from scenario execution of " + scenario, getFileName("kept_members_by_scenario_ttest"), double_scenario_stat, Tests.TTest, alpha_significance_level, member_results_by_scenario.values());
+			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Common members from scenario execution of " + scenario, getFileName("kept_members_by_scenario_rate"), double_scenario_stat, Tests.Rate, performance_rate, member_results_by_scenario.values());
+			
+			AnalyzerReportUtil.saveSimpleElements("# Removed members from the scenario execution of " + scenario, getFileName("removed_members_by_scenario"), simple_scenarios_v1.get(scenario), simple_members_v1_by_scenario, removed_members_by_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# Added members to the scenario execution of " + scenario, getFileName("added_members_by_scenario"), simple_scenarios_v2.get(scenario), simple_members_v2_by_scenario, added_members_by_scenario);
+		}
+		
+		i = 0;
+		for (DoubleStatElement sdegraded: degraded_scenarios) {
+			System.out.println(++i + " / " + degraded_scenarios.size() + " - Filtrating members with deviation for degraded scenario " + sdegraded.getElementName());
+			
+			Collection<DoubleStatElement> every_member_of_scenario = from_scenario_to_members.get(sdegraded.getElementName());
+			Collection<DoubleStatElement> deviation_members_of_scenario = new ArrayList<DoubleStatElement>();
+			
+			for (DoubleStatElement member : every_member_of_scenario) {
+				Deviation deviation_type = AnalyzerCollectionUtil.getDeviationType(member, Tests.UTest, alpha_significance_level);
+				
+				if (deviation_type == Deviation.OPTIMIZATION || deviation_type == Deviation.DEGRADATION)
+					deviation_members_of_scenario.add(member);
+			}
+			
+			AnalyzerReportUtil.saveDoubleElementsWithVariation("# Members with deviation for degraded scenario " + sdegraded.getElementName(), getFileName("degraded_members_by_scenario_utest"), sdegraded, Tests.UTest, alpha_significance_level, deviation_members_of_scenario);
 		}
 		
 		System.out.println("-------------------------------------------------------------------");

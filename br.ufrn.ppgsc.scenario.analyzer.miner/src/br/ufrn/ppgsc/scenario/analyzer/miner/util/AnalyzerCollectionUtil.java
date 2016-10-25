@@ -27,6 +27,25 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 
 public abstract class AnalyzerCollectionUtil {
 
+	public enum Deviation {
+		OPTIMIZATION(-1), UNCHANGED(0), DEGRADATION(1);
+
+		private int value;
+
+		private Deviation(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return String.valueOf(value);
+		}
+	};
+	
 	public static <T> Set<T> except(Collection<T> setA, Collection<T> setB) {
 		Set<T> except = new HashSet<T>(setA);
 		except.removeAll(setB);
@@ -71,7 +90,47 @@ public abstract class AnalyzerCollectionUtil {
 
 		return result;
 	}
+	
+	
+	/** Parameter must be the rate if teste is Rate or the alpha if test is ttest or utest. */
+	public static Deviation getDeviationType(DoubleStatElement element, AnalyzerStatistical.Tests test, double parameter) {
+		Deviation type = null;
 
+		if (test == AnalyzerStatistical.Tests.Rate) {
+			// In this case, parameter is the rate
+			if (element.getAverageV2() > element.getAverageV1() * (1 + parameter))
+				type = Deviation.DEGRADATION;
+			else if (element.getAverageV2() < element.getAverageV1() * (1 - parameter))
+				type = Deviation.OPTIMIZATION;
+			else if (element.getAverageV2() >= element.getAverageV1() * (1 - parameter) && element.getAverageV2() <= element.getAverageV1() * (1 + parameter))
+				type = Deviation.UNCHANGED;
+			else
+				throw new RuntimeException("Deviation test with rate was invalid at runtime");
+		}
+		else {
+			double pvalue;
+			
+			if (test == AnalyzerStatistical.Tests.TTest)
+				pvalue = element.getTTestPvalue();
+			else if (test == AnalyzerStatistical.Tests.UTest)
+				pvalue = element.getUTestPvalue();
+			else
+				throw new RuntimeException("Target test invalid at runtime");
+			
+			// In this case, parameter is the alpha
+			if (pvalue > parameter || Double.isNaN(pvalue))
+				type = Deviation.UNCHANGED;
+			else if (pvalue <= parameter && element.getAverageV2() - element.getAverageV1() > 0)
+				type = Deviation.DEGRADATION;
+			else if (pvalue <= parameter && element.getAverageV2() - element.getAverageV1() < 0)
+				type = Deviation.OPTIMIZATION;
+			else
+				throw new RuntimeException("Deviation test with pvalue was invalid at runtime");
+		}
+
+		return type;
+	}
+	
 	/** It uses the pvalue to determine performance degradation */
 	public static List<DoubleStatElement> degradedPValue(Collection<DoubleStatElement> elements, double alpha, AnalyzerStatistical.Tests test) {
 		List<DoubleStatElement> result = new ArrayList<DoubleStatElement>();

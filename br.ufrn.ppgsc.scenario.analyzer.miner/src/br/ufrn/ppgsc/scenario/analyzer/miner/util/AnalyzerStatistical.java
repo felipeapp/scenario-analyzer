@@ -14,7 +14,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 public class AnalyzerStatistical {
 
 	public enum Tests {
-		TTest, UTest
+		TTest, UTest, Rate
 	};
 
 	public Map<String, DoubleStatElement> executeStatisticalTests(Set<String> set_of_keys,

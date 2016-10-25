@@ -4,6 +4,8 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.util.StatisticsUtil;
 
 public class SimpleStatElement {
 
+	public static final String HEADER = "Name;Average;N";
+
 	// Element name (scenario name or method name)
 	private String elementName;
 
@@ -36,6 +38,11 @@ public class SimpleStatElement {
 			average = StatisticsUtil.mean(timeMeasurements);
 
 		return average;
+	}
+
+	@Override
+	public String toString() {
+		return getElementName() + ";" + getAverage() + ";" + getNumberOfExecutions();
 	}
 
 }

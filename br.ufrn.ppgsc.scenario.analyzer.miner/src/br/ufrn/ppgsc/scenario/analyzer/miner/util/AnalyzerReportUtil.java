@@ -30,23 +30,24 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
 public abstract class AnalyzerReportUtil {
 
 	public static void saveSimpleElements(
-			String message, String filename, String scenario,
+			String message, String filename, SimpleStatElement scenario,
 			Map<String, SimpleStatElement> elements,
 			Collection<String> target_keys) throws FileNotFoundException {
 		
-		System.out.println("Saving >> " + message + " " + scenario);
+		System.out.println("Saving >> " + message);
 
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
 
 		pw.println(message);
+		
+		pw.println(SimpleStatElement.HEADER);
 		pw.println(scenario);
+		
 		pw.println(target_keys.size());
-		pw.println("Name;Average;N");
+		pw.println(SimpleStatElement.HEADER);
 
-		for (String key : target_keys) {
-			SimpleStatElement e = elements.get(key);
-			pw.println(e.getElementName() + ";" + e.getAverage() + ";" + e.getNumberOfExecutions());
-		}
+		for (String key : target_keys)
+			pw.println(elements.get(key));
 		
 		pw.close();
 		
@@ -63,36 +64,35 @@ public abstract class AnalyzerReportUtil {
 
 		pw.println(message);
 		pw.println(target_keys.size());
-		pw.println("Name;Average;N");
+		pw.println(SimpleStatElement.HEADER);
 
-		for (String key : target_keys) {
-			SimpleStatElement e = elements.get(key);
-			pw.println(e.getElementName() + ";" + e.getAverage() + ";" + e.getNumberOfExecutions());
-		}
+		for (String key : target_keys)
+			pw.println(elements.get(key));
 		
 		pw.close();
 		
 	}
 	
-	public static void saveDoubleElements(
-			String message, String filename, String scenario,
+	public static void saveDoubleElementsWithVariation(
+			String message, String filename, DoubleStatElement scenario, AnalyzerStatistical.Tests method, double parameter,
 			Collection<DoubleStatElement> results) throws FileNotFoundException {
 		
-		System.out.println("Saving >> " + message + " " + scenario);
+		message = message + " | Test = " + method + ", Value = " + parameter;
+		
+		System.out.println("Saving >> " + message);
 
 		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
-
+		
 		pw.println(message);
-		pw.println(scenario);
+		
+		pw.println(DoubleStatElement.HEADER + ";Variation");
+		pw.println(scenario + ";" + AnalyzerCollectionUtil.getDeviationType(scenario, method, parameter));
+		
 		pw.println(results.size());
-		pw.println("Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2");
+		pw.println(DoubleStatElement.HEADER + ";Variation");
 
-		for (DoubleStatElement e : results) {
-			pw.println(e.getElementName() + ";"
-					+ e.getTTestPvalue() + ";" + e.getUTestPvalue() + ";"
-					+ e.getAverageV1() + ";" + e.getAverageV2() + ";"
-					+ e.getNumberOfExecutionsV1() + ";" + e.getNumberOfExecutionsV2());
-		}
+		for (DoubleStatElement e : results)
+			pw.println(e + ";" + AnalyzerCollectionUtil.getDeviationType(e, method, parameter));
 		
 		pw.close();
 		
@@ -109,14 +109,10 @@ public abstract class AnalyzerReportUtil {
 
 		pw.println(message);
 		pw.println(results.size());
-		pw.println("Name;P-Value (TTest);P-Value (UTest);Mean R1;Mean R2;N1;N2");
+		pw.println(DoubleStatElement.HEADER);
 
-		for (DoubleStatElement e : results) {
-			pw.println(e.getElementName() + ";"
-					+ e.getTTestPvalue() + ";" + e.getUTestPvalue() + ";"
-					+ e.getAverageV1() + ";" + e.getAverageV2() + ";"
-					+ e.getNumberOfExecutionsV1() + ";" + e.getNumberOfExecutionsV2());
-		}
+		for (DoubleStatElement e : results)
+			pw.println(e);
 		
 		pw.println(rate);
 		pw.println(alpha);
