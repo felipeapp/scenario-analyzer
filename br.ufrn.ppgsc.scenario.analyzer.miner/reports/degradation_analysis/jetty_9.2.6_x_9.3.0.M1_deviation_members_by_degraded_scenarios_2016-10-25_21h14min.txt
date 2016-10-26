@@ -127,9 +127,9 @@ org.eclipse.jetty.servlet.AsyncContextListenersTest.prepare(java.lang.String,jav
 # Added members to the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
 3
 Name;Average;N
-org.eclipse.jetty.server.AbstractConnector.setAcceptorPriorityDelta(int);0.5;30
-org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();5.950000000000001;60
 org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);6.333333333333334;30
+org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();5.950000000000001;60
+org.eclipse.jetty.server.AbstractConnector.setAcceptorPriorityDelta(int);0.5;30
 # Removed members from the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
 4
 Name;Average;N
@@ -155,8 +155,8 @@ org.eclipse.jetty.servlet.DispatcherForwardTest.prepare();0.003388510140615721;3
 # Added members to the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
 2
 Name;Average;N
-org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.029629629629629572;540
 org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.08703703703703705;540
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.029629629629629572;540
 # Removed members from the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
 1
 Name;Average;N
@@ -245,10 +245,10 @@ org.eclipse.jetty.servlet.AsyncIOServletTest.testAsyncWriteThrowsError();0.01906
 # Added members to the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
 4
 Name;Average;N
-org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.2333333333333325;30
 org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.029629629629629693;540
-org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();5.416666666666666;60
 org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.08888888888888916;540
+org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();5.416666666666666;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.2333333333333325;30
 # Removed members from the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
 2
 Name;Average;N
@@ -280,20 +280,20 @@ org.eclipse.jetty.server.handler.ContextHandler(org.eclipse.jetty.server.handler
 # Added members to the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
 7
 Name;Average;N
-org.eclipse.jetty.util.resource.PathResource(java.nio.file.Path);1.0166666666666668;60
-org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);2.083333333333333;60
-org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path);1.0166666666666668;60
-org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.1425925925925928;540
-org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.11481481481481483;540
 org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();2.0833333333333335;120
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.1425925925925928;540
+org.eclipse.jetty.util.resource.PathResource(java.nio.file.Path);1.0166666666666668;60
 org.eclipse.jetty.util.resource.PathResource.getInputStream();0.2666666666666664;60
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);2.083333333333333;60
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.11481481481481483;540
+org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path);1.0166666666666668;60
 # Removed members from the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
 4
 Name;Average;N
-org.eclipse.jetty.util.resource.FileResource.normalizeURI(java.io.File,java.net.URI);0.25;60
-org.eclipse.jetty.util.resource.FileResource(java.io.File);0.5166666666666666;60
 org.eclipse.jetty.util.ConcurrentArrayQueue(int);0.6666666666666662;120
 org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.6666666666666662;120
+org.eclipse.jetty.util.resource.FileResource.normalizeURI(java.io.File,java.net.URI);0.25;60
+org.eclipse.jetty.util.resource.FileResource(java.io.File);0.5166666666666666;60
 # Members with deviation for scenario Entry point for ResponseHeadersTest.testResponseHeaderFormat | Test = UTest, Value = 0.05
 Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
 Entry point for ResponseHeadersTest.testResponseHeaderFormat;5.712397106392818E-19;6.373035432716279E-11;171.96666666666667;189.86666666666667;30;30;17.900000000000006;1
@@ -358,16 +358,16 @@ org.eclipse.jetty.servlet.AsyncServletLongPollTest.testSuspendedRequestCompleted
 # Added members to the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
 4
 Name;Average;N
-org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.17407407407407394;540
+org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.11666666666666653;540
 org.eclipse.jetty.io.SelectorManager$ManagedSelector.newSelector();3.95;60
 org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int);4.6;30
-org.eclipse.jetty.http.Http1FieldPreEncoder.getEncodedField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.11666666666666653;540
+org.eclipse.jetty.http.PreEncodedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String,java.lang.String);0.17407407407407394;540
 # Removed members from the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
 4
 Name;Average;N
+org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.25;60
 org.eclipse.jetty.http.HttpGenerator$CachedHttpField(org.eclipse.jetty.http.HttpHeader,java.lang.String);0.05740740740740749;540
 org.eclipse.jetty.util.ConcurrentArrayQueue(int);0.25;60
-org.eclipse.jetty.util.ConcurrentArrayQueue.newBlock();0.25;60
 org.eclipse.jetty.util.ConcurrentArrayQueue$Block(int);0.25;60
 # Members with deviation for scenario Entry point for AsyncContextTest.testStartCompleteThrow | Test = UTest, Value = 0.05
 Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation

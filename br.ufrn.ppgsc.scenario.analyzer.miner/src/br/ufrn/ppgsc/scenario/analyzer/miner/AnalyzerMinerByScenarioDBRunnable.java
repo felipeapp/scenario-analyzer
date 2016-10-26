@@ -103,21 +103,26 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 			Map<String, SimpleStatElement> members_v2_by_scenario = database_v2.getSimpleStatOfMembersByScenario(scenario);
 			System.out.println("\tTotal V2 = " + members_v2_by_scenario.size());
 			
-			Set<String> removed_members_by_scenario = AnalyzerCollectionUtil.except(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
-			Set<String> added_members_by_scenario = AnalyzerCollectionUtil.except(members_v2_by_scenario.keySet(), members_v1_by_scenario.keySet());
-			Set<String> kept_members_by_scenario = AnalyzerCollectionUtil.intersect(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
+			// Recupera as assinaturas dos métodos
+			Set<String> sigs_removed_members_by_scenario = AnalyzerCollectionUtil.except(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
+			Set<String> sigs_added_members_by_scenario = AnalyzerCollectionUtil.except(members_v2_by_scenario.keySet(), members_v1_by_scenario.keySet());
+			Set<String> sigs_kept_members_by_scenario = AnalyzerCollectionUtil.intersect(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
 			
-			Map<String, DoubleStatElement> member_results_by_scenario = as.executeStatisticalTests(kept_members_by_scenario, members_v1_by_scenario, members_v2_by_scenario);
+			// Recupera os objetos a partir das assinaturas
+			Collection<SimpleStatElement> removed_members_by_scenario = AnalyzerCollectionUtil.getAll(members_v1_by_scenario, sigs_removed_members_by_scenario);
+			Collection<SimpleStatElement> added_members_by_scenario = AnalyzerCollectionUtil.getAll(members_v2_by_scenario, sigs_added_members_by_scenario);
+			
+			Map<String, DoubleStatElement> member_results_by_scenario = as.executeStatisticalTests(sigs_kept_members_by_scenario, members_v1_by_scenario, members_v2_by_scenario);
 			
 			from_scenario_to_kept_members.put(scenario, member_results_by_scenario.values());
-			from_scenario_to_added_members.put(scenario, AnalyzerCollectionUtil.getAll(members_v2_by_scenario, added_members_by_scenario));
-			from_scenario_to_removed_members.put(scenario, AnalyzerCollectionUtil.getAll(members_v1_by_scenario, removed_members_by_scenario));
+			from_scenario_to_added_members.put(scenario, added_members_by_scenario);
+			from_scenario_to_removed_members.put(scenario, removed_members_by_scenario);
 			
 			DoubleStatElement double_scenario_stat = scenario_results.get(scenario);
 			
 			AnalyzerReportUtil.saveDoubleElementsOfScenario("# Common members from the execution of scenario " + scenario, getFileName("kept_members_by_scenario"), double_scenario_stat, Tests.UTest, alpha_significance_level, member_results_by_scenario.values());
-			AnalyzerReportUtil.saveSimpleElements("# Removed members from the execution of scenario " + scenario, getFileName("removed_members_by_scenario"), scenarios_v1.get(scenario), members_v1_by_scenario, removed_members_by_scenario);
-			AnalyzerReportUtil.saveSimpleElements("# Added members to the execution of scenario " + scenario, getFileName("added_members_by_scenario"), scenarios_v2.get(scenario), members_v2_by_scenario, added_members_by_scenario);
+			AnalyzerReportUtil.saveSimpleElementsOfScenario("# Removed members from the execution of scenario " + scenario, getFileName("removed_members_by_scenario"), scenarios_v1.get(scenario), removed_members_by_scenario);
+			AnalyzerReportUtil.saveSimpleElementsOfScenario("# Added members to the execution of scenario " + scenario, getFileName("added_members_by_scenario"), scenarios_v2.get(scenario), added_members_by_scenario);
 		}
 		
 		generateDAReport("deviation_members_by_degraded_scenarios", degraded_scenarios,

@@ -116,8 +116,8 @@ public final class AnalyzerMinerDBRunnable {
 		
 		// Save scenarios in separated files
 		AnalyzerReportUtil.saveDoubleElements("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);
-		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), simple_scenarios_v1, removed_scenarios);
-		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), simple_scenarios_v2, added_scenarios);
+		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), AnalyzerCollectionUtil.getAll(simple_scenarios_v1, removed_scenarios));
+		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), AnalyzerCollectionUtil.getAll(simple_scenarios_v2, added_scenarios));
 		
 		// Save scenarios according their execution time variation measured by the performance rate
 		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (Rate method)", getFileName("pr_degraded_scenarios"), AnalyzerCollectionUtil.degradedRate(scenario_results.values(), performance_rate), performance_rate, 0);
@@ -162,8 +162,8 @@ public final class AnalyzerMinerDBRunnable {
 		
 		// Save methods in separated files
 		AnalyzerReportUtil.saveDoubleElements("# Methods executed in both releases", getFileName("kept_methods"), method_results.values(), 0, 0);
-		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the first release, but not in the second", getFileName("removed_methods"), simple_members_v1, removed_methods);
-		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the second release, but not in the first", getFileName("added_methods"), simple_members_v2, added_methods);
+		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the first release, but not in the second", getFileName("removed_methods"), AnalyzerCollectionUtil.getAll(simple_members_v1, removed_methods));
+		AnalyzerReportUtil.saveSimpleElements("# Methods executed in the second release, but not in the first", getFileName("added_methods"), AnalyzerCollectionUtil.getAll(simple_members_v2, added_methods));
 		
 		// Save methods according their execution time variation measured by the performance rate
 		AnalyzerReportUtil.saveDoubleElements("# Degradated methods (Rate method)", getFileName("pr_degraded_methods"), AnalyzerCollectionUtil.degradedRate(method_results.values(), performance_rate), performance_rate, 0);

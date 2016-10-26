@@ -37,7 +37,7 @@ public abstract class AnalyzerReportUtil {
 		pw.println(message);
 		pw.println(elements.size());
 		
-		if (elements.size() > 0) {
+		if (!elements.isEmpty()) {
 			pw.println(SimpleStatElement.HEADER);
 			
 			for (SimpleStatElement e : elements)
@@ -47,10 +47,9 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
-	public static void saveSimpleElements(
+	public static void saveSimpleElementsOfScenario(
 			String message, String filename, SimpleStatElement scenario,
-			Map<String, SimpleStatElement> elements,
-			Collection<String> target_keys) throws FileNotFoundException {
+			Collection<SimpleStatElement> members) throws FileNotFoundException {
 		
 		System.out.println("Saving >> " + message);
 
@@ -61,31 +60,14 @@ public abstract class AnalyzerReportUtil {
 		pw.println(SimpleStatElement.HEADER);
 		pw.println(scenario);
 		
-		pw.println(target_keys.size());
-		pw.println(SimpleStatElement.HEADER);
-
-		for (String key : target_keys)
-			pw.println(elements.get(key));
+		pw.println(members.size());
 		
-		pw.close();
-		
-	}
+		if (!members.isEmpty()) {
+			pw.println(SimpleStatElement.HEADER);
 	
-	public static void saveSimpleElements(
-			String message, String filename,
-			Map<String, SimpleStatElement> elements,
-			Collection<String> target_keys) throws FileNotFoundException {
-		
-		System.out.println("Saving >> " + message);
-
-		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
-
-		pw.println(message);
-		pw.println(target_keys.size());
-		pw.println(SimpleStatElement.HEADER);
-
-		for (String key : target_keys)
-			pw.println(elements.get(key));
+			for (SimpleStatElement m : members)
+				pw.println(m);
+		}
 		
 		pw.close();
 		
@@ -107,10 +89,13 @@ public abstract class AnalyzerReportUtil {
 		pw.println(scenario + ";" + AnalyzerCollectionUtil.getDeviationType(scenario, stat_method, parameter));
 		
 		pw.println(members.size());
-		pw.println(DoubleStatElement.HEADER + ";Variation");
-
-		for (DoubleStatElement m : members)
-			pw.println(m + ";" + AnalyzerCollectionUtil.getDeviationType(m, stat_method, parameter));
+		
+		if (!members.isEmpty()) {
+			pw.println(DoubleStatElement.HEADER + ";Variation");
+	
+			for (DoubleStatElement m : members)
+				pw.println(m + ";" + AnalyzerCollectionUtil.getDeviationType(m, stat_method, parameter));
+		}
 		
 		pw.close();
 		
@@ -123,14 +108,17 @@ public abstract class AnalyzerReportUtil {
 		
 		System.out.println("Saving >> " + message);
 
-		PrintWriter pw = new PrintWriter(new FileOutputStream(filename));
+		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
 
 		pw.println(message);
 		pw.println(elements.size());
-		pw.println(DoubleStatElement.HEADER);
-
-		for (DoubleStatElement e : elements)
-			pw.println(e);
+		
+		if (!elements.isEmpty()) {
+			pw.println(DoubleStatElement.HEADER);
+	
+			for (DoubleStatElement e : elements)
+				pw.println(e);
+		}
 		
 		pw.println(rate);
 		pw.println(alpha);
