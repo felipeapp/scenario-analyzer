@@ -3,6 +3,7 @@ package br.ufrn.ppgsc.scenario.analyzer.miner;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -80,6 +81,16 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		Collection<DoubleStatElement> optimized_scenarios = AnalyzerCollectionUtil.optimizedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
 		Collection<DoubleStatElement> unchanged_scenarios = AnalyzerCollectionUtil.unchangedPValue(scenario_results.values(), alpha_significance_level, Tests.UTest);
 		
+		// Save scenarios in separated files
+		AnalyzerReportUtil.saveDoubleElements("# Scenarios executed in both releases", getFileName("kept_scenarios"), scenario_results.values(), 0, 0);
+		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the first release, but not in the second", getFileName("removed_scenarios"), AnalyzerCollectionUtil.getAll(scenarios_v1, removed_scenarios));
+		AnalyzerReportUtil.saveSimpleElements("# Scenarios executed in the second release, but not in the first", getFileName("added_scenarios"), AnalyzerCollectionUtil.getAll(scenarios_v2, added_scenarios));
+		
+		// Save scenarios according their execution time variation measured by the UTest
+		AnalyzerReportUtil.saveDoubleElements("# Degradated scenarios (UTest P-Value)", getFileName("degraded_scenarios"), degraded_scenarios, 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Optimized scenarios (UTest P-Value)", getFileName("optimized_scenarios"), optimized_scenarios, 0, alpha_significance_level);
+		AnalyzerReportUtil.saveDoubleElements("# Unchanged scenarios (UTest P-Value)", getFileName("unchanged_scenarios"), unchanged_scenarios, 0, alpha_significance_level);
+		
 		System.out.println("-------------------------------------------------------------------");
 		
 		// Essas estruturas armazenarão os métodos comuns (com variação), adicionados e removidos de cada cenário
@@ -89,19 +100,33 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		
 		int i = 0;
 		
+		// Cenários alvo
+		Collection<DoubleStatElement> target_scenarios = new ArrayList<DoubleStatElement>();
+		target_scenarios.addAll(optimized_scenarios);
+		target_scenarios.addAll(degraded_scenarios);
+		
 		/*
 		 * Esse for gera três arquivos organizados por cenários. O primeiro com todos os métodos comuns de cada cenários.
 		 * O segundo com todos os métodos removidos de cada cenário. O terceiro com todos os métodos adicionados de cada cenário.
 		 */
-		for (String scenario : kept_scenarios) {
+		//for (String scenario : kept_scenarios) {
+		for (DoubleStatElement scenario_elem : target_scenarios) {
+			String scenario = scenario_elem.getElementName();
+			
 			// TODO: Como otimizar a consulta do método "getSimpleStatOfMembersByScenario"?
-			System.out.println(++i + " / " + kept_scenarios.size() + " - Getting members of the scenario " + scenario);
+			System.out.println(++i + " / " + target_scenarios.size() + " / " + kept_scenarios.size() + " - Getting members of the scenario " + scenario);
+			
+			long begin = System.currentTimeMillis();
 			
 			Map<String, SimpleStatElement> members_v1_by_scenario = database_v1.getSimpleStatOfMembersByScenario(scenario);
 			System.out.println("\tTotal V1 = " + members_v1_by_scenario.size());
 			
 			Map<String, SimpleStatElement> members_v2_by_scenario = database_v2.getSimpleStatOfMembersByScenario(scenario);
 			System.out.println("\tTotal V2 = " + members_v2_by_scenario.size());
+			
+			long end = System.currentTimeMillis();
+			
+			System.out.println("Both queries took " + (end - begin) / 1000 + " seg.");
 			
 			// Recupera as assinaturas dos métodos
 			Set<String> sigs_removed_members_by_scenario = AnalyzerCollectionUtil.except(members_v1_by_scenario.keySet(), members_v2_by_scenario.keySet());
@@ -120,9 +145,9 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 			
 			DoubleStatElement double_scenario_stat = scenario_results.get(scenario);
 			
-			AnalyzerReportUtil.saveDoubleElementsOfScenario("# Common members from the execution of scenario " + scenario, getFileName("kept_members_by_scenario"), double_scenario_stat, Tests.UTest, alpha_significance_level, member_results_by_scenario.values());
-			AnalyzerReportUtil.saveSimpleElementsOfScenario("# Removed members from the execution of scenario " + scenario, getFileName("removed_members_by_scenario"), scenarios_v1.get(scenario), removed_members_by_scenario);
-			AnalyzerReportUtil.saveSimpleElementsOfScenario("# Added members to the execution of scenario " + scenario, getFileName("added_members_by_scenario"), scenarios_v2.get(scenario), added_members_by_scenario);
+			AnalyzerReportUtil.saveDoubleElementsOfScenario("# " + i + " Common members from the execution of scenario " + scenario, getFileName("kept_members_by_scenario_with_var"), double_scenario_stat, Tests.UTest, alpha_significance_level, member_results_by_scenario.values());
+			AnalyzerReportUtil.saveSimpleElementsOfScenario("# " + i + " Removed members from the execution of scenario " + scenario, getFileName("removed_members_by_scenario_with_var"), scenarios_v1.get(scenario), removed_members_by_scenario);
+			AnalyzerReportUtil.saveSimpleElementsOfScenario("# " + i + " Added members to the execution of scenario " + scenario, getFileName("added_members_by_scenario_with_var"), scenarios_v2.get(scenario), added_members_by_scenario);
 		}
 		
 		generateDAReport("deviation_members_by_degraded_scenarios", degraded_scenarios,
@@ -130,9 +155,11 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 		
 		generateDAReport("deviation_members_by_optimized_scenarios", optimized_scenarios,
 				from_scenario_to_kept_members, from_scenario_to_added_members, from_scenario_to_removed_members);
-		
+		/*
+		// Só faz sentido esse relatório se rodar o FOR acima para todos os cenários mantidos
 		generateDAReport("deviation_members_by_unchanged_scenarios", unchanged_scenarios,
 				from_scenario_to_kept_members, from_scenario_to_added_members, from_scenario_to_removed_members);
+		*/
 		
 		System.out.println("-------------------------------------------------------------------");
 		
@@ -165,9 +192,9 @@ public final class AnalyzerMinerByScenarioDBRunnable {
 			Collection<SimpleStatElement> significant_removed_members_of_scenario = AnalyzerCollectionUtil.filterSimpleElementByTimeLimite(
 					from_scenario_to_removed_members.get(sdegraded.getElementName()), 0);
 			
-			AnalyzerReportUtil.saveDoubleElementsOfScenario("# Members with deviation for scenario " + scenario, getFileName(filename), sdegraded, Tests.UTest, alpha_significance_level, deviation_members_of_scenario);
-			AnalyzerReportUtil.saveSimpleElements("# Added members to the execution of scenario " + scenario, getFileName(filename), significant_added_members_of_scenario);
-			AnalyzerReportUtil.saveSimpleElements("# Removed members from the execution of scenario " + scenario, getFileName(filename), significant_removed_members_of_scenario);
+			AnalyzerReportUtil.saveDoubleElementsOfScenario("# " + i + " Members with deviation for scenario " + scenario, getFileName(filename), sdegraded, Tests.UTest, alpha_significance_level, deviation_members_of_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# " + i + " Added members to the execution of scenario " + scenario, getFileName(filename), significant_added_members_of_scenario);
+			AnalyzerReportUtil.saveSimpleElements("# " + i + " Removed members from the execution of scenario " + scenario, getFileName(filename), significant_removed_members_of_scenario);
 		}
 	}
 
