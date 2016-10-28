@@ -26,4 +26,9 @@ public class UpdatedMethod {
 		return limit;
 	}
 
+	@Override
+	public String toString() {
+		return limit.getSignature();
+	}
+
 }

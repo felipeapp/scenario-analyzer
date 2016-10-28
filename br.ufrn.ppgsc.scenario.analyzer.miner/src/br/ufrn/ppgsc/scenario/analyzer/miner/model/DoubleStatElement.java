@@ -2,10 +2,9 @@ package br.ufrn.ppgsc.scenario.analyzer.miner.model;
 
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.StatisticsUtil;
 
-public class DoubleStatElement {
+public class DoubleStatElement extends AbstractStatElement {
+
 	public static final String HEADER = "Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta";
-	
-	private String elementName;
 
 	private double tTestPvalue;
 	private double uTestPvalue;
@@ -13,12 +12,15 @@ public class DoubleStatElement {
 	private double[] timeMeasurementsV1;
 	private double[] timeMeasurementsV2;
 
+	private int numberOfExecutionsV1;
+	private int numberOfExecutionsV2;
+
 	private double averageV1;
 	private double averageV2;
 
 	public DoubleStatElement(String elementName, double tTestPvalue, double uTestPvalue, double[] timeMeasurementsV1,
 			double[] timeMeasurementsV2) {
-		this.elementName = elementName;
+		super(elementName);
 
 		this.tTestPvalue = tTestPvalue;
 		this.uTestPvalue = uTestPvalue;
@@ -26,11 +28,21 @@ public class DoubleStatElement {
 		this.timeMeasurementsV1 = timeMeasurementsV1;
 		this.timeMeasurementsV2 = timeMeasurementsV2;
 
-		averageV1 = averageV2 = -1;
+		this.numberOfExecutionsV1 = timeMeasurementsV1.length;
+		this.numberOfExecutionsV2 = timeMeasurementsV2.length;
+
+		this.averageV1 = this.averageV2 = -1;
 	}
 
-	public String getElementName() {
-		return elementName;
+	public DoubleStatElement(String elementName, double tTestPvalue, double uTestPvalue, double averageV1,
+			double averageV2, int numberOfExecutionsV1, int numberOfExecutionsV2) {
+		super(elementName);
+		this.tTestPvalue = tTestPvalue;
+		this.uTestPvalue = uTestPvalue;
+		this.numberOfExecutionsV1 = numberOfExecutionsV1;
+		this.numberOfExecutionsV2 = numberOfExecutionsV2;
+		this.averageV1 = averageV1;
+		this.averageV2 = averageV2;
 	}
 
 	public double getTTestPvalue() {
@@ -50,11 +62,11 @@ public class DoubleStatElement {
 	}
 
 	public int getNumberOfExecutionsV1() {
-		return timeMeasurementsV1.length;
+		return numberOfExecutionsV1;
 	}
 
 	public int getNumberOfExecutionsV2() {
-		return timeMeasurementsV2.length;
+		return numberOfExecutionsV2;
 	}
 
 	public double getAverageV1() {

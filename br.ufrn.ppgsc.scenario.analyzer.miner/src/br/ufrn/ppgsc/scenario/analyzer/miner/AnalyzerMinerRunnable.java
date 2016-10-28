@@ -25,7 +25,7 @@ public final class AnalyzerMinerRunnable {
 			date = new AnalyzerMinerByScenarioDBRunnable().run();
 
 		if (type.equals(MinerType.Repository.name()) || type.equals(MinerType.Both.name()))
-			new AnalyzerMinerRepositoryRunnable(date).run();
+			new AnalyzerMinerByScenarioRepositoryRunnable(date).run();
 	}
 	
 	public static void main(String[] args) {

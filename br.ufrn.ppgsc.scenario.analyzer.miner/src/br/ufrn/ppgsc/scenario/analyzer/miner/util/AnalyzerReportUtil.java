@@ -127,6 +127,123 @@ public abstract class AnalyzerReportUtil {
 		
 	}
 	
+	public static void loadReportByScenario(
+			Map<String, List<DoubleStatElement>> from_scenario_to_kept_members,
+			Map<String, List<SimpleStatElement>> from_scenario_to_added_members,
+			Map<String, List<SimpleStatElement>> from_scenario_to_removed_members,
+			Map<String, DoubleStatElement> scenarios_with_variation,
+			String filename) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		while (true) {
+			
+			if (br.readLine() == null) // Comment line
+				break;
+			
+			// Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+			br.readLine(); // Scenario header line 
+			
+			// Read scenario line
+			DoubleStatElement scenario = getDoubleElementFromLineReport(br.readLine());
+			scenarios_with_variation.put(scenario.getElementName(), scenario);
+			
+			// ------------------------- KEPT MEMBERS ------------------------- 
+			
+			// Reading the number of common members
+			int number_of_members = Integer.parseInt(br.readLine());
+			
+			if (number_of_members > 0) {
+				// Name;P-Value (TTest);P-Value (UTest);AVG R1;AVG R2;N1;N2;Delta;Variation
+				br.readLine(); // Reading the header of the members
+				
+				// Read N lines of common members and add them to their scenario
+				from_scenario_to_kept_members.put(scenario.getElementName(), readDoubleElements(br, number_of_members));
+			}
+			
+			// ------------------------- ADDED MEMBERS -------------------------
+			
+			br.readLine(); // Read the comment of added members
+			
+			// Reading the number of added members
+			number_of_members = Integer.parseInt(br.readLine());
+			
+			if (number_of_members > 0) {
+				// Name;Average;N
+				br.readLine(); // Read the header of added members
+				
+				// Read N lines of added members and add them to their scenario
+				from_scenario_to_added_members.put(scenario.getElementName(), readSimpleElements(br, number_of_members));
+			}
+			
+			// ------------------------- REMOVED MEMBERS -------------------------
+			
+			br.readLine(); // Read the comment of removed members
+			
+			// Reading the number of removed members
+			number_of_members = Integer.parseInt(br.readLine());
+			
+			if (number_of_members > 0) {
+				// Name;Average;N
+				br.readLine(); // Read the header of removed members
+				
+				// Read N lines of removed members and add them to their scenario
+				from_scenario_to_removed_members.put(scenario.getElementName(), readSimpleElements(br, number_of_members));
+			}
+			
+			
+		}
+		
+		br.close();
+		
+	}
+	
+	public static List<DoubleStatElement> readDoubleElements(BufferedReader br, int number_of_lines)
+			throws IOException {
+		List<DoubleStatElement> list_of_elements = new ArrayList<DoubleStatElement>();
+
+		for (int i = 0; i < number_of_lines; i++) {
+			// Read member line
+			DoubleStatElement e = getDoubleElementFromLineReport(br.readLine());
+			list_of_elements.add(e);
+		}
+
+		return list_of_elements;
+	}
+
+	public static List<SimpleStatElement> readSimpleElements(BufferedReader br, int number_of_lines)
+			throws IOException {
+		List<SimpleStatElement> list_of_elements = new ArrayList<SimpleStatElement>();
+
+		for (int i = 0; i < number_of_lines; i++) {
+			// Read member line
+			SimpleStatElement e = getSimpleElementFromLineReport(br.readLine());
+			list_of_elements.add(e);
+		}
+
+		return list_of_elements;
+	}
+
+	public static DoubleStatElement getDoubleElementFromLineReport(String line) {
+		String[] fields = line.split(";");
+		
+		return new DoubleStatElement(fields[0], // Name
+				Double.parseDouble(fields[1]), // TTest
+				Double.parseDouble(fields[2]), // UTest
+				Double.parseDouble(fields[3]), // AVG 1
+				Double.parseDouble(fields[4]), // AVG 2
+				Integer.parseInt(fields[5]), // N1
+				Integer.parseInt(fields[6])); // N2
+	}
+	
+	public static SimpleStatElement getSimpleElementFromLineReport(String line) {
+		String[] fields = line.split(";");
+
+		return new SimpleStatElement(fields[0], // Name
+				Double.parseDouble(fields[1]), // Average
+				Integer.parseInt(fields[2])); // N
+	}
+	
 	public static void saveFails(String message, String filename,
 			Map<RuntimeScenario, List<RuntimeNode>> scenario_to_nodes,
 			Map<String, Integer> failed_methods, int release) throws FileNotFoundException {

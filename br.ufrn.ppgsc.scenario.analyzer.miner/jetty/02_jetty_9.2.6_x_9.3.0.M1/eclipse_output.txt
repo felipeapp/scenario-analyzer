@@ -1,0 +1,577 @@
+Not found in R1 (Is it right?): D:/Development/Workspace/jetty-untouched/jetty-9.2.6.v20141205/jetty-http/src/main/java/org/eclipse/jetty/http/PreEncodedHttpField.java
+Not found in R1 (Is it right?): D:/Development/Workspace/jetty-untouched/jetty-9.2.6.v20141205/jetty-http/src/main/java/org/eclipse/jetty/http/Http1FieldPreEncoder.java
+Getting updated methods from repository to degraded methods [108]
+0 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Starting release mining, open connection now...
+30 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (1/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DispatcherForwardTest.java
+31 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+1535 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to eaf374fa582e07f6d49184b09d72dfe84d7ace1e in jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DispatcherForwardTest.java
+1634 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: refactored Dispatcher for new HttpURI
+
+
+6584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (2/108):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+6584 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+6781 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (3/108):jetty-server/src/main/java/org/eclipse/jetty/server/ServerConnector.java
+6781 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+6931 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to d45a5c861c88e35513b79e97fc56fd3a1fa5731d in jetty-server/src/main/java/org/eclipse/jetty/server/ServerConnector.java
+7056 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Introduced factory method to create the SelectorManager instance.
+
+
+7773 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to a906aaa266352e19afff373fe353a8810532b95d in jetty-server/src/main/java/org/eclipse/jetty/server/ServerConnector.java
+7891 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Simplified SelectorManager state machine
+
+Made the SelectorManager use the CaS state machine for both locking and controlling
+the mode of handling changes.
+
+Replaced the concurrent change queue with a pair of array lists that are switched while the lock state is held
+
+
+8928 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (4/108):jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+8928 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+9093 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 1ee11138a7c40741195f1709a000569018e3b39c in jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+9184 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Introduced field "submitKeyUpdates" instead of relying on a system
+property.
+
+Modified method updateKey() to return a boolean to signal whether the
+selector was woken up.
+
+
+9982 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 5da7c29787e901a96388c5695a9595932f0e3a58 in jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+10093 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Simplified SelectorManager state machine
+
+Removed changing state, as it is just an aspect of processing.
+
+
+10897 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 649eb7f3dc7ca8035fda8c1b33b62c3af19113be in jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+10980 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Introduced factory method to create JDK's Selector instances.
+
+
+11759 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to fd1c9dd8d2c298ba66ae1b3b98bc85719cdefb41 in jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+11851 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 443713] In log message: 443713 - Reduce number of SelectionKey.setInterestOps() calls.
+
+Introduced a state machine to handle the various scenarios (ST = selector thread, Tx = pooled thread):
+
+ST: call to SCEP.onSelected() moves from SELECTING -> PENDING.
+ST: call to SCEP.updateKey() moves from PENDING -> UPDATING -> SELECTING
+T1: call to SCEP.changeInterests() moves (SELECTING | PENDING) -> CHANGING -> SELECTING
+
+The race between ST and T1 to move from PENDING to either UPDATING or CHANGING will be won
+by one thread only, which will then perform the call to SelectionKey.setInterestOps().
+Preferably, this will be done by ST during an updateKey() call. If updateKey() has already
+been invoked, then changeInterests() will perform the call to SelectionKey.setInterestOps().
+
+However, if T1 loses, it still has to perform the key update, so it will spin until ST
+moves back to SELECTING.
+
+
+14800 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 395ecd2b70fcbc4719441bdf9ff521b7ef5c7a61 in jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+14908 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Fixed race in updating the key interests.
+
+It was possible that updateKey() was seeing a SELECTING state and
+therefore attempt to call setKeyInterests(), while changeInterests()
+was also seeing the SELECTING state, then moving to CHANGING so that
+_interestOps was accessed concurrently.
+
+Also made the update task to call updateKey() instead of calling
+directly setKeyInterests(), in order to comply with the state
+machine; this required to have onSelected() handle additional states
+that are created by updateKey().
+
+Finally, in updateKey() now setKeyInterests() is called before
+updating the state to isolate the call into its own state.
+
+
+15706 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (5/108):jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+15706 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+15706 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (6/108):jetty-io/src/main/java/org/eclipse/jetty/io/AbstractEndPoint.java
+15706 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+15835 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (7/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ErrorPageTest.java
+15835 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+15976 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (8/108):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+15976 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+15976 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (9/108):jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+15976 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+16161 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 17f46665df2e0b066b40a3889dbf3f56173e0554 in jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+16272 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: preencoded httpfield optimisation
+
+
+19770 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 3e4c9909e0b74f9abeb24398b8e9b1de11052bbf in jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+19887 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 443652] In log message: 443652 - Remove dependency on java.lang.management classes
+
+* Created safer Uptime singleton for use
+* Removed direct references to java.lang.management from
+   - Server.java
+   - Log.java
+   - AbstractLifeCycle.java
+
+
+22181 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to e3bda4efbefa2370d7d9b594aa97dc60a2b37235 in jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+22260 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 446564] In log message: 446564 Refactored RequestLog Mechanism
+
+RequestLog can now be set on the HttpChannel and is called during the onCommitted callback.
+The RequestLog may be set either on the server or via an updated RequestLogHandler that can
+be applied to a specific context.
+
+
+25056 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 272e1d8da590c40cb8caa27f1614e0b7e5c63d65 in jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+25146 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Refactored HttpChannel to not have direct HttpParser dependency
+
+
+31362 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 22e57ef7b727f24e41cc0040bfe47889bf3d7705 in jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+31456 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: refactored Request to use new HttpURI
+
+
+34117 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (10/108):jetty-util/src/main/java/org/eclipse/jetty/util/ConcurrentArrayQueue.java
+34117 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+34253 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (11/108):jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+34254 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+34363 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 38501a9e978335c63ed52555f8b6d2d8e4f138f8 in jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+34444 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: On alias resolution in PathResource, ignore NoSuchFileException (its a
+valid and common path for 404 requested resources)
+
+34953 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 9f844383cdb528d67ec69895dd8c6117b6e36e13 in jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+35033 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Making PathResource the default for "file://" resources
+
++ Making ResourceTest a proper @Parameterized test case
++ Moving jar tests out of ResourceTest into JarResourceTest
++ Moving classpath tests out of ResourceTest into ClassPathResourceTest
++ Making more improvements to PathResource to satisfy expecations in
+  the rest of the codebase.
++ Requests for resource subpaths that use "//" in their strings will
+  now work correctly (it used to result in null requests in
+  FileResource)
+
+
+36402 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to aaa2e5c6c1d6d34f8068dc9a056a6b446fd05603 in jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+36482 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: refined PathResource alias handling
+
+
+37754 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 6048343fee5f5fd9b845ccf12d285c69d5aae182 in jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+37831 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Enhancing NTFS Stream tests
+
+
+38510 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 33435fad3d8e1e12ab85873d842f2f8d580b567a in jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+38589 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Making bad alias discovery more obvious (temporary)
+
+
+39096 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (12/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ResponseHeadersTest.java
+39096 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+39199 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (13/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ServletContextHandlerTest.java
+39199 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+39292 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 738c47bc553d7e90a0d074b99aff5e666d26a7c2 in jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ServletContextHandlerTest.java
+39369 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 447515] In log message: 447515 Remove GzipFilter
+
+Moved all usages of GzipFilter to GzipHandler
+added support to ServerContextHandler to create a GzipHandler
+
+
+46136 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (14/108):jetty-server/src/main/java/org/eclipse/jetty/server/ServerConnector.java
+46137 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+46137 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (15/108):jetty-util/src/main/java/org/eclipse/jetty/util/ConcurrentArrayQueue.java
+46137 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+46137 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (16/108):jetty-util/src/main/java/org/eclipse/jetty/util/IO.java
+46137 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+46257 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (17/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+46257 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+46365 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 6dfa452e29ca3ea5ee63552f9cefb0dd07899fa3 in jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+46464 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: case insensitive protocols
+
+
+47396 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 287e86b7aa787c9836fccbe2816dd08b4b6c599e in jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+47480 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: decomposed https,http2 and spdy modules to share ServerConnector
+
+
+48604 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 14dc4fade0745899b06994ec2c934a9bf38e7d2e in jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+48699 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Updated log statements to use debug() instead of info().
+
+
+49295 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to a4d4b3ab571fa56b02d611f2b565d03ccccb1347 in jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+49378 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: fix work around classloaders for field preencoders
+
+
+49993 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 171f7b535280cfe1388f20cb72e998a28a376a92 in jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+50071 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: improved protocol info log
+
+
+50582 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (18/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/SSLAsyncIOServletTest.java
+50582 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+50698 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (19/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+50698 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+50864 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (20/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletIOTest.java
+50864 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+50986 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (21/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+50986 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+51116 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to d8e6331434fbb6025301f06f03230c6f6cad7676 in jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+51196 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 442477] In log message: 442477 Allow Symlink aliases by default
+
+
+53505 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (22/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletIOTest.java
+53505 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53505 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (23/108):jetty-util/src/main/java/org/eclipse/jetty/util/IO.java
+53506 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53506 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (24/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/AbstractLifeCycle.java
+53506 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+53608 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (25/108):jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+53608 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53608 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (26/108):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+53608 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+53728 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (27/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletRangesTest.java
+53728 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+53831 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (28/108):jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+53831 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53832 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (29/108):jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+53832 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53832 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (30/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/AbstractLifeCycle.java
+53832 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53832 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (31/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/FilterHolder.java
+53832 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+53942 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (32/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+53942 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+53942 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (33/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/ContainerLifeCycle.java
+53942 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+54084 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (34/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletTest.java
+54084 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+54180 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 34a8da2ba26a806413f06ab18fdfad535de45cfa in jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletTest.java
+54258 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 445823] In log message: 445823 Moved RequestLog calling to HttpChannel
+
+Simplified the RequestLogHandler.  It no longer set's async listeners or tries to catch exeptions etc.
+Instead it simply sets the RequestLog instance on the HttpChannel.   The HttpChannel#onCompleted method
+then uses the log (if set) as the last thing before recycling the connection.  It uses the actual
+bytes written (eg after compression) and the actual status sent (eg if sent from a bad message).
+
+
+57147 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (35/108):jetty-util/src/main/java/org/eclipse/jetty/util/AttributesMap.java
+57147 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+57247 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (36/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletIOTest.java
+57247 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+57247 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (37/108):jetty-util/src/main/java/org/eclipse/jetty/util/StringUtil.java
+57247 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+57357 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 4d2a580c2c8ca054841697a9d8848bdceb1c97f9 in jetty-util/src/main/java/org/eclipse/jetty/util/StringUtil.java
+57439 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 439375] In log message: 439375  preferred rfc7231 format is mime;charset=lowercase-9
+
+
+61182 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 3c321e9b8f049c96ecb7e9b35c1cddebef71673c in jetty-util/src/main/java/org/eclipse/jetty/util/StringUtil.java
+61262 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: split authority field and hold results in header table
+
+
+62591 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (38/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ScopedHandler.java
+62591 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+62695 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (39/108):jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+62695 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+62695 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (40/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHandler.java
+62695 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+62847 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to b5971484a57212a39af6f70267ea00a24fdbf100 in jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHandler.java
+62924 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Basic push mechanism skeleton
+
+
+64726 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (41/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+64726 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+64726 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (42/108):jetty-util/src/main/java/org/eclipse/jetty/util/thread/ScheduledExecutorScheduler.java
+64726 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+64829 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (43/108):jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+64829 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+64936 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 31e448ffd677d9360c4132a63b08fe53c860cf7c in jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+65023 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Removed duplication of HttpGenerator$Info vs http.MetaData
+
+Use MetaData throughout code base
+
+
+67801 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to c8ee504291a6f1079039fa606e8ded6bd0fd7444 in jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+67878 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: rfc7230 ignore null value headers
+
+
+68576 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to ec79a6f88ebdcd9f18953ffd29febc57720f691a in jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+68824 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Improve HTTP header pre-encoding
+
+The HttpContent class has been reworked to store HttpField instances, we may be generated on
+demand or instances of PreEncodedHttpField.
+
+The encoding of HTTP2 fields has been generalized to handle both indexed and literal fields, selected
+by header enum set.
+
+Default servlet and response classes have been cleaned up in how they set response headers.
+
+
+73758 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 40a7d5984e41be6033304b42a944efacfe5c76fc in jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+74027 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 444222] In log message: 444222 replace CRLF in header values with whitespace rather than ?
+
+
+78383 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (44/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletIOTest.java
+78384 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+78384 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (45/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+78384 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+78384 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (46/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHolder.java
+78384 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+78743 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 0539b48b8a9311e56e99568758f798b83c2ff0f0 in jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHolder.java
+78995 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: nicer constructors
+
+
+80608 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 49a32eb1b0da23229441cd2f199ec57caab46cbc in jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHolder.java
+80707 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Found: 444124] In log message: 444124  JSP include with <servlet><jsp-file> can cause infinite recursion
+
+
+82802 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (47/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/AbstractHandler.java
+82802 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (48/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (49/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (50/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/ContainerLifeCycle.java
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (51/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/InvokerTest.java
+82901 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+83002 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (52/108):jetty-server/src/main/java/org/eclipse/jetty/server/ServerConnector.java
+83002 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (53/108):jetty-util/src/main/java/org/eclipse/jetty/util/IO.java
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (54/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (55/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (56/108):jetty-util/src/main/java/org/eclipse/jetty/util/resource/PathResource.java
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (57/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletTest.java
+83003 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+83140 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (58/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractNetworkConnector.java
+83140 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+83249 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (59/108):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+83250 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83250 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (60/108):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+83250 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+83250 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (61/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DispatcherTest.java
+83250 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+83367 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (62/108):jetty-util/src/main/java/org/eclipse/jetty/util/resource/FileResource.java
+83367 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+83469 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 97d723c516b4a98cd80ecef90b1fcd1bfaabdf08 in jetty-util/src/main/java/org/eclipse/jetty/util/resource/FileResource.java
+83558 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: deprecate FileResource
+
+
+84088 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	Getting issues to 0dbf684298b3702d22a92fe32e62ab1c11b09fce in jetty-util/src/main/java/org/eclipse/jetty/util/resource/FileResource.java
+84167 [main] WARN br.ufrn.ppgsc.scenario.analyzer.miner.git.GitUpdatedLinesHandler  - 	[Empty] No issues for log message: Added alias tests to FileSystemResourceTest
+
+
+85189 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (63/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+85189 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85190 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (64/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ResponseHeadersTest.java
+85190 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85190 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (65/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncIOServletTest.java
+85190 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (66/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletTest.java
+85299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (67/108):jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+85299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (68/108):jetty-server/src/main/java/org/eclipse/jetty/server/ShutdownMonitor.java
+85299 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85416 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (69/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletTest.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (70/108):jetty-util/src/main/java/org/eclipse/jetty/util/AttributesMap.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (71/108):jetty-util/src/main/java/org/eclipse/jetty/util/AttributesMap.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (72/108):jetty-util/src/main/java/org/eclipse/jetty/util/resource/FileResource.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (73/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletTest.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (74/108):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (75/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHandler.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (76/108):jetty-server/src/main/java/org/eclipse/jetty/server/handler/AbstractHandler.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (77/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHandler.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (78/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (79/108):jetty-util/src/main/java/org/eclipse/jetty/util/Uptime.java
+85417 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (80/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DispatcherTest.java
+85518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (81/108):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+85518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85518 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (82/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (83/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHolder.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (84/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (85/108):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (86/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DispatcherForwardTest.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (87/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletHandler.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (88/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/ContainerLifeCycle.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (89/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/AbstractLifeCycle.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (90/108):jetty-http/src/main/java/org/eclipse/jetty/http/HttpGenerator.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (91/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletTest.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (92/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/RequestHeadersTest.java
+85519 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85626 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (93/108):jetty-server/src/main/java/org/eclipse/jetty/server/AbstractConnector.java
+85627 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85627 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (94/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletTest.java
+85627 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85627 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (95/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextListenersTest.java
+85627 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85731 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (96/108):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+85731 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85731 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (97/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletLongPollTest.java
+85731 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (98/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletTest.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (99/108):jetty-util/src/main/java/org/eclipse/jetty/util/IO.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (100/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncIOServletTest.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (101/108):jetty-server/src/main/java/org/eclipse/jetty/server/ShutdownMonitor.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (102/108):jetty-util/src/main/java/org/eclipse/jetty/util/ConcurrentArrayQueue.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (103/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletTest.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (104/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextTest.java
+85839 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+85960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (105/108):jetty-util/src/main/java/org/eclipse/jetty/util/component/ContainerLifeCycle.java
+85960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (106/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncServletTest.java
+85960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (107/108):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+85960 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85961 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (108/108):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextListenersTest.java
+85961 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+85961 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Finishing mining, close connection now...
+10
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery()
+org.eclipse.jetty.server.AbstractConnector.getConnectionFactory(java.lang.String)
+org.eclipse.jetty.io.SelectorManager.doStart()
+org.eclipse.jetty.util.Uptime.getUptime()
+org.eclipse.jetty.servlet.ServletContextHandler.replaceHandler(org.eclipse.jetty.server.Handler,org.eclipse.jetty.server.Handler)
+org.eclipse.jetty.io.SelectorManager.newSelector(int)
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+org.eclipse.jetty.util.resource.PathResource.checkAliasPath(java.nio.file.Path)
+org.eclipse.jetty.servlet.DefaultServletTest.testFiltered()
+org.eclipse.jetty.server.Server.doStart()
+Saving >> # 1 Members with deviation and modification for scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet | Test = UTest, Value = 0.05
+Saving >> # 1 Added and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+Saving >> # 1 Removed and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testReplaceServletHandlerWithoutServlet
+Saving >> # 2 Members with deviation and modification for scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener | Test = UTest, Value = 0.05
+Saving >> # 2 Added and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Saving >> # 2 Removed and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testAsyncDispatchAsyncCompletePreservesListener
+Saving >> # 3 Members with deviation and modification for scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError | Test = UTest, Value = 0.05
+Saving >> # 3 Added and modified members in the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Saving >> # 3 Removed and modified members in the execution of scenario Entry point for AsyncIOServletTest.testAsyncWriteThrowsError
+Saving >> # 4 Members with deviation and modification for scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation | Test = UTest, Value = 0.05
+Saving >> # 4 Added and modified members in the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+Saving >> # 4 Removed and modified members in the execution of scenario Entry point for SSLAsyncIOServletTest.testAsyncIOWritesWithAggregation
+Saving >> # 5 Members with deviation and modification for scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery | Test = UTest, Value = 0.05
+Saving >> # 5 Added and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Saving >> # 5 Removed and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryRetainedByForwardWithoutQuery
+Saving >> # 6 Members with deviation and modification for scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest | Test = UTest, Value = 0.05
+Saving >> # 6 Added and modified members in the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Saving >> # 6 Removed and modified members in the execution of scenario Entry point for AsyncServletLongPollTest.testSuspendedRequestCompletedByAnotherRequest
+Saving >> # 7 Members with deviation and modification for scenario Entry point for DefaultServletTest.testFiltered | Test = UTest, Value = 0.05
+Saving >> # 7 Added and modified members in the execution of scenario Entry point for DefaultServletTest.testFiltered
+Saving >> # 7 Removed and modified members in the execution of scenario Entry point for DefaultServletTest.testFiltered
+Getting updated methods from repository to degraded methods [40]
+87053 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Starting release mining, open connection now...
+87054 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (1/40):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+87054 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (2/40):jetty-io/src/main/java/org/eclipse/jetty/io/SelectorManager.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (3/40):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (4/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextTest.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (5/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextTest.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (6/40):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (7/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ServletContextHandlerTest.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (8/40):jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (9/40):jetty-util/src/main/java/org/eclipse/jetty/util/ConcurrentArrayQueue.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (10/40):jetty-server/src/main/java/org/eclipse/jetty/server/session/AbstractSessionManager.java
+87055 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (11/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ServletContextHandlerTest.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (12/40):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (13/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/ServletContextHandlerTest.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (14/40):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ScopedHandler.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (15/40):jetty-server/src/main/java/org/eclipse/jetty/server/ServerConnector.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (16/40):jetty-util/src/main/java/org/eclipse/jetty/util/ConcurrentArrayQueue.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (17/40):jetty-server/src/main/java/org/eclipse/jetty/server/Server.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (18/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncIOServletTest.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (19/40):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87201 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (20/40):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+87202 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87202 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (21/40):jetty-server/src/main/java/org/eclipse/jetty/server/session/HashSessionManager.java
+87202 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+87320 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (22/40):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+87320 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87320 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (23/40):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+87321 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87321 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (24/40):jetty-server/src/main/java/org/eclipse/jetty/server/session/SessionHandler.java
+87321 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Running doAnnotate [1cc075cf9826f5128dd0c6561ba16c4d7c95c281, 224f63adf3cb5709e0c4ce97e87cb6d2d080cf06]
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (25/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncIOServletTest.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (26/40):jetty-servlet/src/main/java/org/eclipse/jetty/servlet/ServletContextHandler.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (27/40):jetty-server/src/main/java/org/eclipse/jetty/server/handler/ContextHandler.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (28/40):jetty-util/src/main/java/org/eclipse/jetty/util/ConcurrentArrayQueue.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (29/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DispatcherForwardTest.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (30/40):jetty-server/src/main/java/org/eclipse/jetty/server/LocalConnector.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (31/40):jetty-util/src/main/java/org/eclipse/jetty/util/component/ContainerLifeCycle.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (32/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextListenersTest.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (33/40):jetty-server/src/main/java/org/eclipse/jetty/server/handler/AbstractHandler.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (34/40):jetty-util/src/main/java/org/eclipse/jetty/util/component/AbstractLifeCycle.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (35/40):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (36/40):jetty-util/src/main/java/org/eclipse/jetty/util/thread/QueuedThreadPool.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (37/40):jetty-util/src/main/java/org/eclipse/jetty/util/component/ContainerLifeCycle.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (38/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextListenersTest.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (39/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/DefaultServletTest.java
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87449 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - [R1 != R2] Path (40/40):jetty-servlet/src/test/java/org/eclipse/jetty/servlet/AsyncContextListenersTest.java
+87450 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - 	Path previously analyzed
+87450 [main] INFO br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager  - Finishing mining, close connection now...
+4
+org.eclipse.jetty.servlet.ServletContextHandler.relinkHandlers()
+org.eclipse.jetty.servlet.DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery()
+org.eclipse.jetty.server.ServerConnector.newSelectorManager(java.util.concurrent.Executor,org.eclipse.jetty.util.thread.Scheduler,int)
+org.eclipse.jetty.server.Server.doStart()
+Saving >> # 1 Members with deviation and modification for scenario Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery | Test = UTest, Value = 0.05
+Saving >> # 1 Added and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+Saving >> # 1 Removed and modified members in the execution of scenario Entry point for DispatcherForwardTest.testQueryAggregatesWithFormByForwardWithoutQuery
+Saving >> # 2 Members with deviation and modification for scenario Entry point for ServletContextHandlerTest.testFallThrough | Test = UTest, Value = 0.05
+Saving >> # 2 Added and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testFallThrough
+Saving >> # 2 Removed and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testFallThrough
+Saving >> # 3 Members with deviation and modification for scenario Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest | Test = UTest, Value = 0.05
+Saving >> # 3 Added and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Saving >> # 3 Removed and modified members in the execution of scenario Entry point for AsyncContextListenersTest.testListenerClearedOnSecondRequest
+Saving >> # 4 Members with deviation and modification for scenario Entry point for ServletContextHandlerTest.testAddServletAfterStart | Test = UTest, Value = 0.05
+Saving >> # 4 Added and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testAddServletAfterStart
+Saving >> # 4 Removed and modified members in the execution of scenario Entry point for ServletContextHandlerTest.testAddServletAfterStart
+Total time: 1.4689333333333334 min
