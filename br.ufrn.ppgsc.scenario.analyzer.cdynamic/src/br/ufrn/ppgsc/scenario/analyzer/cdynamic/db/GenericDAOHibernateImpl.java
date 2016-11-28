@@ -13,7 +13,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 
 	private static Session s;
 
-	public Session getSession() {
+	private synchronized Session getSession() {
 		if (s == null) {
 			/*
 			 * AnnotationConfiguration is deprecated. We should use
@@ -31,19 +31,19 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	}
 
 	@Override
-	public void clearSession() {
+	public synchronized void clearSession() {
 		try {
-			s.clear();
+			getSession().clear();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public T save(T instance) {
+	public synchronized T save(T instance) {
 		Session s = getSession();
 		Transaction tx = null;
-
+		
 		try {
 			tx = s.beginTransaction();
 			System.out.println("Saving " + instance.toString());
@@ -61,13 +61,13 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	}
 
 	@Override
-	public T read(Class<T> clazz, long id) {
+	public synchronized T read(Class<T> clazz, long id) {
 		Object object = getSession().get(clazz, id);
 		return clazz.cast(object);
 	}
 
 	@Override
-	public List<T> readAll(Class<T> clazz) {
+	public synchronized List<T> readAll(Class<T> clazz) {
 		Query query = getSession().createQuery("from " + clazz.getName());
 
 		@SuppressWarnings("unchecked")
