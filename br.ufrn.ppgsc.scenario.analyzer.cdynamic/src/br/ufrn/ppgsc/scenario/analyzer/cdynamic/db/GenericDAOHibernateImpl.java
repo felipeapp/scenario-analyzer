@@ -51,17 +51,17 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	@Override
 	public T save(T instance) {
 		synchronized (s) {
-			Transaction tx = null;
+		//	Transaction tx = null;
 			
 			try {
-				tx = s.beginTransaction();
+		//		tx = s.beginTransaction();
 				System.out.println("Saving " + instance.toString());
 				s.save(instance);
 				System.out.println("Commiting " + instance.toString());
-				tx.commit();
+		//		tx.commit();
 			} catch (RuntimeException e) {
-				if (tx != null)
-					tx.rollback();
+		//		if (tx != null)
+		//			tx.rollback();
 	
 				e.printStackTrace();
 			}
