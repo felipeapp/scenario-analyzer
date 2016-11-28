@@ -12,68 +12,82 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
 
 	private static Session s;
+	
+	static {
+		SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
+		s = sf.openSession();
+	}
 
-	private synchronized Session getSession() {
-		if (s == null) {
-			/*
-			 * AnnotationConfiguration is deprecated. We should use
-			 * Configuration. AnnotationConfiguration should be used with SIGAA
-			 */
-			SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
-			s = sf.openSession();
+//	private Session getSession() {
+//		synchronized (s) {
+//			if (s == null) {
+//				/*
+//				 * AnnotationConfiguration is deprecated. We should use
+//				 * Configuration. AnnotationConfiguration should be used with SIGAA
+//				 */
+//				SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
+//				s = sf.openSession();
+//	
+//				// This is the best way, but it does not work with old sinfo libs.
+//				// SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+//				// s = sf.openSession();
+//			}
+//			
+//			return s;
+//		}
+//	}
 
-			// This is the best way, but it does not work with old sinfo libs.
-			// SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-			// s = sf.openSession();
+	@Override
+	public void clearSession() {
+		synchronized (s) {
+			try {
+				s.clear();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-
-		return s;
 	}
 
 	@Override
-	public synchronized void clearSession() {
-		try {
-			getSession().clear();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public T save(T instance) {
+		synchronized (s) {
+			Transaction tx = null;
+			
+			try {
+				tx = s.beginTransaction();
+				System.out.println("Saving " + instance.toString());
+				s.save(instance);
+				System.out.println("Commiting " + instance.toString());
+				tx.commit();
+			} catch (RuntimeException e) {
+				if (tx != null)
+					tx.rollback();
+	
+				e.printStackTrace();
+			}
+	
+			return instance;
 		}
 	}
 
 	@Override
-	public synchronized T save(T instance) {
-		Session s = getSession();
-		Transaction tx = null;
-		
-		try {
-			tx = s.beginTransaction();
-			System.out.println("Saving " + instance.toString());
-			s.save(instance);
-			System.out.println("Commiting " + instance.toString());
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null)
-				tx.rollback();
-
-			e.printStackTrace();
+	public T read(Class<T> clazz, long id) {
+		synchronized (s) {
+			Object object = s.get(clazz, id);
+			return clazz.cast(object);
 		}
-
-		return instance;
-	}
-
-	@Override
-	public synchronized T read(Class<T> clazz, long id) {
-		Object object = getSession().get(clazz, id);
-		return clazz.cast(object);
 	}
 
 	@Override
 	public synchronized List<T> readAll(Class<T> clazz) {
-		Query query = getSession().createQuery("from " + clazz.getName());
-
-		@SuppressWarnings("unchecked")
-		List<T> list = query.list();
-
-		return list;
+		synchronized (s) {
+			Query query = s.createQuery("from " + clazz.getName());
+	
+			@SuppressWarnings("unchecked")
+			List<T> list = query.list();
+	
+			return list;
+		}
 	}
 
 }
