@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+//import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
@@ -79,7 +79,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	}
 
 	@Override
-	public synchronized List<T> readAll(Class<T> clazz) {
+	public List<T> readAll(Class<T> clazz) {
 		synchronized (s) {
 			Query query = s.createQuery("from " + clazz.getName());
 	
