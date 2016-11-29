@@ -4,10 +4,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
-public class AspectMBeanEntryPoint extends AbstractAspectEntryPoint {
+public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 
 	@Pointcut("within(@org.springframework.stereotype.Component *) && "
-			+ "!execution(* set*(..)) && !execution(* get*(..)) && !execution(* is*(..))")
+			+ "!execution(* set*(..)) && !execution(* get*(..)) && !execution(* is*(..)) && "
+			+ "!within(*.UsuarioMBean) && !within(*.LoginActions) && !within(*.LogonAction)")
 	public void entryPoint() {
 	}
 

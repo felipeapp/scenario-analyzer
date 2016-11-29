@@ -11,9 +11,11 @@ import org.hibernate.cfg.Configuration;
 
 public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
 
+	// Session is a static attribute
 	private static Session s;
 
-	public synchronized Session getSession() {
+	// Only one session for all application
+	static {
 		if (s == null) {
 			/*
 			 * AnnotationConfiguration is deprecated. We should use
@@ -22,54 +24,59 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
 		}
-
-		return s;
 	}
 
 	@Override
-	public synchronized void clearSession() {
-		try {
-			s.clear();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public void clearSession() {
+		synchronized (s) {
+			try {
+				s.clear();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
-	public synchronized T save(T instance) {
-		Session s = getSession();
-		Transaction tx = null;
+	public T save(T instance) {
+		synchronized (s) {
+			Transaction tx = null;
 
-		try {
-			tx = s.beginTransaction();
-			System.out.println("Saving " + instance.toString());
-			s.save(instance);
-			System.out.println("Commiting " + instance.toString());
-			tx.commit();
-		} catch (RuntimeException e) {
-			if (tx != null)
-				tx.rollback();
+			try {
+				tx = s.beginTransaction();
+				System.out.println("Saving " + instance.toString());
+				s.save(instance);
+				System.out.println("Commiting " + instance.toString());
+				tx.commit();
+			} catch (RuntimeException e) {
+				if (tx != null)
+					tx.rollback();
 
-			e.printStackTrace();
+				e.printStackTrace();
+			}
+
+			return instance;
 		}
-
-		return instance;
 	}
 
 	@Override
-	public synchronized T read(Class<T> clazz, long id) {
-		Object object = getSession().get(clazz, id);
-		return clazz.cast(object);
+	public T read(Class<T> clazz, long id) {
+		synchronized (s) {
+			Object object = s.get(clazz, id);
+			return clazz.cast(object);
+		}
 	}
 
 	@Override
-	public synchronized List<T> readAll(Class<T> clazz) {
-		Query query = getSession().createQuery("from " + clazz.getName());
+	public List<T> readAll(Class<T> clazz) {
+		synchronized (s) {
+			Query query = s.createQuery("from " + clazz.getName());
 
-		@SuppressWarnings("unchecked")
-		List<T> list = query.list();
+			@SuppressWarnings("unchecked")
+			List<T> list = query.list();
 
-		return list;
+			return list;
+		}
 	}
 
 }
