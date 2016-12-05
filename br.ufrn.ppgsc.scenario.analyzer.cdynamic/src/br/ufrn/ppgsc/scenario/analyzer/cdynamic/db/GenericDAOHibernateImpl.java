@@ -6,36 +6,18 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 //import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 public class GenericDAOHibernateImpl<T extends Serializable> implements GenericDAO<T> {
 
 	private static Session s;
-	
+
 	static {
 		SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
 		s = sf.openSession();
 	}
-
-//	private Session getSession() {
-//		synchronized (s) {
-//			if (s == null) {
-//				/*
-//				 * AnnotationConfiguration is deprecated. We should use
-//				 * Configuration. AnnotationConfiguration should be used with SIGAA
-//				 */
-//				SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
-//				s = sf.openSession();
-//	
-//				// This is the best way, but it does not work with old sinfo libs.
-//				// SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-//				// s = sf.openSession();
-//			}
-//			
-//			return s;
-//		}
-//	}
 
 	@Override
 	public void clearSession() {
@@ -51,21 +33,21 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	@Override
 	public T save(T instance) {
 		synchronized (s) {
-		//	Transaction tx = null;
-			
+			Transaction tx = null;
+
 			try {
-		//		tx = s.beginTransaction();
+				tx = s.beginTransaction();
 				System.out.println("Saving " + instance.toString());
 				s.save(instance);
 				System.out.println("Commiting " + instance.toString());
-		//		tx.commit();
+				tx.commit();
 			} catch (RuntimeException e) {
-		//		if (tx != null)
-		//			tx.rollback();
-	
+				if (tx != null)
+					tx.rollback();
+
 				e.printStackTrace();
 			}
-	
+
 			return instance;
 		}
 	}
@@ -82,10 +64,10 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	public List<T> readAll(Class<T> clazz) {
 		synchronized (s) {
 			Query query = s.createQuery("from " + clazz.getName());
-	
+
 			@SuppressWarnings("unchecked")
 			List<T> list = query.list();
-	
+
 			return list;
 		}
 	}
