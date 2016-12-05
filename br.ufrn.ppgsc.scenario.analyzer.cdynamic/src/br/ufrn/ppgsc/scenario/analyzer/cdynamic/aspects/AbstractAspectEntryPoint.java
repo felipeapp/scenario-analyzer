@@ -40,18 +40,22 @@ public abstract class AbstractAspectEntryPoint {
 		return null;
 	}
 	
-	// Deve indicar as execuções dos pontos de entrada anotados
+	// Deve indicar os pontos de entrada a serem insterceptados
 	@Pointcut
 	public abstract void entryPoint();
 	
-	@Pointcut("within(br.ufrn.ppgsc.scenario.analyzer..*)")
-	public void ignore() { }
+	// Deve indicar os pontos de entrada a serem excluídos
+	@Pointcut
+	public void exclusionPoint() { }
+	
+	@Pointcut("!within(br.ufrn.ppgsc.scenario.analyzer..*) && !exclusionPoint()")
+	private final void exclusionPointFlow() { }
 	
 	@Pointcut("cflow(entryPoint()) && (execution(* *(..)) || execution(*.new(..)))")
 	private final void entryPointFlow() {	}
 	
 	@SuppressAjWarnings
-	@Around("entryPointFlow() && !ignore()")
+	@Around("entryPointFlow() && exclusionPointFlow()")
 	public final Object cgbuilding(ProceedingJoinPoint thisJoinPoint) throws Throwable {
 		long begin, end;
 		
@@ -116,7 +120,7 @@ public abstract class AbstractAspectEntryPoint {
 	// Intercepta antes do lançamento de exceções
 	// after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
 	@SuppressAjWarnings
-	@AfterThrowing(pointcut = "entryPointFlow() && !ignore()", throwing = "t")
+	@AfterThrowing(pointcut = "entryPointFlow() && exclusionPointFlow()", throwing = "t")
 	public final void throwingException(JoinPoint thisJoinPoint, Throwable t) {
 		Member member = AspectUtil.getMember(thisJoinPoint.getSignature());
 		AspectUtil.setException(t, member);
@@ -126,7 +130,7 @@ public abstract class AbstractAspectEntryPoint {
 	// Intercepta capturas de exceções após seu lançamento
 	// before(Throwable t) : handler(Throwable+) && args(t) && executionFlow() && !executionIgnored() {
 	@SuppressAjWarnings
-	@Before("handler(Throwable+) && args(t) && entryPointFlow() && !ignore()")
+	@Before("handler(Throwable+) && args(t) && entryPointFlow() && exclusionPointFlow()")
 	public final void handlingException(JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart, Throwable t) {
 		AspectUtil.setException(t, AspectUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 	}

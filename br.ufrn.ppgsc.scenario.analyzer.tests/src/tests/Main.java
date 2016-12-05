@@ -2,8 +2,11 @@ package tests;
 
 import java.io.IOException;
 
+import org.springframework.stereotype.Component;
+
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
+@Component
 public class Main {
 	
 	public int convertToInt(String str) {
@@ -37,6 +40,7 @@ public class Main {
 	
 	@Scenario(name="main")
 	public static void run() throws IOException {
+		Main2.main(null);
 		Main m = new Main();
 		
 		System.out.println("mais uma linha");
