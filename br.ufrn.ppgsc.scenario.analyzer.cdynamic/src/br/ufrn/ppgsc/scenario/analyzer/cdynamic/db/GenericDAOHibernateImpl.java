@@ -15,7 +15,10 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	private static Session s;
 
 	static {
-		SessionFactory sf = new AnnotationConfiguration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
+		//file:/C:/development/jboss-5.1.0.GA-original-tuning/
+		System.out.println(System.getProperty("jboss.home.url")); 
+
+		SessionFactory sf = new AnnotationConfiguration().configure("./sa_hibernate.cfg.xml").buildSessionFactory();
 		s = sf.openSession();
 	}
 
