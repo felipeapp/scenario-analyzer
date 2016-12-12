@@ -1,6 +1,8 @@
 package br.ufrn.ppgsc.scenario.analyzer.cdynamic.db;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -16,9 +18,17 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 
 	static {
 		//file:/C:/development/jboss-5.1.0.GA-original-tuning/
-		System.out.println(System.getProperty("jboss.home.url")); 
+		System.out.println("JBOSS HOME ###############:" + System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml"); 
 
-		SessionFactory sf = new AnnotationConfiguration().configure("./sa_hibernate.cfg.xml").buildSessionFactory();
+		SessionFactory sf = null;
+		
+		try {
+			sf = new AnnotationConfiguration().configure(new URL(
+					System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml")).buildSessionFactory();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
 		s = sf.openSession();
 	}
 
