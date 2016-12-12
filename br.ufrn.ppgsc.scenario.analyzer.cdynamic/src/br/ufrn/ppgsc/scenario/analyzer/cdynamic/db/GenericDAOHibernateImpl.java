@@ -15,7 +15,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	private static Session s;
 
 	static {
-		SessionFactory sf = new AnnotationConfiguration().configure("hibernate.cfg.xml").buildSessionFactory();
+		SessionFactory sf = new AnnotationConfiguration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
 		s = sf.openSession();
 	}
 
