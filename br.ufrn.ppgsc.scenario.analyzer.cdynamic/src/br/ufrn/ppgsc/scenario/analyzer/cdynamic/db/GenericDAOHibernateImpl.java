@@ -21,7 +21,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 			 * AnnotationConfiguration is deprecated. We should use
 			 * Configuration. AnnotationConfiguration should be used with SIGAA
 			 */
-			SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			SessionFactory sf = new Configuration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
 		}
 	}
