@@ -26,7 +26,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 			sf = new AnnotationConfiguration().configure(new URL(
 					System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml")).buildSessionFactory();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			sf = new AnnotationConfiguration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
 		}
 		
 		s = sf.openSession();
