@@ -15,12 +15,8 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	private static Session s;
 
 	// Only one session for all application
-	static {
+	public GenericDAOHibernateImpl() {
 		if (s == null) {
-			/*
-			 * AnnotationConfiguration is deprecated. We should use
-			 * Configuration. AnnotationConfiguration should be used with SIGAA
-			 */
 			SessionFactory sf = new Configuration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
 			s = sf.openSession();
 		}
@@ -28,55 +24,47 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 
 	@Override
 	public void clearSession() {
-		synchronized (s) {
-			try {
-				s.clear();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			s.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public T save(T instance) {
-		synchronized (s) {
-			Transaction tx = null;
+		Transaction tx = null;
 
-			try {
-				tx = s.beginTransaction();
-				System.out.println("Saving " + instance.toString());
-				s.save(instance);
-				System.out.println("Commiting " + instance.toString());
-				tx.commit();
-			} catch (RuntimeException e) {
-				if (tx != null)
-					tx.rollback();
+		try {
+			tx = s.beginTransaction();
+			System.out.println("Saving " + instance.toString());
+			s.save(instance);
+			System.out.println("Commiting " + instance.toString());
+			tx.commit();
+		} catch (RuntimeException e) {
+			if (tx != null)
+				tx.rollback();
 
-				e.printStackTrace();
-			}
-
-			return instance;
+			e.printStackTrace();
 		}
+
+		return instance;
 	}
 
 	@Override
 	public T read(Class<T> clazz, long id) {
-		synchronized (s) {
-			Object object = s.get(clazz, id);
-			return clazz.cast(object);
-		}
+		Object object = s.get(clazz, id);
+		return clazz.cast(object);
 	}
 
 	@Override
 	public List<T> readAll(Class<T> clazz) {
-		synchronized (s) {
-			Query query = s.createQuery("from " + clazz.getName());
+		Query query = s.createQuery("from " + clazz.getName());
 
-			@SuppressWarnings("unchecked")
-			List<T> list = query.list();
+		@SuppressWarnings("unchecked")
+		List<T> list = query.list();
 
-			return list;
-		}
+		return list;
 	}
 
 }

@@ -14,7 +14,7 @@ public class DatabaseService<T extends Serializable> {
 		return dao;
 	}
 
-	public synchronized static void saveResults(SystemExecution e) {
+	public static void saveResults(SystemExecution e) {
 		synchronized (e) {
 			GenericDAO<RuntimeScenario> dao = new DatabaseService<RuntimeScenario>().getGenericDAO();
 
@@ -24,19 +24,14 @@ public class DatabaseService<T extends Serializable> {
 				RuntimeScenario rs = it.next();
 
 				/*
-				 * O cenário será da thread que terminou será persistido e
-				 * removido da lista. A remoção não é realmente necessária, mas
-				 * é feita mesmo assim para liberar memória. Para um sistema
-				 * grande isso pode fazer diferença.
+				 * O cenário da thread que terminou será persistido e removido
+				 * da lista. A remoção não é realmente necessária, mas é feita
+				 * mesmo assim para liberar memória. Para um sistema grande isso
+				 * pode fazer diferença.
 				 */
 				if (rs.getThreadId() == Thread.currentThread().getId()) {
 					it.remove();
-					
-					new Thread(new Runnable() {
-						public void run() {
-							dao.save(rs);
-						}
-					}).start();
+					dao.save(rs);
 				}
 			}
 
