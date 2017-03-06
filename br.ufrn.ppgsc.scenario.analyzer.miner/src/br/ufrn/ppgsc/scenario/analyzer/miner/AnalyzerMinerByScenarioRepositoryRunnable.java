@@ -230,6 +230,9 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 		// This contains the signature of methods modified and with variation
 		Set<String> filtered_signature_of_members = new HashSet<String>();
 		
+		// From method signature to modifications
+		Map<String, UpdatedMethod> from_signature_to_modifications = new HashMap<String, UpdatedMethod>();
+		
 		// Check every path to filter the collection of methods
 		for (String path : from_every_classpath_to_upmethod.keySet()) {
 			// Check every method of the path
@@ -244,6 +247,9 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 				 */
 				Collection<String> matched_signatures = matchesName(path, upm.getMethodLimit().getSignature(), every_signature_of_members);
 				filtered_signature_of_members.addAll(matched_signatures);
+				
+				for (String sig : matched_signatures)
+					from_signature_to_modifications.put(sig, upm);
 			}
 		}
 		
@@ -268,18 +274,18 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 			DoubleStatElement compared_scenario = scenarios.get(scenario_name);
 
 			if (!filtered_kept_members.isEmpty() || !filtered_added_members.isEmpty() || !filtered_removed_members.isEmpty()) {
-				AnalyzerReportUtil.saveDoubleElementsOfScenario(
+				AnalyzerReportUtil.saveDoubleElementsOfScenarioWithCommits(
 						"# " + ++i + " Members with deviation and modification for scenario " + scenario_name,
 						getRMFilePath("modified_with_" + report_file), compared_scenario,
-						Tests.UTest, alpha_significance_level, filtered_kept_members);
+						Tests.UTest, alpha_significance_level, filtered_kept_members, from_signature_to_modifications);
 				
-				AnalyzerReportUtil.saveSimpleElements(
+				AnalyzerReportUtil.saveSimpleElementsWithCommits(
 						"# " + i + " Added and modified members in the execution of scenario " + scenario_name,
-						getRMFilePath("modified_with_" + report_file), filtered_added_members);
+						getRMFilePath("modified_with_" + report_file), filtered_added_members, from_signature_to_modifications);
 				
-				AnalyzerReportUtil.saveSimpleElements(
+				AnalyzerReportUtil.saveSimpleElementsWithCommits(
 						"# " + i + " Removed and modified members in the execution of scenario " + scenario_name,
-						getRMFilePath("modified_with_" + report_file), filtered_removed_members);
+						getRMFilePath("modified_with_" + report_file), filtered_removed_members, from_signature_to_modifications);
 			}
 		}
 	}

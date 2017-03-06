@@ -47,6 +47,34 @@ public abstract class AnalyzerReportUtil {
 		pw.close();
 	}
 	
+	public static void saveSimpleElementsWithCommits(String message, String filename, Collection<SimpleStatElement> elements,
+			Map<String, UpdatedMethod> from_signature_to_modifications) throws FileNotFoundException {
+		
+		System.out.println("Saving >> " + message);
+
+		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
+
+		pw.println(message);
+		pw.println(elements.size());
+		
+		if (!elements.isEmpty()) {
+			pw.println(SimpleStatElement.HEADER);
+			
+			for (SimpleStatElement e : elements) {
+				pw.println(e);
+				
+				Set<String> commits = from_signature_to_modifications.get(e.getElementName()).getCommitsWithIssues();
+				pw.println(commits.size());
+				
+				for (String c : commits)
+					pw.println(c);
+			}
+		}
+		
+		pw.close();
+		
+	}
+	
 	public static void saveSimpleElementsOfScenario(
 			String message, String filename, SimpleStatElement scenario,
 			Collection<SimpleStatElement> members) throws FileNotFoundException {
@@ -95,6 +123,41 @@ public abstract class AnalyzerReportUtil {
 	
 			for (DoubleStatElement m : members)
 				pw.println(m + ";" + AnalyzerCollectionUtil.getDeviationType(m, stat_method, parameter));
+		}
+		
+		pw.close();
+		
+	}
+	
+	public static void saveDoubleElementsOfScenarioWithCommits(
+			String message, String filename, DoubleStatElement scenario, AnalyzerStatistical.Tests stat_method, double parameter,
+			Collection<DoubleStatElement> members, Map<String, UpdatedMethod> from_signature_to_modifications) throws FileNotFoundException {
+		
+		message = message + " | Test = " + stat_method + ", Value = " + parameter;
+		
+		System.out.println("Saving >> " + message);
+
+		PrintWriter pw = new PrintWriter(new FileOutputStream(filename, true));
+		
+		pw.println(message);
+		
+		pw.println(DoubleStatElement.HEADER + ";Variation");
+		pw.println(scenario + ";" + AnalyzerCollectionUtil.getDeviationType(scenario, stat_method, parameter));
+		
+		pw.println(members.size());
+		
+		if (!members.isEmpty()) {
+			pw.println(DoubleStatElement.HEADER + ";Variation");
+	
+			for (DoubleStatElement m : members) {
+				pw.println(m + ";" + AnalyzerCollectionUtil.getDeviationType(m, stat_method, parameter));
+				
+				Set<String> commits = from_signature_to_modifications.get(m.getElementName()).getCommitsWithIssues();
+				pw.println(commits.size());
+				
+				for (String c : commits)
+					pw.println(c);
+			}
 		}
 		
 		pw.close();
