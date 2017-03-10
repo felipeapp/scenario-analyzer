@@ -502,7 +502,7 @@ public class GitUpdatedLinesHandler {
 				 *  TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>.
 				 *  O parse do resultado será mais complicado, mas será apenas uma requisição no lugar de duas.
 				 */
-				Collection<CommitStat> stats = getCommitStats(commit_revision);
+				Collection<CommitStat> stats = null;//getCommitStats(commit_revision);
 				
 				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats,
 						getAuthorCommitsBeforeDate(author_name, string_date + " " + commit_tz).size(),
@@ -613,7 +613,7 @@ public class GitUpdatedLinesHandler {
 		// d06f84d1b87011e5c152c5fb3f05ae50c1c58cda -> Situação estranha, no new line at the end of the file
 		// 22f1e048923cf5b6e020a81b66e0a8512c24fe79 -> mode line que não pensei
 		// 7e032d211feecf00b93f72fd0ee49c42abf08c61 -> Commit merge gigante, tem todos os casos, testar este principalmente
-		Collection<CommitStat> stats = gitHandler.getCommitStats("e4262674d6dd347fb51a1454c63e5f03ed5f135e");
+		Collection<CommitStat> stats = gitHandler.getCommitStats("dc5edcac743fc006515fe8f5b283631f6f74935d");
 		
 		Commit commit = new Commit(null, null, null, null, null, stats, 0, 0);
 		
