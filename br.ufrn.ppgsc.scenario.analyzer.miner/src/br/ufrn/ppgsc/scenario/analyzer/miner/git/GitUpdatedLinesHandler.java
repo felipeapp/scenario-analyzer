@@ -196,8 +196,8 @@ public class GitUpdatedLinesHandler {
 	}
 
 	private InputStream executeGitCommand(String command) throws IOException {
-		String torun = "cmd /c " + command;
-		//System.out.println(torun);
+		String cmd_prefix = (System.getProperty("os.name").startsWith("Windows"))? "cmd /c " : "";
+		String torun = cmd_prefix + command;
 		Process p = Runtime.getRuntime().exec(torun, null, new File(gitdir));
 		return p.getInputStream();
 	}
@@ -299,6 +299,7 @@ public class GitUpdatedLinesHandler {
 				 * end of the file (null)
 				 * --- line;
 				 * binary line
+				 * diff line
 				 */
 				line = br.readLine();
 				
@@ -311,6 +312,12 @@ public class GitUpdatedLinesHandler {
 					updated_path = path_from_diff; // Getting the updated path from the "diff line"
 				else if (line.startsWith("---"))
 					updated_path = readAndCheckLine(br, "+++").substring(6); // Reading +++ line (new path): +++ b/new_path
+				else if (line.startsWith("diff"))
+					/*
+					 * Sometimes, git show a diff line for new files, but here we have nothing to do
+					 * because the file does not exist in the previous version.
+					 */
+					updated_path = line.substring(line.indexOf("b/") + 2, line.length());
 				else // It should never happen
 					throw new RuntimeException("Invalid new file mode: " + line);
 				
@@ -320,8 +327,8 @@ public class GitUpdatedLinesHandler {
 			else if (line.startsWith("deleted file mode")) {
 				readAndCheckLine(br, "index"); // Reading index line
 				
-				// It should be a "--- line" or a "binary line"
-				line = readAndCheckLine(br, new String[]{"---", "Binary files"}); 
+				// It should be a "--- line" or a "binary line" or a "diff line"
+				line = readAndCheckLine(br, new String[]{"---", "Binary files", "diff"}); 
 				
 				/*
 				 * If it was not the "--- line", we do not have a diff comparison.
@@ -329,11 +336,18 @@ public class GitUpdatedLinesHandler {
 				 * or we are in a binary line.
 				 */
 				if (line == null || line.startsWith("Binary files")) {
-					updated_path = path_from_diff; // Getting the updated path from the "diif line"
+					updated_path = path_from_diff; // Getting the updated path from the "diff line"
 				}
 				else if (line.startsWith("---")) {
 					updated_path = line.substring(6); // Reading --- line (old path): --- a/old_path
 					readAndCheckLine(br, "+++"); // Reading +++ line (new path): +++ b/new_path
+				}
+				else if (line.startsWith("diff")) {
+					/*
+					 * Sometimes, git show a diff line for removed files, but here we have nothing to do
+					 * because the file does not exist in the final version.
+					 */
+					updated_path = line.substring(line.indexOf("a/") + 2, line.indexOf(" b/"));
 				}
 				else { // It should never happen
 					throw new RuntimeException("Invalid deleted file mode: " + line);
@@ -502,7 +516,7 @@ public class GitUpdatedLinesHandler {
 				 *  TODO: Refazer a parte da data e autor junto com os stats usando git show -shortstat <commit>.
 				 *  O parse do resultado será mais complicado, mas será apenas uma requisição no lugar de duas.
 				 */
-				Collection<CommitStat> stats = null;//getCommitStats(commit_revision);
+				Collection<CommitStat> stats = getCommitStats(commit_revision);
 				
 				commit = new Commit(commit_revision, author_name, commit_date, commit_tz, issues, stats,
 						getAuthorCommitsBeforeDate(author_name, string_date + " " + commit_tz).size(),
