@@ -16,6 +16,7 @@ import br.ufrn.ppgsc.scenario.analyzer.miner.model.AbstractStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.DoubleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.SimpleStatElement;
 import br.ufrn.ppgsc.scenario.analyzer.miner.model.UpdatedMethod;
+import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerCollectionUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerReportUtil;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.AnalyzerStatistical.Tests;
 import br.ufrn.ppgsc.scenario.analyzer.miner.util.RepositoryManager;
@@ -38,7 +39,8 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 	private String[] exclude_entry_points;
 	
 	private double avg_significance_delta;
-	private double member_significance_variation;
+	private double member_significance_impact;
+	private int number_of_repetitions;
 
 	public AnalyzerMinerByScenarioRepositoryRunnable(String strdate) throws FileNotFoundException {
 		SystemMetadataUtil properties = SystemMetadataUtil.getInstance();
@@ -57,7 +59,8 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 		workcopy_prefix_r2 = properties.getStringProperty("workcopy_prefix_r2");
 		
 		avg_significance_delta = properties.getDoubleProperty("avg_significance_delta");
-		member_significance_variation = properties.getDoubleProperty("member_significance_variation");
+		member_significance_impact = properties.getDoubleProperty("member_significance_impact");
+		number_of_repetitions = properties.getIntProperty("number_of_repetitions");
 		
 		exclude_entry_points = properties.getStringProperty("exclude_entry_points").split(";");
 	}
@@ -83,14 +86,14 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 		// The member was added
 		if (t1 == null) {
 			// It is significant according the property
-			delta = (count2 * t2 >= member_significance_variation)? t2 : 0;
+			delta = (t2 * count2 / number_of_repetitions >= member_significance_impact)? t2 : 0;
 		}
 		else if (t2 == null) { // The member was removed
 			// It is significant according the property
-			delta = (count1 * t1 >= member_significance_variation)? t1 : 0;
+			delta = (t1 * count1 / number_of_repetitions >= member_significance_impact)? t1 : 0;
 		}
 		else { // The member exists in both releases
-			delta = (count2 * Math.abs(t2 - t1) >= member_significance_variation)? Math.abs(t2 - t1) : 0;
+			delta = (Math.abs(t2 - t1) * count2 / number_of_repetitions >= member_significance_impact)? Math.abs(t2 - t1) : 0;
 		}
 		
 		return delta >= avg_significance_delta;
@@ -136,8 +139,7 @@ public final class AnalyzerMinerByScenarioRepositoryRunnable {
 
 		if (elements != null) {
 			for (T e : elements) {
-				//if (!AnalyzerCollectionUtil.matchesExcludeWord(e.getElementName()) && names_of_interest.contains(e.getElementName())) {
-				if (names_of_interest.contains(e.getElementName())) {
+				if (!AnalyzerCollectionUtil.matchesExcludeWord(e.getElementName()) && names_of_interest.contains(e.getElementName())) {
 					if (e instanceof SimpleStatElement) {
 						SimpleStatElement simple_e = (SimpleStatElement) e;
 						
