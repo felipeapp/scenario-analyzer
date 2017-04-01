@@ -18,7 +18,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 
 	static {
 		//file:/C:/development/jboss-5.1.0.GA-original-tuning/
-		System.out.println("JBOSS HOME ###############:" + System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml"); 
+		System.out.println("# Hibernate.cfg.xml Path #:" + System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml"); 
 
 		SessionFactory sf = null;
 		
@@ -26,7 +26,11 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 			sf = new AnnotationConfiguration().configure(new URL(
 					System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml")).buildSessionFactory();
 		} catch (MalformedURLException e) {
-			sf = new AnnotationConfiguration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
+			try {
+				sf = new AnnotationConfiguration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
+			} catch (Throwable ex) {
+				ex.printStackTrace();
+			}
 		}
 		
 		s = sf.openSession();

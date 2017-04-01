@@ -97,43 +97,43 @@ public abstract class AspectUtil {
 		return result;
 	}
 	
-	protected static void popStacksAndPersistData(long time) {
-		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
-		
-		Stack<RuntimeScenario> scenarios_stack = AspectUtil.getOrCreateRuntimeScenarioStack();
-		Stack<RuntimeNode> nodes_stack = AspectUtil.getOrCreateRuntimeNodeStack();
-		
-		try {
-			// Desempilha o último método
-			RuntimeNode node = nodes_stack.pop();
-			
-			// Configura o tempo de executação total
-			node.setExecutionTime(time);
-			
-			if (time == -1) {
-				node.setRealExecutionTime(time);
-			}
-			else {
-				// Configura o tempo de executação real (subtraindo o tempo dos filhos)
-				long real_time = time;
-				for (RuntimeNode child : node.getChildren())
-					real_time -= child.getExecutionTime();
-				
-				node.setRealExecutionTime(real_time);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		/*
-		 * Se a pilha de nós estiver vazia, desempilha o cenário em execução,
-		 * pois ele terminou de executar e salva as informações no banco de dados
-		 */
-		if (nodes_stack.empty()) {
-			scenarios_stack.pop();
-			DatabaseService.saveResults(execution);
-		}
-	}
+//	protected static void popStacksAndPersistData(long time) {
+//		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
+//		
+//		Stack<RuntimeScenario> scenarios_stack = AspectUtil.getOrCreateRuntimeScenarioStack();
+//		Stack<RuntimeNode> nodes_stack = AspectUtil.getOrCreateRuntimeNodeStack();
+//		
+//		try {
+//			// Desempilha o último método
+//			RuntimeNode node = nodes_stack.pop();
+//			
+//			// Configura o tempo de executação total
+//			node.setExecutionTime(time);
+//			
+//			if (time == -1) {
+//				node.setRealExecutionTime(time);
+//			}
+//			else {
+//				// Configura o tempo de executação real (subtraindo o tempo dos filhos)
+//				long real_time = time;
+//				for (RuntimeNode child : node.getChildren())
+//					real_time -= child.getExecutionTime();
+//				
+//				node.setRealExecutionTime(real_time);
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		/*
+//		 * Se a pilha de nós estiver vazia, desempilha o cenário em execução,
+//		 * pois ele terminou de executar e salva as informações no banco de dados
+//		 */
+//		if (nodes_stack.empty()) {
+//			scenarios_stack.pop();
+//			DatabaseService.saveResults(execution);
+//		}
+//	}
 	
 	protected static void popStacksAndPersistData(long time, Member member, Class<? extends Annotation> annotation) {
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
@@ -148,7 +148,11 @@ public abstract class AspectUtil {
 			// Configura o tempo de executação total
 			node.setExecutionTime(time);
 			
-			if (time == -1) {
+			if (time == 0) {
+				node.getParent().removeChildren(node);
+				node.setParent(null);
+			}
+			else if (time == -1) {
 				node.setRealExecutionTime(time);
 			}
 			else {
