@@ -34,91 +34,91 @@ import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
  */
 @Aspect
 public abstract class AbstractAspectEntryPoint {
-	
+
 	// Deve retornar o Class da anotação que será interceptada
 	public Class<? extends Annotation> getAnnotationClass() {
 		return null;
 	}
-	
+
 	// Deve indicar os pontos de entrada a serem insterceptados
 	@Pointcut
 	public abstract void entryPoint();
-	
+
 	// Deve indicar os pontos de entrada a serem excluídos
 	@Pointcut
-	public void exclusionPoint() { }
-	
+	public void exclusionPoint() {
+	}
+
 	@Pointcut("!within(br.ufrn.ppgsc.scenario.analyzer..*) && !exclusionPoint()")
-	private final void exclusionPointFlow() { }
-	
+	private final void exclusionPointFlow() {
+	}
+
 	@Pointcut("cflow(entryPoint()) && (execution(* *(..)) || execution(*.new(..)))")
-	private final void entryPointFlow() {	}
-	
+	private final void entryPointFlow() {
+	}
+
 	@SuppressAjWarnings
 	@Around("entryPointFlow() && exclusionPointFlow()")
 	public final Object cgbuilding(ProceedingJoinPoint thisJoinPoint) throws Throwable {
 		long begin, end;
-		
+
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
-		
+
 		Stack<RuntimeScenario> scenarios_stack = AspectUtil.getOrCreateRuntimeScenarioStack();
 		Stack<RuntimeNode> nodes_stack = AspectUtil.getOrCreateRuntimeNodeStack();
-		
+
 		Member member = AspectUtil.getMember(thisJoinPoint.getSignature());
-		
+
 		RuntimeNode node = new RuntimeNode(member);
-		
+
 		/*
-		 * Se achou a anotação de cenário, começa a criar as estruturas para o elemento.
-		 * Depois adiciona para a execução atual.
+		 * Se achou a anotação de cenário, começa a criar as estruturas para o
+		 * elemento. Depois adiciona para a execução atual.
 		 */
 		if (AspectUtil.isScenarioEntryPoint(member, getAnnotationClass(), nodes_stack.empty())) {
-			RuntimeScenario scenario = new RuntimeScenario(
-					AspectUtil.getEntryPointName(member, getAnnotationClass()),
-					node, AspectUtil.getContextParameterMap());
-			
+			RuntimeScenario scenario = new RuntimeScenario(AspectUtil.getEntryPointName(member, getAnnotationClass()), node);
+
 			execution.addRuntimeScenario(scenario);
 			scenarios_stack.push(scenario);
-		}
-		else if (nodes_stack.empty()) {
-			/* 
-			 * Se a pilha estiver vazia e a anotação não existe neste ponto é porque
-			 * estamos executando um método que não faz parte de um cenário anotado.
-			 * Considerando que pegamos o fluxo de uma execução anotada, isto nunca
-			 * deveria acontecer.
+		} else if (nodes_stack.empty()) {
+			/*
+			 * Se a pilha estiver vazia e a anotação não existe neste ponto é
+			 * porque estamos executando um método que não faz parte de um
+			 * cenário anotado. Considerando que pegamos o fluxo de uma execução
+			 * anotada, isto nunca deveria acontecer.
 			 */
 			throw new RuntimeException("AbstractAspectAnnotatedEntryPoint: stack of nodes is empty!");
 		}
-		
+
 		/*
-		 * Se já existe alguma coisa na pilha, então o método atual
-		 * foi invocado pelo último método que está na pilha
+		 * Se já existe alguma coisa na pilha, então o método atual foi invocado
+		 * pelo último método que está na pilha
 		 */
 		if (!nodes_stack.empty()) {
 			RuntimeNode parent = nodes_stack.peek();
-			
+
 			parent.addChild(node);
 			node.setParent(parent);
 		}
-		
+
 		node.setScenarios(new ArrayList<RuntimeScenario>(scenarios_stack));
 		nodes_stack.push(node);
-		
+
 		begin = System.currentTimeMillis();
 		Object o = thisJoinPoint.proceed();
 		end = System.currentTimeMillis();
-		
-		/* 
-		 * Retira os elementos das pilhas e salva as informações no banco de dados
-		 * Observe que este método também é chamado quando ocorrem falhas
+
+		/*
+		 * Retira os elementos das pilhas e salva as informações no banco de
+		 * dados Observe que este método também é chamado quando ocorrem falhas
 		 */
 		AspectUtil.popStacksAndPersistData(end - begin, member, getAnnotationClass());
-		
+
 		return o;
 	}
-	
+
 	// Intercepta antes do lançamento de exceções
-	// after() throwing(Throwable t) : scenarioExecution() && !executionIgnored()  {
+	// after() throwing(Throwable t) : scenarioExecution() && !executionIgnored() {
 	@SuppressAjWarnings
 	@AfterThrowing(pointcut = "entryPointFlow() && exclusionPointFlow()", throwing = "t")
 	public final void throwingException(JoinPoint thisJoinPoint, Throwable t) {
@@ -126,7 +126,7 @@ public abstract class AbstractAspectEntryPoint {
 		AspectUtil.setException(t, member);
 		AspectUtil.popStacksAndPersistData(-1, member, getAnnotationClass());
 	}
-	
+
 	// Intercepta capturas de exceções após seu lançamento
 	// before(Throwable t) : handler(Throwable+) && args(t) && executionFlow() && !executionIgnored() {
 	@SuppressAjWarnings
@@ -134,5 +134,5 @@ public abstract class AbstractAspectEntryPoint {
 	public final void handlingException(JoinPoint.EnclosingStaticPart thisEnclosingJoinPointStaticPart, Throwable t) {
 		AspectUtil.setException(t, AspectUtil.getMember(thisEnclosingJoinPointStaticPart.getSignature()));
 	}
-	
+
 }

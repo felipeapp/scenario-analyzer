@@ -58,7 +58,7 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 				s.save(instance);
 				System.out.println("Commiting " + instance.toString());
 				tx.commit();
-			} catch (RuntimeException e) {
+			} catch (Exception e) {
 				if (tx != null)
 					tx.rollback();
 

@@ -3,12 +3,9 @@ package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Stack;
-
-import javax.faces.context.FacesContext;
 
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.ConstructorSignature;
@@ -87,54 +84,6 @@ public abstract class AspectUtil {
 		return scenarios_stack;
 	}
 	
-	protected static Map<String, String> getContextParameterMap() {
-		Map<String, String> result = null;
-		FacesContext fc = FacesContext.getCurrentInstance();
-		
-		if (fc != null)
-			result = new HashMap<String, String>(fc.getExternalContext().getRequestParameterMap());
-		
-		return result;
-	}
-	
-//	protected static void popStacksAndPersistData(long time) {
-//		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
-//		
-//		Stack<RuntimeScenario> scenarios_stack = AspectUtil.getOrCreateRuntimeScenarioStack();
-//		Stack<RuntimeNode> nodes_stack = AspectUtil.getOrCreateRuntimeNodeStack();
-//		
-//		try {
-//			// Desempilha o último método
-//			RuntimeNode node = nodes_stack.pop();
-//			
-//			// Configura o tempo de executação total
-//			node.setExecutionTime(time);
-//			
-//			if (time == -1) {
-//				node.setRealExecutionTime(time);
-//			}
-//			else {
-//				// Configura o tempo de executação real (subtraindo o tempo dos filhos)
-//				long real_time = time;
-//				for (RuntimeNode child : node.getChildren())
-//					real_time -= child.getExecutionTime();
-//				
-//				node.setRealExecutionTime(real_time);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		/*
-//		 * Se a pilha de nós estiver vazia, desempilha o cenário em execução,
-//		 * pois ele terminou de executar e salva as informações no banco de dados
-//		 */
-//		if (nodes_stack.empty()) {
-//			scenarios_stack.pop();
-//			DatabaseService.saveResults(execution);
-//		}
-//	}
-	
 	protected static void popStacksAndPersistData(long time, Member member, Class<? extends Annotation> annotation) {
 		SystemExecution execution = RuntimeCallGraph.getInstance().getCurrentExecution();
 		
@@ -149,7 +98,10 @@ public abstract class AspectUtil {
 			node.setExecutionTime(time);
 			
 			if (time == 0) {
-				node.getParent().removeChildren(node);
+				// O node raiz não tem pai
+				if (node.getParent() != null)
+					node.getParent().removeChildren(node);
+				
 				node.setParent(null);
 			}
 			else if (time == -1) {
