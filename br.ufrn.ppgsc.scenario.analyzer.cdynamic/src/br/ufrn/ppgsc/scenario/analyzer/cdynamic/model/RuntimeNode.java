@@ -68,6 +68,10 @@ public class RuntimeNode implements Serializable {
 	@OrderBy("root asc")
 	private List<RuntimeScenario> scenarios;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "node_id", referencedColumnName = "id")
+	private List<RuntimeParameter> parameters;
+
 	public RuntimeNode() {
 
 	}
@@ -75,6 +79,7 @@ public class RuntimeNode implements Serializable {
 	public RuntimeNode(Member member) {
 		children = new ArrayList<RuntimeNode>();
 		scenarios = new ArrayList<RuntimeScenario>();
+		parameters = new ArrayList<RuntimeParameter>();
 		memberSignature = MemberUtil.getStandartMethodSignature(member);
 		annotations = RuntimeCallGraph.getInstance().parseMemberAnnotations(member);
 		isConstructor = member instanceof Constructor;
@@ -170,6 +175,18 @@ public class RuntimeNode implements Serializable {
 
 	public void addChild(RuntimeNode node) {
 		children.add(node);
+	}
+
+	public List<RuntimeParameter> getParameters() {
+		return Collections.unmodifiableList(parameters);
+	}
+
+	public void setParameters(List<RuntimeParameter> parameters) {
+		this.parameters = parameters;
+	}
+
+	public void addParameter(RuntimeParameter parameter) {
+		parameters.add(parameter);
 	}
 
 }

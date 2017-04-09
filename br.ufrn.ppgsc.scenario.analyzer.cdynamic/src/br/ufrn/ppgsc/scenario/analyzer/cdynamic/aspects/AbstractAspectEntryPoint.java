@@ -3,6 +3,7 @@ package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 import org.aspectj.lang.JoinPoint;
@@ -15,6 +16,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.annotation.SuppressAjWarnings;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeParameter;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
@@ -116,7 +118,36 @@ public abstract class AbstractAspectEntryPoint {
 
 		return o;
 	}
-
+	
+	@SuppressAjWarnings
+	@Before("exclusionPointFlow() && (call(* org.hibernate.Session.createSQLQuery(String)) || call(* org.hibernate.Session.createQuery(String)))")
+    public void sqlFromHBCalls(JoinPoint thisJoinPoint) {
+		String sql = thisJoinPoint.getArgs()[0].toString();
+		RuntimeNode node = AspectUtil.getOrCreateRuntimeNodeStack().peek();
+		node.addParameter(new RuntimeParameter(sql));
+	}
+	
+	@SuppressAjWarnings
+	@Before("exclusionPointFlow() && call(* org.hibernate.Session.createCriteria(..))")
+    public void criteriaFromHBCalls(JoinPoint thisJoinPoint) {
+		String sql = Arrays.toString(thisJoinPoint.getArgs());
+		RuntimeNode node = AspectUtil.getOrCreateRuntimeNodeStack().peek();
+		node.addParameter(new RuntimeParameter(sql));
+	}
+	
+	@SuppressAjWarnings
+	@Before("exclusionPointFlow() && call(* org.springframework.jdbc.core.JdbcTemplate.query(..))")
+    public void sqlFromJdbcTemplateCalls(JoinPoint thisJoinPoint) {
+		Object[] args = thisJoinPoint.getArgs();
+		
+		String sql = args[0].toString();
+		String parameters = Arrays.toString((Object[]) args[1]);
+		String mapper = args[2].getClass().getName();
+		
+		RuntimeNode node = AspectUtil.getOrCreateRuntimeNodeStack().peek();
+		node.addParameter(new RuntimeParameter(sql + ";" + parameters + ";" + mapper));
+	}
+	
 	// Intercepta antes do lançamento de exceções
 	// after() throwing(Throwable t) : scenarioExecution() && !executionIgnored() {
 	@SuppressAjWarnings

@@ -8,25 +8,14 @@
 	<session-factory>
 
 		<property name="connection.driver_class">org.postgresql.Driver</property>
-		<property name="connection.url">jdbc:postgresql://127.0.0.1:5432/wicket_7.0.0-M1</property>
-		<property name="connection.username">scenario_analyzer_user</property>
+		<property name="connection.url">jdbc:postgresql://127.0.0.1:5432/teste</property>
+		<property name="connection.username">postgres</property>
 		<property name="connection.password">123456</property>
-		<property name="connection.pool_size">1</property>
-
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-		<property name="show_sql">false</property>
-		<property name="format_sql">false</property>
-		<property name="hbm2ddl.auto">valid</property>
-
-		<property name="hibernate.connection.autocommit">false</property>
-		<property name="hibernate.cache.use_query_cache">false</property>
-	    <property name="hibernate.cache.use_second_level_cache">false</property>
-	    <property name="hibernate.jdbc.batch_size">1000</property>
-	    <property name="hibernate.order_inserts">true</property>
-	    <property name="hibernate.order_updates">true</property>
 
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution" />
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario" />
+		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeParameter" />
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode" />
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation" />
 		<mapping class="br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimePerformance" />
