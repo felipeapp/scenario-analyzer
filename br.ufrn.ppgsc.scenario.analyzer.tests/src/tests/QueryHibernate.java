@@ -1,5 +1,7 @@
 package tests;
 
+import junit.framework.TestCase;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -7,12 +9,11 @@ import org.hibernate.criterion.Expression;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import junit.framework.TestCase;
-
 @Component
 public class QueryHibernate extends TestCase {
 
-	private Session s = new AnnotationConfiguration().configure("hibernate.cfg.1.xml").buildSessionFactory()
+	private Session s = new AnnotationConfiguration()
+			.configure("hibernate.cfg.1.xml").buildSessionFactory()
 			.openSession();
 
 	public static void main(String[] args) {
@@ -50,7 +51,8 @@ public class QueryHibernate extends TestCase {
 		c.list();
 
 		try {
-			new JdbcTemplate().query("select id from JdbcTemplate", new String[] { "felipe, alves" }, new TesteDB());
+			new JdbcTemplate().query("select id from JdbcTemplate",
+					new String[] { "felipe, alves" }, new TesteDB());
 		} catch (Throwable t) {
 		}
 

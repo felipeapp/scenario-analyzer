@@ -16,7 +16,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.annotation.SuppressAjWarnings;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeParameter;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
@@ -123,16 +122,14 @@ public abstract class AbstractAspectEntryPoint {
 	@Before("exclusionPointFlow() && (call(* org.hibernate.Session.createSQLQuery(String)) || call(* org.hibernate.Session.createQuery(String)))")
     public void sqlFromHBCalls(JoinPoint thisJoinPoint) {
 		String sql = thisJoinPoint.getArgs()[0].toString();
-		RuntimeNode node = AspectUtil.getOrCreateRuntimeNodeStack().peek();
-		node.addParameter(new RuntimeParameter(sql));
+		AspectUtil.setParameter(sql);
 	}
 	
 	@SuppressAjWarnings
 	@Before("exclusionPointFlow() && call(* org.hibernate.Session.createCriteria(..))")
     public void criteriaFromHBCalls(JoinPoint thisJoinPoint) {
 		String sql = Arrays.toString(thisJoinPoint.getArgs());
-		RuntimeNode node = AspectUtil.getOrCreateRuntimeNodeStack().peek();
-		node.addParameter(new RuntimeParameter(sql));
+		AspectUtil.setParameter(sql);
 	}
 	
 	@SuppressAjWarnings
@@ -144,8 +141,7 @@ public abstract class AbstractAspectEntryPoint {
 		String parameters = Arrays.toString((Object[]) args[1]);
 		String mapper = args[2].getClass().getName();
 		
-		RuntimeNode node = AspectUtil.getOrCreateRuntimeNodeStack().peek();
-		node.addParameter(new RuntimeParameter(sql + ";" + parameters + ";" + mapper));
+		AspectUtil.setParameter(sql + ";" + parameters + ";" + mapper);
 	}
 	
 	// Intercepta antes do lançamento de exceções
