@@ -3,7 +3,6 @@ package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 import org.aspectj.lang.JoinPoint;
@@ -51,11 +50,11 @@ public abstract class AbstractAspectEntryPoint {
 	}
 
 	@Pointcut("!within(br.ufrn.ppgsc.scenario.analyzer..*) && !exclusionPoint()")
-	private final void exclusionPointFlow() {
+	protected final void exclusionPointFlow() {
 	}
 
 	@Pointcut("cflow(entryPoint()) && (execution(* *(..)) || execution(*.new(..)))")
-	private final void entryPointFlow() {
+	protected final void entryPointFlow() {
 	}
 
 	@SuppressAjWarnings
@@ -116,32 +115,6 @@ public abstract class AbstractAspectEntryPoint {
 		AspectUtil.popStacksAndPersistData(end - begin, member, getAnnotationClass());
 
 		return o;
-	}
-	
-	@SuppressAjWarnings
-	@Before("exclusionPointFlow() && (call(* org.hibernate.Session.createSQLQuery(String)) || call(* org.hibernate.Session.createQuery(String)))")
-    public void sqlFromHBCalls(JoinPoint thisJoinPoint) {
-		String sql = thisJoinPoint.getArgs()[0].toString();
-		AspectUtil.setParameter(sql);
-	}
-	
-	@SuppressAjWarnings
-	@Before("exclusionPointFlow() && call(* org.hibernate.Session.createCriteria(..))")
-    public void criteriaFromHBCalls(JoinPoint thisJoinPoint) {
-		String sql = Arrays.toString(thisJoinPoint.getArgs());
-		AspectUtil.setParameter(sql);
-	}
-	
-	@SuppressAjWarnings
-	@Before("exclusionPointFlow() && call(* org.springframework.jdbc.core.JdbcTemplate.query(..))")
-    public void sqlFromJdbcTemplateCalls(JoinPoint thisJoinPoint) {
-		Object[] args = thisJoinPoint.getArgs();
-		
-		String sql = args[0].toString();
-		String parameters = Arrays.toString((Object[]) args[1]);
-		String mapper = args[2].getClass().getName();
-		
-		AspectUtil.setParameter(sql + ";" + parameters + ";" + mapper);
 	}
 	
 	// Intercepta antes do lançamento de exceções

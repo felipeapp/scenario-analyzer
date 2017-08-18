@@ -1,14 +1,13 @@
 package tests;
 
-import junit.framework.TestCase;
-
+import org.apache.struts.actions.DispatchAction;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 @Component
-public class Main2 extends TestCase {
+public class Main2 extends DispatchAction {
 
 	@Test
 	@Scenario(name = "Scenario Main")
