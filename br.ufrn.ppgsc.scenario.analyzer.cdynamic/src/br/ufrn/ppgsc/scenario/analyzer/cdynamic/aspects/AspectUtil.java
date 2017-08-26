@@ -140,14 +140,14 @@ public abstract class AspectUtil {
 		}
 	}
 
-	protected static void setParameter(String parameter) {
+	protected static void setParameter(String parameter, String tipo) {
 		Stack<RuntimeNode> stack_nodes = AspectUtil.getOrCreateRuntimeNodeStack();
 
 		if (stack_nodes.isEmpty()) {
 			System.out.println("Captured SQL is out of the scenarios of interest");
 		} else {
 			RuntimeNode node = stack_nodes.peek();
-			node.addParameter(new RuntimeParameter(parameter));
+			node.addParameter(new RuntimeParameter(parameter, tipo));
 		}
 	}
 

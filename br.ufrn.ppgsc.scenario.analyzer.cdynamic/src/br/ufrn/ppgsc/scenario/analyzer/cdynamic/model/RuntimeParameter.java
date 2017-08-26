@@ -20,12 +20,16 @@ public class RuntimeParameter implements Serializable {
 	@Column(name = "arg", columnDefinition = "text")
 	private String callParameter;
 
+	@Column(name = "tipo", columnDefinition = "text")
+	private String tipo;
+
 	public RuntimeParameter() {
 
 	}
 
-	public RuntimeParameter(String callParameter) {
+	public RuntimeParameter(String callParameter, String tipo) {
 		this.callParameter = callParameter;
+		this.tipo = tipo;
 	}
 
 	public long getId() {
@@ -42,6 +46,14 @@ public class RuntimeParameter implements Serializable {
 
 	public void setCallParameter(String callParameter) {
 		this.callParameter = callParameter;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

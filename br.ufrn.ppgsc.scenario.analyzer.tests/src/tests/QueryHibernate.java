@@ -9,13 +9,19 @@ import org.hibernate.criterion.Expression;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
+
 @Component
 public class QueryHibernate extends TestCase {
 
 	private Session s = new AnnotationConfiguration()
-			.configure("hibernate.cfg.1.xml").buildSessionFactory()
+			.configure("sa_hibernate.cfg.xml").buildSessionFactory()
 			.openSession();
 
+	public Session getSession() {
+		return s;
+	}
+	
 	public static void main(String[] args) {
 		QueryHibernate o = new QueryHibernate();
 
@@ -43,15 +49,16 @@ public class QueryHibernate extends TestCase {
 	}
 
 	public void C() {
-		Criteria c = s.createCriteria(QueryHibernate.class);
-		c.add(Expression.eq("grupoAtividade.id", 2));
-		c.add(Expression.ilike("nome", "bla%"));
-		c.add(Expression.eq("ativo", Boolean.TRUE));
+		Criteria c = s.createCriteria(RuntimeNode.class);
+		
+		c.add(Expression.eq("id", 2L));
+		c.add(Expression.ilike("memberSignature", "%test%"));
+		c.add(Expression.eq("isConstructor", Boolean.TRUE));
 		System.out.println("Criteria toString: " + c.toString());
 		c.list();
 
 		try {
-			new JdbcTemplate().query("select id from JdbcTemplate",
+			new JdbcTemplate().query("select id from scenario",
 					new String[] { "felipe, alves" }, new TesteDB());
 		} catch (Throwable t) {
 		}
