@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,11 +13,14 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.hql.QueryTranslator;
 import org.hibernate.hql.QueryTranslatorFactory;
 import org.hibernate.hql.ast.ASTQueryTranslatorFactory;
+import org.hibernate.impl.AbstractQueryImpl;
 import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.impl.SessionImpl;
 import org.hibernate.loader.OuterJoinLoader;
@@ -44,7 +48,7 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 	@Before("exclusionPointFlow() && (call(* org.hibernate.Criteria.uniqueResult()) || call(* org.hibernate.Criteria.list()))")
 	public void sqlFromCriteria(JoinPoint thisJoinPoint) {
 		Criteria c = (Criteria) thisJoinPoint.getTarget();
-		AspectUtil.setParameter(criteriaToSql(c), "CRITERIA");
+		AspectUtil.addQueryToNode(criteriaToSql(c), "CRITERIA");
 	}
 	
 	private String criteriaToSql(Criteria c) {
@@ -68,61 +72,96 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 			CriteriaQueryTranslator translator = (CriteriaQueryTranslator) param_field.get(loader);
 			parameters = translator.getQueryParameters().getPositionalParameterValues();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
 		
 		if (sql != null) {
 			sql = "select *" + sql.substring(sql.indexOf(" from "));
 
-			if (parameters != null) {
-				for (Object p : parameters) {
-					String value;
-					
-					if (p instanceof Boolean) {
-						value = (Boolean) p ? "true" : "false";
-					} else if (p instanceof String) {
-						value = "'" + p + "'";
-					} else if (p instanceof Class) {
-						value = "'" + ((Class<?>) p).getCanonicalName() + "'";
-					} else if (p instanceof Date) {
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-						value = "'" + sdf.format((Date) p) + "'";
-					} else if (p instanceof Enum) {
-						value = "" + ((Enum<?>) p).ordinal();
-					} else {
-						value = p.toString();
-					}
-					
-					sql = sql.replaceFirst("\\?", value);
-				}
-			}
+			if (parameters != null)
+				for (Object p : parameters)
+					sql = sql.replaceFirst("\\?", getSqlValue(p));
 		}
 		
 		return sql;
 	}
 	
-	@SuppressAjWarnings
-	@Before("exclusionPointFlow() && call(* org.hibernate.Session.createSQLQuery(String))")
-	public void sqlFromSQLQuery(JoinPoint thisJoinPoint) {
-		String sql = thisJoinPoint.getArgs()[0].toString();
-		AspectUtil.setParameter(sql, "SQL_HIBERNATE");
+	private String getSqlValue(Object p) {
+		String value;
+		
+		if (p instanceof Boolean) {
+			value = (Boolean) p ? "true" : "false";
+		} else if (p instanceof String) {
+			value = "'" + p + "'";
+		} else if (p instanceof Class) {
+			value = "'" + ((Class<?>) p).getCanonicalName() + "'";
+		} else if (p instanceof Date) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			value = "'" + sdf.format((Date) p) + "'";
+		} else if (p instanceof Enum) {
+			value = "" + ((Enum<?>) p).ordinal();
+		} else {
+			value = p.toString();
+		}
+		
+		return value;
 	}
 	
 	@SuppressAjWarnings
 	@Before("exclusionPointFlow() && call(* org.springframework.jdbc.core.JdbcTemplate.queryFor*(..))")
 	public void sqlFromJDBCTemplate(JoinPoint thisJoinPoint) {
-		String sql = thisJoinPoint.getArgs()[0].toString();
-		AspectUtil.setParameter(sql, "JDBC_TEMPLATE");
+		AspectUtil.addQueryToNode(jdbcTemplateToSql(thisJoinPoint.getArgs()), "JDBC_TEMPLATE");
+	}
+	
+	private String jdbcTemplateToSql(Object[] args) {
+		String sql = args[0].toString();
+		Object[] values = null;
+
+		if (args[1] instanceof Object[])
+			values = (Object[]) args[1];
+		else if (args[2] instanceof Object[])
+			values = (Object[]) args[2];
+		else
+			System.err.println("Query method is not supported!");
+
+		if (values != null)
+			for (int i = 0; i < values.length; i++)
+				sql = sql.replaceFirst("\\?", getSqlValue(values[i]));
+
+		return sql;
 	}
 	
 	@SuppressAjWarnings
-	@Before("exclusionPointFlow() && call(* org.hibernate.Session.createQuery(String))")
-	public void sqlFromHQLQuery(JoinPoint thisJoinPoint) {
-		String hql = thisJoinPoint.getArgs()[0].toString();
-		AspectUtil.setParameter(hqlToSql(hql, thisJoinPoint.getThis()), "HQL");
+	@Before("exclusionPointFlow() && (call(* org.hibernate.Query.uniqueResult()) || call(* org.hibernate.Query.list()))")
+	public void sqlFromHibernateQuery(JoinPoint thisJoinPoint) {
+		Object q = thisJoinPoint.getTarget();
+		
+		if (q instanceof SQLQuery)
+			AspectUtil.addQueryToNode(replaceHibernateQueryParameters((SQLQuery) q), "SQL_HIBERNATE");
+		else if (q instanceof Query)
+			AspectUtil.addQueryToNode(hqlToSql((Query) q, thisJoinPoint.getThis()), "HQL");
 	}
 
-	private String hqlToSql(String hql, Object thisobj) {
+	private String replaceHibernateQueryParameters(Query q) {
+		String sql = q.getQueryString();
+
+		try {
+			Field f = AbstractQueryImpl.class.getDeclaredField("namedParameters");
+			f.setAccessible(true);
+			Map<?, ?> p_map = (Map<?, ?>) f.get(q);
+
+			for (String p_name : q.getNamedParameters()) {
+				String p_value = getSqlValue(p_map.get(p_name));
+				sql = sql.replace(":" + p_name, p_value);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return sql;
+	}
+	
+	private String hqlToSql(Query q, Object thisobj) {
 		Session s = null;
 		String sql = null;
 		
@@ -134,12 +173,15 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 		}
 		
 		if (s != null) {
+			String hql = replaceHibernateQueryParameters(q);
+			
 			QueryTranslatorFactory translatorFactory = new ASTQueryTranslatorFactory();
 			SessionFactoryImplementor factory = (SessionFactoryImplementor) s.getSessionFactory();
 			QueryTranslator translator = translatorFactory.createQueryTranslator(hql, hql, Collections.EMPTY_MAP, factory);
 			
 			translator.compile(Collections.EMPTY_MAP, false);
 			sql = translator.getSQLString();
+			sql = "select *" + sql.substring(sql.indexOf(" from "));
 		}
 		
 		return sql;

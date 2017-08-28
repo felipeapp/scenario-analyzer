@@ -13,7 +13,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.db.DatabaseService;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeNode;
-import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeParameter;
+import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeQuery;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeScenario;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.SystemExecution;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.util.RuntimeCallGraph;
@@ -140,14 +140,14 @@ public abstract class AspectUtil {
 		}
 	}
 
-	protected static void setParameter(String parameter, String tipo) {
+	protected static void addQueryToNode(String query, String type) {
 		Stack<RuntimeNode> stack_nodes = AspectUtil.getOrCreateRuntimeNodeStack();
 
 		if (stack_nodes.isEmpty()) {
 			System.out.println("Captured SQL is out of the scenarios of interest");
 		} else {
 			RuntimeNode node = stack_nodes.peek();
-			node.addParameter(new RuntimeParameter(parameter, tipo));
+			node.addQuery(new RuntimeQuery(query, type));
 		}
 	}
 

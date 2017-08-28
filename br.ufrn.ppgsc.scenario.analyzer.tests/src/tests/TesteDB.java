@@ -20,12 +20,12 @@ public class TesteDB implements RowMapper<String> {
 		GenericDAO<SystemExecution> dao = new GenericDAOHibernateImpl<SystemExecution>();
 
 		List<SystemExecution> objs = dao.readAll(SystemExecution.class);
-		
+
 		System.out.println("-----------------------------------");
-		
+
 		for (SystemExecution e : objs) {
 			System.out.println(e.getDate());
-			
+
 			for (RuntimeScenario rs : e.getScenarios()) {
 				StringBuilder sb = new StringBuilder();
 				RuntimeCallGraphPrintUtil.printScenarioTree(rs, sb);
@@ -35,9 +35,7 @@ public class TesteDB implements RowMapper<String> {
 
 	}
 
-	@Override
 	public String mapRow(ResultSet arg0, int arg1) throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

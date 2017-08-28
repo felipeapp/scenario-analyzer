@@ -70,7 +70,7 @@ public class RuntimeNode implements Serializable {
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "node_id", referencedColumnName = "id")
-	private List<RuntimeParameter> parameters;
+	private List<RuntimeQuery> queries;
 
 	public RuntimeNode() {
 
@@ -79,7 +79,7 @@ public class RuntimeNode implements Serializable {
 	public RuntimeNode(Member member) {
 		children = new ArrayList<RuntimeNode>();
 		scenarios = new ArrayList<RuntimeScenario>();
-		parameters = new ArrayList<RuntimeParameter>();
+		queries = new ArrayList<RuntimeQuery>();
 		memberSignature = MemberUtil.getStandartMethodSignature(member);
 		annotations = RuntimeCallGraph.getInstance().parseMemberAnnotations(member);
 		isConstructor = member instanceof Constructor;
@@ -177,16 +177,16 @@ public class RuntimeNode implements Serializable {
 		children.add(node);
 	}
 
-	public List<RuntimeParameter> getParameters() {
-		return Collections.unmodifiableList(parameters);
+	public List<RuntimeQuery> getQueries() {
+		return queries;
 	}
 
-	public void setParameters(List<RuntimeParameter> parameters) {
-		this.parameters = parameters;
+	public void setQueries(List<RuntimeQuery> queries) {
+		this.queries = queries;
 	}
 
-	public void addParameter(RuntimeParameter parameter) {
-		parameters.add(parameter);
+	public void addQuery(RuntimeQuery query) {
+		this.queries.add(query);
 	}
 
 }
