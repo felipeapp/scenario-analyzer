@@ -55,24 +55,34 @@ public class QueryHibernate extends TestCase {
 		
 		sqlq.uniqueResult();
 		
-		Query hqlq = s.createQuery("from node where id = :id and memberSignature like '%test%' and isConstructor = :flag");
-		Query hqlq2 = s.createQuery("from scenario where date > :dataAtual and id not in (:col)");
+		Query hqlq = s.createQuery("from node where id between 1 and :id and memberSignature like '%test%' and isConstructor = :flag");
+		Query hqlq2 = s.createQuery("from scenario where date > :dataAtual and id not in (:col_i)");
+		Query hqlq3 = s.createQuery("from scenario where date > :dataAtual and name not in (:col_s)");
 
-		ArrayList<Long> l = new ArrayList<Long>();
-		l.add(20L);
-		l.add(19L);
-		l.add(21L);
+		ArrayList<Long> li = new ArrayList<Long>();
+		li.add(20L);
+		li.add(19L);
+		li.add(21L);
+		
+		ArrayList<String> ls = new ArrayList<String>();
+		ls.add("teste");
+		ls.add("sql");
+		ls.add("aspectj");
+		
+		hqlq.setLong("id", 100);
+		hqlq.setBoolean("flag", false);
 		
 		hqlq2.setDate("dataAtual", new Date());
-		hqlq2.setParameterList("col", l);
+		hqlq2.setParameterList("col_i", li);
 		hqlq2.list();
 		
-		hqlq.setLong("id", 2);
-		hqlq.setBoolean("flag", false);
+		hqlq3.setDate("dataAtual", new Date());
+		hqlq3.setParameterList("col_s", ls);
+		hqlq3.list();
 		
 		for (Object o : hqlq.list()) {
 			RuntimeNode node = (RuntimeNode) o;
-			System.out.println("#$:" + node.getId() + " | " + node.getMemberSignature());
+			System.out.println("Node: " + node.getId() + " | " + node.getMemberSignature());
 		}
 		
 		return 0;
