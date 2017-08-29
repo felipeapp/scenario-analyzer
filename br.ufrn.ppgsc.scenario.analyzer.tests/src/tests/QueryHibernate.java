@@ -1,5 +1,8 @@
 package tests;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 import junit.framework.TestCase;
 
 import org.hibernate.Criteria;
@@ -52,9 +55,18 @@ public class QueryHibernate extends TestCase {
 		
 		sqlq.uniqueResult();
 		
-		// TODO Testar também com o mesmo paâmetro duas vezes
 		Query hqlq = s.createQuery("from node where id = :id and memberSignature like '%test%' and isConstructor = :flag");
+		Query hqlq2 = s.createQuery("from scenario where date > :dataAtual and id not in (:col)");
 
+		ArrayList<Long> l = new ArrayList<Long>();
+		l.add(20L);
+		l.add(19L);
+		l.add(21L);
+		
+		hqlq2.setDate("dataAtual", new Date());
+		hqlq2.setParameterList("col", l);
+		hqlq2.list();
+		
 		hqlq.setLong("id", 2);
 		hqlq.setBoolean("flag", false);
 		

@@ -3,6 +3,7 @@ package br.ufrn.ppgsc.scenario.analyzer.cdynamic.aspects;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.engine.SessionFactoryImplementor;
+import org.hibernate.engine.TypedValue;
 import org.hibernate.hql.QueryTranslator;
 import org.hibernate.hql.QueryTranslatorFactory;
 import org.hibernate.hql.ast.ASTQueryTranslatorFactory;
@@ -47,8 +49,20 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 	@SuppressAjWarnings
 	@Before("exclusionPointFlow() && (call(* org.hibernate.Criteria.uniqueResult()) || call(* org.hibernate.Criteria.list()))")
 	public void sqlFromCriteria(JoinPoint thisJoinPoint) {
-		Criteria c = (Criteria) thisJoinPoint.getTarget();
-		AspectUtil.addQueryToNode(criteriaToSql(c), "CRITERIA");
+		try {
+			Criteria c = (Criteria) thisJoinPoint.getTarget();
+			AspectUtil.addQueryToNode(criteriaToSql(c), "CRITERIA");
+		}
+		catch (Exception e) {
+			printException(e, "CRITERIA");
+		}
+		
+	}
+	
+	private void printException(Exception e, String type) {
+		System.out.println("#$#$: " + type);
+		System.out.println("#$#$: " + AspectUtil.getOrCreateRuntimeNodeStack().peek().getMemberSignature());
+		//e.printStackTrace();
 	}
 	
 	private String criteriaToSql(Criteria c) {
@@ -72,7 +86,7 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 			CriteriaQueryTranslator translator = (CriteriaQueryTranslator) param_field.get(loader);
 			parameters = translator.getQueryParameters().getPositionalParameterValues();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		
 		if (sql != null) {
@@ -89,6 +103,12 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 	private String getSqlValue(Object p) {
 		String value;
 		
+		if (p instanceof TypedValue)
+			p = ((TypedValue) p).getValue();
+		
+		if (p == null)
+			throw new RuntimeException("Null parameter in getSqlValue");
+		
 		if (p instanceof Boolean) {
 			value = (Boolean) p ? "true" : "false";
 		} else if (p instanceof String) {
@@ -100,6 +120,13 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 			value = "'" + sdf.format((Date) p) + "'";
 		} else if (p instanceof Enum) {
 			value = "" + ((Enum<?>) p).ordinal();
+		} else if (p instanceof Collection) {
+			value = "";
+			
+			for (Object o : (Collection<?>) p)
+				value += getSqlValue(o) + ",";
+			
+			value = value.substring(0, value.lastIndexOf(","));
 		} else {
 			value = p.toString();
 		}
@@ -110,7 +137,11 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 	@SuppressAjWarnings
 	@Before("exclusionPointFlow() && call(* org.springframework.jdbc.core.JdbcTemplate.queryFor*(..))")
 	public void sqlFromJDBCTemplate(JoinPoint thisJoinPoint) {
-		AspectUtil.addQueryToNode(jdbcTemplateToSql(thisJoinPoint.getArgs()), "JDBC_TEMPLATE");
+		try {
+			AspectUtil.addQueryToNode(jdbcTemplateToSql(thisJoinPoint.getArgs()), "JDBC_TEMPLATE");
+		} catch (Exception e) {
+			printException(e, "JDBC_TEAMPLATE");
+		}
 	}
 	
 	private String jdbcTemplateToSql(Object[] args) {
@@ -136,10 +167,20 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 	public void sqlFromHibernateQuery(JoinPoint thisJoinPoint) {
 		Object q = thisJoinPoint.getTarget();
 		
-		if (q instanceof SQLQuery)
-			AspectUtil.addQueryToNode(replaceHibernateQueryParameters((SQLQuery) q), "SQL_HIBERNATE");
-		else if (q instanceof Query)
-			AspectUtil.addQueryToNode(hqlToSql((Query) q, thisJoinPoint.getThis()), "HQL");
+		if (q instanceof SQLQuery) {
+			try {
+				AspectUtil.addQueryToNode(replaceHibernateQueryParameters((SQLQuery) q), "SQL_HIBERNATE");
+			} catch (Exception e) {
+				printException(e, "SQL_HIBERNATE");
+			}
+		}
+		else if (q instanceof Query) {
+			try {
+				AspectUtil.addQueryToNode(hqlToSql((Query) q, thisJoinPoint.getThis()), "HQL");
+			} catch (Exception e) {
+				printException(e, "HQL");
+			}
+		}
 	}
 
 	private String replaceHibernateQueryParameters(Query q) {
@@ -150,12 +191,21 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 			f.setAccessible(true);
 			Map<?, ?> p_map = (Map<?, ?>) f.get(q);
 
-			for (String p_name : q.getNamedParameters()) {
+			for (Object p_name : p_map.keySet()) {
+				String p_value = getSqlValue(p_map.get(p_name));
+				sql = sql.replace(":" + p_name, p_value);
+			}
+			
+			f = AbstractQueryImpl.class.getDeclaredField("namedParameterLists");
+			f.setAccessible(true);
+			p_map = (Map<?, ?>) f.get(q);
+
+			for (Object p_name : p_map.keySet()) {
 				String p_value = getSqlValue(p_map.get(p_name));
 				sql = sql.replace(":" + p_name, p_value);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 
 		return sql;
