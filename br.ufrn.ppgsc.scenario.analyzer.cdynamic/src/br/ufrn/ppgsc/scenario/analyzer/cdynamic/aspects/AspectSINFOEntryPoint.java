@@ -37,7 +37,8 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 	 * @Pointcut("within(@org.springframework.stereotype.Component *) && " +
 	 * "!execution(* get*(..)) && !execution(* set*(..)) && !execution(* is*(..))")
 	 */
-	@Pointcut("within(org.apache.struts.actions.DispatchAction+) || within(@org.springframework.stereotype.Component *)")
+	//@Pointcut("within(org.apache.struts.actions.DispatchAction+) || within(@org.springframework.stereotype.Component *)")
+	@Pointcut("within(@org.springframework.stereotype.Component *)")
 	public void entryPoint() {
 	}
 
