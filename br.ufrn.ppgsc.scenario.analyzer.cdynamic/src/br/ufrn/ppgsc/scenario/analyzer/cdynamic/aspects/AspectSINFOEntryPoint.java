@@ -149,9 +149,9 @@ public class AspectSINFOEntryPoint extends AbstractAspectEntryPoint {
 		String sql = args[0].toString();
 		Object[] values = null;
 
-		if (args[1] instanceof Object[])
+		if (args.length > 1 && args[1] instanceof Object[])
 			values = (Object[]) args[1];
-		else if (args[2] instanceof Object[])
+		else if (args.length > 2 && args[2] instanceof Object[])
 			values = (Object[]) args[2];
 		else
 			System.err.println("Query method is not supported!");

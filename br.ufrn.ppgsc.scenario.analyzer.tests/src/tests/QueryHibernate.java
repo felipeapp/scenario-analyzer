@@ -97,6 +97,12 @@ public class QueryHibernate extends TestCase {
 		c.list();
 
 		try {
+			new JdbcTemplate().queryForLong("select time from node where id = 10");
+		} catch (IllegalArgumentException e) {
+			System.out.println("@@0: " + e.getMessage());
+		}
+		
+		try {
 			new JdbcTemplate().queryForLong("select time from node where id = ? and constructor = ?", 2, false, TesteDB.class);
 		} catch (IllegalArgumentException e) {
 			System.out.println("@@1: " + e.getMessage());
