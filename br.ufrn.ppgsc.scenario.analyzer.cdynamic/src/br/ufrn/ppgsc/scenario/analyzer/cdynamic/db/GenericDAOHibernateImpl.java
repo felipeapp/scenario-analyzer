@@ -17,20 +17,22 @@ public class GenericDAOHibernateImpl<T extends Serializable> implements GenericD
 	private static Session s;
 
 	static {
-		//file:/C:/development/jboss-5.1.0.GA-original-tuning/
-		System.out.println("# Hibernate.cfg.xml Path #:" + System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml"); 
-
 		SessionFactory sf = null;
 		
 		try {
-			sf = new AnnotationConfiguration().configure(new URL(
-					System.getProperty("jboss.home.url") + "/server/default/deploy/sa_hibernate.cfg.xml")).buildSessionFactory();
+			//file:/C:/development/jboss-5.1.0.GA-original-tuning/
+			String filepath = System.getProperty("jboss.home.url") + "server/default/deploy/sa_hibernate.cfg.xml";
+			System.out.println("# Hibernate.cfg.xml Path #:" + filepath);
+			
+			sf = new AnnotationConfiguration().configure(new URL(filepath)).buildSessionFactory();
 		} catch (MalformedURLException e) {
 			try {
 				sf = new AnnotationConfiguration().configure("sa_hibernate.cfg.xml").buildSessionFactory();
 			} catch (Throwable ex) {
 				ex.printStackTrace();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		s = sf.openSession();
