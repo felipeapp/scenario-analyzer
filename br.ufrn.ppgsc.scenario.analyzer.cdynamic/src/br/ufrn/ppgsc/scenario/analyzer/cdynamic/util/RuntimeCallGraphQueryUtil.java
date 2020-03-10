@@ -25,10 +25,10 @@ public abstract class RuntimeCallGraphQueryUtil {
 	}
 
 	/*
-	 * Consulta recursivamente no grafo o nó que levou o cenário a falhar
-	 * Existe uma implementação mais rápida em
-	 * br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDBHibernateImpl.getFailedNodes(RuntimeScenario)
-	 * que resolve tudo usando apenas SQL
+	 * Consulta recursivamente no grafo o nó que levou o cenário a falhar Existe uma
+	 * implementação mais rápida em
+	 * br.ufrn.ppgsc.scenario.analyzer.miner.db.GenericDBHibernateImpl.
+	 * getFailedNodes(RuntimeScenario) que resolve tudo usando apenas SQL
 	 */
 	public static List<RuntimeNode> getFailedNodes(RuntimeScenario scenario) {
 		return getFailedNodes(scenario.getRoot());
@@ -39,7 +39,7 @@ public abstract class RuntimeCallGraphQueryUtil {
 
 		for (RuntimeNode node : root.getChildren())
 			result.addAll(getFailedNodes(node));
-		
+
 		if (hasThrownException(root))
 			result.add(root);
 

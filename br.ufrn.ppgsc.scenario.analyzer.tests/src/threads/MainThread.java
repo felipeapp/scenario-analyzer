@@ -4,26 +4,25 @@ import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 //import org.springframework.stereotype.Component;
 
-
 //@Component
 public class MainThread {
 
 	private long time;
-	
+
 	public MainThread(long time) {
 		this.time = time;
 	}
-	
+
 	@Scenario(name = "Method A")
 	public void methodA() {
 		System.out.println(Thread.currentThread().getId() + " in Method A");
-		
+
 		try {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		methodB();
 		methodC();
 	}
@@ -31,7 +30,7 @@ public class MainThread {
 	@Scenario(name = "Method B")
 	public void methodB() {
 		System.out.println(Thread.currentThread().getId() + " in Method B");
-		
+
 		methodC();
 
 //		try {
@@ -72,7 +71,7 @@ public class MainThread {
 	public static void main(String[] args) throws Exception {
 
 		new MyThread().start();
-		
+
 //		for (int i = 0; i < 10; ++i)
 //			new Thread(new Runnable() {
 //				public void run() {
@@ -88,7 +87,7 @@ public class MainThread {
 				}
 			}
 		}).start();
-		
+
 		new Thread(new Runnable() {
 			public void run() {
 				for (int i = 1; i <= 10; i++) {
@@ -97,7 +96,7 @@ public class MainThread {
 				}
 			}
 		}).start();
-		
+
 //		new Thread(new Runnable() {
 //			public void run() {
 //				new MainThread(0).methodA();

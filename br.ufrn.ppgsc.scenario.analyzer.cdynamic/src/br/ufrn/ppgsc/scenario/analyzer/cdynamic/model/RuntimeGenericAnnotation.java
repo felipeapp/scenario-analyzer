@@ -27,9 +27,7 @@ public abstract class RuntimeGenericAnnotation {
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "annotation_id_gen")
-	@SequenceGenerator(name = "annotation_id_gen",
-		sequenceName = "annotation_id_seq",
-		allocationSize = 1)
+	@SequenceGenerator(name = "annotation_id_gen", sequenceName = "annotation_id_seq", allocationSize = 1)
 	private long id;
 
 	@Column

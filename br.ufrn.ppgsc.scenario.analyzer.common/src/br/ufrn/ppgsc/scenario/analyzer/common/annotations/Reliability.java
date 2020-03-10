@@ -9,5 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Reliability {
 	public String name();
+
 	public double failureRate() default 0;
 }

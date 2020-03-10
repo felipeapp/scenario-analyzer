@@ -24,10 +24,9 @@ public class DatabaseService<T extends Serializable> {
 				final RuntimeScenario rs = it.next();
 
 				/*
-				 * O cenário será da thread que terminou será persistido e
-				 * removido da lista. A remoção não é realmente necessária, mas
-				 * é feita mesmo assim para liberar memória. Para um sistema
-				 * grande isso pode fazer diferença.
+				 * O cenário será da thread que terminou será persistido e removido da lista. A
+				 * remoção não é realmente necessária, mas é feita mesmo assim para liberar
+				 * memória. Para um sistema grande isso pode fazer diferença.
 				 */
 				if (rs.getThreadId() == Thread.currentThread().getId()) {
 					it.remove();

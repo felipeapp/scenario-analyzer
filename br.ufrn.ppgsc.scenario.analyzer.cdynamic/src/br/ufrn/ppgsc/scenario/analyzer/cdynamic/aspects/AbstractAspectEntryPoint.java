@@ -72,27 +72,27 @@ public abstract class AbstractAspectEntryPoint {
 		RuntimeNode node = new RuntimeNode(member);
 
 		/*
-		 * Se achou a anotação de cenário, começa a criar as estruturas para o
-		 * elemento. Depois adiciona para a execução atual.
+		 * Se achou a anotação de cenário, começa a criar as estruturas para o elemento.
+		 * Depois adiciona para a execução atual.
 		 */
 		if (AspectUtil.isScenarioEntryPoint(member, getAnnotationClass(), nodes_stack.empty())) {
-			RuntimeScenario scenario = new RuntimeScenario(AspectUtil.getEntryPointName(member, getAnnotationClass()), node);
+			RuntimeScenario scenario = new RuntimeScenario(AspectUtil.getEntryPointName(member, getAnnotationClass()),
+					node);
 
 			execution.addRuntimeScenario(scenario);
 			scenarios_stack.push(scenario);
 		} else if (nodes_stack.empty()) {
 			/*
-			 * Se a pilha estiver vazia e a anotação não existe neste ponto é
-			 * porque estamos executando um método que não faz parte de um
-			 * cenário anotado. Considerando que pegamos o fluxo de uma execução
-			 * anotada, isto nunca deveria acontecer.
+			 * Se a pilha estiver vazia e a anotação não existe neste ponto é porque estamos
+			 * executando um método que não faz parte de um cenário anotado. Considerando
+			 * que pegamos o fluxo de uma execução anotada, isto nunca deveria acontecer.
 			 */
 			throw new RuntimeException("AbstractAspectAnnotatedEntryPoint: stack of nodes is empty!");
 		}
 
 		/*
-		 * Se já existe alguma coisa na pilha, então o método atual foi invocado
-		 * pelo último método que está na pilha
+		 * Se já existe alguma coisa na pilha, então o método atual foi invocado pelo
+		 * último método que está na pilha
 		 */
 		if (!nodes_stack.empty()) {
 			RuntimeNode parent = nodes_stack.peek();
@@ -109,14 +109,14 @@ public abstract class AbstractAspectEntryPoint {
 		end = System.currentTimeMillis();
 
 		/*
-		 * Retira os elementos das pilhas e salva as informações no banco de
-		 * dados Observe que este método também é chamado quando ocorrem falhas
+		 * Retira os elementos das pilhas e salva as informações no banco de dados
+		 * Observe que este método também é chamado quando ocorrem falhas
 		 */
 		AspectUtil.popStacksAndPersistData(end - begin, member, getAnnotationClass());
 
 		return o;
 	}
-	
+
 	// Intercepta antes do lançamento de exceções
 	// after() throwing(Throwable t) : scenarioExecution() && !executionIgnored() {
 	@SuppressAjWarnings

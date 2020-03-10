@@ -8,19 +8,19 @@ import java.util.Properties;
 import br.ufrn.ppgsc.scenario.analyzer.cdynamic.model.RuntimeGenericAnnotation;
 
 public abstract class GenericAnnotationParser {
-	
+
 	public static List<GenericAnnotationParser> getAnnotationParsers(Properties properties) {
 		List<GenericAnnotationParser> result = new ArrayList<GenericAnnotationParser>();
-		
+
 		String regex = properties.getProperty("regex");
 		String parsers = properties.getProperty("annotation_parsers");
-		
+
 		if (parsers == null)
 			return result;
-		
+
 		if (regex == null)
 			regex = ":";
-		
+
 		String class_list[] = parsers.split(regex);
 
 		for (String class_name : class_list) {

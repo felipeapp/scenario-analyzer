@@ -1,6 +1,5 @@
 package tests;
 
-
 public interface IAddSubCalculator {
 
 	public float add(float a, float b);

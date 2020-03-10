@@ -1,11 +1,10 @@
 package tests;
 
-import struts.StrutsTest;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.Performance;
 import br.ufrn.ppgsc.scenario.analyzer.common.annotations.arq.Scenario;
 
 //@Component(name = "cp - FullCalculator")
-public class FullCalculator extends StrutsTest implements IFullCalculator {
+public class FullCalculator implements IFullCalculator {
 
 	private IAddSubCalculator add_sub;
 	private IMultDivCalculator mult_div;

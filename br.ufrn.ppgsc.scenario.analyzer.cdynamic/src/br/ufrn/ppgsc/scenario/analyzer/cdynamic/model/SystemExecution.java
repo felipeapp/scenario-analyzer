@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "execution")
 public class SystemExecution implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,10 +28,10 @@ public class SystemExecution implements Serializable {
 
 	@Column(name = "system_name")
 	private String systemName;
-	
+
 	@Column(name = "system_version")
 	private String systemVersion;
-	
+
 	@OneToMany(mappedBy = "execution", fetch = FetchType.LAZY)
 	private List<RuntimeScenario> scenarios;
 
@@ -57,17 +57,18 @@ public class SystemExecution implements Serializable {
 	}
 
 	/*
-	 * ATENÇÃO: todo acesso nesta lista pode gerar condição de corrida
-	 * O hibernate não está permitindo usar listas sincronizadas.
-	 * Ele simplesmente está trocando minha lista por um PersistentBag
+	 * ATENÇÃO: todo acesso nesta lista pode gerar condição de corrida O hibernate
+	 * não está permitindo usar listas sincronizadas. Ele simplesmente está trocando
+	 * minha lista por um PersistentBag
 	 */
 	public synchronized List<RuntimeScenario> getScenarios() {
 		return scenarios;
 	}
 
 	/*
-	 * Isso é necessário, pois o hibernate não está permitindo usar listas sincronizadas.
-	 * Ele simplesmente está trocando minha lista por um PersistentBag
+	 * Isso é necessário, pois o hibernate não está permitindo usar listas
+	 * sincronizadas. Ele simplesmente está trocando minha lista por um
+	 * PersistentBag
 	 */
 	public synchronized void addRuntimeScenario(RuntimeScenario rs) {
 		scenarios.add(rs);

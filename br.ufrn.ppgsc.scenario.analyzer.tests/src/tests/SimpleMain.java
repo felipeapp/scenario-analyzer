@@ -20,7 +20,7 @@ public class SimpleMain {
 	private void privateMethod() {
 		System.out.println("PRIVATE METHOD");
 	}
-	
+
 //	@Test
 //	@Scenario(name = "main scenario 2")
 //	@Robustness(name = "main scenario 2 robustness")
@@ -41,5 +41,5 @@ public class SimpleMain {
 //	public void testeQualquer4() {
 //		System.out.println("CORPO DO MÉTODO PRINCIPAL 4");
 //	}
-	
+
 }

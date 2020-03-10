@@ -3,9 +3,7 @@ package mbeans;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-@Component
+//@Component
 public class TestMBean {
 
 	private String nome;

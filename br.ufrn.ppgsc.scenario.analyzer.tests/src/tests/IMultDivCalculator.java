@@ -1,6 +1,5 @@
 package tests;
 
-
 public interface IMultDivCalculator {
 
 	public float mult(float a, float b);
